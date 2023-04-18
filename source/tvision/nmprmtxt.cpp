@@ -15,5 +15,5 @@
 #define Uses_TParamText
 #include <tvision/tv.h>
 
-const char * const  TParamText::name = "TParamText";
+const char* const TParamText::name = "TParamText";
 #endif

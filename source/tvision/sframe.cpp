@@ -16,9 +16,7 @@
 #define Uses_TStreamableClass
 #include <tvision/tv.h>
 
-TStreamableClass RFrame( TFrame::name,
-                         TFrame::build,
-                         __DELTA(TFrame)
-                       );
+TStreamableClass RFrame(TFrame::name,
+    TFrame::build,
+    __DELTA(TFrame));
 #endif
-

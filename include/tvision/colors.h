@@ -12,22 +12,22 @@
 
 #ifdef __BORLANDC__
 
-inline TColorDesired getFore(const TColorAttr &attr)
+inline TColorDesired getFore(const TColorAttr& attr)
 {
     return uchar(attr & 0xF);
 }
 
-inline TColorDesired getBack(const TColorAttr &attr)
+inline TColorDesired getBack(const TColorAttr& attr)
 {
     return uchar(attr >> 4);
 }
 
-inline void setFore(TColorAttr &attr, TColorDesired color)
+inline void setFore(TColorAttr& attr, TColorDesired color)
 {
     attr = uchar(attr & 0xF0) | uchar(color & 0xF);
 }
 
-inline void setBack(TColorAttr &attr, TColorDesired color)
+inline void setBack(TColorAttr& attr, TColorDesired color)
 {
     attr = uchar(attr & 0xF) | uchar(color << 4);
 }
@@ -43,33 +43,30 @@ inline TColorAttr reverseAttribute(TColorAttr attr)
 
 // Helper class for trivial types.
 
-namespace colors
-{
+namespace colors {
 
-    template<class T, T mask = static_cast<T>(-1)>
-    struct alignas(T) trivially_convertible
+template <class T, T mask = static_cast<T>(-1)>
+struct alignas(T) trivially_convertible {
+
+    using trivial_t = T;
+
+    // If you want the derived classes to be trivial, make sure you also
+    // define a trivial default constructor in them.
+    trivially_convertible() = default;
+
+    trivially_convertible(T asT)
     {
+        asT &= mask;
+        memcpy(this, &asT, sizeof(T));
+    }
 
-        using trivial_t = T;
-
-        // If you want the derived classes to be trivial, make sure you also
-        // define a trivial default constructor in them.
-        trivially_convertible() = default;
-
-        trivially_convertible(T asT)
-        {
-            asT &= mask;
-            memcpy(this, &asT, sizeof(T));
-        }
-
-        operator T() const
-        {
-            T asT;
-            memcpy(&asT, this, sizeof(T));
-            return asT & mask;
-        }
-
-    };
+    operator T() const
+    {
+        T asT;
+        memcpy(&asT, this, sizeof(T));
+        return asT & mask;
+    }
+};
 
 } // namespace colors
 
@@ -86,12 +83,11 @@ namespace colors
 // When doing so, the unused bits are discarded:
 //     uint32_t(TColorRGB(0xAABBCCDD)) == 0xBBCCDD;
 
-struct TColorRGB : colors::trivially_convertible<uint32_t, 0xFFFFFF>
-{
+struct TColorRGB : colors::trivially_convertible<uint32_t, 0xFFFFFF> {
     uint32_t
-        b       : 8,
-        g       : 8,
-        r       : 8,
+        b : 8,
+        g : 8,
+        r : 8,
         _unused : 8;
 
     using trivially_convertible::trivially_convertible;
@@ -99,11 +95,11 @@ struct TColorRGB : colors::trivially_convertible<uint32_t, 0xFFFFFF>
     constexpr inline TColorRGB(uint8_t r, uint8_t g, uint8_t b);
 };
 
-constexpr inline TColorRGB::TColorRGB(uint8_t r, uint8_t g, uint8_t b) :
-    b(b),
-    g(g),
-    r(r),
-    _unused(0)
+constexpr inline TColorRGB::TColorRGB(uint8_t r, uint8_t g, uint8_t b)
+    : b(b)
+    , g(g)
+    , r(r)
+    , _unused(0)
 {
 }
 
@@ -120,13 +116,12 @@ constexpr inline TColorRGB::TColorRGB(uint8_t r, uint8_t g, uint8_t b) :
 // When doing so, the unused bits are discarded:
 //     uint8_t(TColorBIOS(0xAB)) == 0xB;
 
-struct TColorBIOS : colors::trivially_convertible<uint8_t, 0xF>
-{
+struct TColorBIOS : colors::trivially_convertible<uint8_t, 0xF> {
     uint8_t
-        b       : 1,
-        g       : 1,
-        r       : 1,
-        bright  : 1,
+        b : 1,
+        g : 1,
+        r : 1,
+        bright : 1,
         _unused : 4;
 
     using trivially_convertible::trivially_convertible;
@@ -148,8 +143,7 @@ struct TColorBIOS : colors::trivially_convertible<uint8_t, 0xF>
 //     TColorXTerm xterm = 0xFE;
 //     uint8_t asChar = xterm;
 
-struct TColorXTerm : colors::trivially_convertible<uint8_t>
-{
+struct TColorXTerm : colors::trivially_convertible<uint8_t> {
     uint8_t idx;
 
     using trivially_convertible::trivially_convertible;
@@ -180,14 +174,13 @@ inline TColorBIOS XTerm16toBIOS(uint8_t);
 inline TColorRGB XTerm256toRGB(uint8_t); // Only for indices 16..255.
 inline uint8_t XTerm256toXTerm16(uint8_t);
 
-namespace tvision
-{
-    template <class T, size_t N>
-    struct constarray;
+namespace tvision {
+template <class T, size_t N>
+struct constarray;
 
-    uint8_t RGBtoXTerm16Impl(TColorRGB) noexcept;
-    extern const constarray<uint8_t, 256> XTerm256toXTerm16LUT;
-    extern const constarray<uint32_t, 256> XTerm256toRGBLUT;
+uint8_t RGBtoXTerm16Impl(TColorRGB) noexcept;
+extern const constarray<uint8_t, 256> XTerm256toXTerm16LUT;
+extern const constarray<uint32_t, 256> XTerm256toRGBLUT;
 }
 
 inline uint8_t BIOStoXTerm16(TColorBIOS c)
@@ -231,36 +224,32 @@ inline uint8_t RGBtoXTerm256(TColorRGB c)
     // Additionally, we fall back on the grayscale colors whenever using
     // the 6x6x6 color cube would round the color to pure black. This
     // makes it possible to preserve details that would otherwise be lost.
-    auto cnvColor = [] (TColorRGB c)
-    {
-        auto scale = [] (uchar c)
-        {
+    auto cnvColor = [](TColorRGB c) {
+        auto scale = [](uchar c) {
             c += 20 & -(c < 75);
-            return uchar(max<uchar>(c, 35) - 35)/40;
+            return uchar(max<uchar>(c, 35) - 35) / 40;
         };
         uchar r = scale(c.r),
               g = scale(c.g),
               b = scale(c.b);
-        return 16 + uchar(r*uchar(6) + g)*uchar(6) + b;
+        return 16 + uchar(r * uchar(6) + g) * uchar(6) + b;
     };
-    auto cnvGray = [] (uchar l)
-    {
+    auto cnvGray = [](uchar l) {
         if (l < 8 - 5)
             return 16;
         if (l >= 238 + 5)
             return 231;
-        return 232 + uchar(max<uchar>(l, 3) - 3)/uchar(10);
+        return 232 + uchar(max<uchar>(l, 3) - 3) / uchar(10);
     };
 
     uchar idx = cnvColor(c);
-    if (c != XTerm256toRGB(idx))
-    {
+    if (c != XTerm256toRGB(idx)) {
         uchar Xmin = min(min(c.r, c.g), c.b),
               Xmax = max(max(c.r, c.g), c.b);
         uchar C = Xmax - Xmin; // Chroma in the HSL/HSV theory.
         if (C < 12 || idx == 16) // Grayscale if Chroma < 12 or rounded to black.
         {
-            uchar L = ushort(Xmax + Xmin)/2; // Lightness, as in HSL.
+            uchar L = ushort(Xmax + Xmin) / 2; // Lightness, as in HSL.
             idx = cnvGray(L);
         }
     }
@@ -275,13 +264,13 @@ inline TColorBIOS XTerm16toBIOS(uint8_t idx)
 inline uint8_t XTerm256toXTerm16(uint8_t idx)
 {
     using namespace tvision;
-    return ((const uint8_t (&) [256]) XTerm256toXTerm16LUT)[idx];
+    return ((const uint8_t(&)[256])XTerm256toXTerm16LUT)[idx];
 }
 
 inline TColorRGB XTerm256toRGB(uint8_t idx)
 {
     using namespace tvision;
-    return ((const uint32_t (&) [256]) XTerm256toRGBLUT)[idx];
+    return ((const uint32_t(&)[256])XTerm256toRGBLUT)[idx];
 }
 
 //// TColorDesired
@@ -301,13 +290,13 @@ inline TColorRGB XTerm256toRGB(uint8_t idx)
 // display attributes (bold, color...) enabled.
 
 const uchar
-    ctDefault       = 0x0,  // Terminal default.
-    ctBIOS          = 0x1,  // TColorBIOS.
-    ctRGB           = 0x2,  // TColorRGB.
-    ctXTerm         = 0x3;  // TColorXTerm.
+    ctDefault
+    = 0x0, // Terminal default.
+    ctBIOS = 0x1, // TColorBIOS.
+    ctRGB = 0x2, // TColorRGB.
+    ctXTerm = 0x3; // TColorXTerm.
 
-struct TColorDesired
-{
+struct TColorDesired {
 
     uint32_t _data;
 
@@ -315,9 +304,9 @@ struct TColorDesired
 
     // Constructors for use with literals.
 
-    constexpr inline TColorDesired(char bios);   // e.g. {'\xF'}
+    constexpr inline TColorDesired(char bios); // e.g. {'\xF'}
     constexpr inline TColorDesired(uchar bios);
-    constexpr inline TColorDesired(int rgb);     // e.g. {0x7F00BB}
+    constexpr inline TColorDesired(int rgb); // e.g. {0x7F00BB}
     // Use zero-initialization for for type Default: {}
 
     // Constructors with explicit type names.
@@ -349,36 +338,35 @@ struct TColorDesired
 
     constexpr inline uint32_t bitCast() const;
     constexpr inline void bitCast(uint32_t val);
-
 };
 
-constexpr inline TColorDesired::TColorDesired(char bios) :
-    TColorDesired(uchar(bios))
+constexpr inline TColorDesired::TColorDesired(char bios)
+    : TColorDesired(uchar(bios))
 {
 }
 
-constexpr inline TColorDesired::TColorDesired(uchar bios) :
-    _data((bios & 0xF) | (ctBIOS << 24))
+constexpr inline TColorDesired::TColorDesired(uchar bios)
+    : _data((bios & 0xF) | (ctBIOS << 24))
 {
 }
 
-constexpr inline TColorDesired::TColorDesired(int rgb) :
-    _data((rgb & 0xFFFFFF) | (ctRGB << 24))
+constexpr inline TColorDesired::TColorDesired(int rgb)
+    : _data((rgb & 0xFFFFFF) | (ctRGB << 24))
 {
 }
 
-inline TColorDesired::TColorDesired(TColorBIOS bios) :
-    TColorDesired(uchar(bios))
+inline TColorDesired::TColorDesired(TColorBIOS bios)
+    : TColorDesired(uchar(bios))
 {
 }
 
-inline TColorDesired::TColorDesired(TColorRGB rgb) :
-    TColorDesired(int(rgb))
+inline TColorDesired::TColorDesired(TColorRGB rgb)
+    : TColorDesired(int(rgb))
 {
 }
 
-inline TColorDesired::TColorDesired(TColorXTerm xterm) :
-    _data(xterm | (ctXTerm << 24))
+inline TColorDesired::TColorDesired(TColorXTerm xterm)
+    : _data(xterm | (ctXTerm << 24))
 {
 }
 
@@ -424,21 +412,19 @@ inline TColorXTerm TColorDesired::asXTerm() const
 
 inline TColorBIOS TColorDesired::toBIOS(bool isForeground) const
 {
-    switch (type())
-    {
-        case ctBIOS:
-            return asBIOS();
-        case ctRGB:
-            return RGBtoBIOS(asRGB());
-        case ctXTerm:
-        {
-            uint8_t idx = asXTerm();
-            if (idx >= 16)
-                idx = XTerm256toXTerm16(idx);
-            return XTerm16toBIOS(idx);
-        }
-        default:
-            return isForeground ? 0x7 : 0x0;
+    switch (type()) {
+    case ctBIOS:
+        return asBIOS();
+    case ctRGB:
+        return RGBtoBIOS(asRGB());
+    case ctXTerm: {
+        uint8_t idx = asXTerm();
+        if (idx >= 16)
+            idx = XTerm256toXTerm16(idx);
+        return XTerm16toBIOS(idx);
+    }
+    default:
+        return isForeground ? 0x7 : 0x0;
     }
 }
 
@@ -491,34 +477,34 @@ constexpr inline void TColorDesired::bitCast(uint32_t val)
 
 const ushort
 
-// TColorAttr Style masks
+    // TColorAttr Style masks
 
-    slBold          = 0x001,
-    slItalic        = 0x002,
-    slUnderline     = 0x004,
-    slBlink         = 0x008,
-    slReverse       = 0x010, // Prefer using 'reverseAttribute()' instead.
-    slStrike        = 0x020,
+    slBold
+    = 0x001,
+    slItalic = 0x002,
+    slUnderline = 0x004,
+    slBlink = 0x008,
+    slReverse = 0x010, // Prefer using 'reverseAttribute()' instead.
+    slStrike = 0x020,
 
-// Private masks
+    // Private masks
 
-    slNoShadow      = 0x200; // Don't draw window shadows over this cell.
+    slNoShadow = 0x200; // Don't draw window shadows over this cell.
 
 struct TAttrPair;
 
-struct TColorAttr
-{
+struct TColorAttr {
     using Style = ushort;
 
     uint64_t
-        _style      : 10,
-        _fg         : 27,
-        _bg         : 27;
+        _style : 10,
+        _fg : 27,
+        _bg : 27;
 
     TColorAttr() = default;
     constexpr inline TColorAttr(int bios);
-    constexpr inline TColorAttr(TColorDesired fg, TColorDesired bg, ushort style=0);
-    inline TColorAttr(const TAttrPair &attrs);
+    constexpr inline TColorAttr(TColorDesired fg, TColorDesired bg, ushort style = 0);
+    inline TColorAttr(const TAttrPair& attrs);
     TV_TRIVIALLY_ASSIGNABLE(TColorAttr)
 
     inline bool isBIOS() const;
@@ -528,39 +514,38 @@ struct TColorAttr
     inline operator uchar() const;
     inline TAttrPair operator<<(int shift) const;
 
-    inline bool operator==(const TColorAttr &other) const;
-    inline bool operator!=(const TColorAttr &other) const;
+    inline bool operator==(const TColorAttr& other) const;
+    inline bool operator!=(const TColorAttr& other) const;
 
     inline bool operator==(int bios) const;
     inline bool operator!=(int bios) const;
-
 };
 
-constexpr inline TColorDesired getFore(const TColorAttr &attr);
-constexpr inline TColorDesired getBack(const TColorAttr &attr);
-constexpr inline ushort getStyle(const TColorAttr &attr);
-constexpr inline void setFore(TColorAttr &attr, TColorDesired fg);
-constexpr inline void setBack(TColorAttr &attr, TColorDesired bg);
-constexpr inline void setStyle(TColorAttr &attr, ushort style);
+constexpr inline TColorDesired getFore(const TColorAttr& attr);
+constexpr inline TColorDesired getBack(const TColorAttr& attr);
+constexpr inline ushort getStyle(const TColorAttr& attr);
+constexpr inline void setFore(TColorAttr& attr, TColorDesired fg);
+constexpr inline void setBack(TColorAttr& attr, TColorDesired bg);
+constexpr inline void setStyle(TColorAttr& attr, ushort style);
 constexpr inline TColorAttr reverseAttribute(TColorAttr attr);
 
-constexpr inline TColorAttr::TColorAttr(int bios) :
-    _style(0),
-    _fg(TColorDesired(uchar(bios)).bitCast()),
-    _bg(TColorDesired(uchar(bios >> 4)).bitCast())
+constexpr inline TColorAttr::TColorAttr(int bios)
+    : _style(0)
+    , _fg(TColorDesired(uchar(bios)).bitCast())
+    , _bg(TColorDesired(uchar(bios >> 4)).bitCast())
 {
 }
 
-constexpr inline TColorAttr::TColorAttr(TColorDesired fg, TColorDesired bg, ushort style) :
-    _style(style),
-    _fg(fg.bitCast()),
-    _bg(bg.bitCast())
+constexpr inline TColorAttr::TColorAttr(TColorDesired fg, TColorDesired bg, ushort style)
+    : _style(style)
+    , _fg(fg.bitCast())
+    , _bg(bg.bitCast())
 {
 }
 
 inline bool TColorAttr::isBIOS() const
 {
-    return (int) ::getFore(*this).isBIOS() & ::getBack(*this).isBIOS() & !::getStyle(*this);
+    return (int)::getFore(*this).isBIOS() & ::getBack(*this).isBIOS() & !::getStyle(*this);
 }
 
 inline uchar TColorAttr::asBIOS() const
@@ -584,19 +569,19 @@ inline TColorAttr::operator uchar() const
     return asBIOS();
 }
 
-inline bool TColorAttr::operator==(const TColorAttr &other) const
+inline bool TColorAttr::operator==(const TColorAttr& other) const
 {
     return memcmp(this, &other, sizeof(*this)) == 0;
 }
 
-inline bool TColorAttr::operator!=(const TColorAttr &other) const
+inline bool TColorAttr::operator!=(const TColorAttr& other) const
 {
     return !(*this == other);
 }
 
 inline bool TColorAttr::operator==(int bios) const
 {
-    return *this == TColorAttr {(uchar) bios};
+    return *this == TColorAttr { (uchar)bios };
 }
 
 inline bool TColorAttr::operator!=(int bios) const
@@ -604,36 +589,36 @@ inline bool TColorAttr::operator!=(int bios) const
     return !(*this == bios);
 }
 
-constexpr inline TColorDesired getFore(const TColorAttr &attr)
+constexpr inline TColorDesired getFore(const TColorAttr& attr)
 {
     TColorDesired color {};
     color.bitCast(attr._fg);
     return color;
 }
 
-constexpr inline TColorDesired getBack(const TColorAttr &attr)
+constexpr inline TColorDesired getBack(const TColorAttr& attr)
 {
     TColorDesired color {};
     color.bitCast(attr._bg);
     return color;
 }
 
-constexpr inline ushort getStyle(const TColorAttr &attr)
+constexpr inline ushort getStyle(const TColorAttr& attr)
 {
     return attr._style;
 }
 
-constexpr inline void setFore(TColorAttr &attr, TColorDesired color)
+constexpr inline void setFore(TColorAttr& attr, TColorDesired color)
 {
     attr._fg = color.bitCast();
 }
 
-constexpr inline void setBack(TColorAttr &attr, TColorDesired color)
+constexpr inline void setBack(TColorAttr& attr, TColorDesired color)
 {
     attr._bg = color.bitCast();
 }
 
-constexpr inline void setStyle(TColorAttr &attr, ushort style)
+constexpr inline void setStyle(TColorAttr& attr, ushort style)
 {
     attr._style = style;
 }
@@ -644,10 +629,9 @@ constexpr inline TColorAttr reverseAttribute(TColorAttr attr)
          bg = ::getBack(attr);
     // The 'slReverse' attribute is represented differently by every terminal,
     // so it is better to swap the colors manually unless any of them is default.
-    if ((int) fg.isDefault() | bg.isDefault())
+    if ((int)fg.isDefault() | bg.isDefault())
         ::setStyle(attr, ::getStyle(attr) ^ slReverse);
-    else
-    {
+    else {
         ::setFore(attr, bg);
         ::setBack(attr, fg);
     }
@@ -665,14 +649,13 @@ constexpr inline TColorAttr reverseAttribute(TColorAttr attr)
 //     TDrawBuffer b;
 //     b.moveCStr(0, "Normal text, ~Highlighted text~", attrs);
 
-struct TAttrPair
-{
+struct TAttrPair {
 
     TColorAttr _attrs[2];
 
     TAttrPair() = default;
     constexpr inline TAttrPair(int bios);
-    constexpr inline TAttrPair(const TColorAttr &lo, const TColorAttr &hi=uchar(0));
+    constexpr inline TAttrPair(const TColorAttr& lo, const TColorAttr& hi = uchar(0));
     TV_TRIVIALLY_ASSIGNABLE(TAttrPair)
 
     inline ushort asBIOS() const;
@@ -683,16 +666,15 @@ struct TAttrPair
 
     inline TColorAttr& operator[](size_t i);
     inline const TColorAttr& operator[](size_t i) const;
-
 };
 
-constexpr inline TAttrPair::TAttrPair(int bios) :
-    _attrs {uchar(bios & 0xFF), uchar(bios >> 8)}
+constexpr inline TAttrPair::TAttrPair(int bios)
+    : _attrs { uchar(bios & 0xFF), uchar(bios >> 8) }
 {
 }
 
-constexpr inline TAttrPair::TAttrPair(const TColorAttr &lo, const TColorAttr &hi) :
-    _attrs {lo, hi}
+constexpr inline TAttrPair::TAttrPair(const TColorAttr& lo, const TColorAttr& hi)
+    : _attrs { lo, hi }
 {
 }
 
@@ -710,7 +692,7 @@ inline TAttrPair TAttrPair::operator>>(int shift) const
 {
     // Legacy code may use '>> 8' on an attribute pair to get the higher attribute.
     if (shift == 8)
-        return {_attrs[1]};
+        return { _attrs[1] };
     return asBIOS() >> shift;
 }
 
@@ -733,7 +715,7 @@ inline const TColorAttr& TAttrPair::operator[](size_t i) const
 
 // Pending methods from TColorAttr.
 
-inline TColorAttr::TColorAttr(const TAttrPair &attrs)
+inline TColorAttr::TColorAttr(const TAttrPair& attrs)
 {
     *this = attrs[0];
 }
@@ -742,7 +724,7 @@ inline TAttrPair TColorAttr::operator<<(int shift) const
 {
     // Legacy code may use '<< 8' on an attribute to construct an attribute pair.
     if (shift == 8)
-        return {uchar(0), *this};
+        return { uchar(0), *this };
     return asBIOS() << shift;
 }
 

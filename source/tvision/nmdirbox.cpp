@@ -15,5 +15,5 @@
 #define Uses_TDirListBox
 #include <tvision/tv.h>
 
-const char * const  TDirListBox::name = "TDirListBox";
+const char* const TDirListBox::name = "TDirListBox";
 #endif

@@ -21,8 +21,8 @@
 #define Uses_TDeskTop
 #include <tvision/tv.h>
 
-TMenuPopup::TMenuPopup(const TRect& bounds, TMenu* aMenu, TMenuView *aParentMenu) noexcept :
-    TMenuBox( bounds, aMenu, aParentMenu )
+TMenuPopup::TMenuPopup(const TRect& bounds, TMenu* aMenu, TMenuView* aParentMenu) noexcept
+    : TMenuBox(bounds, aMenu, aParentMenu)
 {
     putClickEventOnExit = False;
 }
@@ -36,23 +36,19 @@ ushort TMenuPopup::execute()
 
 void TMenuPopup::handleEvent(TEvent& event)
 {
-    switch (event.what)
-    {
+    switch (event.what) {
     case evKeyDown:
         TMenuItem* p = findItem(getCtrlChar(event.keyDown.keyCode));
         if (!p)
             p = hotKey(event.keyDown.keyCode);
-        if (p && commandEnabled(p->command))
-        {
+        if (p && commandEnabled(p->command)) {
             event.what = evCommand;
             event.message.command = p->command;
             event.message.infoPtr = NULL;
             putEvent(event);
             clearEvent(event);
-        }
-        else
-            if (getAltChar(event.keyDown.keyCode))
-                clearEvent(event);
+        } else if (getAltChar(event.keyDown.keyCode))
+            clearEvent(event);
         break;
     }
     TMenuBox::handleEvent(event);
@@ -60,12 +56,13 @@ void TMenuPopup::handleEvent(TEvent& event)
 
 #if !defined(NO_STREAMABLE)
 
-TStreamable *TMenuPopup::build()
+TStreamable* TMenuPopup::build()
 {
-    return new TMenuPopup( streamableInit );
+    return new TMenuPopup(streamableInit);
 }
 
-TMenuPopup::TMenuPopup( StreamableInit ) noexcept : TMenuBox( streamableInit )
+TMenuPopup::TMenuPopup(StreamableInit) noexcept
+    : TMenuBox(streamableInit)
 {
 }
 

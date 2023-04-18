@@ -13,93 +13,93 @@
  *
  */
 
-#if !defined( __UTIL_H )
+#if !defined(__UTIL_H)
 #define __UTIL_H
 
 #include <stddef.h>
 
-inline constexpr int min( int a, int b )
+inline constexpr int min(int a, int b)
 {
     return a < b ? a : b;
 }
 
-inline constexpr int max( int a, int b )
+inline constexpr int max(int a, int b)
 {
     return a > b ? a : b;
 }
 
-#if !defined( __MINMAX_DEFINED ) // Also defined in Borland C++'s stdlib.h.
+#if !defined(__MINMAX_DEFINED) // Also defined in Borland C++'s stdlib.h.
 #define __MINMAX_DEFINED
 template <class T>
-inline constexpr const T& min( const T& a, const T& b )
+inline constexpr const T& min(const T& a, const T& b)
 {
     return a < b ? a : b;
 }
 
 template <class T>
-inline constexpr const T& max( const T& a, const T& b )
+inline constexpr const T& max(const T& a, const T& b)
 {
     return a > b ? a : b;
 }
-#endif  // __MINMAX_DEFINED
+#endif // __MINMAX_DEFINED
 
-void fexpand( char *rpath ) noexcept;
-void fexpand( char *rpath, const char *relativeTo ) noexcept;
+void fexpand(char* rpath) noexcept;
+void fexpand(char* rpath, const char* relativeTo) noexcept;
 
-char hotKey( const char *s ) noexcept;
-ushort ctrlToArrow( ushort ) noexcept;
-char getAltChar( ushort keyCode ) noexcept;
-ushort getAltCode( char ch ) noexcept;
+char hotKey(const char* s) noexcept;
+ushort ctrlToArrow(ushort) noexcept;
+char getAltChar(ushort keyCode) noexcept;
+ushort getAltCode(char ch) noexcept;
 char getCtrlChar(ushort) noexcept;
 ushort getCtrlCode(uchar) noexcept;
 
-ushort historyCount( uchar id ) noexcept;
-const char *historyStr( uchar id, int index ) noexcept;
-void historyAdd( uchar id, TStringView ) noexcept;
+ushort historyCount(uchar id) noexcept;
+const char* historyStr(uchar id, int index) noexcept;
+void historyAdd(uchar id, TStringView) noexcept;
 
-int cstrlen( TStringView ) noexcept;
-int strwidth( TStringView ) noexcept;
+int cstrlen(TStringView) noexcept;
+int strwidth(TStringView) noexcept;
 
-class  TView;
-void *message( TView *receiver, ushort what, ushort command, void *infoPtr );
+class TView;
+void* message(TView* receiver, ushort what, ushort command, void* infoPtr);
 
-class  TPoint;
-class  TGroup;
-class  TMenu;
-class  TMenuItem;
-ushort popupMenu(TPoint where, TMenuItem &aMenu, TGroup * = 0);
+class TPoint;
+class TGroup;
+class TMenu;
+class TMenuItem;
+ushort popupMenu(TPoint where, TMenuItem& aMenu, TGroup* = 0);
 
 Boolean lowMemory() noexcept;
 
-char *newStr( TStringView ) noexcept;
+char* newStr(TStringView) noexcept;
 
-Boolean driveValid( char drive ) noexcept;
-Boolean isDir( const char *str ) noexcept;
-Boolean pathValid( const char *path ) noexcept;
-Boolean validFileName( const char *fileName ) noexcept;
-void getCurDir( char *dir, char drive=-1 ) noexcept;
-Boolean getHomeDir( char *drive, char *dir ) noexcept;
-Boolean isWild( const char *f ) noexcept;
+Boolean driveValid(char drive) noexcept;
+Boolean isDir(const char* str) noexcept;
+Boolean pathValid(const char* path) noexcept;
+Boolean validFileName(const char* fileName) noexcept;
+void getCurDir(char* dir, char drive = -1) noexcept;
+Boolean getHomeDir(char* drive, char* dir) noexcept;
+Boolean isWild(const char* f) noexcept;
 
-size_t strnzcpy( char *dest, TStringView src, size_t n ) noexcept;
-size_t strnzcat( char *dest, TStringView src, size_t n ) noexcept;
+size_t strnzcpy(char* dest, TStringView src, size_t n) noexcept;
+size_t strnzcat(char* dest, TStringView src, size_t n) noexcept;
 
-void printKeyCode(ostream  &, ushort keyCode);
-void printControlKeyState(ostream  &, ushort controlKeyState);
-void printEventCode(ostream  &, ushort eventCode);
-void printMouseButtonState(ostream  &, ushort buttonState);
-void printMouseWheelState(ostream  &, ushort wheelState);
-void printMouseEventFlags(ostream  &, ushort eventFlags);
+void printKeyCode(ostream&, ushort keyCode);
+void printControlKeyState(ostream&, ushort controlKeyState);
+void printEventCode(ostream&, ushort eventCode);
+void printMouseButtonState(ostream&, ushort buttonState);
+void printMouseWheelState(ostream&, ushort wheelState);
+void printMouseEventFlags(ostream&, ushort eventFlags);
 
-#if !defined( __BORLANDC__ ) && !defined( _WIN32 )
+#if !defined(__BORLANDC__) && !defined(_WIN32)
 
-int stricmp( const char *s1, const char *s2 ) noexcept;
-int strnicmp( const char *s1, const char *s2, size_t maxlen ) noexcept;
-char *strupr(char *s) noexcept;
-char *itoa( int value, char *buffer, int radix ) noexcept;
-char *ltoa( long value, char *buffer, int radix ) noexcept;
-char *ultoa( ulong value, char *buffer, int radix ) noexcept;
+int stricmp(const char* s1, const char* s2) noexcept;
+int strnicmp(const char* s1, const char* s2, size_t maxlen) noexcept;
+char* strupr(char* s) noexcept;
+char* itoa(int value, char* buffer, int radix) noexcept;
+char* ltoa(long value, char* buffer, int radix) noexcept;
+char* ultoa(ulong value, char* buffer, int radix) noexcept;
 
 #endif
 
-#endif  // __UTIL_H
+#endif // __UTIL_H

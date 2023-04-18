@@ -17,10 +17,10 @@
 #define Uses_opstream
 #include <tvision/tv.h>
 
-TMultiCheckBoxes::TMultiCheckBoxes( TRect& bounds, TSItem* aStrings,
-                                    uchar aSelRange, ushort aFlags,
-                                    const char* aStates) noexcept :
-    TCluster(bounds, aStrings)
+TMultiCheckBoxes::TMultiCheckBoxes(TRect& bounds, TSItem* aStrings,
+    uchar aSelRange, ushort aFlags,
+    const char* aStates) noexcept
+    : TCluster(bounds, aStrings)
 {
     selRange = aSelRange;
     flags = aFlags;
@@ -29,12 +29,12 @@ TMultiCheckBoxes::TMultiCheckBoxes( TRect& bounds, TSItem* aStrings,
 
 #if !defined(NO_STREAMABLE)
 
-TMultiCheckBoxes::TMultiCheckBoxes( StreamableInit ) noexcept :
-    TCluster( streamableInit )
+TMultiCheckBoxes::TMultiCheckBoxes(StreamableInit) noexcept
+    : TCluster(streamableInit)
 {
 }
 
-void* TMultiCheckBoxes::read( ipstream& is )
+void* TMultiCheckBoxes::read(ipstream& is)
 {
     TCluster::read(is);
     is >> selRange >> flags;
@@ -43,16 +43,16 @@ void* TMultiCheckBoxes::read( ipstream& is )
     return this;
 }
 
-void TMultiCheckBoxes::write( opstream& os )
+void TMultiCheckBoxes::write(opstream& os)
 {
-    TCluster::write( os );
+    TCluster::write(os);
     os << selRange << flags;
     os.writeString(states);
 }
 
 TStreamable* TMultiCheckBoxes::build()
 {
-    return new TMultiCheckBoxes( streamableInit );
+    return new TMultiCheckBoxes(streamableInit);
 }
 
 #endif
@@ -69,7 +69,7 @@ void TMultiCheckBoxes::draw()
 
 ushort TMultiCheckBoxes::dataSize()
 {
-    return  sizeof(int32_t);
+    return sizeof(int32_t);
 }
 
 uchar TMultiCheckBoxes::multiMark(int item)
@@ -107,4 +107,3 @@ void TMultiCheckBoxes::setData(void* p)
     value = *(uint32_t*)p;
     drawView();
 }
-

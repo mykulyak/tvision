@@ -17,22 +17,20 @@
 #define Uses_TGroup
 #include <tvision/tv.h>
 
-TColorAttr TView::mapColor( uchar index ) noexcept
+TColorAttr TView::mapColor(uchar index) noexcept
 {
     TPalette& p = getPalette();
     TColorAttr color;
-    if( p[0] != 0 )
-        {
-        if( 0 < index && index <= p[0] )
+    if (p[0] != 0) {
+        if (0 < index && index <= p[0])
             color = p[index];
         else
             return errorAttr;
-        }
-    else
+    } else
         color = index;
-    if( color == 0 )
+    if (color == 0)
         return errorAttr;
-    if( owner )
+    if (owner)
         return owner->mapColor(color);
     return color;
 }

@@ -16,8 +16,6 @@
 #define Uses_TStreamableClass
 #include <tvision/tv.h>
 
-TStreamableClass RDirCollection( TDirCollection::name,
-                                 TDirCollection::build,
-                                 __DELTA(TDirCollection)
-                               );
-
+TStreamableClass RDirCollection(TDirCollection::name,
+    TDirCollection::build,
+    __DELTA(TDirCollection));

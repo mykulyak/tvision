@@ -15,5 +15,5 @@
 #define Uses_TStaticText
 #include <tvision/tv.h>
 
-const char * const  TStaticText::name = "TStaticText";
+const char* const TStaticText::name = "TStaticText";
 #endif

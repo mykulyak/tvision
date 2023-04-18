@@ -6,20 +6,18 @@
 /*                                                                         */
 /* ------------------------------------------------------------------------*/
 
-#if defined( Uses_TDrawSurface ) && !defined( __TDrawSurface )
+#if defined(Uses_TDrawSurface) && !defined(__TDrawSurface)
 #define __TDrawSurface
 
 // A TDrawSurface holds a two-dimensional buffer of TScreenCells
 // that can be freely written to.
 
-class TDrawSurface
-{
+class TDrawSurface {
 
     size_t dataLength;
-    TScreenCell  *data;
+    TScreenCell* data;
 
 public:
-
     TPoint size;
 
     TDrawSurface() noexcept;
@@ -31,9 +29,8 @@ public:
     void clear();
 
     // Warning: no bounds checking.
-    TScreenCell  &at(int y, int x);
-    const TScreenCell  &at(int y, int x) const;
-
+    TScreenCell& at(int y, int x);
+    const TScreenCell& at(int y, int x) const;
 };
 
 inline void TDrawSurface::grow(TPoint aDelta)
@@ -41,14 +38,14 @@ inline void TDrawSurface::grow(TPoint aDelta)
     resize(size + aDelta);
 }
 
-inline TScreenCell  &TDrawSurface::at(int y, int x)
+inline TScreenCell& TDrawSurface::at(int y, int x)
 {
-    return data[y*size.x + x];
+    return data[y * size.x + x];
 }
 
-inline const TScreenCell  &TDrawSurface::at(int y, int x) const
+inline const TScreenCell& TDrawSurface::at(int y, int x) const
 {
-    return data[y*size.x + x];
+    return data[y * size.x + x];
 }
 
 #endif
@@ -60,7 +57,7 @@ inline const TScreenCell  &TDrawSurface::at(int y, int x) const
 /*        1 = Empty area                                                  */
 /* ---------------------------------------------------------------------- */
 
-#if defined( Uses_TSurfaceView ) && !defined( __TSurfaceView )
+#if defined(Uses_TSurfaceView) && !defined(__TSurfaceView)
 #define __TSurfaceView
 
 // A TSurfaceView displays a region of a TDrawSurface between 'delta' and
@@ -70,19 +67,16 @@ inline const TScreenCell  &TDrawSurface::at(int y, int x) const
 
 // The "empty area" color maps to TWindow's and TDialog's "frame passive" color.
 
-class TSurfaceView : public TView
-{
+class TSurfaceView : public TView {
 
 public:
-
-    const TDrawSurface  *surface;
+    const TDrawSurface* surface;
     TPoint delta;
 
-    TSurfaceView(const TRect &bounds, const TDrawSurface  *aSurface=0) noexcept;
+    TSurfaceView(const TRect& bounds, const TDrawSurface* aSurface = 0) noexcept;
 
     virtual void draw();
     virtual TPalette& getPalette() const;
-
 };
 
 #endif

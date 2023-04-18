@@ -6,18 +6,18 @@
 
 #include <internal/termdisp.h>
 
-namespace tvision
-{
+namespace tvision {
 
 // TermColor represents a color that is to be printed to screen
 // using certain ANSI escape sequences.
 
-struct TermColor
-{
-    enum TermColorTypes : uint8_t { Default, Indexed, RGB, NoColor };
+struct TermColor {
+    enum TermColorTypes : uint8_t { Default,
+        Indexed,
+        RGB,
+        NoColor };
 
-    union
-    {
+    union {
         uint8_t idx;
         uint8_t bgr[3];
     };
@@ -52,11 +52,9 @@ struct TermColor
     {
         *this = uint32_t(aType) << 24;
     }
-
 };
 
-struct TermAttr
-{
+struct TermAttr {
     TermColor fg, bg;
     TColorAttr::Style style;
 };
@@ -73,17 +71,16 @@ struct TermAttr
  * with input strategies which depend on a certain display strategy,
  * as is the case of NcursesInput and NcursesDisplay. */
 
-class AnsiDisplayBase
-{
-    class Buffer
-    {
-        char *head {nullptr};
-        size_t capacity {0};
+class AnsiDisplayBase {
+    class Buffer {
+        char* head { nullptr };
+        size_t capacity { 0 };
+
     public:
-        char *tail {nullptr};
+        char* tail { nullptr };
 
         ~Buffer();
-        char *data() noexcept;
+        char* data() noexcept;
         size_t size() const noexcept;
         void clear() noexcept;
         void push(TStringView) noexcept;
@@ -91,7 +88,7 @@ class AnsiDisplayBase
         void reserve(size_t) noexcept;
     };
 
-    const StdioCtl &io;
+    const StdioCtl& io;
     Buffer buf;
     TermAttr lastAttr {};
 
@@ -99,9 +96,8 @@ class AnsiDisplayBase
     void bufWriteCSI2(uint a, uint b, char F) noexcept;
 
 protected:
-
-    AnsiDisplayBase(const StdioCtl &aIo) noexcept :
-        io(aIo)
+    AnsiDisplayBase(const StdioCtl& aIo) noexcept
+        : io(aIo)
     {
     }
 
@@ -110,43 +106,47 @@ protected:
     void clearAttributes() noexcept;
     void clearScreen() noexcept;
 
-    void lowlevelWriteChars(TStringView chars, TColorAttr attr, const TermCap &) noexcept;
+    void lowlevelWriteChars(TStringView chars, TColorAttr attr, const TermCap&) noexcept;
     void lowlevelMoveCursor(uint x, uint y) noexcept;
     void lowlevelMoveCursorX(uint x, uint y) noexcept;
     void lowlevelFlush() noexcept;
 };
 
-template<class DisplayBase>
-class AnsiDisplay : public DisplayBase, public AnsiDisplayBase
-{
+template <class DisplayBase>
+class AnsiDisplay : public DisplayBase, public AnsiDisplayBase {
 
 public:
-
-    template <typename ...Args>
-    AnsiDisplay(Args&& ...args) noexcept :
-        DisplayBase(static_cast<Args&&>(args)...),
-        AnsiDisplayBase(TerminalDisplay::io)
+    template <typename... Args>
+    AnsiDisplay(Args&&... args) noexcept
+        : DisplayBase(static_cast<Args&&>(args)...)
+        , AnsiDisplayBase(TerminalDisplay::io)
     {
         static_assert(std::is_base_of<TerminalDisplay, DisplayBase>::value,
-            "The base class of AnsiDisplay must be a derived of TerminalDisplay."
-        );
+            "The base class of AnsiDisplay must be a derived of TerminalDisplay.");
     }
 
     void lowlevelWriteChars(TStringView chars, TColorAttr attr) noexcept override
-        { AnsiDisplayBase::lowlevelWriteChars(chars, attr, TerminalDisplay::termcap); }
+    {
+        AnsiDisplayBase::lowlevelWriteChars(chars, attr, TerminalDisplay::termcap);
+    }
     void lowlevelMoveCursor(uint x, uint y) noexcept override
-        { AnsiDisplayBase::lowlevelMoveCursor(x, y); }
+    {
+        AnsiDisplayBase::lowlevelMoveCursor(x, y);
+    }
     void lowlevelMoveCursorX(uint x, uint y) noexcept override
-        { AnsiDisplayBase::lowlevelMoveCursorX(x, y); }
+    {
+        AnsiDisplayBase::lowlevelMoveCursorX(x, y);
+    }
     void lowlevelFlush() noexcept override
-        { AnsiDisplayBase::lowlevelFlush(); }
+    {
+        AnsiDisplayBase::lowlevelFlush();
+    }
 
     void reloadScreenInfo() noexcept override
     {
         DisplayBase::reloadScreenInfo();
         clearAttributes();
     }
-
 };
 
 } // namespace tvision

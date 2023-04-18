@@ -18,8 +18,7 @@
 #define Uses_TFileInfoPane
 #include <tvision/tv.h>
 
-const char * const  TFileInputLine::name = "TFileInputLine";
-const char * const  TSortedListBox::name = "TSortedListBox";
-const char * const  TFileInfoPane::name = "TFileInfoPane";
+const char* const TFileInputLine::name = "TFileInputLine";
+const char* const TSortedListBox::name = "TSortedListBox";
+const char* const TFileInfoPane::name = "TFileInfoPane";
 #endif
-

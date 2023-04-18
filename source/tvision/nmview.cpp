@@ -15,5 +15,5 @@
 #define Uses_TView
 #include <tvision/tv.h>
 
-const char * const  TView::name = "TView";
+const char* const TView::name = "TView";
 #endif

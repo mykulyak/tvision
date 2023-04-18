@@ -16,13 +16,11 @@
 #define Uses_TView
 #include <tvision/tv.h>
 
-void TGroup::removeView( TView *p ) noexcept
+void TGroup::removeView(TView* p) noexcept
 {
-    if (last)
-    {
-        TView *s = last;
-        while (s->next != p)
-        {
+    if (last) {
+        TView* s = last;
+        while (s->next != p) {
             if (s->next == last)
                 return;
             s = s->next;
@@ -32,4 +30,3 @@ void TGroup::removeView( TView *p ) noexcept
             last = (p == p->next) ? 0 : s;
     }
 }
-

@@ -15,6 +15,5 @@
 #define Uses_TMultiCheckBoxes
 #include <tvision/tv.h>
 
-const char * const  TMultiCheckBoxes::name = "TMultiCheckBoxes";
+const char* const TMultiCheckBoxes::name = "TMultiCheckBoxes";
 #endif
-

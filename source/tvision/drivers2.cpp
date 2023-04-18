@@ -36,20 +36,18 @@
 ushort ctrlToArrow(ushort keyCode) noexcept
 {
 
-const uchar ctrlCodes[] =
-    {
-    kbCtrlS, kbCtrlD, kbCtrlE, kbCtrlX, kbCtrlA,
-    kbCtrlF, kbCtrlG, kbCtrlV, kbCtrlR, kbCtrlC, kbCtrlH
+    const uchar ctrlCodes[] = {
+        kbCtrlS, kbCtrlD, kbCtrlE, kbCtrlX, kbCtrlA,
+        kbCtrlF, kbCtrlG, kbCtrlV, kbCtrlR, kbCtrlC, kbCtrlH
     };
 
-const ushort arrowCodes[] =
-    {
-    kbLeft, kbRight, kbUp, kbDown, kbHome,
-    kbEnd,  kbDel,   kbIns,kbPgUp, kbPgDn, kbBack
+    const ushort arrowCodes[] = {
+        kbLeft, kbRight, kbUp, kbDown, kbHome,
+        kbEnd, kbDel, kbIns, kbPgUp, kbPgDn, kbBack
     };
 
-    for( size_t i = 0; i < sizeof(ctrlCodes); i++ )
-        if( (keyCode & 0x00ff) == ctrlCodes[i] )
+    for (size_t i = 0; i < sizeof(ctrlCodes); i++)
+        if ((keyCode & 0x00ff) == ctrlCodes[i])
             return arrowCodes[i];
     return keyCode;
 }
@@ -73,22 +71,20 @@ const ushort arrowCodes[] =
 /*                                                                        */
 /*------------------------------------------------------------------------*/
 
-int cstrlen( TStringView text ) noexcept
+int cstrlen(TStringView text) noexcept
 {
 #ifdef __BORLANDC__
-    const char  *limit = &text[text.size()];
-    const char  *s = &text[0];
+    const char* limit = &text[text.size()];
+    const char* s = &text[0];
     int len = 0;
-    while( s < limit )
-        {
-        if( *s++ != '~' )
+    while (s < limit) {
+        if (*s++ != '~')
             len++;
-        }
+    }
     return len;
 #else
     size_t i = 0, width = 0;
-    while (i < text.size())
-    {
+    while (i < text.size()) {
         if (text[i] != '~')
             TText::next(text, i, width);
         else
@@ -112,7 +108,7 @@ int cstrlen( TStringView text ) noexcept
 /*                                                                        */
 /*------------------------------------------------------------------------*/
 
-int strwidth( TStringView text ) noexcept
+int strwidth(TStringView text) noexcept
 {
     return TText::width(text);
 }

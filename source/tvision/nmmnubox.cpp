@@ -15,5 +15,5 @@
 #define Uses_TMenuBox
 #include <tvision/tv.h>
 
-const char * const  TMenuBox::name = "TMenuBox";
+const char* const TMenuBox::name = "TMenuBox";
 #endif

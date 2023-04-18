@@ -11,7 +11,7 @@
 #include <tvision/tv.h>
 
 TClipboard TClipboard::instance;
-char *TClipboard::localText = 0;
+char* TClipboard::localText = 0;
 size_t TClipboard::localTextLength = 0;
 
 TClipboard::TClipboard()

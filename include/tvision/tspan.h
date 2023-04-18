@@ -17,35 +17,34 @@ class TSpan {
     // It exists for compatibility with Borland C++ and because std::span (C++ 20)
     // may not be widely available yet.
 
-    T  *ptr;
+    T* ptr;
     size_t len;
 
 public:
-
     // These are defined inline because otherwise they trigger
     // a bug in Borland C++ when T is const.
 
-    constexpr TSpan() :
-        ptr(0),
-        len(0)
+    constexpr TSpan()
+        : ptr(0)
+        , len(0)
     {
     }
 
-    constexpr TSpan(T  *first, size_t n) :
-        ptr(first),
-        len(n)
+    constexpr TSpan(T* first, size_t n)
+        : ptr(first)
+        , len(n)
     {
     }
 
 #ifndef __BORLANDC__
-    constexpr TSpan(decltype(nullptr)) :
-        TSpan()
+    constexpr TSpan(decltype(nullptr))
+        : TSpan()
     {
     }
 
-    template<size_t N>
-    constexpr TSpan(T (&array)[N]) :
-        TSpan(array, N)
+    template <size_t N>
+    constexpr TSpan(T (&array)[N])
+        : TSpan(array, N)
     {
     }
 #endif
@@ -55,7 +54,7 @@ public:
         return TSpan<const T>(ptr, len);
     }
 
-    constexpr T  * data() const
+    constexpr T* data() const
     {
         return ptr;
     }
@@ -67,25 +66,25 @@ public:
 
     constexpr size_t size_bytes() const
     {
-        return size()*sizeof(T);
+        return size() * sizeof(T);
     }
 
     constexpr Boolean empty() const
     {
-        return Boolean( size() == 0 );
+        return Boolean(size() == 0);
     }
 
-    constexpr T  & operator[](size_t pos) const
+    constexpr T& operator[](size_t pos) const
     {
         return ptr[pos];
     }
 
-    constexpr T  & front() const
+    constexpr T& front() const
     {
         return ptr[0];
     }
 
-    constexpr T  & back() const
+    constexpr T& back() const
     {
         return ptr[len - 1];
     }
@@ -100,26 +99,25 @@ public:
         return TSpan<T>(ptr + pos, n <= len - pos ? n : len - pos);
     }
 
-    constexpr T  * begin() const
+    constexpr T* begin() const
     {
         return &ptr[0];
     }
 
-    constexpr const T  * cbegin() const
+    constexpr const T* cbegin() const
     {
         return &ptr[0];
     }
 
-    constexpr T  * end() const
+    constexpr T* end() const
     {
         return &ptr[len];
     }
 
-    constexpr const T  * cend() const
+    constexpr const T* cend() const
     {
         return &ptr[len];
     }
-
 };
 
 #endif // TVISION_TSPAN_H

@@ -1,25 +1,22 @@
-#include <tvision/tv.h>
 #include <internal/constarr.h>
 #include <internal/strings.h>
+#include <tvision/tv.h>
 
-namespace tvision
-{
+namespace tvision {
 
-static constexpr
-size_t _fast_utoa(uint32_t value, char *buffer) noexcept
+static constexpr size_t _fast_utoa(uint32_t value, char* buffer) noexcept
 {
     // Copyright(c) 2014-2016 Milo Yip (https://github.com/miloyip/itoa-benchmark)
-    size_t digits =
-        value < 10          ? 1
-      : value < 100         ? 2
-      : value < 1000        ? 3
-      : value < 10000       ? 4
-      : value < 100000UL    ? 5
-      : value < 1000000UL   ? 6
-      : value < 10000000UL  ? 7
-      : value < 100000000UL ? 8
-      : value < 1000000000UL? 9
-                            : 10;
+    size_t digits = value < 10 ? 1
+        : value < 100          ? 2
+        : value < 1000         ? 3
+        : value < 10000        ? 4
+        : value < 100000UL     ? 5
+        : value < 1000000UL    ? 6
+        : value < 10000000UL   ? 7
+        : value < 100000000UL  ? 8
+        : value < 1000000000UL ? 9
+                               : 10;
     buffer += digits;
 
     do {
@@ -30,13 +27,13 @@ size_t _fast_utoa(uint32_t value, char *buffer) noexcept
     return digits;
 }
 
-char *fast_utoa(uint32_t value, char *buffer) noexcept
+char* fast_utoa(uint32_t value, char* buffer) noexcept
 {
     return buffer + _fast_utoa(value, buffer);
 }
 
 // Several versions of GCC crash when generating the table below at compile time.
-#if !defined(__GNUC__ ) || __GNUC__ >= 9 || (__GNUC__ == 5 && __GNUC_MINOR__ <= 3)
+#if !defined(__GNUC__) || __GNUC__ >= 9 || (__GNUC__ == 5 && __GNUC_MINOR__ <= 3)
 #define BTOA_CONSTEXPR constexpr
 #define BTOA_CONSTEXPR_VAR constexpr
 #else
@@ -45,7 +42,8 @@ char *fast_utoa(uint32_t value, char *buffer) noexcept
 #endif
 
 static BTOA_CONSTEXPR
-btoa_lut_t init_btoa_lut() noexcept
+    btoa_lut_t
+    init_btoa_lut() noexcept
 {
     btoa_lut_t res {};
     for (uint32_t i = 0; i < 256; ++i)
@@ -54,7 +52,8 @@ btoa_lut_t init_btoa_lut() noexcept
 }
 
 extern BTOA_CONSTEXPR_VAR
-btoa_lut_t btoa_lut = init_btoa_lut();
+    btoa_lut_t btoa_lut
+    = init_btoa_lut();
 
 } // namespace tvision
 
@@ -62,19 +61,19 @@ btoa_lut_t btoa_lut = init_btoa_lut();
 
 #include <strings.h>
 
-int stricmp( const char *s1, const char *s2 ) noexcept
+int stricmp(const char* s1, const char* s2) noexcept
 {
     return strcasecmp(s1, s2);
 }
 
-int strnicmp( const char *s1, const char *s2, size_t maxlen ) noexcept
+int strnicmp(const char* s1, const char* s2, size_t maxlen) noexcept
 {
     return strncasecmp(s1, s2, maxlen);
 }
 
 #include <cctype>
 
-char *strupr(char *s) noexcept
+char* strupr(char* s) noexcept
 {
     char* p = s;
     while ((*p = toupper(*p)))
@@ -90,32 +89,33 @@ char *strupr(char *s) noexcept
 
 static inline char printfFmt(int radix)
 {
-    switch (radix)
-    {
-        case 8: return 'o';
-        case 16: return 'x';
-        default: return 'd';
+    switch (radix) {
+    case 8:
+        return 'o';
+    case 16:
+        return 'x';
+    default:
+        return 'd';
     }
 }
 
-char *itoa( int value, char *buffer, int radix ) noexcept
+char* itoa(int value, char* buffer, int radix) noexcept
 {
-    char format[] = {'%', printfFmt(radix), '\0'};
+    char format[] = { '%', printfFmt(radix), '\0' };
     sprintf(buffer, format, value);
     return buffer;
 }
 
-char *ltoa( long value, char *buffer, int radix ) noexcept
+char* ltoa(long value, char* buffer, int radix) noexcept
 {
-    char format[] = {'%', 'l', printfFmt(radix), '\0'};
+    char format[] = { '%', 'l', printfFmt(radix), '\0' };
     sprintf(buffer, format, value);
     return buffer;
 }
 
-char *ultoa( unsigned long value, char *buffer, int radix ) noexcept
+char* ultoa(unsigned long value, char* buffer, int radix) noexcept
 {
-    if (radix == 10)
-    {
+    if (radix == 10) {
         char format[] = "%lu";
         sprintf(buffer, format, value);
         return buffer;

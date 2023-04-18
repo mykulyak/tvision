@@ -4,46 +4,45 @@
 #define Uses_TKeys
 #include <tvision/tv.h>
 
-#include <internal/linuxcon.h>
-#include <internal/stdioctl.h>
 #include <internal/gpminput.h>
-#include <internal/terminal.h>
+#include <internal/linuxcon.h>
 #include <internal/scrlife.h>
 #include <internal/sigwinch.h>
+#include <internal/stdioctl.h>
+#include <internal/terminal.h>
 #include <linux/keyboard.h>
 #include <linux/vt.h>
+#include <string.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
-#include <string.h>
 
-namespace tvision
-{
+namespace tvision {
 
-inline LinuxConsoleStrategy::LinuxConsoleStrategy( DisplayStrategy &aDisplay,
-                                                   LinuxConsoleInput &aWrapper,
-                                                   ScreenLifetime &aScrl,
-                                                   InputState &aInputState,
-                                                   SigwinchHandler *aSigwinch,
-                                                   GpmInput *aGpm ) noexcept :
-    ConsoleStrategy( aDisplay,
-                     aGpm ? *aGpm : aWrapper.input,
-                     {&aWrapper, aGpm, aSigwinch} ),
-    scrl(aScrl),
-    inputState(aInputState),
-    sigwinch(aSigwinch),
-    wrapper(aWrapper),
-    gpm(aGpm)
+inline LinuxConsoleStrategy::LinuxConsoleStrategy(DisplayStrategy& aDisplay,
+    LinuxConsoleInput& aWrapper,
+    ScreenLifetime& aScrl,
+    InputState& aInputState,
+    SigwinchHandler* aSigwinch,
+    GpmInput* aGpm) noexcept
+    : ConsoleStrategy(aDisplay,
+        aGpm ? *aGpm : aWrapper.input,
+        { &aWrapper, aGpm, aSigwinch })
+    , scrl(aScrl)
+    , inputState(aInputState)
+    , sigwinch(aSigwinch)
+    , wrapper(aWrapper)
+    , gpm(aGpm)
 {
 }
 
-LinuxConsoleStrategy &LinuxConsoleStrategy::create( StdioCtl &io, ScreenLifetime &scrl,
-                                                    InputState &inputState,
-                                                    DisplayStrategy &display,
-                                                    InputStrategy &input ) noexcept
+LinuxConsoleStrategy& LinuxConsoleStrategy::create(StdioCtl& io, ScreenLifetime& scrl,
+    InputState& inputState,
+    DisplayStrategy& display,
+    InputStrategy& input) noexcept
 {
-    auto *sigwinch = SigwinchHandler::create();
-    auto &wrapper = *new LinuxConsoleInput(io, input);
-    auto *gpm = GpmInput::create();
+    auto* sigwinch = SigwinchHandler::create();
+    auto& wrapper = *new LinuxConsoleInput(io, input);
+    auto* gpm = GpmInput::create();
     return *new LinuxConsoleStrategy(display, wrapper, scrl, inputState, sigwinch, gpm);
 }
 
@@ -58,13 +57,12 @@ LinuxConsoleStrategy::~LinuxConsoleStrategy()
     delete &scrl;
 }
 
-bool LinuxConsoleInput::getEvent(TEvent &ev) noexcept
+bool LinuxConsoleInput::getEvent(TEvent& ev) noexcept
 {
     // The keyboard event getter is usually unaware of key modifiers in the
     // console, so we add them on top of the previous translation.
-    if (input.getEvent(ev))
-    {
-        auto &keyCode = ev.keyDown.keyCode;
+    if (input.getEvent(ev)) {
+        auto& keyCode = ev.keyDown.keyCode;
         ev.keyDown.controlKeyState = getKeyboardModifiers(io);
         // Prevent Ctrl+H/Ctrl+I/Ctrl+J/Ctrl+M from being interpreted as
         // Ctrl+Back/Ctrl+Tab/Ctrl+Enter.
@@ -86,12 +84,11 @@ bool LinuxConsoleInput::hasPendingEvents() noexcept
     return input.hasPendingEvents();
 }
 
-ushort LinuxConsoleInput::getKeyboardModifiers(StdioCtl &io) noexcept
+ushort LinuxConsoleInput::getKeyboardModifiers(StdioCtl& io) noexcept
 {
     char res = 6;
     ulong actualModifiers = 0;
-    if (ioctl(io.in(), TIOCLINUX, &res) != -1)
-    {
+    if (ioctl(io.in(), TIOCLINUX, &res) != -1) {
         if (res & (1 << KG_SHIFT))
             actualModifiers |= kbShift;
         if (res & (1 << KG_CTRL))

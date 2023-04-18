@@ -3,15 +3,13 @@
 #include <tvision/tv.h>
 
 #include <internal/codepage.h>
-#include <internal/strings.h>
 #include <internal/getenv.h>
+#include <internal/strings.h>
 #include <internal/utf8.h>
 
-namespace tvision
-{
+namespace tvision {
 
-static const TStringView cp437toUtf8[256] =
-{
+static const TStringView cp437toUtf8[256] = {
     "\0", "☺", "☻", "♥", "♦", "♣", "♠", "•", "◘", "○", "◙", "♂", "♀", "♪", "♫", "☼",
     "►", "◄", "↕", "‼", "¶", "§", "▬", "↨", "↑", "↓", "→", "←", "∟", "↔", "▲", "▼",
     " ", "!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/",
@@ -32,8 +30,7 @@ static const TStringView cp437toUtf8[256] =
 
 static const std::array<uint32_t, 256> cp437toUtf8Int = make_utf8int<256>(cp437toUtf8);
 
-static const TStringView cp850toUtf8[256] =
-{
+static const TStringView cp850toUtf8[256] = {
     "\0", "☺", "☻", "♥", "♦", "♣", "♠", "•", "◘", "○", "◙", "♂", "♀", "♪", "♫", "☼",
     "►", "◄", "↕", "‼", "¶", "§", "▬", "↨", "↑", "↓", "→", "←", "∟", "↔", "▲", "▼",
     " ", "!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/",
@@ -64,12 +61,12 @@ static std::unordered_map<uint32_t, char> initMap(const TStringView toUtf8[256])
     return map;
 }
 
-CpTranslator::CpTable::CpTable( TStringView cp,
-                                const TStringView toUtf8[256],
-                                const std::array<uint32_t, 256> &toUtf8Int ) noexcept :
-    cp(cp),
-    toUtf8Int(toUtf8Int.data()),
-    fromUtf8(initMap(toUtf8))
+CpTranslator::CpTable::CpTable(TStringView cp,
+    const TStringView toUtf8[256],
+    const std::array<uint32_t, 256>& toUtf8Int) noexcept
+    : cp(cp)
+    , toUtf8Int(toUtf8Int.data())
+    , fromUtf8(initMap(toUtf8))
 {
 }
 
@@ -78,7 +75,7 @@ const CpTranslator::CpTable CpTranslator::tables[] = {
     { "850", cp850toUtf8, cp850toUtf8Int }
 };
 
-const CpTranslator::CpTable *CpTranslator::activeTable = nullptr;
+const CpTranslator::CpTable* CpTranslator::activeTable = nullptr;
 CpTranslator CpTranslator::instance;
 
 CpTranslator::CpTranslator() noexcept

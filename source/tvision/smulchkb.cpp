@@ -16,9 +16,7 @@
 #define Uses_TStreamableClass
 #include <tvision/tv.h>
 
-TStreamableClass RMultiCheckBoxes( TMultiCheckBoxes::name,
-                                   TMultiCheckBoxes::build,
-                                   __DELTA(TMultiCheckBoxes)
-                                 );
+TStreamableClass RMultiCheckBoxes(TMultiCheckBoxes::name,
+    TMultiCheckBoxes::build,
+    __DELTA(TMultiCheckBoxes));
 #endif
-

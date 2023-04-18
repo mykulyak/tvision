@@ -21,28 +21,28 @@
 #define Uses_TDrawBuffer
 #include <tvision/tv.h>
 
-#include <string.h>
-#include <stdlib.h>
 #include <ctype.h>
-#include <strstrea.h>
 #include <iomanip.h>
 #include <malloc.h>
+#include <stdlib.h>
+#include <string.h>
+#include <strstrea.h>
 #include <time.h>
 
 #include "gadgets.h"
 
-//extern "C" unsigned long farcoreleft( void );
+// extern "C" unsigned long farcoreleft( void );
 
 //
 // ------------- Heap Viewer functions
 //
 
-THeapView::THeapView(TRect& r) : TView( r )
+THeapView::THeapView(TRect& r)
+    : TView(r)
 {
     oldMem = 0;
     newMem = heapSize();
 }
-
 
 void THeapView::draw()
 {
@@ -54,59 +54,56 @@ void THeapView::draw()
     writeLine(0, 0, (short)size.x, 1, buf);
 }
 
-
 void THeapView::update()
 {
-    if( (newMem = heapSize()) != oldMem )
-        {
+    if ((newMem = heapSize()) != oldMem) {
         oldMem = newMem;
         drawView();
-        }
+    }
 }
-
 
 long THeapView::heapSize()
 {
-    ostrstream totalStr( heapStr, sizeof heapStr);
+    ostrstream totalStr(heapStr, sizeof heapStr);
 
 #ifdef __BORLANDC__
-//#if !defined( __DPMI32__ )
+    // #if !defined( __DPMI32__ )
     long total = farcoreleft();
-//#else
-//    long total = 0;
-//#endif
+    // #else
+    //     long total = 0;
+    // #endif
 
-#if !defined( __DPMI16__ ) && !defined( __DPMI32__ )
+#if !defined(__DPMI16__) && !defined(__DPMI32__)
     struct farheapinfo heap;
 #endif
 
-//#if defined( __DPMI32__ )
-//    switch( _HEAPEMPTY )
-//#else
-    switch( heapcheck() )
-//#endif
-        {
-        case _HEAPEMPTY:
-            strcpy(heapStr, "     No heap");
-            total = -1;
-            break;
+    // #if defined( __DPMI32__ )
+    //     switch( _HEAPEMPTY )
+    // #else
+    switch (heapcheck())
+    // #endif
+    {
+    case _HEAPEMPTY:
+        strcpy(heapStr, "     No heap");
+        total = -1;
+        break;
 
-        case _HEAPCORRUPT:
-            strcpy(heapStr, "Heap corrupt");
-            total = -2;
-            break;
+    case _HEAPCORRUPT:
+        strcpy(heapStr, "Heap corrupt");
+        total = -2;
+        break;
 
-        case _HEAPOK:
-#if !defined( __DPMI16__ ) && !defined( __DPMI32__ )
-            heap.ptr = NULL;
-            while(farheapwalk(&heap) != _HEAPEND)
-                if(!heap.in_use)
-                    total += heap.size;
+    case _HEAPOK:
+#if !defined(__DPMI16__) && !defined(__DPMI32__)
+        heap.ptr = NULL;
+        while (farheapwalk(&heap) != _HEAPEND)
+            if (!heap.in_use)
+                total += heap.size;
 #endif
-            totalStr << setw(12) << total << ends;
-            break;
-        }
-    return(total);
+        totalStr << setw(12) << total << ends;
+        break;
+    }
+    return (total);
 #elif defined(__GLIBC__) && !defined(__UCLIBC__) && !defined(__MUSL__)
     // mallinfo is defined in malloc.h but only exists in Glibc.
     // It doesn't exactly measure the heap size, but it kinda does the trick.
@@ -116,7 +113,7 @@ long THeapView::heapSize()
 #else
         mallinfo()
 #endif
-        .uordblks;
+            .uordblks;
     totalStr << setw(12) << allocatedBytes << ends;
     return allocatedBytes;
 #else
@@ -125,17 +122,16 @@ long THeapView::heapSize()
 #endif
 }
 
-
 //
 // -------------- Clock Viewer functions
 //
 
-TClockView::TClockView( TRect& r ) : TView( r )
+TClockView::TClockView(TRect& r)
+    : TView(r)
 {
     strcpy(lastTime, "        ");
     strcpy(curTime, "        ");
 }
-
 
 void TClockView::draw()
 {
@@ -147,19 +143,16 @@ void TClockView::draw()
     writeLine(0, 0, (short)size.x, 1, buf);
 }
 
-
 void TClockView::update()
 {
     time_t t = time(0);
-    char *date = ctime(&t);
+    char* date = ctime(&t);
 
     date[19] = '\0';
-    strcpy(curTime, &date[11]);        /* Extract time. */
+    strcpy(curTime, &date[11]); /* Extract time. */
 
-    if( strcmp(lastTime, curTime) )
-        {
+    if (strcmp(lastTime, curTime)) {
         drawView();
         strcpy(lastTime, curTime);
-        }
+    }
 }
-

@@ -14,4 +14,4 @@
 #define Uses_TFileCollection
 #include <tvision/tv.h>
 
-const char * const  TFileCollection::name = "TFileCollection";
+const char* const TFileCollection::name = "TFileCollection";

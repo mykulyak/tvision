@@ -24,100 +24,99 @@
 
 #include "tvedit.h"
 
-#include <stdlib.h>
-#include <stdarg.h>
-#include <strstrea.h>
 #include <iomanip.h>
 #include <signal.h>
+#include <stdarg.h>
+#include <stdlib.h>
+#include <strstrea.h>
 
-TEditWindow *TEditorApp::openEditor( const char *fileName, Boolean visible )
+TEditWindow* TEditorApp::openEditor(const char* fileName, Boolean visible)
 {
     TRect r = deskTop->getExtent();
-    TView *p = validView( new TEditWindow( r, fileName, wnNoNumber ) );
-    if( !visible )
+    TView* p = validView(new TEditWindow(r, fileName, wnNoNumber));
+    if (!visible)
         p->hide();
-    deskTop->insert( p );
-    return (TEditWindow *)p;
+    deskTop->insert(p);
+    return (TEditWindow*)p;
 }
 
-TEditorApp::TEditorApp( int argc, char **argv ) :
-    TProgInit( TEditorApp::initStatusLine,
-               TEditorApp::initMenuBar,
-               TEditorApp::initDeskTop
-             ),
-    TApplication()
+TEditorApp::TEditorApp(int argc, char** argv)
+    : TProgInit(TEditorApp::initStatusLine,
+        TEditorApp::initMenuBar,
+        TEditorApp::initDeskTop)
+    , TApplication()
 {
 
     TCommandSet ts;
-    ts.enableCmd( cmSave );
-    ts.enableCmd( cmSaveAs );
-    ts.enableCmd( cmCut );
-    ts.enableCmd( cmCopy );
-    ts.enableCmd( cmPaste );
-    ts.enableCmd( cmClear );
-    ts.enableCmd( cmUndo );
-    ts.enableCmd( cmFind );
-    ts.enableCmd( cmReplace );
-    ts.enableCmd( cmSearchAgain );
-    disableCommands( ts );
+    ts.enableCmd(cmSave);
+    ts.enableCmd(cmSaveAs);
+    ts.enableCmd(cmCut);
+    ts.enableCmd(cmCopy);
+    ts.enableCmd(cmPaste);
+    ts.enableCmd(cmClear);
+    ts.enableCmd(cmUndo);
+    ts.enableCmd(cmFind);
+    ts.enableCmd(cmReplace);
+    ts.enableCmd(cmSearchAgain);
+    disableCommands(ts);
 
     TEditor::editorDialog = doEditDialog;
 
-    while (--argc > 0)                              // Open files specified
-        openEditor(*++argv, True);                  // on command line.
+    while (--argc > 0) // Open files specified
+        openEditor(*++argv, True); // on command line.
     cascade();
 }
 
 void TEditorApp::fileOpen()
 {
     char fileName[MAXPATH];
-    strcpy( fileName, "*.*" );
+    strcpy(fileName, "*.*");
 
-    if( execDialog( new TFileDialog( "*.*", "Open file",
-            "~N~ame", fdOpenButton, 100 ), fileName) != cmCancel )
-        openEditor( fileName, True );
+    if (execDialog(new TFileDialog("*.*", "Open file",
+                       "~N~ame", fdOpenButton, 100),
+            fileName)
+        != cmCancel)
+        openEditor(fileName, True);
 }
 
 void TEditorApp::fileNew()
 {
-    openEditor( 0, True );
+    openEditor(0, True);
 }
 
 void TEditorApp::changeDir()
 {
-    execDialog( new TChDirDialog( cdNormal, 0 ), 0 );
+    execDialog(new TChDirDialog(cdNormal, 0), 0);
 }
 
-void TEditorApp::handleEvent( TEvent& event )
+void TEditorApp::handleEvent(TEvent& event)
 {
-    TApplication::handleEvent( event );
-    if( event.what != evCommand )
+    TApplication::handleEvent(event);
+    if (event.what != evCommand)
         return;
     else
-        switch( event.message.command )
-            {
-            case cmOpen:
-                fileOpen();
-                break;
+        switch (event.message.command) {
+        case cmOpen:
+            fileOpen();
+            break;
 
-            case cmNew:
-                fileNew();
-                break;
+        case cmNew:
+            fileNew();
+            break;
 
-            case cmChangeDrct:
-                changeDir();
-                break;
+        case cmChangeDrct:
+            changeDir();
+            break;
 
-            default:
-                return ;
-            }
-    clearEvent( event );
+        default:
+            return;
+        }
+    clearEvent(event);
 }
-int main( int argc, char **argv )
+int main(int argc, char** argv)
 {
-    TEditorApp editorApp( argc, argv );
+    TEditorApp editorApp(argc, argv);
     editorApp.run();
     editorApp.shutDown();
     return 0;
 }
-

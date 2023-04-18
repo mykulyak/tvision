@@ -1,14 +1,13 @@
-#include <internal/platform.h>
-#include <internal/unixcon.h>
 #include <internal/linuxcon.h>
-#include <internal/win32con.h>
+#include <internal/platform.h>
 #include <internal/sighandl.h>
+#include <internal/unixcon.h>
+#include <internal/win32con.h>
 #include <locale.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-namespace tvision
-{
+namespace tvision {
 
 // This is used by TText. It is a global function pointer (instead of a
 // Platform instance method) so that it can be still used after
@@ -17,9 +16,9 @@ int (*Platform::charWidth)(uint32_t) noexcept = &Platform::errorCharWidth;
 
 int Platform::errorCharWidth(uint32_t) noexcept
 {
-    fputs( "Cannot measure character widths before the platform module is "
-           "loaded.\nAvoid invoking TText methods during static initialization.\n",
-           stderr );
+    fputs("Cannot measure character widths before the platform module is "
+          "loaded.\nAvoid invoking TText methods during static initialization.\n",
+        stderr);
     abort();
 }
 
@@ -36,7 +35,7 @@ Platform::Platform() noexcept
 #ifdef __linux__
         io.isLinuxConsole() ? &LinuxConsoleStrategy::charWidth :
 #endif // __linux__
-        &UnixConsoleStrategy::charWidth;
+                            &UnixConsoleStrategy::charWidth;
 #endif // _WIN32
 }
 
@@ -45,12 +44,11 @@ Platform::~Platform()
     restoreConsole();
 }
 
-void Platform::restoreConsole(ConsoleStrategy *&c) noexcept
+void Platform::restoreConsole(ConsoleStrategy*& c) noexcept
 {
-    if (c != &dummyConsole)
-    {
+    if (c != &dummyConsole) {
         displayBuf.flushScreen(c->display);
-        for (auto *source : c->sources)
+        for (auto* source : c->sources)
             if (source)
                 waiter.removeSource(*source);
         SignalHandler::disable();

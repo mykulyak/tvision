@@ -25,70 +25,68 @@
 #define Uses_TText
 #include <tvision/tv.h>
 
-#if !defined( __HELPBASE_H )
+#if !defined(__HELPBASE_H)
 #include "tvision/helpbase.h"
-#endif  // __HELPBASE_H
+#endif // __HELPBASE_H
 
-#if !defined( __UTIL_H )
+#if !defined(__UTIL_H)
 #include "tvision/util.h"
-#endif  // __UTIL_H
+#endif // __UTIL_H
 
-#if !defined( __STRING_H )
+#if !defined(__STRING_H)
 #include <string.h>
-#endif  // __STRING_H
+#endif // __STRING_H
 
-#if !defined( __LIMITS_H )
+#if !defined(__LIMITS_H)
 #include <limits.h>
-#endif  // __LIMITS_H
+#endif // __LIMITS_H
 
-#if !defined( __STAT_H )
+#if !defined(__STAT_H)
 #include <sys/stat.h>
-#endif  // __STAT_H
+#endif // __STAT_H
 
-#if !defined( __CTYPE_H )
+#if !defined(__CTYPE_H)
 #include <ctype.h>
-#endif  // __CTYPE_H
+#endif // __CTYPE_H
 
-#if !defined( __IOSTREAM_H )
+#if !defined(__IOSTREAM_H)
 #include <iostream.h>
-#endif  // __IOSTREAM_H
+#endif // __IOSTREAM_H
 
-#pragma warn -dsz
+#pragma warn - dsz
 
 TCrossRefHandler crossRefHandler = notAssigned;
 
 // THelpTopic
 
-const char * const  THelpTopic::name = "THelpTopic";
+const char* const THelpTopic::name = "THelpTopic";
 
-void THelpTopic::write( opstream& os )
+void THelpTopic::write(opstream& os)
 {
-    writeParagraphs( os );
-    writeCrossRefs( os );
-
+    writeParagraphs(os);
+    writeCrossRefs(os);
 }
 
-void *THelpTopic::read( ipstream& is )
+void* THelpTopic::read(ipstream& is)
 {
-    readParagraphs( is );
-    readCrossRefs( is );
+    readParagraphs(is);
+    readCrossRefs(is);
     width = 0;
     lastLine = INT_MAX;
     return this;
 }
 
-TStreamable *THelpTopic::build()
+TStreamable* THelpTopic::build()
 {
-    return new THelpTopic( streamableInit );
+    return new THelpTopic(streamableInit);
 }
 
+TStreamableClass RHelpTopic(THelpTopic::name,
+    THelpTopic::build,
+    __DELTA(THelpTopic));
 
-TStreamableClass RHelpTopic( THelpTopic::name,
-                                  THelpTopic::build,
-                                  __DELTA(THelpTopic)
-                                );
-
-THelpTopic::THelpTopic() noexcept : TObject()
+THelpTopic::THelpTopic() noexcept
+    : TObject()
 {
     paragraphs = 0;
     numRefs = 0;
@@ -99,21 +97,20 @@ THelpTopic::THelpTopic() noexcept : TObject()
     lastParagraph = 0;
 }
 
-void THelpTopic::readParagraphs( ipstream& s )
+void THelpTopic::readParagraphs(ipstream& s)
 {
-    int  i;
+    int i;
     ushort size;
-    TParagraph **pp;
+    TParagraph** pp;
     int temp;
 
     s >> i;
     pp = &paragraphs;
-    while (i > 0)
-    {
+    while (i > 0) {
         s >> size;
         *pp = new TParagraph;
         (*pp)->text = new char[size + 1];
-        (*pp)->size = (ushort) size;
+        (*pp)->size = (ushort)size;
         s >> temp;
         (*pp)->wrap = Boolean(temp);
         s.readBytes((*pp)->text, (*pp)->size);
@@ -124,18 +121,17 @@ void THelpTopic::readParagraphs( ipstream& s )
     *pp = 0;
 }
 
-void THelpTopic::readCrossRefs( ipstream& s )
+void THelpTopic::readCrossRefs(ipstream& s)
 {
     int i;
-    TCrossRef *crossRefPtr;
+    TCrossRef* crossRefPtr;
 
     s >> numRefs;
     crossRefs = new TCrossRef[numRefs];
-    for (i = 0; i < numRefs; ++i)
-        {
-        crossRefPtr = (TCrossRef *)crossRefs + i;
+    for (i = 0; i < numRefs; ++i) {
+        crossRefPtr = (TCrossRef*)crossRefs + i;
         s >> crossRefPtr->ref >> crossRefPtr->offset >> crossRefPtr->length;
-        }
+    }
 }
 
 void THelpTopic::disposeParagraphs() noexcept
@@ -143,74 +139,67 @@ void THelpTopic::disposeParagraphs() noexcept
     TParagraph *p, *t;
 
     p = paragraphs;
-    while (p != 0)
-        {
+    while (p != 0) {
         t = p;
         p = p->next;
         delete[] t->text;
         delete t;
-        }
+    }
 }
-
 
 THelpTopic::~THelpTopic()
 {
-    TCrossRef *crossRefPtr;
+    TCrossRef* crossRefPtr;
 
     disposeParagraphs();
-    if (crossRefs != 0)
-       {
-       crossRefPtr = (TCrossRef *)crossRefs;
-       delete [] crossRefPtr;
-       }
+    if (crossRefs != 0) {
+        crossRefPtr = (TCrossRef*)crossRefs;
+        delete[] crossRefPtr;
+    }
 }
 
-void THelpTopic::addCrossRef( TCrossRef ref ) noexcept
+void THelpTopic::addCrossRef(TCrossRef ref) noexcept
 {
-    TCrossRef *p;
-    TCrossRef *crossRefPtr;
+    TCrossRef* p;
+    TCrossRef* crossRefPtr;
 
-    p =  new TCrossRef[numRefs+1];
-    if (numRefs > 0)
-        {
+    p = new TCrossRef[numRefs + 1];
+    if (numRefs > 0) {
         crossRefPtr = crossRefs;
         memmove(p, crossRefPtr, numRefs * sizeof(TCrossRef));
-        delete [] crossRefPtr;
-        }
+        delete[] crossRefPtr;
+    }
     crossRefs = p;
     crossRefPtr = crossRefs + numRefs;
     *crossRefPtr = ref;
     ++numRefs;
 }
 
-
-void THelpTopic::addParagraph( TParagraph *p ) noexcept
+void THelpTopic::addParagraph(TParagraph* p) noexcept
 {
-    TParagraph  *pp, *back;
+    TParagraph *pp, *back;
 
     if (paragraphs == 0)
         paragraphs = p;
-    else
-        {
+    else {
         pp = paragraphs;
         back = pp;
-        while (pp != 0)
-            {
+        while (pp != 0) {
             back = pp;
             pp = pp->next;
-            }
-        back->next = p;
         }
+        back->next = p;
+    }
     p->next = 0;
 }
 
-void THelpTopic::getCrossRef( int i, TPoint& loc, uchar& length,
-                              int& ref ) noexcept
+void THelpTopic::getCrossRef(int i, TPoint& loc, uchar& length,
+    int& ref) noexcept
 {
     int curOffset, offset, paraOffset;
-    TParagraph *p;
+    TParagraph* p;
     int line;
-    TCrossRef *crossRefPtr;
+    TCrossRef* crossRefPtr;
 
     paraOffset = 0;
     curOffset = 0;
@@ -218,12 +207,11 @@ void THelpTopic::getCrossRef( int i, TPoint& loc, uchar& length,
     crossRefPtr = crossRefs + i;
     offset = crossRefPtr->offset;
     p = paragraphs;
-    do  {
+    do {
         int lineOffset = curOffset;
         wrapText(p->text, p->size, curOffset, p->wrap);
         ++line;
-        if (offset <= paraOffset + curOffset)
-            {
+        if (offset <= paraOffset + curOffset) {
             int refOffset = offset - (paraOffset + lineOffset) - 1;
             TStringView textBefore(&p->text[lineOffset], refOffset);
             TStringView refText(&p->text[lineOffset + refOffset], crossRefPtr->length);
@@ -232,51 +220,44 @@ void THelpTopic::getCrossRef( int i, TPoint& loc, uchar& length,
             length = strwidth(refText);
             ref = crossRefPtr->ref;
             return;
-            }
-        if (curOffset >= p->size)
-            {
+        }
+        if (curOffset >= p->size) {
             paraOffset += p->size;
             p = p->next;
             curOffset = 0;
-            }
-        } while (True);
+        }
+    } while (True);
 }
 
-TStringView THelpTopic::getLine( int line ) noexcept
+TStringView THelpTopic::getLine(int line) noexcept
 {
     int offset, i;
-    TParagraph *p;
+    TParagraph* p;
 
-    if (lastLine < line)
-        {
+    if (lastLine < line) {
         i = line;
         line -= lastLine;
         lastLine = i;
         offset = lastOffset;
         p = lastParagraph;
-        }
-    else
-        {
+    } else {
         p = paragraphs;
         offset = 0;
         lastLine = line;
-        }
-    while (p != 0)
-        {
-        while (offset < p->size)
-            {
+    }
+    while (p != 0) {
+        while (offset < p->size) {
             --line;
             TStringView lineText = wrapText(p->text, p->size, offset, p->wrap);
-            if (line == 0)
-                {
+            if (line == 0) {
                 lastOffset = offset;
                 lastParagraph = p;
                 return lineText;
-                }
             }
+        }
         p = p->next;
         offset = 0;
-        }
+    }
     return TStringView();
 }
 
@@ -288,107 +269,95 @@ int THelpTopic::getNumCrossRefs() noexcept
 int THelpTopic::numLines() noexcept
 {
     int offset, lines;
-    TParagraph *p;
+    TParagraph* p;
 
     offset = 0;
     lines = 0;
     p = paragraphs;
-    while (p != 0)
-        {
+    while (p != 0) {
         offset = 0;
-        while (offset < p->size)
-            {
+        while (offset < p->size) {
             ++lines;
             wrapText(p->text, p->size, offset, p->wrap);
-            }
-        p = p->next;
         }
+        p = p->next;
+    }
     return lines;
 }
 
-void THelpTopic::setCrossRef( int i, TCrossRef& ref ) noexcept
+void THelpTopic::setCrossRef(int i, TCrossRef& ref) noexcept
 {
-    TCrossRef *crossRefPtr;
+    TCrossRef* crossRefPtr;
 
-    if (i < numRefs)
-        {
+    if (i < numRefs) {
         crossRefPtr = crossRefs + i;
         *crossRefPtr = ref;
-        }
+    }
 }
 
-
-void THelpTopic::setNumCrossRefs( int i ) noexcept
+void THelpTopic::setNumCrossRefs(int i) noexcept
 {
-    TCrossRef  *p, *crossRefPtr;
+    TCrossRef *p, *crossRefPtr;
 
     if (numRefs == i)
         return;
     p = new TCrossRef[i];
-    if (numRefs > 0)
-        {
+    if (numRefs > 0) {
         crossRefPtr = crossRefs;
         if (i > numRefs)
             memmove(p, crossRefPtr, numRefs * sizeof(TCrossRef));
         else
             memmove(p, crossRefPtr, i * sizeof(TCrossRef));
 
-        delete [] crossRefPtr;
-        }
+        delete[] crossRefPtr;
+    }
     crossRefs = p;
     numRefs = i;
 }
 
-
-void THelpTopic::setWidth( int aWidth ) noexcept
+void THelpTopic::setWidth(int aWidth) noexcept
 {
     width = aWidth;
 }
 
-void THelpTopic::writeParagraphs( opstream& s )
+void THelpTopic::writeParagraphs(opstream& s)
 {
     int i;
-    TParagraph  *p;
+    TParagraph* p;
     int temp;
 
     p = paragraphs;
     for (i = 0; p != 0; ++i)
         p = p->next;
     s << i;
-    for(p = paragraphs; p != 0; p = p->next)
-        {
+    for (p = paragraphs; p != 0; p = p->next) {
         s << p->size;
         temp = int(p->wrap);
         s << temp;
         s.writeBytes(p->text, p->size);
-        }
+    }
 }
 
-
-void THelpTopic::writeCrossRefs( opstream& s )
+void THelpTopic::writeCrossRefs(opstream& s)
 {
     int i;
-    TCrossRef *crossRefPtr;
+    TCrossRef* crossRefPtr;
 
     s << numRefs;
-    if (crossRefHandler == notAssigned)
-        {
-        for(i = 0; i < numRefs; ++i)
-            {
+    if (crossRefHandler == notAssigned) {
+        for (i = 0; i < numRefs; ++i) {
             crossRefPtr = crossRefs + i;
             s << crossRefPtr->ref << crossRefPtr->offset << crossRefPtr->length;
-            }
         }
-    else
-        for (i = 0; i < numRefs; ++i)
-            {
+    } else
+        for (i = 0; i < numRefs; ++i) {
             crossRefPtr = crossRefs + i;
             (*crossRefHandler)(s, crossRefPtr->ref);
             s << crossRefPtr->offset << crossRefPtr->length;
-            }
+        }
 }
 
-Boolean isBlank( char ch ) noexcept
+Boolean isBlank(char ch) noexcept
 {
     if (isspace((uchar)ch))
         return True;
@@ -396,45 +365,42 @@ Boolean isBlank( char ch ) noexcept
         return False;
 }
 
-static int scan( char *p, int offset, int size, char c) noexcept
+static int scan(char* p, int offset, int size, char c) noexcept
 {
     char *temp1, *temp2;
 
     temp1 = p + offset;
-    temp2 = (char *) memchr(temp1, c, strlen(temp1));
+    temp2 = (char*)memchr(temp1, c, strlen(temp1));
     if (temp2 == 0)
         return size;
-    else
-        {
-        if ((int)(temp2 - temp1) <= size )
-            return (int) (temp2 - temp1) + 1;
+    else {
+        if ((int)(temp2 - temp1) <= size)
+            return (int)(temp2 - temp1) + 1;
         else
             return size;
-        }
+    }
 }
 
-TStringView THelpTopic::wrapText( char *text, int size, int& offset, Boolean wrap ) noexcept
+TStringView THelpTopic::wrapText(char* text, int size, int& offset, Boolean wrap) noexcept
 {
     int i = scan(text, offset, size, '\n');
-    if( i + offset > size )
+    if (i + offset > size)
         i = size - offset;
-    if( wrap )
-        {
+    if (wrap) {
         size_t l, w;
         TText::scroll(TStringView(&text[offset], i), width, False, l, w);
-        if( int(l) < i )
-            {
+        if (int(l) < i) {
             int j = l + offset;
             int k = j;
-            while( (k > offset) && !(isBlank(text[k])) )
+            while ((k > offset) && !(isBlank(text[k])))
                 --k;
-            if( k == offset )
+            if (k == offset)
                 k = j;
-            if( k < size && isBlank(text[k]) )
+            if (k < size && isBlank(text[k]))
                 ++k;
             i = k - offset;
-            }
         }
+    }
     TStringView str(&text[offset], i);
     if (str.size() && str.back() == '\n')
         str = str.substr(0, str.size() - 1);
@@ -444,56 +410,52 @@ TStringView THelpTopic::wrapText( char *text, int size, int& offset, Boolean wra
 
 // THelpIndex
 
-const char * const  THelpIndex::name = "THelpIndex";
+const char* const THelpIndex::name = "THelpIndex";
 
-void THelpIndex::write( opstream& os )
+void THelpIndex::write(opstream& os)
 {
-    int32_t *indexArrayPtr;
+    int32_t* indexArrayPtr;
 
     os << size;
-    for (int i = 0; i < size; ++i)
-        {
+    for (int i = 0; i < size; ++i) {
         indexArrayPtr = index + i;
         os << *indexArrayPtr;
-        }
+    }
 }
 
-void *THelpIndex::read( ipstream& is )
+void* THelpIndex::read(ipstream& is)
 {
-    int32_t *indexArrayPtr;
+    int32_t* indexArrayPtr;
 
     is >> size;
     if (size == 0)
         index = 0;
-    else
-        {
-        index =  new int32_t[size];
-        for(int i = 0; i < size; ++i)
-            {
+    else {
+        index = new int32_t[size];
+        for (int i = 0; i < size; ++i) {
             indexArrayPtr = index + i;
             is >> *indexArrayPtr;
-            }
         }
+    }
     return this;
 }
 
-TStreamable *THelpIndex::build()
+TStreamable* THelpIndex::build()
 {
-    return new THelpIndex( streamableInit );
+    return new THelpIndex(streamableInit);
 }
 
-TStreamableClass RHelpIndex( THelpIndex::name,
-                             THelpIndex::build,
-                             __DELTA(THelpIndex)
-                           );
+TStreamableClass RHelpIndex(THelpIndex::name,
+    THelpIndex::build,
+    __DELTA(THelpIndex));
 
 THelpIndex::~THelpIndex()
 {
-    delete [] index;
+    delete[] index;
 }
 
-
-THelpIndex::THelpIndex(void) noexcept : TObject ()
+THelpIndex::THelpIndex(void) noexcept
+    : TObject()
 {
     size = 0;
     index = 0;
@@ -501,47 +463,42 @@ THelpIndex::THelpIndex(void) noexcept : TObject ()
 
 int32_t THelpIndex::position(int i) noexcept
 {
-    int32_t *indexArrayPtr;
+    int32_t* indexArrayPtr;
 
-    if (i < size)
-        {
+    if (i < size) {
         indexArrayPtr = index + i;
         return (*indexArrayPtr);
-        }
-    else
+    } else
         return -1;
 }
 
-void THelpIndex::add( int i, int32_t val )
+void THelpIndex::add(int i, int32_t val)
 {
     int delta = 10;
-    int32_t *p;
+    int32_t* p;
     int newSize;
-    int32_t *indexArrayPtr;
+    int32_t* indexArrayPtr;
 
-    if (i >= size)
-        {
+    if (i >= size) {
         newSize = (i + delta) / delta * delta;
         p = new int32_t[newSize];
-        if (p != 0)
-            {
+        if (p != 0) {
             memmove(p, index, size * sizeof(int32_t));
-            memset(p+size, 0xFF, (newSize - size) * sizeof(int32_t));
-            }
-        if (size > 0)
-            {
-            delete [] index;
-            }
+            memset(p + size, 0xFF, (newSize - size) * sizeof(int32_t));
+        }
+        if (size > 0) {
+            delete[] index;
+        }
         index = p;
         size = newSize;
-        }
+    }
     indexArrayPtr = index + i;
     *indexArrayPtr = val;
 }
 
 // THelpFile
 
-THelpFile::THelpFile( iopstream &s )
+THelpFile::THelpFile(iopstream& s)
 {
     int32_t magic;
     int32_t size;
@@ -550,23 +507,20 @@ THelpFile::THelpFile( iopstream &s )
     s.seekg(0, ios::end);
     size = s.tellg();
     s.seekg(0);
-    if ((size_t) size > sizeof(magic))
+    if ((size_t)size > sizeof(magic))
         s >> magic;
-    if (magic != magicHeader)
-        {
+    if (magic != magicHeader) {
         indexPos = 12;
         s.seekg(indexPos);
-        index =  new THelpIndex;
+        index = new THelpIndex;
         modified = True;
-        }
-    else
-        {
+    } else {
         s.seekg(8);
         s >> indexPos;
         s.seekg(indexPos);
         s >> index;
         modified = False;
-        }
+    }
     stream = &s;
 }
 
@@ -574,46 +528,44 @@ THelpFile::~THelpFile(void)
 {
     int32_t magic, size;
 
-    if (modified == True)
-        {
+    if (modified == True) {
         stream->seekp(indexPos);
         *stream << index;
         stream->seekp(0);
         magic = magicHeader;
-        streampos sp=stream->tellp();
+        streampos sp = stream->tellp();
         stream->seekp(0, ios::end);
-        size = stream->tellp() - (streamoff) 8;
+        size = stream->tellp() - (streamoff)8;
         stream->seekp(sp);
         *stream << magic;
         *stream << size;
         *stream << indexPos;
-        }
+    }
     delete stream;
     delete index;
 }
 
-THelpTopic *THelpFile::getTopic( int i )
+THelpTopic* THelpFile::getTopic(int i)
 {
     int32_t pos;
-    THelpTopic *topic = 0;
+    THelpTopic* topic = 0;
 
     pos = index->position(i);
-    if (pos > 0 )
-        {
+    if (pos > 0) {
         stream->seekg(pos);
         *stream >> topic;
         return topic;
-        }
-    else return(invalidTopic());
+    } else
+        return (invalidTopic());
 }
 
-THelpTopic *THelpFile::invalidTopic()
+THelpTopic* THelpFile::invalidTopic()
 {
-    THelpTopic *topic;
-    TParagraph *para;
+    THelpTopic* topic;
+    TParagraph* para;
 
-    topic =  new THelpTopic;
-    para =  new TParagraph;
+    topic = new THelpTopic;
+    para = new TParagraph;
     para->text = newStr(invalidContext);
     para->size = strlen(invalidContext);
     para->wrap = False;
@@ -622,13 +574,13 @@ THelpTopic *THelpFile::invalidTopic()
     return topic;
 }
 
-void THelpFile::recordPositionInIndex( int i )
+void THelpFile::recordPositionInIndex(int i)
 {
     index->add(i, indexPos);
     modified = True;
 }
 
-void THelpFile::putTopic( THelpTopic *topic )
+void THelpFile::putTopic(THelpTopic* topic)
 {
     stream->seekp(indexPos);
     *stream << topic;
@@ -636,8 +588,6 @@ void THelpFile::putTopic( THelpTopic *topic )
     modified = True;
 }
 
-void notAssigned( opstream& , int )
+void notAssigned(opstream&, int)
 {
 }
-
-

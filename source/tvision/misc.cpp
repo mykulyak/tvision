@@ -16,21 +16,21 @@
 #define Uses_TEvent
 #define Uses_TObject
 #define Uses_TVMemMgr
-#include <tvision/tv.h>
 #include <stddef.h>
 #include <string.h>
+#include <tvision/tv.h>
 
-void *message( TView *receiver, ushort what, ushort command, void *infoPtr)
+void* message(TView* receiver, ushort what, ushort command, void* infoPtr)
 {
-    if( receiver == 0 )
+    if (receiver == 0)
         return 0;
 
     TEvent event;
     event.what = what;
     event.message.command = command;
     event.message.infoPtr = infoPtr;
-    receiver->handleEvent( event );
-    if( event.what == evNothing )
+    receiver->handleEvent(event);
+    if (event.what == evNothing)
         return event.message.infoPtr;
     else
         return 0;
@@ -41,14 +41,13 @@ Boolean lowMemory() noexcept
     return Boolean(TVMemMgr::safetyPoolExhausted());
 }
 
-size_t strnzcpy( char *dest, TStringView src, size_t size ) noexcept
+size_t strnzcpy(char* dest, TStringView src, size_t size) noexcept
 {
     // Same as strlcpy. 'size' is the size of the 'dest' buffer,
     // which is always made null-terminated unless 'size' is zero.
     // Returns the number of bytes copied into 'dest'.
     // 'dest' and 'src' must not overlap.
-    if (size)
-    {
+    if (size) {
         size_t copy_bytes = src.size();
         if (copy_bytes > size - 1)
             copy_bytes = size - 1;
@@ -59,12 +58,11 @@ size_t strnzcpy( char *dest, TStringView src, size_t size ) noexcept
     return 0;
 }
 
-size_t strnzcat( char *dest, TStringView src, size_t size ) noexcept
+size_t strnzcat(char* dest, TStringView src, size_t size) noexcept
 {
     // Similar to strlcpy, except that 'dest' is always left null-terminated,
     // and the return value is the length of 'dest'.
-    if (size)
-    {
+    if (size) {
         size_t dstLen = 0;
         while (dstLen < size - 1 && dest[dstLen])
             ++dstLen;

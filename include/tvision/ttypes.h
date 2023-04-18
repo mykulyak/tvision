@@ -13,21 +13,22 @@
  *
  */
 
-#if !defined( __TTYPES_H )
+#if !defined(__TTYPES_H)
 #define __TTYPES_H
 
 #include <tvision/compat/borland/_defs.h>
 
 #ifdef __BORLANDC__
-#define I   asm
+#define I asm
 #endif
 
-
 #ifdef __BORLANDC__
-enum Boolean { False, True };
+enum Boolean { False,
+    True };
 #else
 typedef bool Boolean;
-enum { False, True };
+enum { False,
+    True };
 #endif
 
 typedef unsigned short ushort;
@@ -66,56 +67,56 @@ const char EOS = '\0';
 
 enum StreamableInit { streamableInit };
 
-class  ipstream;
-class  opstream;
-class  TStreamable;
-class  TStreamableTypes;
+class ipstream;
+class opstream;
+class TStreamable;
+class TStreamableTypes;
 
-ipstream& _Cdecl operator >> ( ipstream&, char& );
-ipstream& _Cdecl operator >> ( ipstream&, signed char& );
-ipstream& _Cdecl operator >> ( ipstream&, unsigned char& );
-ipstream& _Cdecl operator >> ( ipstream&, signed short& );
-ipstream& _Cdecl operator >> ( ipstream&, unsigned short& );
-ipstream& _Cdecl operator >> ( ipstream&, signed int& );
-ipstream& _Cdecl operator >> ( ipstream&, unsigned int& );
-ipstream& _Cdecl operator >> ( ipstream&, signed long& );
-ipstream& _Cdecl operator >> ( ipstream&, unsigned long& );
-ipstream& _Cdecl operator >> ( ipstream&, float& );
-ipstream& _Cdecl operator >> ( ipstream&, double& );
-ipstream& _Cdecl operator >> ( ipstream&, long double& );
-ipstream& _Cdecl operator >> ( ipstream&, TStreamable& );
-ipstream& _Cdecl operator >> ( ipstream&, void  *& );
+ipstream& _Cdecl operator>>(ipstream&, char&);
+ipstream& _Cdecl operator>>(ipstream&, signed char&);
+ipstream& _Cdecl operator>>(ipstream&, unsigned char&);
+ipstream& _Cdecl operator>>(ipstream&, signed short&);
+ipstream& _Cdecl operator>>(ipstream&, unsigned short&);
+ipstream& _Cdecl operator>>(ipstream&, signed int&);
+ipstream& _Cdecl operator>>(ipstream&, unsigned int&);
+ipstream& _Cdecl operator>>(ipstream&, signed long&);
+ipstream& _Cdecl operator>>(ipstream&, unsigned long&);
+ipstream& _Cdecl operator>>(ipstream&, float&);
+ipstream& _Cdecl operator>>(ipstream&, double&);
+ipstream& _Cdecl operator>>(ipstream&, long double&);
+ipstream& _Cdecl operator>>(ipstream&, TStreamable&);
+ipstream& _Cdecl operator>>(ipstream&, void*&);
 
-opstream& _Cdecl operator << ( opstream&, char );
-opstream& _Cdecl operator << ( opstream&, signed char );
-opstream& _Cdecl operator << ( opstream&, unsigned char );
-opstream& _Cdecl operator << ( opstream&, signed short );
-opstream& _Cdecl operator << ( opstream&, unsigned short );
-opstream& _Cdecl operator << ( opstream&, signed int );
-opstream& _Cdecl operator << ( opstream&, unsigned int );
-opstream& _Cdecl operator << ( opstream&, signed long );
-opstream& _Cdecl operator << ( opstream&, unsigned long );
-opstream& _Cdecl operator << ( opstream&, float );
-opstream& _Cdecl operator << ( opstream&, double );
-opstream& _Cdecl operator << ( opstream&, long double );
-opstream& _Cdecl operator << ( opstream&, TStreamable& );
-opstream& _Cdecl operator << ( opstream&, TStreamable  * );
+opstream& _Cdecl operator<<(opstream&, char);
+opstream& _Cdecl operator<<(opstream&, signed char);
+opstream& _Cdecl operator<<(opstream&, unsigned char);
+opstream& _Cdecl operator<<(opstream&, signed short);
+opstream& _Cdecl operator<<(opstream&, unsigned short);
+opstream& _Cdecl operator<<(opstream&, signed int);
+opstream& _Cdecl operator<<(opstream&, unsigned int);
+opstream& _Cdecl operator<<(opstream&, signed long);
+opstream& _Cdecl operator<<(opstream&, unsigned long);
+opstream& _Cdecl operator<<(opstream&, float);
+opstream& _Cdecl operator<<(opstream&, double);
+opstream& _Cdecl operator<<(opstream&, long double);
+opstream& _Cdecl operator<<(opstream&, TStreamable&);
+opstream& _Cdecl operator<<(opstream&, TStreamable*);
 
 #include <tvision/compat/borland/iosfwd.h>
 class TStringView;
-ostream  & _Cdecl operator<<(ostream  &, TStringView);
+ostream& _Cdecl operator<<(ostream&, TStringView);
 
-typedef void  *TTimerId;
+typedef void* TTimerId;
 
 typedef int ccIndex;
-typedef Boolean (*ccTestFunc)( void *, void * );
-typedef void (*ccAppFunc)( void *, void * );
+typedef Boolean (*ccTestFunc)(void*, void*);
+typedef void (*ccAppFunc)(void*, void*);
 
 const int ccNotFound = -1;
 
 extern const uchar specialChars[];
 
-#if !defined ( __FLAT__ )
+#if !defined(__FLAT__)
 #define _genInt(i) __int__(i)
 #endif
 
@@ -128,7 +129,7 @@ extern const uchar specialChars[];
 
 // Do not include unnecessary STL headers if TVISION_NO_STL is defined.
 // This speeds up compilation when building the library.
-#if !defined( __BORLANDC__ ) && !defined( TVISION_NO_STL )
+#if !defined(__BORLANDC__) && !defined(TVISION_NO_STL)
 #define TVISION_STL
 #endif
 
@@ -163,11 +164,16 @@ extern const uchar specialChars[];
 // This means that if we define a custom 'T& operator=(int)', the assignment
 // 't = {}' will be equivalent to 't = 0' instead of 't = T()'. This would
 // break the programmer's expectations completely.
-#define TV_TRIVIALLY_ASSIGNABLE(S) \
-    void* operator new(size_t, void *p) noexcept { return p; } \
-    void operator delete(void *, void *) noexcept {}; \
-    template <class T> \
-    S& operator=(const T &t) { return *new (this) S(t); }
+#define TV_TRIVIALLY_ASSIGNABLE(S)                  \
+    void* operator new(size_t, void* p) noexcept    \
+    {                                               \
+        return p;                                   \
+    }                                               \
+    void operator delete(void*, void*) noexcept {}; \
+    template <class T>                              \
+    S& operator=(const T& t)                        \
+    {                                               \
+        return *new (this) S(t);                    \
+    }
 
-
-#endif  // __TTYPES_H
+#endif // __TTYPES_H

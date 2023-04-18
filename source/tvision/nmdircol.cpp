@@ -14,4 +14,4 @@
 #define Uses_TDirCollection
 #include <tvision/tv.h>
 
-const char * const  TDirCollection::name = "TDirCollection";
+const char* const TDirCollection::name = "TDirCollection";

@@ -15,5 +15,5 @@
 #define Uses_TStatusLine
 #include <tvision/tv.h>
 
-const char * const  TStatusLine::name = "TStatusLine";
+const char* const TStatusLine::name = "TStatusLine";
 #endif

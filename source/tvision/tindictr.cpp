@@ -20,16 +20,16 @@
 #define Uses_ipstream
 #include <tvision/tv.h>
 
-#if !defined( __STRSTREA_H )
+#if !defined(__STRSTREA_H)
 #include <strstrea.h>
-#endif	// __STRSTREA_H
+#endif // __STRSTREA_H
 
 #define cpIndicator "\x02\x03"
 
-TIndicator::TIndicator( const TRect& bounds ) noexcept :
-    TView( bounds ),
-    location( TPoint() ),
-    modified( False )
+TIndicator::TIndicator(const TRect& bounds) noexcept
+    : TView(bounds)
+    , location(TPoint())
+    , modified(False)
 {
     growMode = gfGrowLoY | gfGrowHiY;
 }
@@ -41,60 +41,57 @@ void TIndicator::draw()
     TDrawBuffer b;
     char s[15];
 
-    if( (state & sfDragging) == 0 )
-        {
+    if ((state & sfDragging) == 0) {
         color = getColor(1);
         frame = dragFrame;
-        }
-    else
-        {
+    } else {
         color = getColor(2);
         frame = normalFrame;
-        }
+    }
 
-    b.moveChar( 0, frame, color, size.x );
-    if( modified )
-        b.putChar( 0, 15 );
-    ostrstream os( s, 15 );
+    b.moveChar(0, frame, color, size.x);
+    if (modified)
+        b.putChar(0, 15);
+    ostrstream os(s, 15);
 
-    os << ' ' << (location.y+1)
-       << ':' << (location.x+1) << ' ' << ends;
+    os << ' ' << (location.y + 1)
+       << ':' << (location.x + 1) << ' ' << ends;
 
-    b.moveStr( 8-int(strchr(s, ':')-s), s, color);
+    b.moveStr(8 - int(strchr(s, ':') - s), s, color);
     writeBuf(0, 0, size.x, 1, b);
 }
 
 TPalette& TIndicator::getPalette() const
 {
-    static TPalette palette( cpIndicator, sizeof( cpIndicator )-1 );
+    static TPalette palette(cpIndicator, sizeof(cpIndicator) - 1);
     return palette;
 }
 
-void TIndicator::setState( ushort aState, Boolean enable )
+void TIndicator::setState(ushort aState, Boolean enable)
 {
     TView::setState(aState, enable);
-    if( aState == sfDragging )
+    if (aState == sfDragging)
         drawView();
 }
 
-void TIndicator::setValue( const TPoint& aLocation, Boolean aModified )
+void TIndicator::setValue(const TPoint& aLocation, Boolean aModified)
 {
-    if( (location !=  aLocation) || (modified != aModified) )
-        {
+    if ((location != aLocation) || (modified != aModified)) {
         location = aLocation;
         modified = aModified;
         drawView();
-        }
+    }
 }
 
 #if !defined(NO_STREAMABLE)
 
-TStreamable *TIndicator::build()
+TStreamable* TIndicator::build()
 {
-    return new TIndicator( streamableInit );
+    return new TIndicator(streamableInit);
 }
 
-TIndicator::TIndicator( StreamableInit ) noexcept : TView( streamableInit )
+TIndicator::TIndicator(StreamableInit) noexcept
+    : TView(streamableInit)
 {
 }
 

@@ -17,15 +17,14 @@
 #define Uses_THardwareInfo
 #include <tvision/tv.h>
 
-#if !defined( __FLAT__ )
-#if !defined( __DOS_H )
+#if !defined(__FLAT__)
+#if !defined(__DOS_H)
 #include <dos.h>
-#endif  // __DOS_H
-#endif  // __FLAT__
+#endif // __DOS_H
+#endif // __FLAT__
 
-
-uchar  THWMouse::buttonCount = 0;
-Boolean  THWMouse::handlerInstalled = False;
+uchar THWMouse::buttonCount = 0;
+Boolean THWMouse::handlerInstalled = False;
 
 THWMouse::THWMouse() noexcept
 {
@@ -34,17 +33,17 @@ THWMouse::THWMouse() noexcept
 
 void THWMouse::resume() noexcept
 {
-#if defined( __FLAT__ )
+#if defined(__FLAT__)
     buttonCount = THardwareInfo::getButtonCount();
     show();
 #else
-    if( getvect( 0x33 ) == 0 )
+    if (getvect(0x33) == 0)
         return;
 
     _AX = 0;
-    _genInt( 0x33 );
+    _genInt(0x33);
 
-    if( _AX == 0 )
+    if (_AX == 0)
         return;
     buttonCount = _BL;
 
@@ -52,7 +51,7 @@ void THWMouse::resume() noexcept
     _CX = 0;
     _DX = 0;
 
-    _genInt( 0x33 );
+    _genInt(0x33);
     show();
 #endif
 }
@@ -68,33 +67,31 @@ void THWMouse::suspend() noexcept
     hide();
     buttonCount = 0;
 #else
-    if( present() == False )
+    if (present() == False)
         return;
     hide();
-    if( handlerInstalled == True )
-        {
-        registerHandler( 0, 0 );
+    if (handlerInstalled == True) {
+        registerHandler(0, 0);
         handlerInstalled = False;
-        }
+    }
     buttonCount = 0;
 #endif
 }
 
-#pragma warn -asc
+#pragma warn - asc
 
 void THWMouse::show() noexcept
 {
-#if defined( __FLAT__ )
+#if defined(__FLAT__)
     THardwareInfo::cursorOn();
 #else
     asm push ax;
     asm push es;
 
-    if( present() )
-        {
+    if (present()) {
         _AX = 1;
-        _genInt( 0x33 );
-        }
+        _genInt(0x33);
+    }
 
     asm pop es;
     asm pop ax;
@@ -103,48 +100,46 @@ void THWMouse::show() noexcept
 
 void THWMouse::hide() noexcept
 {
-#if defined( __FLAT__ )
+#if defined(__FLAT__)
     THardwareInfo::cursorOff();
 #else
     asm push ax;
     asm push es;
 
-    if( buttonCount != 0 )
-        {
+    if (buttonCount != 0) {
         _AX = 2;
-        _genInt( 0x33 );
-        }
+        _genInt(0x33);
+    }
     asm pop es;
     asm pop ax;
 #endif
 }
 
-#pragma warn .asc
+#pragma warn.asc
 
 #pragma argsused
-void THWMouse::setRange( ushort rx, ushort ry ) noexcept
+void THWMouse::setRange(ushort rx, ushort ry) noexcept
 {
-#if !defined( __FLAT__ )
-    if( buttonCount != 0 )
-        {
+#if !defined(__FLAT__)
+    if (buttonCount != 0) {
         _DX = rx;
         _DX <<= 3;
         _CX = 0;
         _AX = 7;
-        _genInt( 0x33 );
+        _genInt(0x33);
 
         _DX = ry;
         _DX <<= 3;
         _CX = 0;
         _AX = 8;
-        _genInt( 0x33 );
-        }
+        _genInt(0x33);
+    }
 #endif
 }
 
-void THWMouse::getEvent( MouseEventType& me ) noexcept
+void THWMouse::getEvent(MouseEventType& me) noexcept
 {
-#if defined( __FLAT__ )
+#if defined(__FLAT__)
     me.buttons = 0;
     me.wheel = 0;
     me.where.x = 0;
@@ -152,39 +147,39 @@ void THWMouse::getEvent( MouseEventType& me ) noexcept
     me.eventFlags = 0;
 #else
     _AX = 3;
-    _genInt( 0x33 );
+    _genInt(0x33);
     _AX = _BX;
     me.buttons = _AL;
-    me.wheel = _AH == 0 ? 0 : char(_AH) > 0 ? mwDown : mwUp; // CuteMouse
+    me.wheel = _AH == 0 ? 0 : char(_AH) > 0 ? mwDown
+                                            : mwUp; // CuteMouse
     me.where.x = _CX >> 3;
     me.where.y = _DX >> 3;
     me.eventFlags = 0;
 #endif
 }
 
-#if !defined( __FLAT__ )
-void THWMouse::registerHandler( unsigned mask, void ( *func)() )
+#if !defined(__FLAT__)
+void THWMouse::registerHandler(unsigned mask, void (*func)())
 {
-    if( !present() )
+    if (!present())
         return;
 
     _AX = 12;
     _CX = mask;
-    _DX = FP_OFF( func );
-    _ES = FP_SEG( func );
+    _DX = FP_OFF(func);
+    _ES = FP_SEG(func);
 
-    _genInt( 0x33 );
+    _genInt(0x33);
     handlerInstalled = True;
 }
 #endif
 
 TMouse::TMouse() noexcept
 {
-//    show();
+    //    show();
 }
 
 TMouse::~TMouse()
 {
-//    hide();
+    //    hide();
 }
-

@@ -15,14 +15,13 @@
 #define Uses_TEditorDialog
 #include <tvision/tv.h>
 
-ushort defEditorDialog( int, ... )
+ushort defEditorDialog(int, ...)
 {
     return cmCancel;
 }
 
-TEditorDialog  TEditor::editorDialog = defEditorDialog;
-ushort  TEditor::editorFlags = efBackupFiles | efPromptOnReplace;
-char  TEditor::findStr[maxFindStrLen] = "";
-char  TEditor::replaceStr[maxReplaceStrLen] = "";
-TEditor *  TEditor::clipboard = 0;
-
+TEditorDialog TEditor::editorDialog = defEditorDialog;
+ushort TEditor::editorFlags = efBackupFiles | efPromptOnReplace;
+char TEditor::findStr[maxFindStrLen] = "";
+char TEditor::replaceStr[maxReplaceStrLen] = "";
+TEditor* TEditor::clipboard = 0;

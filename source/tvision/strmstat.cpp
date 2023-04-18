@@ -14,4 +14,4 @@
 #define Uses_pstream
 #include <tvision/tv.h>
 
-TStreamableTypes *  pstream::types = (pstream::initTypes(), pstream::types);
+TStreamableTypes* pstream::types = (pstream::initTypes(), pstream::types);

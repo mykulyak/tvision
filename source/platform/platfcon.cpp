@@ -1,30 +1,29 @@
-#include <internal/platform.h>
-#include <internal/unixcon.h>
-#include <internal/linuxcon.h>
-#include <internal/win32con.h>
-#include <internal/ncurdisp.h>
 #include <internal/ansidisp.h>
+#include <internal/getenv.h>
+#include <internal/linuxcon.h>
+#include <internal/ncurdisp.h>
 #include <internal/ncursinp.h>
+#include <internal/platform.h>
+#include <internal/scrlife.h>
 #include <internal/sighandl.h>
 #include <internal/terminal.h>
-#include <internal/scrlife.h>
-#include <internal/getenv.h>
+#include <internal/unixcon.h>
+#include <internal/win32con.h>
 
-namespace tvision
-{
+namespace tvision {
 
 // These methods are defined in a separate transaction unit so that the
 // Platform can be referenced by the application without having to link all the
 // console strategies.
 
-ConsoleStrategy &Platform::createConsole() noexcept
+ConsoleStrategy& Platform::createConsole() noexcept
 {
 #ifdef _WIN32
     return Win32ConsoleStrategy::create();
 #else
-    ScreenLifetime &scrl = *new ScreenLifetime;
-    InputState &inputState = *new InputState;
-    NcursesDisplay *display;
+    ScreenLifetime& scrl = *new ScreenLifetime;
+    InputState& inputState = *new InputState;
+    NcursesDisplay* display;
     if (getEnv<TStringView>("TVISION_DISPLAY") == "ncurses")
         display = new NcursesDisplay(io);
     else
@@ -37,13 +36,12 @@ ConsoleStrategy &Platform::createConsole() noexcept
 #endif // _WIN32
 }
 
-void Platform::setUpConsole(ConsoleStrategy *&c) noexcept
+void Platform::setUpConsole(ConsoleStrategy*& c) noexcept
 {
-    if (c == &dummyConsole)
-    {
+    if (c == &dummyConsole) {
         c = &createConsole();
         SignalHandler::enable(signalCallback);
-        for (auto *source : c->sources)
+        for (auto* source : c->sources)
             if (source)
                 waiter.addSource(*source);
     }
@@ -51,9 +49,8 @@ void Platform::setUpConsole(ConsoleStrategy *&c) noexcept
 
 void Platform::checkConsole() noexcept
 {
-    console.lock([&] (ConsoleStrategy *&c) {
-        if (!c->isAlive())
-        {
+    console.lock([&](ConsoleStrategy*& c) {
+        if (!c->isAlive()) {
             // The console likely crashed (Windows).
             restoreConsole(c);
             setUpConsole(c);
@@ -61,13 +58,12 @@ void Platform::checkConsole() noexcept
     });
 }
 
-bool Platform::getEvent(TEvent &ev) noexcept
+bool Platform::getEvent(TEvent& ev) noexcept
 {
-    if ( waiter.getEvent(ev)
-         && (ev.what != evCommand || ev.message.command != cmScreenChanged) )
+    if (waiter.getEvent(ev)
+        && (ev.what != evCommand || ev.message.command != cmScreenChanged))
         return true;
-    if (screenChanged())
-    {
+    if (screenChanged()) {
         ev.what = evCommand;
         ev.message.command = cmScreenChanged;
         return true;
@@ -77,8 +73,7 @@ bool Platform::getEvent(TEvent &ev) noexcept
 
 void Platform::signalCallback(bool enter) noexcept
 {
-    if (!instance.console.lockedByThisThread())
-    {
+    if (!instance.console.lockedByThisThread()) {
         // FIXME: these are not signal safe!
         if (enter)
             instance.restoreConsole();

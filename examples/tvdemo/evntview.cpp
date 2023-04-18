@@ -7,26 +7,26 @@
 #include <tvision/tv.h>
 __link(RWindow)
 
-#include <iostream.h>
 #include <iomanip.h>
+#include <iostream.h>
 #include <strstrea.h>
 
-#include "tvcmds.h"
 #include "evntview.h"
+#include "tvcmds.h"
 
-const char * const TEventViewer::name = "TEventViewer";
+    const char* const TEventViewer::name
+    = "TEventViewer";
 
-TStreamable *TEventViewer::build()
+TStreamable* TEventViewer::build()
 {
     return new TEventViewer(streamableInit);
 }
 
-TStreamableClass REventViewer( TEventViewer::name,
-                               TEventViewer::build,
-                               __DELTA(TEventViewer)
-                             );
+TStreamableClass REventViewer(TEventViewer::name,
+    TEventViewer::build,
+    __DELTA(TEventViewer));
 
-void TEventViewer::write(opstream &os)
+void TEventViewer::write(opstream& os)
 {
     // TTerminal does not override the TStreamable methods, so do not
     // store it in the stream.
@@ -41,7 +41,7 @@ void TEventViewer::write(opstream &os)
     os << bufSize;
 }
 
-void *TEventViewer::read(ipstream &is)
+void* TEventViewer::read(ipstream& is)
 {
     TWindow::read(is);
 
@@ -51,8 +51,7 @@ void *TEventViewer::read(ipstream &is)
     return this;
 }
 
-const char * const TEventViewer::titles[2] =
-{
+const char* const TEventViewer::titles[2] = {
     "Event Viewer",
     "Event Viewer (Stopped)",
 };
@@ -65,10 +64,9 @@ void TEventViewer::toggle()
         frame->drawView();
 }
 
-void TEventViewer::print(const TEvent &ev)
+void TEventViewer::print(const TEvent& ev)
 {
-    if (ev.what != evNothing && !stopped && out)
-    {
+    if (ev.what != evNothing && !stopped && out) {
         lock();
         *out << "Received event #" << ++eventCount << '\n';
         printEvent(*out, ev);
@@ -77,9 +75,9 @@ void TEventViewer::print(const TEvent &ev)
     }
 }
 
-TEventViewer::TEventViewer(const TRect &bounds, ushort aBufSize) noexcept :
-    TWindowInit(&initFrame),
-    TWindow(bounds, 0, wnNoNumber)
+TEventViewer::TEventViewer(const TRect& bounds, ushort aBufSize) noexcept
+    : TWindowInit(&initFrame)
+    , TWindow(bounds, 0, wnNoNumber)
 {
     eventMask |= evBroadcast;
     init(aBufSize);
@@ -92,10 +90,10 @@ void TEventViewer::init(ushort aBufSize)
     bufSize = aBufSize;
     title = titles[stopped];
     scrollBar = standardScrollBar(sbVertical | sbHandleKeyboard);
-    interior = new TTerminal( getExtent().grow(-1, -1),
-                              0,
-                              scrollBar,
-                              bufSize );
+    interior = new TTerminal(getExtent().grow(-1, -1),
+        0,
+        scrollBar,
+        bufSize);
     insert(interior);
     out = new ostream(interior);
 }
@@ -114,14 +112,14 @@ TEventViewer::~TEventViewer()
     title = 0; // So that TWindow doesn't delete it.
 }
 
-void TEventViewer::handleEvent(TEvent &ev)
+void TEventViewer::handleEvent(TEvent& ev)
 {
     TWindow::handleEvent(ev);
     if (ev.what == evBroadcast && ev.message.command == cmFndEventView)
         clearEvent(ev);
 }
 
-static void printConstants(ostream &out, ushort value, void ( &doPrint)(ostream  &, ushort))
+static void printConstants(ostream& out, ushort value, void (&doPrint)(ostream&, ushort))
 {
     out << hex << setfill('0')
         << "0x" << setw(4) << value;
@@ -134,14 +132,13 @@ static void printConstants(ostream &out, ushort value, void ( &doPrint)(ostream 
     out << dec;
 }
 
-void TEventViewer::printEvent(ostream &out, const TEvent &ev)
+void TEventViewer::printEvent(ostream& out, const TEvent& ev)
 {
     out << "TEvent {\n"
         << "  .what = ";
-        printConstants(out, ev.what, printEventCode);
-        out << ",\n";
-    if (ev.what & evMouse)
-    {
+    printConstants(out, ev.what, printEventCode);
+    out << ",\n";
+    if (ev.what & evMouse) {
         out << "  .mouse = MouseEventType {\n"
             << "    .where = TPoint {\n"
             << "      .x = " << ev.mouse.where.x << "\n"
@@ -161,19 +158,18 @@ void TEventViewer::printEvent(ostream &out, const TEvent &ev)
         out << "\n"
             << "  }\n";
     }
-    if (ev.what & evKeyboard)
-    {
+    if (ev.what & evKeyboard) {
         char charCode = ev.keyDown.charScan.charCode;
         out << "  .keyDown = KeyDownEvent {\n"
             << "    .keyCode = ";
         printConstants(out, ev.keyDown.keyCode, printKeyCode);
         out << ",\n"
             << "    .charScan = CharScanType {\n"
-            << "      .charCode = " << (int) (uchar) charCode;
+            << "      .charCode = " << (int)(uchar)charCode;
         if (charCode)
             out << " ('" << charCode << "')";
         out << ",\n"
-            << "      .scanCode = " << (int) (uchar) ev.keyDown.charScan.scanCode << "\n"
+            << "      .scanCode = " << (int)(uchar)ev.keyDown.charScan.scanCode << "\n"
             << "    },\n"
             << "    .controlKeyState = ";
         printConstants(out, ev.keyDown.controlKeyState, printControlKeyState);
@@ -181,17 +177,16 @@ void TEventViewer::printEvent(ostream &out, const TEvent &ev)
             << hex
             << "    .text = {";
         Boolean first = True;
-        for (int i = 0; i < ev.keyDown.textLength; ++i)
-        {
+        for (int i = 0; i < ev.keyDown.textLength; ++i) {
             if (first)
                 first = False;
             else
                 out << ", ";
-            out << "0x" << (int) (uchar) ev.keyDown.text[i];
+            out << "0x" << (int)(uchar)ev.keyDown.text[i];
         }
         out << "},\n"
             << dec
-            << "    .textLength = " << (int) ev.keyDown.textLength << "\n"
+            << "    .textLength = " << (int)ev.keyDown.textLength << "\n"
             << "  }\n";
     }
     if (ev.what & evCommand)

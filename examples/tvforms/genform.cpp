@@ -22,39 +22,39 @@
 #define Uses_TScreen
 #define Uses_TStreamableClass
 #include <tvision/tv.h>
-__link ( RResourceCollection )
+__link(RResourceCollection)
 
-#if defined( PHONENUM )
+#if defined(PHONENUM)
 #include "genphone.h"
-#elif defined( PARTS )
+#elif defined(PARTS)
 #include "genparts.h"
 #else
 #error Specify PHONENUM or PARTS as a conditional define, compile and then run.
 #endif
 
-#if !defined( __FORMS_H )
+#if !defined(__FORMS_H)
 #include "forms.h"
-#endif  // __FORMS_H
+#endif // __FORMS_H
 
-#if !defined( __STDLIB_H )
+#if !defined(__STDLIB_H)
 #include <stdlib.h>
-#endif  // __STDLIB_H
+#endif // __STDLIB_H
 
-int main(void)
+    int main(void)
 {
-    TSortedCollection *collection;
+    TSortedCollection* collection;
     int i;
-    TForm *f;
-    void *p;
-    fpstream *s;
+    TForm* f;
+    void* p;
+    fpstream* s;
     TResourceFile* r;
 
-    TScreen::clearOnSuspend=False;
+    TScreen::clearOnSuspend = False;
 
-    cout <<"Creating  " << rezFileName << "\n";
+    cout << "Creating  " << rezFileName << "\n";
 
     // Construct stream and resource
-    s = new fpstream (rezFileName, ios::out|ios::binary);
+    s = new fpstream(rezFileName, ios::out | ios::binary);
     r = new TResourceFile(s);
 
     // Form
@@ -63,21 +63,20 @@ int main(void)
 
     // Data
     collection = new TDataCollection((dataCount + 10), 5, sizeof(TDataRec),
-                          dataKeyType);
+        dataKeyType);
     collection->duplicates = allowDuplicates;
-    for(i = 0; i < dataCount; ++i)
-        {
+    for (i = 0; i < dataCount; ++i) {
         p = new TDataRec;
-        memset(p, 0 , sizeof(TDataRec));   // keep padding bytes initialized
-        f->setData((void *)&data[i]);      // move into object
-        f->getData(p);                     // move onto heap
-        collection->insert(p);             // insert in sorted order
-        }
+        memset(p, 0, sizeof(TDataRec)); // keep padding bytes initialized
+        f->setData((void*)&data[i]); // move into object
+        f->getData(p); // move onto heap
+        collection->insert(p); // insert in sorted order
+    }
     r->put(collection, "FormData");
 
     // Done
     TObject::destroy(f);
-    TObject::destroy((TCollection *)collection);
+    TObject::destroy((TCollection*)collection);
     TObject::destroy(r);
     return 0;
 }

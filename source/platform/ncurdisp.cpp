@@ -5,28 +5,25 @@
 
 #include <internal/ncurdisp.h>
 #include <internal/stdioctl.h>
+#include <ncurses.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <ncurses.h>
 
-namespace tvision
-{
+namespace tvision {
 
-NcursesDisplay::NcursesDisplay(StdioCtl &aIo) noexcept :
-    TerminalDisplay(aIo),
-    definedPairs(0),
-    usesNcursesDraw(false)
+NcursesDisplay::NcursesDisplay(StdioCtl& aIo) noexcept
+    : TerminalDisplay(aIo)
+    , definedPairs(0)
+    , usesNcursesDraw(false)
 {
     // Start curses mode.
     term = newterm(nullptr, io.fout(), io.fin());
-    if (!term)
-    {
+    if (!term) {
         fputs("Cannot initialize Ncurses: 'newterm' failed.\n", stderr);
         exit(1);
     }
     // Enable colors if the terminal supports it.
-    if ((hasColors = has_colors()))
-    {
+    if ((hasColors = has_colors())) {
         start_color();
         // Use default colors when clearing the screen.
         use_default_colors();
@@ -61,14 +58,15 @@ TPoint NcursesDisplay::getScreenSize() noexcept
 {
     int y, x;
     getmaxyx(stdscr, y, x);
-    return {max(x, 0), max(y, 0)};
+    return { max(x, 0), max(y, 0) };
 }
 
 int NcursesDisplay::getCaretSize() noexcept
 {
     int size = curs_set(0);
     curs_set(size);
-    return size <= 0 ? 0 : size == 1 ? 1 : 100;
+    return size <= 0 ? 0 : size == 1 ? 1
+                                     : 100;
 }
 
 int NcursesDisplay::getColorCount() noexcept
@@ -82,14 +80,14 @@ void NcursesDisplay::lowlevelFlush() noexcept { wrefresh(stdscr); }
 
 void NcursesDisplay::lowlevelCursorSize(int size) noexcept
 {
-/* The caret is the keyboard cursor. If size is 0, the caret is hidden. The
- * other possible values are from 1 to 100, theoretically, and represent the
- * percentage of the character cell the caret fills.
- * https://docs.microsoft.com/en-us/windows/console/console-cursor-info-str
- *
- * ncurses supports only three levels: invisible (0), normal (1) and
- * very visible (2). They don't make a difference in all terminals, but
- * we can try mapping them to the values requested by Turbo Vision. */
+    /* The caret is the keyboard cursor. If size is 0, the caret is hidden. The
+     * other possible values are from 1 to 100, theoretically, and represent the
+     * percentage of the character cell the caret fills.
+     * https://docs.microsoft.com/en-us/windows/console/console-cursor-info-str
+     *
+     * ncurses supports only three levels: invisible (0), normal (1) and
+     * very visible (2). They don't make a difference in all terminals, but
+     * we can try mapping them to the values requested by Turbo Vision. */
     curs_set(size > 0 ? size == 100 ? 2 : 1 : 0); // Implies refresh().
 }
 
@@ -149,7 +147,7 @@ uint NcursesDisplay::translateAttributes(TColorAttr attr) noexcept
     uchar idx = fg | (bg << 4);
     uchar pairKey = idx & (COLORS < 16 ? 0x77 : 0xFF);
     bool fgIntense = (COLORS < 16) && (fg & 0x8);
-    return fgIntense*A_BOLD | (hasColors ? getColorPair(pairKey) : 0);
+    return fgIntense * A_BOLD | (hasColors ? getColorPair(pairKey) : 0);
 }
 
 uint NcursesDisplay::getColorPair(uchar pairKey) noexcept
@@ -158,8 +156,7 @@ uint NcursesDisplay::getColorPair(uchar pairKey) noexcept
      * not to make any assumptions on the amount of color pairs supported by
      * the terminal. */
     int id = pairIdentifiers[pairKey];
-    if (id == 0)
-    {
+    if (id == 0) {
         // Foreground color in the lower half, background in the upper half.
         init_pair(++definedPairs, pairKey & 0xF, pairKey >> 4);
         id = pairIdentifiers[pairKey] = definedPairs;

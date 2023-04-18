@@ -5,18 +5,15 @@
 
 #include <test.h>
 
-namespace tvision
-{
+namespace tvision {
 
-class StrInputGetter : public InputGetter
-{
+class StrInputGetter : public InputGetter {
     TStringView str;
-    size_t i {0};
+    size_t i { 0 };
 
 public:
-
-    StrInputGetter(TStringView aStr) noexcept :
-        str(aStr)
+    StrInputGetter(TStringView aStr) noexcept
+        : str(aStr)
     {
     }
 
@@ -32,13 +29,12 @@ public:
     }
 };
 
-struct ParseResultEvent
-{
+struct ParseResultEvent {
     ParseResult parseResult;
     TEvent ev;
 };
 
-static bool operator==(const ParseResultEvent &a, const ParseResultEvent &b)
+static bool operator==(const ParseResultEvent& a, const ParseResultEvent& b)
 {
     if (a.parseResult != b.parseResult)
         return false;
@@ -49,21 +45,23 @@ static bool operator==(const ParseResultEvent &a, const ParseResultEvent &b)
     if (a.ev.what == evNothing)
         return true;
     if (a.ev.what == evKeyDown)
-        return
-            a.ev.keyDown.keyCode == b.ev.keyDown.keyCode &&
-            a.ev.keyDown.controlKeyState == b.ev.keyDown.controlKeyState &&
-            a.ev.keyDown.getText() == b.ev.keyDown.getText();
+        return a.ev.keyDown.keyCode == b.ev.keyDown.keyCode && a.ev.keyDown.controlKeyState == b.ev.keyDown.controlKeyState && a.ev.keyDown.getText() == b.ev.keyDown.getText();
     abort();
 }
 
-static std::ostream &operator<<(std::ostream &os, const ParseResultEvent &p)
+static std::ostream& operator<<(std::ostream& os, const ParseResultEvent& p)
 {
     os << "{";
-    switch (p.parseResult)
-    {
-        case Rejected: os << "Rejected"; break;
-        case Accepted: os << "Accepted"; break;
-        case Ignored: os << "Ignored"; break;
+    switch (p.parseResult) {
+    case Rejected:
+        os << "Rejected";
+        break;
+    case Accepted:
+        os << "Accepted";
+        break;
+    case Ignored:
+        os << "Ignored";
+        break;
     }
     os << ", {";
     printEventCode(os, p.ev.what);
@@ -81,8 +79,7 @@ constexpr static TEvent keyDownEv(ushort keyCode, ushort controlKeyState, TStrin
     ev.what = evKeyDown;
     ev.keyDown.keyCode = keyCode;
     ev.keyDown.controlKeyState = controlKeyState;
-    while (ev.keyDown.textLength <= sizeof(ev.keyDown.text) && ev.keyDown.textLength < text.size())
-    {
+    while (ev.keyDown.textLength <= sizeof(ev.keyDown.text) && ev.keyDown.textLength < text.size()) {
         ev.keyDown.text[ev.keyDown.textLength] = text[ev.keyDown.textLength];
         ++ev.keyDown.textLength;
     }
@@ -90,32 +87,32 @@ constexpr static TEvent keyDownEv(ushort keyCode, ushort controlKeyState, TStrin
 }
 
 const ushort
-    kbS = 0x1f73, kb9 = 0x0a39;
+    kbS
+    = 0x1f73,
+    kb9 = 0x0a39;
 
 TEST(Far2l, ShouldReadFar2lKeys)
 {
-    static constexpr char longString[1024*1024] = {0};
-    static const TestCase<TStringView, ParseResultEvent> testCases[] =
-    {
-        {"", {Ignored}},
-        {"\x07", {Ignored}},
-        {"çśdfç32rç€v\x07", {Ignored}},
-        {{longString, sizeof(longString)}, {Ignored}},
-        {"AQBTAAAAAAAAAHMAAAB=", {Ignored}},
-        {"AQBTAAAAAAAAAHMAAABLaa==", {Ignored}},
-        {"AQBTAAAAAAAAAHMAAHMAAABL", {Ignored}},
-        {"AQBTAAAAAAAAAHMAAABL", {Accepted, keyDownEv(kbS, 0x0000, "s")}},
-        {"AQBTAAAAAAAAAHMAAABL\x07", {Accepted, keyDownEv(kbS, 0x0000, "s")}},
-        {"AQC+AAAAAAAAAKwgAABL\x07", {Accepted, keyDownEv(kbNoKey, 0x0000, "€")}},
-        {"AQBWAAAACAAAAAAAAABL\x07", {Accepted, keyDownEv(kbCtrlV, kbLeftCtrl, "")}},
-        {"AQA5AAAACAAAADkAAABL\x07", {Accepted, keyDownEv(kb9, kbLeftCtrl, "9")}},
-        {"AQBWAAAACgAAAFYAAABL\x07", {Accepted, keyDownEv(kbAltV, kbLeftCtrl | kbLeftAlt, "")}},
-        {"AQBWAAAACgAAAAAAAABL\x07", {Ignored}}, // AltGr + V, UnicodeChar = 0
-        {"AQAMAAAAIgAAAAAAAABL\x07", {Ignored}}, // Alt + VK_CLEAR
+    static constexpr char longString[1024 * 1024] = { 0 };
+    static const TestCase<TStringView, ParseResultEvent> testCases[] = {
+        { "", { Ignored } },
+        { "\x07", { Ignored } },
+        { "çśdfç32rç€v\x07", { Ignored } },
+        { { longString, sizeof(longString) }, { Ignored } },
+        { "AQBTAAAAAAAAAHMAAAB=", { Ignored } },
+        { "AQBTAAAAAAAAAHMAAABLaa==", { Ignored } },
+        { "AQBTAAAAAAAAAHMAAHMAAABL", { Ignored } },
+        { "AQBTAAAAAAAAAHMAAABL", { Accepted, keyDownEv(kbS, 0x0000, "s") } },
+        { "AQBTAAAAAAAAAHMAAABL\x07", { Accepted, keyDownEv(kbS, 0x0000, "s") } },
+        { "AQC+AAAAAAAAAKwgAABL\x07", { Accepted, keyDownEv(kbNoKey, 0x0000, "€") } },
+        { "AQBWAAAACAAAAAAAAABL\x07", { Accepted, keyDownEv(kbCtrlV, kbLeftCtrl, "") } },
+        { "AQA5AAAACAAAADkAAABL\x07", { Accepted, keyDownEv(kb9, kbLeftCtrl, "9") } },
+        { "AQBWAAAACgAAAFYAAABL\x07", { Accepted, keyDownEv(kbAltV, kbLeftCtrl | kbLeftAlt, "") } },
+        { "AQBWAAAACgAAAAAAAABL\x07", { Ignored } }, // AltGr + V, UnicodeChar = 0
+        { "AQAMAAAAIgAAAAAAAABL\x07", { Ignored } }, // Alt + VK_CLEAR
     };
 
-    for (auto &testCase : testCases)
-    {
+    for (auto& testCase : testCases) {
         StrInputGetter in(testCase.input);
         GetChBuf buf(in);
         ParseResultEvent actual {};

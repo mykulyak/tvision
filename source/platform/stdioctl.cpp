@@ -1,28 +1,26 @@
 #define Uses_TPoint
 #include <tvision/tv.h>
 
-#include <internal/stdioctl.h>
-#include <internal/getenv.h>
 #include <initializer_list>
+#include <internal/getenv.h>
+#include <internal/stdioctl.h>
 
 #ifdef _TV_UNIX
 
-#include <unistd.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>
+#include <unistd.h>
 #if __has_include(<linux/kd.h>)
-#   include <linux/kd.h>
+#include <linux/kd.h>
 #endif
 
-namespace tvision
-{
+namespace tvision {
 
 StdioCtl::StdioCtl() noexcept
 {
-    if (getEnv<TStringView>("TVISION_USE_STDIO").empty())
-    {
-        for (int fd : {0, 1, 2})
-            if (auto *name = ::ttyname(fd))
+    if (getEnv<TStringView>("TVISION_USE_STDIO").empty()) {
+        for (int fd : { 0, 1, 2 })
+            if (auto* name = ::ttyname(fd))
                 if ((ttyfd = ::open(name, O_RDWR)) != -1)
                     break;
         // Last resort, although this may lead to 100% CPU usage because
@@ -31,9 +29,8 @@ StdioCtl::StdioCtl() noexcept
             ttyfd = ::open("/dev/tty", O_RDWR);
     }
 
-    if (ttyfd != -1)
-    {
-        for (auto &fd : fds)
+    if (ttyfd != -1) {
+        for (auto& fd : fds)
             fd = ttyfd;
         int ttyfd2 = dup(ttyfd);
         if (ttyfd2 == -1)
@@ -42,9 +39,7 @@ StdioCtl::StdioCtl() noexcept
         outfile = ::fdopen(ttyfd2, "w");
         fcntl(ttyfd, F_SETFD, FD_CLOEXEC);
         fcntl(ttyfd2, F_SETFD, FD_CLOEXEC);
-    }
-    else
-    {
+    } else {
         for (int i = 0; i < 2; ++i)
             fds[i] = i;
         infile = stdin;
@@ -54,30 +49,26 @@ StdioCtl::StdioCtl() noexcept
 
 StdioCtl::~StdioCtl()
 {
-    if (ttyfd != -1)
-    {
+    if (ttyfd != -1) {
         ::fclose(infile);
         ::fclose(outfile);
     }
 }
 
-void StdioCtl::write(const char *data, size_t bytes) const noexcept
+void StdioCtl::write(const char* data, size_t bytes) const noexcept
 {
     fflush(fout());
     size_t written = 0;
     int r;
-    while ( 0 <= (r = ::write(out(), data + written, bytes - written)) &&
-            (written += r) < bytes )
+    while (0 <= (r = ::write(out(), data + written, bytes - written)) && (written += r) < bytes)
         ;
 }
 
 TPoint StdioCtl::getSize() const noexcept
 {
     struct winsize w;
-    for (int fd : {in(), out()})
-    {
-        if (ioctl(fd, TIOCGWINSZ, &w) != -1)
-        {
+    for (int fd : { in(), out() }) {
+        if (ioctl(fd, TIOCGWINSZ, &w) != -1) {
             int env_col = getEnv<int>("COLUMNS", INT_MAX);
             int env_row = getEnv<int>("LINES", INT_MAX);
             return {
@@ -86,16 +77,16 @@ TPoint StdioCtl::getSize() const noexcept
             };
         }
     }
-    return {0, 0};
+    return { 0, 0 };
 }
 
 TPoint StdioCtl::getFontSize() const noexcept
 {
 #ifdef KDFONTOP
-    struct console_font_op cfo {};
+    struct console_font_op cfo { };
     cfo.op = KD_FONT_OP_GET;
     cfo.width = cfo.height = 32;
-    for (int fd : {in(), out()})
+    for (int fd : { in(), out() })
         if (ioctl(fd, KDFONTOP, &cfo) != -1)
             return {
                 max(cfo.width, 0),
@@ -103,13 +94,13 @@ TPoint StdioCtl::getFontSize() const noexcept
             };
 #endif
     struct winsize w;
-    for (int fd : {in(), out()})
+    for (int fd : { in(), out() })
         if (ioctl(fd, TIOCGWINSZ, &w) != -1)
             return {
                 w.ws_xpixel / max(w.ws_col, 1),
                 w.ws_ypixel / max(w.ws_row, 1),
             };
-    return {0, 0};
+    return { 0, 0 };
 }
 
 #ifdef __linux
@@ -118,8 +109,7 @@ bool StdioCtl::isLinuxConsole() const noexcept
 {
     // This is the same function used to get the Shift/Ctrl/Alt modifiers
     // on the console. It only succeeds if a console file descriptor is used.
-    for (int fd : {in(), out()})
-    {
+    for (int fd : { in(), out() }) {
         char subcode = 6;
         if (ioctl(fd, TIOCLINUX, &subcode) != -1)
             return true;
@@ -135,11 +125,9 @@ bool StdioCtl::isLinuxConsole() const noexcept
 
 #include <stdio.h>
 
-namespace tvision
-{
+namespace tvision {
 
-namespace stdioctl
-{
+namespace stdioctl {
 
     static bool isValid(HANDLE h)
     {
@@ -191,31 +179,29 @@ StdioCtl::StdioCtl() noexcept
     // we can free it when tearing down. If we don't, weird things may happen.
 
     using namespace stdioctl;
-    static constexpr struct { DWORD std; int index; } channels[] =
-    {
-        {STD_INPUT_HANDLE, input},
-        {STD_OUTPUT_HANDLE, startupOutput},
-        {STD_ERROR_HANDLE, startupOutput},
+    static constexpr struct {
+        DWORD std;
+        int index;
+    } channels[] = {
+        { STD_INPUT_HANDLE, input },
+        { STD_OUTPUT_HANDLE, startupOutput },
+        { STD_ERROR_HANDLE, startupOutput },
     };
     bool haveConsole = false;
-    for (const auto &c : channels)
-    {
+    for (const auto& c : channels) {
         HANDLE h = GetStdHandle(c.std);
-        if (isConsole(h))
-        {
+        if (isConsole(h)) {
             haveConsole = true;
             if (!isValid(cn[c.index].handle))
-                cn[c.index] = {h, false};
+                cn[c.index] = { h, false };
         }
     }
-    if (!haveConsole)
-    {
+    if (!haveConsole) {
         FreeConsole();
         AllocConsole();
         ownsConsole = true;
     }
-    if (!isValid(cn[input].handle))
-    {
+    if (!isValid(cn[input].handle)) {
         cn[input].handle = CreateFileW(
             L"CONIN$",
             GENERIC_READ | GENERIC_WRITE,
@@ -226,8 +212,7 @@ StdioCtl::StdioCtl() noexcept
             0);
         cn[input].owning = true;
     }
-    if (!isValid(cn[startupOutput].handle))
-    {
+    if (!isValid(cn[startupOutput].handle)) {
         cn[startupOutput].handle = CreateFileW(
             L"CONOUT$",
             GENERIC_READ | GENERIC_WRITE,
@@ -256,9 +241,8 @@ StdioCtl::StdioCtl() noexcept
         SetConsoleScreenBufferSize(cn[activeOutput].handle, sbInfo.dwSize);
     }
     SetConsoleActiveScreenBuffer(cn[activeOutput].handle);
-    for (auto &c : cn)
-        if (!isValid(c.handle))
-        {
+    for (auto& c : cn)
+        if (!isValid(c.handle)) {
             fputs("Error: cannot get a console.\n", stderr);
             exit(1);
         }
@@ -267,14 +251,14 @@ StdioCtl::StdioCtl() noexcept
 StdioCtl::~StdioCtl()
 {
     SetConsoleActiveScreenBuffer(cn[startupOutput].handle);
-    for (auto &c : cn)
+    for (auto& c : cn)
         if (c.owning)
             CloseHandle(c.handle);
     if (ownsConsole)
         FreeConsole();
 }
 
-void StdioCtl::write(const char *data, size_t bytes) const noexcept
+void StdioCtl::write(const char* data, size_t bytes) const noexcept
 {
     // Writing 0 bytes causes the cursor to become invisible for a short time
     // in old versions of the Windows console.
@@ -285,13 +269,13 @@ void StdioCtl::write(const char *data, size_t bytes) const noexcept
 TPoint StdioCtl::getSize() const noexcept
 {
     CONSOLE_SCREEN_BUFFER_INFO sbInfo;
-    auto &srWindow = sbInfo.srWindow;
+    auto& srWindow = sbInfo.srWindow;
     if (GetConsoleScreenBufferInfo(out(), &sbInfo))
         return {
             max(srWindow.Right - srWindow.Left + 1, 0),
             max(srWindow.Bottom - srWindow.Top + 1, 0),
         };
-    return {0, 0};
+    return { 0, 0 };
 }
 
 TPoint StdioCtl::getFontSize() const noexcept
@@ -302,7 +286,7 @@ TPoint StdioCtl::getFontSize() const noexcept
             fontInfo.dwFontSize.X,
             fontInfo.dwFontSize.Y,
         };
-    return {0, 0};
+    return { 0, 0 };
 }
 
 } // namespace tvision

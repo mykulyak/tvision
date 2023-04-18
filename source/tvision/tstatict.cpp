@@ -19,26 +19,26 @@
 #define Uses_TText
 #include <tvision/tv.h>
 
-#if !defined( __CTYPE_H )
+#if !defined(__CTYPE_H)
 #include <ctype.h>
-#endif  // __CTYPE_H
+#endif // __CTYPE_H
 
-#if !defined( __STRING_H )
+#if !defined(__STRING_H)
 #include <string.h>
-#endif  // __STRING_H
+#endif // __STRING_H
 
 #define cpStaticText "\x06"
 
-TStaticText::TStaticText( const TRect& bounds, TStringView aText ) noexcept :
-    TView( bounds ),
-    text( newStr( aText ) )
+TStaticText::TStaticText(const TRect& bounds, TStringView aText) noexcept
+    : TView(bounds)
+    , text(newStr(aText))
 {
     growMode |= gfFixed;
 }
 
 TStaticText::~TStaticText()
 {
-    delete[] (char *)text;
+    delete[] (char*)text;
 }
 
 void TStaticText::draw()
@@ -55,88 +55,83 @@ void TStaticText::draw()
     p = 0;
     y = 0;
     center = False;
-    while (y < size.y)
-        {
+    while (y < size.y) {
         b.moveChar(0, ' ', color, size.x);
-        if (p < l)
-            {
-            if (s[p] == 3)
-                {
+        if (p < l) {
+            if (s[p] == 3) {
                 center = True;
                 ++p;
-                }
+            }
             i = p;
-            int last = i + TText::scroll(TStringView(&s[i], l-i), size.x, False);
+            int last = i + TText::scroll(TStringView(&s[i], l - i), size.x, False);
             do {
                 j = p;
                 while ((p < l) && (s[p] == ' '))
                     ++p;
                 while ((p < l) && (s[p] != ' ') && (s[p] != '\n'))
-                    p += TText::next(TStringView(&s[p], l-p));
-                } while ((p < l) && (p < last) && (s[p] != '\n'));
-            if (p > last)
-                {
+                    p += TText::next(TStringView(&s[p], l - p));
+            } while ((p < l) && (p < last) && (s[p] != '\n'));
+            if (p > last) {
                 if (j > i)
                     p = j;
                 else
                     p = last;
-                }
-            int width = strwidth(TStringView(&s[i], p-i));
+            }
+            int width = strwidth(TStringView(&s[i], p - i));
             if (center == True)
-                j = (size.x - width) / 2 ;
+                j = (size.x - width) / 2;
             else
                 j = 0;
-            b.moveStr(j, TStringView(&s[i], l-i), color, (ushort) width);
+            b.moveStr(j, TStringView(&s[i], l - i), color, (ushort)width);
             while ((p < l) && (s[p] == ' '))
                 p++;
-            if ((p < l) && (s[p] == '\n'))
-                {
+            if ((p < l) && (s[p] == '\n')) {
                 center = False;
                 p++;
-                }
             }
-        writeLine(0, y++, size.x, 1, b);
         }
+        writeLine(0, y++, size.x, 1, b);
+    }
 }
 
 TPalette& TStaticText::getPalette() const
 {
-    static TPalette palette( cpStaticText, sizeof( cpStaticText )-1 );
+    static TPalette palette(cpStaticText, sizeof(cpStaticText) - 1);
     return palette;
 }
 
-void TStaticText::getText( char *s )
+void TStaticText::getText(char* s)
 {
-    if( text == 0 )
+    if (text == 0)
         *s = EOS;
-    else
-    {
-        strncpy( s, text, 255 );
+    else {
+        strncpy(s, text, 255);
         s[255] = EOS;
     }
 }
 
 #if !defined(NO_STREAMABLE)
 
-void TStaticText::write( opstream& os )
+void TStaticText::write(opstream& os)
 {
-    TView::write( os );
-    os.writeString( text );
+    TView::write(os);
+    os.writeString(text);
 }
 
-void *TStaticText::read( ipstream& is )
+void* TStaticText::read(ipstream& is)
 {
-    TView::read( is );
+    TView::read(is);
     text = is.readString();
     return this;
 }
 
-TStreamable *TStaticText::build()
+TStreamable* TStaticText::build()
 {
-    return new TStaticText( streamableInit );
+    return new TStaticText(streamableInit);
 }
 
-TStaticText::TStaticText( StreamableInit ) noexcept : TView( streamableInit )
+TStaticText::TStaticText(StreamableInit) noexcept
+    : TView(streamableInit)
 {
 }
 

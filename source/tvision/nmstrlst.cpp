@@ -15,5 +15,5 @@
 #define Uses_TStringList
 #include <tvision/tv.h>
 
-const char * const  TStringList::name = "TStringList";
+const char* const TStringList::name = "TStringList";
 #endif

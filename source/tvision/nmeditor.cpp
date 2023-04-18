@@ -20,10 +20,9 @@
 #define Uses_TEditWindow
 #include <tvision/tv.h>
 
-const char * const  TIndicator::name = "TIndicator";
-const char * const  TEditor::name = "TEditor";
-const char * const  TMemo::name = "TMemo";
-const char * const  TFileEditor::name = "TFileEditor";
-const char * const  TEditWindow::name = "TEditWindow";
+const char* const TIndicator::name = "TIndicator";
+const char* const TEditor::name = "TEditor";
+const char* const TMemo::name = "TMemo";
+const char* const TFileEditor::name = "TFileEditor";
+const char* const TEditWindow::name = "TEditWindow";
 #endif
-

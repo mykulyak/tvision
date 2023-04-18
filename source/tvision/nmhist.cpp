@@ -15,5 +15,5 @@
 #define Uses_THistory
 #include <tvision/tv.h>
 
-const char * const  THistory::name = "THistory";
+const char* const THistory::name = "THistory";
 #endif

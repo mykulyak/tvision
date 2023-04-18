@@ -12,7 +12,7 @@ static TTimePoint mockCurrentTime()
 }
 
 static int timeouts;
-static void handleTimeout(TTimerId, void *)
+static void handleTimeout(TTimerId, void*)
 {
     ++timeouts;
 }
@@ -172,7 +172,7 @@ TEST(TTimerQueue, RemovingInvalidTimersShouldNotProduceErrors)
     timerQueue.killTimer(id2);
     timerQueue.killTimer(id2);
     timerQueue.killTimer(nullptr);
-    timerQueue.killTimer((TTimerId) 3);
+    timerQueue.killTimer((TTimerId)3);
 
     currentTime = 1;
     int32_t nextTimeout = timerQueue.timeUntilTimeout();
@@ -197,11 +197,11 @@ TEST(TTimerQueue, ShouldHandleZeroTimedTimersProperly)
     EXPECT_EQ(timeouts, 3);
 }
 
-static void nestedHandleTimeout(TTimerId id, void *args)
+static void nestedHandleTimeout(TTimerId id, void* args)
 {
     ++timeouts;
     currentTime = 1500;
-    (*(TTimerQueue *) args).collectTimeouts(handleTimeout, nullptr);
+    (*(TTimerQueue*)args).collectTimeouts(handleTimeout, nullptr);
 }
 
 TEST(TTimerQueue, ShouldCollectTimeoutsWithNestedInvocation)

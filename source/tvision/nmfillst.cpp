@@ -15,5 +15,5 @@
 #define Uses_TFileList
 #include <tvision/tv.h>
 
-const char * const  TFileList::name = "TFileList";
+const char* const TFileList::name = "TFileList";
 #endif

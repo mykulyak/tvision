@@ -17,59 +17,56 @@
 #define Uses_TStreamable
 #define Uses_MsgBox
 #include <tvision/tv.h>
-__link( RInputLine )
+__link(RInputLine)
 
-#if !defined( __FIELDS_H )
+#if !defined(__FIELDS_H)
 #include "fields.h"
-#endif  // __FIELDS_H
+#endif // __FIELDS_H
 
-#if !defined( __STRING_H )
+#if !defined(__STRING_H)
 #include <string.h>
-#endif  // __STRING_H
+#endif // __STRING_H
 
-#if !defined( __STDLIB_H )
+#if !defined(__STDLIB_H)
 #include <stdlib.h>
-#endif  // __STDLIB_H
+#endif // __STDLIB_H
 
-#if !defined( __STRSTREAM_H )
+#if !defined(__STRSTREAM_H)
 #include <strstrea.h>
-#endif  // __STRSTREAM_H
+#endif // __STRSTREAM_H
 
+    // TKeyInputLine
 
-// TKeyInputLine
+    const char* const TKeyInputLine::name
+    = "TKeyInputLine";
 
-const char *const TKeyInputLine::name = "TKeyInputLine";
-
-TStreamable *TKeyInputLine::build()
+TStreamable* TKeyInputLine::build()
 {
-    return new TKeyInputLine( streamableInit );
+    return new TKeyInputLine(streamableInit);
 }
 
-TKeyInputLine::TKeyInputLine( const TRect& bounds, int aMaxLen ) :
-    TInputLine( bounds, aMaxLen )
+TKeyInputLine::TKeyInputLine(const TRect& bounds, int aMaxLen)
+    : TInputLine(bounds, aMaxLen)
 {
 }
 
-TStreamableClass RKeyInputLine( TKeyInputLine::name,
-                                  TKeyInputLine::build,
-                                  __DELTA(TKeyInputLine)
-                                );
+TStreamableClass RKeyInputLine(TKeyInputLine::name,
+    TKeyInputLine::build,
+    __DELTA(TKeyInputLine));
 
-
-Boolean TKeyInputLine::valid( ushort command )
+Boolean TKeyInputLine::valid(ushort command)
 {
 
     Boolean ok;
 
     ok = True;
-    if ( ( command != cmCancel) && ( command != cmValid ) )
-        if ( strlen( data ) == 0 )
-            {
+    if ((command != cmCancel) && (command != cmValid))
+        if (strlen(data) == 0) {
             select();
             messageBox("This field cannot be empty.", mfError | mfOKButton);
             ok = False;
-            }
-    if ( ok )
+        }
+    if (ok)
         return TInputLine::valid(command);
     else
         return False;
@@ -77,63 +74,59 @@ Boolean TKeyInputLine::valid( ushort command )
 
 // TNumInputLine
 
-const char * const TNumInputLine::name = "TNumInputLine";
+const char* const TNumInputLine::name = "TNumInputLine";
 
-void TNumInputLine::write( opstream& os )
+void TNumInputLine::write(opstream& os)
 {
-    TInputLine::write( os );
+    TInputLine::write(os);
     os << min;
     os << max;
-    
 }
 
-void *TNumInputLine::read( ipstream& is )
+void* TNumInputLine::read(ipstream& is)
 {
-    TInputLine::read( is );
+    TInputLine::read(is);
     is >> min;
     is >> max;
     return this;
 }
 
-TStreamable *TNumInputLine::build()
+TStreamable* TNumInputLine::build()
 {
-    return new TNumInputLine( streamableInit );
+    return new TNumInputLine(streamableInit);
 }
 
+TStreamableClass RNumInputLine(TNumInputLine::name,
+    TNumInputLine::build,
+    __DELTA(TNumInputLine));
 
-TStreamableClass RNumInputLine( TNumInputLine::name,
-                                  TNumInputLine::build,
-                                  __DELTA(TNumInputLine)
-                                );
-
-TNumInputLine::TNumInputLine( const TRect& bounds,
-                              int aMaxLen,
-                              int32_t aMin,
-                              int32_t aMax ) :
-    TInputLine(bounds, aMaxLen)
+TNumInputLine::TNumInputLine(const TRect& bounds,
+    int aMaxLen,
+    int32_t aMin,
+    int32_t aMax)
+    : TInputLine(bounds, aMaxLen)
 {
     min = aMin;
     max = aMax;
 }
-
 
 ushort TNumInputLine::dataSize()
 {
     return sizeof(int32_t);
 }
 
-void TNumInputLine::getData( void *rec )
+void TNumInputLine::getData(void* rec)
 {
-    *(int32_t *)rec = atol(data);
+    *(int32_t*)rec = atol(data);
 }
 
-void TNumInputLine::setData( void *rec )
+void TNumInputLine::setData(void* rec)
 {
-    ltoa(*(int32_t *)rec, data, 10);
+    ltoa(*(int32_t*)rec, data, 10);
     selectAll(True);
 }
 
-Boolean TNumInputLine::valid( ushort command )
+Boolean TNumInputLine::valid(ushort command)
 {
     int32_t value;
     Boolean ok;
@@ -141,20 +134,18 @@ Boolean TNumInputLine::valid( ushort command )
     ostrstream os(msg, 80);
 
     ok = True;
-    if ( (command != cmCancel) && (command != cmValid) )
-        {
+    if ((command != cmCancel) && (command != cmValid)) {
         if (strlen(data) == 0)
-            strcpy(data,"0");
+            strcpy(data, "0");
         value = atol(data);
-        if ( (value == 0) || (value < min) || (value > max) )
-            {
+        if ((value == 0) || (value < min) || (value > max)) {
             select();
             os << "Number must be from " << min << " to " << max << "." << ends;
             messageBox(os.str(), mfError + mfOKButton);
             selectAll(True);
             ok = False;
-            }
         }
+    }
     if (ok)
         return TInputLine::valid(command);
     else

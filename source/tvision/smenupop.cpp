@@ -16,8 +16,7 @@
 #define Uses_TStreamableClass
 #include <tvision/tv.h>
 
-TStreamableClass RMenuPopup( TMenuPopup::name,
-                           TMenuPopup::build,
-                           __DELTA(TMenuPopup)
-                         );
+TStreamableClass RMenuPopup(TMenuPopup::name,
+    TMenuPopup::build,
+    __DELTA(TMenuPopup));
 #endif

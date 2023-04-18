@@ -31,41 +31,41 @@
 #define Uses_TScreen
 #include <tvision/tv.h>
 
-#if !defined( __HELP_H )
+#if !defined(__HELP_H)
 #include "tvision/help.h"
-#endif  // __HELP_H
+#endif // __HELP_H
 
-#if !defined( __UTIL_H )
+#if !defined(__UTIL_H)
 #include "tvision/util.h"
-#endif  // __UTIL_H
+#endif // __UTIL_H
 
-#if !defined( __STRING_H )
+#if !defined(__STRING_H)
 #include <string.h>
-#endif  // __STRING_H
+#endif // __STRING_H
 
-#if !defined( __LIMITS_H )
+#if !defined(__LIMITS_H)
 #include <limits.h>
-#endif  // __LIMITS_H
+#endif // __LIMITS_H
 
-#if !defined( __STAT_H )
+#if !defined(__STAT_H)
 #include <sys/stat.h>
-#endif  // __STAT_H
+#endif // __STAT_H
 
-#if !defined( __CTYPE_H )
+#if !defined(__CTYPE_H)
 #include <ctype.h>
-#endif  // __CTYPE_H
+#endif // __CTYPE_H
 
-#if !defined( __MALLOC_H )
+#if !defined(__MALLOC_H)
 #include <malloc.h>
-#endif  // __MALLOC_H
+#endif // __MALLOC_H
 
-#pragma warn -dsz
+#pragma warn - dsz
 
 // THelpViewer
 
-THelpViewer::THelpViewer( const TRect& bounds, TScrollBar* aHScrollBar,
-    TScrollBar* aVScrollBar, THelpFile *aHelpFile, ushort context ) noexcept
-    : TScroller( bounds, aHScrollBar, aVScrollBar )
+THelpViewer::THelpViewer(const TRect& bounds, TScrollBar* aHScrollBar,
+    TScrollBar* aVScrollBar, THelpFile* aHelpFile, ushort context) noexcept
+    : TScroller(bounds, aHScrollBar, aVScrollBar)
 {
     options = (options | ofSelectable);
     growMode = gfGrowHiX | gfGrowHiY;
@@ -82,7 +82,7 @@ THelpViewer::~THelpViewer()
     delete topic;
 }
 
-void THelpViewer::changeBounds( const TRect& bounds )
+void THelpViewer::changeBounds(const TRect& bounds)
 {
     TScroller::changeBounds(bounds);
     topic->setWidth(size.x);
@@ -107,57 +107,49 @@ void THelpViewer::draw()
     keyPoint.y = 0;
     keyLength = 0;
     topic->setWidth(size.x);
-    if (topic->getNumCrossRefs() > 0)
-        {
-        do
-            {
+    if (topic->getNumCrossRefs() > 0) {
+        do {
             topic->getCrossRef(keyCount, keyPoint, keyLength, keyRef);
             ++keyCount;
-            } while ( (keyCount < topic->getNumCrossRefs()) &&
-                      (keyPoint.y <= delta.y));
-        }
-    for (i = 1; i <= size.y; ++i)
-        {
+        } while ((keyCount < topic->getNumCrossRefs()) && (keyPoint.y <= delta.y));
+    }
+    for (i = 1; i <= size.y; ++i) {
         b.moveChar(0, ' ', normal, size.x);
         TStringView line = topic->getLine(i + delta.y);
         if (strwidth(line) > delta.x)
             b.moveStr(0, line, normal, size.x, delta.x);
         else
             b.moveStr(0, "", normal);
-        while (i + delta.y == keyPoint.y)
-            {
+        while (i + delta.y == keyPoint.y) {
             l = keyLength;
-            if (keyPoint.x < delta.x )
-                {
+            if (keyPoint.x < delta.x) {
                 l -= (delta.x - keyPoint.x);
                 keyPoint.x = delta.x;
-                }
+            }
             if (keyCount == selected)
                 c = selKeyword;
             else
                 c = keyword;
-            for(j = 0; j < l; ++j)
-                b.putAttribute((keyPoint.x - delta.x + j),c);
-            if (keyCount < topic->getNumCrossRefs())
-                {
+            for (j = 0; j < l; ++j)
+                b.putAttribute((keyPoint.x - delta.x + j), c);
+            if (keyCount < topic->getNumCrossRefs()) {
                 topic->getCrossRef(keyCount, keyPoint, keyLength, keyRef);
                 keyCount++;
-                }
-            else
+            } else
                 keyPoint.y = 0;
-            }
-        writeLine(0, i-1, size.x, 1, b);
         }
+        writeLine(0, i - 1, size.x, 1, b);
+    }
 }
 
 TPalette& THelpViewer::getPalette() const
 {
-    static TPalette palette( cHelpViewer, sizeof( cHelpViewer)-1 );
+    static TPalette palette(cHelpViewer, sizeof(cHelpViewer) - 1);
     return palette;
 }
 
-void THelpViewer::makeSelectVisible( int selected, TPoint& keyPoint,
-         uchar& keyLength, int& keyRef )
+void THelpViewer::makeSelectVisible(int selected, TPoint& keyPoint,
+    uchar& keyLength, int& keyRef)
 {
     TPoint d;
 
@@ -168,14 +160,14 @@ void THelpViewer::makeSelectVisible( int selected, TPoint& keyPoint,
     if (keyPoint.x > d.x + size.x)
         d.x = keyPoint.x - size.x;
     if (keyPoint.y <= d.y)
-        d.y = keyPoint.y-1;
+        d.y = keyPoint.y - 1;
     if (keyPoint.y > d.y + size.y)
         d.y = keyPoint.y - size.y;
     if ((d.x != delta.x) || (d.y != delta.y))
-         scrollTo(d.x, d.y);
+        scrollTo(d.x, d.y);
 }
 
-void THelpViewer::switchToTopic( int keyRef )
+void THelpViewer::switchToTopic(int keyRef)
 {
     if (topic != 0)
         delete topic;
@@ -187,7 +179,7 @@ void THelpViewer::switchToTopic( int keyRef )
     drawView();
 }
 
-void THelpViewer::handleEvent( TEvent& event )
+void THelpViewer::handleEvent(TEvent& event)
 {
 
     TPoint keyPoint, mouse;
@@ -195,96 +187,88 @@ void THelpViewer::handleEvent( TEvent& event )
     int keyRef;
     int keyCount;
 
-
     TScroller::handleEvent(event);
-    switch (event.what)
-        {
+    switch (event.what) {
 
-        case evKeyDown:
-            switch (event.keyDown.keyCode)
-                {
-                case kbTab:
-                    ++selected;
-                    if (selected > topic->getNumCrossRefs())
-                        selected = 1;
-                    if ( topic->getNumCrossRefs() != 0 )
-                        makeSelectVisible(selected-1,keyPoint,keyLength,keyRef);
-                    break;
-                case kbShiftTab:
-                    --selected;
-                    if (selected == 0)
-                        selected = topic->getNumCrossRefs();
-                    if ( topic->getNumCrossRefs() != 0 )
-                        makeSelectVisible(selected-1,keyPoint,keyLength,keyRef);
-                    break;
-                case kbEnter:
-                    if (selected <= topic->getNumCrossRefs())
-                        {
-                        topic->getCrossRef(selected-1, keyPoint, keyLength, keyRef);
-                        switchToTopic(keyRef);
-                        }
-                    break;
-                case kbEsc:
-                    event.what = evCommand;
-                    event.message.command = cmClose;
-                    putEvent(event);
-                    break;
-                default:
-                    return;
-                }
-            drawView();
-            clearEvent(event);
+    case evKeyDown:
+        switch (event.keyDown.keyCode) {
+        case kbTab:
+            ++selected;
+            if (selected > topic->getNumCrossRefs())
+                selected = 1;
+            if (topic->getNumCrossRefs() != 0)
+                makeSelectVisible(selected - 1, keyPoint, keyLength, keyRef);
             break;
-
-        case evMouseDown:
-            mouse = makeLocal(event.mouse.where);
-            mouse.x += delta.x;
-            mouse.y += delta.y;
-            keyCount = 0;
-
-            do
-            {
-                ++keyCount;
-                if (keyCount > topic->getNumCrossRefs())
-                    return;
-                topic->getCrossRef(keyCount-1, keyPoint, keyLength, keyRef);
-            } while (!((keyPoint.y == mouse.y+1) && (mouse.x >= keyPoint.x) &&
-                  (mouse.x < keyPoint.x + keyLength)));
-            selected = keyCount;
-            drawView();
-            switchToTopic(keyRef);
-            clearEvent(event);
+        case kbShiftTab:
+            --selected;
+            if (selected == 0)
+                selected = topic->getNumCrossRefs();
+            if (topic->getNumCrossRefs() != 0)
+                makeSelectVisible(selected - 1, keyPoint, keyLength, keyRef);
             break;
-
-        case evCommand:
-            if ((event.message.command == cmClose) && ((owner->state & sfModal) != 0))
-                {
-                endModal(cmClose);
-                clearEvent(event);
-                }
+        case kbEnter:
+            if (selected <= topic->getNumCrossRefs()) {
+                topic->getCrossRef(selected - 1, keyPoint, keyLength, keyRef);
+                switchToTopic(keyRef);
+            }
             break;
+        case kbEsc:
+            event.what = evCommand;
+            event.message.command = cmClose;
+            putEvent(event);
+            break;
+        default:
+            return;
         }
+        drawView();
+        clearEvent(event);
+        break;
+
+    case evMouseDown:
+        mouse = makeLocal(event.mouse.where);
+        mouse.x += delta.x;
+        mouse.y += delta.y;
+        keyCount = 0;
+
+        do {
+            ++keyCount;
+            if (keyCount > topic->getNumCrossRefs())
+                return;
+            topic->getCrossRef(keyCount - 1, keyPoint, keyLength, keyRef);
+        } while (!((keyPoint.y == mouse.y + 1) && (mouse.x >= keyPoint.x) && (mouse.x < keyPoint.x + keyLength)));
+        selected = keyCount;
+        drawView();
+        switchToTopic(keyRef);
+        clearEvent(event);
+        break;
+
+    case evCommand:
+        if ((event.message.command == cmClose) && ((owner->state & sfModal) != 0)) {
+            endModal(cmClose);
+            clearEvent(event);
+        }
+        break;
+    }
 }
 
 // THelpWindow
 
-THelpWindow::THelpWindow( THelpFile *hFile, ushort context ) noexcept :
-       TWindowInit( &THelpWindow::initFrame ),
-       TWindow( TRect(0,0,50,18), helpWinTitle, wnNoNumber )
+THelpWindow::THelpWindow(THelpFile* hFile, ushort context) noexcept
+    : TWindowInit(&THelpWindow::initFrame)
+    , TWindow(TRect(0, 0, 50, 18), helpWinTitle, wnNoNumber)
 {
     TRect r(0, 0, 50, 18);
     options = (options | ofCentered);
-    r.grow(-2,-1);
-    insert(new THelpViewer (r,
-      standardScrollBar(sbHorizontal | sbHandleKeyboard),
-      standardScrollBar(sbVertical | sbHandleKeyboard), hFile, context));
+    r.grow(-2, -1);
+    insert(new THelpViewer(r,
+        standardScrollBar(sbHorizontal | sbHandleKeyboard),
+        standardScrollBar(sbVertical | sbHandleKeyboard), hFile, context));
 }
 
 TPalette& THelpWindow::getPalette() const
 {
-    static TPalette palette( cHelpWindow, sizeof(cHelpWindow)-1 );
+    static TPalette palette(cHelpWindow, sizeof(cHelpWindow) - 1);
     return palette;
 }
 
-#pragma warn .dsz
-
+#pragma warn.dsz

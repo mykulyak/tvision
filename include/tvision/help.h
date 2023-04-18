@@ -13,7 +13,7 @@
  *
  */
 
-#if !defined( __HELP_H )
+#if !defined(__HELP_H)
 #define __HELP_H
 
 #define Uses_TStreamable
@@ -33,42 +33,37 @@
 
 // THelpViewer
 
-class THelpViewer : public TScroller
-{
+class THelpViewer : public TScroller {
 public:
-
-    THelpViewer( const TRect&, TScrollBar*, TScrollBar*, THelpFile*, ushort ) noexcept;
+    THelpViewer(const TRect&, TScrollBar*, TScrollBar*, THelpFile*, ushort) noexcept;
     ~THelpViewer();
 
-    virtual void changeBounds( const TRect& );
+    virtual void changeBounds(const TRect&);
     virtual void draw();
     virtual TPalette& getPalette() const;
-    virtual void handleEvent( TEvent& );
-    void makeSelectVisible( int, TPoint&, uchar&, int& );
-    void switchToTopic( int );
+    virtual void handleEvent(TEvent&);
+    void makeSelectVisible(int, TPoint&, uchar&, int&);
+    void switchToTopic(int);
 
-    THelpFile *hFile;
-    THelpTopic *topic;
+    THelpFile* hFile;
+    THelpTopic* topic;
     int selected;
 };
 
 // THelpWindow
 
-class THelpWindow : public TWindow
-{
+class THelpWindow : public TWindow {
 
-    static const char *  helpWinTitle;
+    static const char* helpWinTitle;
 
 public:
-
-    THelpWindow( THelpFile*, ushort ) noexcept;
+    THelpWindow(THelpFile*, ushort) noexcept;
 
     virtual TPalette& getPalette() const;
 };
 
-
-extern void notAssigned( opstream& s, int value );
+extern void notAssigned(opstream& s, int value);
 
 extern TCrossRefHandler crossRefHandler;
 
-#endif  // __HELP_H
+#endif // __HELP_H

@@ -1,14 +1,13 @@
 #include <internal/cursor.h>
 
-namespace tvision
-{
+namespace tvision {
 
-void ReverseScreenCursor::draw(TColorAttr &attr) const noexcept
+void ReverseScreenCursor::draw(TColorAttr& attr) const noexcept
 {
     attr = reverseAttribute(attr);
 }
 
-void NegativeScreenCursor::draw(TColorAttr &attr) const noexcept
+void NegativeScreenCursor::draw(TColorAttr& attr) const noexcept
 {
     auto fg = ::getFore(attr),
          bg = ::getBack(attr);

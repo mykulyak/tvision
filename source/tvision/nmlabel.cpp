@@ -15,5 +15,5 @@
 #define Uses_TLabel
 #include <tvision/tv.h>
 
-const char * const  TLabel::name = "TLabel";
+const char* const TLabel::name = "TLabel";
 #endif

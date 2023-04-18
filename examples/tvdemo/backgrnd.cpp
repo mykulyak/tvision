@@ -3,15 +3,15 @@
 
 #include "backgrnd.h"
 
-TChBackground::TChBackground(TBackground *b) :
-    TWindowInit( &TChBackground::initFrame ),
-    TDialog(TRect(0, 0, 29, 9), 0),
-    background(b)
+TChBackground::TChBackground(TBackground* b)
+    : TWindowInit(&TChBackground::initFrame)
+    , TDialog(TRect(0, 0, 29, 9), 0)
+    , background(b)
 {
     // Ideally, we would show an ASCII table and let the user choose from there.
     TRect r = getExtent();
     r.move((TProgram::deskTop->size.x - r.b.x) / 2,
-           (TProgram::deskTop->size.y - r.b.y) / 2);
+        (TProgram::deskTop->size.y - r.b.y) / 2);
     changeBounds(r);
     input = new TInputLine(TRect(4, 5, 7, 6), 1, 0, ilMaxChars);
     insert(input);
@@ -23,13 +23,10 @@ TChBackground::TChBackground(TBackground *b) :
 
 Boolean TChBackground::valid(ushort command)
 {
-    if (TDialog::valid(command))
-    {
-        if (background && command == cmOK)
-        {
+    if (TDialog::valid(command)) {
+        if (background && command == cmOK) {
             char pattern = TText::toCodePage(input->data);
-            if (pattern != '\0')
-            {
+            if (pattern != '\0') {
                 background->pattern = pattern;
                 background->drawView();
             }

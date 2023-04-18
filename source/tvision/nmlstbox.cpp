@@ -15,5 +15,5 @@
 #define Uses_TListBox
 #include <tvision/tv.h>
 
-const char * const  TListBox::name = "TListBox";
+const char* const TListBox::name = "TListBox";
 #endif

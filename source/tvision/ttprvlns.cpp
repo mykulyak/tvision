@@ -15,7 +15,7 @@
 #define Uses_TTerminal
 #include <tvision/tv.h>
 
-static Boolean backwardsFindLF( const char *buffer, ushort &p, ushort count )
+static Boolean backwardsFindLF(const char* buffer, ushort& p, ushort count)
 {
     ushort pos = p;
     while (count--)
@@ -24,15 +24,13 @@ static Boolean backwardsFindLF( const char *buffer, ushort &p, ushort count )
     return p = pos, False;
 }
 
-ushort TTerminal::prevLines( ushort pos, ushort lines )
+ushort TTerminal::prevLines(ushort pos, ushort lines)
 {
-    if (lines != 0)
-    {
+    if (lines != 0) {
         if (pos == queBack)
             return queBack;
         bufDec(pos);
-        while (lines > 0)
-        {
+        while (lines > 0) {
             // TTerminal uses a circular buffer. 'count' here measures how
             // many bytes can be read before reaching the 'queue back'
             // or the beginning of the buffer.

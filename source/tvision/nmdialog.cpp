@@ -15,5 +15,5 @@
 #define Uses_TDialog
 #include <tvision/tv.h>
 
-const char * const  TDialog::name = "TDialog";
+const char* const TDialog::name = "TDialog";
 #endif

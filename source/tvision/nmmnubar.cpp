@@ -15,5 +15,5 @@
 #define Uses_TMenuBar
 #include <tvision/tv.h>
 
-const char * const  TMenuBar::name = "TMenuBar";
+const char* const TMenuBar::name = "TMenuBar";
 #endif

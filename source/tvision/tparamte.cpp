@@ -17,80 +17,81 @@
 #define Uses_opstream
 #include <tvision/tv.h>
 
-#if !defined( __STDIO_H )
+#if !defined(__STDIO_H)
 #include <stdio.h>
-#endif  // __STDIO_H
+#endif // __STDIO_H
 
-#if !defined( __STDARG_H )
+#if !defined(__STDARG_H)
 #include <stdarg.h>
-#endif  // __STDARG_H
+#endif // __STDARG_H
 
-#if !defined( __STRING_H )
+#if !defined(__STRING_H)
 #include <string.h>
-#endif  // __STRING_H
+#endif // __STRING_H
 
-TParamText::TParamText( const TRect& bounds ) noexcept :
-    TStaticText(bounds, 0 ),
-    str( new char [256] )
+TParamText::TParamText(const TRect& bounds) noexcept
+    : TStaticText(bounds, 0)
+    , str(new char[256])
 {
     str[0] = EOS;
 }
 
 TParamText::~TParamText()
 {
-    delete[] (char*) str;
+    delete[] (char*)str;
 }
 
-void TParamText::getText( char *s )
+void TParamText::getText(char* s)
 {
-    if( str != 0 )
-        strcpy( s, str );
+    if (str != 0)
+        strcpy(s, str);
     else
         *s = EOS;
 }
 
 int TParamText::getTextLen()
 {
-    return (str != 0) ? strlen( str ) : 0;
+    return (str != 0) ? strlen(str) : 0;
 }
 
-void TParamText::setText( const char *fmt, ... )
+void TParamText::setText(const char* fmt, ...)
 {
     va_list ap;
 
-    va_start( ap, fmt );
+    va_start(ap, fmt);
 #ifdef __BORLANDC__
-    vsprintf( str, fmt, ap );
+    vsprintf(str, fmt, ap);
 #else
-    vsnprintf( str, 256, fmt, ap );
+    vsnprintf(str, 256, fmt, ap);
 #endif
-    va_end( ap );
+    va_end(ap);
 
     drawView();
 }
 
 #if !defined(NO_STREAMABLE)
 
-void TParamText::write( opstream& os )
+void TParamText::write(opstream& os)
 {
-    TStaticText::write( os );
+    TStaticText::write(os);
     os.writeString(str);
 }
 
-void *TParamText::read( ipstream& is )
+void* TParamText::read(ipstream& is)
 {
-    TStaticText::read( is );
-    str = new char [256];
+    TStaticText::read(is);
+    str = new char[256];
     is.readString(str, 256);
     return this;
 }
 
-TStreamable *TParamText::build()
+TStreamable* TParamText::build()
 {
-    return new TParamText( streamableInit );
+    return new TParamText(streamableInit);
 }
 
-TParamText::TParamText( StreamableInit ) noexcept : TStaticText( streamableInit )
+TParamText::TParamText(StreamableInit) noexcept
+    : TStaticText(streamableInit)
 {
 }
 

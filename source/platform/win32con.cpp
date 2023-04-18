@@ -1,18 +1,17 @@
 #define Uses_TEvent
 #define Uses_TKeys
 #define Uses_THardwareInfo
-#include <tvision/tv.h>
-#include <internal/win32con.h>
-#include <internal/stdioctl.h>
-#include <internal/winwidth.h>
-#include <internal/codepage.h>
 #include <internal/ansidisp.h>
+#include <internal/codepage.h>
+#include <internal/stdioctl.h>
 #include <internal/terminal.h>
 #include <internal/utf8.h>
+#include <internal/win32con.h>
+#include <internal/winwidth.h>
 #include <locale.h>
+#include <tvision/tv.h>
 
-namespace tvision
-{
+namespace tvision {
 
 #ifdef _WIN32
 
@@ -21,16 +20,16 @@ static bool isWine() noexcept
     return GetProcAddress(GetModuleHandleW(L"ntdll"), "wine_get_version");
 }
 
-Win32ConsoleStrategy &Win32ConsoleStrategy::create() noexcept
+Win32ConsoleStrategy& Win32ConsoleStrategy::create() noexcept
 {
-    auto &io = *new StdioCtl;
+    auto& io = *new StdioCtl;
     // Set the input mode.
     {
         DWORD consoleMode = 0;
         GetConsoleMode(io.in(), &consoleMode);
         consoleMode |= ENABLE_WINDOW_INPUT; // Report changes in buffer size
         consoleMode &= ~ENABLE_PROCESSED_INPUT; // Report CTRL+C and SHIFT+Arrow events.
-        consoleMode |= ENABLE_EXTENDED_FLAGS;   /* Disable the Quick Edit mode, */
+        consoleMode |= ENABLE_EXTENDED_FLAGS; /* Disable the Quick Edit mode, */
         consoleMode &= ~ENABLE_QUICK_EDIT_MODE; /* which inhibits the mouse.    */
         SetConsoleMode(io.in(), consoleMode);
     }
@@ -47,8 +46,7 @@ Win32ConsoleStrategy &Win32ConsoleStrategy::create() noexcept
             // it does not return error when attempting to enable it, so we
             // have to handle this case separately.
             supportsVT = false;
-        else
-        {
+        else {
             consoleMode |= DISABLE_NEWLINE_AUTO_RETURN; // Do not do CR on LF.
             consoleMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING; // Allow ANSI escape sequences.
             SetConsoleMode(io.out(), consoleMode);
@@ -63,14 +61,12 @@ Win32ConsoleStrategy &Win32ConsoleStrategy::create() noexcept
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
     setlocale(LC_ALL, ".utf8"); // Note that this must be done again after SetConsoleCP().
-    if (!supportsVT)
-    {
+    if (!supportsVT) {
         // Disable bitmap font in legacy console because multibyte characters
         // are not displayed correctly.
         CONSOLE_FONT_INFOEX fontInfo {};
         fontInfo.cbSize = sizeof(fontInfo);
-        auto isBitmap = [](UINT family)
-        {
+        auto isBitmap = [](UINT family) {
             // https://docs.microsoft.com/en-us/windows/console/console-font-infoex
             // "FontFamily: see the description of the tmPitchAndFamily member
             //  of the TEXTMETRIC structure."
@@ -78,17 +74,15 @@ Win32ConsoleStrategy &Win32ConsoleStrategy::create() noexcept
             // "A monospace bitmap font has all of these low-order bits clear".
             return !(family & (TMPF_FIXED_PITCH | TMPF_VECTOR | TMPF_TRUETYPE | TMPF_DEVICE));
         };
-        if ( GetCurrentConsoleFontEx(io.out(), FALSE, &fontInfo)
-             && isBitmap(fontInfo.FontFamily) )
-        {
+        if (GetCurrentConsoleFontEx(io.out(), FALSE, &fontInfo)
+            && isBitmap(fontInfo.FontFamily)) {
             // Compute the new font height based on the bitmap font size.
-            short fontY = 2*min(fontInfo.dwFontSize.X, fontInfo.dwFontSize.Y);
-            for (auto *name : {L"Consolas", L"Lucida Console"})
-            {
+            short fontY = 2 * min(fontInfo.dwFontSize.X, fontInfo.dwFontSize.Y);
+            for (auto* name : { L"Consolas", L"Lucida Console" }) {
                 fontInfo.nFont = 0;
                 fontInfo.FontFamily = FF_DONTCARE;
                 fontInfo.FontWeight = FW_NORMAL;
-                fontInfo.dwFontSize = {0, fontY}; // Width estimated automatically, it seems.
+                fontInfo.dwFontSize = { 0, fontY }; // Width estimated automatically, it seems.
                 wcscpy(fontInfo.FaceName, name);
                 // SetCurrentConsoleFontEx succeeds even if the font is not available.
                 // We need to check whether the font has actually been set.
@@ -100,9 +94,9 @@ Win32ConsoleStrategy &Win32ConsoleStrategy::create() noexcept
         }
     }
     WinWidth::reset();
-    auto &display = supportsVT ? *new AnsiDisplay<Win32Display>(io)
+    auto& display = supportsVT ? *new AnsiDisplay<Win32Display>(io)
                                : *new Win32Display(io);
-    auto &input = *new Win32Input(io);
+    auto& input = *new Win32Input(io);
     return *new Win32ConsoleStrategy(io, cpInput, cpOutput, display, input);
 }
 
@@ -123,8 +117,7 @@ bool Win32ConsoleStrategy::isAlive() noexcept
 
 static bool openClipboard() noexcept
 {
-    for (int i = 0; i < 5; ++i)
-    {
+    for (int i = 0; i < 5; ++i) {
         if (OpenClipboard(nullptr))
             return true;
         Sleep(5);
@@ -135,18 +128,11 @@ static bool openClipboard() noexcept
 bool Win32ConsoleStrategy::setClipboardText(TStringView text) noexcept
 {
     bool result = false;
-    if (openClipboard())
-    {
+    if (openClipboard()) {
         HGLOBAL hData = NULL;
-        wchar_t *pData;
+        wchar_t* pData;
         int dataLen;
-        if ( EmptyClipboard() &&
-             !(result = text.empty()) &&
-             (dataLen = MultiByteToWideChar(CP_UTF8, 0, text.data(), text.size(), nullptr, 0)) &&
-             (hData = GlobalAlloc(GMEM_MOVEABLE, (dataLen + 1)*sizeof(wchar_t))) &&
-             (pData = (wchar_t *) GlobalLock(hData))
-           )
-        {
+        if (EmptyClipboard() && !(result = text.empty()) && (dataLen = MultiByteToWideChar(CP_UTF8, 0, text.data(), text.size(), nullptr, 0)) && (hData = GlobalAlloc(GMEM_MOVEABLE, (dataLen + 1) * sizeof(wchar_t))) && (pData = (wchar_t*)GlobalLock(hData))) {
             MultiByteToWideChar(CP_UTF8, 0, text.data(), text.size(), pData, dataLen);
             pData[dataLen] = L'\0';
             GlobalUnlock(hData);
@@ -162,19 +148,16 @@ bool Win32ConsoleStrategy::setClipboardText(TStringView text) noexcept
 bool Win32ConsoleStrategy::requestClipboardText(void (&accept)(TStringView)) noexcept
 {
     bool result = false;
-    if (openClipboard())
-    {
+    if (openClipboard()) {
         HGLOBAL hData;
-        wchar_t *pData;
-        if ( (hData = GetClipboardData(CF_UNICODETEXT)) &&
-             (result = (pData = (wchar_t *) GlobalLock(hData))) )
-        {
+        wchar_t* pData;
+        if ((hData = GetClipboardData(CF_UNICODETEXT)) && (result = (pData = (wchar_t*)GlobalLock(hData)))) {
             size_t dataLen = wcslen(pData);
             int textLen = WideCharToMultiByte(CP_UTF8, 0, pData, dataLen, nullptr, 0, nullptr, nullptr);
-            char *text = new char[textLen];
+            char* text = new char[textLen];
             WideCharToMultiByte(CP_UTF8, 0, pData, dataLen, text, textLen, nullptr, nullptr);
             GlobalUnlock(hData);
-            accept({text, size_t(textLen)});
+            accept({ text, size_t(textLen) });
             delete[] text;
         }
         CloseClipboard();
@@ -206,18 +189,16 @@ void Win32Input::cursorOff() noexcept
     SetConsoleMode(io.in(), consoleMode & ~ENABLE_MOUSE_INPUT);
 }
 
-bool Win32Input::getEvent(TEvent &ev) noexcept
+bool Win32Input::getEvent(TEvent& ev) noexcept
 {
     // ReadConsoleInput can sleep the process, so we first check the number
     // of available input events.
     DWORD events;
-    while (GetNumberOfConsoleInputEvents(io.in(), &events) && events)
-    {
+    while (GetNumberOfConsoleInputEvents(io.in(), &events) && events) {
         // getEvent(ir, ev) often returns false due to discarded events. But this
         // function should not return false if there are pending events, as that
         // defeats the event queue in THardwareInfo.
-        while (events--)
-        {
+        while (events--) {
             INPUT_RECORD ir;
             DWORD ok;
             if (!ReadConsoleInputW(io.in(), &ir, 1, &ok) || !ok)
@@ -229,14 +210,13 @@ bool Win32Input::getEvent(TEvent &ev) noexcept
     return false;
 }
 
-bool Win32Input::getEvent(const INPUT_RECORD &ir, TEvent &ev) noexcept
+bool Win32Input::getEvent(const INPUT_RECORD& ir, TEvent& ev) noexcept
 {
-    switch (ir.EventType)
-    {
+    switch (ir.EventType) {
     case KEY_EVENT:
-        if ( ir.Event.KeyEvent.bKeyDown || // KeyDown
-             (ir.Event.KeyEvent.wVirtualKeyCode == VK_MENU && // Pasted surrogate character
-                ir.Event.KeyEvent.uChar.UnicodeChar) )
+        if (ir.Event.KeyEvent.bKeyDown || // KeyDown
+            (ir.Event.KeyEvent.wVirtualKeyCode == VK_MENU && // Pasted surrogate character
+                ir.Event.KeyEvent.uChar.UnicodeChar))
             return getWin32Key(ir.Event.KeyEvent, ev, state);
         break;
     case MOUSE_EVENT:
@@ -263,9 +243,9 @@ void Win32Display::reloadScreenInfo() noexcept
     GetConsoleScreenBufferInfo(io.out(), &sbInfo);
     // Set the cursor temporally to (0, 0) to prevent the console from crashing due to a bug.
     auto curPos = sbInfo.dwCursorPosition;
-    SetConsoleCursorPosition(io.out(), {0, 0});
+    SetConsoleCursorPosition(io.out(), { 0, 0 });
     // Resize the buffer.
-    SetConsoleScreenBufferSize(io.out(), {(short) size.x, (short) size.y});
+    SetConsoleScreenBufferSize(io.out(), { (short)size.x, (short)size.y });
     // Restore the cursor position (it does not matter if it is out of bounds).
     SetConsoleCursorPosition(io.out(), curPos);
 }
@@ -274,9 +254,8 @@ bool Win32Display::screenChanged() noexcept
 {
     bool changed = TerminalDisplay::screenChanged();
     CONSOLE_FONT_INFO fontInfo;
-    if ( GetCurrentConsoleFont(io.out(), FALSE, &fontInfo)
-         && memcmp(&fontInfo, &lastFontInfo, sizeof(fontInfo)) != 0 )
-    {
+    if (GetCurrentConsoleFont(io.out(), FALSE, &fontInfo)
+        && memcmp(&fontInfo, &lastFontInfo, sizeof(fontInfo)) != 0) {
         changed = true;
         WinWidth::reset();
         lastFontInfo = fontInfo;
@@ -303,7 +282,7 @@ int Win32Display::getColorCount() noexcept
     DWORD consoleMode = 0;
     GetConsoleMode(io.out(), &consoleMode);
     if (consoleMode & ENABLE_VIRTUAL_TERMINAL_PROCESSING)
-        return 256*256*256;
+        return 256 * 256 * 256;
     return 16;
 }
 
@@ -322,7 +301,7 @@ void Win32Display::lowlevelCursorSize(int size) noexcept
 
 void Win32Display::clearScreen() noexcept
 {
-    COORD coord = {0, 0};
+    COORD coord = { 0, 0 };
     DWORD length = size.x * size.y;
     BYTE attr = 0x07;
     DWORD read;
@@ -336,19 +315,18 @@ void Win32Display::clearScreen() noexcept
 void Win32Display::lowlevelWriteChars(TStringView chars, TColorAttr attr) noexcept
 {
     uchar bios = attr.toBIOS();
-    if (bios != lastAttr)
-    {
+    if (bios != lastAttr) {
         lowlevelFlush();
         SetConsoleTextAttribute(io.out(), bios);
         lastAttr = bios;
     }
-    buf.insert(buf.end(), chars.data(), chars.data()+chars.size());
+    buf.insert(buf.end(), chars.data(), chars.data() + chars.size());
 }
 
 void Win32Display::lowlevelMoveCursor(uint x, uint y) noexcept
 {
     lowlevelFlush();
-    SetConsoleCursorPosition(io.out(), {(short) x, (short) y});
+    SetConsoleCursorPosition(io.out(), { (short)x, (short)y });
 }
 
 void Win32Display::lowlevelFlush() noexcept
@@ -362,7 +340,7 @@ void Win32Display::lowlevelFlush() noexcept
 /////////////////////////////////////////////////////////////////////////
 // Global functions
 
-static bool getWin32KeyText(const KEY_EVENT_RECORD &KeyEvent, TEvent &ev, InputState &state) noexcept
+static bool getWin32KeyText(const KEY_EVENT_RECORD& KeyEvent, TEvent& ev, InputState& state) noexcept
 // Returns true unless the event contains a UTF-16 surrogate (Windows only),
 // in which case we need the next event.
 {
@@ -370,21 +348,17 @@ static bool getWin32KeyText(const KEY_EVENT_RECORD &KeyEvent, TEvent &ev, InputS
     ev.keyDown.textLength = 0;
 
     // Do not treat non-printable characters as text.
-    if (' ' <= ch && ch != 0x7F)
-    {
+    if (' ' <= ch && ch != 0x7F) {
 #ifdef _WIN32
-        if (0xD800 <= ch && ch <= 0xDBFF)
-        {
+        if (0xD800 <= ch && ch <= 0xDBFF) {
             state.surrogate = ch;
             return false;
         }
 
-        wchar_t utf16[2] = {(wchar_t) ch, 0};
-        if (state.surrogate)
-        {
-            if (0xDC00 <= ch && ch <= 0xDFFF)
-            {
-                utf16[1] = (wchar_t) ch;
+        wchar_t utf16[2] = { (wchar_t)ch, 0 };
+        if (state.surrogate) {
+            if (0xDC00 <= ch && ch <= 0xDFFF) {
+                utf16[1] = (wchar_t)ch;
                 utf16[0] = state.surrogate;
             }
             state.surrogate = 0;
@@ -394,19 +368,18 @@ static bool getWin32KeyText(const KEY_EVENT_RECORD &KeyEvent, TEvent &ev, InputS
             CP_UTF8, 0,
             utf16, utf16[1] ? 2 : 1,
             ev.keyDown.text, sizeof(ev.keyDown.text),
-            nullptr, nullptr
-        );
+            nullptr, nullptr);
 #else
-        (void) state;
+        (void)state;
 
         if (ch < 0xD800 || (0xDFFF < ch && ch < 0x10FFFF))
-            ev.keyDown.textLength = (uchar) utf32To8(ch, ev.keyDown.text);
+            ev.keyDown.textLength = (uchar)utf32To8(ch, ev.keyDown.text);
 #endif // _WIN32
     }
     return true;
 }
 
-bool getWin32Key(const KEY_EVENT_RECORD &KeyEvent, TEvent &ev, InputState &state) noexcept
+bool getWin32Key(const KEY_EVENT_RECORD& KeyEvent, TEvent& ev, InputState& state) noexcept
 {
     if (!getWin32KeyText(KeyEvent, ev, state))
         return false;
@@ -414,13 +387,9 @@ bool getWin32Key(const KEY_EVENT_RECORD &KeyEvent, TEvent &ev, InputState &state
     ev.what = evKeyDown;
     ev.keyDown.charScan.scanCode = KeyEvent.wVirtualScanCode;
     ev.keyDown.charScan.charCode = KeyEvent.uChar.AsciiChar;
-    ev.keyDown.controlKeyState = KeyEvent.dwControlKeyState & (
-        kbShift | kbCtrlShift | kbAltShift |
-        kbScrollState | kbNumState | kbCapsState | kbEnhanced
-    );
+    ev.keyDown.controlKeyState = KeyEvent.dwControlKeyState & (kbShift | kbCtrlShift | kbAltShift | kbScrollState | kbNumState | kbCapsState | kbEnhanced);
 
-    if (ev.keyDown.textLength)
-    {
+    if (ev.keyDown.textLength) {
         ev.keyDown.charScan.charCode = CpTranslator::fromUtf8(ev.keyDown.getText());
         if (KeyEvent.wVirtualKeyCode == VK_MENU)
             // This is enabled when pasting certain characters, and it confuses
@@ -433,21 +402,16 @@ bool getWin32Key(const KEY_EVENT_RECORD &KeyEvent, TEvent &ev, InputState &state
             ev.keyDown.keyCode = kbNoKey;
     }
 
-    if ( ev.keyDown.keyCode == 0x2A00 || ev.keyDown.keyCode == 0x1D00 ||
-         ev.keyDown.keyCode == 0x3600 || ev.keyDown.keyCode == 0x3800 ||
-         ev.keyDown.keyCode == 0x3A00 )
+    if (ev.keyDown.keyCode == 0x2A00 || ev.keyDown.keyCode == 0x1D00 || ev.keyDown.keyCode == 0x3600 || ev.keyDown.keyCode == 0x3800 || ev.keyDown.keyCode == 0x3A00)
         // Discard standalone Shift, Ctrl, Alt, Caps Lock keys.
         ev.keyDown.keyCode = kbNoKey;
-    else if ( (ev.keyDown.controlKeyState & kbCtrlShift) &&
-              (ev.keyDown.controlKeyState & kbAltShift) ) // Ctrl+Alt is AltGr.
+    else if ((ev.keyDown.controlKeyState & kbCtrlShift) && (ev.keyDown.controlKeyState & kbAltShift)) // Ctrl+Alt is AltGr.
     {
         // When AltGr+Key does not produce a character, a
         // keyCode with unwanted effects may be read instead.
         if (!ev.keyDown.textLength)
             ev.keyDown.keyCode = kbNoKey;
-    }
-    else if (KeyEvent.wVirtualScanCode < 89)
-    {
+    } else if (KeyEvent.wVirtualScanCode < 89) {
         // Convert NT style virtual scan codes to PC BIOS codes.
         uchar index = KeyEvent.wVirtualScanCode;
         ushort keyCode = 0;
@@ -457,17 +421,14 @@ bool getWin32Key(const KEY_EVENT_RECORD &KeyEvent, TEvent &ev, InputState &state
             keyCode = THardwareInfo::CtrlCvt[index];
         else if ((ev.keyDown.controlKeyState & kbShift) && THardwareInfo::ShiftCvt[index])
             keyCode = THardwareInfo::ShiftCvt[index];
-        else if ( !(ev.keyDown.controlKeyState & (kbShift | kbCtrlShift | kbAltShift)) &&
-                  THardwareInfo::NormalCvt[index] )
+        else if (!(ev.keyDown.controlKeyState & (kbShift | kbCtrlShift | kbAltShift)) && THardwareInfo::NormalCvt[index])
             keyCode = THardwareInfo::NormalCvt[index];
 
-        if (keyCode != 0)
-        {
+        if (keyCode != 0) {
             ev.keyDown.keyCode = keyCode;
             if (ev.keyDown.charScan.charCode < ' ')
                 ev.keyDown.textLength = 0;
-            else if (ev.keyDown.charScan.charCode < 0x7F && !ev.keyDown.textLength)
-            {
+            else if (ev.keyDown.charScan.charCode < 0x7F && !ev.keyDown.textLength) {
                 ev.keyDown.text[0] = ev.keyDown.charScan.charCode;
                 ev.keyDown.textLength = 1;
             }
@@ -477,27 +438,23 @@ bool getWin32Key(const KEY_EVENT_RECORD &KeyEvent, TEvent &ev, InputState &state
     return ev.keyDown.keyCode != kbNoKey || ev.keyDown.textLength;
 }
 
-void getWin32Mouse(const MOUSE_EVENT_RECORD &MouseEvent, TEvent &ev, InputState &state) noexcept
+void getWin32Mouse(const MOUSE_EVENT_RECORD& MouseEvent, TEvent& ev, InputState& state) noexcept
 {
     ev.what = evMouse;
     ev.mouse.where.x = MouseEvent.dwMousePosition.X;
     ev.mouse.where.y = MouseEvent.dwMousePosition.Y;
     ev.mouse.buttons = state.buttons = MouseEvent.dwButtonState;
     ev.mouse.eventFlags = MouseEvent.dwEventFlags;
-    ev.mouse.controlKeyState = MouseEvent.dwControlKeyState & (
-        kbShift | kbCtrlShift | kbAltShift |
-        kbScrollState | kbNumState | kbCapsState | kbEnhanced
-    );
+    ev.mouse.controlKeyState = MouseEvent.dwControlKeyState & (kbShift | kbCtrlShift | kbAltShift | kbScrollState | kbNumState | kbCapsState | kbEnhanced);
 
     // Rotation sense is represented by the sign of dwButtonState's high word
     Boolean positive = !(MouseEvent.dwButtonState & 0x80000000);
-    if( MouseEvent.dwEventFlags & MOUSE_WHEELED )
+    if (MouseEvent.dwEventFlags & MOUSE_WHEELED)
         ev.mouse.wheel = positive ? mwUp : mwDown;
-    else if( MouseEvent.dwEventFlags & MOUSE_HWHEELED )
+    else if (MouseEvent.dwEventFlags & MOUSE_HWHEELED)
         ev.mouse.wheel = positive ? mwRight : mwLeft;
     else
         ev.mouse.wheel = 0;
 }
 
 } // namespace tvision
-

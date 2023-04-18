@@ -14,8 +14,7 @@
 #define Uses_TColorAttr
 #include <tvision/tv.h>
 
-enum TermColors
-{
+enum TermColors {
     Indexed8,
     Indexed16,
     Indexed256,
@@ -23,30 +22,27 @@ enum TermColors
     TermColorCount,
 };
 
-enum PixelTypes
-{
+enum PixelTypes {
     RGB24,
     RGB32,
     PixelTypeCount,
 };
 
-using FrameProcessor = void (const PVideoFrame &, PVideoFrame &, TPoint);
+using FrameProcessor = void(const PVideoFrame&, PVideoFrame&, TPoint);
 
-struct TermColor : public GenericVideoFilter
-{
+struct TermColor : public GenericVideoFilter {
 
-    FrameProcessor *processor;
+    FrameProcessor* processor;
 
-    TermColor(PClip, FrameProcessor *);
+    TermColor(PClip, FrameProcessor*);
 
     int SetCacheHints(int cachehints, int frame_range) override;
     PVideoFrame GetFrame(int n, IScriptEnvironment* env) override;
 
-    static AVSValue Create(AVSValue args, void *, IScriptEnvironment *env);
-
+    static AVSValue Create(AVSValue args, void*, IScriptEnvironment* env);
 };
 
-const AVS_Linkage *AVS_linkage = 0;
+const AVS_Linkage* AVS_linkage = 0;
 
 extern "C" const char* AvisynthPluginInit3(IScriptEnvironment* env, AVS_Linkage* vectors)
 {
@@ -56,22 +52,21 @@ extern "C" const char* AvisynthPluginInit3(IScriptEnvironment* env, AVS_Linkage*
 }
 
 template <uint32_t transform(uint32_t, TPoint), bool alpha>
-static void process_rgb(const PVideoFrame &src, PVideoFrame &dst, TPoint size)
+static void process_rgb(const PVideoFrame& src, PVideoFrame& dst, TPoint size)
 {
-    const uint8_t *srcp = src->GetReadPtr();
-    uint8_t *dstp = dst->GetWritePtr();
+    const uint8_t* srcp = src->GetReadPtr();
+    uint8_t* dstp = dst->GetWritePtr();
     auto src_pitch = src->GetPitch(),
          dst_pitch = dst->GetPitch();
     constexpr size_t pixel_size = 3 + alpha;
-    for (int y = 0; y < size.y; ++y)
-    {
+    for (int y = 0; y < size.y; ++y) {
         size_t stride = 0;
-        for (int x = 0; x < size.x; ++x, stride += pixel_size)
-        {
+        for (int x = 0; x < size.x; ++x, stride += pixel_size) {
             uint32_t in = 0;
             memcpy(&in, &srcp[stride], pixel_size);
-            uint32_t out = transform(in, {x, y});
-            if (alpha) out |= in & 0xFF000000;
+            uint32_t out = transform(in, { x, y });
+            if (alpha)
+                out |= in & 0xFF000000;
             memcpy(&dstp[stride], &out, pixel_size);
         }
         srcp += src_pitch;
@@ -83,15 +78,16 @@ static inline uint32_t quantize_indexed8(uint32_t, TPoint);
 static inline uint32_t quantize_indexed16(uint32_t, TPoint);
 static inline uint32_t quantize_indexed256(uint32_t, TPoint);
 
-static constexpr FrameProcessor *frameProcessors[PixelTypeCount][TermColorCount] =
-{
-    { // RGB24
+static constexpr FrameProcessor* frameProcessors[PixelTypeCount][TermColorCount] = {
+    {
+        // RGB24
         &process_rgb<quantize_indexed8, false>,
         &process_rgb<quantize_indexed16, false>,
         &process_rgb<quantize_indexed256, false>,
         nullptr,
     },
-    { // RGB32
+    {
+        // RGB32
         &process_rgb<quantize_indexed8, true>,
         &process_rgb<quantize_indexed16, true>,
         &process_rgb<quantize_indexed256, true>,
@@ -99,15 +95,17 @@ static constexpr FrameProcessor *frameProcessors[PixelTypeCount][TermColorCount]
     },
 };
 
-static constexpr struct { const char *name; TermColors value; } quantizeModes[] =
-{
-    {"indexed8", Indexed8},
-    {"indexed16", Indexed16},
-    {"indexed256", Indexed256},
-    {"direct", Direct},
+static constexpr struct {
+    const char* name;
+    TermColors value;
+} quantizeModes[] = {
+    { "indexed8", Indexed8 },
+    { "indexed16", Indexed16 },
+    { "indexed256", Indexed256 },
+    { "direct", Direct },
 };
 
-AVSValue TermColor::Create(AVSValue args, void *, IScriptEnvironment *env)
+AVSValue TermColor::Create(AVSValue args, void*, IScriptEnvironment* env)
 {
     auto child = args[0].AsClip();
 
@@ -123,8 +121,7 @@ AVSValue TermColor::Create(AVSValue args, void *, IScriptEnvironment *env)
     TermColors mode = TermColorCount;
     TStringView modeName = args[1].AsString();
     for (auto m : quantizeModes)
-        if (m.name == modeName)
-        {
+        if (m.name == modeName) {
             mode = m.value;
             break;
         }
@@ -134,9 +131,9 @@ AVSValue TermColor::Create(AVSValue args, void *, IScriptEnvironment *env)
     return new TermColor(child, frameProcessors[pixel][mode]);
 }
 
-inline TermColor::TermColor(PClip aChild, FrameProcessor *aProcessor) :
-    GenericVideoFilter(aChild),
-    processor(aProcessor)
+inline TermColor::TermColor(PClip aChild, FrameProcessor* aProcessor)
+    : GenericVideoFilter(aChild)
+    , processor(aProcessor)
 {
 }
 
@@ -148,16 +145,14 @@ int TermColor::SetCacheHints(int cachehints, int)
 PVideoFrame TermColor::GetFrame(int n, IScriptEnvironment* env)
 {
     PVideoFrame frame = child->GetFrame(n, env);
-    if (processor)
-    {
+    if (processor) {
         env->MakeWritable(&frame);
-        (*processor)(frame, frame, {vi.width, vi.height});
+        (*processor)(frame, frame, { vi.width, vi.height });
     }
     return frame;
 }
 
-static constexpr uint32_t xterm16_to_rgb[16] =
-{
+static constexpr uint32_t xterm16_to_rgb[16] = {
     0x000000,
     0x800000,
     0x008000,

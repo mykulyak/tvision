@@ -15,7 +15,5 @@
 #define Uses_TBackground
 #include <tvision/tv.h>
 
-const char * const  TBackground::name = "TBackground";
+const char* const TBackground::name = "TBackground";
 #endif
-
-

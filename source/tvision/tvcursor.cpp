@@ -22,14 +22,13 @@
 
 struct TVCursor {
 
-    TView *self;
+    TView* self;
     int x, y;
 
-    void resetCursor(TView *);
+    void resetCursor(TView*);
     int computeCaretSize();
-    Boolean caretCovered(TView *) const;
+    Boolean caretCovered(TView*) const;
     int decideCaretSize() const;
-
 };
 
 void TView::resetCursor()
@@ -37,7 +36,7 @@ void TView::resetCursor()
     TVCursor().resetCursor(this);
 }
 
-void TVCursor::resetCursor(TView *p)
+void TVCursor::resetCursor(TView* p)
 {
     self = p;
     x = self->cursor.x;
@@ -50,37 +49,32 @@ void TVCursor::resetCursor(TView *p)
 
 int TVCursor::computeCaretSize()
 {
-    if (!(~self->state & (sfVisible | sfCursorVis | sfFocused)))
-    {
-        TView *v = self;
-        while (0 <= y && y < v->size.y && 0 <= x && x < v->size.x)
-        {
+    if (!(~self->state & (sfVisible | sfCursorVis | sfFocused))) {
+        TView* v = self;
+        while (0 <= y && y < v->size.y && 0 <= x && x < v->size.x) {
             y += v->origin.y;
             x += v->origin.x;
-            if (v->owner)
-            {
-                if (v->owner->state & sfVisible)
-                {
+            if (v->owner) {
+                if (v->owner->state & sfVisible) {
                     if (caretCovered(v))
                         break;
                     v = v->owner;
-                }
-                else break;
-            }
-            else return decideCaretSize();
+                } else
+                    break;
+            } else
+                return decideCaretSize();
         }
     }
     return 0;
 }
 
-Boolean TVCursor::caretCovered(TView *v) const
+Boolean TVCursor::caretCovered(TView* v) const
 {
-    TView *u = v->owner->last->next;
-    for (; u != v; u = u->next)
-    {
-        if ( (u->state & sfVisible)
-             && (u->origin.y <= y && y < u->origin.y + u->size.y)
-             && (u->origin.x <= x && x < u->origin.x + u->size.x) )
+    TView* u = v->owner->last->next;
+    for (; u != v; u = u->next) {
+        if ((u->state & sfVisible)
+            && (u->origin.y <= y && y < u->origin.y + u->size.y)
+            && (u->origin.x <= x && x < u->origin.x + u->size.x))
             return True;
     }
     return False;

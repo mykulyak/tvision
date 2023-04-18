@@ -37,18 +37,17 @@
 /*                                                                        */
 /*------------------------------------------------------------------------*/
 
-static void autoPlacePopup(TMenuPopup *, TPoint);
+static void autoPlacePopup(TMenuPopup*, TPoint);
 
-ushort popupMenu(TPoint where, TMenuItem &aMenu, TGroup *receiver)
+ushort popupMenu(TPoint where, TMenuItem& aMenu, TGroup* receiver)
 {
     ushort res = 0;
-    TGroup *app = TProgram::application;
-    if (app)
-    {
+    TGroup* app = TProgram::application;
+    if (app) {
         {
             TPoint p = app->makeLocal(where);
-            TMenu *mnu = new TMenu(aMenu);
-            TMenuPopup *mpop = new TMenuPopup(TRect(p, p), mnu);
+            TMenu* mnu = new TMenu(aMenu);
+            TMenuPopup* mpop = new TMenuPopup(TRect(p, p), mnu);
             autoPlacePopup(mpop, p);
             // Execute and dispose the menu.
             res = app->execView(mpop);
@@ -56,8 +55,7 @@ ushort popupMenu(TPoint where, TMenuItem &aMenu, TGroup *receiver)
             delete mnu;
         }
         // Generate an event.
-        if (res && receiver)
-        {
+        if (res && receiver) {
             TEvent event = {};
             event.what = evCommand;
             event.message.command = res;
@@ -67,10 +65,10 @@ ushort popupMenu(TPoint where, TMenuItem &aMenu, TGroup *receiver)
     return res;
 }
 
-static void autoPlacePopup(TMenuPopup *m, TPoint p)
+static void autoPlacePopup(TMenuPopup* m, TPoint p)
 // Pre: TMenuPopup was constructed with bounds=TRect(p, p).
 {
-    TGroup *app = TProgram::application;
+    TGroup* app = TProgram::application;
     // Initially, the menu is placed above 'p'. So we need to move it.
     TRect r = m->getBounds();
     // But we must ensure that the popup does not go beyond the desktop's
@@ -78,7 +76,7 @@ static void autoPlacePopup(TMenuPopup *m, TPoint p)
     {
         TPoint d = app->size - p;
         r.move(min(m->size.x, d.x),
-               min(m->size.y + 1, d.y));
+            min(m->size.y + 1, d.y));
     }
     // If the popup then contains 'p', try to move it to a better place.
     if (r.contains(p) && r.b.y - r.a.y < p.y)

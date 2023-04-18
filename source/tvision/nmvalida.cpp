@@ -20,10 +20,10 @@
 #define Uses_TStringLookupValidator
 #include <tvision/tv.h>
 
-const char * const  TValidator::name = "TValidator";
-const char * const  TPXPictureValidator::name = "TPXPictureValidator";
-const char * const  TRangeValidator::name = "TRangeValidator";
-const char * const  TFilterValidator::name = "TFilterValidator";
-const char * const  TLookupValidator::name = "TLookupValidator";
-const char * const  TStringLookupValidator::name = "TStringLookupValidator";
+const char* const TValidator::name = "TValidator";
+const char* const TPXPictureValidator::name = "TPXPictureValidator";
+const char* const TRangeValidator::name = "TRangeValidator";
+const char* const TFilterValidator::name = "TFilterValidator";
+const char* const TLookupValidator::name = "TLookupValidator";
+const char* const TStringLookupValidator::name = "TStringLookupValidator";
 #endif

@@ -30,33 +30,31 @@
 
 // Public variables
 
-TStatusLine *  TProgram::statusLine = 0;
-TMenuBar *  TProgram::menuBar = 0;
-TDeskTop *  TProgram::deskTop = 0;
-TProgram *  TProgram::application = 0;
-int  TProgram::appPalette = apColor;
-int  TProgram::eventTimeout = 20; // 50 wake-ups per second.
-TEvent  TProgram::pending;
-TTimerQueue  TProgram::timerQueue;
+TStatusLine* TProgram::statusLine = 0;
+TMenuBar* TProgram::menuBar = 0;
+TDeskTop* TProgram::deskTop = 0;
+TProgram* TProgram::application = 0;
+int TProgram::appPalette = apColor;
+int TProgram::eventTimeout = 20; // 50 wake-ups per second.
+TEvent TProgram::pending;
+TTimerQueue TProgram::timerQueue;
 
 extern TPoint shadowSize;
 
-TProgInit::TProgInit( TStatusLine *(*cStatusLine)( TRect ),
-                            TMenuBar *(*cMenuBar)( TRect ),
-                            TDeskTop *(*cDeskTop )( TRect )
-                          ) noexcept :
-    createStatusLine( cStatusLine ),
-    createMenuBar( cMenuBar ),
-    createDeskTop( cDeskTop )
+TProgInit::TProgInit(TStatusLine* (*cStatusLine)(TRect),
+    TMenuBar* (*cMenuBar)(TRect),
+    TDeskTop* (*cDeskTop)(TRect)) noexcept
+    : createStatusLine(cStatusLine)
+    , createMenuBar(cMenuBar)
+    , createDeskTop(cDeskTop)
 {
 }
 
-TProgram::TProgram() noexcept :
-    TProgInit( &TProgram::initStatusLine,
-                  &TProgram::initMenuBar,
-                  &TProgram::initDeskTop
-                ),
-    TGroup( TRect( 0,0,TScreen::screenWidth,TScreen::screenHeight ) )
+TProgram::TProgram() noexcept
+    : TProgInit(&TProgram::initStatusLine,
+        &TProgram::initMenuBar,
+        &TProgram::initDeskTop)
+    , TGroup(TRect(0, 0, TScreen::screenWidth, TScreen::screenHeight))
 {
     application = this;
     initScreen();
@@ -64,19 +62,13 @@ TProgram::TProgram() noexcept :
     options = 0;
     buffer = TScreen::screenBuffer;
 
-    if( createDeskTop != 0 &&
-        (deskTop = createDeskTop( getExtent() )) != 0
-      )
+    if (createDeskTop != 0 && (deskTop = createDeskTop(getExtent())) != 0)
         insert(deskTop);
 
-    if( createStatusLine != 0 &&
-        (statusLine = createStatusLine( getExtent() )) != 0
-      )
+    if (createStatusLine != 0 && (statusLine = createStatusLine(getExtent())) != 0)
         insert(statusLine);
 
-    if( createMenuBar != 0 &&
-        (menuBar = createMenuBar( getExtent() )) != 0
-      )
+    if (createMenuBar != 0 && (menuBar = createMenuBar(getExtent())) != 0)
         insert(menuBar);
 }
 
@@ -100,200 +92,169 @@ Boolean TProgram::canMoveFocus()
 
 int TProgram::eventWaitTimeout()
 {
-    int timerTimeout = min(timerQueue.timeUntilTimeout(), (int32_t) INT_MAX);
+    int timerTimeout = min(timerQueue.timeUntilTimeout(), (int32_t)INT_MAX);
     if (timerTimeout < 0)
         return eventTimeout;
     return min(eventTimeout, timerTimeout);
 }
 
-ushort TProgram::executeDialog( TDialog* pD, void* data )
+ushort TProgram::executeDialog(TDialog* pD, void* data)
 {
-    ushort c=cmCancel;
+    ushort c = cmCancel;
 
-    if (validView(pD))
-        {
+    if (validView(pD)) {
         if (data)
-        pD->setData(data);
+            pD->setData(data);
         c = deskTop->execView(pD);
         if ((c != cmCancel) && (data))
             pD->getData(data);
         destroy(pD);
-        }
+    }
 
     return c;
 }
 
-static Boolean viewHasMouse( TView *p, void *s )
+static Boolean viewHasMouse(TView* p, void* s)
 {
-    return Boolean( (p->state & sfVisible) != 0 &&
-                     p->mouseInView( ((TEvent *)s)->mouse.where ));
+    return Boolean((p->state & sfVisible) != 0 && p->mouseInView(((TEvent*)s)->mouse.where));
 }
 
 void TProgram::getEvent(TEvent& event)
 {
-    if( pending.what != evNothing )
-        {
+    if (pending.what != evNothing) {
         event = pending;
         pending.what = evNothing;
-        }
-    else
-        {
+    } else {
         event.waitForEvent(eventWaitTimeout());
         event.getMouseEvent();
-        if( event.what == evNothing )
-            {
+        if (event.what == evNothing) {
             event.getKeyEvent();
-            if( event.what == evNothing )
+            if (event.what == evNothing)
                 idle();
-            }
         }
+    }
 
-    if( statusLine != 0 )
-        {
-        if( (event.what & evKeyDown) != 0 ||
-            ( (event.what & evMouseDown) != 0 &&
-              firstThat( viewHasMouse, &event ) == statusLine
-            )
-          )
-            statusLine->handleEvent( event );
-        }
-    if( event.what == evCommand && event.message.command == cmScreenChanged )
-        {
-        setScreenMode( TDisplay::smChanged );
+    if (statusLine != 0) {
+        if ((event.what & evKeyDown) != 0 || ((event.what & evMouseDown) != 0 && firstThat(viewHasMouse, &event) == statusLine))
+            statusLine->handleEvent(event);
+    }
+    if (event.what == evCommand && event.message.command == cmScreenChanged) {
+        setScreenMode(TDisplay::smChanged);
         clearEvent(event);
-        }
+    }
 }
 
 TPalette& TProgram::getPalette() const
 {
-    static TPalette color ( cpAppColor, sizeof( cpAppColor )-1 );
-    static TPalette blackwhite(cpAppBlackWhite, sizeof( cpAppBlackWhite )-1 );
-    static TPalette monochrome(cpAppMonochrome, sizeof( cpAppMonochrome )-1 );
-    static TPalette *palettes[] =
-        {
+    static TPalette color(cpAppColor, sizeof(cpAppColor) - 1);
+    static TPalette blackwhite(cpAppBlackWhite, sizeof(cpAppBlackWhite) - 1);
+    static TPalette monochrome(cpAppMonochrome, sizeof(cpAppMonochrome) - 1);
+    static TPalette* palettes[] = {
         &color,
         &blackwhite,
         &monochrome
-        };
+    };
     return *(palettes[appPalette]);
 }
 
-void TProgram::handleEvent( TEvent& event )
+void TProgram::handleEvent(TEvent& event)
 {
-    if( event.what == evKeyDown )
-        {
-        char c = getAltChar( event.keyDown.keyCode );
-        if( c >= '1' && c <= '9' )
-            {
-            if( canMoveFocus() )
-                {
-                if( message( deskTop,
-                             evBroadcast,
-                             cmSelectWindowNum,
-                             (void *)(size_t)(c - '0')
-                           ) != 0 )
-                    clearEvent( event );
-                }
-            else
-                clearEvent( event );
-            }
+    if (event.what == evKeyDown) {
+        char c = getAltChar(event.keyDown.keyCode);
+        if (c >= '1' && c <= '9') {
+            if (canMoveFocus()) {
+                if (message(deskTop,
+                        evBroadcast,
+                        cmSelectWindowNum,
+                        (void*)(size_t)(c - '0'))
+                    != 0)
+                    clearEvent(event);
+            } else
+                clearEvent(event);
         }
+    }
 
-    TGroup::handleEvent( event );
-    if( event.what == evCommand && event.message.command == cmQuit )
-        {
-        endModal( cmQuit );
-        clearEvent( event );
-        }
+    TGroup::handleEvent(event);
+    if (event.what == evCommand && event.message.command == cmQuit) {
+        endModal(cmQuit);
+        clearEvent(event);
+    }
 }
 
-static void doHandleTimeout( TTimerId id, void *self )
+static void doHandleTimeout(TTimerId id, void* self)
 {
-    message( (TProgram *) self, evBroadcast, cmTimeout, id );
+    message((TProgram*)self, evBroadcast, cmTimeout, id);
 }
 
 void TProgram::idle()
 {
-    if( statusLine != 0 )
+    if (statusLine != 0)
         statusLine->update();
 
-    if( commandSetChanged == True )
-        {
-        message( this, evBroadcast, cmCommandSetChanged, 0 );
+    if (commandSetChanged == True) {
+        message(this, evBroadcast, cmCommandSetChanged, 0);
         commandSetChanged = False;
-        }
+    }
 
     timerQueue.collectTimeouts(doHandleTimeout, this);
 }
 
-TDeskTop *TProgram::initDeskTop( TRect r )
+TDeskTop* TProgram::initDeskTop(TRect r)
 {
     r.a.y++;
     r.b.y--;
-    return new TDeskTop( r );
+    return new TDeskTop(r);
 }
 
-TMenuBar *TProgram::initMenuBar( TRect r )
+TMenuBar* TProgram::initMenuBar(TRect r)
 {
     r.b.y = r.a.y + 1;
-    return new TMenuBar( r, (TMenu *)0 );
+    return new TMenuBar(r, (TMenu*)0);
 }
 
 void TProgram::initScreen()
 {
-    if( (TScreen::screenMode & 0x00FF) != TDisplay::smMono )
-        {
-        if( (TScreen::screenMode & TDisplay::smFont8x8) != 0 )
+    if ((TScreen::screenMode & 0x00FF) != TDisplay::smMono) {
+        if ((TScreen::screenMode & TDisplay::smFont8x8) != 0)
             shadowSize.x = 1;
         else
             shadowSize.x = 2;
         shadowSize.y = 1;
         showMarkers = False;
-        if( (TScreen::screenMode & 0x00FF) == TDisplay::smBW80 )
+        if ((TScreen::screenMode & 0x00FF) == TDisplay::smBW80)
             appPalette = apBlackWhite;
         else
             appPalette = apColor;
-        }
-    else
-        {
+    } else {
 
         shadowSize.x = 0;
         shadowSize.y = 0;
         showMarkers = True;
         appPalette = apMonochrome;
-        }
+    }
 }
 
-TStatusLine *TProgram::initStatusLine( TRect r )
+TStatusLine* TProgram::initStatusLine(TRect r)
 {
     r.a.y = r.b.y - 1;
-    return new TStatusLine( r,
-        *new TStatusDef( 0, 0xFFFF ) +
-            *new TStatusItem( exitText, kbAltX, cmQuit ) +
-            *new TStatusItem( 0, kbF10, cmMenu ) +
-            *new TStatusItem( 0, kbAltF3, cmClose ) +
-            *new TStatusItem( 0, kbF5, cmZoom ) +
-            *new TStatusItem( 0, kbCtrlF5, cmResize )
-            );
+    return new TStatusLine(r,
+        *new TStatusDef(0, 0xFFFF) + *new TStatusItem(exitText, kbAltX, cmQuit) + *new TStatusItem(0, kbF10, cmMenu) + *new TStatusItem(0, kbAltF3, cmClose) + *new TStatusItem(0, kbF5, cmZoom) + *new TStatusItem(0, kbCtrlF5, cmResize));
 }
 
 TWindow* TProgram::insertWindow(TWindow* pWin)
 {
-    if (validView(pWin))
-        {
-        if (canMoveFocus())
-            {
+    if (validView(pWin)) {
+        if (canMoveFocus()) {
             deskTop->insert(pWin);
             return pWin;
-            }
-        else
+        } else
             destroy(pWin);
-        }
+    }
 
-   return NULL;
+    return NULL;
 }
 
-void TProgram::killTimer( TTimerId id )
+void TProgram::killTimer(TTimerId id)
 {
     timerQueue.killTimer(id);
 }
@@ -302,7 +263,7 @@ void TProgram::outOfMemory()
 {
 }
 
-void TProgram::putEvent( TEvent & event )
+void TProgram::putEvent(TEvent& event)
 {
     pending = event;
 }
@@ -312,41 +273,39 @@ void TProgram::run()
     execute();
 }
 
-void TProgram::setScreenMode( ushort mode )
+void TProgram::setScreenMode(ushort mode)
 {
-    TRect  r;
+    TRect r;
 
-    TEventQueue::mouse->hide(); //HideMouse();
-    TScreen::setVideoMode( mode );
+    TEventQueue::mouse->hide(); // HideMouse();
+    TScreen::setVideoMode(mode);
     initScreen();
     buffer = TScreen::screenBuffer;
-    r = TRect( 0, 0, TScreen::screenWidth, TScreen::screenHeight );
-    changeBounds( r );
+    r = TRect(0, 0, TScreen::screenWidth, TScreen::screenHeight);
+    changeBounds(r);
     setState(sfExposed, False);
     setState(sfExposed, True);
     redraw();
-    TEventQueue::mouse->show(); //ShowMouse();
+    TEventQueue::mouse->show(); // ShowMouse();
 }
 
-TTimerId TProgram::setTimer( uint timeoutMs, int periodMs )
+TTimerId TProgram::setTimer(uint timeoutMs, int periodMs)
 {
-    return timerQueue.setTimer( timeoutMs, periodMs );
+    return timerQueue.setTimer(timeoutMs, periodMs);
 }
 
 TView* TProgram::validView(TView* p) noexcept
 {
-    if( p == 0 )
+    if (p == 0)
         return 0;
-    if( lowMemory() )
-        {
-        destroy( p );
+    if (lowMemory()) {
+        destroy(p);
         outOfMemory();
         return 0;
-        }
-    if( !p->valid( cmValid ) )
-        {
-        destroy( p );
+    }
+    if (!p->valid(cmValid)) {
+        destroy(p);
         return 0;
-        }
+    }
     return p;
 }
