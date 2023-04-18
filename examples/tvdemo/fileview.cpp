@@ -20,8 +20,8 @@ __link(RScroller)
 #include <cstdlib>
 #include <cstring>
 
-#include <fstream.h>
-#include <strstrea.h>
+#include <fstream>
+#include <strstream>
 
 #include "fileview.h"
 #include "tvcmds.h"
@@ -78,11 +78,11 @@ void TFileViewer::readFile(const char* fName)
     limit.x = 0;
     fileName = newStr(fName);
     fileLines = new TLineCollection(5, 5);
-    ifstream fileToView(fName);
+    std::ifstream fileToView(fName);
     if (!fileToView) {
         char buf[256] = { 0 };
-        ostrstream os(buf, sizeof(buf) - 1);
-        os << "Failed to open file '" << fName << "'." << ends;
+        std::ostrstream os(buf, sizeof(buf) - 1);
+        os << "Failed to open file '" << fName << "'." << std::ends;
         messageBox(buf, mfError | mfOKButton);
         isValid = False;
     } else {

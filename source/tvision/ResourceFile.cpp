@@ -40,14 +40,14 @@ TResourceFile::TResourceFile(fpstream* aStream)
     stream = aStream;
     modified = False;
     basePos = stream->tellp();
-    stream->seekp(0, ios::end);
+    stream->seekp(0, std::ios::end);
     streamSize = stream->tellp();
     header = new THeader;
     found = 0;
     do {
         repeat = 0;
         if (basePos <= streamSize - (int)sizeof(THeader)) {
-            stream->seekg(basePos, ios::beg);
+            stream->seekg(basePos, std::ios::beg);
             stream->readBytes(header, sizeof(THeader));
             if (header->signature == 0x5a4d) {
                 basePos += ((header->pageCount * 512L) - (-header->lastCount & 511));
@@ -66,9 +66,9 @@ TResourceFile::TResourceFile(fpstream* aStream)
     delete header;
 
     if (found) {
-        stream->seekg(basePos + sizeof(int32_t) * 2, ios::beg);
+        stream->seekg(basePos + sizeof(int32_t) * 2, std::ios::beg);
         *stream >> indexPos;
-        stream->seekg(basePos + indexPos, ios::beg);
+        stream->seekg(basePos + indexPos, std::ios::beg);
         *stream >> index;
     } else {
         indexPos = sizeof(int32_t) * 3;
@@ -103,10 +103,10 @@ void TResourceFile::flush()
     int32_t lenRez;
 
     if (modified == True) {
-        stream->seekp(basePos + indexPos, ios::beg);
+        stream->seekp(basePos + indexPos, std::ios::beg);
         *stream << index;
-        lenRez = stream->tellp() - (streamoff)basePos - (streamoff)sizeof(int32_t) * 2;
-        stream->seekp(basePos, ios::beg);
+        lenRez = stream->tellp() - (std::streamoff)basePos - (std::streamoff)sizeof(int32_t) * 2;
+        stream->seekp(basePos, std::ios::beg);
         *stream << rStreamMagic;
         *stream << lenRez;
         *stream << indexPos;
@@ -122,7 +122,7 @@ void* TResourceFile::get(const char* key)
 
     if (!index->search((char*)key, i))
         return 0;
-    stream->seekg(basePos + ((TResourceItem*)(index->at(i)))->pos, ios::beg);
+    stream->seekg(basePos + ((TResourceItem*)(index->at(i)))->pos, std::ios::beg);
     *stream >> p;
     return p;
 }
@@ -145,9 +145,9 @@ void TResourceFile::put(TStreamable* item, const char* key)
         index->atInsert(i, p);
     }
     p->pos = indexPos;
-    stream->seekp(basePos + indexPos, ios::beg);
+    stream->seekp(basePos + indexPos, std::ios::beg);
     *stream << item;
-    indexPos = stream->tellp() - (streamoff)basePos;
+    indexPos = stream->tellp() - (std::streamoff)basePos;
     p->size = indexPos - p->pos;
 
     modified = True;
@@ -186,7 +186,7 @@ void doCopyResource(void* item, void* arg)
     SwitchInfo* si = (SwitchInfo*)arg;
 
     si->sourceStream->seekg(si->oldBasePos + ((TResourceItem*)item)->pos);
-    ((TResourceItem*)item)->pos = si->destStream->tellp() - (streamoff)si->newBasePos;
+    ((TResourceItem*)item)->pos = si->destStream->tellp() - (std::streamoff)si->newBasePos;
 
     copyStream(si->destStream, si->sourceStream, ((TResourceItem*)item)->size);
 }
@@ -203,7 +203,7 @@ fpstream* TResourceFile::switchTo(fpstream* aStream, Boolean pack)
         args.destStream = aStream;
         aStream->seekp(args.newBasePos + sizeof(int32_t) * 3);
         index->forEach(doCopyResource, &args);
-        indexPos = aStream->tellp() - (streamoff)args.newBasePos;
+        indexPos = aStream->tellp() - (std::streamoff)args.newBasePos;
     } else {
         stream->seekg(basePos);
         copyStream(aStream, stream, indexPos);

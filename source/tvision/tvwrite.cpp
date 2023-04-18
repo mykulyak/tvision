@@ -18,7 +18,6 @@
 
 #include <cstdlib>
 #include <cstring>
-#include <malloc.h>
 
 extern TPoint shadowSize;
 extern uchar shadowAttr;

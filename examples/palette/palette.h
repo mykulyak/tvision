@@ -4,7 +4,7 @@
 //  Copyright (C) Borland International, 1991.
 //
 
-#ifndef  _PALETTE_H )
+#ifndef  _PALETTE_H
 #define _PALETTE_H
 
 //

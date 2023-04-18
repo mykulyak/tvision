@@ -20,7 +20,7 @@ __link(RView)
 #include <cstring>
 #include <ctime>
 #include <iomanip>
-#include <strstrea.h>
+#include <strstream>
 
 #include "puzzle.h"
 

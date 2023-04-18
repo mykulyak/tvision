@@ -6,10 +6,9 @@
 /*------------------------------------------------------------*/
 
 #include <tvision/tv.h>
+#include <iostream>
 
-#include <iostream.h>
-
-ostream& operator<<(ostream& os, TStringView s)
+std::ostream& operator<< (std::ostream& os, TStringView s)
 {
     return os.write(s.data(), s.size());
 }

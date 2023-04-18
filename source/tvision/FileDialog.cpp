@@ -29,7 +29,7 @@
 #include <cstring>
 
 #if !defined(__STRSTREAM_H)
-#include <strstrea.h>
+#include <strstream>
 #endif
 
 const char* const TFileDialog::name = "TFileDialog";
@@ -255,8 +255,8 @@ Boolean TFileDialog::checkDirectory(const char* str)
         return True;
     else {
         char buf[256];
-        ostrstream os(buf, sizeof(buf) - 1);
-        os << invalidDriveText << ": '" << str << "'" << ends;
+        std::ostrstream os(buf, sizeof(buf) - 1);
+        os << invalidDriveText << ": '" << str << "'" << std::ends;
         buf[sizeof(buf) - 1] = '\0';
         messageBox(buf, mfError | mfOKButton);
         fileName->select();
@@ -306,8 +306,8 @@ Boolean TFileDialog::valid(ushort command)
                 return True;
             else {
                 char buf[256];
-                ostrstream os(buf, sizeof(buf) - 1);
-                os << invalidFileText << ": '" << fName << "'" << ends;
+                std::ostrstream os(buf, sizeof(buf) - 1);
+                os << invalidFileText << ": '" << fName << "'" << std::ends;
                 buf[sizeof(buf) - 1] = '\0';
                 messageBox(buf, mfError | mfOKButton);
                 return False;

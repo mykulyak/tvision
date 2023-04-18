@@ -52,9 +52,9 @@ protected:
 #ifndef __otstream
 #define __otstream
 
-#include <tvision/compat/borland/iostream.h>
+#include <iostream>
 
-class otstream : public ostream {
+class otstream : public std::ostream {
 
 public:
     otstream(TTerminal*);

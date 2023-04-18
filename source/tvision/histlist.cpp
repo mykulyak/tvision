@@ -21,16 +21,11 @@
 #include <tvision/tv.h>
 
 #include <cstring>
-
-#if !defined(__MEM_H)
-#include <mem.h>
-#endif // __MEM_H
+#include <cstdlib>
 
 #if !defined(__DOS_H)
 #include <dos.h>
 #endif // __DOS_H
-
-#include <cstdlib>
 
 class HistRec {
 
@@ -105,7 +100,7 @@ void deleteString() noexcept
     size_t len = curRec->len;
     HistRec* n = next(curRec);
 #if !defined(__FLAT__)
-    movmem(n, curRec, size_t((char*)lastRec - (char*)n));
+    memmove(n, curRec, size_t((char*)lastRec - (char*)n));
 #else
     memcpy(curRec, n, size_t((char*)lastRec - (char*)n));
 #endif
@@ -120,7 +115,7 @@ void insertString(uchar id, TStringView str) noexcept
         HistRec* dst = historyBlock;
         HistRec* src = next(historyBlock);
 #if !defined(__FLAT__)
-        movmem(src, dst, size_t((char*)lastRec - (char*)src));
+        memmove(src, dst, size_t((char*)lastRec - (char*)src));
 #else
         memcpy(dst, src, size_t((char*)lastRec - (char*)src));
 #endif

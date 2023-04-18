@@ -18,11 +18,11 @@
 
 #pragma hdrstop
 
-#ifndef __CMDS_H)
+#ifndef __CMDS_H
 #include "cmds.h"
 #endif
 
-#ifndef __MMENU_H)
+#ifndef __MMENU_H
 #include "mmenu.h"
 #endif
 

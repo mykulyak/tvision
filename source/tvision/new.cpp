@@ -14,12 +14,8 @@
 #ifndef NDEBUG
 #define NDEBUG
 #endif
-#include <assert.h>
 
-#if !defined(__MEM_H)
-#include <mem.h>
-#endif // __MEM_H
-
+#include <cassert>
 #include <cstdlib>
 
 TBufListEntry* TBufListEntry::bufList = 0;

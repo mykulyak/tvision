@@ -16,12 +16,6 @@
 
 #include <cstdlib>
 
-#if !defined(__MEM_H)
-#include <mem.h>
-#endif // __MEM_H
-
-#include <cstdlib>
-
 TNSCollection::TNSCollection(ccIndex aLimit, ccIndex aDelta) noexcept
     : items(0)
     , count(0)

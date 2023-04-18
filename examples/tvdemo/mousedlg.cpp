@@ -18,8 +18,8 @@
 #include <cctype>
 #include <cstdlib>
 #include <cstring>
-#include <iomanip.h>
-#include <strstrea.h>
+#include <iomanip>
+#include <strstream>
 
 #include "mousedlg.h"
 

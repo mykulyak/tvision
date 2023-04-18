@@ -19,15 +19,9 @@
 
 #include <tvision/tv.h>
 
-#if !defined(__IOSTREAM_H)
-#include <iostream.h>
-#endif // __IOSTREAM_H
-
-#if !defined(__IOMANIP_H)
-#include <iomanip.h>
-#endif // __IOMANIP_H
-
 #include <cstddef>
+#include <iostream>
+#include <iomanip>
 
 #define genConst(n) generate(#n, n)
 
@@ -35,8 +29,8 @@
 
 void generate(const char* name, size_t offset)
 {
-    cout << setw(19) << setiosflags(ios::left)
-         << name << " equ " << offset << endl;
+    std::cout << std::setw(19) << std::setiosflags(std::ios::left)
+         << name << " equ " << offset << std::endl;
 }
 
 void genRefs()

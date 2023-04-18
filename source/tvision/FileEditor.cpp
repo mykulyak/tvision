@@ -16,10 +16,7 @@
 
 #include <climits>
 #include <cstring>
-
-#if !defined(__FSTREAM_H)
-#include <fstream.h>
-#endif // __FSTREAM_H
+#include <fstream>
 
 #if !defined(__IO_H)
 #include <io.h>
@@ -84,12 +81,12 @@ void TFileEditor::initBuffer()
 
 Boolean TFileEditor::loadFile() noexcept
 {
-    ifstream f(fileName, ios::in | ios::binary);
+    std::ifstream f(fileName, std::ios::in | std::ios::binary);
     if (!f) {
         setBufLen(0);
         return True;
     } else {
-        f.seekg(0, ios::end);
+        f.seekg(0, std::ios::end);
         ulong fSize = f.tellg();
         f.seekg(0);
         if (fSize > UINT_MAX - 0x1Fl || setBufSize(uint(fSize)) == False) {
@@ -135,7 +132,7 @@ Boolean TFileEditor::saveAs() noexcept
     return res;
 }
 
-static void writeBlock(ofstream& f, char* buf, uint len) noexcept
+static void writeBlock(std::ofstream& f, char* buf, uint len) noexcept
 {
     while (len > 0) {
         int l = min(len, uint(INT_MAX));
@@ -159,7 +156,7 @@ Boolean TFileEditor::saveFile() noexcept
         rename(fileName, backupName);
     }
 
-    ofstream f(fileName, ios::out | ios::binary);
+    std::ofstream f(fileName, std::ios::out | std::ios::binary);
 
     if (!f) {
         editorDialog(edCreateError, fileName);

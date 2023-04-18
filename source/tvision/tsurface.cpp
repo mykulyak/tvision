@@ -8,9 +8,7 @@
 /*------------------------------------------------------------*/
 
 #include <tvision/tv.h>
-
 #include <cstdlib>
-#include <malloc.h>
 
 #define cpSurfaceView "\x01"
 

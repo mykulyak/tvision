@@ -13,7 +13,7 @@
  */
 
 #include <cstdlib>
-#include <iostream.h>
+#include <iostream>
 #include <signal.h>
 #include <tvision/Application.h>
 #include <tvision/Desktop.h>
@@ -116,8 +116,8 @@ void TApplication::tile()
 void TApplication::writeShellMsg()
 {
 #if defined(__BORLANDC__) || defined(_WIN32)
-    cout << "Type EXIT to return..." << endl;
+    std::cout << "Type EXIT to return..." << std::endl;
 #else
-    cout << "The application has been stopped. You can return by entering 'fg'." << endl;
+    std::cout << "The application has been stopped. You can return by entering 'fg'." << std::endl;
 #endif
 }

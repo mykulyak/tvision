@@ -27,16 +27,12 @@
 
 #include <climits>
 #include <cstring>
+#include <cctype>
+#include <iostream>
 
 #if !defined(__STAT_H)
 #include <sys/stat.h>
 #endif // __STAT_H
-
-#include <cctype>
-
-#if !defined(__IOSTREAM_H)
-#include <iostream.h>
-#endif // __IOSTREAM_H
 
 #pragma warn - dsz
 
@@ -489,7 +485,7 @@ THelpFile::THelpFile(iopstream& s)
     int32_t size;
 
     magic = 0;
-    s.seekg(0, ios::end);
+    s.seekg(0, std::ios::end);
     size = s.tellg();
     s.seekg(0);
     if ((size_t)size > sizeof(magic))
@@ -518,9 +514,9 @@ THelpFile::~THelpFile(void)
         *stream << index;
         stream->seekp(0);
         magic = magicHeader;
-        streampos sp = stream->tellp();
-        stream->seekp(0, ios::end);
-        size = stream->tellp() - (streamoff)8;
+         std::streampos sp = stream->tellp();
+        stream->seekp(0, std::ios::end);
+        size = stream->tellp() - (std::streamoff)8;
         stream->seekp(sp);
         *stream << magic;
         *stream << size;

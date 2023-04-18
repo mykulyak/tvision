@@ -11,12 +11,11 @@
  *
  */
 
-#ifndef  __ASCII_H )
+#ifndef  __ASCII_H
 #define __ASCII_H
 
 const int cmAsciiTableCmdBase = 910;
 const int cmCharFocused       =   0;
-
 
 class TTable : public TView
 {

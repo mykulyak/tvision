@@ -13,10 +13,7 @@
  */
 
 #include <tvision/Memo.h>
-
-#if !defined(__IOSTREAM_H)
-#include <iostream.h>
-#endif // __IOSTREAM_H
+#include <iostream>
 
 #define cpMemo "\x1A\x1B"
 
@@ -86,7 +83,7 @@ void* TMemo::read(ipstream& is)
         is.readBytes(buffer + bufSize - length, length);
         setBufLen(length);
     } else
-        is.seekg(is.tellg() + (streamoff)length);
+        is.seekg(is.tellg() + (std::streamoff)length);
     return this;
 }
 

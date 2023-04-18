@@ -399,12 +399,12 @@ The following are new features not available in Borland's release of Turbo Visio
     In any case, the text in a `TInputLine` can never be more than 256 bytes long, including the null terminator.
 * New functions which allow getting the names of Turbo Vision's constants at runtime (e.g. `evCommand`, `kbShiftIns`, etc.):
     ```c++
-    void printKeyCode(ostream &, ushort keyCode);
-    void printControlKeyState(ostream &, ushort controlKeyState);
-    void printEventCode(ostream &, ushort eventCode);
-    void printMouseButtonState(ostream &, ushort buttonState);
-    void printMouseWheelState(ostream &, ushort wheelState);
-    void printMouseEventFlags(ostream &, ushort eventFlags);
+    void printKeyCode std::ostream &, ushort keyCode);
+    void printControlKeyState std::ostream &, ushort controlKeyState);
+    void printEventCode std::ostream &, ushort eventCode);
+    void printMouseButtonState std::ostream &, ushort buttonState);
+    void printMouseWheelState std::ostream &, ushort wheelState);
+    void printMouseEventFlags std::ostream &, ushort eventFlags);
     ```
 * New class `TKey` which can be used to define new key combinations (e.g. `Shift+Alt+Up`) by specifying a key code and a mask of key modifiers:
     ```c++

@@ -16,8 +16,8 @@
 #include "tvedit.h"
 
 #include <cstdarg>
-#include <iomanip.h>
-#include <strstrea.h>
+#include <iomanip>
+#include <strstream>
 
 TMenuBar* TEditorApp::initMenuBar(TRect r)
 {
@@ -56,7 +56,7 @@ ushort doEditDialog(int dialog, ...)
     va_list arg;
 
     char buf[256] = { 0 };
-    ostrstream os(buf, sizeof(buf) - 1);
+    std::ostrstream os(buf, sizeof(buf) - 1);
     switch (dialog) {
     case edOutOfMemory:
         return messageBox("Not enough memory for this operation",
@@ -64,28 +64,28 @@ ushort doEditDialog(int dialog, ...)
     case edReadError: {
         va_start(arg, dialog);
         os << "Error reading file " << va_arg(arg, _charPtr)
-           << "." << ends;
+           << "." << std::ends;
         va_end(arg);
         return messageBox(buf, mfError | mfOKButton);
     }
     case edWriteError: {
         va_start(arg, dialog);
         os << "Error writing file " << va_arg(arg, _charPtr)
-           << "." << ends;
+           << "." << std::ends;
         va_end(arg);
         return messageBox(buf, mfError | mfOKButton);
     }
     case edCreateError: {
         va_start(arg, dialog);
         os << "Error creating file " << va_arg(arg, _charPtr)
-           << "." << ends;
+           << "." << std::ends;
         va_end(arg);
         return messageBox(buf, mfError | mfOKButton);
     }
     case edSaveModify: {
         va_start(arg, dialog);
         os << va_arg(arg, _charPtr)
-           << " has been modified. Save?" << ends;
+           << " has been modified. Save?" << std::ends;
         va_end(arg);
         return messageBox(buf, mfInformation | mfYesNoCancel);
     }

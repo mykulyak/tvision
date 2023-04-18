@@ -109,7 +109,7 @@ TListDialog::TListDialog(char* rezName, char* title)
     short buttonX;
 
     // Read data off resource stream
-    if (openDataFile(fileName, formDataFile, ios::in) == True) {
+    if (openDataFile(fileName, formDataFile, std::ios::in) == True) {
         // Get horizontal size of key field
         f = (TForm*)formDataFile->get("FormDialog");
         if (f == NULL) {
@@ -380,7 +380,7 @@ Boolean TListDialog::saveList()
         // Create new data file
         fnsplit(fileName, drive, d, n, e);
         fnmerge(bufStr, drive, d, n, ".$$$");
-        if (openDataFile(bufStr, newDataFile, ios::out) == False)
+        if (openDataFile(bufStr, newDataFile, std::ios::out) == False)
             messageBox("Cannot create file. Data not saved.",
                 mfError | mfOKButton);
         else {
@@ -403,7 +403,7 @@ Boolean TListDialog::saveList()
                     mfError | mfOKButton);
 
                 // Try to re-open original. New data will still be in memory
-                if (openDataFile(fileName, formDataFile, ios::in) == False) {
+                if (openDataFile(fileName, formDataFile, std::ios::in) == False) {
                     messageBox("Cannot re-open original file.",
                         mfError | mfOKButton);
                     destroy(this); // Cannot proceed. Free data and close window }
@@ -412,7 +412,7 @@ Boolean TListDialog::saveList()
                 // Rename temp file to original file and re-open
                 fnmerge(bufStr, drive, d, n, ".$$$");
                 rename(bufStr, fileName);
-                openDataFile(fileName, formDataFile, ios::in);
+                openDataFile(fileName, formDataFile, std::ios::in);
 
                 modified = False;
                 destroy(form);

@@ -17,14 +17,7 @@
 #include <tvision/tv.h>
 
 #include <cstring>
-
-#if !defined(__MEM_H)
-#include <mem.h>
-#endif // __MEM_H
-
-#if !defined(__IOSTREAM_H)
-#include <iostream.h>
-#endif // __IOSTREAM_H
+#include <iostream>
 
 const int MAXKEYS = 16;
 

@@ -12,7 +12,7 @@
 #include <cstdio>
 #include <cstring>
 #include <dos.h>
-#include <strstrea.h>
+#include <strstream>
 #include <tvision/tv.h>
 
 const int cmDirTree = 100;
@@ -39,9 +39,9 @@ public:
         options |= ofCentered;
         palette = wpGrayWindow;
         char temp[64];
-        ostrstream os(temp, sizeof(temp));
+        std::ostrstream os(temp, sizeof(temp));
         os << "Scanning Drive '" << drive << "'\n"
-           << ends;
+           << std::ends;
         insert(new TStaticText(TRect(2, 2, 48, 3), temp));
         currentDir = new TParamText(TRect(2, 3, 48, 9));
         insert(currentDir);
@@ -121,15 +121,15 @@ TNode* getDirList(const char* path, QuickMessage* qm = 0)
     int result;
     TNode* temp;
 
-    ostrstream os(searchPath, sizeof(searchPath) - 1);
-    os << path << sep "*.*" << ends;
+    std::ostrstream os(searchPath, sizeof(searchPath) - 1);
+    os << path << sep "*.*" << std::ends;
     result = _dos_findfirst(searchPath, 0xff, &searchRec);
 
     while (result == 0) {
         if (searchRec.name[0] != '.') {
             if (searchRec.attrib & FA_DIREC) {
                 os.seekp(0);
-                os << path << *sep << searchRec.name << ends;
+                os << path << *sep << searchRec.name << std::ends;
                 // Strings may become equal when searchPath is full.
                 if (strcmp(path, searchPath) == 0)
                     break;
@@ -214,8 +214,8 @@ void TFilePane::newDir(const char* path)
 
     deleteFiles();
 
-    ostrstream os(searchPath, sizeof(searchPath) - 1);
-    os << path << "*.*" << ends;
+    std::ostrstream os(searchPath, sizeof(searchPath) - 1);
+    os << path << "*.*" << std::ends;
     result = _dos_findfirst(searchPath, 0xff, &searchRec);
     while (result == 0) {
         if (!(searchRec.attrib & FA_DIREC))

@@ -12,13 +12,12 @@
 
 #include <tvision/tv.h>
 
-#include <iomanip.h>
-#include <iostream.h>
+#include <iostream>
 
 #ifdef __BORLANDC__
 typedef long fmtflags;
 #else
-typedef ios::fmtflags fmtflags;
+typedef std::ios::fmtflags fmtflags;
 #endif
 
 struct TConstant {
@@ -259,7 +258,7 @@ static const TConstant mouseEventFlags[] = {
     NMEND(),
 };
 
-static void printFlags(ostream& os, ushort flags, const TConstant* constants)
+static void printFlags(std::ostream& os, ushort flags, const TConstant* constants)
 {
     ushort foundFlags = 0;
     for (const TConstant* constant = constants; constant->name; ++constant) {
@@ -276,14 +275,14 @@ static void printFlags(ostream& os, ushort flags, const TConstant* constants)
 
         if (foundFlags != 0)
             os << " | ";
-        os << "0x" << hex << setw(4) << (flags & ~foundFlags);
+        os << "0x" << std::hex << std::setw(4) << (flags & ~foundFlags);
 
         os.flags(f);
         os.fill(ch);
     }
 }
 
-static void printCode(ostream& os, ushort code, const TConstant* constants)
+static void printCode(std::ostream& os, ushort code, const TConstant* constants)
 {
     for (const TConstant* constant = constants; constant->name; ++constant) {
         if (code == constant->value) {
@@ -294,38 +293,38 @@ static void printCode(ostream& os, ushort code, const TConstant* constants)
     fmtflags f = os.flags();
     char ch = os.fill('0');
 
-    os << "0x" << hex << setw(4) << code;
+    os << "0x" << std::hex << std::setw(4) << code;
 
     os.flags(f);
     os.fill(ch);
 }
 
-void printKeyCode(ostream& os, ushort keyCode)
+void printKeyCode(std::ostream& os, ushort keyCode)
 {
     printCode(os, keyCode, keyCodes);
 }
 
-void printControlKeyState(ostream& os, ushort controlKeyState)
+void printControlKeyState(std::ostream& os, ushort controlKeyState)
 {
     printFlags(os, controlKeyState, controlKeyStateFlags);
 }
 
-void printEventCode(ostream& os, ushort eventCode)
+void printEventCode(std::ostream& os, ushort eventCode)
 {
     printCode(os, eventCode, eventCodes);
 }
 
-void printMouseButtonState(ostream& os, ushort buttonState)
+void printMouseButtonState(std::ostream& os, ushort buttonState)
 {
     printFlags(os, buttonState, mouseButtonFlags);
 }
 
-void printMouseWheelState(ostream& os, ushort wheelState)
+void printMouseWheelState(std::ostream& os, ushort wheelState)
 {
     printFlags(os, wheelState, mouseWheelFlags);
 }
 
-void printMouseEventFlags(ostream& os, ushort eventFlags)
+void printMouseEventFlags(std::ostream& os, ushort eventFlags)
 {
     printFlags(os, eventFlags, mouseEventFlags);
 }

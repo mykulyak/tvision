@@ -15,8 +15,7 @@
 #include <tvision/tv.h>
 
 #include <cstring>
-
-#include <malloc.h>
+#include <cstdlib>
 
 #pragma argsused
 TTextDevice::TTextDevice(const TRect& bounds,
@@ -246,6 +245,6 @@ Boolean TTerminal::queEmpty()
 }
 
 otstream::otstream(TTerminal* tt)
-    : ostream(tt)
+    : std::ostream(tt)
 {
 }

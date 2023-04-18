@@ -18,7 +18,7 @@
 #include <cstdlib>
 #include <iomanip>
 #include <signal.h>
-#include <strstrea.h>
+#include <strstream>
 
 TEditWindow* TEditorApp::openEditor(const char* fileName, Boolean visible)
 {

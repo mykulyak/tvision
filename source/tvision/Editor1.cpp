@@ -24,7 +24,6 @@
 #endif // __DOS_H
 
 #include <cstdlib>
-#include <malloc.h>
 
 #ifndef __BORLANDC__
 #define register

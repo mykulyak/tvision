@@ -115,7 +115,7 @@
 #include <fstream>
 
 #if !defined(__STRSTREA_H)
-#include <strstrea.h>
+#include <strstream>
 #endif // __STRSTREA_H
 
 #include <cerrno>
@@ -145,7 +145,7 @@ int lineCount = 0;
 //======================= File Management ===============================//
 
 TProtectedStream::TProtectedStream(const char* aFileName, openmode aMode)
-    : fstream(aFileName, aMode)
+    : std::fstream(aFileName, aMode)
 {
     strnzcpy(fileName, aFileName, sizeof(fileName));
     mode = aMode;
@@ -161,8 +161,8 @@ void warning(const char* text);
 void copyPath(char* dest, const char* src, size_t size)
 {
     if (strnzcpy(dest, src, size) < strlen(src)) {
-        cerr << "Path too long (" << strlen(src) << " > " << size << "): \""
-             << src << "\"" << endl;
+        std::cerr << "Path too long (" << strlen(src) << " > " << size << "): \""
+             << src << "\"" << std::endl;
         exit(1);
     }
 }
@@ -180,11 +180,11 @@ const char* replaceExt(const char* fileName, const char* nExt, Boolean force)
     char ext[MAXEXT];
     char drive[MAXDRIVE];
     static char buffer[MAXPATH] = { 0 };
-    ostrstream os(buffer, MAXPATH - 1);
+    std::ostrstream os(buffer, MAXPATH - 1);
 
     fnsplit(fileName, drive, dir, name, ext);
     if (force || (strlen(ext) == 0)) {
-        os << dir << name << nExt << ends;
+        os << dir << name << nExt << std::ends;
         return os.str();
     } else
         return fileName;
@@ -217,7 +217,7 @@ int isComment(const char* line)
 //  Returns the next line out of the stream.                             //
 //-----------------------------------------------------------------------//
 
-char* getLine(fstream& s)
+char* getLine(std::fstream& s)
 {
     if (s.eof()) {
         strnzcpy(line, "\x1A", sizeof(line));
@@ -234,19 +234,19 @@ char* getLine(fstream& s)
                     line[len - 1] = '\0';
             }
             // Detect truncation.
-            if ((s.rdstate() & (ios::failbit | ios::eofbit)) == ios::failbit) {
+            if ((s.rdstate() & (std::ios::failbit | std::ios::eofbit)) == std::ios::failbit) {
                 if (!isComment(line)) {
                     char buf[MAXSTRSIZE] = { 0 };
-                    ostrstream os(buf, sizeof(buf) - 1);
+                    std::ostrstream os(buf, sizeof(buf) - 1);
                     os << "Line longer than " << (sizeof(line) - 1) << " characters.";
                     warning(os.str());
                 }
                 // Read the rest of the line.
                 do {
                     char buf[MAXSTRSIZE] = { 0 };
-                    s.clear(s.rdstate() & ~ios::failbit);
+                    s.clear(s.rdstate() & ~std::ios::failbit);
                     s.getline(buf, sizeof(buf), '\n');
-                } while ((s.rdstate() & (ios::failbit | ios::eofbit)) == ios::failbit);
+                } while ((s.rdstate() & (std::ios::failbit | std::ios::eofbit)) == std::ios::failbit);
             }
         }
         lineInBuffer = False;
@@ -275,10 +275,10 @@ void unGetLine(const char* s)
 void prntMsg(const char* pref, const char* text)
 {
     if (lineCount > 0)
-        cerr << pref << ": " << textName << "("
+        std::cerr << pref << ": " << textName << "("
              << lineCount << "): " << text << "\n";
     else
-        cerr << pref << ": " << textName << " "
+        std::cerr << pref << ": " << textName << " "
              << text << "\n";
 }
 
@@ -410,7 +410,7 @@ void recordReference(const char* topic, opstream& s)
 
 void doFixUps(TFixUp* p, uint value, iopstream& s)
 {
-    streampos pos;
+     std::streampos pos;
 
     for (pos = s.tellp(); (p != 0); p = p->next) {
         s.seekp(p->pos);
@@ -543,10 +543,10 @@ TTopicDefinition* topicDefinition(const char* line, int& i)
 
         if (helpCounter > MAXHELPTOPICID) {
             char buf[MAXSTRSIZE] = { 0 };
-            ostrstream os(buf, sizeof(buf) - 1);
+            std::ostrstream os(buf, sizeof(buf) - 1);
 
             os << "Topic id for topic '" << topic
-               << "' exceeds limit of " << MAXHELPTOPICID << ends;
+               << "' exceeds limit of " << MAXHELPTOPICID << std::ends;
 
             error(buf);
             return 0;
@@ -747,7 +747,7 @@ Boolean isEndParagraph(State state)
 // references and updates the xRefs variable.                            //
 //-----------------------------------------------------------------------//
 
-TParagraph* readParagraph(fstream& textFile, int& offset, TCrossRefNode*& xRefs)
+TParagraph* readParagraph(std::fstream& textFile, int& offset, TCrossRefNode*& xRefs)
 {
     State state;
     Boolean flag;
@@ -802,7 +802,7 @@ void handleCrossRefs(opstream& s, int xRefValue)
         recordReference(p->topic, s);
 }
 
-void skipBlankLines(fstream& s)
+void skipBlankLines(std::fstream& s)
 {
     char line[MAXSTRSIZE];
 
@@ -848,7 +848,7 @@ void recordTopicDefinitions(TTopicDefinition* p, THelpFile& helpFile)
 // Read a topic from the source file and write it to the help file      //
 //----------------------------------------------------------------------//
 
-void readTopic(fstream& textFile, THelpFile& helpFile)
+void readTopic(std::fstream& textFile, THelpFile& helpFile)
 {
     TParagraph* p;
     THelpTopic* topic;
@@ -902,7 +902,7 @@ void readTopic(fstream& textFile, THelpFile& helpFile)
 void doWriteSymbol(void* p, void* p1)
 {
     int numBlanks, i;
-    ostrstream os(line, sizeof(line) - 1);
+    std::ostrstream os(line, sizeof(line) - 1);
 
     TProtectedStream* symbFile = (TProtectedStream*)p1;
     if (((TReference*)p)->resolved) {
@@ -910,11 +910,11 @@ void doWriteSymbol(void* p, void* p1)
         numBlanks = 20 - strlen((char*)((TReference*)p)->topic);
         for (i = 0; i < numBlanks; ++i)
             os << ' ';
-        os << " = " << ((TReference*)p)->val.value << "," << ends;
+        os << " = " << ((TReference*)p)->val.value << "," << std::ends;
         *symbFile << os.str();
     } else {
         os << "Unresolved forward reference \""
-           << ((TReference*)p)->topic << "\"" << ends;
+           << ((TReference*)p)->topic << "\"" << std::ends;
         warning(os.str());
     }
 }
@@ -929,7 +929,7 @@ void writeSymbFile(TProtectedStream* symbFile)
 
     *symbFile << header1;
     refTable->forEach(doWriteSymbol, symbFile);
-    symbFile->seekp(-1L, ios::end);
+    symbFile->seekp(-1L, std::ios::end);
     *symbFile << ";\n";
 }
 
@@ -959,7 +959,7 @@ void processText(TProtectedStream& textFile,
 void checkOverwrite(const char* fName)
 {
     if (fExists(fName)) {
-        cerr << "File already exists: " << fName << ".  Overwrite? (y/n) ";
+        std::cerr << "File already exists: " << fName << ".  Overwrite? (y/n) ";
         char ch;
         if (scanf(" %c", &ch) != 1 || toupper(ch) != 'Y')
             exit(1);
@@ -983,16 +983,16 @@ int main(int argc, char** argv)
                       "     Help file   = Compiled help file\n"
                       "     Symbol file = An include file containing all the screen names as const's\n";
 
-    cout << initialText;
+    std::cout << initialText;
     if (argc < 2) {
-        cout << helpText;
+        std::cout << helpText;
         exit(1);
     }
 
     //  Calculate file names
     copyPath(textName, replaceExt(argv[1], ".txt", False), sizeof(textName));
     if (!fExists(textName)) {
-        cerr << "Error: File '" << textName << "' not found." << endl;
+        std::cerr << "Error: File '" << textName << "' not found." << std::endl;
         exit(1);
     }
 
@@ -1010,10 +1010,10 @@ int main(int argc, char** argv)
 
     checkOverwrite(symbName);
 
-    TProtectedStream textStrm(textName, ios::in);
-    TProtectedStream symbStrm(symbName, ios::out);
+    TProtectedStream textStrm(textName, std::ios::in);
+    TProtectedStream symbStrm(symbName, std::ios::out);
 
-    helpStrm = new fpstream(helpName, ios::out | ios::binary);
+    helpStrm = new fpstream(helpName, std::ios::out | std::ios::binary);
     processText(textStrm, *helpStrm, symbStrm);
     return 0;
 }

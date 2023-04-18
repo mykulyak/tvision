@@ -22,9 +22,8 @@
 #include <cstdlib>
 #include <cstring>
 #include <ctime>
-#include <iomanip.h>
-#include <malloc.h>
-#include <strstrea.h>
+#include <iomanip>
+#include <strstream>
 
 #include "gadgets.h"
 
@@ -61,7 +60,7 @@ void THeapView::update()
 
 long THeapView::heapSize()
 {
-    ostrstream totalStr(heapStr, sizeof heapStr);
+    std::ostrstream totalStr(heapStr, sizeof heapStr);
 
 #ifdef __BORLANDC__
     // #if !defined( __DPMI32__ )
@@ -97,7 +96,7 @@ long THeapView::heapSize()
             if (!heap.in_use)
                 total += heap.size;
 #endif
-        totalStr << setw(12) << total << ends;
+        totalStr << std::setw(12) << total << std::ends;
         break;
     }
     return (total);
@@ -111,10 +110,10 @@ long THeapView::heapSize()
         mallinfo()
 #endif
             .uordblks;
-    totalStr << setw(12) << allocatedBytes << ends;
+    totalStr << std::setw(12) << allocatedBytes << std::ends;
     return allocatedBytes;
 #else
-    totalStr << ends;
+    totalStr << std::ends;
     return 0;
 #endif
 }

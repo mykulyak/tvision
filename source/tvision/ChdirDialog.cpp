@@ -30,7 +30,7 @@
 #include <cstring>
 
 #if !defined(__STRSTREAM_H)
-#include <strstrea.h>
+#include <strstream>
 #endif
 
 const char* const TChDirDialog::name = "TChDirDialog";
@@ -167,8 +167,8 @@ Boolean TChDirDialog::valid(ushort command)
 
     if (changeDir(path) != 0) {
         char buf[256];
-        ostrstream os(buf, sizeof(buf) - 1);
-        os << invalidText << ": '" << path << "'." << ends;
+        std::ostrstream os(buf, sizeof(buf) - 1);
+        os << invalidText << ": '" << path << "'." << std::ends;
         buf[sizeof(buf) - 1] = '\0';
         messageBox(buf, mfError | mfOKButton);
         return False;

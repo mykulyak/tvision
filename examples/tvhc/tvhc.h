@@ -25,15 +25,15 @@ const char commandChar[] = ".";
 
 enum State { undefined, wrapping, notWrapping };
 
-class TProtectedStream : public fstream
+class TProtectedStream : public std::fstream
 {
 
 public:
 
 #ifdef __BORLANDC__
-    typedef ios::open_mode openmode;
+    typedef std::ios::open_mode openmode;
 #else
-    typedef ios::openmode openmode;
+    typedef std::ios::openmode openmode;
 #endif
 
     TProtectedStream( const char *aFileName, openmode aMode );
@@ -50,7 +50,7 @@ private:
 struct TFixUp
 {
 
-    streampos pos;
+     std::streampos pos;
     TFixUp *next;
 
 };

@@ -17,8 +17,8 @@
 
 #include <cstdarg>
 #include <cstdlib>
-#include <iomanip.h>
-#include <strstrea.h>
+#include <iomanip>
+#include <strstream>
 
 ushort execDialog(TDialog* d, void* data)
 {

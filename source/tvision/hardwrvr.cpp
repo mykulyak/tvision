@@ -14,7 +14,7 @@
  */
 
 #include <dos.h>
-#include <iostream.h>
+#include <iostream>
 #include <tvision/tv.h>
 
 #if defined(__FLAT__)
@@ -134,9 +134,9 @@ THardwareInfo::THardwareInfo()
     consoleHandle[cnInput] = GetStdHandle(STD_INPUT_HANDLE);
     consoleHandle[cnOutput] = GetStdHandle(STD_OUTPUT_HANDLE);
     if (!GetConsoleMode(consoleHandle[cnInput], &consoleMode)) {
-        cerr << "Error: standard input is being redirected or is not a "
+        std::cerr << "Error: standard input is being redirected or is not a "
                 "Win32 console."
-             << endl;
+             << std::endl;
         ExitProcess(1);
     }
     GetConsoleCursorInfo(consoleHandle[cnOutput], &crInfo);

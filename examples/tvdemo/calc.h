@@ -11,12 +11,10 @@
  *
  */
 
-#ifndef  __CALC_H )
+#ifndef  __CALC_H
 #define __CALC_H
 
-#ifndef  __MATH_H )
-#include <math.h>
-#endif       // __MATH_H
+#include <cmath>
 
 #define DISPLAYLEN  25      // Length (width) of calculator display
 

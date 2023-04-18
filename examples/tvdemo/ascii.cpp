@@ -21,9 +21,9 @@ __link(RView)
 #include <cctype>
 #include <cstdlib>
 #include <cstring>
-#include <iomanip.h>
-#include <iostream.h>
-#include <strstrea.h>
+#include <iomanip>
+#include <iostream>
+#include <strstream>
 
 #include "ascii.h"
 
@@ -174,13 +174,13 @@ void TReport::draw()
     TDrawBuffer buf;
     TColorAttr color = getColor(6);
     char str[80];
-    ostrstream statusStr(str, sizeof str);
+    std::ostrstream statusStr(str, sizeof str);
 
     statusStr
         << "  Char: " << (char)((asciiChar == 0) ? 0x20 : asciiChar)
-        << " Decimal: " << setw(3) << (int)asciiChar
-        << " Hex " << hex << setiosflags(ios::uppercase)
-        << setw(2) << (int)asciiChar << "     " << ends;
+        << " Decimal: " << std::setw(3) << (int)asciiChar
+        << " Hex " << std::hex << std::setiosflags(std::ios::uppercase)
+        << std::setw(2) << (int)asciiChar << "     " << std::ends;
 
     buf.moveStr(0, str, color);
     writeLine(0, 0, 32, 1, buf);

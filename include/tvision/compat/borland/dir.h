@@ -26,8 +26,6 @@
 #include <unistd.h>
 #endif
 
-#include "_defs.h"
-
 #include <cstdint>
 
 #define WILDCARDS 0x01

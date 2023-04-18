@@ -20,8 +20,8 @@ __link(RView)
 #include <cctype>
 #include <cstdlib>
 #include <cstring>
-#include <iomanip.h>
-#include <strstrea.h>
+#include <iomanip>
+#include <strstream>
 
 #include "calc.h"
 
@@ -136,13 +136,13 @@ void TCalcDisplay::setDisplay(double r)
 {
     int len;
     char str[64];
-    ostrstream displayStr(str, sizeof str);
+    std::ostrstream displayStr(str, sizeof str);
 
     if (r < 0.0) {
         sign = '-';
-        displayStr << -r << ends;
+        displayStr << -r << std::ends;
     } else {
-        displayStr << r << ends;
+        displayStr << r << std::ends;
         sign = ' ';
     }
 

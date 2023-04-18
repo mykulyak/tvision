@@ -1,13 +1,13 @@
 #ifndef __TTextDevice
 #define __TTextDevice
 
+#include <iostream>
 #include <tvision/Scroller.h>
-#include <tvision/compat/borland/iostream.h>
 
 class TRect;
 class TScrollBar;
 
-class TTextDevice : public TScroller, public streambuf {
+class TTextDevice : public TScroller, public std::streambuf {
 
 public:
     TTextDevice(const TRect& bounds,

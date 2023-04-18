@@ -45,10 +45,10 @@ __link(RResourceCollection)
 
     TScreen::clearOnSuspend = False;
 
-    cout << "Creating  " << rezFileName << "\n";
+    std::cout << "Creating  " << rezFileName << "\n";
 
     // Construct stream and resource
-    s = new fpstream(rezFileName, ios::out | ios::binary);
+    s = new fpstream(rezFileName, std::ios::out | std::ios::binary);
     r = new TResourceFile(s);
 
     // Form

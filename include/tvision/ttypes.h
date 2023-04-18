@@ -16,8 +16,6 @@
 #if !defined(__TTYPES_H)
 #define __TTYPES_H
 
-#include <tvision/compat/borland/_defs.h>
-
 #ifdef __BORLANDC__
 #define I asm
 #endif
@@ -102,9 +100,10 @@ opstream&  operator<<(opstream&, long double);
 opstream&  operator<<(opstream&, TStreamable&);
 opstream&  operator<<(opstream&, TStreamable*);
 
-#include <tvision/compat/borland/iosfwd.h>
+#include <iosfwd>
+
 class TStringView;
-ostream&  operator<<(ostream&, TStringView);
+std::ostream&  operator<<(std::ostream&, TStringView);
 
 typedef void* TTimerId;
 

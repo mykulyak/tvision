@@ -23,7 +23,7 @@ __link(RInputLine)
 #include <cstring>
 
 #if !defined(__STRSTREAM_H)
-#include <strstrea.h>
+#include <strstream>
 #endif // __STRSTREAM_H
 
     // TKeyInputLine
@@ -122,7 +122,7 @@ Boolean TNumInputLine::valid(ushort command)
     int32_t value;
     Boolean ok;
     char msg[80];
-    ostrstream os(msg, 80);
+    std::ostrstream os(msg, 80);
 
     ok = True;
     if ((command != cmCancel) && (command != cmValid)) {
@@ -131,7 +131,7 @@ Boolean TNumInputLine::valid(ushort command)
         value = atol(data);
         if ((value == 0) || (value < min) || (value > max)) {
             select();
-            os << "Number must be from " << min << " to " << max << "." << ends;
+            os << "Number must be from " << min << " to " << max << "." << std::ends;
             messageBox(os.str(), mfError + mfOKButton);
             selectAll(True);
             ok = False;

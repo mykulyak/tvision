@@ -29,11 +29,10 @@
 #include <tvision/tv.h>
 
 #include <climits>
+#include <cassert>
+#include <cstdlib>
 #include <cstring>
-
-#if !defined(__FSTREAM_H)
-#include <fstream.h>
-#endif // __FSTREAM_H
+#include <fstream>
 
 #if !defined(__STAT_H)
 #include <sys/stat.h>
@@ -43,24 +42,21 @@
 #include <fcntl.h>
 #endif // __FCNTL_H
 
-#include <cassert>
-#include <cstdlib>
-
 #ifdef __FLAT__
 #define _HUGE
 #else
 #define _HUGE huge
 #endif
 
-// ios::open_mode and ios::seek_dir are deprecated in modern C++ and are
-// incompatible with the implementation-defined equivalents ios::openmode
-// and ios::seekdir. We simply redirect to the appropiate type on each platform.
+// std::ios::open_mode and std::ios::seek_dir are deprecated in modern C++ and are
+// incompatible with the implementation-defined equivalents std::ios::openmode
+// and std::ios::seekdir. We simply redirect to the appropiate type on each platform.
 #ifdef __BORLANDC__
-typedef ios::open_mode openmode;
-typedef ios::seek_dir seekdir;
+typedef std::ios::open_mode openmode;
+typedef std::ios::seek_dir seekdir;
 #else
-typedef ios::openmode openmode;
-typedef ios::seekdir seekdir;
+typedef std::ios::openmode openmode;
+typedef std::ios::seekdir seekdir;
 #endif
 
 const uchar nullStringLen = UCHAR_MAX;
@@ -184,7 +180,7 @@ const void* TPReadObjects::find(P_id_type id)
     return at(id);
 }
 
-pstream::pstream(streambuf* sb) noexcept
+pstream::pstream(std::streambuf* sb) noexcept
 {
     init(sb);
 }
@@ -206,23 +202,23 @@ int pstream::rdstate() const noexcept
 
 int pstream::eof() const noexcept
 {
-    return state & ios::eofbit;
+    return state & std::ios::eofbit;
 }
 
 int pstream::fail() const noexcept
 {
-    return state & (ios::failbit | ios::badbit
+    return state & (std::ios::failbit | std::ios::badbit
 #ifdef __BORLANDC__
-               | ios::hardfail
+               | std::ios::hardfail
 #endif
            );
 }
 
 int pstream::bad() const noexcept
 {
-    return state & (ios::badbit
+    return state & (std::ios::badbit
 #ifdef __BORLANDC__
-               | ios::hardfail
+               | std::ios::hardfail
 #endif
            );
 }
@@ -236,7 +232,7 @@ void pstream::clear(int i) noexcept
 {
     state = (i & 0xFF)
 #ifdef __BORLANDC__
-        | (state & ios::hardfail)
+        | (state & std::ios::hardfail)
 #endif
         ;
 }
@@ -256,7 +252,7 @@ int pstream::operator!() const noexcept
     return fail();
 }
 
-streambuf* pstream::rdbuf() const noexcept
+std::streambuf* pstream::rdbuf() const noexcept
 {
     return bp;
 }
@@ -268,22 +264,22 @@ pstream::pstream() noexcept
 void pstream::error(StreamableError e) noexcept
 {
     if (e == peInvalidType)
-        cerr << "pstream error: invalid type encountered" << endl;
+        std::cerr << "pstream error: invalid type encountered" << std::endl;
     else if (e == peNotRegistered)
-        cerr << "pstream error: type not registered" << endl;
+        std::cerr << "pstream error: type not registered" << std::endl;
     abort();
 }
 
 void pstream::error(StreamableError e, const TStreamable& t) noexcept
 {
     if (e == peNotRegistered)
-        cerr << "pstream error: type '" << t.streamableName() << "' not registered" << endl;
+        std::cerr << "pstream error: type '" << t.streamableName() << "' not registered" << std::endl;
     else
         error(e);
     abort();
 }
 
-void pstream::init(streambuf* sbp) noexcept
+void pstream::init(std::streambuf* sbp) noexcept
 {
     state = 0;
     bp = sbp;
@@ -294,7 +290,7 @@ void pstream::setstate(int b) noexcept
     state |= (b & 0xFF);
 }
 
-ipstream::ipstream(streambuf* sb) noexcept
+ipstream::ipstream(std::streambuf* sb) noexcept
 {
     pstream::init(sb);
 }
@@ -305,27 +301,27 @@ ipstream::~ipstream()
     objs.shutDown();
 }
 
-streampos ipstream::tellg()
+ std::streampos ipstream::tellg()
 {
 #ifdef __BORLANDC__
-    return bp->seekoff(0, ios::cur, ios::in);
+    return bp->seekoff(0, std::ios::cur, std::ios::in);
 #else
-    return bp->pubseekoff(0, ios::cur, ios::in);
+    return bp->pubseekoff(0, std::ios::cur, std::ios::in);
 #endif
 }
 
-ipstream& ipstream::seekg(streampos pos)
+ipstream& ipstream::seekg( std::streampos pos)
 {
     objs.removeAll();
 #ifdef __BORLANDC__
-    bp->seekoff(pos, ios::beg);
+    bp->seekoff(pos, std::ios::beg);
 #else
-    bp->pubseekoff(pos, ios::beg);
+    bp->pubseekoff(pos, std::ios::beg);
 #endif
     return *this;
 }
 
-ipstream& ipstream::seekg(streamoff off, pstream::seekdir dir)
+ipstream& ipstream::seekg(std::streamoff off, pstream::seekdir dir)
 {
     objs.removeAll();
 #ifdef __BORLANDC__
@@ -534,7 +530,7 @@ opstream::opstream() noexcept
     objs = new TPWrittenObjects;
 }
 
-opstream::opstream(streambuf* sb) noexcept
+opstream::opstream(std::streambuf* sb) noexcept
 {
     objs = new TPWrittenObjects;
     pstream::init(sb);
@@ -546,19 +542,19 @@ opstream::~opstream()
     delete objs;
 }
 
-opstream& opstream::seekp(streampos pos)
+opstream& opstream::seekp( std::streampos pos)
 {
     objs->freeAll();
     objs->removeAll();
 #ifdef __BORLANDC__
-    bp->seekoff(pos, ios::beg);
+    bp->seekoff(pos, std::ios::beg);
 #else
-    bp->pubseekoff(pos, ios::beg);
+    bp->pubseekoff(pos, std::ios::beg);
 #endif
     return *this;
 }
 
-opstream& opstream::seekp(streamoff pos, pstream::seekdir dir)
+opstream& opstream::seekp(std::streamoff pos, pstream::seekdir dir)
 {
     objs->freeAll();
     objs->removeAll();
@@ -570,12 +566,12 @@ opstream& opstream::seekp(streamoff pos, pstream::seekdir dir)
     return *this;
 }
 
-streampos opstream::tellp()
+ std::streampos opstream::tellp()
 {
 #ifdef __BORLANDC__
-    return bp->seekoff(0, ios::cur, ios::out);
+    return bp->seekoff(0, std::ios::cur, std::ios::out);
 #else
-    return bp->pubseekoff(0, ios::cur, ios::out);
+    return bp->pubseekoff(0, std::ios::cur, std::ios::out);
 #endif
 }
 
@@ -744,7 +740,7 @@ void opstream::registerObject(const void* adr)
     objs->registerObject(adr);
 }
 
-iopstream::iopstream(streambuf* sb) noexcept
+iopstream::iopstream(std::streambuf* sb) noexcept
 {
     pstream::init(sb);
 }
@@ -775,22 +771,22 @@ fpbase::~fpbase()
 void fpbase::open(const char* b, pstream::openmode m)
 {
     if (buf.is_open())
-        clear(ios::failbit); // fail - already open
+        clear(std::ios::failbit); // fail - already open
     else if (buf.open(b, ::openmode(m)))
-        clear(ios::goodbit); // successful open
+        clear(std::ios::goodbit); // successful open
     else
-        clear(ios::badbit); // open failed
+        clear(std::ios::badbit); // open failed
 }
 
 void fpbase::close()
 {
     if (buf.close())
-        clear(ios::goodbit);
+        clear(std::ios::goodbit);
     else
-        setstate(ios::failbit);
+        setstate(std::ios::failbit);
 }
 
-filebuf* fpbase::rdbuf() noexcept
+std::filebuf* fpbase::rdbuf() noexcept
 {
     return &buf;
 }
@@ -800,7 +796,7 @@ ifpstream::ifpstream() noexcept
 }
 
 ifpstream::ifpstream(const char* name, pstream::openmode omode)
-    : fpbase(name, omode | ios::in | ios::binary)
+    : fpbase(name, omode | std::ios::in | std::ios::binary)
 {
 }
 
@@ -808,14 +804,14 @@ ifpstream::~ifpstream()
 {
 }
 
-filebuf* ifpstream::rdbuf() noexcept
+std::filebuf* ifpstream::rdbuf() noexcept
 {
     return fpbase::rdbuf();
 }
 
 void ifpstream::open(const char* name, pstream::openmode omode)
 {
-    fpbase::open(name, omode | ios::in | ios::binary);
+    fpbase::open(name, omode | std::ios::in | std::ios::binary);
 }
 
 ofpstream::ofpstream() noexcept
@@ -823,7 +819,7 @@ ofpstream::ofpstream() noexcept
 }
 
 ofpstream::ofpstream(const char* name, pstream::openmode omode)
-    : fpbase(name, omode | ios::out | ios::binary)
+    : fpbase(name, omode | std::ios::out | std::ios::binary)
 {
 }
 
@@ -831,14 +827,14 @@ ofpstream::~ofpstream()
 {
 }
 
-filebuf* ofpstream::rdbuf() noexcept
+std::filebuf* ofpstream::rdbuf() noexcept
 {
     return fpbase::rdbuf();
 }
 
 void ofpstream::open(const char* name, pstream::openmode omode)
 {
-    fpbase::open(name, omode | ios::out | ios::binary);
+    fpbase::open(name, omode | std::ios::out | std::ios::binary);
 }
 
 fpstream::fpstream() noexcept
@@ -846,7 +842,7 @@ fpstream::fpstream() noexcept
 }
 
 fpstream::fpstream(const char* name, pstream::openmode omode)
-    : fpbase(name, omode | ios::binary)
+    : fpbase(name, omode | std::ios::binary)
 {
 }
 
@@ -854,12 +850,12 @@ fpstream::~fpstream()
 {
 }
 
-filebuf* fpstream::rdbuf() noexcept
+std::filebuf* fpstream::rdbuf() noexcept
 {
     return fpbase::rdbuf();
 }
 
 void fpstream::open(const char* name, pstream::openmode omode)
 {
-    fpbase::open(name, omode | ios::binary);
+    fpbase::open(name, omode | std::ios::binary);
 }

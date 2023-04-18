@@ -26,16 +26,12 @@
 
 #include <climits>
 #include <cstring>
+#include <cctype>
+#include <cstdlib>
 
 #if !defined(__STAT_H)
 #include <sys/stat.h>
 #endif // __STAT_H
-
-#include <cctype>
-
-#if !defined(__MALLOC_H)
-#include <malloc.h>
-#endif // __MALLOC_H
 
 #pragma warn - dsz
 

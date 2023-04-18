@@ -17,13 +17,13 @@ class TEventViewer : public TWindow
     ushort bufSize;
     TTerminal *interior;
     TScrollBar *scrollBar;
-    ostream *out;
+    std::ostream *out;
 
     static const char * const titles[2];
 
     void init(ushort aBufSize);
 
-    static void printEvent(ostream &out, const TEvent &ev);
+    static void printEvent(std::ostream &out, const TEvent &ev);
 
 public:
 

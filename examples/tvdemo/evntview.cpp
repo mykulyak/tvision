@@ -1,9 +1,9 @@
 #include <tvision/tv.h>
 __link(RWindow)
 
-#include <iomanip.h>
-#include <iostream.h>
-#include <strstrea.h>
+#include <iomanip>
+#include <iostream>
+#include <strstream>
 
 #include "evntview.h"
 #include "tvcmds.h"
@@ -64,7 +64,7 @@ void TEventViewer::print(const TEvent& ev)
         lock();
         *out << "Received event #" << ++eventCount << '\n';
         printEvent(*out, ev);
-        *out << flush;
+        *out << std::flush;
         unlock();
     }
 }
@@ -89,7 +89,7 @@ void TEventViewer::init(ushort aBufSize)
         scrollBar,
         bufSize);
     insert(interior);
-    out = new ostream(interior);
+    out = new std::ostream(interior);
 }
 
 void TEventViewer::shutDown()
@@ -113,20 +113,20 @@ void TEventViewer::handleEvent(TEvent& ev)
         clearEvent(ev);
 }
 
-static void printConstants(ostream& out, ushort value, void (&doPrint)(ostream&, ushort))
+static void printConstants(std::ostream& out, ushort value, void (&doPrint)(std::ostream&, ushort))
 {
-    out << hex << setfill('0')
-        << "0x" << setw(4) << value;
+    out << std::hex << std::setfill('0')
+        << "0x" << std::setw(4) << value;
     char buf[256];
-    ostrstream os(buf, sizeof(buf));
+    std::ostrstream os(buf, sizeof(buf));
     doPrint(os, value);
-    os << ends;
+    os << std::ends;
     if (buf[0] != '0')
         out << " (" << buf << ")";
-    out << dec;
+    out << std::dec;
 }
 
-void TEventViewer::printEvent(ostream& out, const TEvent& ev)
+void TEventViewer::printEvent(std::ostream& out, const TEvent& ev)
 {
     out << "TEvent {\n"
         << "  .what = ";
@@ -168,7 +168,7 @@ void TEventViewer::printEvent(ostream& out, const TEvent& ev)
             << "    .controlKeyState = ";
         printConstants(out, ev.keyDown.controlKeyState, printControlKeyState);
         out << ",\n"
-            << hex
+            << std::hex
             << "    .text = {";
         Boolean first = True;
         for (int i = 0; i < ev.keyDown.textLength; ++i) {
@@ -179,7 +179,7 @@ void TEventViewer::printEvent(ostream& out, const TEvent& ev)
             out << "0x" << (int)(uchar)ev.keyDown.text[i];
         }
         out << "},\n"
-            << dec
+            << std::dec
             << "    .textLength = " << (int)ev.keyDown.textLength << "\n"
             << "  }\n";
     }

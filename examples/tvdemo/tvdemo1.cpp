@@ -116,7 +116,7 @@ void TVDemo::getEvent(TEvent& event)
     case evCommand:
         if ((event.message.command == cmHelp) && (helpInUse == False)) {
             helpInUse = True;
-            helpStrm = new fpstream(HELP_FILENAME, ios::in | ios::binary);
+            helpStrm = new fpstream(HELP_FILENAME, std::ios::in | std::ios::binary);
             hFile = new THelpFile(*helpStrm);
             if (!helpStrm) {
                 messageBox("Could not open help file", mfError | mfOKButton);
@@ -178,10 +178,10 @@ void TVDemo::puzzle()
 
 void TVDemo::retrieveDesktop()
 {
-    if (!ifstream("TVDEMO.DST").good())
+    if (!std::ifstream("TVDEMO.DST").good())
         messageBox("Could not find desktop file", mfOKButton | mfError);
     else {
-        fpstream* f = new fpstream("TVDEMO.DST", ios::in | ios::binary);
+        fpstream* f = new fpstream("TVDEMO.DST", std::ios::in | std::ios::binary);
         if (!f)
             messageBox("Could not open desktop file", mfOKButton | mfError);
         else {
@@ -199,7 +199,7 @@ void TVDemo::retrieveDesktop()
 
 void TVDemo::saveDesktop()
 {
-    fpstream* f = new fpstream("TVDEMO.DST", ios::out | ios::binary);
+    fpstream* f = new fpstream("TVDEMO.DST", std::ios::out | std::ios::binary);
 
     if (f) {
         TVDemo::storeDesktop(*f);

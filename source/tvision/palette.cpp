@@ -14,10 +14,6 @@
 
 #include "Palette.h"
 
-#if !defined(__MEM_H)
-#include <mem.h>
-#endif // __MEM_H
-
 TPalette::TPalette(const char* d, ushort len) noexcept
     : data(new TColorAttr[len + 1])
 {
