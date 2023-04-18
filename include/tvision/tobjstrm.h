@@ -26,14 +26,6 @@ typedef unsigned P_id_type;
 /*                                                                         */
 /* ------------------------------------------------------------------------*/
 
-#if defined(__BORLANDC__)
-#pragma warn - nst
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
-
 #if !defined(__fLink_def)
 #define __fLink_def
 
@@ -263,13 +255,6 @@ private:
 #if defined(Uses_pstream) && !defined(__pstream)
 #define __pstream
 
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
-
 class TStreamableTypes;
 
 class pstream {
@@ -331,13 +316,6 @@ protected:
 #if defined(Uses_ipstream) && !defined(__ipstream)
 #define __ipstream
 
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
-
 class TStreamableClass;
 
 class ipstream : virtual public pstream {
@@ -386,13 +364,6 @@ private:
 
 #if defined(Uses_opstream) && !defined(__opstream)
 #define __opstream
-
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
 
 class TStreamableClass;
 
@@ -443,13 +414,6 @@ private:
 #if defined(Uses_iopstream) && !defined(__iopstream)
 #define __iopstream
 
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
-
 class iopstream : public ipstream, public opstream {
 
 public:
@@ -476,13 +440,6 @@ protected:
 #if !defined(__FSTREAM_H)
 #include <tvision/compat/borland/fstream.h>
 #endif // __FSTREAM_H
-
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
 
 class fpbase : virtual public pstream {
 
@@ -512,13 +469,6 @@ private:
 #if defined(Uses_ifpstream) && !defined(__ifpstream)
 #define __ifpstream
 
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
-
 class ifpstream : public fpbase, public ipstream {
 
 public:
@@ -544,13 +494,6 @@ public:
 
 #if defined(Uses_ofpstream) && !defined(__ofpstream)
 #define __ofpstream
-
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
 
 class ofpstream : public fpbase, public opstream {
 
@@ -579,13 +522,6 @@ public:
 #if defined(Uses_fpstream) && !defined(__fpstream)
 #define __fpstream
 
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
-
 class fpstream : public fpbase, public iopstream {
 
 public:
@@ -598,10 +534,3 @@ public:
 };
 
 #endif // Uses_fpstream
-
-#if defined(__BORLANDC__)
-#pragma option -Vo.
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po.
-#endif

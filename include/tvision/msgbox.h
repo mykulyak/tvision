@@ -21,13 +21,6 @@
 #include <stdarg.h>
 #endif // __STDARG_H
 
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
-
 class TRect;
 
 ushort messageBox(TStringView msg, ushort aOptions) noexcept;
@@ -75,12 +68,5 @@ public:
     static const char* informationText;
     static const char* confirmText;
 };
-
-#if defined(__BORLANDC__)
-#pragma option -Vo.
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po.
-#endif
 
 #endif // Uses_MsgBox

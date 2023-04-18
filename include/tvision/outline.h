@@ -13,13 +13,6 @@
  *
  */
 
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
-
 #if defined(Uses_TOutlineViewer) && !defined(__TOutlineViewer)
 #define __TOutlineViewer
 
@@ -223,10 +216,3 @@ inline opstream& operator<<(opstream& os, TOutline* o)
 }
 
 #endif // Uses_TOutline
-
-#if defined(__BORLANDC__)
-#pragma option -Vo.
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po.
-#endif

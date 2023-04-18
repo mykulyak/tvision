@@ -14,13 +14,6 @@
  *
  */
 
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
-
 #if defined(Uses_TStringCollection) && !defined(__TStringCollection)
 #define __TStringCollection
 
@@ -279,10 +272,3 @@ inline opstream& operator<<(opstream& os, TStrListMaker* cl)
 }
 
 #endif // Uses_TStrListMaker
-
-#if defined(__BORLANDC__)
-#pragma option -Vo.
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po.
-#endif

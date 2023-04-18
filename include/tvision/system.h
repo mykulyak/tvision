@@ -14,13 +14,6 @@
  *
  */
 
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
-
 #if !defined(__EVENT_CODES)
 #define __EVENT_CODES
 
@@ -515,10 +508,3 @@ private:
 #endif
 
 #endif // Uses_TSystemError
-
-#if defined(__BORLANDC__)
-#pragma option -Vo.
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po.
-#endif

@@ -14,13 +14,6 @@
  *
  */
 
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
-
 #if defined(Uses_TDrawBuffer) && !defined(__TDrawBuffer)
 #define __TDrawBuffer
 
@@ -82,10 +75,3 @@ inline size_t TDrawBuffer::length() const noexcept
 }
 
 #endif // Uses_TDrawBuffer
-
-#if defined(__BORLANDC__)
-#pragma option -Vo.
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po.
-#endif

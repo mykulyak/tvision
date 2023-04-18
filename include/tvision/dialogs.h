@@ -15,13 +15,6 @@
  *
  */
 
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
-
 #if !defined(__BUTTON_TYPE)
 #define __BUTTON_TYPE
 
@@ -1066,10 +1059,3 @@ inline opstream& operator<<(opstream& os, THistory* cl)
 }
 
 #endif // Uses_THistory
-
-#if defined(__BORLANDC__)
-#pragma option -Vo.
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po.
-#endif

@@ -25,12 +25,6 @@
 
 #endif
 
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
 #if defined(_MSC_VER)
 #pragma warning(push)
 #pragma warning(disable : 4250)
@@ -757,12 +751,6 @@
 #include <tvision/app.h>
 #endif
 
-#if defined(__BORLANDC__)
-#pragma option -Vo.
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po.
-#endif
 #if defined(_MSC_VER)
 #pragma warning(pop)
 #endif

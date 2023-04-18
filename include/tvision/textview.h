@@ -13,23 +13,10 @@
  *
  */
 
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
-
 #if defined(Uses_TTextDevice) && !defined(__TTextDevice)
 #define __TTextDevice
 
 #include <tvision/compat/borland/iostream.h>
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
 
 class TRect;
 class TScrollBar;
@@ -92,12 +79,6 @@ protected:
 #define __otstream
 
 #include <tvision/compat/borland/iostream.h>
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
 
 class otstream : public ostream {
 
@@ -105,11 +86,4 @@ public:
     otstream(TTerminal*);
 };
 
-#endif
-
-#if defined(__BORLANDC__)
-#pragma option -Vo.
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po.
 #endif

@@ -14,13 +14,6 @@
  *
  */
 
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
-
 #if defined(Uses_TVMemMgr) && !defined(__TVMemMgr)
 #define __TVMemMgr
 
@@ -73,10 +66,3 @@ private:
 };
 
 #endif // Uses_TVMemMgr
-
-#if defined(__BORLANDC__)
-#pragma option -Vo.
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po.
-#endif

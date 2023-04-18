@@ -26,13 +26,6 @@
 #include <limits.h>
 #endif // __LIMITS_H
 
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
-
 #if !defined(__EDIT_COMMAND_CODES)
 #define __EDIT_COMMAND_CODES
 
@@ -561,10 +554,3 @@ struct TReplaceDialogRec {
 };
 
 #endif // Uses_TReplaceDialogRec
-
-#if defined(__BORLANDC__)
-#pragma option -Vo.
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po.
-#endif

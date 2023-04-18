@@ -13,13 +13,6 @@
  *
  */
 
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
-
 #if defined(Uses_THardwareInfo) && !defined(__THardwareInfo)
 #define __THardwareInfo
 
@@ -183,8 +176,6 @@ inline ushort THardwareInfo::getScreenCols() noexcept
     return sbInfo.dwSize.X;
 }
 
-#pragma option -w-inl
-
 inline void THardwareInfo::clearScreen(ushort w, ushort h) noexcept
 {
     COORD coord = { 0, 0 };
@@ -193,8 +184,6 @@ inline void THardwareInfo::clearScreen(ushort w, ushort h) noexcept
     FillConsoleOutputAttribute(consoleHandle[cnOutput], 0x07, w * h, coord, &read);
     FillConsoleOutputCharacterA(consoleHandle[cnOutput], ' ', w * h, coord, &read);
 }
-
-#pragma option -w+inl
 
 inline void THardwareInfo::flushScreen() noexcept
 {
@@ -322,10 +311,3 @@ inline Boolean THardwareInfo::getDPMIFlag()
 #endif
 
 #endif // __THardwareInfo
-
-#if defined(__BORLANDC__)
-#pragma option -Vo.
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po.
-#endif

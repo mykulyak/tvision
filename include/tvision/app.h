@@ -13,13 +13,6 @@
  *
  */
 
-#if defined(__BORLANDC__)
-#pragma option -Vo-
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po-
-#endif
-
 #if defined(Uses_TBackground) && !defined(__TBackground)
 #define __TBackground
 
@@ -312,11 +305,4 @@ public:
     virtual void writeShellMsg();
 };
 
-#endif
-
-#if defined(__BORLANDC__)
-#pragma option -Vo.
-#endif
-#if defined(__BCOPT__) && !defined(__FLAT__)
-#pragma option -po.
 #endif
