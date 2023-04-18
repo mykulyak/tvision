@@ -20,9 +20,7 @@
 #define Uses_TButton
 #include <tvision/tv.h>
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
+#include <cstring>
 
 #if !defined(__DIR_H)
 #include <dir.h>

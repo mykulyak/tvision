@@ -19,9 +19,7 @@
 #define Uses_ipstream
 #include <tvision/tv.h>
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
+#include <cstring>
 
 TListBox::TListBox(const TRect& bounds,
     ushort aNumCols,

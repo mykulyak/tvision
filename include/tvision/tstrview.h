@@ -9,7 +9,7 @@
 #ifndef TVISION_TSTRVIEW_H
 #define TVISION_TSTRVIEW_H
 
-#include <string.h>
+#include <cstring>
 #include <tvision/compat/borland/iosfwd.h>
 
 #ifdef TVISION_STL

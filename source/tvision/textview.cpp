@@ -18,9 +18,7 @@
 #define Uses_TText
 #include <tvision/tv.h>
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
+#include <cstring>
 
 #include <malloc.h>
 

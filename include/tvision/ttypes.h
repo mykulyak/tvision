@@ -36,10 +36,10 @@ typedef unsigned char uchar;
 typedef unsigned int uint;
 typedef unsigned long ulong;
 
-#include <stddef.h>
+#include <cstddef>
 
 #ifndef __BORLANDC__
-#include <stdint.h>
+#include <cstdint>
 #else
 typedef char int8_t;
 typedef short int16_t;

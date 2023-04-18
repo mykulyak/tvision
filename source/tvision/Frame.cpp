@@ -20,9 +20,7 @@
 #define Uses_TEvent
 #include <tvision/tv.h>
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
+#include <cstring>
 
 #define cpFrame "\x01\x01\x02\x02\x03"
 

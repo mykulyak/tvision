@@ -1,7 +1,7 @@
 #ifndef TVISION_COMPAT_MALLOC_H
 #define TVISION_COMPAT_MALLOC_H
 
-#include <stdlib.h>
+#include <cstdlib>
 
 #if __has_include(<alloca.h>)
 #include <alloca.h>

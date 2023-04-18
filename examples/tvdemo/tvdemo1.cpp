@@ -37,8 +37,8 @@
 #include "tvdemo.h"
 #include <tvision/help.h>
 
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 
 #ifdef __FLAT__
 #define HELP_FILENAME "demohelp.h32"

@@ -23,9 +23,7 @@
 #define Uses_ipstream
 #include <tvision/tv.h>
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
+#include <cstring>
 
 const TPoint minWinSize = { 16, 6 };
 

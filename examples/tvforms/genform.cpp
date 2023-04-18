@@ -36,9 +36,7 @@ __link(RResourceCollection)
 #include "forms.h"
 #endif // __FORMS_H
 
-#if !defined(__STDLIB_H)
-#include <stdlib.h>
-#endif // __STDLIB_H
+#include <cstdlib>
 
     int main(void)
 {

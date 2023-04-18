@@ -24,7 +24,7 @@
 
 #include <iostream.h>
 #include <signal.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 TStaticInit::TStaticInit() noexcept
 {

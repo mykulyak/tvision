@@ -16,7 +16,7 @@
 #include <windows.h>
 #else
 
-#include <stdint.h>
+#include <cstdint>
 
 extern "C"
 {

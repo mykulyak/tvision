@@ -32,8 +32,8 @@
 #include "tvedit.h"
 
 #include <iomanip.h>
-#include <stdarg.h>
-#include <stdlib.h>
+#include <cstdarg>
+#include <cstdlib>
 #include <strstrea.h>
 
 ushort execDialog(TDialog* d, void* data)

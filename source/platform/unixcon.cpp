@@ -8,10 +8,10 @@
 #include <internal/sigwinch.h>
 #include <internal/terminal.h>
 
-#include <errno.h>
+#include <cerrno>
 #include <fcntl.h>
 #include <poll.h>
-#include <stdlib.h>
+#include <cstdlib>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>

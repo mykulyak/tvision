@@ -26,33 +26,17 @@
 #include <dir.h>
 #endif // __DIR_H
 
-#if !defined(__ERRNO_H)
-#include <errno.h>
-#endif // __ERRNO_H
-
-#if !defined(__STDIO_H)
-#include <stdio.h>
-#endif // __STDIO_H
-
-#if !defined(__CTYPE_H)
-#include <ctype.h>
-#endif // __CTYPE_H
-
-#if !defined(__ASSERT_H)
-#include <assert.h>
-#endif // __ASSERT_H
+#include <cerrno>
+#include <cstdio>
+#include <cctype>
+#include <cassert>
 
 #if !defined(__DOS_H)
 #include <dos.h>
 #endif // __DOS_H
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
-
-#if !defined(__STDLIB_H)
-#include <stdlib.h>
-#endif // __STDLIB_H
+#include <cstring>
+#include <cstdlib>
 
 #if defined(__FLAT__) && defined(__BORLANDC__)
 extern "C" char* _CType FUNC strupr(char* __s);

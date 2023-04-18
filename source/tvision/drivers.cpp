@@ -24,7 +24,7 @@
 #include <dos.h>
 #endif // __DOS_H
 
-#include <string.h>
+#include <cstring>
 
 #if !defined(__BORLANDC__)
 #define register

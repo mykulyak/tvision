@@ -24,17 +24,10 @@
 #define Uses_ipstream
 #include <tvision/tv.h>
 
-#if !defined(__CTYPE_H)
-#include <ctype.h>
-#endif // __CTYPE_H
+#include <cctype>
+#include <cstring>
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
-
-#if !defined(__DOS_H)
 #include <dos.h>
-#endif // __DOS_H
 
 #define cpCluster "\x10\x11\x12\x12\x1f"
 

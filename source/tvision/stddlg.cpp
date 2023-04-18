@@ -36,33 +36,17 @@
 #include <dir.h>
 #endif // __DIR_H
 
-#if !defined(__ERRNO_H)
-#include <errno.h>
-#endif // __ERRNO_H
+#include <cerrno>
 
 #if !defined(__IO_H)
 #include <io.h>
 #endif // __IO_H
 
-#if !defined(__STDIO_H)
-#include <stdio.h>
-#endif // __STDIO_H
-
-#if !defined(__CTYPE_H)
-#include <ctype.h>
-#endif // __CTYPE_H
-
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
-
-#if !defined(__STDLIB_H)
-#include <stdlib.h>
-#endif // __STDLIB_H
-
-#if !defined(__LIMITS_H)
-#include <limits.h>
-#endif // __LIMITS_H
+#include <cstdio>
+#include <cctype>
+#include <cstring>
+#include <cstdlib>
+#include <climits>
 
 #define cpInfoPane "\x1E"
 

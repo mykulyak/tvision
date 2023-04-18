@@ -35,9 +35,7 @@
 #include <iomanip.h>
 #endif // __IOMANIP_H
 
-#if !defined(__STDDEF_H)
-#include <stddef.h>
-#endif // __STDDEF_H
+#include <cstddef>
 
 #define genConst(n) generate(#n, n)
 

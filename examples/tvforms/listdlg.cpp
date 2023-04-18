@@ -48,23 +48,15 @@ __link(RResourceCollection)
 #include "datacoll.h"
 #endif // __DATACOLL_H
 
-#if !defined(__STDLIB_H)
-#include <stdlib.h>
-#endif // __STDLIB_H
-
-#if !defined(__STDIO_H)
-#include <stdio.h>
-#endif // __STDIO_H
-
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
 
 #if !defined(__DIR_H)
 #include <dir.h>
 #endif // __DIR_H
 
-            Boolean fileExists(char* name)
+Boolean fileExists(char* name)
 {
     struct ffblk sr;
     int ccode;

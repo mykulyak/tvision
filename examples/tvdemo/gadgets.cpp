@@ -21,13 +21,13 @@
 #define Uses_TDrawBuffer
 #include <tvision/tv.h>
 
-#include <ctype.h>
+#include <cctype>
 #include <iomanip.h>
 #include <malloc.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 #include <strstrea.h>
-#include <time.h>
+#include <ctime>
 
 #include "gadgets.h"
 

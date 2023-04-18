@@ -4,8 +4,8 @@
 #include <internal/strings.h>
 
 #include <array>
-#include <stdint.h>
-#include <string.h>
+#include <cstdint>
+#include <cstring>
 
 namespace tvision
 {

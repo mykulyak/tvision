@@ -31,7 +31,7 @@
 #include "tvedit.h"
 
 #include <iomanip.h>
-#include <stdarg.h>
+#include <cstdarg>
 #include <strstrea.h>
 
 TMenuBar* TEditorApp::initMenuBar(TRect r)

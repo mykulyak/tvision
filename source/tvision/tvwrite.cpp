@@ -22,8 +22,8 @@
 #ifdef __FLAT__
 
 #include <malloc.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 
 extern TPoint shadowSize;
 extern uchar shadowAttr;

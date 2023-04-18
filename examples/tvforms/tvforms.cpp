@@ -58,13 +58,8 @@ __link(RResourceCollection)
                                 __link(REditor)
                                     __link(RMemo)
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
-
-#if !defined(__STDLIB_H)
-#include <stdlib.h>
-#endif // __STDLIB_H
+#include <cstring>
+#include <cstdlib>
 
 #if !defined(__FORMCMDS_H)
 #include "formcmds.h"

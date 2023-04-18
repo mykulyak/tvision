@@ -20,7 +20,7 @@
 #define Uses_TKeys
 #define Uses_ipstream
 #define Uses_opstream
-#include <string.h>
+#include <cstring>
 #include <tvision/tv.h>
 
 TOutlineViewer::TOutlineViewer(const TRect& bounds, TScrollBar* aHScrollBar,

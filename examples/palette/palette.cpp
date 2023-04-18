@@ -9,7 +9,7 @@
 #include "palette.h" // Class definitions for
 #include <tv.h>
 // this module
-#include <stdio.h> // For sprintf()
+#include <cstdio> // For sprintf()
 
 //
 //  TTestView constructor

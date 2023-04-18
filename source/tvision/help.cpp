@@ -39,21 +39,14 @@
 #include "tvision/util.h"
 #endif // __UTIL_H
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
-
-#if !defined(__LIMITS_H)
-#include <limits.h>
-#endif // __LIMITS_H
+#include <cstring>
+#include <climits>
 
 #if !defined(__STAT_H)
 #include <sys/stat.h>
 #endif // __STAT_H
 
-#if !defined(__CTYPE_H)
-#include <ctype.h>
-#endif // __CTYPE_H
+#include <cctype>
 
 #if !defined(__MALLOC_H)
 #include <malloc.h>

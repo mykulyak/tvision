@@ -18,13 +18,8 @@
 #include <tvision/compat/borland/dir.h>
 #endif // __DIR_H
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
-
-#if !defined(__LIMITS_H)
-#include <limits.h>
-#endif // __LIMITS_H
+#include <cstring>
+#include <climits>
 
 #if !defined(__EDIT_COMMAND_CODES)
 #define __EDIT_COMMAND_CODES
@@ -518,9 +513,7 @@ inline opstream& operator<<(opstream& os, TEditWindow* cl)
 #if defined(Uses_TFindDialogRec) && !defined(__TFindDialogRec)
 #define __TFindDialogRec
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
+#include <cstring>
 
 struct TFindDialogRec {
     TFindDialogRec(const char* str, ushort flgs) noexcept
@@ -537,9 +530,7 @@ struct TFindDialogRec {
 #if defined(Uses_TReplaceDialogRec) && !defined(__TReplaceDialogRec)
 #define __TReplaceDialogRec
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
+#include <cstring>
 
 struct TReplaceDialogRec {
     TReplaceDialogRec(const char* str, const char* rep, ushort flgs) noexcept

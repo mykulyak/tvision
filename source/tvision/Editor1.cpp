@@ -25,25 +25,15 @@
 #define Uses_TClipboard
 #include <tvision/tv.h>
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
-
-#if !defined(__CTYPE_H)
-#include <ctype.h>
-#endif // __CTYPE_H
+#include <cstring>
+#include <cctype>
 
 #if !defined(__DOS_H)
 #include <dos.h>
 #endif // __DOS_H
 
-#if !defined(__MALLOC_H)
 #include <malloc.h>
-#endif // __MALLOC_H
-
-#if !defined(__STDLIB_H)
-#include <stdlib.h>
-#endif // __STDLIB_H
+#include <cstdlib>
 
 #ifndef __BORLANDC__
 #define register

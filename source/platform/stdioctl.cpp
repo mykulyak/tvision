@@ -123,7 +123,7 @@ bool StdioCtl::isLinuxConsole() const noexcept
 
 #elif defined(_WIN32)
 
-#include <stdio.h>
+#include <cstdio>
 
 namespace tvision {
 

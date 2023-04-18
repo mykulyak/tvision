@@ -17,17 +17,9 @@
 #define Uses_opstream
 #include <tvision/tv.h>
 
-#if !defined(__STDIO_H)
-#include <stdio.h>
-#endif // __STDIO_H
-
-#if !defined(__STDARG_H)
-#include <stdarg.h>
-#endif // __STDARG_H
-
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
+#include <cstdio>
+#include <cstdarg>
+#include <cstring>
 
 TParamText::TParamText(const TRect& bounds) noexcept
     : TStaticText(bounds, 0)

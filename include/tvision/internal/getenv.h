@@ -1,7 +1,7 @@
 #ifndef TVISION_GETENV_H
 #define TVISION_GETENV_H
 
-#include <stdlib.h>
+#include <cstdlib>
 
 namespace tvision
 {

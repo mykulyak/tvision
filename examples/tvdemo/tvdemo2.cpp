@@ -38,7 +38,7 @@
 #include "tvdemo.h"
 
 #include <signal.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 //
 // DemoApp::handleEvent()

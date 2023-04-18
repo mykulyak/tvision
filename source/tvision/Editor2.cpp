@@ -24,13 +24,8 @@
 #define Uses_ipstream
 #include <tvision/tv.h>
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
-
-#if !defined(__CTYPE_H)
-#include <ctype.h>
-#endif // __CTYPE_H
+#include <cstring>
+#include <cctype>
 
 #if !defined(__DOS_H)
 #include <dos.h>

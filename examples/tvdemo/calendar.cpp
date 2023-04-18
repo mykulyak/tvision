@@ -23,12 +23,12 @@
 __link(RView)
     __link(RWindow)
 
-#include <ctype.h>
+#include <cctype>
 #include <iomanip.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 #include <strstrea.h>
-#include <time.h>
+#include <ctime>
 
 #include "calendar.h"
 

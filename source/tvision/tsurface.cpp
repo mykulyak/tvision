@@ -14,7 +14,7 @@
 #include <tvision/tv.h>
 
 #include <malloc.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 #define cpSurfaceView "\x01"
 

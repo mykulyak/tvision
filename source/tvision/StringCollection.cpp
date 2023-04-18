@@ -17,9 +17,7 @@
 #define Uses_ipstream
 #include <tvision/tv.h>
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
+#include <cstring>
 
 TStringCollection::TStringCollection(short aLimit, short aDelta) noexcept
     : TSortedCollection(aLimit, aDelta)

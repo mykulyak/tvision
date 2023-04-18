@@ -21,13 +21,8 @@
 #define Uses_ipstream
 #include <tvision/tv.h>
 
-#if !defined(__LIMITS_H)
-#include <limits.h>
-#endif // __LIMITS_H
-
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
+#include <climits>
+#include <cstring>
 
 #if !defined(__FSTREAM_H)
 #include <fstream.h>
@@ -37,9 +32,7 @@
 #include <io.h>
 #endif // __IO_H
 
-#if !defined(__STDIO_H)
-#include <stdio.h>
-#endif // __STDIO_H
+#include <cstdio>
 
 #if !defined(__STDLIB_H)
 #include <alloc.h>

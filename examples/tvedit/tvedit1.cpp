@@ -24,10 +24,10 @@
 
 #include "tvedit.h"
 
-#include <iomanip.h>
+#include <iomanip>
 #include <signal.h>
-#include <stdarg.h>
-#include <stdlib.h>
+#include <cstdarg>
+#include <cstdlib>
 #include <strstrea.h>
 
 TEditWindow* TEditorApp::openEditor(const char* fileName, Boolean visible)

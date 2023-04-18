@@ -34,9 +34,7 @@ __link(RDialog)
 #include "formcmds.h"
 #endif // __FORMCMDS_H
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
+#include <cstring>
 
     // Compares two buffers and returns True if contents are equal
 

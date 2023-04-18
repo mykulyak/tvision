@@ -23,17 +23,9 @@
 #include <dos.h>
 #endif // __DOS_H
 
-#if !defined(__STDIO_H)
-#include <stdio.h>
-#endif // __STDIO_H
-
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
-
-#if !defined(__MATH_H)
-#include <math.h>
-#endif // __MATH_H
+#include <cstdio>
+#include <cstring>
+#include <cmath>
 
 Boolean TSystemError::ctrlBreakHit = False;
 Boolean TSystemError::saveCtrlBreak = False;

@@ -18,9 +18,7 @@
 #define Uses_TCollection
 #include <tvision/tv.h>
 
-#if !defined(__STDLIB_H)
-#include <stdlib.h>
-#endif // __STDLIB_H
+#include <cstdlib>
 
 #if !defined(__MEM_H)
 #include <mem.h>

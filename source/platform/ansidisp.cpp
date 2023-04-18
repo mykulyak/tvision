@@ -1,7 +1,7 @@
 #include <internal/ansidisp.h>
 #include <internal/stdioctl.h>
 #include <internal/strings.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 #define CSI "\x1B["
 

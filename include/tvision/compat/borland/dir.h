@@ -28,7 +28,7 @@
 
 #include "_defs.h"
 
-#include <stdint.h>
+#include <cstdint>
 
 #define WILDCARDS 0x01
 #define EXTENSION 0x02

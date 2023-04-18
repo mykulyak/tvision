@@ -2,10 +2,10 @@
 
 #ifdef _TV_UNIX
 
-#include <errno.h>
+#include <cerrno>
 #include <fcntl.h>
 #include <initializer_list>
-#include <stdio.h>
+#include <cstdio>
 #include <sys/ioctl.h>
 #include <sys/stat.h>
 #include <unistd.h>

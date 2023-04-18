@@ -24,17 +24,9 @@
 #define Uses_ipstream
 #include <tvision/tv.h>
 
-#if !defined(__ASSERT_H)
-#include <assert.h>
-#endif // __ASSERT_H
-
-#if !defined(__CTYPE_H)
-#include <ctype.h>
-#endif // __CTYPE_H
-
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
+#include <cassert>
+#include <cctype>
+#include <cstring>
 
 #define cpMenuView "\x02\x03\x04\x05\x06\x07"
 

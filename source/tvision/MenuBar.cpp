@@ -20,9 +20,7 @@
 #define Uses_TSubMenu
 #include <tvision/tv.h>
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
+#include <cstring>
 
 TMenuBar::TMenuBar(const TRect& bounds, TMenu* aMenu) noexcept
     : TMenuView(bounds)

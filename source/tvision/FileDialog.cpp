@@ -32,21 +32,10 @@
 #include <dir.h>
 #endif // __DIR_H
 
-#if !defined(__ERRNO_H)
-#include <errno.h>
-#endif // __ERRNO_H
-
-#if !defined(__STDIO_H)
-#include <stdio.h>
-#endif // __STDIO_H
-
-#if !defined(__CTYPE_H)
-#include <ctype.h>
-#endif // __CTYPE_H
-
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
+#include <cerrno>
+#include <cstdio>
+#include <cctype>
+#include <cstring>
 
 #if !defined(__STRSTREAM_H)
 #include <strstrea.h>

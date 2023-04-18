@@ -17,7 +17,7 @@
 #include <tvision/tv.h>
 
 #include <malloc.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 void TFrame::frameLine(TDrawBuffer& frameBuf, short y, short n, TColorAttr color)
 {

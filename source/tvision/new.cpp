@@ -26,9 +26,7 @@
 #include <alloc.h>
 #endif // __ALLOC_H
 
-#if !defined(__STDLIB_H)
-#include <stdlib.h>
-#endif // __STDLIB_H
+#include <cstdlib>
 
 TBufListEntry* TBufListEntry::bufList = 0;
 

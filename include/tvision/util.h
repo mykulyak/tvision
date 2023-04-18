@@ -16,7 +16,7 @@
 #if !defined(__UTIL_H)
 #define __UTIL_H
 
-#include <stddef.h>
+#include <cstddef>
 
 inline constexpr int min(int a, int b)
 {

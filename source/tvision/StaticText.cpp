@@ -19,13 +19,8 @@
 #define Uses_TText
 #include <tvision/tv.h>
 
-#if !defined(__CTYPE_H)
-#include <ctype.h>
-#endif // __CTYPE_H
-
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
+#include <cctype>
+#include <cstring>
 
 #define cpStaticText "\x06"
 

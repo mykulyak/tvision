@@ -39,7 +39,7 @@ inline TColorAttr reverseAttribute(TColorAttr attr)
 
 #else // __BORLANDC__
 
-#include <string.h>
+#include <cstring>
 
 // Helper class for trivial types.
 

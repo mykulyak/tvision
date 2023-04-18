@@ -12,8 +12,8 @@
 #include "_defs.h"
 #include "_null.h"
 
-#include <stddef.h>
-#include <string.h>
+#include <cstddef>
+#include <cstring>
 
 inline void movmem(const void *src, void *dest, unsigned length) noexcept
 {

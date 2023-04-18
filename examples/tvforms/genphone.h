@@ -50,9 +50,7 @@ __link( RFrame )
 #include "fields.h"
 #endif  // _FIELDS_H
 
-#if !defined( __STRING_H )
-#include <string.h>
-#endif  // _STRING_H
+#include <cstring>
 
 #if defined( __FLAT__ )
 #define FORM_EXTENSION "f32"

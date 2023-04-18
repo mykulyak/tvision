@@ -29,8 +29,8 @@
 #define Uses_TScreen
 #define Uses_TText
 #include <dos.h>
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 #include <strstrea.h>
 #include <tvision/tv.h>
 

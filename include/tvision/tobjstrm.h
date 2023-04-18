@@ -87,8 +87,8 @@ protected:
 #if defined(Uses_TStreamableClass) && !defined(__TStreamableClass)
 #define __TStreamableClass
 
-#include <limits.h>
-#include <stddef.h>
+#include <climits>
+#include <cstddef>
 #include <tvision/compat/borland/dos.h>
 
 const P_id_type P_id_notFound = UINT_MAX;

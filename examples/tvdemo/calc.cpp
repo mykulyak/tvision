@@ -28,10 +28,10 @@ __link(RView)
     __link(RDialog)
         __link(RButton)
 
-#include <ctype.h>
+#include <cctype>
 #include <iomanip.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 #include <strstrea.h>
 
 #include "calc.h"

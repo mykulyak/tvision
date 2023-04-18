@@ -4,8 +4,8 @@
 #include <internal/unixcon.h>
 #include <internal/win32con.h>
 #include <locale.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 
 namespace tvision {
 

@@ -19,9 +19,7 @@
 #define Uses_TMenu
 #include <tvision/tv.h>
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
+#include <cstring>
 
 TSubMenu::TSubMenu(TStringView nm, TKey key, ushort helpCtx) noexcept
     : TMenuItem(nm, key, new TMenu, helpCtx)

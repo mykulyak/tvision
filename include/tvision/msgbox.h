@@ -17,9 +17,7 @@
 #if defined(Uses_MsgBox) && !defined(__MsgBox)
 #define __MsgBox
 
-#if !defined(__STDARG_H)
-#include <stdarg.h>
-#endif // __STDARG_H
+#include <cstdarg>
 
 class TRect;
 

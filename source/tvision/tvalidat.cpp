@@ -26,8 +26,8 @@
 #define Uses_TStringLookupValidator
 #define Uses_ipstream
 #define Uses_opstream
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 #include <tvision/tv.h>
 
 static inline char uppercase(char c)

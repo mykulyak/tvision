@@ -25,12 +25,12 @@
 __link(RView)
     __link(RWindow)
 
-#include <ctype.h>
-#include <iomanip.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cctype>
+#include <iomanip>
+#include <cstdlib>
+#include <cstring>
 #include <strstrea.h>
-#include <time.h>
+#include <ctime>
 
 #include "puzzle.h"
 

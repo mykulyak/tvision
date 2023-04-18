@@ -3,7 +3,7 @@
 
 #include <string>
 #include <algorithm>
-#include <string.h>
+#include <cstring>
 
 namespace tvision
 {

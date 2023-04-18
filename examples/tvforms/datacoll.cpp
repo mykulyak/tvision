@@ -23,12 +23,9 @@ __link(RStringCollection)
 #include "datacoll.h"
 #endif // __DATACOLL_H
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
+#include <cstring>
 
-    const char* const TDataCollection::name
-    = "TDataCollection";
+const char* const TDataCollection::name = "TDataCollection";
 
 void TDataCollection::write(opstream& os)
 {

@@ -2,7 +2,7 @@
 #define TVISION_STDIOCTL_H
 
 #include <tvision/tv.h>
-#include <stdio.h>
+#include <cstdio>
 
 #ifdef _WIN32
 #include <tvision/compat/windows/windows.h>

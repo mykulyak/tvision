@@ -12,7 +12,7 @@
 #include <internal/terminal.h>
 #include <linux/keyboard.h>
 #include <linux/vt.h>
-#include <string.h>
+#include <cstring>
 #include <sys/ioctl.h>
 #include <unistd.h>
 

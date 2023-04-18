@@ -18,9 +18,7 @@
 #define Uses_opstream
 #include <tvision/tv.h>
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
+#include <cstring>
 
 #if !defined(__DOS_H)
 #include <dos.h>

@@ -34,8 +34,8 @@
 #undef TVISION_COMPAT_DOS_INCNEXT
 #endif
 
-#include <errno.h>
-#include <stdint.h>
+#include <cerrno>
+#include <cstdint>
 
 #define FA_NORMAL   0x00        /* Normal file, no attributes */
 #define FA_RDONLY   0x01        /* Read only attribute */
@@ -77,7 +77,7 @@ struct  find_t {
     char            name[256];         /* asciiz name of matched file */
 };
 
-#include <stdio.h> // SEEK_SET, SEEK_CUR, SEEK_END
+#include <cstdio> // SEEK_SET, SEEK_CUR, SEEK_END
 
 unsigned _dos_findfirst( const char * __path, unsigned __attrib, struct find_t *__finfo ) noexcept;
 unsigned _dos_findnext( struct find_t *__finfo ) noexcept;

@@ -97,13 +97,8 @@
 #include "tvhc.h"
 #endif // __TVHC_H
 
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
-
-#if !defined(__LIMITS_H)
-#include <limits.h>
-#endif // __LIMITS_H
+#include <cstring>
+#include <climits>
 
 #if !defined __DOS_H
 #include <dos.h>
@@ -117,29 +112,16 @@
 #include <io.h>
 #endif // __IO_H
 
-#if !defined(__CTYPE_H)
-#include <ctype.h>
-#endif // __CTYPE_H
-
-#if !defined(__STDLIB_H)
-#include <stdlib.h>
-#endif // __STDLIB_H
-
-#if !defined(__FSTREAM_H)
-#include <fstream.h>
-#endif // __FSTREAM_H
+#include <cctype>
+#include <cstdlib>
+#include <fstream>
 
 #if !defined(__STRSTREA_H)
 #include <strstrea.h>
 #endif // __STRSTREA_H
 
-#if !defined(__ERRNO_H)
-#include <errno.h>
-#endif // __ERRNO_H
-
-#if !defined(__STDIO_H)
-#include <stdio.h>
-#endif // __STDIO_H
+#include <cerrno>
+#include <cstdio>
 
 /*
  * Help compiler global variables.

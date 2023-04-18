@@ -26,10 +26,10 @@
 #define Uses_TEventQueue
 #include <tvision/tv.h>
 
-#include <ctype.h>
+#include <cctype>
 #include <iomanip.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 #include <strstrea.h>
 
 #include "mousedlg.h"

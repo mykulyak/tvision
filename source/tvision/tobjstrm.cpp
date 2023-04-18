@@ -41,13 +41,8 @@
 #define Uses_fpstream
 #include <tvision/tv.h>
 
-#if !defined(__LIMITS_H)
-#include <limits.h>
-#endif // __LIMITS_H
-
-#if !defined(__STRING_H)
-#include <string.h>
-#endif // __STRING_H
+#include <climits>
+#include <cstring>
 
 #if !defined(__FSTREAM_H)
 #include <fstream.h>
@@ -61,13 +56,8 @@
 #include <fcntl.h>
 #endif // __FCNTL_H
 
-#if !defined(__STDLIB_H)
-#include <stdlib.h>
-#endif // __STDLIB_H
-
-#if !defined(__ASSERT_H)
-#include <assert.h>
-#endif // __ASSERT_H
+#include <cstdlib>
+#include <cassert>
 
 #ifdef __FLAT__
 #define _HUGE
