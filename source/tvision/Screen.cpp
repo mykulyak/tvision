@@ -12,7 +12,7 @@
  *
  */
 
-#include <tvision/tv.h>
+#include <tvision/Screen.h>
 
 #if !defined(__FLAT__) && !defined(__DOS_H)
 #include <dos.h>

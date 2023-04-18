@@ -12,6 +12,7 @@
  *
  */
 
+#include <tvision/tobjstrm.h>
 #include <tvision/FileCollection.h>
 #include <tvision/FileInputLine.h>
 #include <tvision/SearchRec.h>
@@ -23,6 +24,10 @@
 #endif // __DOS_H
 
 const char* const TFileCollection::name = "TFileCollection";
+
+TStreamableClass RFileCollection(TFileCollection::name,
+    TFileCollection::build,
+    __DELTA(TFileCollection));
 
 inline const char* getName(void* k)
 {

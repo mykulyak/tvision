@@ -5,7 +5,7 @@
 /*            TKey member functions                           */
 /*------------------------------------------------------------*/
 
-#include <tvision/tv.h>
+#include <tvision/Keys.h>
 
 struct TKeyCodeLookupEntry {
     ushort normalKeyCode;

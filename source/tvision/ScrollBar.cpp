@@ -11,11 +11,8 @@
  *      All Rights Reserved.
  *
  */
-
-#include <tvision/tv.h>
-
-#include <cctype>
-#include <cstring>
+#include <tvision/tobjstrm.h>
+#include <tvision/ScrollBar.h>
 
 #if !defined(__DOS_H)
 #include <dos.h>
@@ -24,6 +21,12 @@
 #define cpScrollBar "\x04\x05\x05"
 
 const char* const TScrollBar::name = "TScrollBar";
+
+__link(RView)
+
+TStreamableClass RScrollBar(TScrollBar::name,
+    TScrollBar::build,
+    __DELTA(TScrollBar));
 
 TScrollBar::TScrollBar(const TRect& bounds) noexcept
     : TView(bounds)

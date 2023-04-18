@@ -12,13 +12,16 @@
  *
  */
 
+#include <tvision/tobjstrm.h>
 #include <tvision/Label.h>
 
-#if !defined(__CTYPE_H)
-#include <ctype.h>
-#endif // __CTYPE_H
-
 const char* const TLabel::name = "TLabel";
+
+__link(RStaticText)
+
+TStreamableClass RLabel(TLabel::name,
+    TLabel::build,
+    __DELTA(TLabel));
 
 #define cpLabel "\x07\x08\x09\x09"
 

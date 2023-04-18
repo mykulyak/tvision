@@ -12,7 +12,7 @@
  *
  */
 
-#include <tvision/tv.h>
+#include <tvision/CommandSet.h>
 
 int TCommandSet::masks[8] = {
     0x0001,

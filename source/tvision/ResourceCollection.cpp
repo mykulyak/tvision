@@ -11,11 +11,15 @@
  *      All Rights Reserved.
  *
  */
-
+#include <tvision/tobjstrm.h>
 #include <tvision/ResourceCollection.h>
 #include <tvision/ResourceItem.h>
 
 const char* const TResourceCollection::name = "TResourceCollection";
+
+TStreamableClass RResourceCollection(TResourceCollection::name,
+    TResourceCollection::build,
+    __DELTA(TResourceCollection));
 
 TResourceCollection::TResourceCollection(short aLimit, short aDelta) noexcept
     : TStringCollection(aLimit, aDelta)

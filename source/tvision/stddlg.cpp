@@ -15,9 +15,16 @@
  *      All Rights Reserved.
  *
  */
-
+#include <tvision/tobjstrm.h>
 #include <tvision/FileCommands.h>
-#include <tvision/tv.h>
+#include <tvision/FileInfoPane.h>
+
+#include <cerrno>
+#include <cctype>
+#include <climits>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 #if !defined(__DOS_H)
 #include <dos.h>
@@ -27,17 +34,9 @@
 #include <dir.h>
 #endif // __DIR_H
 
-#include <cerrno>
-
 #if !defined(__IO_H)
 #include <io.h>
 #endif // __IO_H
-
-#include <cctype>
-#include <climits>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
 
 #define cpInfoPane "\x1E"
 
@@ -169,6 +168,12 @@ TStreamable* TSortedListBox::build()
 #endif
 
 const char* const TFileInfoPane::name = "TFileInfoPane";
+
+__link(RView)
+
+TStreamableClass RFileInfoPane(TFileInfoPane::name,
+    TFileInfoPane::build,
+    __DELTA(TFileInfoPane));
 
 TFileInfoPane::TFileInfoPane(const TRect& bounds) noexcept
     : TView(bounds)

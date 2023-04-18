@@ -15,10 +15,13 @@
  *      All Rights Reserved.
  *
  */
-
-#include <cstdio>
-#include <cstring>
-#include <tvision/tv.h>
+#include <tvision/tobjstrm.h>
+#include <tvision/Validator.h>
+#include <tvision/PXPictureValidator.h>
+#include <tvision/RangeValidator.h>
+#include <tvision/FilterValidator.h>
+#include <tvision/LookupValidator.h>
+#include <tvision/StringLookupValidator.h>
 
 const char* const TValidator::name = "TValidator";
 const char* const TPXPictureValidator::name = "TPXPictureValidator";
@@ -26,6 +29,30 @@ const char* const TRangeValidator::name = "TRangeValidator";
 const char* const TFilterValidator::name = "TFilterValidator";
 const char* const TLookupValidator::name = "TLookupValidator";
 const char* const TStringLookupValidator::name = "TStringLookupValidator";
+
+TStreamableClass RValidator(TValidator::name,
+    TValidator::build,
+    __DELTA(TValidator));
+
+TStreamableClass RFilterValidator(TFilterValidator::name,
+    TFilterValidator::build,
+    __DELTA(TFilterValidator));
+
+TStreamableClass RRangeValidator(TRangeValidator::name,
+    TRangeValidator::build,
+    __DELTA(TRangeValidator));
+
+TStreamableClass RPXPictureValidator(TPXPictureValidator::name,
+    TPXPictureValidator::build,
+    __DELTA(TPXPictureValidator));
+
+TStreamableClass RLookupValidator(TLookupValidator::name,
+    TLookupValidator::build,
+    __DELTA(TLookupValidator));
+
+TStreamableClass RStringLookupValidator(TStringLookupValidator::name,
+    TStringLookupValidator::build,
+    __DELTA(TStringLookupValidator));
 
 static inline char uppercase(char c)
 {

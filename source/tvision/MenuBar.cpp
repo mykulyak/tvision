@@ -12,12 +12,15 @@
  *
  */
 
+#include <tvision/tobjstrm.h>
 #include <tvision/Menu.h>
 #include <tvision/MenuBar.h>
 
-#include <cstring>
-
 const char* const TMenuBar::name = "TMenuBar";
+
+TStreamableClass RMenuBar(TMenuBar::name,
+    TMenuBar::build,
+    __DELTA(TMenuBar));
 
 TMenuBar::TMenuBar(const TRect& bounds, TMenu* aMenu) noexcept
     : TMenuView(bounds)

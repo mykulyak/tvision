@@ -12,6 +12,7 @@
  *
  */
 
+#include <tvision/tobjstrm.h>
 #include <tvision/ChdirDialog.h>
 #include <tvision/DirCollection.h>
 #include <tvision/DirEntry.h>
@@ -29,6 +30,12 @@
 #endif // __DOS_H
 
 const char* const TDirListBox::name = "TDirListBox";
+
+__link(RListBox)
+
+TStreamableClass RDirListBox(TDirListBox::name,
+    TDirListBox::build,
+    __DELTA(TDirListBox));
 
 TDirListBox::TDirListBox(const TRect& bounds, TScrollBar* aScrollBar) noexcept
     : TListBox(bounds, 1, aScrollBar)

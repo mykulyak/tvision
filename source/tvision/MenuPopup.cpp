@@ -11,11 +11,15 @@
  *      All Rights Reserved.
  *
  */
-
+#include <tvision/tobjstrm.h>
 #include <tvision/Menu.h>
 #include <tvision/MenuPopup.h>
 
 const char* const TMenuPopup::name = "TMenuPopup";
+
+TStreamableClass RMenuPopup(TMenuPopup::name,
+    TMenuPopup::build,
+    __DELTA(TMenuPopup));
 
 TMenuPopup::TMenuPopup(const TRect& bounds, TMenu* aMenu, TMenuView* aParentMenu) noexcept
     : TMenuBox(bounds, aMenu, aParentMenu)

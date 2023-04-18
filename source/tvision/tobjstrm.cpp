@@ -25,22 +25,10 @@
  *      All Rights Reserved.
  *
  */
-
-#include <tvision/tv.h>
-
-#include <climits>
-#include <cassert>
-#include <cstdlib>
-#include <cstring>
-#include <fstream>
-
-#if !defined(__STAT_H)
 #include <sys/stat.h>
-#endif // __STAT_H
-
-#if !defined(__FCNTL_H)
 #include <fcntl.h>
-#endif // __FCNTL_H
+#include <fstream>
+#include <tvision/tobjstrm.h>
 
 #ifdef __FLAT__
 #define _HUGE

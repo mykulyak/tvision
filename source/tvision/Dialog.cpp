@@ -12,9 +12,14 @@
  *
  */
 
+#include <tvision/tobjstrm.h>
 #include <tvision/Dialog.h>
 
 const char* const TDialog::name = "TDialog";
+
+__link(RWindow)
+
+TStreamableClass RDialog(TDialog::name, TDialog::build, __DELTA(TDialog));
 
 // TMultiCheckboxes flags
 //   hibyte = number of bits

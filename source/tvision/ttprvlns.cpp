@@ -11,8 +11,7 @@
  *      All Rights Reserved.
  *
  */
-
-#include <tvision/tv.h>
+#include <tvision/Terminal.h>
 
 static bool backwardsFindLF(const char* buffer, ushort& p, ushort count)
 {

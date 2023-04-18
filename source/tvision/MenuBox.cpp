@@ -11,13 +11,15 @@
  *      All Rights Reserved.
  *
  */
-
+#include <tvision/tobjstrm.h>
 #include <tvision/Menu.h>
 #include <tvision/MenuBox.h>
 
-#include <cstring>
-
 const char* const TMenuBox::name = "TMenuBox";
+
+TStreamableClass RMenuBox(TMenuBox::name,
+    TMenuBox::build,
+    __DELTA(TMenuBox));
 
 static TRect getRect(const TRect& bounds, TMenu* aMenu)
 {

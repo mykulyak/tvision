@@ -11,7 +11,8 @@
  *      All Rights Reserved.
  *
  */
-
+#include <strstream>
+#include <tvision/tobjstrm.h>
 #include <tvision/Button.h>
 #include <tvision/ChdirDialog.h>
 #include <tvision/CommandCodes.h>
@@ -26,14 +27,19 @@
 #include <tvision/ScrollBar.h>
 #include <tvision/util.h>
 
-#include <cctype>
-#include <cstring>
-
-#if !defined(__STRSTREAM_H)
-#include <strstream>
-#endif
-
 const char* const TChDirDialog::name = "TChDirDialog";
+
+__link(RDialog)
+__link(RButton)
+__link(RDirListBox)
+__link(RInputLine)
+__link(RHistory)
+__link(RLabel)
+__link(RScrollBar)
+
+TStreamableClass RChDirDialog(TChDirDialog::name,
+    TChDirDialog::build,
+    __DELTA(TChDirDialog));
 
 TChDirDialog::TChDirDialog(ushort opts, ushort histId) noexcept
     : TWindowInit(&TChDirDialog::initFrame)

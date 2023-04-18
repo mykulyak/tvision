@@ -12,12 +12,18 @@
  *
  */
 
-#define cpOutlineViewer "\x6\x7\x3\x8"
-
-#include <cstring>
+#include <tvision/tobjstrm.h>
 #include <tvision/OutlineViewer.h>
 
+#define cpOutlineViewer "\x6\x7\x3\x8"
+
 const char* const TOutline::name = "TOutline";
+
+__link(RScroller)
+
+TStreamableClass ROutline(TOutline::name,
+    TOutline::build,
+    __DELTA(TOutline));
 
 TOutlineViewer::TOutlineViewer(const TRect& bounds, TScrollBar* aHScrollBar,
     TScrollBar* aVScrollBar) noexcept

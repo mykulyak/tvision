@@ -11,14 +11,17 @@
  *      All Rights Reserved.
  *
  */
-
+#include <tvision/tobjstrm.h>
 #include <tvision/ParamText.h>
 
-#include <cstdarg>
-#include <cstdio>
-#include <cstring>
-
 const char* const TParamText::name = "TParamText";
+
+__link(RView)
+__link(RStaticText)
+
+TStreamableClass RParamText(TParamText::name,
+    TParamText::build,
+    __DELTA(TParamText));
 
 TParamText::TParamText(const TRect& bounds) noexcept
     : TStaticText(bounds, 0)

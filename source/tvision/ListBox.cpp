@@ -12,11 +12,16 @@
  *
  */
 
+#include <tvision/tobjstrm.h>
 #include <tvision/ListBox.h>
 
-#include <cstring>
-
 const char* const TListBox::name = "TListBox";
+
+__link(RListViewer)
+
+TStreamableClass RListBox(TListBox::name,
+    TListBox::build,
+    __DELTA(TListBox));
 
 TListBox::TListBox(const TRect& bounds,
     ushort aNumCols,

@@ -11,11 +11,17 @@
  *      All Rights Reserved.
  *
  */
-
-#include <tvision/tv.h>
-#include <cstring>
+#include <tvision/tobjstrm.h>
+#include <tvision/ListViewer.h>
 
 const char* const TListViewer::name = "TListViewer";
+
+__link(RView)
+__link(RScrollBar)
+
+TStreamableClass RListViewer(TListViewer::name,
+    TListViewer::build,
+    __DELTA(TListViewer));
 
 #define cpListViewer "\x1A\x1A\x1B\x1C\x1D"
 

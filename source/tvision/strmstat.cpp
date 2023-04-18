@@ -11,6 +11,6 @@
  *
  */
 
-#include <tvision/tv.h>
+#include <tvision/tobjstrm.h>
 
 TStreamableTypes* pstream::types = (pstream::initTypes(), pstream::types);

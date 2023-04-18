@@ -11,18 +11,20 @@
  *      All Rights Reserved.
  *
  */
-
+#include <tvision/tobjstrm.h>
 #include <tvision/Menu.h>
 #include <tvision/MenuBox.h>
 #include <tvision/MenuView.h>
 
-#include <cassert>
-#include <cctype>
-#include <cstring>
-
 #define cpMenuView "\x02\x03\x04\x05\x06\x07"
 
 const char* const TMenuView::name = "TMenuView";
+
+__link(RView)
+
+TStreamableClass RMenuView(TMenuView::name,
+    TMenuView::build,
+    __DELTA(TMenuView));
 
 TMenuItem::TMenuItem(TStringView aName,
     ushort aCommand,

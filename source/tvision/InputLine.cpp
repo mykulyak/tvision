@@ -12,16 +12,20 @@
  *
  */
 
-#include <tvision/tv.h>
-
-#include <cctype>
-#include <cstring>
+#include <tvision/tobjstrm.h>
+#include <tvision/InputLine.h>
 
 #if !defined(__DOS_H)
 #include <dos.h>
 #endif // __DOS_H
 
 const char* const TInputLine::name = "TInputLine";
+
+__link(RView)
+
+TStreamableClass RInputLine(TInputLine::name,
+    TInputLine::build,
+    __DELTA(TInputLine));
 
 const int CONTROL_Y = 25;
 

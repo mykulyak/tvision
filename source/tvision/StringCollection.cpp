@@ -12,11 +12,14 @@
  *
  */
 
+#include <tvision/tobjstrm.h>
 #include <tvision/StringCollection.h>
 
-#include <cstring>
-
 const char* const TStringCollection::name = "TStringCollection";
+
+TStreamableClass RStringCollection(TStringCollection::name,
+    TStringCollection::build,
+    __DELTA(TStringCollection));
 
 TStringCollection::TStringCollection(short aLimit, short aDelta) noexcept
     : TSortedCollection(aLimit, aDelta)

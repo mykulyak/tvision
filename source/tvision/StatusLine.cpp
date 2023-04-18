@@ -11,15 +11,20 @@
  *      All Rights Reserved.
  *
  */
+#include <tvision/tobjstrm.h>
 #include <tvision/StatusDef.h>
 #include <tvision/StatusItem.h>
 #include <tvision/StatusLine.h>
 
-#include <cstring>
-
 #define cpStatusLine "\x02\x03\x04\x05\x06\x07"
 
 const char* const TStatusLine::name = "TStatusLine";
+
+__link(RView)
+
+TStreamableClass RStatusLine(TStatusLine::name,
+    TStatusLine::build,
+    __DELTA(TStatusLine));
 
 TStatusLine::TStatusLine(const TRect& bounds, TStatusDef& aDefs) noexcept
     : TView(bounds)

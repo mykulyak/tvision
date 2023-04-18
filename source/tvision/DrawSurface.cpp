@@ -7,8 +7,7 @@
 /*                      TSurfaceView                          */
 /*------------------------------------------------------------*/
 
-#include <tvision/tv.h>
-#include <cstdlib>
+#include <tvision/DrawSurface.h>
 
 #define cpSurfaceView "\x01"
 

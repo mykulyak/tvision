@@ -11,9 +11,8 @@
  *      All Rights Reserved.
  *
  */
-#include <cctype>
-#include <cstring>
-#include <tvision/tv.h>
+#include <tvision/tobjstrm.h>
+#include <tvision/Button.h>
 
 #if !defined(__DOS_H)
 #include <dos.h>
@@ -26,6 +25,12 @@ const int
     cmReleaseDefault = 62;
 
 const char* const TButton::name = "TButton";
+
+__link(RView)
+
+TStreamableClass RButton(TButton::name,
+    TButton::build,
+    __DELTA(TButton));
 
 #define cpButton "\x0A\x0B\x0C\x0D\x0E\x0E\x0E\x0F"
 

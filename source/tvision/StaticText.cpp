@@ -11,15 +11,18 @@
  *      All Rights Reserved.
  *
  */
-
+#include <tvision/tobjstrm.h>
 #include <tvision/StaticText.h>
-
-#include <cctype>
-#include <cstring>
 
 #define cpStaticText "\x06"
 
 const char* const TStaticText::name = "TStaticText";
+
+__link(RView)
+
+TStreamableClass RStaticText(TStaticText::name,
+    TStaticText::build,
+    __DELTA(TStaticText));
 
 TStaticText::TStaticText(const TRect& bounds, TStringView aText) noexcept
     : TView(bounds)

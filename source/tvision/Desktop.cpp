@@ -12,11 +12,14 @@
  *
  */
 
+#include <tvision/tobjstrm.h>
 #include <tvision/Desktop.h>
 
-#include <cstdlib>
-
 const char* const TDeskTop::name = "TDeskTop";
+
+__link(RBackground)
+
+TStreamableClass RDeskTop(TDeskTop::name, TDeskTop::build, __DELTA(TDeskTop));
 
 TDeskInit::TDeskInit(TBackground* (*cBackground)(TRect)) noexcept
     : createBackground(cBackground)

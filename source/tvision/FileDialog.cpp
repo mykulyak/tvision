@@ -11,7 +11,8 @@
  *      All Rights Reserved.
  *
  */
-
+#include <strstream>
+#include <tvision/tobjstrm.h>
 #include <tvision/FileCommands.h>
 #include <tvision/FileDialog.h>
 #include <tvision/FileInfoPane.h>
@@ -23,16 +24,20 @@
 #include <dir.h>
 #endif // __DIR_H
 
-#include <cctype>
-#include <cerrno>
-#include <cstdio>
-#include <cstring>
-
-#if !defined(__STRSTREAM_H)
-#include <strstream>
-#endif
-
 const char* const TFileDialog::name = "TFileDialog";
+
+__link(RDialog)
+__link(RFileInputLine)
+__link(RFileList)
+__link(RLabel)
+__link(RHistory)
+__link(RScrollBar)
+__link(RButton)
+__link(RFileInfoPane)
+
+TStreamableClass RFileDialog(TFileDialog::name,
+    TFileDialog::build,
+    __DELTA(TFileDialog));
 
 TFileDialog::TFileDialog(TStringView aWildCard,
     TStringView aTitle,

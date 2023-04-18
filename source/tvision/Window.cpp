@@ -11,14 +11,19 @@
  *      All Rights Reserved.
  *
  */
-
-#include <tvision/tv.h>
-
-#include <cstring>
+#include <tvision/tobjstrm.h>
+#include <tvision/Window.h>
 
 const TPoint minWinSize = { 16, 6 };
 
 const char* const TWindow::name = "TWindow";
+
+__link(RGroup)
+__link(RFrame)
+
+TStreamableClass RWindow(TWindow::name,
+    TWindow::build,
+    __DELTA(TWindow));
 
 TWindowInit::TWindowInit(TFrame* (*cFrame)(TRect)) noexcept
     : createFrame(cFrame)

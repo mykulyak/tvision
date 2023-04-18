@@ -12,9 +12,14 @@
  *
  */
 
+#include <tvision/tobjstrm.h>
 #include <tvision/MultiCheckBoxes.h>
 
 const char* const TMultiCheckBoxes::name = "TMultiCheckBoxes";
+
+TStreamableClass RMultiCheckBoxes(TMultiCheckBoxes::name,
+    TMultiCheckBoxes::build,
+    __DELTA(TMultiCheckBoxes));
 
 TMultiCheckBoxes::TMultiCheckBoxes(TRect& bounds, TSItem* aStrings,
     uchar aSelRange, ushort aFlags,

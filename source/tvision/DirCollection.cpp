@@ -12,6 +12,7 @@
  *
  */
 
+#include <tvision/tobjstrm.h>
 #include <tvision/DirCollection.h>
 #include <tvision/DirEntry.h>
 
@@ -28,6 +29,10 @@
 #pragma warn - asc
 
 const char* const TDirCollection::name = "TDirCollection";
+
+TStreamableClass RDirCollection(TDirCollection::name,
+    TDirCollection::build,
+    __DELTA(TDirCollection));
 
 bool driveValid(char drive) noexcept
 {

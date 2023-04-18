@@ -1,9 +1,5 @@
-#include <tvision/TimerQueue.h>
-#include <tvision/tv.h>
-
-#if !defined(__BORLANDC__)
 #include <chrono>
-#endif
+#include <tvision/TimerQueue.h>
 
 static TTimePoint systemTimeMs()
 {

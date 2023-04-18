@@ -4,9 +4,8 @@
 /* function(s)                                                */
 /*            TStringView friend functions                    */
 /*------------------------------------------------------------*/
-
-#include <tvision/tv.h>
 #include <iostream>
+#include <tvision/StringView.h>
 
 std::ostream& operator<< (std::ostream& os, TStringView s)
 {

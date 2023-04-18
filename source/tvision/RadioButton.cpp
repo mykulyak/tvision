@@ -11,10 +11,16 @@
  *      All Rights Reserved.
  *
  */
-
+#include <tvision/tobjstrm.h>
 #include <tvision/RadioButtons.h>
 
 const char* const TRadioButtons::name = "TRadioButtons";
+
+__link(RCluster)
+
+TStreamableClass RRadioButtons(TRadioButtons::name,
+    TRadioButtons::build,
+    __DELTA(TRadioButtons));
 
 void TRadioButtons::draw()
 {

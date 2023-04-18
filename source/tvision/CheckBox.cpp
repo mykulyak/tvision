@@ -11,10 +11,16 @@
  *      All Rights Reserved.
  *
  */
-
+#include <tvision/tobjstrm.h>
 #include <tvision/CheckBoxes.h>
 
 const char* const TCheckBoxes::name = "TCheckBoxes";
+
+__link(RCluster)
+
+TStreamableClass RCheckBoxes(TCheckBoxes::name,
+    TCheckBoxes::build,
+    __DELTA(TCheckBoxes));
 
 void TCheckBoxes::draw()
 {

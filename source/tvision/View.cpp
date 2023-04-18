@@ -12,17 +12,14 @@
  *
  */
 
-#include <tvision/tv.h>
-
-#if !defined(__DOS_H)
-#include <dos.h>
-#endif // __DOS_H
-
-#if !defined(__LIMITS_H)
-#include <limits.h>
-#endif // __LIMITS_H
+#include <tvision/tobjstrm.h>
+#include <tvision/View.h>
 
 const char* const TView::name = "TView";
+
+TStreamableClass RView(TView::name,
+    TView::build,
+    __DELTA(TView));
 
 TPoint shadowSize = { 2, 1 };
 uchar shadowAttr = 0x08;
@@ -159,6 +156,24 @@ void TView::clearEvent(TEvent& event) noexcept
 {
     event.what = evNothing;
     event.message.infoPtr = this;
+}
+
+TColorAttr TView::mapColor(uchar index) noexcept
+{
+    TPalette& p = getPalette();
+    TColorAttr color;
+    if (p[0] != 0) {
+        if (0 < index && index <= p[0])
+            color = p[index];
+        else
+            return errorAttr;
+    } else
+        color = index;
+    if (color == 0)
+        return errorAttr;
+    if (owner)
+        return owner->mapColor(color);
+    return color;
 }
 
 bool TView::commandEnabled(ushort command) noexcept
