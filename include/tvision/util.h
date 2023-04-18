@@ -60,13 +60,13 @@ void historyAdd( uchar id, TStringView ) noexcept;
 int cstrlen( TStringView ) noexcept;
 int strwidth( TStringView ) noexcept;
 
-class _FAR TView;
+class  TView;
 void *message( TView *receiver, ushort what, ushort command, void *infoPtr );
 
-class _FAR TPoint;
-class _FAR TGroup;
-class _FAR TMenu;
-class _FAR TMenuItem;
+class  TPoint;
+class  TGroup;
+class  TMenu;
+class  TMenuItem;
 ushort popupMenu(TPoint where, TMenuItem &aMenu, TGroup * = 0);
 
 Boolean lowMemory() noexcept;
@@ -84,12 +84,12 @@ Boolean isWild( const char *f ) noexcept;
 size_t strnzcpy( char *dest, TStringView src, size_t n ) noexcept;
 size_t strnzcat( char *dest, TStringView src, size_t n ) noexcept;
 
-void printKeyCode(ostream _FAR &, ushort keyCode);
-void printControlKeyState(ostream _FAR &, ushort controlKeyState);
-void printEventCode(ostream _FAR &, ushort eventCode);
-void printMouseButtonState(ostream _FAR &, ushort buttonState);
-void printMouseWheelState(ostream _FAR &, ushort wheelState);
-void printMouseEventFlags(ostream _FAR &, ushort eventFlags);
+void printKeyCode(ostream  &, ushort keyCode);
+void printControlKeyState(ostream  &, ushort controlKeyState);
+void printEventCode(ostream  &, ushort eventCode);
+void printMouseButtonState(ostream  &, ushort buttonState);
+void printMouseWheelState(ostream  &, ushort wheelState);
+void printMouseEventFlags(ostream  &, ushort eventFlags);
 
 #if !defined( __BORLANDC__ ) && !defined( _WIN32 )
 

@@ -50,7 +50,7 @@
 /*                                                                        */
 /*------------------------------------------------------------------------*/
 
-void TDrawBuffer::moveBuf( ushort indent, const void _FAR *source,
+void TDrawBuffer::moveBuf( ushort indent, const void  *source,
                            TColorAttr attr, ushort count ) noexcept
 
 {
@@ -207,7 +207,7 @@ ushort TDrawBuffer::moveCStr( ushort indent, TStringView str, TAttrPair attrs ) 
 #ifdef __BORLANDC__
     register ushort *dest = &data[indent];
     ushort *limit = &data[length()];
-    register uchar _FAR *s = (uchar _FAR *) str.data();
+    register uchar  *s = (uchar  *) str.data();
     ushort count = (ushort) str.size();
     int toggle = 1;
     uchar curAttr = ((uchar *)&attrs)[0];
@@ -330,7 +330,7 @@ ushort TDrawBuffer::moveStr( ushort indent, TStringView str, TColorAttr attr ) n
     if (indent < length())
         {
         register ushort *dest = &data[indent];
-        register uchar _FAR *s = (uchar _FAR *) str.data();
+        register uchar  *s = (uchar  *) str.data();
         ushort count = min(str.size(), length() - indent);
         ushort remain = count;
 

@@ -34,9 +34,9 @@
 
 TPoint shadowSize = {2,1};
 uchar shadowAttr = 0x08;
-Boolean _NEAR TView::showMarkers = False;
-uchar _NEAR TView::errorAttr = 0xCF;
-Boolean _NEAR TView::commandSetChanged = False;
+Boolean  TView::showMarkers = False;
+uchar  TView::errorAttr = 0xCF;
+Boolean  TView::commandSetChanged = False;
 
 extern TView *TheTopView;
 
@@ -53,7 +53,7 @@ static TCommandSet initCommands() noexcept
     return temp;
 }
 
-TCommandSet _NEAR TView::curCommandSet = initCommands();
+TCommandSet  TView::curCommandSet = initCommands();
 
 TView::TView( const TRect& bounds) noexcept :
     next( 0 ), options( 0 ), eventMask( evMouseDown | evKeyDown | evCommand ),

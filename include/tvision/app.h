@@ -23,7 +23,7 @@
 #if defined( Uses_TBackground ) && !defined( __TBackground )
 #define __TBackground
 
-class _FAR TRect;
+class  TRect;
 
 class TBackground : public TView
 {
@@ -49,7 +49,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -70,9 +70,9 @@ inline opstream& operator << ( opstream& os, TBackground* cl )
 #if defined( Uses_TDeskTop )  && !defined( __TDeskTop )
 #define __TDeskTop
 
-class _FAR TBackground;
-class _FAR TRect;
-struct _FAR TEvent;
+class  TBackground;
+class  TRect;
+struct  TEvent;
 
 class TDeskInit
 {
@@ -109,7 +109,7 @@ protected:
 
 private:
 
-    static const char _NEAR defaultBkgrnd;
+    static const char  defaultBkgrnd;
 
     virtual const char *streamableName() const
         { return name; }
@@ -120,7 +120,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -204,11 +204,11 @@ const unsigned short hcPrev         = 0xFF26;
 const unsigned short hcClose        = 0xFF27;
 
 
-class _FAR TStatusLine;
-class _FAR TMenuBar;
-class _FAR TDeskTop;
-struct _FAR TEvent;
-class _FAR TView;
+class  TStatusLine;
+class  TMenuBar;
+class  TDeskTop;
+struct  TEvent;
+class  TView;
 
 class TProgInit
 {
@@ -248,9 +248,9 @@ const int
     apBlackWhite = 1,
     apMonochrome = 2;
 
-class _FAR TDialog;
-class _FAR TWindow;
-class _FAR TTimerQueue;
+class  TDialog;
+class  TWindow;
+class  TTimerQueue;
 
 class TProgram : public TGroup, public virtual TProgInit
 {
@@ -285,23 +285,23 @@ public:
     static TMenuBar *initMenuBar( TRect );
     static TDeskTop *initDeskTop( TRect );
 
-    static TProgram * _NEAR application;
-    static TStatusLine * _NEAR statusLine;
-    static TMenuBar * _NEAR menuBar;
-    static TDeskTop * _NEAR deskTop;
-    static int _NEAR appPalette;
-    static int _NEAR eventTimeout;
+    static TProgram *  application;
+    static TStatusLine *  statusLine;
+    static TMenuBar *  menuBar;
+    static TDeskTop *  deskTop;
+    static int  appPalette;
+    static int  eventTimeout;
 
 protected:
 
-    static TEvent _NEAR pending;
+    static TEvent  pending;
 
 private:
 
     static int eventWaitTimeout();
 
-    static const char * _NEAR exitText;
-    static TTimerQueue _NEAR timerQueue;
+    static const char *  exitText;
+    static TTimerQueue  timerQueue;
 
 };
 

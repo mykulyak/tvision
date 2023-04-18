@@ -22,11 +22,11 @@
 #define Uses_TColorDialog
 #include <tvision/tv.h>
 
-const char * const _NEAR TColorSelector::name = "TColorSelector";
-const char * const _NEAR TMonoSelector::name = "TMonoSelector";
-const char * const _NEAR TColorDisplay::name = "TColorDisplay";
-const char * const _NEAR TColorGroupList::name = "TColorGroupList";
-const char * const _NEAR TColorItemList::name = "TColorItemList";
-const char * const _NEAR TColorDialog::name = "TColorDialog";
+const char * const  TColorSelector::name = "TColorSelector";
+const char * const  TMonoSelector::name = "TMonoSelector";
+const char * const  TColorDisplay::name = "TColorDisplay";
+const char * const  TColorGroupList::name = "TColorGroupList";
+const char * const  TColorItemList::name = "TColorItemList";
+const char * const  TColorDialog::name = "TColorDialog";
 #endif
 

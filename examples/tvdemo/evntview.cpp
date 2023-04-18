@@ -121,7 +121,7 @@ void TEventViewer::handleEvent(TEvent &ev)
         clearEvent(ev);
 }
 
-static void printConstants(ostream &out, ushort value, void (_FAR &doPrint)(ostream _FAR &, ushort))
+static void printConstants(ostream &out, ushort value, void ( &doPrint)(ostream  &, ushort))
 {
     out << hex << setfill('0')
         << "0x" << setw(4) << value;

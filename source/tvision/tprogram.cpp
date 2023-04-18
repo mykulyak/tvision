@@ -30,14 +30,14 @@
 
 // Public variables
 
-TStatusLine * _NEAR TProgram::statusLine = 0;
-TMenuBar * _NEAR TProgram::menuBar = 0;
-TDeskTop * _NEAR TProgram::deskTop = 0;
-TProgram * _NEAR TProgram::application = 0;
-int _NEAR TProgram::appPalette = apColor;
-int _NEAR TProgram::eventTimeout = 20; // 50 wake-ups per second.
-TEvent _NEAR TProgram::pending;
-TTimerQueue _NEAR TProgram::timerQueue;
+TStatusLine *  TProgram::statusLine = 0;
+TMenuBar *  TProgram::menuBar = 0;
+TDeskTop *  TProgram::deskTop = 0;
+TProgram *  TProgram::application = 0;
+int  TProgram::appPalette = apColor;
+int  TProgram::eventTimeout = 20; // 50 wake-ups per second.
+TEvent  TProgram::pending;
+TTimerQueue  TProgram::timerQueue;
 
 extern TPoint shadowSize;
 

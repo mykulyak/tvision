@@ -101,7 +101,7 @@ protected:
     static Boolean present() noexcept;
 
 #if !defined( __FLAT__ )
-    static void registerHandler( unsigned, void (_FAR *)() );
+    static void registerHandler( unsigned, void ( *)() );
 #endif
 
     static void suspend() noexcept;
@@ -110,12 +110,12 @@ protected:
 
 protected:
 
-    static uchar _NEAR buttonCount;
+    static uchar  buttonCount;
 
 private:
 
-    static Boolean _NEAR handlerInstalled;
-    static Boolean _NEAR noMouse;
+    static Boolean  handlerInstalled;
+    static Boolean  noMouse;
 
 };
 
@@ -145,7 +145,7 @@ public:
     static Boolean present() noexcept;
 
 #if !defined( __FLAT__ )
-    static void registerHandler( unsigned, void (_FAR *)() );
+    static void registerHandler( unsigned, void ( *)() );
 #endif
 
     static void suspend() noexcept { THWMouse::suspend(); }
@@ -179,7 +179,7 @@ inline Boolean TMouse::present() noexcept
 }
 
 #if !defined( __FLAT__ )
-inline void TMouse::registerHandler( unsigned mask, void (_FAR *func)() )
+inline void TMouse::registerHandler( unsigned mask, void ( *func)() )
 {
     THWMouse::registerHandler( mask, func );
 }
@@ -267,14 +267,14 @@ public:
     friend class TProgram;
     friend void genRefs();
 
-    static ushort _NEAR doubleDelay;
-    static Boolean _NEAR mouseReverse;
+    static ushort  doubleDelay;
+    static Boolean  mouseReverse;
 
     static void putPaste( TStringView ) noexcept;
 
 private:
 
-    static TMouse * _NEAR mouse;
+    static TMouse *  mouse;
     static Boolean getMouseState( TEvent& ) noexcept;
     static Boolean getPasteEvent( TEvent& ) noexcept;
     static void getKeyOrPasteEvent( TEvent& ) noexcept;
@@ -289,38 +289,38 @@ private:
     static void __MOUSEHUGE mouseInt();
 #endif
 
-    static MouseEventType _NEAR lastMouse;
+    static MouseEventType  lastMouse;
 public:
-    static MouseEventType _NEAR curMouse;
+    static MouseEventType  curMouse;
 private:
-    static MouseEventType _NEAR downMouse;
-    static ushort _NEAR downTicks;
+    static MouseEventType  downMouse;
+    static ushort  downTicks;
 
 #if !defined( __FLAT__ )
-    static TEvent _NEAR eventQueue[ eventQSize ];
-    static TEvent * _NEAR eventQHead;
-    static TEvent * _NEAR eventQTail;
+    static TEvent  eventQueue[ eventQSize ];
+    static TEvent *  eventQHead;
+    static TEvent *  eventQTail;
 public:
-    static Boolean _NEAR mouseIntFlag;
+    static Boolean  mouseIntFlag;
 private:
-    static ushort _NEAR eventCount;
+    static ushort  eventCount;
 #endif
 
-    static Boolean _NEAR mouseEvents;
-    static Boolean _NEAR pendingMouseUp;
+    static Boolean  mouseEvents;
+    static Boolean  pendingMouseUp;
 
-    static ushort _NEAR repeatDelay;
-    static ushort _NEAR autoTicks;
-    static ushort _NEAR autoDelay;
+    static ushort  repeatDelay;
+    static ushort  autoTicks;
+    static ushort  autoDelay;
 
-    static char * _FAR pasteText;
-    static size_t _NEAR pasteTextLength;
-    static size_t _NEAR pasteTextIndex;
+    static char *  pasteText;
+    static size_t  pasteTextLength;
+    static size_t  pasteTextIndex;
 
-    static TEvent _NEAR keyEventQueue[ keyEventQSize ];
-    static size_t _NEAR keyEventCount;
-    static size_t _NEAR keyEventIndex;
-    static Boolean _NEAR keyPasteState;
+    static TEvent  keyEventQueue[ keyEventQSize ];
+    static size_t  keyEventCount;
+    static size_t  keyEventIndex;
+    static Boolean  keyPasteState;
 };
 
 inline void TEvent::getMouseEvent() noexcept
@@ -339,7 +339,7 @@ typedef uint32_t TTimePoint;
 typedef uint64_t TTimePoint;
 #endif
 
-struct _FAR TTimer;
+struct  TTimer;
 
 class TTimerQueue
 {
@@ -450,16 +450,16 @@ public:
     static void clearScreen() noexcept;
     static void flushScreen() noexcept;
 
-    static ushort _NEAR startupMode;
-    static ushort _NEAR startupCursor;
-    static ushort _NEAR screenMode;
-    static ushort _NEAR screenWidth;
-    static ushort _NEAR screenHeight;
-    static Boolean _NEAR hiResScreen;
-    static Boolean _NEAR checkSnow;
-    static TScreenCell * _NEAR screenBuffer;
-    static ushort _NEAR cursorLines;
-    static Boolean _NEAR clearOnSuspend;
+    static ushort  startupMode;
+    static ushort  startupCursor;
+    static ushort  screenMode;
+    static ushort  screenWidth;
+    static ushort  screenHeight;
+    static Boolean  hiResScreen;
+    static Boolean  checkSnow;
+    static TScreenCell *  screenBuffer;
+    static ushort  cursorLines;
+    static Boolean  clearOnSuspend;
 
     static void setCrtData() noexcept;
     static ushort fixCrtMode( ushort ) noexcept;
@@ -474,7 +474,7 @@ public:
 #if defined( Uses_TSystemError ) && !defined( __TSystemError )
 #define __TSystemError
 
-class _FAR TDrawBuffer;
+class  TDrawBuffer;
 
 struct TPMRegs
 {
@@ -490,32 +490,32 @@ public:
     TSystemError() noexcept;
     ~TSystemError();
 
-    static Boolean _NEAR ctrlBreakHit;
+    static Boolean  ctrlBreakHit;
 
     static void suspend() noexcept;
     static void resume() noexcept;
 
 #if !defined( __FLAT__ )
-    static short ( _FAR *sysErrorFunc )( short, uchar );
+    static short (  *sysErrorFunc )( short, uchar );
 #endif
 
 private:
 
-    static Boolean _NEAR saveCtrlBreak;
+    static Boolean  saveCtrlBreak;
 
 #if !defined( __FLAT__ )
-    static ushort _NEAR sysColorAttr;
-    static ushort _NEAR sysMonoAttr;
-    static Boolean _NEAR sysErrActive;
+    static ushort  sysColorAttr;
+    static ushort  sysMonoAttr;
+    static Boolean  sysErrActive;
 
-    static void swapStatusLine( TDrawBuffer _FAR & );
+    static void swapStatusLine( TDrawBuffer  & );
     static ushort selectKey();
     static short sysErr( short, uchar );
 
-    static const char * const _NEAR errorString[22];
-    static const char * _NEAR sRetryOrCancel;
+    static const char * const  errorString[22];
+    static const char *  sRetryOrCancel;
 
-    static Boolean _NEAR inIDE;
+    static Boolean  inIDE;
 
     static void interrupt Int24PMThunk();
     static void setupDPMI();
@@ -543,7 +543,7 @@ public:
 private:
 
     static void interrupt handler(...);
-    static void interrupt (_FAR * _NEAR oldHandler)(...);
+    static void interrupt ( *  oldHandler)(...);
 
 };
 #endif

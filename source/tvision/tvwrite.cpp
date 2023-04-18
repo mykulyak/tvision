@@ -31,11 +31,11 @@ extern uchar shadowAttr;
 struct TVWrite {
 
     short X, Y, Count, wOffset;
-    const void _FAR *Buffer;
+    const void  *Buffer;
     TView *Target;
     int edx, esi;
 
-    void L0( TView *, short, short, short, const void _FAR* ) noexcept;
+    void L0( TView *, short, short, short, const void * ) noexcept;
     void L10( TView * ) noexcept;
     void L20( TView * ) noexcept;
     void L30( TView * ) noexcept;
@@ -84,7 +84,7 @@ struct TVWrite {
 
 };
 
-void TView::writeView( short x, short y, short count, const void _FAR* b ) noexcept
+void TView::writeView( short x, short y, short count, const void * b ) noexcept
 {
     TVWrite().L0(this, x, y, count, b);
 }
@@ -96,7 +96,7 @@ void TView::writeView( short x, short y, short count, const TScreenCell* b ) noe
 }
 #endif
 
-void TVWrite::L0( TView *dest, short x, short y, short count, const void _FAR* b ) noexcept
+void TVWrite::L0( TView *dest, short x, short y, short count, const void * b ) noexcept
 {
     X = x; Y = y; Count = count; Buffer = b;
     wOffset = X;
@@ -342,7 +342,7 @@ void TView::writeBuf( short x, short y, short w, short h, const TScreenCell* b )
 
 #endif // __BORLANDC__
 
-void TView::writeBuf( short x, short y, short w, short h, const void _FAR* b ) noexcept
+void TView::writeBuf( short x, short y, short w, short h, const void * b ) noexcept
 {
     while (h-- > 0)
     {
@@ -366,7 +366,7 @@ void TView::writeChar( short x, short y, char c, uchar color, short count ) noex
     }
 }
 
-void TView::writeLine( short x, short y, short w, short h, const void _FAR *b ) noexcept
+void TView::writeLine( short x, short y, short w, short h, const void  *b ) noexcept
 {
     while (h-- > 0)
     {

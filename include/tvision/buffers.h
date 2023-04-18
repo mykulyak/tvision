@@ -46,7 +46,7 @@ private:
     void*& owner;
     size_t sz;
 
-    static TBufListEntry *_NEAR bufList;
+    static TBufListEntry * bufList;
     static Boolean freeHead() noexcept;
 
     friend class TVMemMgr;
@@ -72,9 +72,9 @@ public:
 
 private:
 
-    static void * _NEAR safetyPool;
-    static size_t _NEAR safetyPoolSize;
-    static int _NEAR inited;
+    static void *  safetyPool;
+    static size_t  safetyPoolSize;
+    static int  inited;
     static int initMemMgr() noexcept;
 
 };

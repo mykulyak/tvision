@@ -17,7 +17,7 @@ class TSpan {
     // It exists for compatibility with Borland C++ and because std::span (C++ 20)
     // may not be widely available yet.
 
-    T _FAR *ptr;
+    T  *ptr;
     size_t len;
 
 public:
@@ -31,7 +31,7 @@ public:
     {
     }
 
-    constexpr TSpan(T _FAR *first, size_t n) :
+    constexpr TSpan(T  *first, size_t n) :
         ptr(first),
         len(n)
     {
@@ -55,7 +55,7 @@ public:
         return TSpan<const T>(ptr, len);
     }
 
-    constexpr T _FAR * data() const
+    constexpr T  * data() const
     {
         return ptr;
     }
@@ -75,17 +75,17 @@ public:
         return Boolean( size() == 0 );
     }
 
-    constexpr T _FAR & operator[](size_t pos) const
+    constexpr T  & operator[](size_t pos) const
     {
         return ptr[pos];
     }
 
-    constexpr T _FAR & front() const
+    constexpr T  & front() const
     {
         return ptr[0];
     }
 
-    constexpr T _FAR & back() const
+    constexpr T  & back() const
     {
         return ptr[len - 1];
     }
@@ -100,22 +100,22 @@ public:
         return TSpan<T>(ptr + pos, n <= len - pos ? n : len - pos);
     }
 
-    constexpr T _FAR * begin() const
+    constexpr T  * begin() const
     {
         return &ptr[0];
     }
 
-    constexpr const T _FAR * cbegin() const
+    constexpr const T  * cbegin() const
     {
         return &ptr[0];
     }
 
-    constexpr T _FAR * end() const
+    constexpr T  * end() const
     {
         return &ptr[len];
     }
 
-    constexpr const T _FAR * cend() const
+    constexpr const T  * cend() const
     {
         return &ptr[len];
     }

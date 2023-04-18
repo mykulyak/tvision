@@ -156,7 +156,7 @@ static const TConstant mouseEventFlags[] =
     NMEND(),
 };
 
-static void printFlags(ostream _FAR &os, ushort flags, const TConstant *constants)
+static void printFlags(ostream  &os, ushort flags, const TConstant *constants)
 {
     ushort foundFlags = 0;
     for (const TConstant *constant = constants; constant->name; ++constant)
@@ -183,7 +183,7 @@ static void printFlags(ostream _FAR &os, ushort flags, const TConstant *constant
     }
 }
 
-static void printCode(ostream _FAR &os, ushort code, const TConstant *constants)
+static void printCode(ostream  &os, ushort code, const TConstant *constants)
 {
     for (const TConstant *constant = constants; constant->name; ++constant)
     {
@@ -202,32 +202,32 @@ static void printCode(ostream _FAR &os, ushort code, const TConstant *constants)
     os.fill(ch);
 }
 
-void printKeyCode(ostream _FAR &os, ushort keyCode)
+void printKeyCode(ostream  &os, ushort keyCode)
 {
     printCode(os, keyCode, keyCodes);
 }
 
-void printControlKeyState(ostream _FAR &os, ushort controlKeyState)
+void printControlKeyState(ostream  &os, ushort controlKeyState)
 {
     printFlags(os, controlKeyState, controlKeyStateFlags);
 }
 
-void printEventCode(ostream _FAR &os, ushort eventCode)
+void printEventCode(ostream  &os, ushort eventCode)
 {
     printCode(os, eventCode, eventCodes);
 }
 
-void printMouseButtonState(ostream _FAR &os, ushort buttonState)
+void printMouseButtonState(ostream  &os, ushort buttonState)
 {
     printFlags(os, buttonState, mouseButtonFlags);
 }
 
-void printMouseWheelState(ostream _FAR &os, ushort wheelState)
+void printMouseWheelState(ostream  &os, ushort wheelState)
 {
     printFlags(os, wheelState, mouseWheelFlags);
 }
 
-void printMouseEventFlags(ostream _FAR &os, ushort eventFlags)
+void printMouseEventFlags(ostream  &os, ushort eventFlags)
 {
     printFlags(os, eventFlags, mouseEventFlags);
 }

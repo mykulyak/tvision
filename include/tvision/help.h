@@ -57,7 +57,7 @@ public:
 class THelpWindow : public TWindow
 {
 
-    static const char * _NEAR helpWinTitle;
+    static const char *  helpWinTitle;
 
 public:
 

@@ -228,7 +228,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
 
 };
 
@@ -272,7 +272,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
 
 };
 

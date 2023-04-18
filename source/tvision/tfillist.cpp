@@ -55,7 +55,7 @@
 #endif // __STDLIB_H
 
 #if defined( __FLAT__ ) && defined( __BORLANDC__)
-extern "C" char _FAR * _CType _FARFUNC strupr(char _FAR *__s);
+extern "C" char  * _CType FUNC strupr(char  *__s);
 #endif
 
 

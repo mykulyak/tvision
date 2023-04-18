@@ -31,7 +31,7 @@ class TStringView
     // TStringView is intercompatible with std::string_view, std::string and
     // TSpan<const char>.
 
-    const char _FAR *str;
+    const char  *str;
     size_t len;
 
 public:
@@ -40,8 +40,8 @@ public:
 #if defined(TVISION_STL) && (__cplusplus >= 201703L || __cpp_lib_constexpr_char_traits)
     constexpr
 #endif
-              TStringView(const char _FAR *str);
-    constexpr TStringView(const char _FAR *str, size_t len);
+              TStringView(const char  *str);
+    constexpr TStringView(const char  *str, size_t len);
     constexpr TStringView(TSpan<char> span);
     constexpr TStringView(TSpan<const char> span);
 #ifdef TVISION_STL
@@ -54,20 +54,20 @@ public:
 #endif // TVISION_STL
     constexpr operator TSpan<const char>() const;
 
-    constexpr const char _FAR * data() const;
+    constexpr const char  * data() const;
     constexpr size_t size() const;
     constexpr Boolean empty() const;
-    constexpr const char _FAR & operator[](size_t pos) const;
-    constexpr const char _FAR & front() const;
-    constexpr const char _FAR & back() const;
+    constexpr const char  & operator[](size_t pos) const;
+    constexpr const char  & front() const;
+    constexpr const char  & back() const;
 
     constexpr TStringView substr(size_t pos) const;
     constexpr TStringView substr(size_t pos, size_t n) const;
 
-    constexpr const char _FAR * begin() const;
-    constexpr const char _FAR * cbegin() const;
-    constexpr const char _FAR * end() const;
-    constexpr const char _FAR * cend() const;
+    constexpr const char  * begin() const;
+    constexpr const char  * cbegin() const;
+    constexpr const char  * end() const;
+    constexpr const char  * cend() const;
 
 };
 
@@ -79,20 +79,20 @@ inline constexpr TStringView::TStringView() :
 
 #if defined(TVISION_STL) && (__cplusplus >= 201703L || __cpp_lib_constexpr_char_traits)
 constexpr
-inline TStringView::TStringView(const char _FAR *str) :
+inline TStringView::TStringView(const char  *str) :
     str(str),
     len(str ? std::char_traits<char>::length(str) : 0)
 {
 }
 #else
-inline TStringView::TStringView(const char _FAR *str) :
+inline TStringView::TStringView(const char  *str) :
     str(str),
     len(str ? strlen(str) : 0)
 {
 }
 #endif
 
-inline constexpr TStringView::TStringView(const char _FAR *str, size_t len) :
+inline constexpr TStringView::TStringView(const char  *str, size_t len) :
     str(str),
     len(len)
 {
@@ -141,7 +141,7 @@ inline constexpr TStringView::operator TSpan<const char>() const
     return TSpan<const char>(str, len);
 }
 
-inline constexpr const char _FAR * TStringView::data() const
+inline constexpr const char  * TStringView::data() const
 {
     return str;
 }
@@ -156,17 +156,17 @@ inline constexpr Boolean TStringView::empty() const
     return Boolean( size() == 0 );
 }
 
-inline constexpr const char _FAR & TStringView::operator[](size_t pos) const
+inline constexpr const char  & TStringView::operator[](size_t pos) const
 {
     return str[pos];
 }
 
-inline constexpr const char _FAR & TStringView::front() const
+inline constexpr const char  & TStringView::front() const
 {
     return str[0];
 }
 
-inline constexpr const char _FAR & TStringView::back() const
+inline constexpr const char  & TStringView::back() const
 {
     return str[len - 1];
 }
@@ -181,22 +181,22 @@ inline constexpr TStringView TStringView::substr(size_t pos, size_t n) const
     return TStringView(str + pos, n <= len - pos ? n : len - pos);
 }
 
-inline constexpr const char _FAR * TStringView::begin() const
+inline constexpr const char  * TStringView::begin() const
 {
     return &str[0];
 }
 
-inline constexpr const char _FAR * TStringView::cbegin() const
+inline constexpr const char  * TStringView::cbegin() const
 {
     return &str[0];
 }
 
-inline constexpr const char _FAR * TStringView::end() const
+inline constexpr const char  * TStringView::end() const
 {
     return &str[len];
 }
 
-inline constexpr const char _FAR * TStringView::cend() const
+inline constexpr const char  * TStringView::cend() const
 {
     return &str[len];
 }

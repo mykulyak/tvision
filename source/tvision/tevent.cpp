@@ -36,41 +36,41 @@
 #endif
 
 #if !defined( __FLAT__ )
-TEvent _NEAR TEventQueue::eventQueue[ eventQSize ] = { {0} };
-TEvent * _NEAR TEventQueue::eventQHead = TEventQueue::eventQueue;
-TEvent * _NEAR TEventQueue::eventQTail = TEventQueue::eventQueue;
-Boolean _NEAR TEventQueue::mouseIntFlag = False;
-ushort _NEAR TEventQueue::eventCount = 0;
+TEvent  TEventQueue::eventQueue[ eventQSize ] = { {0} };
+TEvent *  TEventQueue::eventQHead = TEventQueue::eventQueue;
+TEvent *  TEventQueue::eventQTail = TEventQueue::eventQueue;
+Boolean  TEventQueue::mouseIntFlag = False;
+ushort  TEventQueue::eventCount = 0;
 #endif
 
-ushort _NEAR TEventQueue::downTicks = 0;
+ushort  TEventQueue::downTicks = 0;
 
-Boolean _NEAR TEventQueue::mouseEvents = False;
-Boolean _NEAR TEventQueue::mouseReverse = False;
-Boolean _NEAR TEventQueue::pendingMouseUp = False;
-ushort _NEAR TEventQueue::doubleDelay = 8;
-ushort _NEAR TEventQueue::repeatDelay = 8;
-ushort _NEAR TEventQueue::autoTicks = 0;
-ushort _NEAR TEventQueue::autoDelay = 0;
+Boolean  TEventQueue::mouseEvents = False;
+Boolean  TEventQueue::mouseReverse = False;
+Boolean  TEventQueue::pendingMouseUp = False;
+ushort  TEventQueue::doubleDelay = 8;
+ushort  TEventQueue::repeatDelay = 8;
+ushort  TEventQueue::autoTicks = 0;
+ushort  TEventQueue::autoDelay = 0;
 
-MouseEventType _NEAR TEventQueue::lastMouse;
-MouseEventType _NEAR TEventQueue::curMouse;
-MouseEventType _NEAR TEventQueue::downMouse;
+MouseEventType  TEventQueue::lastMouse;
+MouseEventType  TEventQueue::curMouse;
+MouseEventType  TEventQueue::downMouse;
 
-TMouse * _NEAR TEventQueue::mouse;
+TMouse *  TEventQueue::mouse;
 
-char * _FAR TEventQueue::pasteText = 0;
-size_t _NEAR TEventQueue::pasteTextLength = 0;
-size_t _NEAR TEventQueue::pasteTextIndex = 0;
+char *  TEventQueue::pasteText = 0;
+size_t  TEventQueue::pasteTextLength = 0;
+size_t  TEventQueue::pasteTextIndex = 0;
 
-TEvent _NEAR TEventQueue::keyEventQueue[ keyEventQSize ] = { {0} };
-size_t _NEAR TEventQueue::keyEventCount = 0;
-size_t _NEAR TEventQueue::keyEventIndex = 0;
-Boolean _NEAR TEventQueue::keyPasteState = False;
+TEvent  TEventQueue::keyEventQueue[ keyEventQSize ] = { {0} };
+size_t  TEventQueue::keyEventCount = 0;
+size_t  TEventQueue::keyEventIndex = 0;
+Boolean  TEventQueue::keyPasteState = False;
 
 TEventQueue::TEventQueue() noexcept
 {
-    static TMouse _NEAR mouse;
+    static TMouse  mouse;
     this->mouse = &mouse;
     resume();
 }
@@ -89,7 +89,7 @@ void TEventQueue::resume() noexcept
 #if defined( __FLAT__ )
     THardwareInfo::clearPendingEvent();
 #else
-    mouse->registerHandler( 0xFFFF, (void (_FAR *)()) mouseInt );
+    mouse->registerHandler( 0xFFFF, (void ( *)()) mouseInt );
 #endif
 
     mouseEvents = True;

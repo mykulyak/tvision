@@ -47,7 +47,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -101,7 +101,7 @@ private:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -121,8 +121,8 @@ inline opstream& operator << ( opstream& os, TResourceCollection* cl )
 #if defined( Uses_TResourceFile ) && !defined( __TResourceFile )
 #define __TResourceFile
 
-class _FAR TResourceCollection;
-class _FAR fpstream;
+class  TResourceCollection;
+class  fpstream;
 
 class TResourceFile: public TObject
 {
@@ -171,7 +171,7 @@ public:
 #if defined( Uses_TStringList ) && !defined( __TStringList )
 #define __TStringList
 
-class _FAR TStrIndexRec;
+class  TStrIndexRec;
 
 class TStringList : public TObject, public TStreamable
 {
@@ -200,7 +200,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };

@@ -76,8 +76,8 @@ const ushort arrowCodes[] =
 int cstrlen( TStringView text ) noexcept
 {
 #ifdef __BORLANDC__
-    const char _FAR *limit = &text[text.size()];
-    const char _FAR *s = &text[0];
+    const char  *limit = &text[text.size()];
+    const char  *s = &text[0];
     int len = 0;
     while( s < limit )
         {

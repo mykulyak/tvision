@@ -64,64 +64,64 @@ extern const uchar specialChars[] =
     175, 174, 26, 27, ' ', ' '
 };
 
-const char * _NEAR TRadioButtons::button = " ( ) ";
+const char *  TRadioButtons::button = " ( ) ";
 
-const char * _NEAR TMenuBox::frameChars = " \332\304\277  \300\304\331  \263 \263  \303\304\264 ";
+const char *  TMenuBox::frameChars = " \332\304\277  \300\304\331  \263 \263  \303\304\264 ";
 
-const char _NEAR TFrame::initFrame[19] =
+const char  TFrame::initFrame[19] =
   "\x06\x0A\x0C\x05\x00\x05\x03\x0A\x09\x16\x1A\x1C\x15\x00\x15\x13\x1A\x19";
 
-char _NEAR TFrame::frameChars[33] =
+char  TFrame::frameChars[33] =
     "   \xC0 \xB3\xDA\xC3 \xD9\xC4\xC1\xBF\xB4\xC2\xC5   \xC8 \xBA\xC9\xC7 \xBC\xCD\xCF\xBB\xB6\xD1 "; // for UnitedStates code page
 
-const char * _NEAR TFrame::closeIcon = "[~\xFE~]";
-const char * _NEAR TFrame::zoomIcon = "[~\x18~]";
-const char * _NEAR TFrame::unZoomIcon = "[~\x12~]";
-const char * _NEAR TFrame::dragIcon = "~\xC4\xD9~";
-const char * _NEAR TFrame::dragLeftIcon = "~\xC0\xC4~";
+const char *  TFrame::closeIcon = "[~\xFE~]";
+const char *  TFrame::zoomIcon = "[~\x18~]";
+const char *  TFrame::unZoomIcon = "[~\x12~]";
+const char *  TFrame::dragIcon = "~\xC4\xD9~";
+const char *  TFrame::dragLeftIcon = "~\xC0\xC4~";
 
-const char _NEAR TIndicator::dragFrame = '\xCD';
-const char _NEAR TIndicator::normalFrame = '\xC4';
+const char  TIndicator::dragFrame = '\xCD';
+const char  TIndicator::normalFrame = '\xC4';
 
-const char * _NEAR THistory::icon = "\xDE~\x19~\xDD";
+const char *  THistory::icon = "\xDE~\x19~\xDD";
 
-const char _NEAR TColorSelector::icon = '\xDB';
+const char  TColorSelector::icon = '\xDB';
 
-const char * _NEAR TMonoSelector::button = " ( ) ";
-const char * _NEAR TMonoSelector::normal = "Normal";
-const char * _NEAR TMonoSelector::highlight = "Highlight";
-const char * _NEAR TMonoSelector::underline = "Underline";
-const char * _NEAR TMonoSelector::inverse = "Inverse";
+const char *  TMonoSelector::button = " ( ) ";
+const char *  TMonoSelector::normal = "Normal";
+const char *  TMonoSelector::highlight = "Highlight";
+const char *  TMonoSelector::underline = "Underline";
+const char *  TMonoSelector::inverse = "Inverse";
 
-const char * _NEAR TColorDialog::colors = "Colors";
-const char * _NEAR TColorDialog::groupText = "~G~roup";
-const char * _NEAR TColorDialog::itemText = "~I~tem";
-const char * _NEAR TColorDialog::forText = "~F~oreground";
-const char * _NEAR TColorDialog::bakText = "~B~ackground";
-const char * _NEAR TColorDialog::textText = "Text ";
-const char * _NEAR TColorDialog::colorText = "Color";
-const char * _NEAR TColorDialog::okText = "O~K~";
-const char * _NEAR TColorDialog::cancelText = "Cancel";
+const char *  TColorDialog::colors = "Colors";
+const char *  TColorDialog::groupText = "~G~roup";
+const char *  TColorDialog::itemText = "~I~tem";
+const char *  TColorDialog::forText = "~F~oreground";
+const char *  TColorDialog::bakText = "~B~ackground";
+const char *  TColorDialog::textText = "Text ";
+const char *  TColorDialog::colorText = "Color";
+const char *  TColorDialog::okText = "O~K~";
+const char *  TColorDialog::cancelText = "Cancel";
 
-const char _NEAR TInputLine::rightArrow = '\x10';
-const char _NEAR TInputLine::leftArrow = '\x11';
+const char  TInputLine::rightArrow = '\x10';
+const char  TInputLine::leftArrow = '\x11';
 
-const char * _NEAR TStatusLine::hintSeparator = "\xB3 ";
+const char *  TStatusLine::hintSeparator = "\xB3 ";
 
-const char * _NEAR TCheckBoxes::button = " [ ] ";
+const char *  TCheckBoxes::button = " [ ] ";
 
-TScrollChars _NEAR TScrollBar::vChars = {'\x1E', '\x1F', '\xB1', '\xFE', '\xB2'};
-TScrollChars _NEAR TScrollBar::hChars = {'\x11', '\x10', '\xB1', '\xFE', '\xB2'};
+TScrollChars  TScrollBar::vChars = {'\x1E', '\x1F', '\xB1', '\xFE', '\xB2'};
+TScrollChars  TScrollBar::hChars = {'\x11', '\x10', '\xB1', '\xFE', '\xB2'};
 
-const char * _NEAR TButton::shadows = "\xDC\xDB\xDF";
-const char * _NEAR TButton::markers = "[]";
+const char *  TButton::shadows = "\xDC\xDB\xDF";
+const char *  TButton::markers = "[]";
 
-const char * _NEAR TDirListBox::pathDir   = "\xC0\xC4\xC2";
-const char * _NEAR TDirListBox::firstDir  =   "\xC0\xC2\xC4";
-const char * _NEAR TDirListBox::middleDir =   " \xC3\xC4";
-const char * _NEAR TDirListBox::lastDir   =   " \xC0\xC4";
-const char * _NEAR TDirListBox::drives = "Drives";
-const char * _NEAR TDirListBox::graphics = "\xC0\xC3\xC4";
+const char *  TDirListBox::pathDir   = "\xC0\xC4\xC2";
+const char *  TDirListBox::firstDir  =   "\xC0\xC2\xC4";
+const char *  TDirListBox::middleDir =   " \xC3\xC4";
+const char *  TDirListBox::lastDir   =   " \xC0\xC4";
+const char *  TDirListBox::drives = "Drives";
+const char *  TDirListBox::graphics = "\xC0\xC3\xC4";
 
-const char * _NEAR TFileEditor::backupExt = ".bak";
+const char *  TFileEditor::backupExt = ".bak";
 

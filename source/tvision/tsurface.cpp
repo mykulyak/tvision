@@ -43,7 +43,7 @@ void TDrawSurface::resize(TPoint aSize)
     {
         size_t newLength = aSize.x*aSize.y;
         size_t sz = newLength*sizeof(TScreenCell);
-        void _FAR *newData;
+        void  *newData;
         if (newLength <= dataLength)
             newData = ::realloc(data, sz);
         else
@@ -53,7 +53,7 @@ void TDrawSurface::resize(TPoint aSize)
         }
         if (newData == 0 && newLength != 0)
             abort();
-        data = (TScreenCell _FAR *) newData;
+        data = (TScreenCell  *) newData;
         dataLength = newLength;
 #ifndef __BORLANDC__
         // Initialize the buffer, like TGroup does.
@@ -75,7 +75,7 @@ void TDrawSurface::clear()
 }
 
 TSurfaceView::TSurfaceView( const TRect &bounds,
-                            const TDrawSurface _FAR *aSurface ) noexcept :
+                            const TDrawSurface  *aSurface ) noexcept :
     TView(bounds),
     surface(aSurface)
 {

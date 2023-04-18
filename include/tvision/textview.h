@@ -31,8 +31,8 @@
 #pragma option -po-
 #endif
 
-class _FAR TRect;
-class _FAR TScrollBar;
+class  TRect;
+class  TScrollBar;
 
 class TTextDevice : public TScroller, public streambuf
 {
@@ -60,8 +60,8 @@ protected:
 #if defined( Uses_TTerminal ) && !defined( __TTerminal )
 #define __TTerminal
 
-class _FAR TRect;
-class _FAR TScrollBar;
+class  TRect;
+class  TScrollBar;
 
 class TTerminal: public TTextDevice
 {

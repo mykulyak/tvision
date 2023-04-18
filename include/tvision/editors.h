@@ -115,7 +115,7 @@ ushort defEditorDialog( int dialog, ... );
 #if defined( Uses_TIndicator ) && !defined( __TIndicator )
 #define __TIndicator
 
-class _FAR TRect;
+class  TRect;
 
 class TIndicator : public TView
 {
@@ -136,8 +136,8 @@ protected:
 
 private:
 
-    static const char _NEAR dragFrame;
-    static const char _NEAR normalFrame;
+    static const char  dragFrame;
+    static const char  normalFrame;
 
     virtual const char *streamableName() const
         { return name; }
@@ -148,7 +148,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -169,11 +169,11 @@ inline opstream& operator << ( opstream& os, TIndicator* cl )
 #if defined( Uses_TEditor ) && !defined( __TEditor )
 #define __TEditor
 
-class _FAR TRect;
-class _FAR TScrollBar;
-class _FAR TIndicator;
-struct _FAR TEvent;
-class _FAR TMenuItem;
+class  TRect;
+class  TScrollBar;
+class  TIndicator;
+struct  TEvent;
+class  TMenuItem;
 
 class TEditor : public TView
 {
@@ -285,11 +285,11 @@ public:
     TStringView bufChars( uint );
     TStringView bufPrevChars( uint );
 
-    static TEditorDialog _NEAR editorDialog;
-    static ushort _NEAR editorFlags;
-    static char _NEAR findStr[maxFindStrLen];
-    static char _NEAR replaceStr[maxReplaceStrLen];
-    static TEditor * _NEAR clipboard;
+    static TEditorDialog  editorDialog;
+    static ushort  editorFlags;
+    static char  findStr[maxFindStrLen];
+    static char  replaceStr[maxReplaceStrLen];
+    static TEditor *  clipboard;
     uchar lockCount;
     uchar updateFlags;
     int keyState;
@@ -307,7 +307,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -327,7 +327,7 @@ inline opstream& operator << ( opstream& os, TEditor* cl )
 #if defined( Uses_TMemo ) && !defined( __TMemo )
 #define __TMemo
 
-struct _FAR TEvent;
+struct  TEvent;
 
 struct TMemoData
 {
@@ -360,7 +360,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -385,10 +385,10 @@ inline opstream& operator << ( opstream& os, TMemo* cl )
 #include <tvision/compat/borland/dir.h>
 #endif  // __DIR_H
 
-class _FAR TRect;
-class _FAR TScrollBar;
-class _FAR TIndicator;
-struct _FAR TEvent;
+class  TRect;
+class  TScrollBar;
+class  TIndicator;
+struct  TEvent;
 
 class TFileEditor : public TEditor
 {
@@ -416,7 +416,7 @@ public:
 
 private:
 
-    static const char * _NEAR backupExt;
+    static const char *  backupExt;
 
     virtual const char *streamableName() const
         { return name; }
@@ -429,7 +429,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -450,7 +450,7 @@ inline opstream& operator << ( opstream& os, TFileEditor* cl )
 #if defined( Uses_TEditWindow ) && !defined( __TEditWindow )
 #define __TEditWindow
 
-class _FAR TFileEditor;
+class  TFileEditor;
 
 class TEditWindow : public TWindow
 {
@@ -467,8 +467,8 @@ public:
 
 private:
 
-    static const char * _NEAR clipboardTitle;
-    static const char * _NEAR untitled;
+    static const char *  clipboardTitle;
+    static const char *  untitled;
 
     virtual const char *streamableName() const
         { return name; }
@@ -481,7 +481,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };

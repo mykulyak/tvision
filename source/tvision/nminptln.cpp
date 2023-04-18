@@ -15,5 +15,5 @@
 #define Uses_TInputLine
 #include <tvision/tv.h>
 
-const char * const _NEAR TInputLine::name = "TInputLine";
+const char * const  TInputLine::name = "TInputLine";
 #endif

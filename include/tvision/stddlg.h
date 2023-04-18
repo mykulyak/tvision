@@ -65,8 +65,8 @@ struct TSearchRec
 #if defined( Uses_TFileInputLine ) && !defined( __TFileInputLine )
 #define __TFileInputLine
 
-class _FAR TRect;
-struct _FAR TEvent;
+class  TRect;
+struct  TEvent;
 
 class TFileInputLine : public TInputLine
 {
@@ -88,7 +88,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -108,7 +108,7 @@ inline opstream& operator << ( opstream& os, TFileInputLine* cl )
 #if defined( Uses_TFileCollection ) && !defined( __TFileCollection )
 #define __TFileCollection
 
-struct _FAR TSearchRec;
+struct  TSearchRec;
 
 class TFileCollection: public TSortedCollection
 {
@@ -156,7 +156,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -187,9 +187,9 @@ inline TSearchRec *TFileCollection::lastThat( ccTestFunc func, void *arg )
 #if defined( Uses_TSortedListBox ) && !defined( __TSortedListBox )
 #define __TSortedListBox
 
-class _FAR TRect;
-class _FAR TScrollBar;
-struct _FAR TEvent;
+class  TRect;
+class  TScrollBar;
+struct  TEvent;
 
 class TSortedListBox: public TListBox
 {
@@ -226,7 +226,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -251,9 +251,9 @@ inline TSortedCollection *TSortedListBox::list()
 #if defined( Uses_TFileList ) && !defined( __TFileList )
 #define __TFileList
 
-class _FAR TRect;
-class _FAR TScrollBar;
-struct _FAR TEvent;
+class  TRect;
+class  TScrollBar;
+struct  TEvent;
 
 class TFileList : public TSortedListBox
 {
@@ -282,7 +282,7 @@ private:
 
     virtual void *getKey( const char *s );
 
-    static const char * _NEAR tooManyFiles;
+    static const char *  tooManyFiles;
 
     virtual const char *streamableName() const
         { return name; }
@@ -293,7 +293,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -324,8 +324,8 @@ inline TFileCollection *TFileList::list()
 #if defined( Uses_TFileInfoPane ) && !defined( __TFileInfoPane )
 #define __TFileInfoPane
 
-class _FAR TRect;
-struct _FAR TEvent;
+class  TRect;
+struct  TEvent;
 
 class TFileInfoPane : public TView
 {
@@ -342,9 +342,9 @@ private:
 
     TSearchRec file_block;
 
-    static const char * const _NEAR months[13];
-    static const char * _NEAR pmText;
-    static const char * _NEAR amText;
+    static const char * const  months[13];
+    static const char *  pmText;
+    static const char *  amText;
 
     virtual const char *streamableName() const
         { return name; }
@@ -355,7 +355,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -391,9 +391,9 @@ const int
 #include <tvision/compat/borland/dir.h>
 #endif  // __DIR_H
 
-struct _FAR TEvent;
-class _FAR TFileInputLine;
-class _FAR TFileList;
+struct  TEvent;
+class  TFileInputLine;
+class  TFileList;
 
 class TFileDialog : public TDialog
 {
@@ -423,15 +423,15 @@ private:
 
     Boolean checkDirectory( const char * );
 
-    static const char * _NEAR filesText;
-    static const char * _NEAR openText;
-    static const char * _NEAR okText;
-    static const char * _NEAR replaceText;
-    static const char * _NEAR clearText;
-    static const char * _NEAR cancelText;
-    static const char * _NEAR helpText;
-    static const char * _NEAR invalidDriveText;
-    static const char * _NEAR invalidFileText;
+    static const char *  filesText;
+    static const char *  openText;
+    static const char *  okText;
+    static const char *  replaceText;
+    static const char *  clearText;
+    static const char *  cancelText;
+    static const char *  helpText;
+    static const char *  invalidDriveText;
+    static const char *  invalidFileText;
 
     virtual const char *streamableName() const
         { return name; }
@@ -445,7 +445,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -499,7 +499,7 @@ inline TDirEntry::~TDirEntry()
 #if defined( Uses_TDirCollection ) && !defined( __TDirCollection )
 #define __TDirCollection
 
-class _FAR TDirEntry;
+class  TDirEntry;
 
 class TDirCollection : public TCollection
 {
@@ -544,7 +544,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -579,10 +579,10 @@ inline TDirEntry *TDirCollection::lastThat( ccTestFunc func, void *arg )
 #include <tvision/compat/borland/dir.h>
 #endif  // __DIR_H
 
-class _FAR TRect;
-class _FAR TScrollBar;
-struct _FAR TEvent;
-class _FAR TDirCollection;
+class  TRect;
+class  TScrollBar;
+struct  TEvent;
+class  TDirCollection;
 
 class TDirListBox : public TListBox
 {
@@ -609,12 +609,12 @@ private:
     char dir[MAXPATH];
     ushort cur;
 
-    static const char * _NEAR pathDir;
-    static const char * _NEAR firstDir;
-    static const char * _NEAR middleDir;
-    static const char * _NEAR lastDir;
-    static const char * _NEAR drives;
-    static const char * _NEAR graphics;
+    static const char *  pathDir;
+    static const char *  firstDir;
+    static const char *  middleDir;
+    static const char *  lastDir;
+    static const char *  drives;
+    static const char *  graphics;
 
     virtual const char *streamableName() const
         { return name; }
@@ -625,7 +625,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -655,10 +655,10 @@ const int
     cdNoLoadDir  = 0x0001, // Option to init the dialog to store on a stream
     cdHelpButton = 0x0002; // Put a help button in the dialog
 
-struct _FAR TEvent;
-class _FAR TInputLine;
-class _FAR TDirListBox;
-class _FAR TButton;
+struct  TEvent;
+class  TInputLine;
+class  TDirListBox;
+class  TButton;
 
 class TChDirDialog : public TDialog
 {
@@ -684,15 +684,15 @@ private:
     TButton *okButton;
     TButton *chDirButton;
 
-    static const char * _NEAR changeDirTitle;
-    static const char * _NEAR dirNameText;
-    static const char * _NEAR dirTreeText;
-    static const char * _NEAR okText;
-    static const char * _NEAR chdirText;
-    static const char * _NEAR revertText;
-    static const char * _NEAR helpText;
-    static const char * _NEAR drivesText;
-    static const char * _NEAR invalidText;
+    static const char *  changeDirTitle;
+    static const char *  dirNameText;
+    static const char *  dirTreeText;
+    static const char *  okText;
+    static const char *  chdirText;
+    static const char *  revertText;
+    static const char *  helpText;
+    static const char *  drivesText;
+    static const char *  invalidText;
 
     virtual const char *streamableName() const
         { return name; }
@@ -706,7 +706,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };

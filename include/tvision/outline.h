@@ -70,10 +70,10 @@ inline TNode::~TNode() {
 /*        4 = Not expanded color                                           */
 /* ------------------------------------------------------------------------*/
 
-class _FAR TRect;
-class _FAR TScrollBar;
-class _FAR TOutlineViewer;
-struct _FAR TEvent;
+class  TRect;
+class  TScrollBar;
+class  TOutlineViewer;
+struct  TEvent;
 
 // Callback types for TOutlineViewer's traverse functions.
 
@@ -127,7 +127,7 @@ protected:
 
 public:
     static TStreamable *build();
-    static const char * const _NEAR name;
+    static const char * const  name;
 
 private:
     void adjustFocus(int newFocus) noexcept;
@@ -154,9 +154,9 @@ inline TOutlineViewer::TOutlineViewer( StreamableInit s) noexcept :
 /*        4 = Not expanded color                                           */
 /* ------------------------------------------------------------------------*/
 
-class _FAR TRect;
-class _FAR TScrollBar;
-struct _FAR TEvent;
+class  TRect;
+class  TScrollBar;
+struct  TEvent;
 
 class TOutline : public TOutlineViewer
 {
@@ -185,7 +185,7 @@ protected:
 
 public:
     static TStreamable* build();
-    static const char* const _NEAR name;
+    static const char* const  name;
 
 private:
     virtual const char *streamableName() const

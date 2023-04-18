@@ -15,6 +15,6 @@
 #define Uses_TChDirDialog
 #include <tvision/tv.h>
 
-const char * const _NEAR TChDirDialog::name = "TChDirDialog";
+const char * const  TChDirDialog::name = "TChDirDialog";
 #endif
 

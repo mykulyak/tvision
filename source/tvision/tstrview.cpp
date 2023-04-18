@@ -9,7 +9,7 @@
 
 #include <iostream.h>
 
-ostream _FAR & _Cdecl operator<<(ostream _FAR &os, TStringView s)
+ostream  & _Cdecl operator<<(ostream  &os, TStringView s)
 {
     return os.write(s.data(), s.size());
 }

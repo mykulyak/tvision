@@ -16,10 +16,6 @@
 #if !defined( __TTYPES_H )
 #define __TTYPES_H
 
-#if !defined(_NEAR)
-#define _NEAR near
-#endif
-
 #include <tvision/compat/borland/_defs.h>
 
 #ifdef __BORLANDC__
@@ -70,10 +66,10 @@ const char EOS = '\0';
 
 enum StreamableInit { streamableInit };
 
-class _FAR ipstream;
-class _FAR opstream;
-class _FAR TStreamable;
-class _FAR TStreamableTypes;
+class  ipstream;
+class  opstream;
+class  TStreamable;
+class  TStreamableTypes;
 
 ipstream& _Cdecl operator >> ( ipstream&, char& );
 ipstream& _Cdecl operator >> ( ipstream&, signed char& );
@@ -88,7 +84,7 @@ ipstream& _Cdecl operator >> ( ipstream&, float& );
 ipstream& _Cdecl operator >> ( ipstream&, double& );
 ipstream& _Cdecl operator >> ( ipstream&, long double& );
 ipstream& _Cdecl operator >> ( ipstream&, TStreamable& );
-ipstream& _Cdecl operator >> ( ipstream&, void _FAR *& );
+ipstream& _Cdecl operator >> ( ipstream&, void  *& );
 
 opstream& _Cdecl operator << ( opstream&, char );
 opstream& _Cdecl operator << ( opstream&, signed char );
@@ -103,13 +99,13 @@ opstream& _Cdecl operator << ( opstream&, float );
 opstream& _Cdecl operator << ( opstream&, double );
 opstream& _Cdecl operator << ( opstream&, long double );
 opstream& _Cdecl operator << ( opstream&, TStreamable& );
-opstream& _Cdecl operator << ( opstream&, TStreamable _FAR * );
+opstream& _Cdecl operator << ( opstream&, TStreamable  * );
 
 #include <tvision/compat/borland/iosfwd.h>
 class TStringView;
-ostream _FAR & _Cdecl operator<<(ostream _FAR &, TStringView);
+ostream  & _Cdecl operator<<(ostream  &, TStringView);
 
-typedef void _FAR *TTimerId;
+typedef void  *TTimerId;
 
 typedef int ccIndex;
 typedef Boolean (*ccTestFunc)( void *, void * );

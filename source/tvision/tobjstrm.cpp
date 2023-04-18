@@ -200,7 +200,7 @@ const void *TPReadObjects::find( P_id_type id )
     return at( id );
 }
 
-pstream::pstream( streambuf _FAR *sb ) noexcept
+pstream::pstream( streambuf  *sb ) noexcept
 {
     init( sb );
 }
@@ -262,7 +262,7 @@ void pstream::registerType( TStreamableClass *ts ) noexcept
     types->registerType( ts );
 }
 
-pstream::operator void _FAR *() const noexcept
+pstream::operator void  *() const noexcept
 {
     return fail() ? 0 : (void *)this;
 }
@@ -272,7 +272,7 @@ int pstream::operator! () const noexcept
     return fail();
 }
 
-streambuf _FAR * pstream::rdbuf() const noexcept
+streambuf  * pstream::rdbuf() const noexcept
 {
     return bp;
 }
@@ -310,7 +310,7 @@ void pstream::setstate( int b ) noexcept
     state |= (b&0xFF);
 }
 
-ipstream::ipstream( streambuf _FAR *sb ) noexcept
+ipstream::ipstream( streambuf  *sb ) noexcept
 {
     pstream::init( sb );
 }
@@ -837,7 +837,7 @@ filebuf *ifpstream::rdbuf() noexcept
     return fpbase::rdbuf();
 }
 
-void ifpstream::open( const char _FAR *name, pstream::openmode omode)
+void ifpstream::open( const char  *name, pstream::openmode omode)
 {
     fpbase::open( name, omode | ios::in | ios::binary);
 }
@@ -860,7 +860,7 @@ filebuf *ofpstream::rdbuf() noexcept
     return fpbase::rdbuf();
 }
 
-void ofpstream::open( const char _FAR *name, pstream::openmode omode)
+void ofpstream::open( const char  *name, pstream::openmode omode)
 {
     fpbase::open( name, omode | ios::out | ios::binary);
 }
@@ -883,7 +883,7 @@ filebuf *fpstream::rdbuf() noexcept
     return fpbase::rdbuf();
 }
 
-void fpstream::open( const char _FAR *name, pstream::openmode omode)
+void fpstream::open( const char  *name, pstream::openmode omode)
 {
     fpbase::open( name, omode | ios::binary);
 }

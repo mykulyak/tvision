@@ -100,7 +100,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -145,7 +145,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -166,7 +166,7 @@ inline opstream& operator << ( opstream& os, THelpIndex* cl )
 class THelpFile : public TObject
 {
 
-    static const char * _NEAR invalidContext;
+    static const char *  invalidContext;
 
 public:
 

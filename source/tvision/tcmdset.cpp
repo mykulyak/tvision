@@ -15,7 +15,7 @@
 #define Uses_TCommandSet
 #include <tvision/tv.h>
 
-int _NEAR TCommandSet::masks[8] =
+int  TCommandSet::masks[8] =
 {
     0x0001,
     0x0002,

@@ -28,7 +28,7 @@
 #pragma option -po-
 #endif
 
-class _FAR TRect;
+class  TRect;
 
 ushort messageBox( TStringView msg, ushort aOptions ) noexcept;
 ushort messageBox( unsigned aOptions, const char *msg, ... ) noexcept;
@@ -67,14 +67,14 @@ class MsgBoxText
 
 public:
 
-    static const char * _NEAR yesText;
-    static const char * _NEAR noText;
-    static const char * _NEAR okText;
-    static const char * _NEAR cancelText;
-    static const char * _NEAR warningText;
-    static const char * _NEAR errorText;
-    static const char * _NEAR informationText;
-    static const char * _NEAR confirmText;
+    static const char *  yesText;
+    static const char *  noText;
+    static const char *  okText;
+    static const char *  cancelText;
+    static const char *  warningText;
+    static const char *  errorText;
+    static const char *  informationText;
+    static const char *  confirmText;
 };
 
 #if defined( __BORLANDC__ )

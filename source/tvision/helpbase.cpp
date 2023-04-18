@@ -59,7 +59,7 @@ TCrossRefHandler crossRefHandler = notAssigned;
 
 // THelpTopic
 
-const char * const _NEAR THelpTopic::name = "THelpTopic";
+const char * const  THelpTopic::name = "THelpTopic";
 
 void THelpTopic::write( opstream& os )
 {
@@ -444,7 +444,7 @@ TStringView THelpTopic::wrapText( char *text, int size, int& offset, Boolean wra
 
 // THelpIndex
 
-const char * const _NEAR THelpIndex::name = "THelpIndex";
+const char * const  THelpIndex::name = "THelpIndex";
 
 void THelpIndex::write( opstream& os )
 {

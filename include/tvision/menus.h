@@ -21,10 +21,10 @@
 #pragma option -po-
 #endif
 
-class _FAR TSubMenu;
-class _FAR TMenuItem;
-class _FAR TStatusDef;
-class _FAR TStatusItem;
+class  TSubMenu;
+class  TMenuItem;
+class  TStatusDef;
+class  TStatusItem;
 
 TSubMenu& operator + ( TSubMenu& s, TMenuItem& i ) noexcept;
 TSubMenu& operator + ( TSubMenu& s1, TSubMenu& s2 ) noexcept;
@@ -35,7 +35,7 @@ TStatusDef& operator + ( TStatusDef& s1, TStatusDef& s2 ) noexcept;
 #if defined( Uses_TMenuItem ) && !defined( __TMenuItem )
 #define __TMenuItem
 
-class _FAR TMenu;
+class  TMenu;
 
 class TMenuItem
 {
@@ -136,9 +136,9 @@ public:
 #if defined( Uses_TMenuView ) && !defined( __TMenuView )
 #define __TMenuView
 
-class _FAR TRect;
-class _FAR TMenu;
-struct _FAR TEvent;
+class  TRect;
+class  TMenu;
+struct  TEvent;
 
 class TMenuView : public TView
 {
@@ -196,7 +196,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -245,8 +245,8 @@ inline TMenuView::TMenuView( const TRect& bounds ) noexcept :
 #if defined( Uses_TMenuBar ) && !defined( __TMenuBar )
 #define __TMenuBar
 
-class _FAR TRect;
-class _FAR TMenu;
+class  TRect;
+class  TMenu;
 
 class TMenuBar : public TMenuView
 {
@@ -271,7 +271,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -303,10 +303,10 @@ inline opstream& operator << ( opstream& os, TMenuBar* cl )
 #if defined( Uses_TMenuBox ) && !defined( __TMenuBox )
 #define __TMenuBox
 
-class _FAR TRect;
-class _FAR TMenu;
-class _FAR TMenuView;
-class _FAR TDrawBuffer;
+class  TRect;
+class  TMenu;
+class  TMenuView;
+class  TDrawBuffer;
 
 class TMenuBox : public TMenuView
 {
@@ -323,7 +323,7 @@ private:
     void frameLine( TDrawBuffer&, short n );
     void drawLine( TDrawBuffer& );
 
-    static const char * _NEAR frameChars;
+    static const char *  frameChars;
     virtual const char *streamableName() const
         { return name; }
 
@@ -333,7 +333,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -382,7 +382,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -477,9 +477,9 @@ inline TStatusDef::TStatusDef( ushort aMin,
 #if defined( Uses_TStatusLine ) && !defined( __TStatusLine )
 #define __TStatusLine
 
-class _FAR TRect;
-struct _FAR TEvent;
-class _FAR TPoint;
+class  TRect;
+struct  TEvent;
+class  TPoint;
 
 class TStatusLine : public TView
 {
@@ -507,7 +507,7 @@ private:
     TStatusItem *itemMouseIsIn( TPoint );
     void disposeItems( TStatusItem *item );
 
-    static const char * _NEAR hintSeparator;
+    static const char *  hintSeparator;
 
     virtual const char *streamableName() const
         { return name; }
@@ -526,7 +526,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };

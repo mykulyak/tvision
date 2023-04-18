@@ -240,7 +240,7 @@ private:
     int loc( int ) noexcept;
     int mask( int ) noexcept;
 
-    static int _NEAR masks[8];
+    static int  masks[8];
 
     uchar cmds[32];
 
@@ -323,15 +323,15 @@ inline TColorAttr& TPalette::operator[]( int index ) const noexcept
 
 struct write_args
 {
-    void _FAR *self;
-    void _FAR *target;
-    void _FAR *buf;
+    void  *self;
+    void  *target;
+    void  *buf;
     ushort offset;
 };
 
-class _FAR TRect;
-struct _FAR TEvent;
-class _FAR TGroup;
+class  TRect;
+struct  TEvent;
+class  TGroup;
 
 class TView : public TObject, public TStreamable
 {
@@ -436,11 +436,11 @@ public:
     void putInFrontOf( TView *Target );
     TView *TopView() noexcept;
 
-    void writeBuf(  short x, short y, short w, short h, const void _FAR* b ) noexcept;
+    void writeBuf(  short x, short y, short w, short h, const void * b ) noexcept;
     void writeBuf(  short x, short y, short w, short h, const TDrawBuffer& b ) noexcept;
     void writeChar( short x, short y, char c, uchar color, short count ) noexcept;
     void writeLine( short x, short y, short w, short h, const TDrawBuffer& b ) noexcept;
-    void writeLine( short x, short y, short w, short h, const void _FAR *b ) noexcept;
+    void writeLine( short x, short y, short w, short h, const void  *b ) noexcept;
     void writeStr( short x, short y, const char *str, uchar color ) noexcept;
 #ifndef __BORLANDC__
     void writeBuf(  short x, short y, short w, short h, const TScreenCell *b ) noexcept;
@@ -456,14 +456,14 @@ public:
     uchar growMode;
     uchar dragMode;
     ushort helpCtx;
-    static Boolean _NEAR commandSetChanged;
+    static Boolean  commandSetChanged;
 #ifndef GENINC
-    static TCommandSet _NEAR curCommandSet;
+    static TCommandSet  curCommandSet;
 #endif
     TGroup *owner;
 
-    static Boolean _NEAR showMarkers;
-    static uchar _NEAR errorAttr;
+    static Boolean  showMarkers;
+    static uchar  errorAttr;
 
     virtual void shutDown();
 
@@ -478,7 +478,7 @@ private:
                  );
     void change( uchar, TPoint delta, TPoint& p, TPoint& s, ushort ctrlState ) noexcept;
     static void writeView( write_args );
-    void writeView( short x, short y, short count, const void _FAR* b ) noexcept;
+    void writeView( short x, short y, short count, const void * b ) noexcept;
 #ifndef __BORLANDC__
     void writeView( short x, short y, short count, const TScreenCell* b ) noexcept;
 #endif
@@ -494,7 +494,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 protected:
@@ -542,9 +542,9 @@ inline void TView::writeLine( short x, short y, short w, short h,
 #if defined( Uses_TFrame ) && !defined( __TFrame )
 #define __TFrame
 
-class _FAR TRect;
-struct _FAR TEvent;
-class _FAR TDrawBuffer;
+class  TRect;
+struct  TEvent;
+class  TDrawBuffer;
 
 class TFrame : public TView
 {
@@ -564,13 +564,13 @@ private:
     void dragWindow( TEvent& event, uchar dragMode );
 
     friend class TDisplay;
-    static const char _NEAR initFrame[19];
-    static char _NEAR frameChars[33];
-    static const char * _NEAR closeIcon;
-    static const char * _NEAR zoomIcon;
-    static const char * _NEAR unZoomIcon;
-    static const char * _NEAR dragIcon;
-    static const char * _NEAR dragLeftIcon;
+    static const char  initFrame[19];
+    static char  frameChars[33];
+    static const char *  closeIcon;
+    static const char *  zoomIcon;
+    static const char *  unZoomIcon;
+    static const char *  dragIcon;
+    static const char *  dragLeftIcon;
 
     virtual const char *streamableName() const
         { return name; }
@@ -581,7 +581,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -610,8 +610,8 @@ inline opstream& operator << ( opstream& os, TFrame* cl )
 #if defined( Uses_TScrollBar ) && !defined( __TScrollBar )
 #define __TScrollBar
 
-class _FAR TRect;
-struct _FAR TEvent;
+class  TRect;
+struct  TEvent;
 
 typedef char TScrollChars[5];
 
@@ -649,8 +649,8 @@ private:
 
     int getPartCode(void) noexcept;
 
-    static TScrollChars _NEAR vChars;
-    static TScrollChars _NEAR hChars;
+    static TScrollChars  vChars;
+    static TScrollChars  hChars;
 
     virtual const char *streamableName() const
         { return name; }
@@ -663,7 +663,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -691,9 +691,9 @@ inline opstream& operator << ( opstream& os, TScrollBar* cl )
 #if defined( Uses_TScroller ) && !defined( __TScroller )
 #define __TScroller
 
-class _FAR TRect;
-class _FAR TScrollBar;
-struct _FAR TEvent;
+class  TRect;
+class  TScrollBar;
+struct  TEvent;
 
 class TScroller : public TView
 {
@@ -739,7 +739,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -759,14 +759,14 @@ inline opstream& operator << ( opstream& os, TScroller* cl )
 #if defined( Uses_TListViewer ) && !defined( __TListViewer )
 #define __TListViewer
 
-class _FAR TRect;
-class _FAR TScrollBar;
-struct _FAR TEvent;
+class  TRect;
+class  TScrollBar;
+struct  TEvent;
 
 class TListViewer : public TView
 {
 
-    static const char * _NEAR emptyText;
+    static const char *  emptyText;
 
 public:
 
@@ -810,7 +810,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -830,7 +830,7 @@ inline opstream& operator << ( opstream& os, TListViewer* cl )
 #if defined( Uses_TGroup ) && !defined( __TGroup )
 #define __TGroup
 
-class _FAR TView;
+class  TView;
 
 class TGroup : public TView
 {
@@ -920,7 +920,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };
@@ -944,12 +944,12 @@ inline opstream& operator << ( opstream& os, TGroup* cl )
 #define cpCyanWindow "\x10\x11\x12\x13\x14\x15\x16\x17"
 #define cpGrayWindow "\x18\x19\x1A\x1B\x1C\x1D\x1E\x1F"
 
-class _FAR TFrame;
-class _FAR TRect;
-class _FAR TPoint;
-struct _FAR TEvent;
-class _FAR TFrame;
-class _FAR TScrollBar;
+class  TFrame;
+class  TRect;
+class  TPoint;
+struct  TEvent;
+class  TFrame;
+class  TScrollBar;
 
 class TWindowInit
 {
@@ -1020,7 +1020,7 @@ protected:
 
 public:
 
-    static const char * const _NEAR name;
+    static const char * const  name;
     static TStreamable *build();
 
 };

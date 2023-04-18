@@ -30,7 +30,7 @@
 #include <stdlib.h>
 #endif  // __STDLIB_H
 
-TBufListEntry * _NEAR TBufListEntry::bufList = 0;
+TBufListEntry *  TBufListEntry::bufList = 0;
 
 TBufListEntry::TBufListEntry( void*& o, size_t sz ) noexcept :
     owner( o ),
@@ -81,9 +81,9 @@ Boolean TBufListEntry::freeHead() noexcept
         }
 }
 
-void * _NEAR TVMemMgr::safetyPool = 0;
-size_t _NEAR TVMemMgr::safetyPoolSize = 0;
-int _NEAR TVMemMgr::inited = 0;
+void *  TVMemMgr::safetyPool = 0;
+size_t  TVMemMgr::safetyPoolSize = 0;
+int  TVMemMgr::inited = 0;
 
 TVMemMgr memMgr;
 

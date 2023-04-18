@@ -853,7 +853,7 @@ TParagraph *readParagraph( fstream& textFile, int& offset, TCrossRefNode *&xRefs
     return(p);
 }
 
-void _FAR handleCrossRefs( opstream& s, int xRefValue )
+void  handleCrossRefs( opstream& s, int xRefValue )
 {
     TCrossRefNode *p;
 
@@ -968,7 +968,7 @@ void readTopic( fstream& textFile, THelpFile& helpFile )
     skipBlankLines(textFile);
 }
 
-void _FAR doWriteSymbol(void *p, void *p1)
+void  doWriteSymbol(void *p, void *p1)
 {
     int numBlanks, i;
     ostrstream os(line, sizeof(line)-1);

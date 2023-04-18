@@ -98,68 +98,68 @@ ushort getCtrlCode(uchar ch) noexcept
 #pragma warn .rng
 
 
-const char * _NEAR TPXPictureValidator::errorMsg = "Error in picture format.\n %s";
-const char * _NEAR TFilterValidator::errorMsg = "Invalid character in input";
-const char * _NEAR TRangeValidator::errorMsg = "Value not in the range %ld to %ld";
-const char * _NEAR TStringLookupValidator::errorMsg = "Input is not in list of valid strings";
+const char *  TPXPictureValidator::errorMsg = "Error in picture format.\n %s";
+const char *  TFilterValidator::errorMsg = "Invalid character in input";
+const char *  TRangeValidator::errorMsg = "Value not in the range %ld to %ld";
+const char *  TStringLookupValidator::errorMsg = "Input is not in list of valid strings";
 
-const char * _NEAR TRangeValidator::validUnsignedChars = "+0123456789";
-const char * _NEAR TRangeValidator::validSignedChars = "+-0123456789";
+const char *  TRangeValidator::validUnsignedChars = "+0123456789";
+const char *  TRangeValidator::validSignedChars = "+-0123456789";
 
-const char * _NEAR TListViewer::emptyText = "<empty>";
+const char *  TListViewer::emptyText = "<empty>";
 
-const char * _NEAR THelpWindow::helpWinTitle = "Help";
-const char * _NEAR THelpFile::invalidContext =
+const char *  THelpWindow::helpWinTitle = "Help";
+const char *  THelpFile::invalidContext =
     "\n No help available in this context.";
 
-const char * _NEAR TEditWindow::clipboardTitle = "Clipboard";
-const char * _NEAR TEditWindow::untitled = "Untitled";
+const char *  TEditWindow::clipboardTitle = "Clipboard";
+const char *  TEditWindow::untitled = "Untitled";
 
-const char * _NEAR TFileList::tooManyFiles = "Too many files.";
+const char *  TFileList::tooManyFiles = "Too many files.";
 
-const char * _NEAR TProgram::exitText = "~Alt-X~ Exit";
+const char *  TProgram::exitText = "~Alt-X~ Exit";
 
-const char * _NEAR MsgBoxText::yesText = "~Y~es";
-const char * _NEAR MsgBoxText::noText = "~N~o";
-const char * _NEAR MsgBoxText::okText = "O~K~";
-const char * _NEAR MsgBoxText::cancelText = "~C~ancel";
-const char * _NEAR MsgBoxText::warningText = "Warning";
-const char * _NEAR MsgBoxText::errorText = "Error";
-const char * _NEAR MsgBoxText::informationText = "Information";
-const char * _NEAR MsgBoxText::confirmText = "Confirm";
+const char *  MsgBoxText::yesText = "~Y~es";
+const char *  MsgBoxText::noText = "~N~o";
+const char *  MsgBoxText::okText = "O~K~";
+const char *  MsgBoxText::cancelText = "~C~ancel";
+const char *  MsgBoxText::warningText = "Warning";
+const char *  MsgBoxText::errorText = "Error";
+const char *  MsgBoxText::informationText = "Information";
+const char *  MsgBoxText::confirmText = "Confirm";
 
-const char * _NEAR TChDirDialog::changeDirTitle = "Change Directory";
-const char * _NEAR TChDirDialog::dirNameText = "Directory ~n~ame";
-const char * _NEAR TChDirDialog::dirTreeText = "Directory ~t~ree";
-const char * _NEAR TChDirDialog::okText = "O~K~";
-const char * _NEAR TChDirDialog::chdirText = "~C~hdir";
-const char * _NEAR TChDirDialog::revertText = "~R~evert";
-const char * _NEAR TChDirDialog::helpText = "Help";
-const char * _NEAR TChDirDialog::drivesText = "Drives";
-const char * _NEAR TChDirDialog::invalidText = "Invalid directory";
+const char *  TChDirDialog::changeDirTitle = "Change Directory";
+const char *  TChDirDialog::dirNameText = "Directory ~n~ame";
+const char *  TChDirDialog::dirTreeText = "Directory ~t~ree";
+const char *  TChDirDialog::okText = "O~K~";
+const char *  TChDirDialog::chdirText = "~C~hdir";
+const char *  TChDirDialog::revertText = "~R~evert";
+const char *  TChDirDialog::helpText = "Help";
+const char *  TChDirDialog::drivesText = "Drives";
+const char *  TChDirDialog::invalidText = "Invalid directory";
 
-const char * _NEAR TFileDialog::filesText = "~F~iles";
-const char * _NEAR TFileDialog::openText = "~O~pen";
-const char * _NEAR TFileDialog::okText = "O~K~";
-const char * _NEAR TFileDialog::replaceText = "~R~eplace";
-const char * _NEAR TFileDialog::clearText = "~C~lear";
-const char * _NEAR TFileDialog::cancelText = "Cancel";
-const char * _NEAR TFileDialog::helpText = "~H~elp";
-const char * _NEAR TFileDialog::invalidDriveText = "Invalid drive or directory";
-const char * _NEAR TFileDialog::invalidFileText = "Invalid file name";
+const char *  TFileDialog::filesText = "~F~iles";
+const char *  TFileDialog::openText = "~O~pen";
+const char *  TFileDialog::okText = "O~K~";
+const char *  TFileDialog::replaceText = "~R~eplace";
+const char *  TFileDialog::clearText = "~C~lear";
+const char *  TFileDialog::cancelText = "Cancel";
+const char *  TFileDialog::helpText = "~H~elp";
+const char *  TFileDialog::invalidDriveText = "Invalid drive or directory";
+const char *  TFileDialog::invalidFileText = "Invalid file name";
 
-const char * _NEAR TFileInfoPane::pmText = "p";
-const char * _NEAR TFileInfoPane::amText = "a";
-const char * const _NEAR TFileInfoPane::months[] =
+const char *  TFileInfoPane::pmText = "p";
+const char *  TFileInfoPane::amText = "a";
+const char * const  TFileInfoPane::months[] =
     {
     "","Jan","Feb","Mar","Apr","May","Jun",
     "Jul","Aug","Sep","Oct","Nov","Dec"
     };
 
-const char _NEAR TDeskTop::defaultBkgrnd = '\xB0';
+const char  TDeskTop::defaultBkgrnd = '\xB0';
 
 #if !defined( __FLAT__ )
-const char * const _NEAR TSystemError::errorString[] =
+const char * const  TSystemError::errorString[] =
 {
     "Disk in drive %c is write protected",          // 0
     "Unknown unit %c",                              // 1 - NEW
@@ -185,5 +185,5 @@ const char * const _NEAR TSystemError::errorString[] =
     "Insert diskette in drive %c"                   //15
 };
 
-const char * _NEAR TSystemError::sRetryOrCancel = "~Enter~ Retry  ~Esc~ Cancel";
+const char *  TSystemError::sRetryOrCancel = "~Enter~ Retry  ~Esc~ Cancel";
 #endif

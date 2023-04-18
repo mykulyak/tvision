@@ -20,9 +20,9 @@ ushort defEditorDialog( int, ... )
     return cmCancel;
 }
 
-TEditorDialog _NEAR TEditor::editorDialog = defEditorDialog;
-ushort _NEAR TEditor::editorFlags = efBackupFiles | efPromptOnReplace;
-char _NEAR TEditor::findStr[maxFindStrLen] = "";
-char _NEAR TEditor::replaceStr[maxReplaceStrLen] = "";
-TEditor * _NEAR TEditor::clipboard = 0;
+TEditorDialog  TEditor::editorDialog = defEditorDialog;
+ushort  TEditor::editorFlags = efBackupFiles | efPromptOnReplace;
+char  TEditor::findStr[maxFindStrLen] = "";
+char  TEditor::replaceStr[maxReplaceStrLen] = "";
+TEditor *  TEditor::clipboard = 0;
 

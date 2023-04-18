@@ -25,13 +25,6 @@
 
 #endif
 
-#if defined( __FLAT__ )
-#define _NEAR
-#define _FAR
-#else
-#define _NEAR near
-#endif
-
 #if defined( __BORLANDC__ )
 #pragma option -Vo-
 #endif

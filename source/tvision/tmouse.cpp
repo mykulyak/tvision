@@ -24,8 +24,8 @@
 #endif  // __FLAT__
 
 
-uchar _NEAR THWMouse::buttonCount = 0;
-Boolean _NEAR THWMouse::handlerInstalled = False;
+uchar  THWMouse::buttonCount = 0;
+Boolean  THWMouse::handlerInstalled = False;
 
 THWMouse::THWMouse() noexcept
 {
@@ -163,7 +163,7 @@ void THWMouse::getEvent( MouseEventType& me ) noexcept
 }
 
 #if !defined( __FLAT__ )
-void THWMouse::registerHandler( unsigned mask, void (_FAR *func)() )
+void THWMouse::registerHandler( unsigned mask, void ( *func)() )
 {
     if( !present() )
         return;

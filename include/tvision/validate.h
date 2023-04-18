@@ -60,7 +60,7 @@ private:
 
 public:
     static TStreamable *build();
-    static const char * const _NEAR name;
+    static const char * const  name;
 };
 
 #endif
@@ -80,7 +80,7 @@ enum TPicResult {prComplete, prIncomplete, prEmpty, prError, prSyntax,
 class TPXPictureValidator : public TValidator
 {
 
-    static const char * _NEAR errorMsg;
+    static const char *  errorMsg;
 
 public:
     TPXPictureValidator(TStringView aPic, Boolean autoFill);
@@ -115,7 +115,7 @@ private:
 
 public:
     static TStreamable *build();
-    static const char * const _NEAR name;
+    static const char * const  name;
 };
 
 inline ipstream& operator >> ( ipstream& is, TValidator& v )
@@ -139,7 +139,7 @@ inline opstream& operator << ( opstream& os, TValidator* v )
 class TFilterValidator : public TValidator
 {
 
-    static const char * _NEAR errorMsg;
+    static const char *  errorMsg;
 
 public:
     TFilterValidator(TStringView aValidChars) noexcept;
@@ -160,7 +160,7 @@ private:
 
 public:
     static TStreamable *build();
-    static const char * const _NEAR name;
+    static const char * const  name;
 };
 
 inline ipstream& operator >> ( ipstream& is, TFilterValidator& v )
@@ -185,9 +185,9 @@ inline opstream& operator << ( opstream& os, TFilterValidator* v )
 class TRangeValidator : public TFilterValidator
 {
 
-    static const char * _NEAR validUnsignedChars;
-    static const char * _NEAR validSignedChars;
-    static const char * _NEAR errorMsg;
+    static const char *  validUnsignedChars;
+    static const char *  validSignedChars;
+    static const char *  errorMsg;
 
 public:
     TRangeValidator(int32_t aMin, int32_t aMax) noexcept;
@@ -208,7 +208,7 @@ private:
 
 public:
     static TStreamable *build();
-    static const char * const _NEAR name;
+    static const char * const  name;
 
 };
 
@@ -236,7 +236,7 @@ public:
     virtual Boolean isValid(const char* s);
     virtual Boolean lookup(const char* s);
     static TStreamable *build();
-    static const char * const _NEAR name;
+    static const char * const  name;
 protected:
     TLookupValidator( StreamableInit ) noexcept;
 private:
@@ -264,7 +264,7 @@ inline opstream& operator << ( opstream& os, TLookupValidator* v )
 class TStringLookupValidator : public TLookupValidator
 {
 
-    static const char * _NEAR errorMsg;
+    static const char *  errorMsg;
 
 public:
     TStringLookupValidator(TStringCollection* aStrings) noexcept;
@@ -285,7 +285,7 @@ private:
 public:
     void newStringList(TStringCollection* aStrings);
     static TStreamable *build();
-    static const char * const _NEAR name;
+    static const char * const  name;
 };
 
 

@@ -35,15 +35,15 @@
 #include <math.h>
 #endif  // __MATH_H
 
-Boolean _NEAR TSystemError::ctrlBreakHit = False;
-Boolean _NEAR TSystemError::saveCtrlBreak = False;
+Boolean  TSystemError::ctrlBreakHit = False;
+Boolean  TSystemError::saveCtrlBreak = False;
 
 #if !defined( __FLAT__ )
-short ( _FAR * _NEAR TSystemError::sysErrorFunc )(short,uchar) = &TSystemError::sysErr;
-ushort _NEAR TSystemError::sysColorAttr = 0x4E4F;
-ushort _NEAR TSystemError::sysMonoAttr = 0x7070;
-Boolean _NEAR TSystemError::sysErrActive = False;
-Boolean _NEAR TSystemError::inIDE = False;
+short (  *  TSystemError::sysErrorFunc )(short,uchar) = &TSystemError::sysErr;
+ushort  TSystemError::sysColorAttr = 0x4E4F;
+ushort  TSystemError::sysMonoAttr = 0x7070;
+Boolean  TSystemError::sysErrActive = False;
+Boolean  TSystemError::inIDE = False;
 
 TPMRegs TSystemError::Int24Regs;
 void (interrupt far *TSystemError::Int24RMThunk)();
@@ -162,7 +162,7 @@ Int11trap::~Int11trap()
     setvect( 0x11, oldHandler );
 }
 
-void interrupt (_FAR * _NEAR Int11trap::oldHandler)(...) = 0;
+void interrupt ( *  Int11trap::oldHandler)(...) = 0;
 
 void interrupt Int11trap::handler(...)
 {

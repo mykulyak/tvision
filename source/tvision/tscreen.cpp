@@ -21,16 +21,16 @@
 #include <dos.h>
 #endif  // __DOS_H
 
-ushort _NEAR TScreen::startupMode = 0xFFFF;
-ushort _NEAR TScreen::startupCursor = 0;
-ushort _NEAR TScreen::screenMode = 0;
-ushort _NEAR TScreen::screenWidth = 0;
-ushort _NEAR TScreen::screenHeight = 0;
-Boolean _NEAR TScreen::hiResScreen = False;
-Boolean _NEAR TScreen::checkSnow = True;
-TScreenCell * _NEAR TScreen::screenBuffer;
-ushort _NEAR TScreen::cursorLines = 0;
-Boolean _NEAR TScreen::clearOnSuspend = True;
+ushort  TScreen::startupMode = 0xFFFF;
+ushort  TScreen::startupCursor = 0;
+ushort  TScreen::screenMode = 0;
+ushort  TScreen::screenWidth = 0;
+ushort  TScreen::screenHeight = 0;
+Boolean  TScreen::hiResScreen = False;
+Boolean  TScreen::checkSnow = True;
+TScreenCell *  TScreen::screenBuffer;
+ushort  TScreen::cursorLines = 0;
+Boolean  TScreen::clearOnSuspend = True;
 
 ushort TDisplay::getCursorType() noexcept
 {

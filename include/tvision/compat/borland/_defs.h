@@ -17,13 +17,13 @@
     _EXPFUNC        Exports function if building DLL version of library
                     For DOS16 also provides size information
 
-    _FAR            Promotes data pointers to far in DLLs (DOS16 only)
+                Promotes data pointers to far in DLLs (DOS16 only)
 
     Obsolete versions:
     _Cdecl          Use _RTLENTRY
     _CLASSTYPE      Use _EXPCLASS
-    _FARFUNC        Use _EXPFUNC
-    _FARCALL        Use _EXPFUNC and declare function explicity __far
+    FUNC        Use _EXPFUNC
+    CALL        Use _EXPFUNC and declare function explicity __far
 
     Copyright (c) 1991, 1992 by Borland International
     All Rights Reserved.

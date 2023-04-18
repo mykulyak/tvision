@@ -1,5 +1,5 @@
-#ifndef TVISION_FAR2L_H
-#define TVISION_FAR2L_H
+#ifndef TVISION2L_H
+#define TVISION2L_H
 
 #include <internal/terminal.h>
 
@@ -24,4 +24,4 @@ void waitFar2lPing(EventSource &, InputState &) noexcept;
 
 } // namespace tvision
 
-#endif // TVISION_FAR2L_H
+#endif // TVISION2L_H
