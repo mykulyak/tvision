@@ -1,8 +1,6 @@
 #ifndef __TObject
 #define __TObject
 
-#include <cstddef>
-
 class TObject {
 
 public:
