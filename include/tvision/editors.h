@@ -14,13 +14,6 @@
  *
  */
 
-#if !defined(__DIR_H)
-#include <tvision/compat/borland/dir.h>
-#endif // __DIR_H
-
-#include <cstring>
-#include <climits>
-
 #if !defined(__EDIT_COMMAND_CODES)
 #define __EDIT_COMMAND_CODES
 
