@@ -20,11 +20,6 @@
 #include <mem.h>
 #endif // __MEM_H
 
-#if !defined(__ALLOC_H)
-
-#include <alloc.h>
-#endif // __ALLOC_H
-
 #include <cstdlib>
 
 TBufListEntry* TBufListEntry::bufList = 0;

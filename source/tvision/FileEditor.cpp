@@ -26,10 +26,7 @@
 #endif // __IO_H
 
 #include <cstdio>
-
-#if !defined(__STDLIB_H)
-#include <alloc.h>
-#endif
+#include <cstdlib>
 
 const char* const TFileEditor::name = "TFileEditor";
 

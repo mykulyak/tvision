@@ -20,9 +20,7 @@
 #include <mem.h>
 #endif // __MEM_H
 
-#if !defined(__ALLOC_H)
-#include <alloc.h>
-#endif // __ALLOC_H
+#include <cstdlib>
 
 TNSCollection::TNSCollection(ccIndex aLimit, ccIndex aDelta) noexcept
     : items(0)
