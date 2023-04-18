@@ -30,7 +30,7 @@ TScroller::TScroller(const TRect& bounds,
     TScrollBar* aVScrollBar) noexcept
     : TView(bounds)
     , drawLock(0)
-    , drawFlag(False)
+    , drawFlag (false)
     , hScrollBar(aHScrollBar)
     , vScrollBar(aVScrollBar)
 {
@@ -52,14 +52,14 @@ void TScroller::changeBounds(const TRect& bounds)
     drawLock++;
     setLimit(limit.x, limit.y);
     drawLock--;
-    drawFlag = False;
+    drawFlag =  false;
     drawView();
 }
 
 void TScroller::checkDraw() noexcept
 {
-    if (drawLock == 0 && drawFlag != False) {
-        drawFlag = False;
+    if (drawLock == 0 && drawFlag !=  false) {
+        drawFlag =  false;
         drawView();
     }
 }
@@ -96,7 +96,7 @@ void TScroller::scrollDraw()
         setCursor(cursor.x + delta.x - d.x, cursor.y + delta.y - d.y);
         delta = d;
         if (drawLock != 0)
-            drawFlag = True;
+            drawFlag = true;
         else
             drawView();
     }
@@ -144,7 +144,7 @@ void TScroller::showSBar(TScrollBar* sBar)
     }
 }
 
-void TScroller::setState(ushort aState, Boolean enable)
+void TScroller::setState(ushort aState, bool enable)
 {
     TView::setState(aState, enable);
     if ((aState & (sfActive | sfSelected)) != 0) {
@@ -166,7 +166,7 @@ void* TScroller::read(ipstream& is)
     TView::read(is);
     is >> hScrollBar >> vScrollBar >> delta >> limit;
     drawLock = 0;
-    drawFlag = False;
+    drawFlag =  false;
     return this;
 }
 

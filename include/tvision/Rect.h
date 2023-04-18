@@ -16,10 +16,10 @@ public:
     TRect& grow(int aDX, int aDY) noexcept;
     TRect& intersect(const TRect& r) noexcept;
     TRect& Union(const TRect& r) noexcept;
-    Boolean contains(const TPoint& p) const noexcept;
-    Boolean operator==(const TRect& r) const noexcept;
-    Boolean operator!=(const TRect& r) const noexcept;
-    Boolean isEmpty() noexcept;
+    bool contains(const TPoint& p) const noexcept;
+    bool operator==(const TRect& r) const noexcept;
+    bool operator!=(const TRect& r) const noexcept;
+    bool isEmpty() noexcept;
 
     TPoint a, b;
 };
@@ -74,25 +74,25 @@ inline TRect& TRect::Union(const TRect& r) noexcept
     return *this;
 }
 
-inline Boolean TRect::contains(const TPoint& p) const noexcept
+inline bool TRect::contains(const TPoint& p) const noexcept
 {
-    return Boolean(
+    return bool(
         p.x >= a.x && p.x < b.x && p.y >= a.y && p.y < b.y);
 }
 
-inline Boolean TRect::operator==(const TRect& r) const noexcept
+inline bool TRect::operator==(const TRect& r) const noexcept
 {
-    return Boolean(a == r.a && b == r.b);
+    return bool(a == r.a && b == r.b);
 }
 
-inline Boolean TRect::operator!=(const TRect& r) const noexcept
+inline bool TRect::operator!=(const TRect& r) const noexcept
 {
-    return Boolean(!(*this == r));
+    return bool(!(*this == r));
 }
 
-inline Boolean TRect::isEmpty() noexcept
+inline bool TRect::isEmpty() noexcept
 {
-    return Boolean(a.x >= b.x || a.y >= b.y);
+    return bool(a.x >= b.x || a.y >= b.y);
 }
 
 inline ipstream& operator>>(ipstream& is, TRect& r)

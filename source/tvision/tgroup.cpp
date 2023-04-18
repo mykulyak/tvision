@@ -187,7 +187,7 @@ ushort TGroup::execView(TView* p) noexcept
     getCommands(saveCommands);
     TheTopView = p;
     p->options = p->options & ~ofSelectable;
-    p->setState(sfModal, True);
+    p->setState(sfModal, true);
     setCurrent(p, enterSelect);
     if (saveOwner == 0)
         insert(p);
@@ -195,7 +195,7 @@ ushort TGroup::execView(TView* p) noexcept
     if (saveOwner == 0)
         remove(p);
     setCurrent(saveCurrent, leaveSelect);
-    p->setState(sfModal, False);
+    p->setState(sfModal,  false);
     p->options = saveOptions;
     TheTopView = saveTopView;
     setCommands(saveCommands);
@@ -210,7 +210,7 @@ TView* TGroup::first() noexcept
         return last->next;
 }
 
-TView* TGroup::findNext(Boolean forwards) noexcept
+TView* TGroup::findNext(bool forwards) noexcept
 {
     TView *p, *result;
 
@@ -231,7 +231,7 @@ TView* TGroup::findNext(Boolean forwards) noexcept
     return result;
 }
 
-Boolean TGroup::focusNext(Boolean forwards)
+bool TGroup::focusNext(bool forwards)
 {
     TView* p;
 
@@ -239,7 +239,7 @@ Boolean TGroup::focusNext(Boolean forwards)
     if (p)
         return p->focus();
     else
-        return True;
+        return true;
 }
 
 TView* TGroup::firstMatch(ushort aState, ushort aOptions) noexcept
@@ -329,7 +329,7 @@ static void doHandleEvent(TView* p, void* s)
         p->handleEvent(ptr->event);
 }
 
-static Boolean hasMouse(TView* p, void* s)
+static bool hasMouse(TView* p, void* s)
 {
     return p->containsMouse(*(TEvent*)s);
 }
@@ -376,7 +376,7 @@ void TGroup::insertBefore(TView* p, TView* Target)
         if ((saveState & sfVisible) != 0)
             p->show();
         if ((saveState & sfActive) != 0)
-            p->setState(sfActive, True);
+            p->setState(sfActive, true);
     }
 }
 
@@ -420,7 +420,7 @@ void TGroup::resetCursor()
         current->resetCursor();
 }
 
-void TGroup::selectNext(Boolean forwards)
+void TGroup::selectNext(bool forwards)
 {
     if (current != 0) {
         TView* p = findNext(forwards);
@@ -429,13 +429,13 @@ void TGroup::selectNext(Boolean forwards)
     }
 }
 
-void TGroup::selectView(TView* p, Boolean enable)
+void TGroup::selectView(TView* p, bool enable)
 {
     if (p != 0)
         p->setState(sfSelected, enable);
 }
 
-void TGroup::focusView(TView* p, Boolean enable)
+void TGroup::focusView(TView* p, bool enable)
 {
     if ((state & sfFocused) != 0 && p != 0)
         p->setState(sfFocused, enable);
@@ -445,15 +445,15 @@ void TGroup::setCurrent(TView* p, selectMode mode)
 {
     if (current != p) {
         lock();
-        focusView(current, False);
+        focusView(current,  false);
         if (mode != enterSelect)
             if (current != 0)
-                current->setState(sfSelected, False);
+                current->setState(sfSelected,  false);
         if (mode != leaveSelect)
             if (p != 0)
-                p->setState(sfSelected, True);
+                p->setState(sfSelected, true);
         if ((state & sfFocused) != 0 && p != 0)
-            p->setState(sfFocused, True);
+            p->setState(sfFocused, true);
         current = p;
         unlock();
     }
@@ -475,12 +475,12 @@ void TGroup::setData(void* rec)
 static void doExpose(TView* p, void* enable)
 {
     if ((p->state & sfVisible) != 0)
-        p->setState(sfExposed, *(Boolean*)enable);
+        p->setState(sfExposed, *(bool*)enable);
 }
 
 struct setBlock {
     ushort st;
-    Boolean en;
+    bool en;
 };
 
 static void doSetState(TView* p, void* b)
@@ -488,7 +488,7 @@ static void doSetState(TView* p, void* b)
     p->setState(((setBlock*)b)->st, ((setBlock*)b)->en);
 }
 
-void TGroup::setState(ushort aState, Boolean enable)
+void TGroup::setState(ushort aState, bool enable)
 {
     setBlock sb;
     sb.st = aState;
@@ -509,7 +509,7 @@ void TGroup::setState(ushort aState, Boolean enable)
 
     if ((aState & sfExposed) != 0) {
         forEach(doExpose, &enable);
-        if (enable == False)
+        if (enable ==  false)
             freeBuffer();
     }
 }
@@ -520,21 +520,21 @@ void TGroup::unlock() noexcept
         drawView();
 }
 
-Boolean isInvalid(TView* p, void* command)
+bool isInvalid(TView* p, void* command)
 {
-    return Boolean(!p->valid(*(ushort*)command));
+    return bool(!p->valid(*(ushort*)command));
 }
 
-Boolean TGroup::valid(ushort command)
+bool TGroup::valid(ushort command)
 {
     if (command == cmReleasedFocus) {
         if (current && (current->options & ofValidate))
             return current->valid(command);
         else
-            return True;
+            return true;
     }
 
-    return Boolean(firstThat(isInvalid, &command) == 0);
+    return bool(firstThat(isInvalid, &command) == 0);
 }
 
 ushort TGroup::getHelpCtx()

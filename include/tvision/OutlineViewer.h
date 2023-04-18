@@ -16,25 +16,25 @@ const int
 class TNode {
 public:
     TNode(TStringView aText) noexcept;
-    TNode(TStringView aText, TNode* aChildren, TNode* aNext, Boolean initialState = True) noexcept;
+    TNode(TStringView aText, TNode* aChildren, TNode* aNext, bool initialState = true) noexcept;
     virtual ~TNode();
 
     TNode* next;
     const char* text;
     TNode* childList;
-    Boolean expanded;
+    bool expanded;
 };
 
 inline TNode::TNode(TStringView aText) noexcept
     : next(0)
     , text(newStr(aText))
     , childList(0)
-    , expanded(True)
+    , expanded (true)
 {
 }
 
 inline TNode::TNode(TStringView aText, TNode* aChildren,
-    TNode* aNext, Boolean initialState) noexcept
+    TNode* aNext, bool initialState) noexcept
     : next(aNext)
     , text(newStr(aText))
     , childList(aChildren)
@@ -64,9 +64,9 @@ struct TEvent;
 
 // Callback types for TOutlineViewer's traverse functions.
 
-typedef Boolean (*TOutlineVisitor)(TOutlineViewer*, TNode*,
+typedef bool (*TOutlineVisitor)(TOutlineViewer*, TNode*,
     int, int, long, ushort, void*);
-typedef Boolean (*TOutlineVisitorNoArg)(TOutlineViewer*, TNode*,
+typedef bool (*TOutlineVisitorNoArg)(TOutlineViewer*, TNode*,
     int, int, long, ushort);
 
 class TOutlineViewer : public TScroller {
@@ -74,7 +74,7 @@ public:
     TOutlineViewer(const TRect& bounds, TScrollBar* aHScrollBar,
         TScrollBar* aVScrollBar) noexcept;
     TOutlineViewer(StreamableInit s) noexcept;
-    virtual void adjust(TNode* node, Boolean expand) = 0;
+    virtual void adjust(TNode* node, bool expand) = 0;
     virtual void draw();
     virtual void focused(int i);
     virtual TNode* getNext(TNode* node) = 0;
@@ -86,11 +86,11 @@ public:
     virtual TNode* getRoot() = 0;
     virtual const char* getText(TNode* node) = 0;
     virtual void handleEvent(TEvent& event);
-    virtual Boolean hasChildren(TNode* node) = 0;
-    virtual Boolean isExpanded(TNode* node) = 0;
-    virtual Boolean isSelected(int i);
+    virtual bool hasChildren(TNode* node) = 0;
+    virtual bool isExpanded(TNode* node) = 0;
+    virtual bool isSelected(int i);
     virtual void selected(int i);
-    virtual void setState(ushort aState, Boolean enable);
+    virtual void setState(ushort aState, bool enable);
 
     void update() noexcept;
     void expandAll(TNode* node);
@@ -117,7 +117,7 @@ public:
 
 private:
     void adjustFocus(int newFocus) noexcept;
-    TNode* iterate(TOutlineVisitor action, void* arg, Boolean checkResult) noexcept;
+    TNode* iterate(TOutlineVisitor action, void* arg, bool checkResult) noexcept;
 };
 
 inline TOutlineViewer::TOutlineViewer(StreamableInit s) noexcept

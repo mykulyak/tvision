@@ -24,14 +24,14 @@ public:
     virtual void doneBuffer();
     virtual void handleEvent(TEvent&);
     virtual void initBuffer();
-    Boolean loadFile() noexcept;
-    Boolean save() noexcept;
-    Boolean saveAs() noexcept;
-    Boolean saveFile() noexcept;
-    virtual Boolean setBufSize(uint);
+    bool loadFile() noexcept;
+    bool save() noexcept;
+    bool saveAs() noexcept;
+    bool saveFile() noexcept;
+    virtual bool setBufSize(uint);
     virtual void shutDown();
     virtual void updateCommands();
-    virtual Boolean valid(ushort);
+    virtual bool valid(ushort);
 
 private:
     static const char* backupExt;

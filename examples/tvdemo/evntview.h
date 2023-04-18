@@ -12,7 +12,7 @@ class TTerminal;
 
 class TEventViewer : public TWindow
 {
-    Boolean stopped;
+    bool stopped;
     size_t eventCount;
     ushort bufSize;
     TTerminal *interior;

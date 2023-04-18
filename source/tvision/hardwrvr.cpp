@@ -19,7 +19,7 @@
 
 #if defined(__FLAT__)
 
-BOOL THardwareInfo::insertState = True;
+BOOL THardwareInfo::insertState = true;
 THardwareInfo::PlatformType THardwareInfo::platform = THardwareInfo::plDPMI32;
 HANDLE THardwareInfo::consoleHandle[3];
 DWORD THardwareInfo::consoleMode;
@@ -90,7 +90,7 @@ const ushort THardwareInfo::AltCvt[89] = {
 
 #else
 
-Boolean THardwareInfo::dpmiFlag;
+bool THardwareInfo::dpmiFlag;
 ushort THardwareInfo::colorSel;
 ushort THardwareInfo::monoSel;
 ushort THardwareInfo::biosSel;
@@ -219,9 +219,9 @@ void THardwareInfo::setScreenMode(ushort mode)
 
     if (mode & TDisplay::smFont8x8) {
         SetConsoleScreenBufferSize(consoleHandle[cnOutput], newSize);
-        SetConsoleWindowInfo(consoleHandle[cnOutput], True, &rect);
+        SetConsoleWindowInfo(consoleHandle[cnOutput], true, &rect);
     } else {
-        SetConsoleWindowInfo(consoleHandle[cnOutput], True, &rect);
+        SetConsoleWindowInfo(consoleHandle[cnOutput], true, &rect);
         SetConsoleScreenBufferSize(consoleHandle[cnOutput], newSize);
     }
 
@@ -237,10 +237,10 @@ void THardwareInfo::setCaretPosition(ushort x, ushort y)
 void THardwareInfo::setCaretSize(ushort size)
 {
     if (size == 0) {
-        crInfo.bVisible = False;
+        crInfo.bVisible =  false;
         crInfo.dwSize = 1;
     } else {
-        crInfo.bVisible = True;
+        crInfo.bVisible = true;
         crInfo.dwSize = size;
     }
 
@@ -283,9 +283,9 @@ BOOL THardwareInfo::getMouseEvent(MouseEventType& event)
             event.wheel = 0;
 
         pendingEvent = 0;
-        return True;
+        return true;
     }
-    return False;
+    return  false;
 }
 
 BOOL THardwareInfo::getKeyEvent(TEvent& event)
@@ -296,7 +296,7 @@ BOOL THardwareInfo::getKeyEvent(TEvent& event)
             if (pendingEvent)
                 ReadConsoleInput(consoleHandle[cnInput], &irBuffer, 1, &pendingEvent);
             else
-                return False;
+                return  false;
         }
 
         // Pending mouse events will be read on the next polling loop.
@@ -340,17 +340,17 @@ BOOL THardwareInfo::getKeyEvent(TEvent& event)
                     event.keyDown.controlKeyState |= kbInsState;
 
                 if (event.keyDown.keyCode != kbNoKey)
-                    return True;
+                    return true;
             } else if (irBuffer.EventType == WINDOW_BUFFER_SIZE_EVENT) {
                 event.what = evCommand;
                 event.message.command = cmScreenChanged;
                 event.message.infoPtr = 0;
-                return True;
+                return true;
             }
         }
     } while (!pendingEvent);
 
-    return False;
+    return  false;
 }
 
 void THardwareInfo::waitForEvent(int timeoutMs)
@@ -365,7 +365,7 @@ void THardwareInfo::stopEventWait()
 
 BOOL THardwareInfo::setClipboardText(TStringView text)
 {
-    BOOL result = False;
+    BOOL result =  false;
     if (pOpenClipboard && pOpenClipboard(0)) {
         HGLOBAL hData = NULL;
         char* pData;
@@ -384,11 +384,11 @@ BOOL THardwareInfo::setClipboardText(TStringView text)
 
 BOOL THardwareInfo::requestClipboardText(void (&accept)(TStringView))
 {
-    BOOL result = False;
+    BOOL result =  false;
     if (pOpenClipboard && pOpenClipboard(0)) {
         HGLOBAL hData;
         char* pData;
-        if ((hData = pGetClipboardData(CF_OEMTEXT)) != 0 && (result = ((pData = (char*)GlobalLock(hData)) != 0)) == True) {
+        if ((hData = pGetClipboardData(CF_OEMTEXT)) != 0 && (result = ((pData = (char*)GlobalLock(hData)) != 0)) == true) {
             accept(pData);
             GlobalUnlock(hData);
         }
@@ -409,7 +409,7 @@ uint32_t THardwareInfo::getTickCount() noexcept
 BOOL __stdcall THardwareInfo::ctrlBreakHandler(DWORD dwCtrlType) noexcept
 {
     if (dwCtrlType == CTRL_C_EVENT || dwCtrlType == CTRL_BREAK_EVENT) {
-        TSystemError::ctrlBreakHit = True;
+        TSystemError::ctrlBreakHit = true;
         return TRUE;
     } else
         return FALSE; // Don't handle 'CLOSE', 'LOGOFF' or 'SHUTDOWN' events.

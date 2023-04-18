@@ -114,7 +114,7 @@ TFileDialog::TFileDialog(TStringView aWildCard,
 
     insert(new TFileInfoPane(TRect(1, 16, 48, 18)));
     first()->growMode = gfGrowAll & ~gfGrowLoX;
-    selectNext(False);
+    selectNext (false);
 
     // I feel too lazy to update all the sizes above. The new default size
     // is set by resizing the dialog.
@@ -249,10 +249,10 @@ void TFileDialog::getData(void* rec)
     getFileName((char*)rec);
 }
 
-Boolean TFileDialog::checkDirectory(const char* str)
+bool TFileDialog::checkDirectory(const char* str)
 {
     if (pathValid(str))
-        return True;
+        return true;
     else {
         char buf[256];
         std::ostrstream os(buf, sizeof(buf) - 1);
@@ -260,11 +260,11 @@ Boolean TFileDialog::checkDirectory(const char* str)
         buf[sizeof(buf) - 1] = '\0';
         messageBox(buf, mfError | mfOKButton);
         fileName->select();
-        return False;
+        return  false;
     }
 }
 
-Boolean TFileDialog::valid(ushort command)
+bool TFileDialog::valid(ushort command)
 {
     char fName[MAXPATH];
     char drive[MAXDRIVE];
@@ -273,7 +273,7 @@ Boolean TFileDialog::valid(ushort command)
     char ext[MAXEXT];
 
     if (command == 0)
-        return True;
+        return true;
 
     if (TDialog::valid(command)) {
         if (command != cmCancel && command != cmFileClear) {
@@ -303,19 +303,19 @@ Boolean TFileDialog::valid(ushort command)
                     fileList->readDirectory(directory, wildCard);
                 }
             } else if (validFileName(fName))
-                return True;
+                return true;
             else {
                 char buf[256];
                 std::ostrstream os(buf, sizeof(buf) - 1);
                 os << invalidFileText << ": '" << fName << "'" << std::ends;
                 buf[sizeof(buf) - 1] = '\0';
                 messageBox(buf, mfError | mfOKButton);
-                return False;
+                return  false;
             }
         } else
-            return True;
+            return true;
     }
-    return False;
+    return  false;
 }
 
 #if !defined(NO_STREAMABLE)

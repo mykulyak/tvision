@@ -58,7 +58,7 @@ TDialog* createFindDialog()
     d->insert(
         new TButton(TRect(26, 9, 36, 11), "Cancel", cmCancel, bfNormal));
 
-    d->selectNext(False);
+    d->selectNext (false);
     return d;
 }
 
@@ -90,7 +90,7 @@ TDialog* createReplaceDialog()
     d->insert(new TButton(TRect(28, 13, 38, 15),
         "Cancel", cmCancel, bfNormal));
 
-    d->selectNext(False);
+    d->selectNext (false);
 
     return d;
 }

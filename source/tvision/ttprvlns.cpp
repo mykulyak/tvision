@@ -14,13 +14,13 @@
 
 #include <tvision/tv.h>
 
-static Boolean backwardsFindLF(const char* buffer, ushort& p, ushort count)
+static bool backwardsFindLF(const char* buffer, ushort& p, ushort count)
 {
     ushort pos = p;
     while (count--)
         if (buffer[pos--] == '\n')
-            return p = pos, True;
-    return p = pos, False;
+            return p = pos, true;
+    return p = pos,  false;
 }
 
 ushort TTerminal::prevLines(ushort pos, ushort lines)

@@ -27,14 +27,14 @@ public:
     virtual void scrollDraw();
     void scrollTo(int x, int y) noexcept;
     void setLimit(int x, int y) noexcept;
-    virtual void setState(ushort aState, Boolean enable);
+    virtual void setState(ushort aState, bool enable);
     void checkDraw() noexcept;
     virtual void shutDown();
     TPoint delta;
 
 protected:
     uchar drawLock;
-    Boolean drawFlag;
+    bool drawFlag;
     TScrollBar* hScrollBar;
     TScrollBar* vScrollBar;
     TPoint limit;

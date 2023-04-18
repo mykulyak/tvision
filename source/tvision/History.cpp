@@ -85,7 +85,7 @@ void THistory::handleEvent(TEvent& event)
                 char rslt[256];
                 historyWindow->getSelection(rslt);
                 strnzcpy(link->data, rslt, link->maxLen + 1);
-                link->selectAll(True);
+                link->selectAll (true);
                 link->drawView();
             }
             destroy(historyWindow);

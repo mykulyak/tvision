@@ -20,7 +20,7 @@
 #include <signal.h>
 #include <strstream>
 
-TEditWindow* TEditorApp::openEditor(const char* fileName, Boolean visible)
+TEditWindow* TEditorApp::openEditor(const char* fileName, bool visible)
 {
     TRect r = deskTop->getExtent();
     TView* p = validView(new TEditWindow(r, fileName, wnNoNumber));
@@ -53,7 +53,7 @@ TEditorApp::TEditorApp(int argc, char** argv)
     TEditor::editorDialog = doEditDialog;
 
     while (--argc > 0) // Open files specified
-        openEditor(*++argv, True); // on command line.
+        openEditor(*++argv, true); // on command line.
     cascade();
 }
 
@@ -66,12 +66,12 @@ void TEditorApp::fileOpen()
                        "~N~ame", fdOpenButton, 100),
             fileName)
         != cmCancel)
-        openEditor(fileName, True);
+        openEditor(fileName, true);
 }
 
 void TEditorApp::fileNew()
 {
-    openEditor(0, True);
+    openEditor(0, true);
 }
 
 void TEditorApp::changeDir()

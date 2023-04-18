@@ -35,12 +35,12 @@ public:
     virtual int do_sputn(const char* s, int count);
 
     void bufInc(ushort& val);
-    Boolean canInsert(ushort amount);
+    bool canInsert(ushort amount);
     short calcWidth();
     virtual void draw();
     ushort nextLine(ushort pos);
     ushort prevLines(ushort pos, ushort lines);
-    Boolean queEmpty();
+    bool queEmpty();
 
 protected:
     ushort bufSize;

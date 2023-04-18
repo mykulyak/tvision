@@ -38,14 +38,14 @@ public:
         TNode* aRoot) noexcept;
     ~TOutline();
 
-    virtual void adjust(TNode* node, Boolean expand);
+    virtual void adjust(TNode* node, bool expand);
     virtual TNode* getRoot();
     virtual int getNumChildren(TNode* node);
     virtual TNode* getNext(TNode* node);
     virtual TNode* getChild(TNode* node, int i);
     virtual const char* getText(TNode* node);
-    virtual Boolean isExpanded(TNode* node);
-    virtual Boolean hasChildren(TNode* node);
+    virtual bool isExpanded(TNode* node);
+    virtual bool hasChildren(TNode* node);
 
     TNode* root;
 

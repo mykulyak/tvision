@@ -48,7 +48,7 @@ TEditWindow::TEditWindow(const TRect& bounds,
 
 void TEditWindow::close()
 {
-    if (editor->isClipboard() == True)
+    if (editor->isClipboard() == true)
         hide();
     else
         TWindow::close();
@@ -56,7 +56,7 @@ void TEditWindow::close()
 
 const char* TEditWindow::getTitle(short)
 {
-    if (editor->isClipboard() == True)
+    if (editor->isClipboard() == true)
         return clipboardTitle;
     else if (*(editor->fileName) == EOS)
         return untitled;

@@ -81,14 +81,14 @@ TInputLine::~TInputLine()
     destroy(validator);
 }
 
-Boolean TInputLine::canScroll(int delta)
+bool TInputLine::canScroll(int delta)
 {
     if (delta < 0)
-        return Boolean(firstPos > 0);
+        return bool(firstPos > 0);
     else if (delta > 0)
-        return Boolean(strwidth(data) - firstPos + 2 > size.x);
+        return bool(strwidth(data) - firstPos + 2 > size.x);
     else
-        return False;
+        return  false;
 }
 
 ushort TInputLine::dataSize()
@@ -160,7 +160,7 @@ int TInputLine::mousePos(TEvent& event)
     int pos = mouse.x + firstPos - 1;
     pos = max(pos, 0);
     TStringView text = data;
-    return TText::scroll(text, pos, False);
+    return TText::scroll(text, pos,  false);
 }
 
 int TInputLine::displayedPos(int pos)
@@ -221,7 +221,7 @@ void TInputLine::restoreState()
     }
 }
 
-Boolean TInputLine::checkValid(Boolean noAutoFill)
+bool TInputLine::checkValid(bool noAutoFill)
 {
     int oldLen, newLen;
     char newData[256];
@@ -231,7 +231,7 @@ Boolean TInputLine::checkValid(Boolean noAutoFill)
         strcpy(newData, data);
         if (!validator->isValidInput(newData, noAutoFill)) {
             restoreState();
-            return False;
+            return  false;
         } else {
             if (strlen(newData) > maxLen)
                 newData[maxLen] = 0;
@@ -239,15 +239,15 @@ Boolean TInputLine::checkValid(Boolean noAutoFill)
             newLen = strlen(data);
             if ((curPos >= oldLen) && (newLen > oldLen))
                 curPos = newLen;
-            return True;
+            return true;
         }
     } else
-        return True;
+        return true;
 }
 
 void TInputLine::handleEvent(TEvent& event)
 {
-    Boolean extendBlock;
+    bool extendBlock;
     /* Home, Left Arrow, Right Arrow, End, Ctrl-Left Arrow, Ctrl-Right Arrow */
     static const char padKeys[] = { 0x47, 0x4b, 0x4d, 0x4f, 0x73, 0x74 };
     TView::handleEvent(event);
@@ -265,7 +265,7 @@ void TInputLine::handleEvent(TEvent& event)
                     }
                 } while (mouseEvent(event, evMouseAuto));
             else if (event.mouse.eventFlags & meDoubleClick)
-                selectAll(True);
+                selectAll (true);
             else {
                 anchor = mousePos(event);
                 do {
@@ -292,9 +292,9 @@ void TInputLine::handleEvent(TEvent& event)
                     anchor = curPos;
                 else
                     anchor = selEnd;
-                extendBlock = True;
+                extendBlock = true;
             } else
-                extendBlock = False;
+                extendBlock =  false;
 
             switch (event.keyDown.keyCode) {
             case kbLeft:
@@ -321,7 +321,7 @@ void TInputLine::handleEvent(TEvent& event)
                     selEnd = curPos;
                 }
                 deleteSelect();
-                checkValid(True);
+                checkValid (true);
                 break;
             case kbCtrlBack:
             case kbAltBack:
@@ -330,14 +330,14 @@ void TInputLine::handleEvent(TEvent& event)
                     selEnd = curPos;
                 }
                 deleteSelect();
-                checkValid(True);
+                checkValid (true);
                 break;
             case kbDel:
                 if (selStart == selEnd)
                     deleteCurrent();
                 else
                     deleteSelect();
-                checkValid(True);
+                checkValid (true);
                 break;
             case kbCtrlDel:
                 if (selStart == selEnd) {
@@ -345,9 +345,9 @@ void TInputLine::handleEvent(TEvent& event)
                     selEnd = nextWord(data, curPos);
                 }
                 deleteSelect();
-                checkValid(True);
+                checkValid (true);
             case kbIns:
-                setState(sfCursorIns, Boolean(!(state & sfCursorIns)));
+                setState(sfCursorIns, bool(!(state & sfCursorIns)));
                 break;
             default:
                 // The event text may contain null characters, but 'data' is null-terminated,
@@ -358,7 +358,7 @@ void TInputLine::handleEvent(TEvent& event)
                     if ((state & sfCursorIns) != 0)
                         deleteCurrent();
 
-                    if (checkValid(True)) {
+                    if (checkValid (true)) {
                         if (strchr("\t\r\n", keyText[0]) != 0)
                             keyText[0] = ' '; // Replace tabs and newlines into spaces.
                         TTextMetrics dataMts = TText::measure(data);
@@ -370,7 +370,7 @@ void TInputLine::handleEvent(TEvent& event)
                             memcpy(data + curPos, keyText, len);
                             curPos += len;
                         }
-                        checkValid(False);
+                        checkValid (false);
                     }
                 } else if (event.keyDown.charScan.charCode == CONTROL_Y) {
                     *data = EOS;
@@ -401,7 +401,7 @@ void TInputLine::handleEvent(TEvent& event)
                 if (event.message.command == cmCut) {
                     saveState();
                     deleteSelect();
-                    checkValid(True);
+                    checkValid (true);
                     selStart = selEnd = 0;
                     drawView();
                 }
@@ -414,7 +414,7 @@ void TInputLine::handleEvent(TEvent& event)
     }
 }
 
-void TInputLine::selectAll(Boolean enable, Boolean scroll)
+void TInputLine::selectAll(bool enable, bool scroll)
 {
     selStart = 0;
     if (enable)
@@ -434,17 +434,17 @@ void TInputLine::setData(void* rec)
         memcpy(data, rec, dataSize() - 1);
         data[dataSize() - 1] = EOS;
     }
-    selectAll(True);
+    selectAll (true);
 }
 
-void TInputLine::setState(ushort aState, Boolean enable)
+void TInputLine::setState(ushort aState, bool enable)
 {
-    Boolean updateBefore = canUpdateCommands();
+    bool updateBefore = canUpdateCommands();
     TView::setState(aState, enable);
-    Boolean updateAfter = canUpdateCommands();
+    bool updateAfter = canUpdateCommands();
 
     if (aState == sfSelected || (aState == sfActive && (state & sfSelected)))
-        selectAll(enable, False);
+        selectAll(enable,  false);
     if (updateBefore != updateAfter)
         updateCommands();
 }
@@ -457,12 +457,12 @@ void TInputLine::setValidator(TValidator* aValid)
     validator = aValid;
 }
 
-Boolean TInputLine::canUpdateCommands()
+bool TInputLine::canUpdateCommands()
 {
-    return Boolean((~state & (sfActive | sfSelected)) == 0);
+    return bool((~state & (sfActive | sfSelected)) == 0);
 }
 
-void TInputLine::setCmdState(ushort command, Boolean enable)
+void TInputLine::setCmdState(ushort command, bool enable)
 {
     TCommandSet s;
     s += command;
@@ -474,9 +474,9 @@ void TInputLine::setCmdState(ushort command, Boolean enable)
 
 void TInputLine::updateCommands()
 {
-    setCmdState(cmCut, Boolean(selStart < selEnd));
-    setCmdState(cmCopy, Boolean(selStart < selEnd));
-    setCmdState(cmPaste, True);
+    setCmdState(cmCut, bool(selStart < selEnd));
+    setCmdState(cmCopy, bool(selStart < selEnd));
+    setCmdState(cmPaste, true);
 }
 
 #if !defined(NO_STREAMABLE)
@@ -515,16 +515,16 @@ TInputLine::TInputLine(StreamableInit) noexcept
 
 #endif
 
-Boolean TInputLine::valid(ushort cmd)
+bool TInputLine::valid(ushort cmd)
 {
     if (validator) {
         if (cmd == cmValid)
-            return Boolean(validator->status == vsOk);
+            return bool(validator->status == vsOk);
         else if (cmd != cmCancel)
             if (!validator->validate(data)) {
                 select();
-                return False;
+                return  false;
             }
     }
-    return True;
+    return true;
 }

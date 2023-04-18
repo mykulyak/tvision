@@ -24,11 +24,11 @@ public:
     virtual void focusItem(short item);
     virtual TPalette& getPalette() const;
     virtual void getText(char* dest, short item, short maxLen);
-    virtual Boolean isSelected(short item);
+    virtual bool isSelected(short item);
     virtual void handleEvent(TEvent& event);
     virtual void selectItem(short item);
     void setRange(short aRange);
-    virtual void setState(ushort aState, Boolean enable);
+    virtual void setState(ushort aState, bool enable);
 
     virtual void focusItemNum(short item);
     virtual void shutDown();

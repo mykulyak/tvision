@@ -20,16 +20,16 @@ public:
     friend void genRefs();
 
     static ushort doubleDelay;
-    static Boolean mouseReverse;
+    static bool mouseReverse;
 
     static void putPaste(TStringView) noexcept;
 
 private:
     static TMouse* mouse;
-    static Boolean getMouseState(TEvent&) noexcept;
-    static Boolean getPasteEvent(TEvent&) noexcept;
+    static bool getMouseState(TEvent&) noexcept;
+    static bool getPasteEvent(TEvent&) noexcept;
     static void getKeyOrPasteEvent(TEvent&) noexcept;
-    static Boolean readKeyPress(TEvent&) noexcept;
+    static bool readKeyPress(TEvent&) noexcept;
 
 #if !defined(__FLAT__)
     static void mouseInt();
@@ -50,14 +50,14 @@ private:
     static TEvent* eventQTail;
 
 public:
-    static Boolean mouseIntFlag;
+    static bool mouseIntFlag;
 
 private:
     static ushort eventCount;
 #endif
 
-    static Boolean mouseEvents;
-    static Boolean pendingMouseUp;
+    static bool mouseEvents;
+    static bool pendingMouseUp;
 
     static ushort repeatDelay;
     static ushort autoTicks;
@@ -70,7 +70,7 @@ private:
     static TEvent keyEventQueue[keyEventQSize];
     static size_t keyEventCount;
     static size_t keyEventIndex;
-    static Boolean keyPasteState;
+    static bool keyPasteState;
 };
 
 inline void TEvent::getMouseEvent() noexcept

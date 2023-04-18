@@ -9,7 +9,7 @@ class TChBackground : public TDialog
 public:
 
     TChBackground( TBackground * );
-    virtual Boolean valid( ushort );
+    virtual bool valid( ushort );
 
 private:
 

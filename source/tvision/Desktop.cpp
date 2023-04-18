@@ -28,7 +28,7 @@ TDeskTop::TDeskTop(const TRect& bounds) noexcept
     , TGroup(bounds)
 {
     growMode = gfGrowHiX | gfGrowHiY;
-    tileColumnsFirst = False;
+    tileColumnsFirst =  false;
 
     if (createBackground != 0 && (background = createBackground(getExtent())) != 0)
         insert(background);
@@ -40,9 +40,9 @@ void TDeskTop::shutDown()
     TGroup::shutDown();
 }
 
-inline Boolean Tileable(TView* p)
+inline bool Tileable(TView* p)
 {
-    return Boolean((p->options & ofTileable) != 0 && (p->state & sfVisible) != 0);
+    return bool((p->options & ofTileable) != 0 && (p->state & sfVisible) != 0);
 }
 
 static short cascadeNum;
@@ -92,7 +92,7 @@ void TDeskTop::handleEvent(TEvent& event)
         switch (event.message.command) {
         case cmNext:
             if (valid(cmReleasedFocus))
-                selectNext(False);
+                selectNext (false);
             break;
         case cmPrev:
             if (valid(cmReleasedFocus))
@@ -121,7 +121,7 @@ short iSqr(short i)
     return res1 < res2 ? res1 : res2;
 }
 
-void mostEqualDivisors(short n, short& x, short& y, Boolean favorY)
+void mostEqualDivisors(short n, short& x, short& y, bool favorY)
 {
     short i;
 
@@ -193,7 +193,7 @@ void TDeskTop::tile(const TRect& r)
     numTileable = 0;
     forEach(doCountTileable, 0);
     if (numTileable > 0) {
-        mostEqualDivisors(numTileable, numCols, numRows, Boolean(!tileColumnsFirst));
+        mostEqualDivisors(numTileable, numCols, numRows, bool(!tileColumnsFirst));
         if (((r.b.x - r.a.x) / numCols == 0) || ((r.b.y - r.a.y) / numRows == 0))
             tileError();
         else {
@@ -221,7 +221,7 @@ TDeskTop::TDeskTop(StreamableInit) noexcept
     : TDeskInit(0)
     , TGroup(streamableInit)
 {
-    tileColumnsFirst = False;
+    tileColumnsFirst =  false;
 }
 
 #endif

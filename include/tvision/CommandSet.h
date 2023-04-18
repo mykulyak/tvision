@@ -9,7 +9,7 @@ public:
     TCommandSet() noexcept;
     TCommandSet(const TCommandSet&) noexcept;
 
-    Boolean has(int cmd) noexcept;
+    bool has(int cmd) noexcept;
 
     void disableCmd(int cmd) noexcept;
     void enableCmd(int cmd) noexcept;
@@ -21,7 +21,7 @@ public:
     void operator+=(const TCommandSet&) noexcept;
     void operator-=(const TCommandSet&) noexcept;
 
-    Boolean isEmpty() noexcept;
+    bool isEmpty() noexcept;
 
     TCommandSet& operator&=(const TCommandSet&) noexcept;
     TCommandSet& operator|=(const TCommandSet&) noexcept;

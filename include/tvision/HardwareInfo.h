@@ -116,7 +116,7 @@ private:
     enum { eventQSize = 24 };
     static TEvent eventQ[eventQSize];
     static size_t eventCount;
-    static BOOL getPendingEvent(TEvent& event, Boolean mouse) noexcept;
+    static BOOL getPendingEvent(TEvent& event, bool mouse) noexcept;
     static void readEvents() noexcept;
 #endif
 
@@ -131,12 +131,12 @@ private:
     static ushort getBiosEquipmentFlag();
     static ushort getBiosEquipmentFlag(int); // Non-inline version.
     static void setBiosEquipmentFlag(ushort flag);
-    static Boolean getDPMIFlag();
+    static bool getDPMIFlag();
 
 private:
     static ushort getBiosSelector(); // For SYSINT.ASM.
 
-    static Boolean dpmiFlag;
+    static bool dpmiFlag;
     static ushort colorSel;
     static ushort monoSel;
     static ushort biosSel;
@@ -303,7 +303,7 @@ inline void THardwareInfo::setBiosEquipmentFlag(ushort flag)
     *(ushort*)MAKELONG(biosSel, 0x10) = flag;
 }
 
-inline Boolean THardwareInfo::getDPMIFlag()
+inline bool THardwareInfo::getDPMIFlag()
 {
     return dpmiFlag;
 }

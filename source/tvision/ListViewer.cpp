@@ -67,7 +67,7 @@ void TListViewer::draw()
     short colWidth, curCol, indent;
     TDrawBuffer b;
     uchar scOff;
-    Boolean focusedVis;
+    bool focusedVis;
 
     if ((state & (sfSelected | sfActive)) == (sfSelected | sfActive)) {
         normalColor = getColor(1);
@@ -84,7 +84,7 @@ void TListViewer::draw()
     else
         indent = 0;
 
-    focusedVis = False;
+    focusedVis =  false;
     colWidth = size.x / numCols + 1;
     for (i = 0; i < size.y; i++) {
         for (j = 0; j < numCols; j++) {
@@ -94,7 +94,7 @@ void TListViewer::draw()
                 color = focusedColor;
                 setCursor(curCol + 1, i);
                 scOff = 0;
-                focusedVis = True;
+                focusedVis = true;
             } else if (item < range && isSelected(item)) {
                 color = selectedColor;
                 scOff = 2;
@@ -170,9 +170,9 @@ void TListViewer::getText(char* dest, short, short)
     *dest = EOS;
 }
 
-Boolean TListViewer::isSelected(short item)
+bool TListViewer::isSelected(short item)
 {
-    return Boolean(item == focused);
+    return bool(item == focused);
 }
 
 void TListViewer::handleEvent(TEvent& event)
@@ -314,7 +314,7 @@ void TListViewer::setRange(short aRange)
         drawView();
 }
 
-void TListViewer::setState(ushort aState, Boolean enable)
+void TListViewer::setState(ushort aState, bool enable)
 {
     TView::setState(aState, enable);
     if ((aState & (sfSelected | sfActive | sfVisible)) != 0) {

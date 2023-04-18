@@ -21,7 +21,7 @@
 #endif // __FLAT__
 
 uchar THWMouse::buttonCount = 0;
-Boolean THWMouse::handlerInstalled = False;
+bool THWMouse::handlerInstalled =  false;
 
 THWMouse::THWMouse() noexcept
 {
@@ -64,12 +64,12 @@ void THWMouse::suspend() noexcept
     hide();
     buttonCount = 0;
 #else
-    if (present() == False)
+    if (present() ==  false)
         return;
     hide();
-    if (handlerInstalled == True) {
+    if (handlerInstalled == true) {
         registerHandler(0, 0);
-        handlerInstalled = False;
+        handlerInstalled =  false;
     }
     buttonCount = 0;
 #endif
@@ -167,7 +167,7 @@ void THWMouse::registerHandler(unsigned mask, void (*func)())
     _ES = FP_SEG(func);
 
     _genInt(0x33);
-    handlerInstalled = True;
+    handlerInstalled = true;
 }
 #endif
 

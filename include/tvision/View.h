@@ -40,8 +40,8 @@ public:
     TRect getBounds() const noexcept;
     TRect getExtent() const noexcept;
     TRect getClipRect() const noexcept;
-    Boolean mouseInView(TPoint mouse) noexcept;
-    Boolean containsMouse(TEvent& event) noexcept;
+    bool mouseInView(TPoint mouse) noexcept;
+    bool containsMouse(TEvent& event) noexcept;
 
     void locate(TRect& bounds);
     virtual void dragView(TEvent& event, uchar mode, //  temporary fix
@@ -54,19 +54,19 @@ public:
 
     virtual ushort getHelpCtx();
 
-    virtual Boolean valid(ushort command);
+    virtual bool valid(ushort command);
 
     void hide();
     void show();
     virtual void draw();
     void drawView() noexcept;
-    Boolean exposed() noexcept;
-    Boolean focus();
+    bool exposed() noexcept;
+    bool focus();
     void hideCursor();
     void drawHide(TView* lastView);
     void drawShow(TView* lastView);
     void drawUnderRect(TRect& r, TView* lastView);
-    void drawUnderView(Boolean doShadow, TView* lastView);
+    void drawUnderView(bool doShadow, TView* lastView);
 
     virtual ushort dataSize();
     virtual void getData(void* rec);
@@ -81,19 +81,19 @@ public:
     void drawCursor() noexcept;
 
     void clearEvent(TEvent& event) noexcept;
-    Boolean eventAvail();
+    bool eventAvail();
     virtual void getEvent(TEvent& event);
     virtual void handleEvent(TEvent& event);
     virtual void putEvent(TEvent& event);
 
-    static Boolean commandEnabled(ushort command) noexcept;
+    static bool commandEnabled(ushort command) noexcept;
     static void disableCommands(TCommandSet& commands) noexcept;
     static void enableCommands(TCommandSet& commands) noexcept;
     static void disableCommand(ushort command) noexcept;
     static void enableCommand(ushort command) noexcept;
     static void getCommands(TCommandSet& commands) noexcept;
     static void setCommands(TCommandSet& commands) noexcept;
-    static void setCmdState(TCommandSet& commands, Boolean enable) noexcept;
+    static void setCmdState(TCommandSet& commands, bool enable) noexcept;
 
     virtual void endModal(ushort command);
     virtual ushort execute();
@@ -102,14 +102,14 @@ public:
     virtual TPalette& getPalette() const;
     virtual TColorAttr mapColor(uchar) noexcept;
 
-    Boolean getState(ushort aState) const noexcept;
+    bool getState(ushort aState) const noexcept;
     void select();
-    virtual void setState(ushort aState, Boolean enable);
+    virtual void setState(ushort aState, bool enable);
 
     void getEvent(TEvent& event, int timeoutMs);
     void keyEvent(TEvent& event);
-    Boolean mouseEvent(TEvent& event, ushort mask);
-    Boolean textEvent(TEvent& event, TSpan<char> dest, size_t& length);
+    bool mouseEvent(TEvent& event, ushort mask);
+    bool textEvent(TEvent& event, TSpan<char> dest, size_t& length);
 
     virtual TTimerId setTimer(uint timeoutMs, int periodMs = -1);
     virtual void killTimer(TTimerId id);
@@ -146,13 +146,13 @@ public:
     uchar growMode;
     uchar dragMode;
     ushort helpCtx;
-    static Boolean commandSetChanged;
+    static bool commandSetChanged;
 #ifndef GENINC
     static TCommandSet curCommandSet;
 #endif
     TGroup* owner;
 
-    static Boolean showMarkers;
+    static bool showMarkers;
     static uchar errorAttr;
 
     virtual void shutDown();

@@ -103,7 +103,7 @@ TMouseDialog::TMouseDialog()
     r = TRect(21, 9, 31, 11);
     insert(new TButton(r, "Cancel", cmCancel, bfNormal));
 
-    selectNext((Boolean)0);
+    selectNext((bool)0);
 }
 
 void TMouseDialog::handleEvent(TEvent& event)

@@ -47,7 +47,7 @@ protected:
     ccIndex count;
     ccIndex limit;
     ccIndex delta;
-    Boolean shouldDelete;
+    bool shouldDelete;
 
 private:
     virtual void freeItem(void* item);

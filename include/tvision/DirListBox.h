@@ -20,10 +20,10 @@ public:
 
     virtual void getText(char*, short, short);
     //    virtual void handleEvent( TEvent& );
-    virtual Boolean isSelected(short);
+    virtual bool isSelected(short);
     virtual void selectItem(short item);
     void newDirectory(TStringView);
-    virtual void setState(ushort aState, Boolean enable);
+    virtual void setState(ushort aState, bool enable);
 
     TDirCollection* list();
 

@@ -37,7 +37,7 @@ TButton::TButton(const TRect& bounds,
     , title(newStr(aTitle))
     , command(aCommand)
     , flags(aFlags)
-    , amDefault(Boolean((aFlags & bfDefault) != 0))
+    , amDefault(bool((aFlags & bfDefault) != 0))
     , animationTimer(0)
 {
     options |= ofSelectable | ofFirstClick | ofPreProcess | ofPostProcess;
@@ -53,14 +53,14 @@ TButton::~TButton()
 
 void TButton::draw()
 {
-    drawState(False);
+    drawState (false);
 }
 
 void TButton::drawTitle(TDrawBuffer& b,
     int s,
     int i,
     TAttrPair cButton,
-    Boolean down)
+    bool down)
 {
     int l, scOff;
     if ((flags & bfLeftJust) != 0)
@@ -72,7 +72,7 @@ void TButton::drawTitle(TDrawBuffer& b,
     }
     b.moveCStr(i + l, title, cButton);
 
-    if (showMarkers == True && !down) {
+    if (showMarkers == true && !down) {
         if ((state & sfSelected) != 0)
             scOff = 0;
         else if (amDefault)
@@ -84,7 +84,7 @@ void TButton::drawTitle(TDrawBuffer& b,
     }
 }
 
-void TButton::drawState(Boolean down)
+void TButton::drawState(bool down)
 {
     TAttrPair cButton, cShadow;
     TDrawBuffer b;
@@ -114,7 +114,7 @@ void TButton::drawState(Boolean down)
             i = 2;
         } else {
             b.putAttribute(s, cShadow);
-            if (showMarkers == True)
+            if (showMarkers == true)
                 ch = ' ';
             else {
                 if (y == 0)
@@ -169,17 +169,17 @@ void TButton::handleEvent(TEvent& event)
     case evMouseDown:
         if ((state & sfDisabled) == 0) {
             clickRect.b.x++;
-            Boolean down = False;
+            bool down =  false;
             do {
                 mouse = makeLocal(event.mouse.where);
                 if (down != clickRect.contains(mouse)) {
-                    down = Boolean(!down);
+                    down = bool(!down);
                     drawState(down);
                 }
             } while (mouseEvent(event, evMouseMove));
             if (down) {
                 press();
-                drawState(False);
+                drawState (false);
             }
         }
         clearEvent(event);
@@ -187,7 +187,7 @@ void TButton::handleEvent(TEvent& event)
 
     case evKeyDown:
         if (event.keyDown.keyCode != 0 && (event.keyDown.keyCode == getAltCode(c) || (owner->phase == phPostProcess && c != 0 && toupper(event.keyDown.charScan.charCode) == c) || ((state & sfFocused) != 0 && event.keyDown.charScan.charCode == ' '))) {
-            drawState(True);
+            drawState (true);
             if (animationTimer != 0)
                 press();
             animationTimer = setTimer(animationDuration);
@@ -207,20 +207,20 @@ void TButton::handleEvent(TEvent& event)
         case cmGrabDefault:
         case cmReleaseDefault:
             if ((flags & bfDefault) != 0) {
-                amDefault = Boolean(event.message.command == cmReleaseDefault);
+                amDefault = bool(event.message.command == cmReleaseDefault);
                 drawView();
             }
             break;
 
         case cmCommandSetChanged:
-            setState(sfDisabled, Boolean(!commandEnabled(command)));
+            setState(sfDisabled, bool(!commandEnabled(command)));
             drawView();
             break;
 
         case cmTimeout:
             if (animationTimer != 0 && event.message.infoPtr == animationTimer) {
                 animationTimer = 0;
-                drawState(False);
+                drawState (false);
                 press();
                 clearEvent(event);
             }
@@ -230,19 +230,19 @@ void TButton::handleEvent(TEvent& event)
     }
 }
 
-void TButton::makeDefault(Boolean enable)
+void TButton::makeDefault(bool enable)
 {
     if ((flags & bfDefault) == 0) {
         message(owner,
             evBroadcast,
-            (enable == True) ? cmGrabDefault : cmReleaseDefault,
+            (enable == true) ? cmGrabDefault : cmReleaseDefault,
             this);
         amDefault = enable;
         drawView();
     }
 }
 
-void TButton::setState(ushort aState, Boolean enable)
+void TButton::setState(ushort aState, bool enable)
 {
     TView::setState(aState, enable);
     if (aState & (sfSelected | sfActive))
@@ -280,7 +280,7 @@ void* TButton::read(ipstream& is)
     title = is.readString();
     int temp;
     is >> command >> flags >> temp;
-    amDefault = Boolean(temp);
+    amDefault = bool(temp);
     if (TButton::commandEnabled(command))
         state &= ~sfDisabled;
     else

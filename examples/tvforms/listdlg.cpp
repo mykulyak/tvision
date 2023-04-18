@@ -41,16 +41,16 @@ __link(RResourceCollection)
 #include <dir.h>
 #endif // __DIR_H
 
-            Boolean fileExists(char* name)
+            bool fileExists(char* name)
 {
     struct ffblk sr;
     int ccode;
 
     ccode = findfirst(name, &sr, 0);
     if (!ccode)
-        return True;
+        return true;
     else
-        return False;
+        return  false;
 }
 
 // TListKeyBox
@@ -88,8 +88,8 @@ TListDialog::TListDialog(char* rezName, char* title)
     , TDialog(TRect(2, 2, 32, 15), title)
     , dataCollection(0)
     , fileName(newStr(rezName))
-    , isValid(False)
-    , modified(False)
+    , isValid (false)
+    , modified (false)
 {
     const short
         buttonCt
@@ -109,7 +109,7 @@ TListDialog::TListDialog(char* rezName, char* title)
     short buttonX;
 
     // Read data off resource stream
-    if (openDataFile(fileName, formDataFile, std::ios::in) == True) {
+    if (openDataFile(fileName, formDataFile, std::ios::in) == true) {
         // Get horizontal size of key field
         f = (TForm*)formDataFile->get("FormDialog");
         if (f == NULL) {
@@ -177,8 +177,8 @@ TListDialog::TListDialog(char* rezName, char* title)
                                    y + 2),
                 "~S~ave", cmListSave, bfNormal));
 
-            selectNext(False); // Select first field
-            isValid = True;
+            selectNext (false); // Select first field
+            isValid = true;
         }
     }
 }
@@ -212,7 +212,7 @@ TForm* TListDialog::editingForm()
         dataCollection->at(list->focused));
 }
 
-void TListDialog::formOpen(Boolean newForm)
+void TListDialog::formOpen(bool newForm)
 {
     TForm* f;
 
@@ -273,7 +273,7 @@ void TListDialog::deleteSelection()
         dataCollection->atFree(list->focused);
         list->setRange(dataCollection->getCount());
         list->drawView();
-        modified = True;
+        modified = true;
     }
 }
 
@@ -291,10 +291,10 @@ void TListDialog::handleEvent(TEvent& event)
     case evCommand:
         switch (event.message.command) {
         case cmFormEdit:
-            formOpen(False);
+            formOpen (false);
             break;
         case cmFormNew:
-            formOpen(True);
+            formOpen (true);
             break;
         case cmFormDel:
             deleteSelection();
@@ -311,7 +311,7 @@ void TListDialog::handleEvent(TEvent& event)
     case evKeyDown:
         switch (event.keyDown.keyCode) {
         case kbIns:
-            formOpen(True);
+            formOpen (true);
             break;
         default:
             return;
@@ -321,7 +321,7 @@ void TListDialog::handleEvent(TEvent& event)
     case evBroadcast:
         switch (event.message.command) { // Respond to broadcast from TSortedListBox
         case cmListItemSelected:
-            formOpen(False);
+            formOpen (false);
             break;
 
         // Keep file from being edited simultaneously by 2 lists
@@ -339,7 +339,7 @@ void TListDialog::handleEvent(TEvent& event)
     }
 }
 
-Boolean TListDialog::openDataFile(char* name,
+bool TListDialog::openDataFile(char* name,
     TResourceFile*& dataFile, pstream::openmode mode)
 {
     fpstream* s;
@@ -349,12 +349,12 @@ Boolean TListDialog::openDataFile(char* name,
     if (!s->good()) {
         destroy(dataFile);
         dataFile = NULL;
-        return False;
+        return  false;
     } else
-        return True;
+        return true;
 }
 
-Boolean TListDialog::saveList()
+bool TListDialog::saveList()
 {
     TResourceFile* newDataFile;
     TForm* form;
@@ -367,10 +367,10 @@ Boolean TListDialog::saveList()
 
     // Empty collection? Unedited?
     if ((dataCollection->getCount() == 0) || (!modified)) {
-        return True;
+        return true;
     }
 
-    // saveList = False;
+    // saveList =  false;
     //  Read form definition out of original form file
     form = (TForm*)formDataFile->get("FormDialog");
     if (form == NULL)
@@ -380,7 +380,7 @@ Boolean TListDialog::saveList()
         // Create new data file
         fnsplit(fileName, drive, d, n, e);
         fnmerge(bufStr, drive, d, n, ".$$$");
-        if (openDataFile(bufStr, newDataFile, std::ios::out) == False)
+        if (openDataFile(bufStr, newDataFile, std::ios::out) ==  false)
             messageBox("Cannot create file. Data not saved.",
                 mfError | mfOKButton);
         else {
@@ -403,7 +403,7 @@ Boolean TListDialog::saveList()
                     mfError | mfOKButton);
 
                 // Try to re-open original. New data will still be in memory
-                if (openDataFile(fileName, formDataFile, std::ios::in) == False) {
+                if (openDataFile(fileName, formDataFile, std::ios::in) ==  false) {
                     messageBox("Cannot re-open original file.",
                         mfError | mfOKButton);
                     destroy(this); // Cannot proceed. Free data and close window }
@@ -414,30 +414,30 @@ Boolean TListDialog::saveList()
                 rename(bufStr, fileName);
                 openDataFile(fileName, formDataFile, std::ios::in);
 
-                modified = False;
+                modified =  false;
                 destroy(form);
-                return True;
+                return true;
             }
         }
         destroy(form);
     }
-    return False;
+    return  false;
 }
 
-Boolean TListDialog::saveForm(TDialog* f)
+bool TListDialog::saveForm(TDialog* f)
 {
     ccIndex i;
     void* p;
 
     // Validate data before updating collection
     if (!f->valid(cmFormSave))
-        return False;
+        return  false;
 
     // Extract data from form. Don't use safety pool.
     p = new char[dataCollection->itemSize];
     if (p == NULL) {
         TApplication::application->outOfMemory();
-        return False;
+        return  false;
     }
 
     memset(p, 0, dataCollection->itemSize);
@@ -449,7 +449,7 @@ Boolean TListDialog::saveForm(TDialog* f)
             messageBox("Duplicate keys are not allowed in this database. "
                        "Delete duplicate record before saving this form.",
                 mfError | mfOKButton);
-            return False;
+            return  false;
         }
 
     // Free previous data?
@@ -464,7 +464,7 @@ Boolean TListDialog::saveForm(TDialog* f)
     if (dataCollection->status != 0) {
         delete[] (char*)p;
         TApplication::application->outOfMemory();
-        return False;
+        return  false;
     }
 
     // Success: store off original data pointer
@@ -474,8 +474,8 @@ Boolean TListDialog::saveForm(TDialog* f)
     list->setRange(dataCollection->getCount());
     list->drawView();
 
-    modified = True;
-    return True;
+    modified = true;
+    return true;
 }
 
 void TListDialog::stackOnPrev(TDialog* f)
@@ -503,12 +503,12 @@ void TListDialog::stackOnPrev(TDialog* f)
         f->moveTo(f->origin.x, 1);
 }
 
-Boolean TListDialog::valid(ushort command)
+bool TListDialog::valid(ushort command)
 {
-    Boolean ok;
+    bool ok;
     ushort reply;
 
-    ok = True;
+    ok = true;
     switch (command) {
     case cmValid:
         ok = isValid;
@@ -521,9 +521,9 @@ Boolean TListDialog::valid(ushort command)
 
         // Any forms open that cannot close?
         if (message(TProgram::deskTop, evBroadcast, cmCanCloseForm, this) == NULL)
-            ok = True;
+            ok = true;
         else
-            ok = False;
+            ok =  false;
 
         // Any data modified?
         if (ok && modified) {
@@ -535,10 +535,10 @@ Boolean TListDialog::valid(ushort command)
                 ok = saveList();
                 break;
             case cmNo:
-                modified = False; // abandon changes
+                modified =  false; // abandon changes
                 break;
             default:
-                ok = False; // cancel close request
+                ok =  false; // cancel close request
                 break;
             }
         }
@@ -547,5 +547,5 @@ Boolean TListDialog::valid(ushort command)
     if (ok)
         return TDialog::valid(command);
     else
-        return False;
+        return  false;
 }

@@ -23,7 +23,7 @@ struct TVCursor {
 
     void resetCursor(TView*);
     int computeCaretSize();
-    Boolean caretCovered(TView*) const;
+    bool caretCovered(TView*) const;
     int decideCaretSize() const;
 };
 
@@ -64,16 +64,16 @@ int TVCursor::computeCaretSize()
     return 0;
 }
 
-Boolean TVCursor::caretCovered(TView* v) const
+bool TVCursor::caretCovered(TView* v) const
 {
     TView* u = v->owner->last->next;
     for (; u != v; u = u->next) {
         if ((u->state & sfVisible)
             && (u->origin.y <= y && y < u->origin.y + u->size.y)
             && (u->origin.x <= x && x < u->origin.x + u->size.x))
-            return True;
+            return true;
     }
-    return False;
+    return  false;
 }
 
 int TVCursor::decideCaretSize() const

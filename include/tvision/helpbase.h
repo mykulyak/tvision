@@ -29,7 +29,7 @@ class TParagraph {
 public:
     TParagraph() noexcept { }
     TParagraph* next;
-    Boolean wrap;
+    bool wrap;
     ushort size;
     char* text;
 };
@@ -70,7 +70,7 @@ public:
     TCrossRef* crossRefs;
 
 private:
-    TStringView wrapText(char* text, int size, int& offset, Boolean wrap) noexcept;
+    TStringView wrapText(char* text, int size, int& offset, bool wrap) noexcept;
     void readParagraphs(ipstream& s);
     void readCrossRefs(ipstream& s);
     void writeParagraphs(opstream& s);
@@ -175,7 +175,7 @@ public:
     void putTopic(THelpTopic*);
 
     iopstream* stream;
-    Boolean modified;
+    bool modified;
 
     THelpIndex* index;
     int32_t indexPos;

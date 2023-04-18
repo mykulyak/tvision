@@ -38,7 +38,7 @@ private:
     size_t sz;
 
     static TBufListEntry* bufList;
-    static Boolean freeHead() noexcept;
+    static bool freeHead() noexcept;
 
     friend class TVMemMgr;
     friend void* operator new(size_t);

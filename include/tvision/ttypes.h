@@ -20,15 +20,6 @@
 #define I asm
 #endif
 
-#ifdef __BORLANDC__
-enum Boolean { False,
-    True };
-#else
-typedef bool Boolean;
-enum { False,
-    True };
-#endif
-
 typedef unsigned short ushort;
 typedef unsigned char uchar;
 typedef unsigned int uint;
@@ -108,7 +99,7 @@ std::ostream&  operator<<(std::ostream&, TStringView);
 typedef void* TTimerId;
 
 typedef int ccIndex;
-typedef Boolean (*ccTestFunc)(void*, void*);
+typedef bool (*ccTestFunc)(void*, void*);
 typedef void (*ccAppFunc)(void*, void*);
 
 const int ccNotFound = -1;

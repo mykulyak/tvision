@@ -13,7 +13,7 @@ void* TSortedCollection::read(ipstream& is)
     TCollection::read(is);
     int temp;
     is >> temp;
-    duplicates = Boolean(temp);
+    duplicates = bool(temp);
     return this;
 }
 

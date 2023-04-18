@@ -68,7 +68,7 @@ public:
         foc = i;
         message(owner, evCommand, cmNewDirFocused, 0);
     }
-    static Boolean isParent(TOutlineViewer*, TNode* cur, int, int, long, ushort, void*);
+    static bool isParent(TOutlineViewer*, TNode* cur, int, int, long, ushort, void*);
     TNode* getParent(TNode* child)
     {
         return firstThat(isParent, child);
@@ -76,16 +76,16 @@ public:
     void getCurrentPath(char* buffer, short bufferSize);
 };
 
-Boolean TDirOutline::isParent(TOutlineViewer*, TNode* cur, int, int, long, ushort, void* arg)
+bool TDirOutline::isParent(TOutlineViewer*, TNode* cur, int, int, long, ushort, void* arg)
 {
     TNode* parentSearch = (TNode*)arg;
     TNode* temp = cur->childList;
     while (temp != 0) {
         if (temp == parentSearch)
-            return True;
+            return true;
         temp = temp->next;
     }
-    return False;
+    return  false;
 }
 
 void TDirOutline::getCurrentPath(char* buffer, short bufferSize)
@@ -134,7 +134,7 @@ TNode* getDirList(const char* path, QuickMessage* qm = 0)
                 if (strcmp(path, searchPath) == 0)
                     break;
                 qm->setCurrentDir(searchPath);
-                temp = new TNode(searchRec.name, getDirList(searchPath, qm), 0, False);
+                temp = new TNode(searchRec.name, getDirList(searchPath, qm), 0,  false);
                 if (current) {
                     current->next = temp;
                     current = current->next;
@@ -196,7 +196,7 @@ static char* formatFileRow(char buf[128], const find_t& searchRec)
         searchRec.attrib & FA_HIDDEN ? 'h' : '\xFA');
     size_t bufLen = strlen(buf) + 1;
     size_t nameLen, nameWidth;
-    TText::scroll(searchRec.name, 18, False, nameLen, nameWidth);
+    TText::scroll(searchRec.name, 18,  false, nameLen, nameWidth);
     size_t namePad = 18 - nameWidth;
     char* row = new char[nameLen + namePad + bufLen];
     memcpy(row, searchRec.name, nameLen);
@@ -278,7 +278,7 @@ public:
         QuickMessage* qm = new QuickMessage(drive);
         TProgram::deskTop->insert(qm);
 
-        dirTree = new TNode(drive, getDirList(drive, qm), 0, True);
+        dirTree = new TNode(drive, getDirList(drive, qm), 0, true);
 
         TProgram::deskTop->remove(qm);
         destroy(qm);

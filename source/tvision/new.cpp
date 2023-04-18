@@ -58,13 +58,13 @@ void TBufListEntry::operator delete(void* b) noexcept
     free(b);
 }
 
-Boolean TBufListEntry::freeHead() noexcept
+bool TBufListEntry::freeHead() noexcept
 {
     if (bufList == 0)
-        return False;
+        return  false;
     else {
         bufList->destroy();
-        return True;
+        return true;
     }
 }
 
@@ -171,7 +171,7 @@ void* allocBlock(size_t sz)
         sz = 1;
 
     void* temp = malloc(sz);
-    while (temp == 0 && TBufListEntry::freeHead() == True)
+    while (temp == 0 && TBufListEntry::freeHead() == true)
         temp = malloc(sz);
     if (temp == 0) {
         if (TVMemMgr::safetyPoolExhausted())

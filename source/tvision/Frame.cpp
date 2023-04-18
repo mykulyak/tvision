@@ -156,7 +156,7 @@ void TFrame::handleEvent(TEvent& event)
     }
 }
 
-void TFrame::setState(ushort aState, Boolean enable)
+void TFrame::setState(ushort aState, bool enable)
 {
     TView::setState(aState, enable);
     if ((aState & (sfActive | sfDragging)) != 0)

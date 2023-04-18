@@ -69,9 +69,9 @@ public:
         return size() * sizeof(T);
     }
 
-    constexpr Boolean empty() const
+    constexpr bool empty() const
     {
-        return Boolean(size() == 0);
+        return bool(size() == 0);
     }
 
     constexpr T& operator[](size_t pos) const

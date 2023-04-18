@@ -8,8 +8,8 @@
 class TLookupValidator : public TValidator {
 public:
     TLookupValidator() noexcept {};
-    virtual Boolean isValid(const char* s);
-    virtual Boolean lookup(const char* s);
+    virtual bool isValid(const char* s);
+    virtual bool lookup(const char* s);
     static TStreamable* build();
     static const char* const name;
 

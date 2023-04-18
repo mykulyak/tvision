@@ -22,7 +22,7 @@ public:
     TRadioButtons(const TRect& bounds, TSItem* aStrings) noexcept;
 
     virtual void draw();
-    virtual Boolean mark(int item);
+    virtual bool mark(int item);
     virtual void movedTo(int item);
     virtual void press(int item);
     virtual void setData(void* rec);

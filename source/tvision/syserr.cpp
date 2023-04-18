@@ -22,15 +22,15 @@
 #include <cstdio>
 #include <cstring>
 
-Boolean TSystemError::ctrlBreakHit = False;
-Boolean TSystemError::saveCtrlBreak = False;
+bool TSystemError::ctrlBreakHit =  false;
+bool TSystemError::saveCtrlBreak =  false;
 
 #if !defined(__FLAT__)
 short (*TSystemError::sysErrorFunc)(short, uchar) = &TSystemError::sysErr;
 ushort TSystemError::sysColorAttr = 0x4E4F;
 ushort TSystemError::sysMonoAttr = 0x7070;
-Boolean TSystemError::sysErrActive = False;
-Boolean TSystemError::inIDE = False;
+bool TSystemError::sysErrActive =  false;
+bool TSystemError::inIDE =  false;
 
 TPMRegs TSystemError::Int24Regs;
 void(interrupt far* TSystemError::Int24RMThunk)();
@@ -54,7 +54,7 @@ static void checkIDE()
 TSystemError::TSystemError() noexcept
 {
 #if !defined(__FLAT__)
-    inIDE = False;
+    inIDE =  false;
     checkIDE();
 
     if (THardwareInfo::getDPMIFlag())
@@ -152,7 +152,7 @@ void interrupt (*Int11trap::oldHandler)(...) = 0;
 void interrupt Int11trap::handler(...)
 {
     if (_AX == SecretWord && _BX == productID)
-        TSystemError::inIDE = True;
+        TSystemError::inIDE = true;
     oldHandler();
 }
 

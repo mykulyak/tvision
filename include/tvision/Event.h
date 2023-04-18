@@ -27,7 +27,7 @@ public:
 protected:
     static void setRange(ushort, ushort) noexcept;
     static void getEvent(MouseEventType&) noexcept;
-    static Boolean present() noexcept;
+    static bool present() noexcept;
 
 #if !defined(__FLAT__)
     static void registerHandler(unsigned, void (*)());
@@ -41,18 +41,18 @@ protected:
     static uchar buttonCount;
 
 private:
-    static Boolean handlerInstalled;
-    static Boolean noMouse;
+    static bool handlerInstalled;
+    static bool noMouse;
 };
 
-inline Boolean THWMouse::present() noexcept
+inline bool THWMouse::present() noexcept
 {
-    return Boolean(buttonCount != 0);
+    return bool(buttonCount != 0);
 }
 
 inline void THWMouse::inhibit() noexcept
 {
-    noMouse = True;
+    noMouse = true;
 }
 
 class TMouse : public THWMouse {
@@ -66,7 +66,7 @@ public:
 
     static void setRange(ushort, ushort) noexcept;
     static void getEvent(MouseEventType&) noexcept;
-    static Boolean present() noexcept;
+    static bool present() noexcept;
 
 #if !defined(__FLAT__)
     static void registerHandler(unsigned, void (*)());
@@ -99,7 +99,7 @@ inline void TMouse::getEvent(MouseEventType& me) noexcept
     THWMouse::getEvent(me);
 }
 
-inline Boolean TMouse::present() noexcept
+inline bool TMouse::present() noexcept
 {
     return THWMouse::present();
 }

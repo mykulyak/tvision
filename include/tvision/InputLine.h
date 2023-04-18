@@ -34,10 +34,10 @@ public:
     virtual void getData(void* rec);
     virtual TPalette& getPalette() const;
     virtual void handleEvent(TEvent& event);
-    void selectAll(Boolean enable, Boolean scroll = True);
+    void selectAll(bool enable, bool scroll = true);
     virtual void setData(void* rec);
-    virtual void setState(ushort aState, Boolean enable);
-    virtual Boolean valid(ushort cmd);
+    virtual void setState(ushort aState, bool enable);
+    virtual bool valid(ushort cmd);
     void setValidator(TValidator* aValid);
 
     char* data;
@@ -50,7 +50,7 @@ public:
     int selEnd;
 
 private:
-    Boolean canScroll(int delta);
+    bool canScroll(int delta);
     int mouseDelta(TEvent& event);
     int mousePos(TEvent& event);
     int displayedPos(int pos);
@@ -59,9 +59,9 @@ private:
     void adjustSelectBlock();
     void saveState();
     void restoreState();
-    Boolean checkValid(Boolean);
-    Boolean canUpdateCommands();
-    void setCmdState(ushort, Boolean);
+    bool checkValid(bool);
+    bool canUpdateCommands();
+    void setCmdState(ushort, bool);
     void updateCommands();
 
     static const char rightArrow;

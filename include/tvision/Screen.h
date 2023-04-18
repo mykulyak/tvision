@@ -61,11 +61,11 @@ public:
     static ushort screenMode;
     static ushort screenWidth;
     static ushort screenHeight;
-    static Boolean hiResScreen;
-    static Boolean checkSnow;
+    static bool hiResScreen;
+    static bool checkSnow;
     static TScreenCell* screenBuffer;
     static ushort cursorLines;
-    static Boolean clearOnSuspend;
+    static bool clearOnSuspend;
 
     static void setCrtData() noexcept;
     static ushort fixCrtMode(ushort) noexcept;

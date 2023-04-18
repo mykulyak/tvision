@@ -27,7 +27,7 @@ public:
     virtual void draw();
     virtual TPalette& getPalette() const;
     virtual void handleEvent(TEvent& event);
-    virtual void setState(ushort aState, Boolean enable);
+    virtual void setState(ushort aState, bool enable);
 
 private:
     void frameLine(TDrawBuffer& frameBuf, short y, short n, TColorAttr color);

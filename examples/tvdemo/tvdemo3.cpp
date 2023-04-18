@@ -93,12 +93,12 @@ TPalette& TVDemo::getPalette() const
 // isTileable() function ( checks a view on desktop is tileable or not )
 //
 
-static Boolean isTileable(TView* p, void*)
+static bool isTileable(TView* p, void*)
 {
     if ((p->options & ofTileable) != 0)
-        return True;
+        return true;
     else
-        return False;
+        return  false;
 }
 
 //

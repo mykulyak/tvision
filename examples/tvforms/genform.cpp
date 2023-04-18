@@ -43,7 +43,7 @@ __link(RResourceCollection)
     fpstream* s;
     TResourceFile* r;
 
-    TScreen::clearOnSuspend = False;
+    TScreen::clearOnSuspend =  false;
 
     std::cout << "Creating  " << rezFileName << "\n";
 

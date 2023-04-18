@@ -131,7 +131,7 @@ uchar* buffer = 0;
 TCrossRefNode* xRefs;
 TRefTable* refTable = 0;
 char line[MAXSTRSIZE] = "";
-Boolean lineInBuffer = False;
+bool lineInBuffer =  false;
 int lineCount = 0;
 
 #ifdef __FLAT__
@@ -173,7 +173,7 @@ void copyPath(char* dest, const char* src, size_t size)
 //  replaced anyway.                                                     //
 //-----------------------------------------------------------------------//
 
-const char* replaceExt(const char* fileName, const char* nExt, Boolean force)
+const char* replaceExt(const char* fileName, const char* nExt, bool force)
 {
     char dir[MAXPATH];
     char name[MAXFILE];
@@ -194,14 +194,14 @@ const char* replaceExt(const char* fileName, const char* nExt, Boolean force)
 //  Returns true if the file exists false otherwise.                     /
 //-----------------------------------------------------------------------/
 
-Boolean fExists(const char* fileName)
+bool fExists(const char* fileName)
 {
     struct ffblk ffblk;
 
     if (findfirst(fileName, &ffblk, 0))
-        return (False);
+        return  (false);
     else
-        return (True);
+        return  (true);
 }
 
 //----- isComment(line) -------------------------------------------------//
@@ -249,7 +249,7 @@ char* getLine(std::fstream& s)
                 } while ((s.rdstate() & (std::ios::failbit | std::ios::eofbit)) == std::ios::failbit);
             }
         }
-        lineInBuffer = False;
+        lineInBuffer =  false;
         // Skip line if it is a comment.
     } while (isComment(line));
     return line;
@@ -262,7 +262,7 @@ char* getLine(std::fstream& s)
 void unGetLine(const char* s)
 {
     strnzcpy(line, s, sizeof(line));
-    lineInBuffer = True;
+    lineInBuffer = true;
     --lineCount;
 }
 
@@ -345,7 +345,7 @@ void TRefTable::freeItem(void* item)
     TReference* ref;
 
     ref = (TReference*)item;
-    if (ref->resolved == False)
+    if (ref->resolved ==  false)
         disposeFixUps(ref->val.fixUpList);
     delete ref->topic;
     delete ref;
@@ -361,7 +361,7 @@ TReference* TRefTable::getReference(const char* topic)
     else {
         ref = new TReference;
         ref->topic = newStr(topic);
-        ref->resolved = False;
+        ref->resolved =  false;
         ref->val.fixUpList = 0;
         insert(ref);
     }
@@ -396,7 +396,7 @@ void recordReference(const char* topic, opstream& s)
 
     initRefTable();
     ref = refTable->getReference(topic);
-    if (ref->resolved == True)
+    if (ref->resolved == true)
         s << ref->val.value;
     else {
         fixUp = new TFixUp;
@@ -437,7 +437,7 @@ void resolveReference(const char* topic, uint value, iopstream& s)
     } else {
         doFixUps(ref->val.fixUpList, value, s);
         disposeFixUps(ref->val.fixUpList);
-        ref->resolved = True;
+        ref->resolved = true;
         ref->val.value = value;
     }
 }
@@ -621,7 +621,7 @@ void growBuffer(int size)
         error("Text too long");
 }
 
-void addToBuffer(const char* line, Boolean wrapping)
+void addToBuffer(const char* line, bool wrapping)
 {
     int len = strlen(line);
     int nOfs = ofs + len + 1;
@@ -728,7 +728,7 @@ void scanForCrossRefs(char* line, int& offset, TCrossRefNode*& xRefs)
     } while (i != 0);
 }
 
-Boolean isEndParagraph(State state)
+bool isEndParagraph(State state)
 {
     int flag;
     int wrapping = 1;
@@ -736,9 +736,9 @@ Boolean isEndParagraph(State state)
 
     flag = ((line[0] == 0) || (line[0] == commandChar[0]) || (line[0] == 26) || ((line[0] == ' ') && (state == wrapping)) || ((line[0] != ' ') && (state == notWrapping)));
     if (flag)
-        return (True);
+        return  (true);
     else
-        return (False);
+        return  (false);
 }
 
 //---- readParagraph ----------------------------------------------------//
@@ -750,7 +750,7 @@ Boolean isEndParagraph(State state)
 TParagraph* readParagraph(std::fstream& textFile, int& offset, TCrossRefNode*& xRefs)
 {
     State state;
-    Boolean flag;
+    bool flag;
     char line[MAXSTRSIZE];
     TParagraph* p;
 
@@ -758,16 +758,16 @@ TParagraph* readParagraph(std::fstream& textFile, int& offset, TCrossRefNode*& x
     state = undefined;
     strnzcpy(line, getLine(textFile), sizeof(line));
     while (strlen(line) == 0) {
-        flag = (state == wrapping) ? True : False;
+        flag = (state == wrapping) ? true :  false;
         addToBuffer(line, flag);
         strnzcpy(line, getLine(textFile), sizeof(line));
     }
 
-    if (isEndParagraph(state) == True) {
+    if (isEndParagraph(state) == true) {
         unGetLine(line);
         return (0);
     }
-    while (isEndParagraph(state) == False) {
+    while (isEndParagraph(state) ==  false) {
         if (state == undefined) {
             if (line[0] == ' ')
                 state = notWrapping;
@@ -775,14 +775,14 @@ TParagraph* readParagraph(std::fstream& textFile, int& offset, TCrossRefNode*& x
                 state = wrapping;
         }
         scanForCrossRefs(line, offset, xRefs);
-        flag = (state == wrapping) ? True : False;
+        flag = (state == wrapping) ? true :  false;
         addToBuffer(line, flag);
         strnzcpy(line, getLine(textFile), sizeof(line));
     }
     unGetLine(line);
     p = new TParagraph;
     p->size = ofs;
-    p->wrap = (state == wrapping) ? True : False;
+    p->wrap = (state == wrapping) ? true :  false;
     p->text = new char[ofs];
     memmove(p->text, buffer, ofs);
     p->next = 0;
@@ -990,23 +990,23 @@ int main(int argc, char** argv)
     }
 
     //  Calculate file names
-    copyPath(textName, replaceExt(argv[1], ".txt", False), sizeof(textName));
+    copyPath(textName, replaceExt(argv[1], ".txt",  false), sizeof(textName));
     if (!fExists(textName)) {
         std::cerr << "Error: File '" << textName << "' not found." << std::endl;
         exit(1);
     }
 
     if (argc >= 3)
-        copyPath(helpName, replaceExt(argv[2], HELPFILE_EXT, False), sizeof(helpName));
+        copyPath(helpName, replaceExt(argv[2], HELPFILE_EXT,  false), sizeof(helpName));
     else
-        copyPath(helpName, replaceExt(textName, HELPFILE_EXT, True), sizeof(helpName));
+        copyPath(helpName, replaceExt(textName, HELPFILE_EXT, true), sizeof(helpName));
 
     checkOverwrite(helpName);
 
     if (argc >= 4)
-        copyPath(symbName, replaceExt(argv[3], ".h", False), sizeof(symbName));
+        copyPath(symbName, replaceExt(argv[3], ".h",  false), sizeof(symbName));
     else
-        copyPath(symbName, replaceExt(helpName, ".h", True), sizeof(symbName));
+        copyPath(symbName, replaceExt(helpName, ".h", true), sizeof(symbName));
 
     checkOverwrite(symbName);
 

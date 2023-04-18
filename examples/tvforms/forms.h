@@ -26,9 +26,9 @@ public:
 
     TForm( StreamableInit ) : TWindowInit(&TForm::initFrame), TDialog (streamableInit) {};
     TForm( const TRect&, const char* );
-    virtual Boolean changed();
+    virtual bool changed();
     virtual void handleEvent( TEvent& );
-    virtual Boolean valid( ushort );
+    virtual bool valid( ushort );
 
     TView  *listDialog;
     void   *prevData;

@@ -30,10 +30,10 @@ class TValidator : public TObject, public TStreamable {
 public:
     TValidator() noexcept;
     virtual void error();
-    virtual Boolean isValidInput(char* s, Boolean suppressFill);
-    virtual Boolean isValid(const char* s);
+    virtual bool isValidInput(char* s, bool suppressFill);
+    virtual bool isValid(const char* s);
     virtual ushort transfer(char* s, void* buffer, TVTransfer flag);
-    Boolean validate(const char* s);
+    bool validate(const char* s);
 
     ushort status;
     ushort options;

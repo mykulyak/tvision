@@ -121,11 +121,11 @@ void TWindow::handleEvent(TEvent& event)
     else if (event.what == evKeyDown)
         switch (event.keyDown.keyCode) {
         case kbTab:
-            focusNext(False);
+            focusNext (false);
             clearEvent(event);
             break;
         case kbShiftTab:
-            focusNext(True);
+            focusNext (true);
             clearEvent(event);
             break;
         }
@@ -140,7 +140,7 @@ TFrame* TWindow::initFrame(TRect r)
     return new TFrame(r);
 }
 
-void TWindow::setState(ushort aState, Boolean enable)
+void TWindow::setState(ushort aState, bool enable)
 {
     TCommandSet windowCommands;
 
@@ -157,7 +157,7 @@ void TWindow::setState(ushort aState, Boolean enable)
             windowCommands += cmClose;
         if ((flags & wfZoom) != 0)
             windowCommands += cmZoom;
-        if (enable != False)
+        if (enable !=  false)
             enableCommands(windowCommands);
         else
             disableCommands(windowCommands);

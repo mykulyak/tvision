@@ -17,11 +17,11 @@ public:
     void* get(const char* key);
     const char* keyAt(short i);
     void put(TStreamable* item, const char* key);
-    fpstream* switchTo(fpstream* aStream, Boolean pack);
+    fpstream* switchTo(fpstream* aStream, bool pack);
 
 protected:
     fpstream* stream;
-    Boolean modified;
+    bool modified;
     int32_t basePos;
     int32_t indexPos;
     TResourceCollection* index;

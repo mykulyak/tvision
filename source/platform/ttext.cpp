@@ -576,7 +576,7 @@ char TText::toCodePage(TStringView text) noexcept
 }
 
 template <class Text>
-inline TText::Lw TText::scrollImplT(Text text, int count, Boolean includeIncomplete) noexcept
+inline TText::Lw TText::scrollImplT(Text text, int count, bool includeIncomplete) noexcept
 {
     if (count > 0) {
         size_t i = 0, w = 0;
@@ -595,13 +595,13 @@ inline TText::Lw TText::scrollImplT(Text text, int count, Boolean includeIncompl
     return { 0, 0 };
 }
 
-TText::Lw TText::scrollImpl(TStringView text, int count, Boolean includeIncomplete) noexcept
+TText::Lw TText::scrollImpl(TStringView text, int count, bool includeIncomplete) noexcept
 
 {
     return scrollImplT(text, count, includeIncomplete);
 }
 
-TText::Lw TText::scrollImpl(TSpan<const uint32_t> text, int count, Boolean includeIncomplete) noexcept
+TText::Lw TText::scrollImpl(TSpan<const uint32_t> text, int count, bool includeIncomplete) noexcept
 
 {
     return scrollImplT(text, count, includeIncomplete);

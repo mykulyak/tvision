@@ -445,7 +445,7 @@ void getWin32Mouse(const MOUSE_EVENT_RECORD& MouseEvent, TEvent& ev, InputState&
     ev.mouse.controlKeyState = MouseEvent.dwControlKeyState & (kbShift | kbCtrlShift | kbAltShift | kbScrollState | kbNumState | kbCapsState | kbEnhanced);
 
     // Rotation sense is represented by the sign of dwButtonState's high word
-    Boolean positive = !(MouseEvent.dwButtonState & 0x80000000);
+    bool positive = !(MouseEvent.dwButtonState & 0x80000000);
     if (MouseEvent.dwEventFlags & MOUSE_WHEELED)
         ev.mouse.wheel = positive ? mwUp : mwDown;
     else if (MouseEvent.dwEventFlags & MOUSE_HWHEELED)

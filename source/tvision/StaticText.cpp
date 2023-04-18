@@ -36,7 +36,7 @@ TStaticText::~TStaticText()
 void TStaticText::draw()
 {
     TColorAttr color;
-    Boolean center;
+    bool center;
     int i, j, l, p, y;
     TDrawBuffer b;
     char s[256];
@@ -46,16 +46,16 @@ void TStaticText::draw()
     l = strlen(s);
     p = 0;
     y = 0;
-    center = False;
+    center =  false;
     while (y < size.y) {
         b.moveChar(0, ' ', color, size.x);
         if (p < l) {
             if (s[p] == 3) {
-                center = True;
+                center = true;
                 ++p;
             }
             i = p;
-            int last = i + TText::scroll(TStringView(&s[i], l - i), size.x, False);
+            int last = i + TText::scroll(TStringView(&s[i], l - i), size.x,  false);
             do {
                 j = p;
                 while ((p < l) && (s[p] == ' '))
@@ -70,7 +70,7 @@ void TStaticText::draw()
                     p = last;
             }
             int width = strwidth(TStringView(&s[i], p - i));
-            if (center == True)
+            if (center == true)
                 j = (size.x - width) / 2;
             else
                 j = 0;
@@ -78,7 +78,7 @@ void TStaticText::draw()
             while ((p < l) && (s[p] == ' '))
                 p++;
             if ((p < l) && (s[p] == '\n')) {
-                center = False;
+                center =  false;
                 p++;
             }
         }

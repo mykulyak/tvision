@@ -77,7 +77,7 @@ void TProgram::shutDown()
     TGroup::shutDown();
 }
 
-Boolean TProgram::canMoveFocus()
+bool TProgram::canMoveFocus()
 {
     return deskTop->valid(cmReleasedFocus);
 }
@@ -106,9 +106,9 @@ ushort TProgram::executeDialog(TDialog* pD, void* data)
     return c;
 }
 
-static Boolean viewHasMouse(TView* p, void* s)
+static bool viewHasMouse(TView* p, void* s)
 {
-    return Boolean((p->state & sfVisible) != 0 && p->mouseInView(((TEvent*)s)->mouse.where));
+    return bool((p->state & sfVisible) != 0 && p->mouseInView(((TEvent*)s)->mouse.where));
 }
 
 void TProgram::getEvent(TEvent& event)
@@ -183,9 +183,9 @@ void TProgram::idle()
     if (statusLine != 0)
         statusLine->update();
 
-    if (commandSetChanged == True) {
+    if (commandSetChanged == true) {
         message(this, evBroadcast, cmCommandSetChanged, 0);
-        commandSetChanged = False;
+        commandSetChanged =  false;
     }
 
     timerQueue.collectTimeouts(doHandleTimeout, this);
@@ -212,7 +212,7 @@ void TProgram::initScreen()
         else
             shadowSize.x = 2;
         shadowSize.y = 1;
-        showMarkers = False;
+        showMarkers =  false;
         if ((TScreen::screenMode & 0x00FF) == TDisplay::smBW80)
             appPalette = apBlackWhite;
         else
@@ -221,7 +221,7 @@ void TProgram::initScreen()
 
         shadowSize.x = 0;
         shadowSize.y = 0;
-        showMarkers = True;
+        showMarkers = true;
         appPalette = apMonochrome;
     }
 }
@@ -275,8 +275,8 @@ void TProgram::setScreenMode(ushort mode)
     buffer = TScreen::screenBuffer;
     r = TRect(0, 0, TScreen::screenWidth, TScreen::screenHeight);
     changeBounds(r);
-    setState(sfExposed, False);
-    setState(sfExposed, True);
+    setState(sfExposed,  false);
+    setState(sfExposed, true);
     redraw();
     TEventQueue::mouse->show(); // ShowMouse();
 }

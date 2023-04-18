@@ -60,9 +60,9 @@ void TMonoSelector::handleEvent(TEvent& event)
     }
 }
 
-Boolean TMonoSelector::mark(int item)
+bool TMonoSelector::mark(int item)
 {
-    return Boolean(monoColors[item] == value);
+    return bool(monoColors[item] == value);
 }
 
 void TMonoSelector::newColor()
@@ -495,7 +495,7 @@ TMonoSelector::TMonoSelector(StreamableInit) noexcept
 
 //     insert(new TButton(TRect(36, 15, 46, 17), okText, cmOK, bfDefault));
 //     insert(new TButton(TRect(48, 15, 58, 17), cancelText, cmCancel, bfNormal));
-//     selectNext(False);
+//     selectNext (false);
 
 //     if (pal != 0)
 //         setData(pal);

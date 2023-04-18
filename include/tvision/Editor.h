@@ -26,7 +26,7 @@ public:
     uint bufPtr(uint);
     virtual void changeBounds(const TRect&);
     virtual void convertEvent(TEvent&);
-    Boolean cursorVisible();
+    bool cursorVisible();
     void deleteSelect();
     virtual void doneBuffer();
     virtual void draw();
@@ -35,36 +35,36 @@ public:
     virtual void initBuffer();
     virtual TMenuItem& initContextMenu(TPoint);
     uint insertMultilineText(const char*, uint);
-    Boolean insertBuffer(const char*, uint, uint, Boolean, Boolean);
-    Boolean insertEOL(Boolean);
-    virtual Boolean insertFrom(TEditor*);
-    Boolean insertText(const void*, uint, Boolean);
+    bool insertBuffer(const char*, uint, uint, bool, bool);
+    bool insertEOL(bool);
+    virtual bool insertFrom(TEditor*);
+    bool insertText(const void*, uint, bool);
     void scrollTo(int, int);
-    Boolean search(const char*, ushort);
-    virtual Boolean setBufSize(uint);
-    void setCmdState(ushort, Boolean);
-    void setSelect(uint, uint, Boolean);
-    virtual void setState(ushort, Boolean);
-    void trackCursor(Boolean);
+    bool search(const char*, ushort);
+    virtual bool setBufSize(uint);
+    void setCmdState(ushort, bool);
+    void setSelect(uint, uint, bool);
+    virtual void setState(ushort, bool);
+    void trackCursor(bool);
     void undo();
     virtual void updateCommands();
-    virtual Boolean valid(ushort);
+    virtual bool valid(ushort);
 
     int charPos(uint, uint);
     uint charPtr(uint, int);
-    Boolean clipCopy();
+    bool clipCopy();
     void clipCut();
     void clipPaste();
-    void deleteRange(uint, uint, Boolean);
+    void deleteRange(uint, uint, bool);
     void doUpdate();
     void doSearchReplace();
     void drawLines(int, int, uint);
     void formatLine(TScreenCell*, uint, int, TAttrPair);
     void find();
     uint getMousePtr(TPoint);
-    Boolean hasSelection();
+    bool hasSelection();
     void hideSelect();
-    Boolean isClipboard();
+    bool isClipboard();
     uint lineEnd(uint);
     uint lineMove(uint, int);
     uint lineStart(uint);
@@ -105,20 +105,20 @@ public:
     uint drawPtr;
     uint delCount;
     uint insCount;
-    Boolean isValid;
-    Boolean canUndo;
-    Boolean modified;
-    Boolean selecting;
-    Boolean overwrite;
-    Boolean autoIndent;
+    bool isValid;
+    bool canUndo;
+    bool modified;
+    bool selecting;
+    bool overwrite;
+    bool autoIndent;
 
     enum EOLTypes { eolCRLF,
         eolLF,
         eolCR } eolType;
 
-    Boolean encSingleByte;
+    bool encSingleByte;
     void nextChar(TStringView, uint& P, uint& width);
-    Boolean formatCell(TSpan<TScreenCell>, uint&, TStringView, uint&, TColorAttr);
+    bool formatCell(TSpan<TScreenCell>, uint&, TStringView, uint&, TColorAttr);
     TStringView bufChars(uint);
     TStringView bufPrevChars(uint);
 

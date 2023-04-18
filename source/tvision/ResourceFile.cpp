@@ -38,7 +38,7 @@ TResourceFile::TResourceFile(fpstream* aStream)
     int32_t streamSize;
 
     stream = aStream;
-    modified = False;
+    modified =  false;
     basePos = stream->tellp();
     stream->seekp(0, std::ios::end);
     streamSize = stream->tellp();
@@ -94,7 +94,7 @@ void TResourceFile::remove(const char* key)
 
     if (index->search((char*)key, i)) {
         index->free(index->at(i));
-        modified = True;
+        modified = true;
     }
 }
 
@@ -102,7 +102,7 @@ void TResourceFile::flush()
 {
     int32_t lenRez;
 
-    if (modified == True) {
+    if (modified == true) {
         stream->seekp(basePos + indexPos, std::ios::beg);
         *stream << index;
         lenRez = stream->tellp() - (std::streamoff)basePos - (std::streamoff)sizeof(int32_t) * 2;
@@ -111,7 +111,7 @@ void TResourceFile::flush()
         *stream << lenRez;
         *stream << indexPos;
         stream->flush();
-        modified = False;
+        modified =  false;
     }
 }
 
@@ -150,7 +150,7 @@ void TResourceFile::put(TStreamable* item, const char* key)
     indexPos = stream->tellp() - (std::streamoff)basePos;
     p->size = indexPos - p->pos;
 
-    modified = True;
+    modified = true;
 }
 
 void copyStream(fpstream* dest, fpstream* src, int32_t n)
@@ -191,7 +191,7 @@ void doCopyResource(void* item, void* arg)
     copyStream(si->destStream, si->sourceStream, ((TResourceItem*)item)->size);
 }
 
-fpstream* TResourceFile::switchTo(fpstream* aStream, Boolean pack)
+fpstream* TResourceFile::switchTo(fpstream* aStream, bool pack)
 {
     SwitchInfo args;
 
@@ -209,7 +209,7 @@ fpstream* TResourceFile::switchTo(fpstream* aStream, Boolean pack)
         copyStream(aStream, stream, indexPos);
     }
 
-    modified = True;
+    modified = true;
     basePos = args.newBasePos;
 
     fpstream* oldStream = stream;

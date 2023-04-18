@@ -25,7 +25,7 @@ const char* const TLabel::name = "TLabel";
 TLabel::TLabel(const TRect& bounds, TStringView aText, TView* aLink) noexcept
     : TStaticText(bounds, aText)
     , link(aLink)
-    , light(False)
+    , light (false)
 {
     options |= ofPreProcess | ofPostProcess;
     eventMask |= evBroadcast;
@@ -83,7 +83,7 @@ void TLabel::handleEvent(TEvent& event)
         if (event.keyDown.keyCode != 0 && (getAltCode(c) == event.keyDown.keyCode || (c != 0 && owner->phase == TGroup::phPostProcess && toupper(event.keyDown.charScan.charCode) == c)))
             focusLink(event);
     } else if (event.what == evBroadcast && link && (event.message.command == cmReceivedFocus || event.message.command == cmReleasedFocus)) {
-        light = Boolean((link->state & sfFocused) != 0);
+        light = bool((link->state & sfFocused) != 0);
         drawView();
     }
 }
@@ -100,7 +100,7 @@ void* TLabel::read(ipstream& is)
 {
     TStaticText::read(is);
     is >> link;
-    light = False;
+    light =  false;
     return this;
 }
 

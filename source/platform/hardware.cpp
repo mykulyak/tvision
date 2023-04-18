@@ -51,7 +51,7 @@ void THardwareInfo::flushScreen() noexcept { platf->flushScreen(); }
 void THardwareInfo::setUpConsole() noexcept { platf->setUpConsole(); }
 void THardwareInfo::restoreConsole() noexcept { platf->restoreConsole(); }
 
-BOOL THardwareInfo::getPendingEvent(TEvent& event, Boolean mouse) noexcept
+BOOL THardwareInfo::getPendingEvent(TEvent& event, bool mouse) noexcept
 {
     for (size_t i = 0; i < eventCount; ++i)
         if (!!(eventQ[i].what & evMouse) == mouse) {
@@ -59,25 +59,25 @@ BOOL THardwareInfo::getPendingEvent(TEvent& event, Boolean mouse) noexcept
             for (; i + 1 < eventCount; ++i)
                 eventQ[i] = eventQ[i + 1];
             --eventCount;
-            return True;
+            return true;
         }
-    return False;
+    return  false;
 }
 
 BOOL THardwareInfo::getMouseEvent(MouseEventType& event) noexcept
 {
     TEvent ev;
-    if (getPendingEvent(ev, True)) {
+    if (getPendingEvent(ev, true)) {
         event = ev.mouse;
-        return True;
+        return true;
     }
-    return False;
+    return  false;
 }
 
 BOOL THardwareInfo::getKeyEvent(TEvent& event) noexcept
 {
     readEvents();
-    if (getPendingEvent(event, False)) {
+    if (getPendingEvent(event,  false)) {
         if (event.what & evKeyboard) {
             if (event.keyDown.keyCode == kbIns)
                 insertState = !insertState;
@@ -86,7 +86,7 @@ BOOL THardwareInfo::getKeyEvent(TEvent& event) noexcept
         }
         return event.what != evNothing;
     }
-    return False;
+    return  false;
 }
 
 void THardwareInfo::readEvents() noexcept

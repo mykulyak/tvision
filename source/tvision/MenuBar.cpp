@@ -85,7 +85,7 @@ TRect TMenuBar::getItemRect(TMenuItem* item)
 {
     TRect r(1, 0, 1, 1);
     TMenuItem* p = menu->items;
-    while (True) {
+    while  (true) {
         r.a.x = r.b.x;
         if (p->name != 0)
             r.b.x += cstrlen(p->name) + 2;

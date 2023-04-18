@@ -32,7 +32,7 @@ public:
     TSystemError() noexcept;
     ~TSystemError();
 
-    static Boolean ctrlBreakHit;
+    static bool ctrlBreakHit;
 
     static void suspend() noexcept;
     static void resume() noexcept;
@@ -42,12 +42,12 @@ public:
 #endif
 
 private:
-    static Boolean saveCtrlBreak;
+    static bool saveCtrlBreak;
 
 #if !defined(__FLAT__)
     static ushort sysColorAttr;
     static ushort sysMonoAttr;
-    static Boolean sysErrActive;
+    static bool sysErrActive;
 
     static void swapStatusLine(TDrawBuffer&);
     static ushort selectKey();
@@ -56,7 +56,7 @@ private:
     static const char* const errorString[22];
     static const char* sRetryOrCancel;
 
-    static Boolean inIDE;
+    static bool inIDE;
 
     static void interrupt Int24PMThunk();
     static void setupDPMI();

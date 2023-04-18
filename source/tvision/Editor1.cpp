@@ -163,11 +163,11 @@ TEditor::TEditor(const TRect& bounds,
     , vScrollBar(aVScrollBar)
     , indicator(aIndicator)
     , bufSize(aBufSize)
-    , canUndo(True)
-    , selecting(False)
-    , overwrite(False)
-    , autoIndent(True)
-    , encSingleByte(False)
+    , canUndo (true)
+    , selecting (false)
+    , overwrite (false)
+    , autoIndent (true)
+    , encSingleByte (false)
     , lockCount(0)
     , updateFlags(0)
     , keyState(0)
@@ -178,11 +178,11 @@ TEditor::TEditor(const TRect& bounds,
     showCursor();
     initBuffer();
     if (buffer != 0)
-        isValid = True;
+        isValid = true;
     else {
         editorDialog(edOutOfMemory);
         bufSize = 0;
-        isValid = False;
+        isValid =  false;
     }
     setBufLen(0);
 }
@@ -246,16 +246,16 @@ void TEditor::nextChar(TStringView s, uint& p, uint& width)
     }
 }
 
-Boolean TEditor::formatCell(TSpan<TScreenCell> cells, uint& width,
+bool TEditor::formatCell(TSpan<TScreenCell> cells, uint& width,
     TStringView text, uint& p, TColorAttr color)
 {
     size_t p_ = 0, w_ = width;
     if (TText::drawOne(cells, w_, text, p_, color)) {
         p += p_;
         width = w_;
-        return True;
+        return true;
     }
-    return False;
+    return  false;
 }
 
 int TEditor::charPos(uint p, uint target)
@@ -287,18 +287,18 @@ uint TEditor::charPtr(uint p, int target)
     return p;
 }
 
-Boolean TEditor::clipCopy()
+bool TEditor::clipCopy()
 {
-    Boolean res = False;
+    bool res =  false;
     if (clipboard != this) {
         if (clipboard != 0)
             res = clipboard->insertFrom(this);
         else {
             TClipboard::setText(TStringView(buffer + bufPtr(selStart),
                 selEnd - selStart));
-            res = True;
+            res = true;
         }
-        selecting = False;
+        selecting =  false;
         update(ufUpdate);
     }
     return res;
@@ -306,7 +306,7 @@ Boolean TEditor::clipCopy()
 
 void TEditor::clipCut()
 {
-    if (clipCopy() == True)
+    if (clipCopy() == true)
         deleteSelect();
 }
 
@@ -347,28 +347,28 @@ void TEditor::convertEvent(TEvent& event)
     }
 }
 
-Boolean TEditor::cursorVisible()
+bool TEditor::cursorVisible()
 {
-    return Boolean((curPos.y >= delta.y) && (curPos.y < delta.y + size.y));
+    return bool((curPos.y >= delta.y) && (curPos.y < delta.y + size.y));
 }
 
 void TEditor::deleteRange(uint startPtr,
     uint endPtr,
-    Boolean delSelect)
+    bool delSelect)
 {
-    if (hasSelection() == True && delSelect == True)
+    if (hasSelection() == true && delSelect == true)
         deleteSelect();
     else {
-        setSelect(curPtr, endPtr, True);
+        setSelect(curPtr, endPtr, true);
         deleteSelect();
-        setSelect(startPtr, curPtr, False);
+        setSelect(startPtr, curPtr,  false);
         deleteSelect();
     }
 }
 
 void TEditor::deleteSelect()
 {
-    insertText(0, 0, False);
+    insertText(0, 0,  false);
 }
 
 void TEditor::doneBuffer()
@@ -381,7 +381,7 @@ void TEditor::doSearchReplace()
     int i;
     do {
         i = cmCancel;
-        if (search(findStr, editorFlags) == False) {
+        if (search(findStr, editorFlags) ==  false) {
             if ((editorFlags & (efReplaceAll | efDoReplace)) != (efReplaceAll | efDoReplace))
                 editorDialog(edSearchFailed);
         } else if ((editorFlags & efDoReplace) != 0) {
@@ -392,8 +392,8 @@ void TEditor::doSearchReplace()
             }
             if (i == cmYes) {
                 lock();
-                insertText(replaceStr, strlen(replaceStr), False);
-                trackCursor(False);
+                insertText(replaceStr, strlen(replaceStr),  false);
+                trackCursor (false);
                 unlock();
             }
         }
@@ -484,10 +484,10 @@ void TEditor::handleEvent(TEvent& event)
 {
     TView::handleEvent(event);
 
-    Boolean centerCursor = Boolean(!cursorVisible());
+    bool centerCursor = bool(!cursorVisible());
     uchar selectMode = 0;
 
-    if (selecting == True || (event.what & evMouse && (event.mouse.controlKeyState & kbShift) != 0) || (event.what & evKeyboard && (event.keyDown.controlKeyState & kbShift) != 0))
+    if (selecting == true || (event.what & evMouse && (event.mouse.controlKeyState & kbShift) != 0) || (event.what & evKeyboard && (event.keyDown.controlKeyState & kbShift) != 0))
         selectMode = smExtend;
 
     convertEvent(event);
@@ -551,14 +551,14 @@ void TEditor::handleEvent(TEvent& event)
                 while (textEvent(event, TSpan<char>(buf, sizeof(buf)), length))
                     insertMultilineText(buf, (uint)length);
             } else {
-                if (overwrite == True && hasSelection() == False)
+                if (overwrite == true && hasSelection() ==  false)
                     if (curPtr != lineEnd(curPtr))
                         selEnd = nextChar(curPtr);
 
                 if (encSingleByte)
-                    insertText(&event.keyDown.charScan.charCode, 1, False);
+                    insertText(&event.keyDown.charScan.charCode, 1,  false);
                 else
-                    insertText(event.keyDown.text, event.keyDown.textLength, False);
+                    insertText(event.keyDown.text, event.keyDown.textLength,  false);
             }
 
             trackCursor(centerCursor);
@@ -639,25 +639,25 @@ void TEditor::handleEvent(TEvent& event)
                 newLine();
                 break;
             case cmBackSpace:
-                deleteRange(prevChar(curPtr), curPtr, True);
+                deleteRange(prevChar(curPtr), curPtr, true);
                 break;
             case cmDelChar:
-                deleteRange(curPtr, nextChar(curPtr), True);
+                deleteRange(curPtr, nextChar(curPtr), true);
                 break;
             case cmDelWord:
-                deleteRange(curPtr, nextWord(curPtr), False);
+                deleteRange(curPtr, nextWord(curPtr),  false);
                 break;
             case cmDelWordLeft:
-                deleteRange(prevWord(curPtr), curPtr, False);
+                deleteRange(prevWord(curPtr), curPtr,  false);
                 break;
             case cmDelStart:
-                deleteRange(lineStart(curPtr), curPtr, False);
+                deleteRange(lineStart(curPtr), curPtr,  false);
                 break;
             case cmDelEnd:
-                deleteRange(curPtr, lineEnd(curPtr), False);
+                deleteRange(curPtr, lineEnd(curPtr),  false);
                 break;
             case cmDelLine:
-                deleteRange(lineStart(curPtr), nextLine(curPtr), False);
+                deleteRange(lineStart(curPtr), nextLine(curPtr),  false);
                 break;
             case cmInsMode:
                 toggleInsMode();
@@ -669,7 +669,7 @@ void TEditor::handleEvent(TEvent& event)
                 hideSelect();
                 break;
             case cmIndentMode:
-                autoIndent = Boolean(!autoIndent);
+                autoIndent = bool(!autoIndent);
                 break;
             case cmSelectAll:
                 setCurPtr(0, selectMode);

@@ -12,12 +12,12 @@ public:
 
     virtual void draw();
     virtual TPalette& getPalette() const;
-    virtual void setState(ushort, Boolean);
-    void setValue(const TPoint&, Boolean);
+    virtual void setState(ushort, bool);
+    void setValue(const TPoint&, bool);
 
 protected:
     TPoint location;
-    Boolean modified;
+    bool modified;
 
 private:
     static const char dragFrame;

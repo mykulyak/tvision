@@ -20,7 +20,7 @@ TChBackground::TChBackground(TBackground* b)
     input->focus();
 }
 
-Boolean TChBackground::valid(ushort command)
+bool TChBackground::valid(ushort command)
 {
     if (TDialog::valid(command)) {
         if (background && command == cmOK) {
@@ -29,9 +29,9 @@ Boolean TChBackground::valid(ushort command)
                 background->pattern = pattern;
                 background->drawView();
             }
-            return False; // Keep dialog open.
+            return  false; // Keep dialog open.
         }
-        return True;
+        return true;
     }
-    return False;
+    return  false;
 }

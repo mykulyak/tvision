@@ -52,7 +52,7 @@ TColorDialog::TColorDialog(TPalette* aPalette, TColorGroup* aGroups) noexcept
 
     insert(new TButton(TRect(36, 15, 46, 17), okText, cmOK, bfDefault));
     insert(new TButton(TRect(48, 15, 58, 17), cancelText, cmCancel, bfNormal));
-    selectNext(False);
+    selectNext (false);
 
     if (pal != 0)
         setData(pal);

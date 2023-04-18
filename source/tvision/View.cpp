@@ -26,9 +26,9 @@ const char* const TView::name = "TView";
 
 TPoint shadowSize = { 2, 1 };
 uchar shadowAttr = 0x08;
-Boolean TView::showMarkers = False;
+bool TView::showMarkers =  false;
 uchar TView::errorAttr = 0xCF;
-Boolean TView::commandSetChanged = False;
+bool TView::commandSetChanged =  false;
 
 extern TView* TheTopView;
 
@@ -72,7 +72,7 @@ void TView::awaken()
 
 void TView::blockCursor()
 {
-    setState(sfCursorIns, True);
+    setState(sfCursorIns, true);
 }
 
 static inline int range(int val, int min, int max)
@@ -161,9 +161,9 @@ void TView::clearEvent(TEvent& event) noexcept
     event.message.infoPtr = this;
 }
 
-Boolean TView::commandEnabled(ushort command) noexcept
+bool TView::commandEnabled(ushort command) noexcept
 {
-    return Boolean((command > 255) || curCommandSet.has(command));
+    return bool((command > 255) || curCommandSet.has(command));
 }
 
 ushort TView::dataSize()
@@ -173,13 +173,13 @@ ushort TView::dataSize()
 
 void TView::disableCommands(TCommandSet& commands) noexcept
 {
-    commandSetChanged = Boolean(commandSetChanged || !(curCommandSet & commands).isEmpty());
+    commandSetChanged = bool(commandSetChanged || !(curCommandSet & commands).isEmpty());
     curCommandSet.disableCmd(commands);
 }
 
 void TView::disableCommand(ushort command) noexcept
 {
-    commandSetChanged = Boolean(commandSetChanged || curCommandSet.has(command));
+    commandSetChanged = bool(commandSetChanged || curCommandSet.has(command));
     curCommandSet.disableCmd(command);
 }
 
@@ -225,7 +225,7 @@ void TView::dragView(TEvent& event,
     TRect saveBounds;
 
     TPoint p, s;
-    setState(sfDragging, True);
+    setState(sfDragging, true);
 
     if (event.what == evMouseDown) {
         if ((mode & dmDragMove) != 0) {
@@ -328,7 +328,7 @@ void TView::dragView(TEvent& event,
         if (event.keyDown.keyCode == kbEsc)
             locate(saveBounds);
     }
-    setState(sfDragging, False);
+    setState(sfDragging,  false);
 }
 
 void TView::draw()
@@ -348,14 +348,14 @@ void TView::drawCursor() noexcept
 void TView::drawHide(TView* lastView)
 {
     drawCursor();
-    drawUnderView(Boolean(state & sfShadow), lastView);
+    drawUnderView(bool(state & sfShadow), lastView);
 }
 
 void TView::drawShow(TView* lastView)
 {
     drawView();
     if ((state & sfShadow) != 0)
-        drawUnderView(True, lastView);
+        drawUnderView (true, lastView);
 }
 
 void TView::drawUnderRect(TRect& r, TView* lastView)
@@ -365,10 +365,10 @@ void TView::drawUnderRect(TRect& r, TView* lastView)
     owner->clip = owner->getExtent();
 }
 
-void TView::drawUnderView(Boolean doShadow, TView* lastView)
+void TView::drawUnderView(bool doShadow, TView* lastView)
 {
     TRect r = getBounds();
-    if (doShadow != False)
+    if (doShadow !=  false)
         r.b += shadowSize;
     drawUnderRect(r, lastView);
 }
@@ -383,13 +383,13 @@ void TView::drawView() noexcept
 
 void TView::enableCommands(TCommandSet& commands) noexcept
 {
-    commandSetChanged = Boolean(commandSetChanged || ((curCommandSet & commands) != commands));
+    commandSetChanged = bool(commandSetChanged || ((curCommandSet & commands) != commands));
     curCommandSet += commands;
 }
 
 void TView::enableCommand(ushort command) noexcept
 {
-    commandSetChanged = Boolean(commandSetChanged || !curCommandSet.has(command));
+    commandSetChanged = bool(commandSetChanged || !curCommandSet.has(command));
     curCommandSet += command;
 }
 
@@ -399,13 +399,13 @@ void TView::endModal(ushort command)
         TopView()->endModal(command);
 }
 
-Boolean TView::eventAvail()
+bool TView::eventAvail()
 {
     TEvent event;
     getEvent(event);
     if (event.what != evNothing)
         putEvent(event);
-    return Boolean(event.what != evNothing);
+    return bool(event.what != evNothing);
 }
 
 TRect TView::getBounds() const noexcept
@@ -418,9 +418,9 @@ ushort TView::execute()
     return cmCancel;
 }
 
-Boolean TView::focus()
+bool TView::focus()
 {
-    Boolean result = True;
+    bool result = true;
 
     if ((state & (sfSelected | sfModal)) == 0) {
         if (owner) {
@@ -429,7 +429,7 @@ Boolean TView::focus()
                 if (!owner->current || (!(owner->current->options & ofValidate) || owner->current->valid(cmReleasedFocus)))
                     select();
                 else
-                    return False;
+                    return  false;
             }
         }
     }
@@ -501,9 +501,9 @@ TPalette& TView::getPalette() const
     return palette;
 }
 
-Boolean TView::getState(ushort aState) const noexcept
+bool TView::getState(ushort aState) const noexcept
 {
-    return Boolean((state & aState) == aState);
+    return bool((state & aState) == aState);
 }
 
 void TView::growTo(short x, short y)
@@ -524,12 +524,12 @@ void TView::handleEvent(TEvent& event)
 void TView::hide()
 {
     if ((state & sfVisible) != 0)
-        setState(sfVisible, False);
+        setState(sfVisible,  false);
 }
 
 void TView::hideCursor()
 {
-    setState(sfCursorVis, False);
+    setState(sfCursorVis,  false);
 }
 
 void TView::keyEvent(TEvent& event)
@@ -591,16 +591,16 @@ TPoint TView::makeLocal(TPoint source) noexcept
     return temp;
 }
 
-Boolean TView::mouseEvent(TEvent& event, ushort mask)
+bool TView::mouseEvent(TEvent& event, ushort mask)
 {
     do {
         getEvent(event);
     } while (!(event.what & (mask | evMouseUp)));
 
-    return Boolean(event.what != evMouseUp);
+    return bool(event.what != evMouseUp);
 }
 
-Boolean TView::mouseInView(TPoint mouse) noexcept
+bool TView::mouseInView(TPoint mouse) noexcept
 {
     mouse = makeLocal(mouse);
     TRect r = getExtent();
@@ -623,7 +623,7 @@ TView* TView::nextView() noexcept
 
 void TView::normalCursor()
 {
-    setState(sfCursorIns, False);
+    setState(sfCursorIns,  false);
 }
 
 TView* TView::prev() noexcept
@@ -693,7 +693,7 @@ void TView::setBounds(const TRect& bounds) noexcept
     size = bounds.b - bounds.a;
 }
 
-void TView::setCmdState(TCommandSet& commands, Boolean enable) noexcept
+void TView::setCmdState(TCommandSet& commands, bool enable) noexcept
 {
     if (enable)
         enableCommands(commands);
@@ -703,7 +703,7 @@ void TView::setCmdState(TCommandSet& commands, Boolean enable) noexcept
 
 void TView::setCommands(TCommandSet& commands) noexcept
 {
-    commandSetChanged = Boolean(commandSetChanged || (curCommandSet != commands));
+    commandSetChanged = bool(commandSetChanged || (curCommandSet != commands));
     curCommandSet = commands;
 }
 
@@ -718,9 +718,9 @@ void TView::setData(void*)
 {
 }
 
-void TView::setState(ushort aState, Boolean enable)
+void TView::setState(ushort aState, bool enable)
 {
-    if (enable == True)
+    if (enable == true)
         state |= aState;
     else
         state &= ~aState;
@@ -732,7 +732,7 @@ void TView::setState(ushort aState, Boolean enable)
     case sfVisible:
         if ((owner->state & sfExposed) != 0)
             setState(sfExposed, enable);
-        if (enable == True)
+        if (enable == true)
             drawShow(0);
         else
             drawHide(0);
@@ -744,13 +744,13 @@ void TView::setState(ushort aState, Boolean enable)
         drawCursor();
         break;
     case sfShadow:
-        drawUnderView(True, 0);
+        drawUnderView (true, 0);
         break;
     case sfFocused:
         resetCursor();
         message(owner,
             evBroadcast,
-            (enable == True) ? cmReceivedFocus : cmReleasedFocus,
+            (enable == true) ? cmReceivedFocus : cmReleasedFocus,
             this);
         break;
     }
@@ -766,12 +766,12 @@ TTimerId TView::setTimer(uint timeoutMs, int periodMs)
 void TView::show()
 {
     if ((state & sfVisible) == 0)
-        setState(sfVisible, True);
+        setState(sfVisible, true);
 }
 
 void TView::showCursor()
 {
-    setState(sfCursorVis, True);
+    setState(sfCursorVis, true);
 }
 
 void TView::sizeLimits(TPoint& min, TPoint& max)
@@ -783,7 +783,7 @@ void TView::sizeLimits(TPoint& min, TPoint& max)
         max.x = max.y = INT_MAX;
 }
 
-static Boolean getEventText(TEvent& event, TSpan<char> dest, size_t& length)
+static bool getEventText(TEvent& event, TSpan<char> dest, size_t& length)
 {
     if (event.what == evKeyDown) {
         TStringView text = event.keyDown.textLength ? event.keyDown.getText()
@@ -794,13 +794,13 @@ static Boolean getEventText(TEvent& event, TSpan<char> dest, size_t& length)
         if (!text.empty() && text.size() <= dst.size()) {
             memcpy(dst.data(), text.data(), text.size());
             length += text.size();
-            return True;
+            return true;
         }
     }
-    return False;
+    return  false;
 }
 
-Boolean TView::textEvent(TEvent& event, TSpan<char> dest, size_t& length)
+bool TView::textEvent(TEvent& event, TSpan<char> dest, size_t& length)
 // Fill the 'dest' buffer with text from consecutive events.
 // If 'event' is an evKeyDown, its text is also included in 'dest'.
 // 'length' is set to the number of bytes written into 'dest'.
@@ -819,7 +819,7 @@ Boolean TView::textEvent(TEvent& event, TSpan<char> dest, size_t& length)
         putEvent(event);
     clearEvent(event);
 
-    return Boolean(length != 0);
+    return bool(length != 0);
 }
 
 TView* TView::TopView() noexcept
@@ -834,14 +834,14 @@ TView* TView::TopView() noexcept
     }
 }
 
-Boolean TView::valid(ushort)
+bool TView::valid(ushort)
 {
-    return True;
+    return true;
 }
 
-Boolean TView::containsMouse(TEvent& event) noexcept
+bool TView::containsMouse(TEvent& event) noexcept
 {
-    return Boolean((state & sfVisible) != 0 && mouseInView(event.mouse.where));
+    return bool((state & sfVisible) != 0 && mouseInView(event.mouse.where));
 }
 
 void TView::shutDown()

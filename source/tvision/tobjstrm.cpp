@@ -297,7 +297,7 @@ ipstream::ipstream(std::streambuf* sb) noexcept
 
 ipstream::~ipstream()
 {
-    objs.shouldDelete = False;
+    objs.shouldDelete =  false;
     objs.shutDown();
 }
 

@@ -29,7 +29,7 @@
 
 const char* const TDirCollection::name = "TDirCollection";
 
-Boolean driveValid(char drive) noexcept
+bool driveValid(char drive) noexcept
 {
 #ifdef _WIN32
 #if !defined(__FLAT__)
@@ -51,30 +51,30 @@ Boolean driveValid(char drive) noexcept
         BL // Restore the old drive
             I MOV AH,
         0EH I INT 21H __1 : I XCHG AX, CX // Put the return value into AX
-                            return Boolean(_AX);
+                            return bool(_AX);
 #else
     drive = (char)toupper(drive);
     DWORD mask = 0x01 << (drive - 'A');
-    return (Boolean)(GetLogicalDrives() & mask);
+    return (bool)(GetLogicalDrives() & mask);
 #endif
 #else
     // Unless otherwise necessary, we will emulate there's only one disk:
     // the one returned by getdisk(), which is C by default.
-    return Boolean(drive - 'A' == getdisk());
+    return bool(drive - 'A' == getdisk());
 #endif
 }
 
 #pragma warn.asc
 
-Boolean isDir(const char* str) noexcept
+bool isDir(const char* str) noexcept
 {
     ffblk ff;
-    return Boolean(findfirst(str, &ff, FA_DIREC) == 0 && (ff.ff_attrib & FA_DIREC) != 0);
+    return bool(findfirst(str, &ff, FA_DIREC) == 0 && (ff.ff_attrib & FA_DIREC) != 0);
 }
 
 #define isSeparator(c) (c == '\\' || c == '/')
 
-Boolean pathValid(const char* path) noexcept
+bool pathValid(const char* path) noexcept
 {
     char expPath[MAXPATH];
     strnzcpy(expPath, path, MAXPATH);
@@ -82,7 +82,7 @@ Boolean pathValid(const char* path) noexcept
     int len = strlen(expPath);
 #ifdef _TV_UNIX
     if (len == 1 && isSeparator(expPath[0]))
-        return True; // Root directory is always valid.
+        return true; // Root directory is always valid.
 #else
     if (len <= 3)
         return driveValid(expPath[0]);
@@ -93,7 +93,7 @@ Boolean pathValid(const char* path) noexcept
     return isDir(expPath);
 }
 
-Boolean validFileName(const char* fileName) noexcept
+bool validFileName(const char* fileName) noexcept
 {
 #ifndef __FLAT__
     static const char* const illegalChars = ";,=+<>|\"[] \\";
@@ -109,10 +109,10 @@ Boolean validFileName(const char* fileName) noexcept
     fnsplit(fileName, path, dir, name, ext);
     strcat(path, dir);
     if (*dir != EOS && !pathValid(path))
-        return False;
+        return  false;
     if (strpbrk(name, illegalChars) != 0 || strpbrk(ext + 1, illegalChars) != 0 || strchr(ext + 1, '.') != 0)
-        return False;
-    return True;
+        return  false;
+    return true;
 }
 
 void getCurDir(char* dir, char drive) noexcept
@@ -126,9 +126,9 @@ void getCurDir(char* dir, char drive) noexcept
         strnzcat(dir, "\\", MAXPATH);
 }
 
-Boolean isWild(const char* f) noexcept
+bool isWild(const char* f) noexcept
 {
-    return Boolean(strpbrk(f, "?*") != 0);
+    return bool(strpbrk(f, "?*") != 0);
 }
 
 TStreamable* TDirCollection::build()

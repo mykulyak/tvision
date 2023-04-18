@@ -108,14 +108,14 @@ void TVDemo::getEvent(TEvent& event)
     TWindow* w;
     THelpFile* hFile;
     fpstream* helpStrm;
-    static Boolean helpInUse = False;
+    static bool helpInUse =  false;
 
     TApplication::getEvent(event);
     printEvent(event);
     switch (event.what) {
     case evCommand:
-        if ((event.message.command == cmHelp) && (helpInUse == False)) {
-            helpInUse = True;
+        if ((event.message.command == cmHelp) && (helpInUse ==  false)) {
+            helpInUse = true;
             helpStrm = new fpstream(HELP_FILENAME, std::ios::in | std::ios::binary);
             hFile = new THelpFile(*helpStrm);
             if (!helpStrm) {
@@ -129,7 +129,7 @@ void TVDemo::getEvent(TEvent& event)
                 }
                 clearEvent(event);
             }
-            helpInUse = False;
+            helpInUse =  false;
         } else if (event.message.command == cmVideoMode) {
             int newMode = TScreen::screenMode ^ TDisplay::smFont8x8;
             if ((newMode & TDisplay::smFont8x8) != 0)

@@ -100,11 +100,11 @@ void TTerminal::bufInc(ushort& val)
         val = 0;
 }
 
-Boolean TTerminal::canInsert(ushort amount)
+bool TTerminal::canInsert(ushort amount)
 {
     long T = (queFront < queBack) ? (queFront + amount) : (long(queFront) - bufSize + amount); // cast needed so we get
                                                                                                // signed comparison
-    return Boolean(queBack > T);
+    return bool(queBack > T);
 }
 
 #ifdef __FLAT__
@@ -239,9 +239,9 @@ int TTerminal::do_sputn(const char* s, int count)
     return count;
 }
 
-Boolean TTerminal::queEmpty()
+bool TTerminal::queEmpty()
 {
-    return Boolean(queBack == queFront);
+    return bool(queBack == queFront);
 }
 
 otstream::otstream(TTerminal* tt)

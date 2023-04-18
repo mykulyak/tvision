@@ -128,7 +128,7 @@ public:
     TProgram() noexcept;
     virtual ~TProgram();
 
-    virtual Boolean canMoveFocus();
+    virtual bool canMoveFocus();
     virtual ushort executeDialog(TDialog*, void* data = 0);
     virtual void getEvent(TEvent& event);
     virtual TPalette& getPalette() const;

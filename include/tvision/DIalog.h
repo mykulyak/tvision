@@ -72,7 +72,7 @@ public:
 
     virtual TPalette& getPalette() const;
     virtual void handleEvent(TEvent& event);
-    virtual Boolean valid(ushort command);
+    virtual bool valid(ushort command);
 
 private:
     virtual const char* streamableName() const

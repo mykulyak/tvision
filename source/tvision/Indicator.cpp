@@ -25,7 +25,7 @@ const char* const TIndicator::name = "TIndicator";
 TIndicator::TIndicator(const TRect& bounds) noexcept
     : TView(bounds)
     , location(TPoint())
-    , modified(False)
+    , modified (false)
 {
     growMode = gfGrowLoY | gfGrowHiY;
 }
@@ -63,14 +63,14 @@ TPalette& TIndicator::getPalette() const
     return palette;
 }
 
-void TIndicator::setState(ushort aState, Boolean enable)
+void TIndicator::setState(ushort aState, bool enable)
 {
     TView::setState(aState, enable);
     if (aState == sfDragging)
         drawView();
 }
 
-void TIndicator::setValue(const TPoint& aLocation, Boolean aModified)
+void TIndicator::setValue(const TPoint& aLocation, bool aModified)
 {
     if ((location != aLocation) || (modified != aModified)) {
         location = aLocation;

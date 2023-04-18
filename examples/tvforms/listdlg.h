@@ -63,21 +63,21 @@ public:
     virtual void close();
     void deleteSelection();
     TForm *editingForm();
-    void formOpen( Boolean );
+    void formOpen( bool );
     virtual void handleEvent( TEvent& );
-    Boolean openDataFile( char *, TResourceFile *&, pstream::openmode );
-    Boolean saveList();
-    Boolean saveForm(TDialog *);
+    bool openDataFile( char *, TResourceFile *&, pstream::openmode );
+    bool saveList();
+    bool saveForm(TDialog *);
     void stackOnPrev(TDialog *);
-    virtual Boolean valid( ushort );
+    virtual bool valid( ushort );
 
 
     TDataCollection *dataCollection;
     char *fileName;
     TResourceFile *formDataFile;
-    Boolean isValid;
+    bool isValid;
     TListKeyBox *list;
-    Boolean modified;
+    bool modified;
 };
 
 #endif  // __LISTDLG_H

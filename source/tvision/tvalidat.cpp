@@ -62,15 +62,15 @@ void TValidator::error()
 }
 
 #pragma warn - par
-Boolean TValidator::isValidInput(char* s, Boolean suppressFill)
+bool TValidator::isValidInput(char* s, bool suppressFill)
 {
-    return True;
+    return true;
 }
 
 #pragma warn - par
-Boolean TValidator::isValid(const char* s)
+bool TValidator::isValid(const char* s)
 {
-    return True;
+    return true;
 }
 
 #if !defined(NO_STREAMABLE)
@@ -88,18 +88,18 @@ ushort TValidator::transfer(char* s, void* buffer, TVTransfer flag)
     return 0;
 }
 
-Boolean TValidator::validate(const char* s)
+bool TValidator::validate(const char* s)
 {
     if (!isValid(s)) {
         error();
-        return False;
+        return  false;
     }
-    return True;
+    return true;
 }
 
 // TPXPictureValidator
 
-TPXPictureValidator::TPXPictureValidator(TStringView aPic, Boolean autoFill)
+TPXPictureValidator::TPXPictureValidator(TStringView aPic, bool autoFill)
     : TValidator()
 {
     pic = newStr(aPic);
@@ -107,7 +107,7 @@ TPXPictureValidator::TPXPictureValidator(TStringView aPic, Boolean autoFill)
         options |= voFill;
 
     char s[] = "";
-    if (picture(s, False) != prEmpty)
+    if (picture(s,  false) != prEmpty)
         status = vsSyntax;
 }
 
@@ -145,38 +145,38 @@ void TPXPictureValidator::error()
     messageBox(mfError | mfOKButton, errorMsg, pic);
 }
 
-Boolean TPXPictureValidator::isValidInput(char* s, Boolean suppressFill)
+bool TPXPictureValidator::isValidInput(char* s, bool suppressFill)
 {
-    Boolean doFill = Boolean(((options & voFill) != 0) && !suppressFill);
+    bool doFill = bool(((options & voFill) != 0) && !suppressFill);
 
-    return Boolean((pic == 0) || (picture((char*)s, doFill) != prError));
+    return bool((pic == 0) || (picture((char*)s, doFill) != prError));
 }
 
-Boolean TPXPictureValidator::isValid(const char* s)
+bool TPXPictureValidator::isValid(const char* s)
 {
     char str[256];
 
     strcpy(str, s);
-    return Boolean((pic == 0) || (picture(str, False) == prComplete));
+    return bool((pic == 0) || (picture(str,  false) == prComplete));
 }
 
-Boolean isNumber(char ch)
+bool isNumber(char ch)
 {
-    return Boolean(('0' <= ch) && (ch <= '9'));
+    return bool(('0' <= ch) && (ch <= '9'));
 }
 
-Boolean isLetter(char ch)
+bool isLetter(char ch)
 {
     ch &= 0xdf;
-    return Boolean(('A' <= ch) && (ch <= 'Z'));
+    return bool(('A' <= ch) && (ch <= 'Z'));
 }
 
-Boolean isSpecial(char ch, const char* special)
+bool isSpecial(char ch, const char* special)
 {
     if (memchr(special, ch, strlen(special)) != 0)
-        return True;
+        return true;
     else
-        return False;
+        return  false;
 }
 
 /*
@@ -194,14 +194,14 @@ uchar numChar(char ch, const char* s)
     return n;
 }
 
-Boolean isComplete(TPicResult result)
+bool isComplete(TPicResult result)
 {
-    return Boolean((result == prComplete) || (result == prAmbiguous));
+    return bool((result == prComplete) || (result == prAmbiguous));
 }
 
-Boolean isIncomplete(TPicResult result)
+bool isIncomplete(TPicResult result)
 {
-    return Boolean((result == prIncomplete) || (result == prIncompNoFill));
+    return bool((result == prIncomplete) || (result == prIncompNoFill));
 }
 
 // TPXPictureValidator members
@@ -248,7 +248,7 @@ void TPXPictureValidator::toGroupEnd(int& i, int termCh)
 }
 
 // Find the a comma separator
-Boolean TPXPictureValidator::skipToComma(int termCh)
+bool TPXPictureValidator::skipToComma(int termCh)
 {
     do {
         toGroupEnd(index, termCh);
@@ -256,7 +256,7 @@ Boolean TPXPictureValidator::skipToComma(int termCh)
 
     if (pic[index] == ',')
         index++;
-    return Boolean(index < termCh);
+    return bool(index < termCh);
 }
 
 // Calclate the end of a group
@@ -338,7 +338,7 @@ TPicResult TPXPictureValidator::group(char* input, int inTerm)
 TPicResult TPXPictureValidator::checkComplete(TPicResult rslt, int termCh)
 {
     int j = index;
-    Boolean status = True;
+    bool status = true;
 
     if (isIncomplete(rslt)) {
         // Skip optional pieces
@@ -354,7 +354,7 @@ TPicResult TPXPictureValidator::checkComplete(TPicResult rslt, int termCh)
                 break;
 
             default:
-                status = False;
+                status =  false;
             }
 
         if (j == termCh)
@@ -459,10 +459,10 @@ TPicResult TPXPictureValidator::process(char* input, int termCh)
 {
 
     TPicResult rslt, rProcess;
-    Boolean incomp;
+    bool incomp;
     int oldI, oldJ, incompJ = 0, incompI = 0;
 
-    incomp = False;
+    incomp =  false;
     oldI = index;
     oldJ = jndex;
     do {
@@ -480,7 +480,7 @@ TPicResult TPXPictureValidator::process(char* input, int termCh)
             rProcess = rslt;
 
             if (!incomp && (rslt == prIncomplete)) {
-                incomp = True;
+                incomp = true;
                 incompI = index;
                 incompJ = jndex;
             }
@@ -504,17 +504,17 @@ TPicResult TPXPictureValidator::process(char* input, int termCh)
         return rslt;
 }
 
-Boolean TPXPictureValidator::syntaxCheck()
+bool TPXPictureValidator::syntaxCheck()
 {
 
     int i, len;
     int brkLevel, brcLevel;
 
     if (!pic || (strlen(pic) == 0))
-        return False;
+        return  false;
 
     if (pic[strlen(pic) - 1] == ';')
-        return False;
+        return  false;
 
     i = 0;
     brkLevel = 0;
@@ -542,13 +542,13 @@ Boolean TPXPictureValidator::syntaxCheck()
         i++;
     }
 
-    return Boolean((brkLevel == 0) && (brcLevel == 0));
+    return bool((brkLevel == 0) && (brcLevel == 0));
 }
 
-TPicResult TPXPictureValidator::picture(char* input, Boolean autoFill)
+TPicResult TPXPictureValidator::picture(char* input, bool autoFill)
 {
 
-    Boolean reprocess;
+    bool reprocess;
     TPicResult rslt;
 
     if (!syntaxCheck())
@@ -566,7 +566,7 @@ TPicResult TPXPictureValidator::picture(char* input, Boolean autoFill)
         rslt = prError;
 
     if ((rslt == prIncomplete) && autoFill) {
-        reprocess = False;
+        reprocess =  false;
 
         while ((index < (int)strlen(pic)) && !isSpecial(pic[index], "#?&!@*{}[],")) {
             if (pic[index] == ';')
@@ -575,7 +575,7 @@ TPicResult TPXPictureValidator::picture(char* input, Boolean autoFill)
             input[end] = pic[index];
             input[end + 1] = 0;
             index++;
-            reprocess = True;
+            reprocess = true;
         }
 
         jndex = 0;
@@ -630,14 +630,14 @@ void* TFilterValidator::read(ipstream& is)
 
 #endif
 
-Boolean TFilterValidator::isValid(const char* s)
+bool TFilterValidator::isValid(const char* s)
 {
-    return Boolean(strspn(s, validChars) == strlen(s));
+    return bool(strspn(s, validChars) == strlen(s));
 }
 
-Boolean TFilterValidator::isValidInput(char* s, Boolean suppressFill)
+bool TFilterValidator::isValidInput(char* s, bool suppressFill)
 {
-    return Boolean(strspn(s, validChars) == strlen(s));
+    return bool(strspn(s, validChars) == strlen(s));
 }
 
 void TFilterValidator::error()
@@ -685,16 +685,16 @@ void TRangeValidator::error()
     messageBox(mfError | mfOKButton, errorMsg, min, max);
 }
 
-Boolean TRangeValidator::isValid(const char* s)
+bool TRangeValidator::isValid(const char* s)
 {
     long value;
 
     if (TFilterValidator::isValid(s))
         if (sscanf(s, "%ld", &value) == 1)
             if ((value >= min) && (value <= max))
-                return True;
+                return true;
 
-    return False;
+    return  false;
 }
 
 ushort TRangeValidator::transfer(char* s, void* buffer, TVTransfer flag)
@@ -729,14 +729,14 @@ TLookupValidator::TLookupValidator(StreamableInit s) noexcept
 
 #endif
 
-Boolean TLookupValidator::isValid(const char* s)
+bool TLookupValidator::isValid(const char* s)
 {
     return lookup(s);
 }
 
-Boolean TLookupValidator::lookup(const char* s)
+bool TLookupValidator::lookup(const char* s)
 {
-    return True;
+    return true;
 }
 
 // TStringLookupValidator
@@ -779,14 +779,14 @@ void TStringLookupValidator::error()
     messageBox(mfError | mfOKButton, errorMsg);
 }
 
-static Boolean stringMatch(void* a1, void* a2)
+static bool stringMatch(void* a1, void* a2)
 {
-    return Boolean(strcmp((const char*)a1, (const char*)a2) == 0);
+    return bool(strcmp((const char*)a1, (const char*)a2) == 0);
 }
 
-Boolean TStringLookupValidator::lookup(const char* s)
+bool TStringLookupValidator::lookup(const char* s)
 {
-    return Boolean(strings->firstThat(stringMatch, (void*)s) != 0);
+    return bool(strings->firstThat(stringMatch, (void*)s) != 0);
 }
 
 void TStringLookupValidator::newStringList(TStringCollection* aStrings)

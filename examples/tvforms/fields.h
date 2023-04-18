@@ -26,7 +26,7 @@ class TKeyInputLine : public TInputLine
 public:
 
     TKeyInputLine( const TRect&, int );
-    virtual Boolean valid( ushort );
+    virtual bool valid( ushort );
 
 protected:
 
@@ -66,7 +66,7 @@ public:
     virtual ushort dataSize();
     virtual void getData( void *);
     virtual void setData( void *);
-    virtual Boolean valid( ushort );
+    virtual bool valid( ushort );
     int32_t min;
     int32_t max;
 

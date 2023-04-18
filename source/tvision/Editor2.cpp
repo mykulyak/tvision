@@ -72,15 +72,15 @@ void TEditor::detectEOL()
     eolType = eolCRLF;
 }
 
-Boolean TEditor::hasSelection()
+bool TEditor::hasSelection()
 {
-    return Boolean(selStart != selEnd);
+    return bool(selStart != selEnd);
 }
 
 void TEditor::hideSelect()
 {
-    selecting = False;
-    setSelect(curPtr, curPtr, False);
+    selecting =  false;
+    setSelect(curPtr, curPtr,  false);
 }
 
 void TEditor::initBuffer()
@@ -100,33 +100,33 @@ uint TEditor::insertMultilineText(const char* text, uint length)
     size_t i = 0, j = 0;
     do {
         if (text[i] == '\n' || text[i] == '\r') {
-            if (!insertText(&text[j], i - j, False))
+            if (!insertText(&text[j], i - j,  false))
                 return j;
-            if (!insertEOL(False))
+            if (!insertEOL (false))
                 return i;
             if (i + 1 < length && text[i] == '\r' && text[i + 1] == '\n')
                 ++i;
             j = i + 1;
         }
     } while (++i < length);
-    if (!insertText(&text[j], i - j, False))
+    if (!insertText(&text[j], i - j,  false))
         return j;
     return i;
 }
 
-Boolean TEditor::insertBuffer(const char* p,
+bool TEditor::insertBuffer(const char* p,
     uint offset,
     uint length,
-    Boolean allowUndo,
-    Boolean selectText)
+    bool allowUndo,
+    bool selectText)
 {
-    selecting = False;
+    selecting =  false;
     uint selLen = selEnd - selStart;
     if (selLen == 0 && length == 0)
-        return True;
+        return true;
 
     uint delLen = 0;
-    if (allowUndo == True) {
+    if (allowUndo == true) {
         if (curPtr == selStart)
             delLen = selLen;
         else if (selLen > insCount)
@@ -136,13 +136,13 @@ Boolean TEditor::insertBuffer(const char* p,
     ulong newSize = ulong(bufLen + delCount - selLen + delLen) + length;
 
     if (newSize > bufLen + delCount) {
-        Boolean bufferText = Boolean(p >= buffer && p < buffer + bufLen);
+        bool bufferText = bool(p >= buffer && p < buffer + bufLen);
         if (bufferText)
             p -= ptrdiff_t(buffer);
-        if (newSize > UINT_MAX - 0x1Fl || setBufSize(uint(newSize)) == False) {
+        if (newSize > UINT_MAX - 0x1Fl || setBufSize(uint(newSize)) ==  false) {
             editorDialog(edOutOfMemory);
             selEnd = selStart;
-            return False;
+            return  false;
         }
         if (bufferText)
             p += ptrdiff_t(buffer);
@@ -150,7 +150,7 @@ Boolean TEditor::insertBuffer(const char* p,
 
     uint selLines = countLines(&buffer[bufPtr(selStart)], selLen);
     if (curPtr == selEnd) {
-        if (allowUndo == True) {
+        if (allowUndo == true) {
             if (delLen > 0)
                 memmove(
                     &buffer[curPtr + gapLen - delCount - delLen],
@@ -179,35 +179,35 @@ Boolean TEditor::insertBuffer(const char* p,
     drawLine = curPos.y;
     drawPtr = lineStart(curPtr);
     curPos.x = charPos(drawPtr, curPtr);
-    if (selectText == False)
+    if (selectText ==  false)
         selStart = curPtr;
     selEnd = curPtr;
     bufLen += length - selLen;
     gapLen -= length - selLen;
-    if (allowUndo == True) {
+    if (allowUndo == true) {
         delCount += delLen;
         insCount += length;
     }
     limit.y += lines - selLines;
     delta.y = max(0, min(delta.y, limit.y - size.y));
-    if (isClipboard() == False)
-        modified = True;
+    if (isClipboard() ==  false)
+        modified = true;
     setBufSize(bufLen + delCount);
     if (selLines == 0 && lines == 0)
         update(ufLine);
     else
         update(ufView);
-    return True;
+    return true;
 }
 
-Boolean TEditor::insertEOL(Boolean selectText)
+bool TEditor::insertEOL(bool selectText)
 {
     static const char* const eolBytes[] = { "\r\n", "\n", "\r" };
     const char* eol = eolBytes[eolType];
     return insertText(eol, strlen(eol), selectText);
 }
 
-Boolean TEditor::insertFrom(TEditor* editor)
+bool TEditor::insertFrom(TEditor* editor)
 {
     return insertBuffer(editor->buffer,
         editor->bufPtr(editor->selStart),
@@ -216,14 +216,14 @@ Boolean TEditor::insertFrom(TEditor* editor)
         isClipboard());
 }
 
-Boolean TEditor::insertText(const void* text, uint length, Boolean selectText)
+bool TEditor::insertText(const void* text, uint length, bool selectText)
 {
     return insertBuffer((const char*)text, 0, length, canUndo, selectText);
 }
 
-Boolean TEditor::isClipboard()
+bool TEditor::isClipboard()
 {
-    return Boolean(clipboard == this);
+    return bool(clipboard == this);
 }
 
 uint TEditor::lineMove(uint p, int count)
@@ -257,9 +257,9 @@ void TEditor::newLine()
     uint i = p;
     while (i < curPtr && ((buffer[i] == ' ') || (buffer[i] == '\x9')))
         i++;
-    insertEOL(False);
-    if (autoIndent == True)
-        insertText(&buffer[p], i - p, False);
+    insertEOL (false);
+    if (autoIndent == true)
+        insertText(&buffer[p], i - p,  false);
 }
 
 uint TEditor::nextLine(uint p)
@@ -333,7 +333,7 @@ void TEditor::scrollTo(int x, int y)
     }
 }
 
-Boolean TEditor::search(const char* findStr, ushort opts)
+bool TEditor::search(const char* findStr, ushort opts)
 {
     uint pos = curPtr;
     uint i;
@@ -347,15 +347,15 @@ Boolean TEditor::search(const char* findStr, ushort opts)
             i += pos;
             if ((opts & efWholeWordsOnly) == 0 || !((i != 0 && isWordChar(bufChar(i - 1)) != 0) || (i + strlen(findStr) != bufLen && isWordChar(bufChar(i + strlen(findStr)))))) {
                 lock();
-                setSelect(i, i + strlen(findStr), False);
-                trackCursor(Boolean(!cursorVisible()));
+                setSelect(i, i + strlen(findStr),  false);
+                trackCursor(bool(!cursorVisible()));
                 unlock();
-                return True;
+                return true;
             } else
                 pos = i + 1;
         }
     } while (i != sfSearchFailed);
-    return False;
+    return  false;
 }
 
 void TEditor::setBufLen(uint length)
@@ -374,21 +374,21 @@ void TEditor::setBufLen(uint length)
     drawPtr = 0;
     delCount = 0;
     insCount = 0;
-    modified = False;
+    modified =  false;
     detectEOL();
     update(ufView);
 }
 
-Boolean TEditor::setBufSize(uint newSize)
+bool TEditor::setBufSize(uint newSize)
 {
-    return Boolean(newSize <= bufSize);
+    return bool(newSize <= bufSize);
 }
 
-void TEditor::setCmdState(ushort command, Boolean enable)
+void TEditor::setCmdState(ushort command, bool enable)
 {
     TCommandSet s;
     s += command;
-    if (enable == True && (state & sfActive) != 0)
+    if (enable == true && (state & sfActive) != 0)
         enableCommands(s);
     else
         disableCommands(s);
@@ -412,7 +412,7 @@ void TEditor::setCurPtr(uint p, uchar selectMode)
             p = prevLine(nextLine(p));
             anchor = nextLine(prevLine(anchor));
         }
-        setSelect(p, anchor, True);
+        setSelect(p, anchor, true);
     } else {
         if ((selectMode & smDouble) != 0) {
             p = nextWord(p);
@@ -421,11 +421,11 @@ void TEditor::setCurPtr(uint p, uchar selectMode)
             p = nextLine(p);
             anchor = prevLine(nextLine(anchor));
         }
-        setSelect(anchor, p, False);
+        setSelect(anchor, p,  false);
     }
 }
 
-void TEditor::setSelect(uint newStart, uint newEnd, Boolean curStart)
+void TEditor::setSelect(uint newStart, uint newEnd, bool curStart)
 {
     uint p;
     if (curStart != 0)
@@ -463,7 +463,7 @@ void TEditor::setSelect(uint newStart, uint newEnd, Boolean curStart)
     update(flags);
 }
 
-void TEditor::setState(ushort aState, Boolean enable)
+void TEditor::setState(ushort aState, bool enable)
 {
     TView::setState(aState, enable);
     switch (aState) {
@@ -478,7 +478,7 @@ void TEditor::setState(ushort aState, Boolean enable)
         break;
 
     case sfExposed:
-        if (enable == True)
+        if (enable == true)
             unlock();
     }
 }
@@ -486,25 +486,25 @@ void TEditor::setState(ushort aState, Boolean enable)
 void TEditor::startSelect()
 {
     hideSelect();
-    selecting = True;
+    selecting = true;
 }
 
 void TEditor::toggleEncoding()
 {
-    encSingleByte = Boolean(!encSingleByte);
+    encSingleByte = bool(!encSingleByte);
     updateFlags |= ufView;
-    setSelect(selStart, selEnd, Boolean(curPtr < selEnd));
+    setSelect(selStart, selEnd, bool(curPtr < selEnd));
 }
 
 void TEditor::toggleInsMode()
 {
-    overwrite = Boolean(!overwrite);
-    setState(sfCursorIns, Boolean(!getState(sfCursorIns)));
+    overwrite = bool(!overwrite);
+    setState(sfCursorIns, bool(!getState(sfCursorIns)));
 }
 
-void TEditor::trackCursor(Boolean center)
+void TEditor::trackCursor(bool center)
 {
-    if (center == True)
+    if (center == true)
         scrollTo(curPos.x - size.x + 1, curPos.y - size.y / 2);
     else
         scrollTo(max(curPos.x - size.x + 1, min(delta.x, curPos.x)),
@@ -519,7 +519,7 @@ void TEditor::undo()
         uint length = delCount;
         delCount = 0;
         insCount = 0;
-        insertBuffer(buffer, curPtr + gapLen - length, length, False, True);
+        insertBuffer(buffer, curPtr + gapLen - length, length,  false, true);
     }
 }
 
@@ -541,20 +541,20 @@ void TEditor::update(uchar aFlags)
 
 void TEditor::updateCommands()
 {
-    setCmdState(cmUndo, Boolean(delCount != 0 || insCount != 0));
-    if (isClipboard() == False) {
+    setCmdState(cmUndo, bool(delCount != 0 || insCount != 0));
+    if (isClipboard() ==  false) {
         setCmdState(cmCut, hasSelection());
         setCmdState(cmCopy, hasSelection());
         setCmdState(cmPaste,
-            Boolean(clipboard == 0 || clipboard->hasSelection()));
+            bool(clipboard == 0 || clipboard->hasSelection()));
     }
     setCmdState(cmClear, hasSelection());
-    setCmdState(cmFind, True);
-    setCmdState(cmReplace, True);
-    setCmdState(cmSearchAgain, True);
+    setCmdState(cmFind, true);
+    setCmdState(cmReplace, true);
+    setCmdState(cmSearchAgain, true);
 }
 
-Boolean TEditor::valid(ushort)
+bool TEditor::valid(ushort)
 {
     return isValid;
 }
@@ -576,22 +576,22 @@ void* TEditor::read(ipstream& is)
         >> bufSize;
     uchar temp;
     is >> temp;
-    canUndo = Boolean(temp);
+    canUndo = bool(temp);
     is >> temp;
     eolType = EOLTypes(temp);
     is >> temp;
-    encSingleByte = Boolean(temp);
-    selecting = False;
-    overwrite = False;
-    autoIndent = True;
+    encSingleByte = bool(temp);
+    selecting =  false;
+    overwrite =  false;
+    autoIndent = true;
     lockCount = 0;
     updateFlags = 0;
     keyState = 0;
     initBuffer();
     if (buffer != 0)
-        isValid = True;
+        isValid = true;
     else {
-        isValid = False;
+        isValid =  false;
         TEditor::editorDialog(edOutOfMemory, 0);
         bufSize = 0;
     }

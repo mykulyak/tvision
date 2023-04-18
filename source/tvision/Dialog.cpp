@@ -85,10 +85,10 @@ void TDialog::handleEvent(TEvent& event)
     }
 }
 
-Boolean TDialog::valid(ushort command)
+bool TDialog::valid(ushort command)
 {
     if (command == cmCancel)
-        return True;
+        return true;
     else
         return TGroup::valid(command);
 }

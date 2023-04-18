@@ -258,7 +258,7 @@ void TCluster::handleEvent(TEvent& event)
     }
 }
 
-void TCluster::setButtonState(uint32_t aMask, Boolean enable)
+void TCluster::setButtonState(uint32_t aMask, bool enable)
 {
     if (!enable)
         enableMask &= ~aMask;
@@ -281,21 +281,21 @@ void TCluster::setData(void* rec)
     drawView();
 }
 
-void TCluster::setState(ushort aState, Boolean enable)
+void TCluster::setState(ushort aState, bool enable)
 {
     TView::setState(aState, enable);
     if (aState == sfSelected)
         drawView();
 }
 
-Boolean TCluster::mark(int)
+bool TCluster::mark(int)
 {
-    return False;
+    return  false;
 }
 
 uchar TCluster::multiMark(int item)
 {
-    return (uchar)(mark(item) == True);
+    return (uchar)(mark(item) == true);
 }
 
 void TCluster::movedTo(int)
@@ -351,7 +351,7 @@ int TCluster::row(int item)
     return item % size.y;
 }
 
-Boolean TCluster::buttonState(int item)
+bool TCluster::buttonState(int item)
 {
     // #if !defined(__FLAT__)
     //     ushort maskLo = enableMask & 0xffff;
@@ -381,7 +381,7 @@ Boolean TCluster::buttonState(int item)
     //         MOV     AL,1
     //     }
     // __3:
-    //     return Boolean(_AL);
+    //     return bool(_AL);
     // #else
     if (item < 32) {
         uint32_t mask = 1;
@@ -390,11 +390,11 @@ Boolean TCluster::buttonState(int item)
             mask <<= 1;
 
         if (enableMask & mask)
-            return True;
+            return true;
         else
-            return False;
+            return  false;
     } else
-        return False;
+        return  false;
     // #endif
 }
 
@@ -413,7 +413,7 @@ void* TCluster::read(ipstream& is)
 
     setCursor(2, 0);
     showCursor();
-    setButtonState(0, True);
+    setButtonState(0, true);
     return this;
 }
 

@@ -93,7 +93,7 @@ void THelpTopic::readParagraphs(ipstream& s)
         (*pp)->text = new char[size + 1];
         (*pp)->size = (ushort)size;
         s >> temp;
-        (*pp)->wrap = Boolean(temp);
+        (*pp)->wrap = bool(temp);
         s.readBytes((*pp)->text, (*pp)->size);
         (*pp)->text[(*pp)->size] = '\0';
         pp = &((*pp)->next);
@@ -207,7 +207,7 @@ void THelpTopic::getCrossRef(int i, TPoint& loc, uchar& length,
             p = p->next;
             curOffset = 0;
         }
-    } while (True);
+    } while  (true);
 }
 
 TStringView THelpTopic::getLine(int line) noexcept
@@ -338,12 +338,12 @@ void THelpTopic::writeCrossRefs(opstream& s)
         }
 }
 
-Boolean isBlank(char ch) noexcept
+bool isBlank(char ch) noexcept
 {
     if (isspace((uchar)ch))
-        return True;
+        return true;
     else
-        return False;
+        return  false;
 }
 
 static int scan(char* p, int offset, int size, char c) noexcept
@@ -362,14 +362,14 @@ static int scan(char* p, int offset, int size, char c) noexcept
     }
 }
 
-TStringView THelpTopic::wrapText(char* text, int size, int& offset, Boolean wrap) noexcept
+TStringView THelpTopic::wrapText(char* text, int size, int& offset, bool wrap) noexcept
 {
     int i = scan(text, offset, size, '\n');
     if (i + offset > size)
         i = size - offset;
     if (wrap) {
         size_t l, w;
-        TText::scroll(TStringView(&text[offset], i), width, False, l, w);
+        TText::scroll(TStringView(&text[offset], i), width,  false, l, w);
         if (int(l) < i) {
             int j = l + offset;
             int k = j;
@@ -494,13 +494,13 @@ THelpFile::THelpFile(iopstream& s)
         indexPos = 12;
         s.seekg(indexPos);
         index = new THelpIndex;
-        modified = True;
+        modified = true;
     } else {
         s.seekg(8);
         s >> indexPos;
         s.seekg(indexPos);
         s >> index;
-        modified = False;
+        modified =  false;
     }
     stream = &s;
 }
@@ -509,7 +509,7 @@ THelpFile::~THelpFile(void)
 {
     int32_t magic, size;
 
-    if (modified == True) {
+    if (modified == true) {
         stream->seekp(indexPos);
         *stream << index;
         stream->seekp(0);
@@ -549,7 +549,7 @@ THelpTopic* THelpFile::invalidTopic()
     para = new TParagraph;
     para->text = newStr(invalidContext);
     para->size = strlen(invalidContext);
-    para->wrap = False;
+    para->wrap =  false;
     para->next = 0;
     topic->addParagraph(para);
     return topic;
@@ -558,7 +558,7 @@ THelpTopic* THelpFile::invalidTopic()
 void THelpFile::recordPositionInIndex(int i)
 {
     index->add(i, indexPos);
-    modified = True;
+    modified = true;
 }
 
 void THelpFile::putTopic(THelpTopic* topic)
@@ -566,7 +566,7 @@ void THelpFile::putTopic(THelpTopic* topic)
     stream->seekp(indexPos);
     *stream << topic;
     indexPos = stream->tellp();
-    modified = True;
+    modified = true;
 }
 
 void notAssigned(opstream&, int)

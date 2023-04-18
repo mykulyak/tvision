@@ -23,9 +23,9 @@ public:
     void removeView(TView* p) noexcept;
     void resetCurrent();
     void setCurrent(TView* p, selectMode mode);
-    void selectNext(Boolean forwards);
-    TView* firstThat(Boolean (*func)(TView*, void*), void* args);
-    Boolean focusNext(Boolean forwards);
+    void selectNext(bool forwards);
+    TView* firstThat(bool (*func)(TView*, void*), void* args);
+    bool focusNext(bool forwards);
     void forEach(void (*func)(TView*, void*), void* args);
     void insert(TView* p) noexcept;
     void insertBefore(TView* p, TView* Target);
@@ -35,7 +35,7 @@ public:
     short indexOf(TView* p) noexcept;
     TView* first() noexcept;
 
-    virtual void setState(ushort aState, Boolean enable);
+    virtual void setState(ushort aState, bool enable);
 
     virtual void handleEvent(TEvent& event);
 
@@ -59,7 +59,7 @@ public:
 
     virtual ushort getHelpCtx();
 
-    virtual Boolean valid(ushort command);
+    virtual bool valid(ushort command);
 
     void freeBuffer() noexcept;
     void getBuffer() noexcept;
@@ -74,9 +74,9 @@ public:
     ushort endState;
 
 private:
-    void focusView(TView* p, Boolean enable);
-    void selectView(TView* p, Boolean enable);
-    TView* findNext(Boolean forwards) noexcept;
+    void focusView(TView* p, bool enable);
+    void selectView(TView* p, bool enable);
+    TView* findNext(bool forwards) noexcept;
 
     virtual const char* streamableName() const
     {

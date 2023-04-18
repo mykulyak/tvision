@@ -61,7 +61,7 @@ TChDirDialog::TChDirDialog(ushort opts, ushort histId) noexcept
         insert(new TButton(TRect(35, 15, 45, 17), helpText, cmHelp, bfNormal));
     if ((opts & cdNoLoadDir) == 0)
         setUpDialog();
-    selectNext(False);
+    selectNext (false);
 }
 
 ushort TChDirDialog::dataSize()
@@ -154,10 +154,10 @@ static int changeDir(const char* path)
     return chdir(path);
 }
 
-Boolean TChDirDialog::valid(ushort command)
+bool TChDirDialog::valid(ushort command)
 {
     if (command != cmOK)
-        return True;
+        return true;
 
     char path[MAXPATH];
     strcpy(path, dirInput->data);
@@ -171,9 +171,9 @@ Boolean TChDirDialog::valid(ushort command)
         os << invalidText << ": '" << path << "'." << std::ends;
         buf[sizeof(buf) - 1] = '\0';
         messageBox(buf, mfError | mfOKButton);
-        return False;
+        return  false;
     }
-    return True;
+    return true;
 }
 
 #if !defined(NO_STREAMABLE)

@@ -33,15 +33,15 @@
 TEvent TEventQueue::eventQueue[eventQSize] = { { 0 } };
 TEvent* TEventQueue::eventQHead = TEventQueue::eventQueue;
 TEvent* TEventQueue::eventQTail = TEventQueue::eventQueue;
-Boolean TEventQueue::mouseIntFlag = False;
+bool TEventQueue::mouseIntFlag =  false;
 ushort TEventQueue::eventCount = 0;
 #endif
 
 ushort TEventQueue::downTicks = 0;
 
-Boolean TEventQueue::mouseEvents = False;
-Boolean TEventQueue::mouseReverse = False;
-Boolean TEventQueue::pendingMouseUp = False;
+bool TEventQueue::mouseEvents =  false;
+bool TEventQueue::mouseReverse =  false;
+bool TEventQueue::pendingMouseUp =  false;
 ushort TEventQueue::doubleDelay = 8;
 ushort TEventQueue::repeatDelay = 8;
 ushort TEventQueue::autoTicks = 0;
@@ -60,7 +60,7 @@ size_t TEventQueue::pasteTextIndex = 0;
 TEvent TEventQueue::keyEventQueue[keyEventQSize] = { { 0 } };
 size_t TEventQueue::keyEventCount = 0;
 size_t TEventQueue::keyEventIndex = 0;
-Boolean TEventQueue::keyPasteState = False;
+bool TEventQueue::keyPasteState =  false;
 
 TEventQueue::TEventQueue() noexcept
 {
@@ -71,9 +71,9 @@ TEventQueue::TEventQueue() noexcept
 
 void TEventQueue::resume() noexcept
 {
-    if (mouse->present() == False)
+    if (mouse->present() ==  false)
         mouse->resume();
-    if (mouse->present() == False)
+    if (mouse->present() ==  false)
         return;
 
     mouse->getEvent(curMouse);
@@ -85,7 +85,7 @@ void TEventQueue::resume() noexcept
     mouse->registerHandler(0xFFFF, (void (*)())mouseInt);
 #endif
 
-    mouseEvents = True;
+    mouseEvents = true;
     TMouse::setRange(TScreen::screenWidth - 1, TScreen::screenHeight - 1);
 }
 
@@ -103,12 +103,12 @@ TEventQueue::~TEventQueue()
 
 void TEventQueue::getMouseEvent(TEvent& ev) noexcept
 {
-    if (mouseEvents == True) {
-        if (pendingMouseUp == True) {
+    if (mouseEvents == true) {
+        if (pendingMouseUp == true) {
             ev.what = evMouseUp;
             ev.mouse = lastMouse;
             lastMouse.buttons = 0;
-            pendingMouseUp = False;
+            pendingMouseUp =  false;
             return;
         }
         if (!getMouseState(ev))
@@ -131,7 +131,7 @@ void TEventQueue::getMouseEvent(TEvent& ev) noexcept
                 ev.mouse.eventFlags |= meMouseMoved;
                 up.buttons = lastMouse.buttons;
                 lastMouse = up;
-                pendingMouseUp = True;
+                pendingMouseUp = true;
             }
             return;
         }
@@ -186,20 +186,20 @@ void TEventQueue::getMouseEvent(TEvent& ev) noexcept
     ev.what = evNothing;
 }
 
-Boolean TEventQueue::getMouseState(TEvent& ev) noexcept
+bool TEventQueue::getMouseState(TEvent& ev) noexcept
 {
 #if defined(__FLAT__)
     ev.what = evNothing;
 
     if (!THardwareInfo::getMouseEvent(curMouse))
-        return False;
+        return  false;
 
-    if (mouseReverse == True && curMouse.buttons != 0 && curMouse.buttons != 3)
+    if (mouseReverse == true && curMouse.buttons != 0 && curMouse.buttons != 3)
         curMouse.buttons ^= 3;
 
     ev.what = THardwareInfo::getTickCount(); // Temporarily save tick count when event was read.
     ev.mouse = curMouse;
-    return True;
+    return true;
 #else
     disable();
 
@@ -220,7 +220,7 @@ Boolean TEventQueue::getMouseState(TEvent& ev) noexcept
     if (mouseReverse && ev.mouse.buttons != 0 && ev.mouse.buttons != 3)
         ev.mouse.buttons ^= 3;
 
-    return True;
+    return true;
 #endif
 }
 
@@ -259,7 +259,7 @@ void __MOUSEHUGE TEventQueue::mouseInt()
     }
 
     curMouse = tempMouse;
-    mouseIntFlag = True;
+    mouseIntFlag = true;
 
 #if defined(__DPMI16__)
     I POP DS
@@ -311,7 +311,7 @@ void TEventQueue::putPaste(TStringView text) noexcept
     }
 }
 
-Boolean TEventQueue::getPasteEvent(TEvent& ev) noexcept
+bool TEventQueue::getPasteEvent(TEvent& ev) noexcept
 {
     if (pasteText) {
         TSpan<char> text(pasteText + pasteTextIndex,
@@ -323,12 +323,12 @@ Boolean TEventQueue::getPasteEvent(TEvent& ev) noexcept
             ev.keyDown = keyDown;
             memcpy(ev.keyDown.text, text.data(), length);
             pasteTextIndex += length;
-            return True;
+            return true;
         }
         delete[] pasteText;
         pasteText = 0;
     }
-    return False;
+    return  false;
 }
 
 static int isTextEvent(TEvent& ev) noexcept
@@ -354,12 +354,12 @@ void TEventQueue::getKeyOrPasteEvent(TEvent& ev) noexcept
         // If we receive at least X consecutive text events, then this is
         // the beginning of a paste event.
         if (keyEventCount == keyEventQSize && firstNonText == keyEventQSize)
-            keyPasteState = True;
+            keyPasteState = true;
         if (keyPasteState)
             for (int i = 0; i < min(keyEventCount, firstNonText); ++i)
                 keyEventQueue[i].keyDown.controlKeyState |= kbPaste;
         if (keyEventCount < keyEventQSize || firstNonText < keyEventQSize)
-            keyPasteState = False;
+            keyPasteState =  false;
         keyEventIndex = 0;
     }
     if (keyEventCount != 0) {
@@ -370,7 +370,7 @@ void TEventQueue::getKeyOrPasteEvent(TEvent& ev) noexcept
         ev.what = evNothing;
 }
 
-Boolean TEventQueue::readKeyPress(TEvent& ev) noexcept
+bool TEventQueue::readKeyPress(TEvent& ev) noexcept
 {
 #if defined(__FLAT__)
     if (!THardwareInfo::getKeyEvent(ev))
@@ -382,7 +382,7 @@ Boolean TEventQueue::readKeyPress(TEvent& ev) noexcept
     I JNZ keyWaiting;
 
     ev.what = evNothing;
-    return False;
+    return  false;
 
 keyWaiting:
 
@@ -403,7 +403,7 @@ keyWaiting:
             ev.keyDown.textLength = 0;
     }
 #endif
-    return Boolean(ev.what != evNothing);
+    return bool(ev.what != evNothing);
 }
 
 void TEventQueue::waitForEvent(int timeoutMs) noexcept

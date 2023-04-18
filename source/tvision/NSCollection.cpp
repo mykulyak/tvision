@@ -21,7 +21,7 @@ TNSCollection::TNSCollection(ccIndex aLimit, ccIndex aDelta) noexcept
     , count(0)
     , limit(0)
     , delta(aDelta)
-    , shouldDelete(True)
+    , shouldDelete (true)
 {
     setLimit(aLimit);
 }
@@ -31,7 +31,7 @@ TNSCollection::TNSCollection() noexcept
     , count(0)
     , limit(0)
     , delta(0)
-    , shouldDelete(True)
+    , shouldDelete (true)
 {
 }
 
@@ -112,7 +112,7 @@ void TNSCollection::error(ccIndex code, ccIndex)
 void* TNSCollection::firstThat(ccTestFunc Test, void* arg)
 {
     for (ccIndex i = 0; i < count; i++) {
-        if (Test(items[i], arg) == True)
+        if (Test(items[i], arg) == true)
             return items[i];
     }
     return 0;
@@ -121,7 +121,7 @@ void* TNSCollection::firstThat(ccTestFunc Test, void* arg)
 void* TNSCollection::lastThat(ccTestFunc Test, void* arg)
 {
     for (ccIndex i = count; i > 0; i--) {
-        if (Test(items[i - 1], arg) == True)
+        if (Test(items[i - 1], arg) == true)
             return items[i - 1];
     }
     return 0;

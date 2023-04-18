@@ -42,22 +42,22 @@ public:
     ~TButton();
 
     virtual void draw();
-    void drawState(Boolean down);
+    void drawState(bool down);
     virtual TPalette& getPalette() const;
     virtual void handleEvent(TEvent& event);
-    void makeDefault(Boolean enable);
+    void makeDefault(bool enable);
     virtual void press();
-    virtual void setState(ushort aState, Boolean enable);
+    virtual void setState(ushort aState, bool enable);
 
     const char* title;
 
 protected:
     ushort command;
     uchar flags;
-    Boolean amDefault;
+    bool amDefault;
 
 private:
-    void drawTitle(TDrawBuffer&, int, int, TAttrPair, Boolean);
+    void drawTitle(TDrawBuffer&, int, int, TAttrPair, bool);
     void pressButton(TEvent&);
     TRect getActiveRect();
 

@@ -52,7 +52,7 @@ public:
     void getFileName(char* s) noexcept;
     virtual void handleEvent(TEvent& event);
     virtual void setData(void* rec);
-    virtual Boolean valid(ushort command);
+    virtual bool valid(ushort command);
     virtual void shutDown();
     virtual void sizeLimits(TPoint& min, TPoint& max);
 
@@ -64,7 +64,7 @@ public:
 private:
     void readDirectory();
 
-    Boolean checkDirectory(const char*);
+    bool checkDirectory(const char*);
 
     static const char* filesText;
     static const char* openText;

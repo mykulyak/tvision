@@ -13,7 +13,7 @@ public:
     TStringLookupValidator(TStringCollection* aStrings) noexcept;
     ~TStringLookupValidator();
     virtual void error();
-    virtual Boolean lookup(const char* s);
+    virtual bool lookup(const char* s);
 
 protected:
     TStringLookupValidator(StreamableInit) noexcept;

@@ -36,7 +36,7 @@ TFileViewer::TFileViewer(const TRect& bounds,
     : TScroller(bounds, aHScrollBar, aVScrollBar)
 {
     growMode = gfGrowHiX | gfGrowHiY;
-    isValid = True;
+    isValid = true;
     fileName = 0;
     readFile(aFileName);
 }
@@ -84,7 +84,7 @@ void TFileViewer::readFile(const char* fName)
         std::ostrstream os(buf, sizeof(buf) - 1);
         os << "Failed to open file '" << fName << "'." << std::ends;
         messageBox(buf, mfError | mfOKButton);
-        isValid = False;
+        isValid =  false;
     } else {
         char* line = (char*)malloc(maxLineLength);
         size_t lineSize = maxLineLength;
@@ -104,20 +104,20 @@ void TFileViewer::readFile(const char* fName)
             limit.x = max(limit.x, strwidth(line));
             fileLines->insert(newStr(line));
         }
-        isValid = True;
+        isValid = true;
         ::free(line);
     }
     limit.y = fileLines->getCount();
 }
 
-void TFileViewer::setState(ushort aState, Boolean enable)
+void TFileViewer::setState(ushort aState, bool enable)
 {
     TScroller::setState(aState, enable);
     if (enable && (aState & sfExposed))
         setLimit(limit.x, limit.y);
 }
 
-Boolean TFileViewer::valid(ushort)
+bool TFileViewer::valid(ushort)
 {
     return isValid;
 }

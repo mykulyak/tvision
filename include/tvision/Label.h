@@ -29,7 +29,7 @@ public:
 
 protected:
     TView* link;
-    Boolean light;
+    bool light;
 
 private:
     virtual const char* streamableName() const

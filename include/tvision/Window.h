@@ -66,7 +66,7 @@ public:
     virtual const char* getTitle(short maxSize);
     virtual void handleEvent(TEvent& event);
     static TFrame* initFrame(TRect);
-    virtual void setState(ushort aState, Boolean enable);
+    virtual void setState(ushort aState, bool enable);
     virtual void sizeLimits(TPoint& min, TPoint& max);
     TScrollBar* standardScrollBar(ushort aOptions) noexcept;
     virtual void zoom();

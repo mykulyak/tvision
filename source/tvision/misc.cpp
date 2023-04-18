@@ -32,9 +32,9 @@ void* message(TView* receiver, ushort what, ushort command, void* infoPtr)
         return 0;
 }
 
-Boolean lowMemory() noexcept
+bool lowMemory() noexcept
 {
-    return Boolean(TVMemMgr::safetyPoolExhausted());
+    return bool(TVMemMgr::safetyPoolExhausted());
 }
 
 size_t strnzcpy(char* dest, TStringView src, size_t size) noexcept

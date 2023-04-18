@@ -12,7 +12,7 @@ public:
     TMonoSelector(const TRect& bounds) noexcept;
     virtual void draw();
     virtual void handleEvent(TEvent& event);
-    virtual Boolean mark(int item);
+    virtual bool mark(int item);
     void newColor();
     virtual void press(int item);
     void movedTo(int item);

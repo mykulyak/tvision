@@ -69,14 +69,14 @@ void TDirListBox::handleEvent( TEvent& event )
 }
 */
 
-Boolean TDirListBox::isSelected(short item)
+bool TDirListBox::isSelected(short item)
 {
-    return Boolean(item == cur);
+    return bool(item == cur);
 }
 
 void TDirListBox::showDrives(TDirCollection* dirs)
 {
-    Boolean isFirst = True;
+    bool isFirst = true;
     char oldc[5];
     strcpy(oldc, "0:\\");
     for (char c = 'A'; c <= 'Z'; c++) {
@@ -87,7 +87,7 @@ void TDirListBox::showDrives(TDirCollection* dirs)
                     strcpy(s, firstDir);
                     s[strlen(firstDir)] = oldc[0];
                     s[strlen(firstDir) + 1] = EOS;
-                    isFirst = False;
+                    isFirst =  false;
                 } else {
                     strcpy(s, middleDir);
                     s[strlen(middleDir)] = oldc[0];
@@ -148,14 +148,14 @@ void TDirListBox::showDirs(TDirCollection* dirs)
     end = path + unsigned(end - dir) + 1;
     strcpy(end, "*.*");
 
-    Boolean isFirst = True;
+    bool isFirst = true;
     ffblk ff;
     int res = findfirst(path, &ff, FA_DIREC);
     while (res == 0) {
         if ((ff.ff_attrib & FA_DIREC) != 0 && ff.ff_name[0] != '.') {
             if (isFirst) {
                 memcpy(org, firstDir, strlen(firstDir) + 1);
-                isFirst = False;
+                isFirst =  false;
             } else
                 memcpy(org, middleDir, strlen(middleDir) + 1);
             strcpy(name, ff.ff_name);
@@ -190,7 +190,7 @@ void TDirListBox::newDirectory(TStringView str)
     focusItem(cur);
 }
 
-void TDirListBox::setState(ushort nState, Boolean enable)
+void TDirListBox::setState(ushort nState, bool enable)
 {
     TListBox::setState(nState, enable);
     if ((nState & sfFocused) != 0)

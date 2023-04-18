@@ -21,9 +21,9 @@ void TRadioButtons::draw()
     drawMultiBox(button, " \x7");
 }
 
-Boolean TRadioButtons::mark(int item)
+bool TRadioButtons::mark(int item)
 {
-    return Boolean(item == (int)value);
+    return bool(item == (int)value);
 }
 
 void TRadioButtons::press(int item)

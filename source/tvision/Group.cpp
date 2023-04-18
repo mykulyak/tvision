@@ -24,7 +24,7 @@ TView* TGroup::at(short index) noexcept
     return temp;
 }
 
-TView* TGroup::firstThat(Boolean (*func)(TView*, void*), void* args)
+TView* TGroup::firstThat(bool (*func)(TView*, void*), void* args)
 {
     TView* temp = last;
     if (temp == 0)
@@ -32,7 +32,7 @@ TView* TGroup::firstThat(Boolean (*func)(TView*, void*), void* args)
 
     do {
         temp = temp->next;
-        if (func(temp, args) == True)
+        if (func(temp, args) == true)
             return temp;
     } while (temp != last);
     return 0;

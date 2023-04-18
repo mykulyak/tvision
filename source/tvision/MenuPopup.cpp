@@ -20,7 +20,7 @@ const char* const TMenuPopup::name = "TMenuPopup";
 TMenuPopup::TMenuPopup(const TRect& bounds, TMenu* aMenu, TMenuView* aParentMenu) noexcept
     : TMenuBox(bounds, aMenu, aParentMenu)
 {
-    putClickEventOnExit = False;
+    putClickEventOnExit =  false;
 }
 
 ushort TMenuPopup::execute()

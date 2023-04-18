@@ -52,7 +52,7 @@ const char* const TEventViewer::titles[2] = {
 
 void TEventViewer::toggle()
 {
-    stopped = Boolean(!stopped);
+    stopped = bool(!stopped);
     title = titles[stopped];
     if (frame)
         frame->drawView();
@@ -79,7 +79,7 @@ TEventViewer::TEventViewer(const TRect& bounds, ushort aBufSize) noexcept
 
 void TEventViewer::init(ushort aBufSize)
 {
-    stopped = False;
+    stopped =  false;
     eventCount = 0;
     bufSize = aBufSize;
     title = titles[stopped];
@@ -170,10 +170,10 @@ void TEventViewer::printEvent(std::ostream& out, const TEvent& ev)
         out << ",\n"
             << std::hex
             << "    .text = {";
-        Boolean first = True;
+        bool first = true;
         for (int i = 0; i < ev.keyDown.textLength; ++i) {
             if (first)
-                first = False;
+                first =  false;
             else
                 out << ", ";
             out << "0x" << (int)(uchar)ev.keyDown.text[i];

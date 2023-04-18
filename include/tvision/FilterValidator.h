@@ -29,8 +29,8 @@ public:
     TFilterValidator(TStringView aValidChars) noexcept;
     ~TFilterValidator();
     virtual void error();
-    virtual Boolean isValidInput(char* s, Boolean suppressFill);
-    virtual Boolean isValid(const char* s);
+    virtual bool isValidInput(char* s, bool suppressFill);
+    virtual bool isValid(const char* s);
 
 protected:
     TFilterValidator(StreamableInit) noexcept;

@@ -58,7 +58,7 @@ void TFileInputLine::handleEvent(TEvent& event)
             strcat(data, "\\");
             strcat(data, ((TFileDialog*)owner)->wildCard);
         }
-        selectAll(False);
+        selectAll (false);
         drawView();
     }
 }
@@ -76,9 +76,9 @@ TSortedListBox::TSortedListBox(const TRect& bounds,
     setCursor(1, 0);
 }
 
-static Boolean equal(const char* s1, const char* s2, ushort count)
+static bool equal(const char* s1, const char* s2, ushort count)
 {
-    return Boolean(strnicmp(s1, s2, count) == 0);
+    return bool(strnicmp(s1, s2, count) == 0);
 }
 
 void TSortedListBox::handleEvent(TEvent& event)
@@ -178,7 +178,7 @@ TFileInfoPane::TFileInfoPane(const TRect& bounds) noexcept
 
 void TFileInfoPane::draw()
 {
-    Boolean PM;
+    bool PM;
     TDrawBuffer b;
     TColorAttr color;
     struct ftime* time; // mingw has same name as a function name
@@ -218,7 +218,7 @@ void TFileInfoPane::draw()
         itoa(time->ft_year + 1980, buf, 10);
         b.moveStr(size.x - 15, buf, color);
 
-        PM = Boolean(time->ft_hour >= 12);
+        PM = bool(time->ft_hour >= 12);
         time->ft_hour %= 12;
 
         if (time->ft_hour == 0)

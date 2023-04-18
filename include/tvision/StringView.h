@@ -57,7 +57,7 @@ public:
 
     constexpr const char* data() const;
     constexpr size_t size() const;
-    constexpr Boolean empty() const;
+    constexpr bool empty() const;
     constexpr const char& operator[](size_t pos) const;
     constexpr const char& front() const;
     constexpr const char& back() const;
@@ -150,9 +150,9 @@ inline constexpr size_t TStringView::size() const
     return len;
 }
 
-inline constexpr Boolean TStringView::empty() const
+inline constexpr bool TStringView::empty() const
 {
-    return Boolean(size() == 0);
+    return bool(size() == 0);
 }
 
 inline constexpr const char& TStringView::operator[](size_t pos) const
@@ -201,28 +201,28 @@ inline constexpr const char* TStringView::cend() const
 }
 
 #if defined(TVISION_STL) && (__cplusplus >= 201703L || __cpp_lib_constexpr_char_traits)
-inline constexpr Boolean operator==(TStringView a, TStringView b)
+inline constexpr bool operator==(TStringView a, TStringView b)
 {
     return a.size() == b.size()
         ? std::char_traits<char>::compare(a.data(), b.data(), b.size()) == 0
-        : False;
+        :  false;
 }
 #else
-inline Boolean operator==(TStringView a, TStringView b)
+inline bool operator==(TStringView a, TStringView b)
 {
     if (a.size() == b.size())
-        return Boolean(memcmp(a.data(), b.data(), b.size()) == 0);
-    return False;
+        return bool(memcmp(a.data(), b.data(), b.size()) == 0);
+    return  false;
 }
 #endif
 
 #if defined(TVISION_STL) && (__cplusplus >= 201703L || __cpp_lib_constexpr_char_traits)
 constexpr
 #endif
-    inline Boolean
+    inline bool
     operator!=(TStringView a, TStringView b)
 {
-    return Boolean(!(a == b));
+    return bool(!(a == b));
 }
 
 #if defined(TVISION_STL) && __cplusplus >= 201103L

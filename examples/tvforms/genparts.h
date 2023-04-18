@@ -66,7 +66,7 @@ struct TDataRec
     TDescrRec descr;
 };
 
-const Boolean allowDuplicates = False;
+const bool allowDuplicates =  false;
 
 const KeyTypes dataKeyType = longIntKey;
 
@@ -162,7 +162,7 @@ TForm *makeForm()
 
     f->insert( new TButton(r, "Cancel", cmCancel, bfNormal));
 
-    f->selectNext(False);      // Select first field 
+    f->selectNext (false);      // Select first field 
 
     initDescrLengths();
 

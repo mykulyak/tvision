@@ -98,7 +98,7 @@ void TFormApp::openListDialog()
     char fileName[MAXPATH];
     TDialog* listEditor;
     char errorMsg[MAXSIZE];
-    extern Boolean fileExists(char*);
+    extern bool fileExists(char*);
     char name[MAXFILE];
     char drive[MAXDRIVE];
     char dir[MAXDIR];

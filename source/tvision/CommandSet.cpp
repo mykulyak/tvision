@@ -37,9 +37,9 @@ TCommandSet::TCommandSet(const TCommandSet& tc) noexcept
         cmds[i] = tc.cmds[i];
 }
 
-Boolean TCommandSet::has(int cmd) noexcept
+bool TCommandSet::has(int cmd) noexcept
 {
-    return Boolean((cmds[loc(cmd)] & mask(cmd)) != 0);
+    return bool((cmds[loc(cmd)] & mask(cmd)) != 0);
 }
 
 void TCommandSet::disableCmd(int cmd) noexcept
@@ -92,12 +92,12 @@ TCommandSet operator|(const TCommandSet& tc1, const TCommandSet& tc2) noexcept
     return temp;
 }
 
-Boolean TCommandSet::isEmpty() noexcept
+bool TCommandSet::isEmpty() noexcept
 {
     for (int i = 0; i < 32; i++)
         if (cmds[i] != 0)
-            return False;
-    return True;
+            return  false;
+    return true;
 }
 
 int operator==(const TCommandSet& tc1, const TCommandSet& tc2) noexcept

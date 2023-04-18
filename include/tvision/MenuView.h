@@ -42,17 +42,17 @@ protected:
     TMenu* menu;
     TMenuItem* current;
 
-    Boolean putClickEventOnExit;
+    bool putClickEventOnExit;
 
 private:
     void nextItem();
     void prevItem();
-    void trackKey(Boolean findNext);
-    Boolean mouseInOwner(TEvent& e);
-    Boolean mouseInMenus(TEvent& e);
-    void trackMouse(TEvent& e, Boolean& mouseActive);
+    void trackKey(bool findNext);
+    bool mouseInOwner(TEvent& e);
+    bool mouseInMenus(TEvent& e);
+    void trackMouse(TEvent& e, bool& mouseActive);
     TMenuView* topMenu();
-    Boolean updateMenu(TMenu* menu);
+    bool updateMenu(TMenu* menu);
     void do_a_select(TEvent&);
     TMenuItem* findHotKey(TMenuItem* p, TKey key);
 
@@ -99,7 +99,7 @@ inline TMenuView::TMenuView(const TRect& bounds,
     , parentMenu(aParent)
     , menu(aMenu)
     , current(0)
-    , putClickEventOnExit(True)
+    , putClickEventOnExit (true)
 {
     eventMask |= evBroadcast;
 }
@@ -109,7 +109,7 @@ inline TMenuView::TMenuView(const TRect& bounds) noexcept
     , parentMenu(0)
     , menu(0)
     , current(0)
-    , putClickEventOnExit(True)
+    , putClickEventOnExit (true)
 {
     eventMask |= evBroadcast;
 }

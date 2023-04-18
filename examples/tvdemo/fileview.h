@@ -40,7 +40,7 @@ public:
 
     char *fileName;
     TCollection *fileLines;
-    Boolean isValid;
+    bool isValid;
     TFileViewer( const TRect& bounds,
                  TScrollBar *aHScrollBar,
                  TScrollBar *aVScrollBar,
@@ -50,9 +50,9 @@ public:
     TFileViewer( StreamableInit ) : TScroller(streamableInit) { };
     void draw();
     void readFile( const char *fName );
-    void setState( ushort aState, Boolean enable );
+    void setState( ushort aState, bool enable );
     void scrollDraw();
-    Boolean valid( ushort command );
+    bool valid( ushort command );
 
 private:
 

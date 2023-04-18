@@ -24,7 +24,7 @@ public:
     virtual void getData(void* rec);
     virtual void handleEvent(TEvent&);
     virtual void setData(void* rec);
-    virtual Boolean valid(ushort);
+    virtual bool valid(ushort);
     virtual void shutDown();
 
 private:

@@ -67,7 +67,7 @@ struct TReference
 {
 
     char *topic;
-    Boolean resolved;
+    bool resolved;
     Content val;
 
 };

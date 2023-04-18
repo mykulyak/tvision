@@ -30,11 +30,11 @@ __link(RDialog)
 
 #include <cstring>
 
-    // Compares two buffers and returns True if contents are equal
+    // Compares two buffers and returns true if contents are equal
 
-    Boolean compBlocks(void* buf1, void* buf2, ushort bufSize)
+    bool compBlocks(void* buf1, void* buf2, ushort bufSize)
 {
-    return Boolean(memcmp(buf1, buf2, bufSize) == 0);
+    return bool(memcmp(buf1, buf2, bufSize) == 0);
 }
 
 const char* const TForm::name = "TForm";
@@ -69,19 +69,19 @@ TForm::TForm(const TRect& bounds, const char* aTitle)
 {
 }
 
-Boolean TForm::changed()
+bool TForm::changed()
 {
     void* curData;
     ushort compSize;
-    Boolean newForm, result;
+    bool newForm, result;
 
     compSize = dataSize();
     curData = new char[compSize];
     getData(curData);
     if (prevData == NULL)
-        newForm = True;
+        newForm = true;
     else
-        newForm = False;
+        newForm =  false;
 
     if (newForm) {
         // Dummy up empty record for comparison
@@ -89,9 +89,9 @@ Boolean TForm::changed()
         memset(prevData, 0, compSize);
     }
     if (compBlocks(prevData, curData, compSize))
-        result = False;
+        result =  false;
     else
-        result = True;
+        result = true;
 
     delete[] (char*)curData;
     if (newForm) {
@@ -99,9 +99,9 @@ Boolean TForm::changed()
         prevData = NULL;
     }
     if (result)
-        return True;
+        return true;
     else
-        return False;
+        return  false;
 }
 
 void TForm::handleEvent(TEvent& event)
@@ -116,7 +116,7 @@ void TForm::handleEvent(TEvent& event)
     // Respond to SAVE button
     if ((event.what == evCommand) && (event.message.command == cmFormSave)) {
         clearEvent(event);
-        if (changed() == True) {
+        if (changed() == true) {
             if (((TListDialog*)listDialog)->saveForm(this)) {
                 destroy(this);
                 return;
@@ -149,7 +149,7 @@ void TForm::handleEvent(TEvent& event)
     }
 }
 
-Boolean TForm::valid(ushort command)
+bool TForm::valid(ushort command)
 {
     ushort action;
 
@@ -177,8 +177,8 @@ Boolean TForm::valid(ushort command)
         return TDialog::valid(command);
     else {
         if (action != cmCancel)
-            return True;
+            return true;
         else
-            return False;
+            return  false;
     }
 }

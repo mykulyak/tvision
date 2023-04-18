@@ -33,14 +33,14 @@ public:
     ushort getHelpCtx();
     virtual TPalette& getPalette() const;
     virtual void handleEvent(TEvent& event);
-    virtual Boolean mark(int item);
+    virtual bool mark(int item);
     virtual uchar multiMark(int item);
 
     virtual void press(int item);
     virtual void movedTo(int item);
     virtual void setData(void* rec);
-    virtual void setState(ushort aState, Boolean enable);
-    virtual void setButtonState(uint32_t aMask, Boolean enable);
+    virtual void setState(ushort aState, bool enable);
+    virtual void setButtonState(uint32_t aMask, bool enable);
 
 protected:
     uint32_t value;
@@ -65,7 +65,7 @@ protected:
     virtual void* read(ipstream&);
 
 public:
-    Boolean buttonState(int);
+    bool buttonState(int);
 
     static const char* const name;
     static TStreamable* build();

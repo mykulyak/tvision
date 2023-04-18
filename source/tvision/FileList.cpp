@@ -283,7 +283,7 @@ static int getPathDrive(const char* path)
     return -1;
 }
 
-Boolean getHomeDir(char* drive, char* dir) noexcept
+bool getHomeDir(char* drive, char* dir) noexcept
 {
 #ifdef _WIN32
     const char* homedrive = getenv("HOMEDRIVE");
@@ -293,19 +293,19 @@ Boolean getHomeDir(char* drive, char* dir) noexcept
             strnzcpy(drive, homedrive, MAXDRIVE);
         if (dir)
             strnzcpy(dir, homepath, MAXDIR);
-        return True;
+        return true;
     }
 #elif !defined(__BORLANDC__)
     const char* home = getenv("HOME");
     if (home) {
         if (dir)
             strnzcpy(dir, home, MAXDIR);
-        return True;
+        return true;
     }
 #endif
     (void)drive;
     (void)dir;
-    return False;
+    return  false;
 }
 
 void fexpand(char* rpath) noexcept

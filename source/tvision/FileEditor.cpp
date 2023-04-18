@@ -79,19 +79,19 @@ void TFileEditor::initBuffer()
     buffer = (char*)malloc(bufSize);
 }
 
-Boolean TFileEditor::loadFile() noexcept
+bool TFileEditor::loadFile() noexcept
 {
     std::ifstream f(fileName, std::ios::in | std::ios::binary);
     if (!f) {
         setBufLen(0);
-        return True;
+        return true;
     } else {
         f.seekg(0, std::ios::end);
         ulong fSize = f.tellg();
         f.seekg(0);
-        if (fSize > UINT_MAX - 0x1Fl || setBufSize(uint(fSize)) == False) {
+        if (fSize > UINT_MAX - 0x1Fl || setBufSize(uint(fSize)) ==  false) {
             editorDialog(edOutOfMemory);
-            return False;
+            return  false;
         } else {
             if (fSize > INT_MAX) {
                 f.read(&buffer[bufSize - uint(fSize)], INT_MAX);
@@ -102,16 +102,16 @@ Boolean TFileEditor::loadFile() noexcept
                 f.read(&buffer[bufSize - uint(fSize)], uint(fSize));
             if (!f) {
                 editorDialog(edReadError, fileName);
-                return False;
+                return  false;
             } else {
                 setBufLen(uint(fSize));
-                return True;
+                return true;
             }
         }
     }
 }
 
-Boolean TFileEditor::save() noexcept
+bool TFileEditor::save() noexcept
 {
     if (*fileName == EOS)
         return saveAs();
@@ -119,14 +119,14 @@ Boolean TFileEditor::save() noexcept
         return saveFile();
 }
 
-Boolean TFileEditor::saveAs() noexcept
+bool TFileEditor::saveAs() noexcept
 {
-    Boolean res = False;
+    bool res =  false;
     if (editorDialog(edSaveAs, fileName) != cmCancel) {
         fexpand(fileName);
         message(owner, evBroadcast, cmUpdateTitle, 0);
         res = saveFile();
-        if (isClipboard() == True)
+        if (isClipboard() == true)
             *fileName = EOS;
     }
     return res;
@@ -142,7 +142,7 @@ static void writeBlock(std::ofstream& f, char* buf, uint len) noexcept
     }
 }
 
-Boolean TFileEditor::saveFile() noexcept
+bool TFileEditor::saveFile() noexcept
 {
     char drive[MAXDRIVE];
     char dir[MAXDIR];
@@ -160,23 +160,23 @@ Boolean TFileEditor::saveFile() noexcept
 
     if (!f) {
         editorDialog(edCreateError, fileName);
-        return False;
+        return  false;
     } else {
         writeBlock(f, buffer, curPtr);
         writeBlock(f, buffer + curPtr + gapLen, bufLen - curPtr);
 
         if (!f) {
             editorDialog(edWriteError, fileName);
-            return False;
+            return  false;
         } else {
-            modified = False;
+            modified =  false;
             update(ufUpdate);
         }
     }
-    return True;
+    return true;
 }
 
-Boolean TFileEditor::setBufSize(uint newSize)
+bool TFileEditor::setBufSize(uint newSize)
 {
     if (newSize == 0)
         newSize = 0x1000;
@@ -190,7 +190,7 @@ Boolean TFileEditor::setBufSize(uint newSize)
            NULL return value. */
         if ((buffer = (char*)malloc(newSize)) == 0) {
             free(temp);
-            return False;
+            return  false;
         }
         uint n = bufLen - curPtr + delCount;
         uint min = newSize < bufSize ? newSize : bufSize;
@@ -200,29 +200,29 @@ Boolean TFileEditor::setBufSize(uint newSize)
         bufSize = newSize;
         gapLen = bufSize - bufLen;
     }
-    return True;
+    return true;
 }
 
 void TFileEditor::shutDown()
 {
-    setCmdState(cmSave, False);
-    setCmdState(cmSaveAs, False);
+    setCmdState(cmSave,  false);
+    setCmdState(cmSaveAs,  false);
     TEditor::shutDown();
 }
 
 void TFileEditor::updateCommands()
 {
     TEditor::updateCommands();
-    setCmdState(cmSave, True);
-    setCmdState(cmSaveAs, True);
+    setCmdState(cmSave, true);
+    setCmdState(cmSaveAs, true);
 }
 
-Boolean TFileEditor::valid(ushort command)
+bool TFileEditor::valid(ushort command)
 {
     if (command == cmValid)
         return isValid;
     else {
-        if (modified == True) {
+        if (modified == true) {
             int d;
             if (*fileName == EOS)
                 d = edSaveUntitled;
@@ -233,14 +233,14 @@ Boolean TFileEditor::valid(ushort command)
             case cmYes:
                 return save();
             case cmNo:
-                modified = False;
-                return True;
+                modified =  false;
+                return true;
             case cmCancel:
-                return False;
+                return  false;
             }
         }
     }
-    return True;
+    return true;
 }
 
 #if !defined(NO_STREAMABLE)
@@ -262,8 +262,8 @@ void* TFileEditor::read(ipstream& is)
         uint sStart, sEnd, curs;
         is >> sStart >> sEnd >> curs;
         if (isValid && sEnd <= bufLen) {
-            setSelect(sStart, sEnd, Boolean(curs == sStart));
-            trackCursor(True);
+            setSelect(sStart, sEnd, bool(curs == sStart));
+            trackCursor (true);
         }
     }
     return this;

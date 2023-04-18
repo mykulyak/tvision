@@ -23,7 +23,7 @@ public:
 
     virtual void draw();
 
-    virtual Boolean mark(int item);
+    virtual bool mark(int item);
     virtual void press(int item);
 
 private:

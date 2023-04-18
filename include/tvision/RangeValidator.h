@@ -14,7 +14,7 @@ class TRangeValidator : public TFilterValidator {
 public:
     TRangeValidator(int32_t aMin, int32_t aMax) noexcept;
     virtual void error();
-    virtual Boolean isValid(const char* s);
+    virtual bool isValid(const char* s);
     virtual ushort transfer(char* s, void* buffer, TVTransfer flag);
 
 protected:

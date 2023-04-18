@@ -21,9 +21,9 @@ void TCheckBoxes::draw()
     drawMultiBox(button, " X");
 }
 
-Boolean TCheckBoxes::mark(int item)
+bool TCheckBoxes::mark(int item)
 {
-    return Boolean((value & (1 << item)) != 0);
+    return bool((value & (1 << item)) != 0);
 }
 
 void TCheckBoxes::press(int item)

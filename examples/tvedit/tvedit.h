@@ -38,7 +38,7 @@ public:
 
 private:
 
-    TEditWindow *openEditor( const char *fileName, Boolean visible );
+    TEditWindow *openEditor( const char *fileName, bool visible );
     void fileOpen();
     void fileNew();
     void changeDir();

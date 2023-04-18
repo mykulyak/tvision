@@ -45,22 +45,22 @@ TStreamableClass RKeyInputLine(TKeyInputLine::name,
     TKeyInputLine::build,
     __DELTA(TKeyInputLine));
 
-Boolean TKeyInputLine::valid(ushort command)
+bool TKeyInputLine::valid(ushort command)
 {
 
-    Boolean ok;
+    bool ok;
 
-    ok = True;
+    ok = true;
     if ((command != cmCancel) && (command != cmValid))
         if (strlen(data) == 0) {
             select();
             messageBox("This field cannot be empty.", mfError | mfOKButton);
-            ok = False;
+            ok =  false;
         }
     if (ok)
         return TInputLine::valid(command);
     else
-        return False;
+        return  false;
 }
 
 // TNumInputLine
@@ -114,17 +114,17 @@ void TNumInputLine::getData(void* rec)
 void TNumInputLine::setData(void* rec)
 {
     ltoa(*(int32_t*)rec, data, 10);
-    selectAll(True);
+    selectAll (true);
 }
 
-Boolean TNumInputLine::valid(ushort command)
+bool TNumInputLine::valid(ushort command)
 {
     int32_t value;
-    Boolean ok;
+    bool ok;
     char msg[80];
     std::ostrstream os(msg, 80);
 
-    ok = True;
+    ok = true;
     if ((command != cmCancel) && (command != cmValid)) {
         if (strlen(data) == 0)
             strcpy(data, "0");
@@ -133,12 +133,12 @@ Boolean TNumInputLine::valid(ushort command)
             select();
             os << "Number must be from " << min << " to " << max << "." << std::ends;
             messageBox(os.str(), mfError + mfOKButton);
-            selectAll(True);
-            ok = False;
+            selectAll (true);
+            ok =  false;
         }
     }
     if (ok)
         return TInputLine::valid(command);
     else
-        return False;
+        return  false;
 }

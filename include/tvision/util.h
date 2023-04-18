@@ -69,17 +69,17 @@ class TMenu;
 class TMenuItem;
 ushort popupMenu(TPoint where, TMenuItem& aMenu, TGroup* = 0);
 
-Boolean lowMemory() noexcept;
+bool lowMemory() noexcept;
 
 char* newStr(TStringView) noexcept;
 
-Boolean driveValid(char drive) noexcept;
-Boolean isDir(const char* str) noexcept;
-Boolean pathValid(const char* path) noexcept;
-Boolean validFileName(const char* fileName) noexcept;
+bool driveValid(char drive) noexcept;
+bool isDir(const char* str) noexcept;
+bool pathValid(const char* path) noexcept;
+bool validFileName(const char* fileName) noexcept;
 void getCurDir(char* dir, char drive = -1) noexcept;
-Boolean getHomeDir(char* drive, char* dir) noexcept;
-Boolean isWild(const char* f) noexcept;
+bool getHomeDir(char* drive, char* dir) noexcept;
+bool isWild(const char* f) noexcept;
 
 size_t strnzcpy(char* dest, TStringView src, size_t n) noexcept;
 size_t strnzcat(char* dest, TStringView src, size_t n) noexcept;

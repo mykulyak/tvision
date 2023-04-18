@@ -68,7 +68,7 @@ struct TDataRec
     ushort gender;
 };
 
-const Boolean allowDuplicates = True;
+const bool allowDuplicates = true;
 
 const KeyTypes dataKeyType = stringKey;
 
@@ -179,7 +179,7 @@ TForm *makeForm()
     x = formWd - 1 * (buttonWd + 2);
     r = TRect(x, y, x + buttonWd, y + 2);
     f->insert(new TButton(r, "Cancel", cmCancel, bfNormal));
-    f->selectNext(False);      // Select first field 
+    f->selectNext (false);      // Select first field 
 
     return f;
 }

@@ -29,7 +29,7 @@ public:
     TMenuItem* next;
     const char* name;
     ushort command;
-    Boolean disabled;
+    bool disabled;
     TKey keyCode;
     ushort helpCtx;
     union {

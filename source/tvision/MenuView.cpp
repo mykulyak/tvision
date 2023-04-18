@@ -33,7 +33,7 @@ TMenuItem::TMenuItem(TStringView aName,
 {
     name = newStr(aName);
     command = aCommand;
-    disabled = Boolean(!TView::commandEnabled(command));
+    disabled = bool(!TView::commandEnabled(command));
     keyCode = aKey;
     helpCtx = aHelpCtx;
     if (p.empty())
@@ -51,7 +51,7 @@ TMenuItem::TMenuItem(TStringView aName,
 {
     name = newStr(aName);
     command = 0;
-    disabled = Boolean(!TView::commandEnabled(command));
+    disabled = bool(!TView::commandEnabled(command));
     keyCode = aKey;
     helpCtx = aHelpCtx;
     subMenu = aSubMenu;
@@ -76,13 +76,13 @@ TMenu::~TMenu()
     }
 }
 
-void TMenuView::trackMouse(TEvent& e, Boolean& mouseActive)
+void TMenuView::trackMouse(TEvent& e, bool& mouseActive)
 {
     TPoint mouse = makeLocal(e.mouse.where);
     for (current = menu->items; current != 0; current = current->next) {
         TRect r = getItemRect(current);
         if (r.contains(mouse)) {
-            mouseActive = True;
+            mouseActive = true;
             return;
         }
     }
@@ -106,7 +106,7 @@ void TMenuView::prevItem()
     } while (current->next != p);
 }
 
-void TMenuView::trackKey(Boolean findNext)
+void TMenuView::trackKey(bool findNext)
 {
     if (current == 0)
         return;
@@ -119,10 +119,10 @@ void TMenuView::trackKey(Boolean findNext)
     } while (current->name == 0);
 }
 
-Boolean TMenuView::mouseInOwner(TEvent& e)
+bool TMenuView::mouseInOwner(TEvent& e)
 {
     if (parentMenu == 0)
-        return False;
+        return  false;
     else {
         TPoint mouse = parentMenu->makeLocal(e.mouse.where);
         TRect r = parentMenu->getItemRect(parentMenu->current);
@@ -130,13 +130,13 @@ Boolean TMenuView::mouseInOwner(TEvent& e)
     }
 }
 
-Boolean TMenuView::mouseInMenus(TEvent& e)
+bool TMenuView::mouseInMenus(TEvent& e)
 {
     TMenuView* p = parentMenu;
     while (p != 0 && !p->mouseInView(e.mouse.where))
         p = p->parentMenu;
 
-    return Boolean(p != 0);
+    return bool(p != 0);
 }
 
 TMenuView* TMenuView::topMenu()
@@ -153,8 +153,8 @@ enum menuAction { doNothing,
 
 ushort TMenuView::execute()
 {
-    Boolean autoSelect = False;
-    Boolean firstEvent = True;
+    bool autoSelect =  false;
+    bool firstEvent = true;
     menuAction action;
     char ch;
     ushort result = 0;
@@ -164,11 +164,11 @@ ushort TMenuView::execute()
     TMenuItem* lastTargetItem = 0;
     TRect r;
     TEvent e;
-    Boolean mouseActive;
+    bool mouseActive;
 
     current = menu->deflt;
 
-    mouseActive = False;
+    mouseActive =  false;
     do {
         action = doNothing;
         getEvent(e);
@@ -181,7 +181,7 @@ ushort TMenuView::execute()
                 // submenu was just closed by clicking on its name, or when this is
                 // not a menu bar.
                 if (size.y == 1)
-                    autoSelect = (Boolean)(!current || lastTargetItem != current);
+                    autoSelect = (bool)(!current || lastTargetItem != current);
                 // A submenu will close if the MouseDown event takes place on the
                 // parent menu, except when this submenu has just been opened.
                 else if (!firstEvent && mouseInOwner(e))
@@ -238,7 +238,7 @@ ushort TMenuView::execute()
                 // until MouseUp. If mouse drag is then performed and a different
                 // entry is selected, it will open up automatically.
                 else if (mouseActive && !parentMenu && current != lastTargetItem)
-                    autoSelect = True;
+                    autoSelect = true;
             }
             break;
         case evKeyDown:
@@ -246,14 +246,14 @@ ushort TMenuView::execute()
             case kbUp:
             case kbDown:
                 if (size.y != 1)
-                    trackKey(Boolean(ctrlToArrow(e.keyDown.keyCode) == kbDown));
+                    trackKey(bool(ctrlToArrow(e.keyDown.keyCode) == kbDown));
                 else if (e.keyDown.keyCode == kbDown)
-                    autoSelect = True;
+                    autoSelect = true;
                 break;
             case kbLeft:
             case kbRight:
                 if (parentMenu == 0)
-                    trackKey(Boolean(ctrlToArrow(e.keyDown.keyCode) == kbRight));
+                    trackKey(bool(ctrlToArrow(e.keyDown.keyCode) == kbRight));
                 else
                     action = doReturn;
                 break;
@@ -262,12 +262,12 @@ ushort TMenuView::execute()
                 if (size.y != 1) {
                     current = menu->items;
                     if (e.keyDown.keyCode == kbEnd)
-                        trackKey(False);
+                        trackKey (false);
                 }
                 break;
             case kbEnter:
                 if (size.y == 1)
-                    autoSelect = True;
+                    autoSelect = true;
                 action = doSelect;
                 break;
             case kbEsc:
@@ -291,7 +291,7 @@ ushort TMenuView::execute()
                     }
                 } else if (target == this) {
                     if (size.y == 1)
-                        autoSelect = True;
+                        autoSelect = true;
                     action = doSelect;
                     current = p;
                 } else if (parentMenu != target || parentMenu->current != p)
@@ -300,7 +300,7 @@ ushort TMenuView::execute()
             break;
         case evCommand:
             if (e.message.command == cmMenu) {
-                autoSelect = False;
+                autoSelect =  false;
                 lastTargetItem = 0;
                 if (parentMenu != 0)
                     action = doReturn;
@@ -345,7 +345,7 @@ ushort TMenuView::execute()
         } else
             result = 0;
 
-        firstEvent = False;
+        firstEvent =  false;
     } while (action != doReturn);
 
     if (e.what != evNothing && (parentMenu != 0 || e.what == evCommand))
@@ -397,20 +397,20 @@ TPalette& TMenuView::getPalette() const
     return palette;
 }
 
-Boolean TMenuView::updateMenu(TMenu* menu)
+bool TMenuView::updateMenu(TMenu* menu)
 {
-    Boolean res = False;
+    bool res =  false;
     if (menu != 0) {
         for (TMenuItem* p = menu->items; p != 0; p = p->next) {
             if (p->name != 0) {
                 if (p->command == 0) {
-                    if (updateMenu(p->subMenu) == True)
-                        res = True;
+                    if (updateMenu(p->subMenu) == true)
+                        res = true;
                 } else {
-                    Boolean commandState = commandEnabled(p->command);
+                    bool commandState = commandEnabled(p->command);
                     if (p->disabled == commandState) {
-                        p->disabled = Boolean(!commandState);
-                        res = True;
+                        p->disabled = bool(!commandState);
+                        res = true;
                     }
                 }
             }
@@ -543,7 +543,7 @@ TMenu* TMenuView::readMenu(ipstream& is)
         int temp;
         is >> item->command >> temp
             >> item->keyCode >> item->helpCtx;
-        item->disabled = Boolean(temp);
+        item->disabled = bool(temp);
         if (item->name != 0) {
             if (item->command == 0)
                 item->subMenu = readMenu(is);

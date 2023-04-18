@@ -30,7 +30,7 @@ public:
     TBackground* background;
 
 protected:
-    Boolean tileColumnsFirst;
+    bool tileColumnsFirst;
 
 private:
     static const char defaultBkgrnd;
