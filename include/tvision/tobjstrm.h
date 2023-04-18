@@ -13,6 +13,8 @@
  *      All Rights Reserved.
  *
  */
+#ifndef __TOBJSTRM_H
+#define __TOBJSTRM_H
 
 typedef unsigned P_id_type;
 
@@ -26,7 +28,7 @@ typedef unsigned P_id_type;
 /*                                                                         */
 /* ------------------------------------------------------------------------*/
 
-#if !defined(__fLink_def)
+#ifndef __fLink_def
 #define __fLink_def
 
 struct fLink {
@@ -57,7 +59,7 @@ struct fLink {
 
 #endif // __fLink_def
 
-#if defined(Uses_TStreamable) && !defined(__TStreamable)
+#ifndef __TStreamable
 #define __TStreamable
 
 class TStreamable {
@@ -74,7 +76,7 @@ protected:
     virtual void write(opstream&) = 0;
 };
 
-#endif // Uses_TStreamable
+#endif // __TStreamable
 
 /* ------------------------------------------------------------------------*/
 /*                                                                         */
@@ -84,7 +86,7 @@ protected:
 /*                                                                         */
 /* ------------------------------------------------------------------------*/
 
-#if defined(Uses_TStreamableClass) && !defined(__TStreamableClass)
+#ifndef __TStreamableClass
 #define __TStreamableClass
 
 #include <climits>
@@ -112,7 +114,7 @@ private:
     BUILDER build;
 };
 
-#endif // Uses_TStreamableClass
+#endif // __TStreamableClass
 
 /* ------------------------------------------------------------------------*/
 /*                                                                         */
@@ -124,8 +126,10 @@ private:
 /*                                                                         */
 /* ------------------------------------------------------------------------*/
 
-#if defined(Uses_TStreamableTypes) && !defined(__TStreamableTypes)
+#ifndef __TStreamableTypes
 #define __TStreamableTypes
+
+#include "NSSortedCollection.h"
 
 class TStreamableTypes : private TNSSortedCollection {
 
@@ -144,7 +148,7 @@ private:
     int compare(void*, void*);
 };
 
-#endif // Uses_TStreamableTypes
+#endif // __TStreamableTypes
 
 /* ------------------------------------------------------------------------*/
 /*                                                                         */
@@ -158,7 +162,7 @@ private:
 /*                                                                         */
 /* ------------------------------------------------------------------------*/
 
-#if defined(Uses_TPWrittenObjects) && !defined(__TPWrittenObjects)
+#ifndef __TPWrittenObjects
 #define __TPWrittenObjects
 
 class TPWrittenObjects : public TNSSortedCollection {
@@ -204,7 +208,7 @@ private:
     P_id_type ident;
 };
 
-#endif // Uses_TPWrittenObjects
+#endif // __TPWrittenObjects
 
 /* ------------------------------------------------------------------------*/
 /*                                                                         */
@@ -218,7 +222,7 @@ private:
 /*                                                                         */
 /* ------------------------------------------------------------------------*/
 
-#if defined(Uses_TPReadObjects) && !defined(__TPReadObjects)
+#ifndef __TPReadObjects
 #define __TPReadObjects
 
 class TPReadObjects : public TNSCollection {
@@ -242,7 +246,7 @@ private:
     P_id_type curId;
 };
 
-#endif // Uses_TPReadObjects
+#endif // __TPReadObjects
 
 /* ------------------------------------------------------------------------*/
 /*                                                                         */
@@ -252,7 +256,7 @@ private:
 /*                                                                         */
 /* ------------------------------------------------------------------------*/
 
-#if defined(Uses_pstream) && !defined(__pstream)
+#ifndef __pstream
 #define __pstream
 
 class TStreamableTypes;
@@ -268,42 +272,42 @@ public:
         ptIndexed,
         ptObject };
 
-    _Cdecl pstream(streambuf*) noexcept;
-    virtual _Cdecl ~pstream();
+     pstream(streambuf*) noexcept;
+    virtual  ~pstream();
 
     typedef int openmode;
     typedef int seekdir;
 
-    int _Cdecl rdstate() const noexcept;
-    int _Cdecl eof() const noexcept;
-    int _Cdecl fail() const noexcept;
-    int _Cdecl bad() const noexcept;
-    int _Cdecl good() const noexcept;
-    void _Cdecl clear(int = 0) noexcept;
-    _Cdecl operator void*() const noexcept;
-    int _Cdecl operator!() const noexcept;
+    int  rdstate() const noexcept;
+    int  eof() const noexcept;
+    int  fail() const noexcept;
+    int  bad() const noexcept;
+    int  good() const noexcept;
+    void  clear(int = 0) noexcept;
+     operator void*() const noexcept;
+    int  operator!() const noexcept;
 
-    streambuf* _Cdecl rdbuf() const noexcept;
+    streambuf*  rdbuf() const noexcept;
 
     static void initTypes() noexcept;
     static void registerType(TStreamableClass* ts) noexcept;
 
 protected:
-    _Cdecl pstream() noexcept;
+     pstream() noexcept;
 
-    void _Cdecl error(StreamableError) noexcept;
-    void _Cdecl error(StreamableError, const TStreamable&) noexcept;
+    void  error(StreamableError) noexcept;
+    void  error(StreamableError, const TStreamable&) noexcept;
 
     streambuf* bp;
     int state;
 
-    void _Cdecl init(streambuf*) noexcept;
-    void _Cdecl setstate(int) noexcept;
+    void  init(streambuf*) noexcept;
+    void  setstate(int) noexcept;
 
     static TStreamableTypes* types;
 };
 
-#endif // Uses_pstream
+#endif // __pstream
 
 /* ------------------------------------------------------------------------*/
 /*                                                                         */
@@ -313,7 +317,7 @@ protected:
 /*                                                                         */
 /* ------------------------------------------------------------------------*/
 
-#if defined(Uses_ipstream) && !defined(__ipstream)
+#ifndef __ipstream
 #define __ipstream
 
 class TStreamableClass;
@@ -321,38 +325,38 @@ class TStreamableClass;
 class ipstream : virtual public pstream {
 
 public:
-    _Cdecl ipstream(streambuf*) noexcept;
-    _Cdecl ~ipstream();
+     ipstream(streambuf*) noexcept;
+     ~ipstream();
 
-    streampos _Cdecl tellg();
-    ipstream& _Cdecl seekg(streampos);
-    ipstream& _Cdecl seekg(streamoff, pstream::seekdir);
+    streampos  tellg();
+    ipstream&  seekg(streampos);
+    ipstream&  seekg(streamoff, pstream::seekdir);
 
-    uchar _Cdecl readByte();
-    void _Cdecl readBytes(void*, size_t);
-    ushort _Cdecl readWord();
-    char* _Cdecl readString();
-    char* _Cdecl readString(char*, unsigned);
+    uchar  readByte();
+    void  readBytes(void*, size_t);
+    ushort  readWord();
+    char*  readString();
+    char*  readString(char*, unsigned);
 
-    friend ipstream& _Cdecl operator>>(ipstream&, TStreamable&);
-    friend ipstream& _Cdecl operator>>(ipstream&, void*&);
+    friend ipstream&  operator>>(ipstream&, TStreamable&);
+    friend ipstream&  operator>>(ipstream&, void*&);
 
 protected:
-    _Cdecl ipstream() noexcept;
+     ipstream() noexcept;
 
-    const TStreamableClass* _Cdecl readPrefix();
-    void* _Cdecl readData(const TStreamableClass*,
+    const TStreamableClass*  readPrefix();
+    void*  readData(const TStreamableClass*,
         TStreamable*);
-    void _Cdecl readSuffix();
+    void  readSuffix();
 
-    const void* _Cdecl find(P_id_type);
-    void _Cdecl registerObject(const void* adr);
+    const void*  find(P_id_type);
+    void  registerObject(const void* adr);
 
 private:
     TPReadObjects objs;
 };
 
-#endif // Uses_ipstream
+#endif // __ipstream
 
 /* ------------------------------------------------------------------------*/
 /*                                                                         */
@@ -362,7 +366,7 @@ private:
 /*                                                                         */
 /* ------------------------------------------------------------------------*/
 
-#if defined(Uses_opstream) && !defined(__opstream)
+#ifndef __opstream
 #define __opstream
 
 class TStreamableClass;
@@ -370,38 +374,38 @@ class TStreamableClass;
 class opstream : virtual public pstream {
 
 public:
-    _Cdecl opstream(streambuf*) noexcept;
-    _Cdecl ~opstream();
+     opstream(streambuf*) noexcept;
+     ~opstream();
 
-    streampos _Cdecl tellp();
-    opstream& _Cdecl seekp(streampos);
-    opstream& _Cdecl seekp(streamoff, pstream::seekdir);
-    opstream& _Cdecl flush();
+    streampos  tellp();
+    opstream&  seekp(streampos);
+    opstream&  seekp(streamoff, pstream::seekdir);
+    opstream&  flush();
 
-    void _Cdecl writeByte(uchar);
-    void _Cdecl writeBytes(const void*, size_t);
-    void _Cdecl writeWord(ushort);
-    void _Cdecl writeString(const char*);
-    void _Cdecl writeString(TStringView);
+    void  writeByte(uchar);
+    void  writeBytes(const void*, size_t);
+    void  writeWord(ushort);
+    void  writeString(const char*);
+    void  writeString(TStringView);
 
-    friend opstream& _Cdecl operator<<(opstream&, TStreamable&);
-    friend opstream& _Cdecl operator<<(opstream&, TStreamable*);
+    friend opstream&  operator<<(opstream&, TStreamable&);
+    friend opstream&  operator<<(opstream&, TStreamable*);
 
 protected:
-    _Cdecl opstream() noexcept;
+     opstream() noexcept;
 
-    void _Cdecl writePrefix(const TStreamable&);
-    void _Cdecl writeData(TStreamable&);
-    void _Cdecl writeSuffix(const TStreamable&);
+    void  writePrefix(const TStreamable&);
+    void  writeData(TStreamable&);
+    void  writeSuffix(const TStreamable&);
 
-    P_id_type _Cdecl find(const void* adr);
-    void _Cdecl registerObject(const void* adr);
+    P_id_type  find(const void* adr);
+    void  registerObject(const void* adr);
 
 private:
     TPWrittenObjects* objs;
 };
 
-#endif // Uses_opstream
+#endif // __opstream
 
 /* ------------------------------------------------------------------------*/
 /*                                                                         */
@@ -411,20 +415,20 @@ private:
 /*                                                                         */
 /* ------------------------------------------------------------------------*/
 
-#if defined(Uses_iopstream) && !defined(__iopstream)
+#ifndef __iopstream
 #define __iopstream
 
 class iopstream : public ipstream, public opstream {
 
 public:
-    _Cdecl iopstream(streambuf*) noexcept;
-    _Cdecl ~iopstream();
+     iopstream(streambuf*) noexcept;
+     ~iopstream();
 
 protected:
-    _Cdecl iopstream() noexcept;
+     iopstream() noexcept;
 };
 
-#endif // Uses_iopstream
+#endif // __iopstream
 
 /* ------------------------------------------------------------------------*/
 /*                                                                         */
@@ -434,7 +438,7 @@ protected:
 /*                                                                         */
 /* ------------------------------------------------------------------------*/
 
-#if defined(Uses_fpbase) && !defined(__fpbase)
+#ifndef __fpbase
 #define __fpbase
 
 #if !defined(__FSTREAM_H)
@@ -444,19 +448,19 @@ protected:
 class fpbase : virtual public pstream {
 
 public:
-    _Cdecl fpbase() noexcept;
-    _Cdecl fpbase(const char*, pstream::openmode);
-    _Cdecl ~fpbase();
+     fpbase() noexcept;
+     fpbase(const char*, pstream::openmode);
+     ~fpbase();
 
-    void _Cdecl open(const char*, pstream::openmode);
-    void _Cdecl close();
-    filebuf* _Cdecl rdbuf() noexcept;
+    void  open(const char*, pstream::openmode);
+    void  close();
+    filebuf*  rdbuf() noexcept;
 
 private:
     filebuf buf;
 };
 
-#endif // Uses_fpbase
+#endif // __fpbase
 
 /* ------------------------------------------------------------------------*/
 /*                                                                         */
@@ -466,23 +470,23 @@ private:
 /*                                                                         */
 /* ------------------------------------------------------------------------*/
 
-#if defined(Uses_ifpstream) && !defined(__ifpstream)
+#ifndef __ifpstream
 #define __ifpstream
 
 class ifpstream : public fpbase, public ipstream {
 
 public:
-    _Cdecl ifpstream() noexcept;
-    _Cdecl ifpstream(const char*,
+     ifpstream() noexcept;
+     ifpstream(const char*,
         pstream::openmode = ios::in);
-    _Cdecl ~ifpstream();
+     ~ifpstream();
 
-    filebuf* _Cdecl rdbuf() noexcept;
-    void _Cdecl open(const char*,
+    filebuf*  rdbuf() noexcept;
+    void  open(const char*,
         pstream::openmode = ios::in);
 };
 
-#endif // Uses_ifpstream
+#endif // __ifpstream
 
 /* ------------------------------------------------------------------------*/
 /*                                                                         */
@@ -492,23 +496,20 @@ public:
 /*                                                                         */
 /* ------------------------------------------------------------------------*/
 
-#if defined(Uses_ofpstream) && !defined(__ofpstream)
+#ifndef ___ofpstream
 #define __ofpstream
 
 class ofpstream : public fpbase, public opstream {
-
 public:
-    _Cdecl ofpstream() noexcept;
-    _Cdecl ofpstream(const char*,
-        pstream::openmode = ios::out);
-    _Cdecl ~ofpstream();
+    ofpstream() noexcept;
+    ofpstream(const char*, pstream::openmode = ios::out);
+    ~ofpstream();
 
-    filebuf* _Cdecl rdbuf() noexcept;
-    void _Cdecl open(const char*,
-        pstream::openmode = ios::out);
+    filebuf* rdbuf() noexcept;
+    void open(const char*, pstream::openmode = ios::out);
 };
 
-#endif // Uses_ofpstream
+#endif // __ofpstream
 
 /* ------------------------------------------------------------------------*/
 /*                                                                         */
@@ -519,18 +520,20 @@ public:
 /*                                                                         */
 /* ------------------------------------------------------------------------*/
 
-#if defined(Uses_fpstream) && !defined(__fpstream)
+#ifndef __fpstream
 #define __fpstream
 
 class fpstream : public fpbase, public iopstream {
 
 public:
-    _Cdecl fpstream() noexcept;
-    _Cdecl fpstream(const char*, pstream::openmode);
-    _Cdecl ~fpstream();
+     fpstream() noexcept;
+     fpstream(const char*, pstream::openmode);
+     ~fpstream();
 
-    filebuf* _Cdecl rdbuf() noexcept;
-    void _Cdecl open(const char*, pstream::openmode);
+    filebuf*  rdbuf() noexcept;
+    void  open(const char*, pstream::openmode);
 };
 
-#endif // Uses_fpstream
+#endif // __fpstream
+
+#endif // __TOBJSTRM_H

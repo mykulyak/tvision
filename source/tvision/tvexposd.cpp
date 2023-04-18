@@ -12,8 +12,6 @@
  *
  */
 
-#define Uses_TView
-#define Uses_TGroup
 #include <tvision/tv.h>
 
 struct TVExposd {

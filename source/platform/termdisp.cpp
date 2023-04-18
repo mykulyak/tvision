@@ -1,4 +1,3 @@
-#define Uses_TScreen
 #include <tvision/tv.h>
 
 #include <internal/getenv.h>

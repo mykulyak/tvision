@@ -12,22 +12,20 @@
  *
  */
 
-#define Uses_TKeys
-#define Uses_TCluster
-#define Uses_TDrawBuffer
-#define Uses_TEvent
-#define Uses_TPoint
-#define Uses_TSItem
-#define Uses_TStringCollection
-#define Uses_TGroup
-#define Uses_opstream
-#define Uses_ipstream
-#include <tvision/tv.h>
+#include <tvision/Cluster.h>
+#include <tvision/CommandCodes.h>
+#include <tvision/Event.h>
+#include <tvision/Group.h>
+#include <tvision/Rect.h>
+#include <tvision/SItem.h>
+#include <tvision/StringCollection.h>
 
 #include <cctype>
 #include <cstring>
 
 #include <dos.h>
+
+const char* const TCluster::name = "TCluster";
 
 #define cpCluster "\x10\x11\x12\x12\x1f"
 
@@ -355,36 +353,36 @@ int TCluster::row(int item)
 
 Boolean TCluster::buttonState(int item)
 {
-#if !defined(__FLAT__)
-    ushort maskLo = enableMask & 0xffff;
-    ushort maskHi = enableMask >> 16;
+    // #if !defined(__FLAT__)
+    //     ushort maskLo = enableMask & 0xffff;
+    //     ushort maskHi = enableMask >> 16;
 
-    asm {
-        XOR     AL,AL
-        MOV     CX,item
-        CMP     CX,31
-        JA      __3
-        MOV     AX,1
-        XOR     DX,DX
-        JCXZ    __2
-    }
-__1:
-    asm {
-        SHL     AX,1
-        RCL     DX,1
-        LOOP    __1
-    }
-__2:
-    asm {
-        AND     AX,maskLo
-        AND     DX,maskHi
-        OR      AX,DX
-        JZ      __3
-        MOV     AL,1
-    }
-__3:
-    return Boolean(_AL);
-#else
+    //     asm {
+    //         XOR     AL,AL
+    //         MOV     CX,item
+    //         CMP     CX,31
+    //         JA      __3
+    //         MOV     AX,1
+    //         XOR     DX,DX
+    //         JCXZ    __2
+    //     }
+    // __1:
+    //     asm {
+    //         SHL     AX,1
+    //         RCL     DX,1
+    //         LOOP    __1
+    //     }
+    // __2:
+    //     asm {
+    //         AND     AX,maskLo
+    //         AND     DX,maskHi
+    //         OR      AX,DX
+    //         JZ      __3
+    //         MOV     AL,1
+    //     }
+    // __3:
+    //     return Boolean(_AL);
+    // #else
     if (item < 32) {
         uint32_t mask = 1;
 
@@ -397,7 +395,7 @@ __3:
             return False;
     } else
         return False;
-#endif
+    // #endif
 }
 
 #if !defined(NO_STREAMABLE)

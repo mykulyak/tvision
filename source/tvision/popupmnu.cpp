@@ -5,11 +5,8 @@
 /*          popupMenu                                         */
 /*------------------------------------------------------------*/
 
-#define Uses_TMenuPopup
-#define Uses_TMenu
-#define Uses_TProgram
-#define Uses_TDeskTop
-#include <tvision/tv.h>
+#include <tvision/Menu.h>
+#include <tvision/MenuPopup.h>
 
 /*------------------------------------------------------------------------*/
 /*                                                                        */

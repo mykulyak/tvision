@@ -767,7 +767,7 @@ Additionally, it is always possible to paste text using your terminal emulator's
 
 ## API usage
 
-To use the `TClipboard` class, define the macro `Uses_TClipboard` before including `<tvision/tv.h>`.
+To use the `TClipboard` class, include the `<tvision/tv.h>` file.
 
 ### Writing to the clipboard
 
@@ -885,7 +885,7 @@ Below is a more detailed explanation aimed at developers.
 
 In the first place we will explain the data types the programmer needs to know in order to take advantage of the extended color suport.
 
-To get access to them, define the macro `Uses_TColorAttr` before including `<tvision/tv.h>`. You may not need to do this because other classes like `TView` or `TDrawBuffer` already depend on it.
+To get access to them, include `<tvision/tv.h>`. You may not need to do this because other classes like `TView` or `TDrawBuffer` already depend on it.
 
 All the types described in this section are *trivial*. This means that they can be `memset`'d and `memcpy`'d. But variables of these types are *uninitialized* when declared without initializer, just like primitive types. So make sure you don't manipulate them before initializing them.
 

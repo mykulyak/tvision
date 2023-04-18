@@ -12,17 +12,9 @@
  *
  */
 
-#define Uses_MsgBox
-#define Uses_TObject
-#define Uses_TDialog
-#define Uses_TStaticText
-#define Uses_TRect
-#define Uses_TButton
-#define Uses_TProgram
-#define Uses_TInputLine
-#define Uses_TDeskTop
-#define Uses_TLabel
-#include <tvision/tv.h>
+#include <tvision/Desktop.h>
+#include <tvision/Label.h>
+#include <tvision/StaticText.h>
 
 #include <cstdarg>
 #include <cstdio>

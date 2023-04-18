@@ -11,29 +11,13 @@
  *
  */
 
-#define Uses_TDialog
-#define Uses_TDeskTop
-#define Uses_TProgram
-#define Uses_TApplication
-#define Uses_TObject
-#define Uses_TInputLine
-#define Uses_TLabel
-#define Uses_THistory
-#define Uses_TRect
-#define Uses_TCheckBoxes
-#define Uses_TButton
-#define Uses_TButton
-#define Uses_MsgBox
-#define Uses_TSItem
-#define Uses_TEditor
-
 #include <tvision/tv.h>
 
 #include "tvedit.h"
 
-#include <iomanip.h>
 #include <cstdarg>
 #include <cstdlib>
+#include <iomanip.h>
 #include <strstrea.h>
 
 ushort execDialog(TDialog* d, void* data)

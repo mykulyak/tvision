@@ -12,11 +12,7 @@
  *
  */
 
-#define Uses_TNSSortedCollection
-#define Uses_opstream
-#define Uses_ipstream
-#define Uses_TSortedCollection
-#include <tvision/tv.h>
+#include <tvision/NSSortedCollection.h>
 
 ccIndex TNSSortedCollection::indexOf(void* item)
 {
@@ -72,24 +68,4 @@ Boolean TNSSortedCollection::search(void* key, ccIndex& index)
     }
     index = l;
     return res;
-}
-
-void TSortedCollection::write(opstream& os)
-{
-    TCollection::write(os);
-    os << (int)duplicates;
-}
-
-void* TSortedCollection::read(ipstream& is)
-{
-    TCollection::read(is);
-    int temp;
-    is >> temp;
-    duplicates = Boolean(temp);
-    return this;
-}
-
-TSortedCollection::TSortedCollection(StreamableInit) noexcept
-    : TCollection(streamableInit)
-{
 }

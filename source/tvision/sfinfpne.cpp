@@ -12,8 +12,6 @@
  */
 
 #if !defined(NO_STREAMABLE)
-#define Uses_TFileInfoPane
-#define Uses_TStreamableClass
 #include <tvision/tv.h>
 __link(RView)
 

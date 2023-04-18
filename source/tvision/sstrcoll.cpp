@@ -11,8 +11,6 @@
  *
  */
 
-#define Uses_TStringCollection
-#define Uses_TStreamableClass
 #include <tvision/tv.h>
 
 TStreamableClass RStringCollection(TStringCollection::name,

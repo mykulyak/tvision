@@ -24,28 +24,6 @@
  *
  */
 
-#define Uses_TKeys
-#define Uses_TApplication
-#define Uses_TEvent
-#define Uses_TRect
-#define Uses_TDialog
-#define Uses_TStaticText
-#define Uses_TButton
-#define Uses_TMenuBar
-#define Uses_TSubMenu
-#define Uses_TMenuItem
-#define Uses_TStatusLine
-#define Uses_TStatusItem
-#define Uses_TStatusDef
-#define Uses_TDeskTop
-#define Uses_TChDirDialog
-#define Uses_TFileDialog
-#define Uses_MsgBox
-#define Uses_TDisplay
-#define Uses_TScreen
-#define Uses_TEditor
-#define Uses_TMemo
-#define Uses_TStreamableClass
 #include <tvision/tv.h>
 __link(RResourceCollection)
     __link(RButton)
@@ -58,8 +36,8 @@ __link(RResourceCollection)
                                 __link(REditor)
                                     __link(RMemo)
 
-#include <cstring>
 #include <cstdlib>
+#include <cstring>
 
 #if !defined(__FORMCMDS_H)
 #include "formcmds.h"

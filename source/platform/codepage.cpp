@@ -1,5 +1,3 @@
-#define Uses_TKeys
-#define Uses_TEvent
 #include <tvision/tv.h>
 
 #include <internal/codepage.h>

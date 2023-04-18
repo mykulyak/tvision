@@ -1,5 +1,3 @@
-#define Uses_TEvent
-#define Uses_TPoint
 #include <tvision/tv.h>
 
 #ifdef _TV_UNIX

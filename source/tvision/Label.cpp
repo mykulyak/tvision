@@ -12,18 +12,13 @@
  *
  */
 
-#define Uses_TLabel
-#define Uses_TEvent
-#define Uses_TDrawBuffer
-#define Uses_TGroup
-#define Uses_TView
-#define Uses_opstream
-#define Uses_ipstream
-#include <tvision/tv.h>
+#include <tvision/Label.h>
 
 #if !defined(__CTYPE_H)
 #include <ctype.h>
 #endif // __CTYPE_H
+
+const char* const TLabel::name = "TLabel";
 
 #define cpLabel "\x07\x08\x09\x09"
 

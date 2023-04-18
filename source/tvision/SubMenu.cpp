@@ -12,12 +12,9 @@
  *
  */
 
-#define Uses_TKeys
-#define Uses_TSubMenu
-#define Uses_TStatusDef
-#define Uses_TStatusItem
-#define Uses_TMenu
-#include <tvision/tv.h>
+#include <tvision/Menu.h>
+#include <tvision/StatusDef.h>
+#include <tvision/SubMenu.h>
 
 #include <cstring>
 

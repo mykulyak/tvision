@@ -12,14 +12,6 @@
  *
  */
 
-#define Uses_TKeys
-#define Uses_TScrollBar
-#define Uses_TRect
-#define Uses_TDrawBuffer
-#define Uses_TEvent
-#define Uses_TGroup
-#define Uses_opstream
-#define Uses_ipstream
 #include <tvision/tv.h>
 
 #include <cctype>
@@ -30,6 +22,8 @@
 #endif // __DOS_H
 
 #define cpScrollBar "\x04\x05\x05"
+
+const char* const TScrollBar::name = "TScrollBar";
 
 TScrollBar::TScrollBar(const TRect& bounds) noexcept
     : TView(bounds)

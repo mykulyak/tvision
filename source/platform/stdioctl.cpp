@@ -1,4 +1,3 @@
-#define Uses_TPoint
 #include <tvision/tv.h>
 
 #include <initializer_list>

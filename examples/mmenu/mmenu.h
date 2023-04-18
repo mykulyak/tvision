@@ -62,8 +62,10 @@
  * make the example code in the test module much easier to read.
  */
 
-#if !defined( __MMENU_H )
+#ifndef  __MMENU_H
 #define __MMENU_H
+
+#include <tvision/MenuBar.h>
 
 class TMultiMenu : public TMenuBar
 {

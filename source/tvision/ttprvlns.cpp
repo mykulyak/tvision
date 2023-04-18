@@ -12,7 +12,6 @@
  *
  */
 
-#define Uses_TTerminal
 #include <tvision/tv.h>
 
 static Boolean backwardsFindLF(const char* buffer, ushort& p, ushort count)

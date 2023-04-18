@@ -12,20 +12,15 @@
  *
  */
 
-#define Uses_TDrawBuffer
-#define Uses_TSystemError
-#define Uses_TEvent
-#define Uses_TScreen
-#define Uses_THardwareInfo
 #include <tvision/tv.h>
 
 #if !defined(__DOS_H)
 #include <dos.h>
 #endif // __DOS_H
 
+#include <cmath>
 #include <cstdio>
 #include <cstring>
-#include <cmath>
 
 Boolean TSystemError::ctrlBreakHit = False;
 Boolean TSystemError::saveCtrlBreak = False;

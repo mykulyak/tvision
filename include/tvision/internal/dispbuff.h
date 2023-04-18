@@ -1,7 +1,6 @@
 #ifndef TVISION_DISPBUFF_H
 #define TVISION_DISPBUFF_H
 
-#define Uses_TPoint
 #include <tvision/tv.h>
 
 #include <vector>

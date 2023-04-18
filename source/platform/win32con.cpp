@@ -1,6 +1,3 @@
-#define Uses_TEvent
-#define Uses_TKeys
-#define Uses_THardwareInfo
 #include <internal/ansidisp.h>
 #include <internal/codepage.h>
 #include <internal/stdioctl.h>

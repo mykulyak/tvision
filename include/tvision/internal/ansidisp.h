@@ -1,7 +1,6 @@
 #ifndef TVISION_ANSIDISP_H
 #define TVISION_ANSIDISP_H
 
-#define Uses_TScreenCell
 #include <tvision/tv.h>
 
 #include <internal/termdisp.h>

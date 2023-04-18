@@ -1,4 +1,3 @@
-#define Uses_TColorAttr
 #include <internal/constarr.h>
 #include <tvision/tv.h>
 

@@ -15,13 +15,7 @@
 #pragma inline
 #endif
 
-#define Uses_TKeys
-#define Uses_TEvent
-#define Uses_TScreen
-#define Uses_TEventQueue
-#define Uses_THardwareInfo
-#define Uses_TText
-#include <tvision/tv.h>
+#include <tvision/EventQueue.h>
 
 #if !defined(__FLAT__)
 

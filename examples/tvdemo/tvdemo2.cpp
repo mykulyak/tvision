@@ -11,21 +11,6 @@
  *
  */
 
-#define Uses_TDialog
-#define Uses_TRect
-#define Uses_TStaticText
-#define Uses_TButton
-#define Uses_TEvent
-#define Uses_TWindow
-#define Uses_TColorGroup
-#define Uses_TColorItem
-#define Uses_TColorDialog
-#define Uses_TPalette
-#define Uses_TDeskTop
-#define Uses_TApplication
-#define Uses_TChDirDialog
-#define Uses_TScreen
-
 #include <tvision/tv.h>
 
 #include "ascii.h"
@@ -37,8 +22,8 @@
 #include "tvcmds.h"
 #include "tvdemo.h"
 
-#include <signal.h>
 #include <cstdlib>
+#include <signal.h>
 
 //
 // DemoApp::handleEvent()

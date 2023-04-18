@@ -12,26 +12,15 @@
  *
  */
 
-#define Uses_TRect
-#define Uses_TEvent
-#define Uses_TButton
-#define Uses_TKeys
-#define Uses_TDrawBuffer
-#define Uses_TStreamableClass
-#define Uses_TStreamable
-#define Uses_TView
-#define Uses_TDialog
-#define Uses_ipstream
-#define Uses_opstream
 #include <tvision/tv.h>
 __link(RView)
     __link(RDialog)
         __link(RButton)
 
 #include <cctype>
-#include <iomanip.h>
 #include <cstdlib>
 #include <cstring>
+#include <iomanip.h>
 #include <strstrea.h>
 
 #include "calc.h"

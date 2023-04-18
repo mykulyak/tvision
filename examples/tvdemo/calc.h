@@ -11,10 +11,10 @@
  *
  */
 
-#if !defined( __CALC_H )
+#ifndef  __CALC_H )
 #define __CALC_H
 
-#if !defined( __MATH_H )
+#ifndef  __MATH_H )
 #include <math.h>
 #endif       // __MATH_H
 

@@ -7,14 +7,10 @@
 /*                      TSurfaceView                          */
 /*------------------------------------------------------------*/
 
-#define Uses_TDrawSurface
-#define Uses_TSurfaceView
-#define Uses_TDrawBuffer
-#define Uses_TRect
 #include <tvision/tv.h>
 
-#include <malloc.h>
 #include <cstdlib>
+#include <malloc.h>
 
 #define cpSurfaceView "\x01"
 

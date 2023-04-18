@@ -12,23 +12,17 @@
  *
  */
 
-#define Uses_TMenuItem
-#define Uses_TMenu
-#define Uses_TMenuView
-#define Uses_TKeys
-#define Uses_TRect
-#define Uses_TEvent
-#define Uses_TGroup
-#define Uses_TMenuBox
-#define Uses_opstream
-#define Uses_ipstream
-#include <tvision/tv.h>
+#include <tvision/Menu.h>
+#include <tvision/MenuBox.h>
+#include <tvision/MenuView.h>
 
 #include <cassert>
 #include <cctype>
 #include <cstring>
 
 #define cpMenuView "\x02\x03\x04\x05\x06\x07"
+
+const char* const TMenuView::name = "TMenuView";
 
 TMenuItem::TMenuItem(TStringView aName,
     ushort aCommand,

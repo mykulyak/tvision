@@ -12,10 +12,9 @@
  *
  */
 
-#define Uses_TKeys
-#define Uses_TDialog
-#define Uses_TEvent
-#include <tvision/tv.h>
+#include <tvision/Dialog.h>
+
+const char* const TDialog::name = "TDialog";
 
 // TMultiCheckboxes flags
 //   hibyte = number of bits

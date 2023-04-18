@@ -12,16 +12,6 @@
  *
  */
 
-#define Uses_TKeys
-#define Uses_TView
-#define Uses_TCommandSet
-#define Uses_TPoint
-#define Uses_TGroup
-#define Uses_TRect
-#define Uses_TEvent
-#define Uses_TProgram
-#define Uses_opstream
-#define Uses_ipstream
 #include <tvision/tv.h>
 
 #if !defined(__DOS_H)
@@ -31,6 +21,8 @@
 #if !defined(__LIMITS_H)
 #include <limits.h>
 #endif // __LIMITS_H
+
+const char* const TView::name = "TView";
 
 TPoint shadowSize = { 2, 1 };
 uchar shadowAttr = 0x08;

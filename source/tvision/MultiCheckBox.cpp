@@ -12,10 +12,9 @@
  *
  */
 
-#define Uses_TMultiCheckBoxes
-#define Uses_ipstream
-#define Uses_opstream
-#include <tvision/tv.h>
+#include <tvision/MultiCheckBoxes.h>
+
+const char* const TMultiCheckBoxes::name = "TMultiCheckBoxes";
 
 TMultiCheckBoxes::TMultiCheckBoxes(TRect& bounds, TSItem* aStrings,
     uchar aSelRange, ushort aFlags,

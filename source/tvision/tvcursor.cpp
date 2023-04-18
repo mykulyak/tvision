@@ -12,10 +12,6 @@
  *
  */
 
-#define Uses_TView
-#define Uses_TGroup
-#define Uses_TScreen
-#define Uses_THardwareInfo
 #include <tvision/tv.h>
 
 #ifdef __FLAT__

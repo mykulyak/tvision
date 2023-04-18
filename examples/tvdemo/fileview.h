@@ -14,9 +14,6 @@
 #if !defined( __FILEVIEW_H )
 #define __FILEVIEW_H
 
-#define Uses_TCollection
-#define Uses_TScroller
-#define Uses_TWindow
 #include <tvision/tv.h>
 
 const int hlChangeDir = cmChangeDir;
@@ -82,8 +79,6 @@ public:
     TFileWindow( const char *fileName );
 
 };
-
-const int maxLineLength = 256;
 
 #endif
 

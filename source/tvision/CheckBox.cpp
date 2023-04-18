@@ -12,8 +12,9 @@
  *
  */
 
-#define Uses_TCheckBoxes
-#include <tvision/tv.h>
+#include <tvision/CheckBoxes.h>
+
+const char* const TCheckBoxes::name = "TCheckBoxes";
 
 void TCheckBoxes::draw()
 {

@@ -12,12 +12,6 @@
  *
  */
 
-#define Uses_TScroller
-#define Uses_TScrollBar
-#define Uses_TEvent
-#define Uses_TRect
-#define Uses_opstream
-#define Uses_ipstream
 #include <tvision/tv.h>
 
 #include <cctype>
@@ -28,6 +22,8 @@
 #endif // __DOS_H
 
 #define cpScroller "\x06\x07"
+
+const char* const TScroller::name = "TScroller";
 
 TScroller::TScroller(const TRect& bounds,
     TScrollBar* aHScrollBar,

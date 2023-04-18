@@ -12,11 +12,8 @@
  *
  */
 
-#define Uses_TDirCollection
-#define Uses_TDirEntry
-#define Uses_opstream
-#define Uses_ipstream
-#include <tvision/tv.h>
+#include <tvision/DirCollection.h>
+#include <tvision/DirEntry.h>
 
 #if !defined(__DIR_H)
 #include <dir.h>
@@ -29,6 +26,8 @@
 #endif // __DOS_H
 
 #pragma warn - asc
+
+const char* const TDirCollection::name = "TDirCollection";
 
 Boolean driveValid(char drive) noexcept
 {

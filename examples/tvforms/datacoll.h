@@ -16,8 +16,6 @@
 #if !defined( __DATACOLL_H )
 #define __DATACOLL_H
 
-#define Uses_TStringCollection
-#define Uses_TStreamable
 #include <tvision/tv.h>
 
 enum KeyTypes {stringKey, longIntKey};

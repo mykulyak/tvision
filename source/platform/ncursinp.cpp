@@ -1,8 +1,5 @@
 #ifdef HAVE_NCURSES
 
-#define Uses_THardwareInfo
-#define Uses_TKeys
-#define Uses_TEvent
 #include <tvision/tv.h>
 
 #include <chrono>

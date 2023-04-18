@@ -18,12 +18,7 @@
  */
 
 #if !defined(NO_STREAMABLE)
-#define Uses_TIndicator
-#define Uses_TEditor
-#define Uses_TMemo
-#define Uses_TFileEditor
-#define Uses_TEditWindow
-#define Uses_TStreamableClass
+
 #include <tvision/tv.h>
 __link(RView)
     __link(RWindow)

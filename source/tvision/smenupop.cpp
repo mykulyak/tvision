@@ -12,8 +12,6 @@
  */
 
 #if !defined(NO_STREAMABLE)
-#define Uses_TMenuPopup
-#define Uses_TStreamableClass
 #include <tvision/tv.h>
 
 TStreamableClass RMenuPopup(TMenuPopup::name,

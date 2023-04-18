@@ -1,8 +1,6 @@
 #ifndef EVNTVIEW_H
 #define EVNTVIEW_H
 
-#define Uses_TWindow
-#define Uses_TRect
 #include <tvision/tv.h>
 
 // TEventViewer: a TTerminal window displaying the attributes of TEvents

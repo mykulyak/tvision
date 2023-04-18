@@ -11,9 +11,6 @@
  *
  */
 
-#define Uses_TDirCollection
-#define Uses_TDirEntry
-#define Uses_TStreamableClass
 #include <tvision/tv.h>
 
 TStreamableClass RDirCollection(TDirCollection::name,

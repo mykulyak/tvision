@@ -12,13 +12,6 @@
  */
 
 #if !defined(NO_STREAMABLE)
-#define Uses_TValidator
-#define Uses_TFilterValidator
-#define Uses_TRangeValidator
-#define Uses_TPXPictureValidator
-#define Uses_TLookupValidator
-#define Uses_TStringLookupValidator
-#define Uses_TStreamableClass
 
 #include <tvision/tv.h>
 

@@ -12,14 +12,11 @@
  *
  */
 
-#define Uses_TListBox
-#define Uses_TEvent
-#define Uses_TCollection
-#define Uses_opstream
-#define Uses_ipstream
-#include <tvision/tv.h>
+#include <tvision/ListBox.h>
 
 #include <cstring>
+
+const char* const TListBox::name = "TListBox";
 
 TListBox::TListBox(const TRect& bounds,
     ushort aNumCols,

@@ -12,15 +12,8 @@
  *
  */
 
-#define Uses_THistory
-#define Uses_TKeys
-#define Uses_TRect
-#define Uses_TEvent
-#define Uses_TInputLine
-#define Uses_THistoryWindow
-#define Uses_opstream
-#define Uses_ipstream
-#include <tvision/tv.h>
+#include <tvision/History.h>
+#include <tvision/HistoryWindow.h>
 
 #include <cctype>
 #include <cstring>
@@ -28,6 +21,8 @@
 #if !defined(__DOS_H)
 #include <dos.h>
 #endif // __DOS_H
+
+const char* const THistory::name = "THistory";
 
 #define cpHistory "\x16\x17"
 

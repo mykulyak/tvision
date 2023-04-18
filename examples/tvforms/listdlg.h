@@ -16,12 +16,6 @@
 #if !defined( __LISTDLG_H )
 #define __LISTDLG_H
 
-#define Uses_TSortedListBox
-#define Uses_TRect
-#define Uses_TScrollBar
-#define Uses_TDialog
-#define Uses_TResourceFile
-#define Uses_pstream
 #include <tvision/tv.h>
 
 #if !defined( __DATACOLL_H )

@@ -11,22 +11,6 @@
  *
  */
 
-#define Uses_TRect
-#define Uses_TMenuBar
-#define Uses_TSubMenu
-#define Uses_TMenuItem
-#define Uses_TKeys
-#define Uses_fpstream
-#define Uses_TView
-#define Uses_TPalette
-#define Uses_MsgBox
-#define Uses_TFileDialog
-#define Uses_TApplication
-#define Uses_TDeskTop
-#define Uses_TStaticText
-#define Uses_TDialog
-#define Uses_TEventQueue
-
 #include <tvision/tv.h>
 
 #include "demohelp.h"

@@ -12,14 +12,7 @@
  *
  */
 
-#define Uses_TProgram
-#define Uses_TGroup
-#define Uses_TEditor
-#define Uses_TFileEditor
-#define Uses_TEvent
-#define Uses_opstream
-#define Uses_ipstream
-#include <tvision/tv.h>
+#include <tvision/FileEditor.h>
 
 #include <climits>
 #include <cstring>
@@ -37,6 +30,8 @@
 #if !defined(__STDLIB_H)
 #include <alloc.h>
 #endif
+
+const char* const TFileEditor::name = "TFileEditor";
 
 TFileEditor::TFileEditor(const TRect& bounds,
     TScrollBar* aHScrollBar,

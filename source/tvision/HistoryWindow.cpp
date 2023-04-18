@@ -12,11 +12,8 @@
  *
  */
 
-#define Uses_TKeys
-#define Uses_THistoryWindow
-#define Uses_THistoryViewer
-#define Uses_TEvent
-#include <tvision/tv.h>
+#include <tvision/HistoryViewer.h>
+#include <tvision/HistoryWindow.h>
 
 THistInit::THistInit(TListViewer* (*cListViewer)(TRect, TWindow*, ushort)) noexcept
     : createListViewer(cListViewer)

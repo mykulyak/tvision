@@ -12,28 +12,19 @@
  *
  */
 
-#define Uses_TKeys
-#define Uses_TEditor
-#define Uses_TIndicator
-#define Uses_TEvent
-#define Uses_TScrollBar
-#define Uses_TFindDialogRec
-#define Uses_TReplaceDialogRec
-#define Uses_opstream
-#define Uses_ipstream
-#define Uses_TText
-#define Uses_TClipboard
-#include <tvision/tv.h>
+#include <tvision/Editor.h>
+#include <tvision/FindDialogRec.h>
+#include <tvision/Indicator.h>
 
-#include <cstring>
 #include <cctype>
+#include <cstring>
 
 #if !defined(__DOS_H)
 #include <dos.h>
 #endif // __DOS_H
 
-#include <malloc.h>
 #include <cstdlib>
+#include <malloc.h>
 
 #ifndef __BORLANDC__
 #define register
@@ -160,6 +151,8 @@ __4:
 #pragma warn.asc
 
 #define cpEditor "\x06\x07"
+
+const char* const TEditor::name = "TEditor";
 
 TEditor::TEditor(const TRect& bounds,
     TScrollBar* aHScrollBar,

@@ -2,10 +2,6 @@
 // PALETTE.CPP - Example module for palette system.
 //
 
-#define Uses_TView
-#define Uses_TWindow
-#define Uses_TPalette
-#define Uses_TDrawBuffer
 #include "palette.h" // Class definitions for
 #include <tv.h>
 // this module

@@ -9,9 +9,9 @@
 #include <internal/terminal.h>
 
 #include <cerrno>
+#include <cstdlib>
 #include <fcntl.h>
 #include <poll.h>
-#include <cstdlib>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>

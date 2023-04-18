@@ -17,14 +17,6 @@
 #if !defined( __GENPHONE_H )
 #define __GENPHONE_H
 
-#define Uses_TButton
-#define Uses_TRect
-#define Uses_TCheckBoxes
-#define Uses_TInputLine
-#define Uses_TLabel
-#define Uses_TMenuBar
-#define Uses_TSItem
-#define Uses_TRadioButtons
 #include <tvision/tv.h>
 __link( RButton )
 __link( RCheckBoxes )

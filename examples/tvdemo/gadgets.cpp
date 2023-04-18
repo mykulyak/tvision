@@ -16,18 +16,15 @@
  *
  */
 
-#define Uses_TRect
-#define Uses_TView
-#define Uses_TDrawBuffer
 #include <tvision/tv.h>
 
 #include <cctype>
-#include <iomanip.h>
-#include <malloc.h>
 #include <cstdlib>
 #include <cstring>
-#include <strstrea.h>
 #include <ctime>
+#include <iomanip.h>
+#include <malloc.h>
+#include <strstrea.h>
 
 #include "gadgets.h"
 

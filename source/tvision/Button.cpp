@@ -11,18 +11,9 @@
  *      All Rights Reserved.
  *
  */
-
-#define Uses_TButton
-#define Uses_TDrawBuffer
-#define Uses_TEvent
-#define Uses_TRect
-#define Uses_TGroup
-#define Uses_opstream
-#define Uses_ipstream
-#include <tvision/tv.h>
-
 #include <cctype>
 #include <cstring>
+#include <tvision/tv.h>
 
 #if !defined(__DOS_H)
 #include <dos.h>
@@ -33,6 +24,8 @@ const int
     cmGrabDefault
     = 61,
     cmReleaseDefault = 62;
+
+const char* const TButton::name = "TButton";
 
 #define cpButton "\x0A\x0B\x0C\x0D\x0E\x0E\x0E\x0F"
 

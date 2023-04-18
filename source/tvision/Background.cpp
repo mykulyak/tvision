@@ -12,14 +12,17 @@
  *
  */
 
-#define Uses_TBackground
-#define Uses_TDrawBuffer
-#define Uses_opstream
-#define Uses_ipstream
-
-#include <tvision/tv.h>
+#include <tvision/Background.h>
 
 #define cpBackground "\x01" // background palette
+
+const char* const TBackground::name = "TBackground";
+
+__link(RView)
+
+    TStreamableClass RBackground(TBackground::name,
+        TBackground::build,
+        __DELTA(TBackground));
 
 TBackground::TBackground(const TRect& bounds, char aPattern) noexcept
     : TView(bounds)

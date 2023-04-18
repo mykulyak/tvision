@@ -15,8 +15,6 @@
  *
  */
 
-#define Uses_TKeys
-#define Uses_TText
 #include <tvision/tv.h>
 
 /*------------------------------------------------------------------------*/

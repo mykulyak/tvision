@@ -12,22 +12,19 @@
  *
  */
 
-#define Uses_MsgBox
-#define Uses_TChDirDialog
-#define Uses_TRect
-#define Uses_TInputLine
-#define Uses_TLabel
-#define Uses_THistory
-#define Uses_TScrollBar
-#define Uses_TDirListBox
-#define Uses_TButton
-#define Uses_TEvent
-#define Uses_TDirEntry
-#define Uses_TDirCollection
-#define Uses_TChDirDialog
-#define Uses_opstream
-#define Uses_ipstream
-#include <tvision/tv.h>
+#include <tvision/Button.h>
+#include <tvision/ChdirDialog.h>
+#include <tvision/CommandCodes.h>
+#include <tvision/DirCollection.h>
+#include <tvision/DirEntry.h>
+#include <tvision/DirListBox.h>
+#include <tvision/Event.h>
+#include <tvision/FileCommands.h>
+#include <tvision/History.h>
+#include <tvision/InputLine.h>
+#include <tvision/Label.h>
+#include <tvision/ScrollBar.h>
+#include <tvision/util.h>
 
 #include <cctype>
 #include <cstring>
@@ -35,6 +32,8 @@
 #if !defined(__STRSTREAM_H)
 #include <strstrea.h>
 #endif
+
+const char* const TChDirDialog::name = "TChDirDialog";
 
 TChDirDialog::TChDirDialog(ushort opts, ushort histId) noexcept
     : TWindowInit(&TChDirDialog::initFrame)

@@ -5,9 +5,6 @@
 
 #ifdef HAVE_NCURSES
 
-#define Uses_TKeys
-#define Uses_TPoint
-#define Uses_TEvent
 #include <tvision/tv.h>
 
 namespace tvision

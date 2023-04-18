@@ -10,20 +10,7 @@
  *
  */
 
-#define Uses_TEditWindow
-#define Uses_TFileList
-#define Uses_TProgram
-#define Uses_MsgBox
-#define Uses_TChDirDialog
-#define Uses_TFileDialog
-#define Uses_TFileInfoPane
-#define Uses_TSystemError
-#define Uses_TDeskTop
-#define Uses_TPXPictureValidator
-#define Uses_TFilterValidator
-#define Uses_TRangeValidator
-#define Uses_TStringLookupValidator
-#define Uses_TListViewer
+#include <tvision/ChdirDialog.h>
 #include <tvision/help.h>
 #include <tvision/tv.h>
 

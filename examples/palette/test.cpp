@@ -2,18 +2,6 @@
 // TEST.CPP - Main Test module for Turbo Vision example program.
 //
 
-#define Uses_TKeys
-#define Uses_TRect
-#define Uses_TEvent
-#define Uses_TMenuBar
-#define Uses_TMenu
-#define Uses_TMenuItem
-#define Uses_TDialog
-#define Uses_TButton
-#define Uses_TStaticText
-#define Uses_TDeskTop
-#define Uses_TApplication
-#define Uses_MsgBox
 #include "cmds.h" // User defined command set for this
 #include <tv.h>
 // application

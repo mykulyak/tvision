@@ -5,8 +5,6 @@
 
 #ifdef HAVE_GPM
 
-#define Uses_TPoint
-#define Uses_TEvent
 #include <tvision/tv.h>
 
 #include <internal/cursor.h>

@@ -12,34 +12,27 @@
  *
  */
 
-#define Uses_TFileDialog
-#define Uses_MsgBox
-#define Uses_TRect
-#define Uses_TFileInputLine
-#define Uses_TButton
-#define Uses_TLabel
-#define Uses_TFileList
-#define Uses_THistory
-#define Uses_TScrollBar
-#define Uses_TEvent
-#define Uses_TFileInfoPane
-#define Uses_TProgram
-#define Uses_opstream
-#define Uses_ipstream
-#include <tvision/tv.h>
+#include <tvision/FileCommands.h>
+#include <tvision/FileDialog.h>
+#include <tvision/FileInfoPane.h>
+#include <tvision/FileInputLine.h>
+#include <tvision/FileList.h>
+#include <tvision/Label.h>
 
 #if !defined(__DIR_H)
 #include <dir.h>
 #endif // __DIR_H
 
+#include <cctype>
 #include <cerrno>
 #include <cstdio>
-#include <cctype>
 #include <cstring>
 
 #if !defined(__STRSTREAM_H)
 #include <strstrea.h>
 #endif
+
+const char* const TFileDialog::name = "TFileDialog";
 
 TFileDialog::TFileDialog(TStringView aWildCard,
     TStringView aTitle,

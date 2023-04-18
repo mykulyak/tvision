@@ -14,11 +14,7 @@
 #if !defined( __GADGETS_H )
 #define __GADGETS_H
 
-#define Uses_TEvent
-#define Uses_TRect
-#define Uses_TView
 #include <tvision/tv.h>
-
 
 class THeapView : public TView
 {

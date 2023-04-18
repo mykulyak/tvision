@@ -11,9 +11,7 @@
  *      All Rights Reserved.
  *
  */
-
-#define Uses_TObject
-#include <tvision/tv.h>
+#include "Object.h"
 
 void TObject::shutDown()
 {

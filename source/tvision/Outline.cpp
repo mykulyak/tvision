@@ -13,15 +13,11 @@
  */
 
 #define cpOutlineViewer "\x6\x7\x3\x8"
-#define Uses_TOutlineViewer
-#define Uses_TOutline
-#define Uses_TEvent
-#define Uses_TDrawBuffer
-#define Uses_TKeys
-#define Uses_ipstream
-#define Uses_opstream
+
 #include <cstring>
-#include <tvision/tv.h>
+#include <tvision/OutlineViewer.h>
+
+const char* const TOutline::name = "TOutline";
 
 TOutlineViewer::TOutlineViewer(const TRect& bounds, TScrollBar* aHScrollBar,
     TScrollBar* aVScrollBar) noexcept

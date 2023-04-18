@@ -9,9 +9,6 @@
 // * string mode: one of: indexed8, indexed16, indexed256, direct.
 
 #include <avisynth.h>
-
-#define Uses_TPoint
-#define Uses_TColorAttr
 #include <tvision/tv.h>
 
 enum TermColors {

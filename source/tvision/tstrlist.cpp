@@ -12,11 +12,8 @@
  *
  */
 
-#define Uses_TStringList
-#define Uses_TStrIndexRec
-#define Uses_TStrListMaker
-#define Uses_opstream
-#define Uses_ipstream
+#include <tvision/StrIndexRec.h>
+#include <tvision/StrListMaker.h>
 #include <tvision/tv.h>
 
 #include <cstring>
@@ -80,6 +77,8 @@ void TStrListMaker::put(ushort key, char* str)
 }
 
 #if !defined(NO_STREAMABLE)
+
+const char* const TStringList::name = "TStringList";
 
 TStringList::TStringList(StreamableInit) noexcept
     : basePos(0)

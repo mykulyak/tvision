@@ -9,7 +9,6 @@
  *
  */
 
-#define Uses_TVMemMgr
 #include <tvision/tv.h>
 
 #ifndef NDEBUG

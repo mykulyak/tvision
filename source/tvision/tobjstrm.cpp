@@ -26,19 +26,6 @@
  *
  */
 
-#define Uses_TStreamable
-#define Uses_TStreamableClass
-#define Uses_TStreamableTypes
-#define Uses_TPWrittenObjects
-#define Uses_TPReadObjects
-#define Uses_pstream
-#define Uses_ipstream
-#define Uses_opstream
-#define Uses_iopstream
-#define Uses_fpbase
-#define Uses_ifpstream
-#define Uses_ofpstream
-#define Uses_fpstream
 #include <tvision/tv.h>
 
 #include <climits>
@@ -56,8 +43,8 @@
 #include <fcntl.h>
 #endif // __FCNTL_H
 
-#include <cstdlib>
 #include <cassert>
+#include <cstdlib>
 
 #ifdef __FLAT__
 #define _HUGE

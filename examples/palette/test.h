@@ -13,7 +13,7 @@
 //      aboutDlg - creates and shows about box
 //
 
-#if !defined( _TEST_H )
+#ifndef  _TEST_H )
 #define _TEST_H
 
 class TTestApp : public TApplication

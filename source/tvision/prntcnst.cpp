@@ -10,8 +10,6 @@
 /*            printMouseEventFlags                            */
 /*------------------------------------------------------------*/
 
-#define Uses_EventCodes
-#define Uses_TKeys
 #include <tvision/tv.h>
 
 #include <iomanip.h>

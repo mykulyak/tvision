@@ -12,9 +12,7 @@
  */
 
 #if !defined(NO_STREAMABLE)
-#define Uses_TChDirDialog
-#define Uses_TStreamableClass
-#include <tvision/tv.h>
+#include <tvision/ChdirDialog.h>
 __link(RDialog)
     __link(RButton)
         __link(RDirListBox)

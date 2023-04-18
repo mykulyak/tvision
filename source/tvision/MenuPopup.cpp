@@ -12,14 +12,10 @@
  *
  */
 
-#define Uses_TEvent
-#define Uses_TRect
-#define Uses_TMenu
-#define Uses_TMenuItem
-#define Uses_TMenuPopup
-#define Uses_TProgram
-#define Uses_TDeskTop
-#include <tvision/tv.h>
+#include <tvision/Menu.h>
+#include <tvision/MenuPopup.h>
+
+const char* const TMenuPopup::name = "TMenuPopup";
 
 TMenuPopup::TMenuPopup(const TRect& bounds, TMenu* aMenu, TMenuView* aParentMenu) noexcept
     : TMenuBox(bounds, aMenu, aParentMenu)

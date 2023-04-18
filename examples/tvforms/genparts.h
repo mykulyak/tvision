@@ -17,11 +17,6 @@
 #if !defined( __GENPARTS_H )
 #define __GENPARTS_H
 
-#define Uses_TRect
-#define Uses_TButton
-#define Uses_TMemo
-#define Uses_TLabel
-#define Uses_TScrollBar
 #include <tvision/tv.h>
 __link( RScrollBar )
 __link( RLabel )

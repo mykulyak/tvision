@@ -11,27 +11,12 @@
  *
  */
 
-#define Uses_TApplication
-#define Uses_TMenuBar
-#define Uses_TRect
-#define Uses_TSubMenu
-#define Uses_TKeys
-#define Uses_TMenuItem
-#define Uses_TStatusLine
-#define Uses_TStatusItem
-#define Uses_TStatusDef
-#define Uses_TPoint
-#define Uses_TEditor
-#define Uses_MsgBox
-#define Uses_TFileDialog
-#define Uses_TDeskTop
-
 #include <tvision/tv.h>
 
 #include "tvedit.h"
 
-#include <iomanip.h>
 #include <cstdarg>
+#include <iomanip.h>
 #include <strstrea.h>
 
 TMenuBar* TEditorApp::initMenuBar(TRect r)

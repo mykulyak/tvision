@@ -12,11 +12,9 @@
  *
  */
 
-#define Uses_TEditor
-#define Uses_TText
-#include <tvision/tv.h>
+#include <tvision/Editor.h>
 
-#include <ctype.h>
+#include <cctype>
 
 char TEditor::bufChar(uint P)
 {

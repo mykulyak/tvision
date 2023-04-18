@@ -5,16 +5,7 @@
  *                                                                     *
  ***********************************************************************/
 
-#define Uses_TEvent
-#define Uses_TMenu
-#define Uses_TSubMenu
-#define Uses_TMenuItem
-#define Uses_TMenuBar
-#include <tv.h>
-
-#if !defined(__MMENU_H)
 #include "mmenu.h"
-#endif
 
 /***********************************************************************
  * global operator +

@@ -12,8 +12,7 @@
  *
  */
 
-#define Uses_TPalette
-#include <tvision/tv.h>
+#include "Palette.h"
 
 #if !defined(__MEM_H)
 #include <mem.h>

@@ -1,9 +1,5 @@
 #ifdef HAVE_GPM
 
-#define Uses_TPoint
-#define Uses_TEvent
-#define Uses_TKeys
-#define Uses_TScreen
 #include <tvision/tv.h>
 
 #include <algorithm>

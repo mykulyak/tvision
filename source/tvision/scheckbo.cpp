@@ -12,9 +12,7 @@
  */
 
 #if !defined(NO_STREAMABLE)
-#define Uses_TCheckBoxes
-#define Uses_TStreamableClass
-#include <tvision/tv.h>
+#include <tvision/CheckBoxes.h>
 
 __link(RCluster)
 

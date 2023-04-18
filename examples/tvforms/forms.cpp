@@ -12,12 +12,6 @@
  *
  */
 
-#define Uses_TKeys
-#define Uses_TEvent
-#define Uses_TRect
-#define Uses_TDialog
-#define Uses_TStreamableClass
-#define Uses_MsgBox
 #include <tvision/tv.h>
 __link(RDialog)
     __link(RView)

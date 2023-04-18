@@ -14,25 +14,15 @@
  *                                                                     *
  ***********************************************************************/
 
-#define Uses_TRect
-#define Uses_TKeys
-#define Uses_TEvent
-#define Uses_TDialog
-#define Uses_TMenu
-#define Uses_TMenuItem
-#define Uses_TMenuBar
-#define Uses_TDeskTop
-#define Uses_TProgram
-#define Uses_TApplication
 #include <tv.h>
 
 #pragma hdrstop
 
-#if !defined(__CMDS_H)
+#ifndef __CMDS_H)
 #include "cmds.h"
 #endif
 
-#if !defined(__MMENU_H)
+#ifndef __MMENU_H)
 #include "mmenu.h"
 #endif
 

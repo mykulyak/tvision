@@ -14,21 +14,6 @@
  *
  */
 
-#define Uses_TStreamableClass
-#define Uses_TPoint
-#define Uses_TStreamable
-#define Uses_ipstream
-#define Uses_opstream
-#define Uses_fpstream
-#define Uses_TRect
-#define Uses_TScrollBar
-#define Uses_TScroller
-#define Uses_TDrawBuffer
-#define Uses_TEvent
-#define Uses_TWindow
-#define Uses_TKeys
-#define Uses_TPalette
-#define Uses_TScreen
 #include <tvision/tv.h>
 
 #if !defined(__HELP_H)
@@ -39,8 +24,8 @@
 #include "tvision/util.h"
 #endif // __UTIL_H
 
-#include <cstring>
 #include <climits>
+#include <cstring>
 
 #if !defined(__STAT_H)
 #include <sys/stat.h>

@@ -12,14 +12,13 @@
  *
  */
 
-#define Uses_TParamText
-#define Uses_ipstream
-#define Uses_opstream
-#include <tvision/tv.h>
+#include <tvision/ParamText.h>
 
-#include <cstdio>
 #include <cstdarg>
+#include <cstdio>
 #include <cstring>
+
+const char* const TParamText::name = "TParamText";
 
 TParamText::TParamText(const TRect& bounds) noexcept
     : TStaticText(bounds, 0)

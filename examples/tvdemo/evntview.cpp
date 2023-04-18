@@ -1,9 +1,3 @@
-#define Uses_TEvent
-#define Uses_TKeys
-#define Uses_TFrame
-#define Uses_TTerminal
-#define Uses_TScrollBar
-#define Uses_TStreamableClass
 #include <tvision/tv.h>
 __link(RWindow)
 

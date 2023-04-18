@@ -11,26 +11,16 @@
  *
  */
 
-#define Uses_TRect
-#define Uses_TEvent
-#define Uses_TKeys
-#define Uses_TDrawBuffer
-#define Uses_TStreamableClass
-#define Uses_TStreamable
-#define Uses_TView
-#define Uses_TWindow
-#define Uses_ipstream
-#define Uses_opstream
 #include <tvision/tv.h>
 __link(RView)
     __link(RWindow)
 
 #include <cctype>
-#include <iomanip>
 #include <cstdlib>
 #include <cstring>
-#include <strstrea.h>
 #include <ctime>
+#include <iomanip>
+#include <strstrea.h>
 
 #include "puzzle.h"
 

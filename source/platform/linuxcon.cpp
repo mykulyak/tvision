@@ -1,9 +1,8 @@
 #ifdef __linux__
 
-#define Uses_TEvent
-#define Uses_TKeys
 #include <tvision/tv.h>
 
+#include <cstring>
 #include <internal/gpminput.h>
 #include <internal/linuxcon.h>
 #include <internal/scrlife.h>
@@ -12,7 +11,6 @@
 #include <internal/terminal.h>
 #include <linux/keyboard.h>
 #include <linux/vt.h>
-#include <cstring>
 #include <sys/ioctl.h>
 #include <unistd.h>
 

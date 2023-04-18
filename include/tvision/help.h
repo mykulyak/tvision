@@ -16,17 +16,6 @@
 #if !defined(__HELP_H)
 #define __HELP_H
 
-#define Uses_TStreamable
-#define Uses_ipstream
-#define Uses_opstream
-#define Uses_fpstream
-#define Uses_TObject
-#define Uses_TPoint
-#define Uses_TRect
-#define Uses_TEvent
-#define Uses_TScroller
-#define Uses_TScrollBar
-#define Uses_TWindow
 #include <tvision/tv.h>
 
 #include <tvision/helpbase.h>

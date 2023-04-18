@@ -12,11 +12,7 @@
  *
  */
 
-#define Uses_TKeys
-#define Uses_THistoryViewer
-#define Uses_TScrollBar
-#define Uses_TEvent
-#include <tvision/tv.h>
+#include <tvision/HistoryViewer.h>
 
 #include <cctype>
 #include <cstring>

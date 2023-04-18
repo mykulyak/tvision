@@ -11,16 +11,6 @@
  *
  */
 
-#define Uses_MsgBox
-#define Uses_TKeys
-#define Uses_TScroller
-#define Uses_TDrawBuffer
-#define Uses_TRect
-#define Uses_TProgram
-#define Uses_TDeskTop
-#define Uses_TStreamableClass
-#define Uses_ipstream
-#define Uses_opstream
 #include <tvision/tv.h>
 __link(RScroller)
     __link(RScrollBar)

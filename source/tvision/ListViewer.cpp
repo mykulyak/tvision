@@ -12,20 +12,13 @@
  *
  */
 
-#define Uses_TKeys
-#define Uses_TListViewer
-#define Uses_TScrollBar
-#define Uses_TDrawBuffer
-#define Uses_TPoint
-#define Uses_TEvent
-#define Uses_TGroup
-#define Uses_opstream
-#define Uses_ipstream
 #include <tvision/tv.h>
 
 #if !defined(__MEM_H)
 #include <mem.h>
 #endif // __MEM_H
+
+const char* const TListViewer::name = "TListViewer";
 
 #define cpListViewer "\x1A\x1A\x1B\x1C\x1D"
 

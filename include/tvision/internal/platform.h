@@ -1,8 +1,6 @@
 #ifndef TVISION_PLATFORM_H
 #define TVISION_PLATFORM_H
 
-#define Uses_TPoint
-#define Uses_TColorAttr
 #include <tvision/tv.h>
 #include <internal/stdioctl.h>
 #include <internal/dispbuff.h>

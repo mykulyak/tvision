@@ -1,4 +1,3 @@
-#define Uses_TTimerQueue
 #include <tvision/tv.h>
 
 #include <test.h>

@@ -12,11 +12,10 @@
  *
  */
 
-#define Uses_TResourceCollection
-#define Uses_TResourceItem
-#define Uses_ipstream
-#define Uses_opstream
-#include <tvision/tv.h>
+#include <tvision/ResourceCollection.h>
+#include <tvision/ResourceItem.h>
+
+const char* const TResourceCollection::name = "TResourceCollection";
 
 TResourceCollection::TResourceCollection(short aLimit, short aDelta) noexcept
     : TStringCollection(aLimit, aDelta)

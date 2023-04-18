@@ -12,18 +12,13 @@
  *
  */
 
-#define Uses_TView
-#define Uses_TGroup
-#define Uses_TScreen
-#define Uses_THardwareInfo
-#define Uses_TEventQueue
 #include <tvision/tv.h>
 
 #ifdef __FLAT__
 
-#include <malloc.h>
 #include <cstdlib>
 #include <cstring>
+#include <malloc.h>
 
 extern TPoint shadowSize;
 extern uchar shadowAttr;

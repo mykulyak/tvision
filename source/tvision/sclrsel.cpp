@@ -18,14 +18,9 @@
  */
 
 #if !defined(NO_STREAMABLE)
-#define Uses_TColorSelector
-#define Uses_TMonoSelector
-#define Uses_TColorDisplay
-#define Uses_TColorGroupList
-#define Uses_TColorItemList
-#define Uses_TColorDialog
-#define Uses_TStreamableClass
+
 #include <tvision/tv.h>
+
 __link(RCluster)
     __link(RView)
         __link(RLabel)

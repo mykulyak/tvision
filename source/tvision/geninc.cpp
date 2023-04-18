@@ -17,14 +17,6 @@
  *
  */
 
-#define Uses_TPoint
-#define Uses_TView
-#define Uses_TGroup
-#define Uses_TEvent
-#define Uses_TFrame
-#define Uses_TDrawBuffer
-#define Uses_TEditor
-#define Uses_TTerminal
 #include <tvision/tv.h>
 
 #if !defined(__IOSTREAM_H)

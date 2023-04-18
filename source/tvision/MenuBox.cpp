@@ -12,13 +12,12 @@
  *
  */
 
-#define Uses_TRect
-#define Uses_TMenu
-#define Uses_TMenuItem
-#define Uses_TMenuBox
-#include <tvision/tv.h>
+#include <tvision/Menu.h>
+#include <tvision/MenuBox.h>
 
 #include <cstring>
+
+const char* const TMenuBox::name = "TMenuBox";
 
 static TRect getRect(const TRect& bounds, TMenu* aMenu)
 {

@@ -16,16 +16,7 @@
  *
  */
 
-#define Uses_MsgBox
-#define Uses_TKeys
-#define Uses_TFileInputLine
-#define Uses_TEvent
-#define Uses_TSortedListBox
-#define Uses_TSearchRec
-#define Uses_TFileInfoPane
-#define Uses_TDrawBuffer
-#define Uses_TFileDialog
-#define Uses_TSortedCollection
+#include <tvision/FileCommands.h>
 #include <tvision/tv.h>
 
 #if !defined(__DOS_H)
@@ -42,13 +33,15 @@
 #include <io.h>
 #endif // __IO_H
 
-#include <cstdio>
 #include <cctype>
-#include <cstring>
-#include <cstdlib>
 #include <climits>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 #define cpInfoPane "\x1E"
+
+const char* const TFileInputLine::name = "TFileInputLine";
 
 TFileInputLine::TFileInputLine(const TRect& bounds, short aMaxLen) noexcept
     : TInputLine(bounds, aMaxLen)
@@ -69,6 +62,8 @@ void TFileInputLine::handleEvent(TEvent& event)
         drawView();
     }
 }
+
+const char* const TSortedListBox::name = "TSortedListBox";
 
 TSortedListBox::TSortedListBox(const TRect& bounds,
     ushort aNumCols,
@@ -172,6 +167,8 @@ TStreamable* TSortedListBox::build()
 }
 
 #endif
+
+const char* const TFileInfoPane::name = "TFileInfoPane";
 
 TFileInfoPane::TFileInfoPane(const TRect& bounds) noexcept
     : TView(bounds)

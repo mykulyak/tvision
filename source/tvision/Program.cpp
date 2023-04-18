@@ -12,21 +12,13 @@
  *
  */
 
-#define Uses_TKeys
-#define Uses_TProgram
-#define Uses_TEvent
-#define Uses_TScreen
-#define Uses_TStatusLine
-#define Uses_TMenu
-#define Uses_TGroup
-#define Uses_TDeskTop
-#define Uses_TEventQueue
-#define Uses_TMenuBar
-#define Uses_TStatusDef
-#define Uses_TStatusItem
-#define Uses_TDialog
-#define Uses_TTimerQueue
-#include <tvision/tv.h>
+#include <tvision/Desktop.h>
+#include <tvision/EventQueue.h>
+#include <tvision/MenuBar.h>
+#include <tvision/Program.h>
+#include <tvision/StatusDef.h>
+#include <tvision/StatusItem.h>
+#include <tvision/TimerQueue.h>
 
 // Public variables
 

@@ -12,17 +12,14 @@
  *
  */
 
-#define Uses_TStaticText
-#define Uses_TDrawBuffer
-#define Uses_opstream
-#define Uses_ipstream
-#define Uses_TText
-#include <tvision/tv.h>
+#include <tvision/StaticText.h>
 
 #include <cctype>
 #include <cstring>
 
 #define cpStaticText "\x06"
+
+const char* const TStaticText::name = "TStaticText";
 
 TStaticText::TStaticText(const TRect& bounds, TStringView aText) noexcept
     : TView(bounds)

@@ -1,5 +1,4 @@
-#define Uses_TTimerQueue
-#define Uses_THardwareInfo
+#include <tvision/TimerQueue.h>
 #include <tvision/tv.h>
 
 #if !defined(__BORLANDC__)

@@ -9,10 +9,6 @@
 #if !defined( __TVHC_H )
 #define __TVHC_H
 
-#define Uses_fstream
-#define Uses_TSortedCollection
-#define Uses_TObject
-#define Uses_TPoint
 #include <tvision/tv.h>
 
 #if !defined( __HELPBASE_H )

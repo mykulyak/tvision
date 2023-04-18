@@ -12,19 +12,15 @@
  *
  */
 
-#define Uses_TSystemError
-#define Uses_TEventQueue
-#define Uses_THardwareInfo
-#define Uses_TScreen
-#define Uses_TObject
-#define Uses_TMouse
-#define Uses_TApplication
-#define Uses_TDeskTop
-#include <tvision/tv.h>
-
+#include <cstdlib>
 #include <iostream.h>
 #include <signal.h>
-#include <cstdlib>
+#include <tvision/Application.h>
+#include <tvision/Desktop.h>
+#include <tvision/EventQueue.h>
+#include <tvision/HardwareInfo.h>
+#include <tvision/Screen.h>
+#include <tvision/SystemError.h>
 
 TStaticInit::TStaticInit() noexcept
 {

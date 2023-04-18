@@ -1,11 +1,12 @@
 #ifndef TVISION_EVENTS_H
 #define TVISION_EVENTS_H
 
-#define Uses_TEvent
 #include <tvision/tv.h>
 #include <atomic>
 #include <memory>
 #include <vector>
+
+#include "Event.h"
 
 #ifdef _TV_UNIX
 #include <poll.h>

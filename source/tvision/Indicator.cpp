@@ -12,19 +12,15 @@
  *
  */
 
-#define Uses_TIndicator
-#define Uses_TDrawBuffer
-#define Uses_TEvent
-#define Uses_TView
-#define Uses_opstream
-#define Uses_ipstream
-#include <tvision/tv.h>
+#include <tvision/Indicator.h>
 
 #if !defined(__STRSTREA_H)
 #include <strstrea.h>
 #endif // __STRSTREA_H
 
 #define cpIndicator "\x02\x03"
+
+const char* const TIndicator::name = "TIndicator";
 
 TIndicator::TIndicator(const TRect& bounds) noexcept
     : TView(bounds)

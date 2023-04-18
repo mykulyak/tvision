@@ -12,8 +12,6 @@
  */
 
 #if !defined(NO_STREAMABLE)
-#define Uses_TStreamableClass
-#define Uses_TOutline
 #include <tvision/tv.h>
 __link(RScroller)
 

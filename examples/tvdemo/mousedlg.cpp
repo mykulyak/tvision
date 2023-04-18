@@ -13,23 +13,12 @@
  *
  */
 
-#define Uses_TRect
-#define Uses_TStaticText
-#define Uses_TEvent
-#define Uses_TDrawBuffer
-#define Uses_TDialog
-#define Uses_TLabel
-#define Uses_TScrollBar
-#define Uses_TCheckBoxes
-#define Uses_TButton
-#define Uses_TSItem
-#define Uses_TEventQueue
 #include <tvision/tv.h>
 
 #include <cctype>
-#include <iomanip.h>
 #include <cstdlib>
 #include <cstring>
+#include <iomanip.h>
 #include <strstrea.h>
 
 #include "mousedlg.h"

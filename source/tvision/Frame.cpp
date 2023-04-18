@@ -12,17 +12,13 @@
  *
  */
 
-#define Uses_TFrame
-#define Uses_TDrawBuffer
-#define Uses_TWindow
-#define Uses_TRect
-#define Uses_TPoint
-#define Uses_TEvent
 #include <tvision/tv.h>
 
 #include <cstring>
 
 #define cpFrame "\x01\x01\x02\x02\x03"
+
+const char* const TFrame::name = "TFrame";
 
 TFrame::TFrame(const TRect& bounds) noexcept
     : TView(bounds)

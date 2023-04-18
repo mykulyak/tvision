@@ -12,10 +12,6 @@
  *
  */
 
-#define Uses_TStreamableClass
-#define Uses_TInputLine
-#define Uses_TStreamable
-#define Uses_MsgBox
 #include <tvision/tv.h>
 __link(RInputLine)
 
@@ -23,8 +19,8 @@ __link(RInputLine)
 #include "fields.h"
 #endif // __FIELDS_H
 
-#include <cstring>
 #include <cstdlib>
+#include <cstring>
 
 #if !defined(__STRSTREAM_H)
 #include <strstrea.h>

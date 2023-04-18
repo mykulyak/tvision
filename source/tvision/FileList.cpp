@@ -12,35 +12,30 @@
  *
  */
 
-#define Uses_TVMemMgr
-#define Uses_MsgBox
-#define Uses_TFileList
-#define Uses_TRect
-#define Uses_TSearchRec
-#define Uses_TEvent
-#define Uses_TGroup
-#define Uses_TKeys
-#include <tvision/tv.h>
+#include <tvision/FileCommands.h>
+#include <tvision/FileList.h>
 
 #if !defined(__DIR_H)
 #include <dir.h>
 #endif // __DIR_H
 
+#include <cassert>
+#include <cctype>
 #include <cerrno>
 #include <cstdio>
-#include <cctype>
-#include <cassert>
 
 #if !defined(__DOS_H)
 #include <dos.h>
 #endif // __DOS_H
 
-#include <cstring>
 #include <cstdlib>
+#include <cstring>
 
 #if defined(__FLAT__) && defined(__BORLANDC__)
 extern "C" char* _CType FUNC strupr(char* __s);
 #endif
+
+const char* const TFileList::name = "TFileList";
 
 TFileList::TFileList(const TRect& bounds,
     TScrollBar* aScrollBar) noexcept

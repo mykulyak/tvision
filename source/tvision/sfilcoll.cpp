@@ -11,8 +11,6 @@
  *
  */
 
-#define Uses_TFileCollection
-#define Uses_TStreamableClass
 #include <tvision/tv.h>
 
 TStreamableClass RFileCollection(TFileCollection::name,

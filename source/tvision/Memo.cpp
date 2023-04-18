@@ -12,19 +12,15 @@
  *
  */
 
-#define Uses_TKeys
-#define Uses_TEditor
-#define Uses_TMemo
-#define Uses_TEvent
-#define Uses_opstream
-#define Uses_ipstream
-#include <tvision/tv.h>
+#include <tvision/Memo.h>
 
 #if !defined(__IOSTREAM_H)
 #include <iostream.h>
 #endif // __IOSTREAM_H
 
 #define cpMemo "\x1A\x1B"
+
+const char* const TMemo::name = "TMemo";
 
 TMemo::TMemo(const TRect& bounds,
     TScrollBar* aHScrollBar,

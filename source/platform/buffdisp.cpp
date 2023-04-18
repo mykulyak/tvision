@@ -1,4 +1,3 @@
-#define Uses_TScreenCell
 #include <tvision/tv.h>
 
 #include <chrono>

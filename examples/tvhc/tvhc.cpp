@@ -89,16 +89,14 @@
 /*    Lines starting with ';' are skipped.                               */
 /*=======================================================================*/
 
-#define Uses_fpstream
-#define Uses_TSortedCollection
 #include <tvision/tv.h>
 
 #if !defined(__TVHC_H)
 #include "tvhc.h"
 #endif // __TVHC_H
 
-#include <cstring>
 #include <climits>
+#include <cstring>
 
 #if !defined __DOS_H
 #include <dos.h>

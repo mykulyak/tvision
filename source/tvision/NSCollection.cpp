@@ -12,11 +12,7 @@
  *
  */
 
-#define Uses_TNSCollection
-#define Uses_opstream
-#define Uses_ipstream
-#define Uses_TCollection
-#include <tvision/tv.h>
+#include <tvision/NSCollection.h>
 
 #include <cstdlib>
 
@@ -220,25 +216,4 @@ void TNSCollection::setLimit(ccIndex aLimit)
         items = aItems;
         limit = aLimit;
     }
-}
-
-void TCollection::write(opstream& os)
-{
-    os << count << limit << delta;
-    for (ccIndex idx = 0; idx < count; idx++)
-        writeItem(items[idx], os);
-}
-
-void* TCollection::read(ipstream& is)
-{
-    int savedLimit;
-    is >> count >> savedLimit >> delta;
-    setLimit(savedLimit);
-    for (ccIndex idx = 0; idx < count; idx++)
-        items[idx] = readItem(is);
-    return this;
-}
-
-TCollection::TCollection(StreamableInit) noexcept
-{
 }

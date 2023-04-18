@@ -12,13 +12,11 @@
  *
  */
 
-#define Uses_TDirListBox
-#define Uses_TEvent
-#define Uses_TDirCollection
-#define Uses_TChDirDialog
-#define Uses_TDirEntry
-#define Uses_TButton
-#include <tvision/tv.h>
+#include <tvision/ChdirDialog.h>
+#include <tvision/DirCollection.h>
+#include <tvision/DirEntry.h>
+#include <tvision/DirListBox.h>
+#include <tvision/FileCommands.h>
 
 #include <cstring>
 
@@ -29,6 +27,8 @@
 #if !defined(__DOS_H)
 #include <dos.h>
 #endif // __DOS_H
+
+const char* const TDirListBox::name = "TDirListBox";
 
 TDirListBox::TDirListBox(const TRect& bounds, TScrollBar* aScrollBar) noexcept
     : TListBox(bounds, 1, aScrollBar)

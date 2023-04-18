@@ -12,13 +12,6 @@
  *
  */
 
-#define Uses_TGroup
-#define Uses_TView
-#define Uses_TRect
-#define Uses_TEvent
-#define Uses_opstream
-#define Uses_ipstream
-#define Uses_TVMemMgr
 #include <tvision/tv.h>
 
 TView* TheTopView = 0;

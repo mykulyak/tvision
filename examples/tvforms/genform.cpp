@@ -17,10 +17,6 @@
  *
  */
 
-#define Uses_fpstream
-#define Uses_TResourceFile
-#define Uses_TScreen
-#define Uses_TStreamableClass
 #include <tvision/tv.h>
 __link(RResourceCollection)
 

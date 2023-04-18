@@ -13,11 +13,6 @@
  *
  */
 
-#define Uses_TKeys
-#define Uses_TEvent
-#define Uses_TScreen
-#define Uses_THardwareInfo
-#define Uses_TSystemError
 #include <dos.h>
 #include <iostream.h>
 #include <tvision/tv.h>

@@ -1,13 +1,12 @@
 #ifdef HAVE_NCURSES
 
-#define Uses_TColorAttr
 #include <tvision/tv.h>
 
+#include <cstdio>
+#include <cstdlib>
 #include <internal/ncurdisp.h>
 #include <internal/stdioctl.h>
 #include <ncurses.h>
-#include <cstdio>
-#include <cstdlib>
 
 namespace tvision {
 

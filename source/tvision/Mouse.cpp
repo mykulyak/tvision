@@ -12,9 +12,6 @@
  *
  */
 
-#define Uses_TEvent
-#define Uses_TEventQueue
-#define Uses_THardwareInfo
 #include <tvision/tv.h>
 
 #if !defined(__FLAT__)

@@ -17,11 +17,6 @@
 #if !defined( __FORMS_H )
 #define __FORMS_H
 
-#define Uses_TStreamable
-#define Uses_TEvent
-#define Uses_TRect
-#define Uses_TDialog
-#define Uses_TView
 #include <tvision/tv.h>
 
 class TForm : public TDialog

@@ -15,14 +15,6 @@
  *
  */
 
-#define Uses_TStreamableClass
-#define Uses_TPoint
-#define Uses_TStreamable
-#define Uses_ipstream
-#define Uses_opstream
-#define Uses_iopstream
-#define Uses_TRect
-#define Uses_TText
 #include <tvision/tv.h>
 
 #if !defined(__HELPBASE_H)
@@ -33,8 +25,8 @@
 #include "tvision/util.h"
 #endif // __UTIL_H
 
-#include <cstring>
 #include <climits>
+#include <cstring>
 
 #if !defined(__STAT_H)
 #include <sys/stat.h>

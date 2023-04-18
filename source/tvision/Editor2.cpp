@@ -12,20 +12,13 @@
  *
  */
 
-#define Uses_TKeys
-#define Uses_TEditor
-#define Uses_TIndicator
-#define Uses_TEvent
-#define Uses_TScrollBar
-#define Uses_TFindDialogRec
-#define Uses_TReplaceDialogRec
-#define Uses_TMenuItem
-#define Uses_opstream
-#define Uses_ipstream
-#include <tvision/tv.h>
+#include <tvision/Editor.h>
+#include <tvision/Indicator.h>
+#include <tvision/MenuItem.h>
+#include <tvision/ReplaceDialogRec.h>
 
-#include <cstring>
 #include <cctype>
+#include <cstring>
 
 #if !defined(__DOS_H)
 #include <dos.h>

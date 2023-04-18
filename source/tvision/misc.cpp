@@ -12,10 +12,6 @@
  *
  */
 
-#define Uses_TView
-#define Uses_TEvent
-#define Uses_TObject
-#define Uses_TVMemMgr
 #include <cstddef>
 #include <cstring>
 #include <tvision/tv.h>

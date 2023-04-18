@@ -3,7 +3,7 @@
 // status line, dialog boxes).
 //
 
-#if !defined( _CMDS_H )
+#ifndef  _CMDS_H )
 #define _CMDS_H
 
 const unsigned short cmAbout            = 100;

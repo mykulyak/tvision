@@ -12,16 +12,6 @@
  *
  */
 
-#define Uses_TGroup
-#define Uses_TKeys
-#define Uses_TInputLine
-#define Uses_TDrawBuffer
-#define Uses_TEvent
-#define Uses_TValidator
-#define Uses_opstream
-#define Uses_ipstream
-#define Uses_TText
-#define Uses_TClipboard
 #include <tvision/tv.h>
 
 #include <cctype>
@@ -30,6 +20,8 @@
 #if !defined(__DOS_H)
 #include <dos.h>
 #endif // __DOS_H
+
+const char* const TInputLine::name = "TInputLine";
 
 const int CONTROL_Y = 25;
 

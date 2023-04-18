@@ -5,10 +5,8 @@
 /*          TClipboard member functions                       */
 /*------------------------------------------------------------*/
 
-#define Uses_TClipboard
-#define Uses_THardwareInfo
-#define Uses_TEventQueue
-#include <tvision/tv.h>
+#include <tvision/Clipboard.h>
+#include <tvision/EventQueue.h>
 
 TClipboard TClipboard::instance;
 char* TClipboard::localText = 0;

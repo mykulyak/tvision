@@ -12,21 +12,6 @@
  *
  */
 
-#define Uses_TRect
-#define Uses_TSortedListBox
-#define Uses_TDialog
-#define Uses_MsgBox
-#define Uses_TProgram
-#define Uses_TScrollBar
-#define Uses_TButton
-#define Uses_TResourceFile
-#define Uses_TEvent
-#define Uses_TApplication
-#define Uses_TKeys
-#define Uses_TDeskTop
-#define Uses_TLabel
-#define Uses_fpstream
-#define Uses_TStreamableClass
 #include <tvision/tv.h>
 __link(RResourceCollection)
     __link(RDialog)
@@ -48,15 +33,15 @@ __link(RResourceCollection)
 #include "datacoll.h"
 #endif // __DATACOLL_H
 
-#include <cstdlib>
 #include <cstdio>
+#include <cstdlib>
 #include <cstring>
 
 #if !defined(__DIR_H)
 #include <dir.h>
 #endif // __DIR_H
 
-Boolean fileExists(char* name)
+            Boolean fileExists(char* name)
 {
     struct ffblk sr;
     int ccode;

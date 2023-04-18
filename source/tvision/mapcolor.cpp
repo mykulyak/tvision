@@ -13,8 +13,6 @@
  *
  */
 
-#define Uses_TView
-#define Uses_TGroup
 #include <tvision/tv.h>
 
 TColorAttr TView::mapColor(uchar index) noexcept

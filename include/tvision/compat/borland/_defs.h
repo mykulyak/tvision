@@ -20,7 +20,6 @@
                 Promotes data pointers to far in DLLs (DOS16 only)
 
     Obsolete versions:
-    _Cdecl          Use _RTLENTRY
     _CLASSTYPE      Use _EXPCLASS
     FUNC        Use _EXPFUNC
     CALL        Use _EXPFUNC and declare function explicity __far
@@ -37,7 +36,6 @@
 #define TVISION_COMPAT__DEFS_H
 
 #define _RTLENTRY  __cdecl
-#define _Cdecl      _RTLENTRY
 
 #endif // TVISION_COMPAT__DEFS_H
 

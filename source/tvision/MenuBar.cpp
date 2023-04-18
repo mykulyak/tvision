@@ -12,15 +12,12 @@
  *
  */
 
-#define Uses_TMenuBar
-#define Uses_TDrawBuffer
-#define Uses_TMenu
-#define Uses_TMenuItem
-#define Uses_TRect
-#define Uses_TSubMenu
-#include <tvision/tv.h>
+#include <tvision/Menu.h>
+#include <tvision/MenuBar.h>
 
 #include <cstring>
+
+const char* const TMenuBar::name = "TMenuBar";
 
 TMenuBar::TMenuBar(const TRect& bounds, TMenu* aMenu) noexcept
     : TMenuView(bounds)

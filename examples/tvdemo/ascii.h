@@ -11,7 +11,7 @@
  *
  */
 
-#if !defined( __ASCII_H )
+#ifndef  __ASCII_H )
 #define __ASCII_H
 
 const int cmAsciiTableCmdBase = 910;

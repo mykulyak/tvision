@@ -1,4 +1,3 @@
-#define Uses_TKeys
 #include <tvision/tv.h>
 
 #include <test.h>

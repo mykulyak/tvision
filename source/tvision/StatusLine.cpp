@@ -11,20 +11,15 @@
  *      All Rights Reserved.
  *
  */
-
-#define Uses_TStatusLine
-#define Uses_TStatusItem
-#define Uses_TStatusDef
-#define Uses_TDrawBuffer
-#define Uses_TEvent
-#define Uses_TKeys
-#define Uses_opstream
-#define Uses_ipstream
-#include <tvision/tv.h>
+#include <tvision/StatusDef.h>
+#include <tvision/StatusItem.h>
+#include <tvision/StatusLine.h>
 
 #include <cstring>
 
 #define cpStatusLine "\x02\x03\x04\x05\x06\x07"
+
+const char* const TStatusLine::name = "TStatusLine";
 
 TStatusLine::TStatusLine(const TRect& bounds, TStatusDef& aDefs) noexcept
     : TView(bounds)

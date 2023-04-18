@@ -12,20 +12,13 @@
  *
  */
 
-#define Uses_TKeys
-#define Uses_TWindow
-#define Uses_TEvent
-#define Uses_TRect
-#define Uses_TFrame
-#define Uses_TCommandSet
-#define Uses_TScrollBar
-#define Uses_opstream
-#define Uses_ipstream
 #include <tvision/tv.h>
 
 #include <cstring>
 
 const TPoint minWinSize = { 16, 6 };
+
+const char* const TWindow::name = "TWindow";
 
 TWindowInit::TWindowInit(TFrame* (*cFrame)(TRect)) noexcept
     : createFrame(cFrame)

@@ -12,8 +12,9 @@
  *
  */
 
-#define Uses_TGroup
 #include <tvision/tv.h>
+
+const char* const TGroup::name = "TGroup";
 
 TView* TGroup::at(short index) noexcept
 {

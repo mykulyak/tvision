@@ -12,12 +12,11 @@
  *
  */
 
-#define Uses_TStringCollection
-#define Uses_opstream
-#define Uses_ipstream
-#include <tvision/tv.h>
+#include <tvision/StringCollection.h>
 
 #include <cstring>
+
+const char* const TStringCollection::name = "TStringCollection";
 
 TStringCollection::TStringCollection(short aLimit, short aDelta) noexcept
     : TSortedCollection(aLimit, aDelta)

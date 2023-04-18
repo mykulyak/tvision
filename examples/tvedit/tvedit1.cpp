@@ -11,23 +11,13 @@
  *
  */
 
-#define Uses_TApplication
-#define Uses_TEditWindow
-#define Uses_TDeskTop
-#define Uses_TRect
-#define Uses_TEditor
-#define Uses_TFileEditor
-#define Uses_TFileDialog
-#define Uses_TChDirDialog
-
+#include "tvedit.h"
 #include <tvision/tv.h>
 
-#include "tvedit.h"
-
-#include <iomanip>
-#include <signal.h>
 #include <cstdarg>
 #include <cstdlib>
+#include <iomanip>
+#include <signal.h>
 #include <strstrea.h>
 
 TEditWindow* TEditorApp::openEditor(const char* fileName, Boolean visible)

@@ -5,7 +5,6 @@
 /*            TKey member functions                           */
 /*------------------------------------------------------------*/
 
-#define Uses_TKeys
 #include <tvision/tv.h>
 
 struct TKeyCodeLookupEntry {

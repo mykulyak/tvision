@@ -16,19 +16,16 @@
  *
  */
 
-#define Uses_MsgBox
-#define Uses_TStreamable
-#define Uses_TValidator
-#define Uses_TPXPictureValidator
-#define Uses_TFilterValidator
-#define Uses_TRangeValidator
-#define Uses_TLookupValidator
-#define Uses_TStringLookupValidator
-#define Uses_ipstream
-#define Uses_opstream
 #include <cstdio>
 #include <cstring>
 #include <tvision/tv.h>
+
+const char* const TValidator::name = "TValidator";
+const char* const TPXPictureValidator::name = "TPXPictureValidator";
+const char* const TRangeValidator::name = "TRangeValidator";
+const char* const TFilterValidator::name = "TFilterValidator";
+const char* const TLookupValidator::name = "TLookupValidator";
+const char* const TStringLookupValidator::name = "TStringLookupValidator";
 
 static inline char uppercase(char c)
 {
