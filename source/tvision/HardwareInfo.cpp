@@ -12,10 +12,9 @@
  *      All Rights Reserved.
  *
  */
-
 #include <dos.h>
 #include <iostream>
-#include <tvision/tv.h>
+#include <tvision/HardwareInfo.h>
 
 #if defined(__FLAT__)
 

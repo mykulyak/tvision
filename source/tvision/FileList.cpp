@@ -21,6 +21,8 @@ extern "C" char* _CType FUNC strupr(char* __s);
 
 const char* const TFileList::name = "TFileList";
 
+const char* TFileList::tooManyFiles = "Too many files.";
+
 __link(RSortedListBox) // In case the object below is moved
                        //   to another file.
 

@@ -17,15 +17,8 @@
  *      All Rights Reserved.
  *
  */
-
-#include <tvision/tv.h>
-
-#include <cstring>
-#include <cstdlib>
-
-#if !defined(__DOS_H)
 #include <dos.h>
-#endif // __DOS_H
+#include <tvision/StringView.h>
 
 class HistRec {
 

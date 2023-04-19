@@ -11,10 +11,7 @@
  *      All Rights Reserved.
  *
  */
-
-#include <tvision/tv.h>
-
-#include <cstring>
+#include <tvision/StringView.h>
 
 char* newStr(TStringView s) noexcept
 {

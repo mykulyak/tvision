@@ -89,7 +89,6 @@ const char* TRangeValidator::validSignedChars = "+-0123456789";
 const char* THelpWindow::helpWinTitle = "Help";
 const char* THelpFile::invalidContext = "\n No help available in this context.";
 
-const char* TFileList::tooManyFiles = "Too many files.";
 
 const char* MsgBoxText::yesText = "~Y~es";
 const char* MsgBoxText::noText = "~N~o";
@@ -99,13 +98,6 @@ const char* MsgBoxText::warningText = "Warning";
 const char* MsgBoxText::errorText = "Error";
 const char* MsgBoxText::informationText = "Information";
 const char* MsgBoxText::confirmText = "Confirm";
-
-const char* TFileInfoPane::pmText = "p";
-const char* TFileInfoPane::amText = "a";
-const char* const TFileInfoPane::months[] = {
-    "", "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-};
 
 #if !defined(__FLAT__)
 const char* const TSystemError::errorString[] = {

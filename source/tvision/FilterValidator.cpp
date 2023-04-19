@@ -1,0 +1,66 @@
+#include <tvision/tobjstrm.h>
+#include <tvision/FilterValidator.h>
+
+const char* const TFilterValidator::name = "TFilterValidator";
+
+__link(RValidator)
+
+TStreamableClass RFilterValidator(TFilterValidator::name,
+    TFilterValidator::build,
+    __DELTA(TFilterValidator));
+
+TFilterValidator::TFilterValidator(TStringView aValidChars) noexcept
+{
+    validChars = newStr(aValidChars);
+}
+
+#if !defined(NO_STREAMABLE)
+
+TFilterValidator::TFilterValidator(StreamableInit s) noexcept
+    : TValidator(s)
+{
+}
+
+#endif
+
+TFilterValidator::~TFilterValidator()
+{
+    delete[] validChars;
+}
+
+#if !defined(NO_STREAMABLE)
+
+void TFilterValidator::write(opstream& os)
+{
+    TValidator::write(os);
+    os.writeString(validChars);
+}
+
+void* TFilterValidator::read(ipstream& is)
+{
+    TValidator::read(is);
+    validChars = is.readString();
+    return this;
+}
+
+TStreamable* TFilterValidator::build()
+{
+    return new TFilterValidator(streamableInit);
+}
+
+#endif
+
+bool TFilterValidator::isValid(const char* s)
+{
+    return bool(strspn(s, validChars) == strlen(s));
+}
+
+bool TFilterValidator::isValidInput(char* s, bool suppressFill)
+{
+    return bool(strspn(s, validChars) == strlen(s));
+}
+
+void TFilterValidator::error()
+{
+    messageBox(mfError | mfOKButton, errorMsg);
+}

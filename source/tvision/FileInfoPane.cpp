@@ -7,6 +7,13 @@
 
 const char* const TFileInfoPane::name = "TFileInfoPane";
 
+const char* TFileInfoPane::pmText = "p";
+const char* TFileInfoPane::amText = "a";
+const char* const TFileInfoPane::months[] = {
+    "", "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+};
+
 __link(RView)
 
 TStreamableClass RFileInfoPane(TFileInfoPane::name,
