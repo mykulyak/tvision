@@ -14,14 +14,9 @@
  *      All Rights Reserved.
  *
  */
-
-#include <tvision/tv.h>
-
-#if !defined(__DOS_H)
-#include <dos.h>
-#endif // __DOS_H
-
 #include <cstring>
+#include <dos.h>
+#include <tvision/DrawBuffer.h>
 
 #if !defined(__BORLANDC__)
 #define register

@@ -10,17 +10,13 @@
  *      All Rights Reserved.
  *
  */
-
 #include <tvision/tv.h>
-
 #include "demohelp.h"
 #include "fileview.h"
 #include "gadgets.h"
 #include "mousedlg.h"
 #include "tvcmds.h"
 #include "tvdemo.h"
-
-#include <tvision/help.h>
 
 //
 // Mouse Control Dialog Box function

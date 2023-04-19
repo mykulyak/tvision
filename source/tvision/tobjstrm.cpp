@@ -168,6 +168,8 @@ const void* TPReadObjects::find(P_id_type id)
     return at(id);
 }
 
+TStreamableTypes* pstream::types = (pstream::initTypes(), pstream::types);
+
 pstream::pstream(std::streambuf* sb) noexcept
 {
     init(sb);

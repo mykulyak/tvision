@@ -8,15 +8,13 @@
  *      All Rights Reserved.
  *
  */
-
-#include <tvision/tv.h>
+#include <cassert>
+#include <cstdlib>
+#include <tvision/VirtualMemoryManager.h>
 
 #ifndef NDEBUG
 #define NDEBUG
 #endif
-
-#include <cassert>
-#include <cstdlib>
 
 TBufListEntry* TBufListEntry::bufList = 0;
 

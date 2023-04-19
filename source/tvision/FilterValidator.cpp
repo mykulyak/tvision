@@ -3,6 +3,8 @@
 
 const char* const TFilterValidator::name = "TFilterValidator";
 
+const char* TFilterValidator::errorMsg = "Invalid character in input";
+
 __link(RValidator)
 
 TStreamableClass RFilterValidator(TFilterValidator::name,

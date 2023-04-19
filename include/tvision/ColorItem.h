@@ -17,4 +17,6 @@ public:
     friend TColorItem& operator+(TColorItem& i1, TColorItem& i2) noexcept;
 };
 
+TColorItem& operator+(TColorItem& i1, TColorItem& i2) noexcept;
+
 #endif // __TColorItem

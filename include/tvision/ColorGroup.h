@@ -25,4 +25,7 @@ public:
     uchar colorIndex[256];
 };
 
+TColorGroup& operator+(TColorGroup& g, TColorItem& i) noexcept;
+TColorGroup& operator+(TColorGroup& g1, TColorGroup& g2) noexcept;
+
 #endif // __TColorGroup

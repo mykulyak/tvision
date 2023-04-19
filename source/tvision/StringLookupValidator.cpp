@@ -20,6 +20,8 @@
 
 const char* const TStringLookupValidator::name = "TStringLookupValidator";
 
+const char* TStringLookupValidator::errorMsg = "Input is not in list of valid strings";
+
 __link(RLookupValidator)
 
 TStreamableClass RStringLookupValidator(TStringLookupValidator::name,

@@ -10,7 +10,8 @@
  *      All Rights Reserved.
  *
  */
-
+#include <signal.h>
+#include <cstdlib>
 #include <tvision/tv.h>
 
 #include "ascii.h"
@@ -21,9 +22,6 @@
 #include "evntview.h"
 #include "tvcmds.h"
 #include "tvdemo.h"
-
-#include <cstdlib>
-#include <signal.h>
 
 //
 // DemoApp::handleEvent()

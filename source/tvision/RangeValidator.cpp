@@ -3,6 +3,10 @@
 
 const char* const TRangeValidator::name = "TRangeValidator";
 
+const char* TRangeValidator::errorMsg = "Value not in the range %ld to %ld";
+const char* TRangeValidator::validUnsignedChars = "+0123456789";
+const char* TRangeValidator::validSignedChars = "+-0123456789";
+
 __link(RFilterValidator)
 
 TStreamableClass RRangeValidator(TRangeValidator::name,

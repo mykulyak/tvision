@@ -129,14 +129,12 @@
 
 #include <tvision/FileDialog.h>
 
-#include <tvision/colorsel.h>
-
 #include <tvision/StatusLine.h>
 
 #include <tvision/TextDevice.h>
 #include <tvision/Terminal.h>
 
-#include <tvision/editors.h>
+#include <tvision/EditCommands.h>
 
 #include <tvision/OutlineViewer.h>
 #include <tvision/Outline.h>

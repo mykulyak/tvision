@@ -13,9 +13,8 @@
  *      All Rights Reserved.
  *
  */
-
-#if !defined(__HELPBASE_H)
-#define __HELPBASE_H
+#ifndef __HELP_FILE_H
+#define __HELP_FILE_H
 
 const int32_t magicHeader = 0x46484246L; //"FBHF"
 
@@ -185,4 +184,4 @@ extern void notAssigned(opstream& s, int value);
 
 extern TCrossRefHandler crossRefHandler;
 
-#endif // __HELPBASE_H
+#endif // __HELP_FILE_H

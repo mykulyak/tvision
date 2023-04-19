@@ -14,25 +14,13 @@
  *      All Rights Reserved.
  *
  */
-
-#include <tvision/tv.h>
-
-#if !defined(__HELPBASE_H)
-#include "tvision/helpbase.h"
-#endif // __HELPBASE_H
-
-#if !defined(__UTIL_H)
-#include "tvision/util.h"
-#endif // __UTIL_H
-
+#include <sys/stat.h>
 #include <climits>
 #include <cstring>
 #include <cctype>
 #include <iostream>
-
-#if !defined(__STAT_H)
-#include <sys/stat.h>
-#endif // __STAT_H
+#include <tvision/util.h>
+#include <tvision/HelpFile.h>
 
 #pragma warn - dsz
 
@@ -478,6 +466,8 @@ void THelpIndex::add(int i, int32_t val)
 }
 
 // THelpFile
+
+const char* THelpFile::invalidContext = "\n No help available in this context.";
 
 THelpFile::THelpFile(iopstream& s)
 {

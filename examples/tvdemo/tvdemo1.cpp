@@ -10,8 +10,9 @@
  *      All Rights Reserved.
  *
  */
-
-#include <tvision/tv.h>
+// #include <tvision/tv.h>
+#include <tvision/HelpFile.h>
+#include <tvision/HelpWindow.h>
 
 #include "demohelp.h"
 #include "evntview.h"
@@ -20,10 +21,6 @@
 #include "puzzle.h"
 #include "tvcmds.h"
 #include "tvdemo.h"
-#include <tvision/help.h>
-
-#include <cstdio>
-#include <cstring>
 
 #ifdef __FLAT__
 #define HELP_FILENAME "demohelp.h32"

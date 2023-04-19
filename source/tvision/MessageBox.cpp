@@ -11,14 +11,18 @@
  *      All Rights Reserved.
  *
  */
-
 #include <tvision/Desktop.h>
 #include <tvision/Label.h>
 #include <tvision/StaticText.h>
 
-#include <cstdarg>
-#include <cstdio>
-#include <cstring>
+const char* MsgBoxText::yesText = "~Y~es";
+const char* MsgBoxText::noText = "~N~o";
+const char* MsgBoxText::okText = "O~K~";
+const char* MsgBoxText::cancelText = "~C~ancel";
+const char* MsgBoxText::warningText = "Warning";
+const char* MsgBoxText::errorText = "Error";
+const char* MsgBoxText::informationText = "Information";
+const char* MsgBoxText::confirmText = "Confirm";
 
 static const char* buttonName[] = {
     MsgBoxText::yesText,

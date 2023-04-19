@@ -10,10 +10,7 @@
 #define __TVHC_H
 
 #include <tvision/tv.h>
-
-#if !defined( __HELPBASE_H )
-#include "tvision/helpbase.h"
-#endif  // __HELPBASE_H
+#include <tvision/HelpFile.h>
 
 #if !defined( __DIR_H )
 #include <dir.h>

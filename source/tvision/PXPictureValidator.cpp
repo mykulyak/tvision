@@ -52,6 +52,8 @@ bool isIncomplete(TPicResult result)
 
 const char* const TPXPictureValidator::name = "TPXPictureValidator";
 
+const char* TPXPictureValidator::errorMsg = "Error in picture format.\n %s";
+
 __link(RValidator)
 
 TStreamableClass RPXPictureValidator(TPXPictureValidator::name,

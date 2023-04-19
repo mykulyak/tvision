@@ -196,3 +196,37 @@ otstream::otstream(TTerminal* tt)
     : std::ostream(tt)
 {
 }
+
+
+static bool backwardsFindLF(const char* buffer, ushort& p, ushort count)
+{
+    ushort pos = p;
+    while (count--)
+        if (buffer[pos--] == '\n')
+            return p = pos, true;
+    return p = pos,  false;
+}
+
+ushort TTerminal::prevLines(ushort pos, ushort lines)
+{
+    if (lines != 0) {
+        if (pos == queBack)
+            return queBack;
+        bufDec(pos);
+        while (lines > 0) {
+            // TTerminal uses a circular buffer. 'count' here measures how
+            // many bytes can be read before reaching the 'queue back'
+            // or the beginning of the buffer.
+            ushort count = (pos > queBack ? pos - queBack : pos) + 1;
+            if (backwardsFindLF(buffer, pos, count))
+                --lines;
+            else if (ushort(pos + 1) == queBack) // 'queue back' reached.
+                return queBack;
+            else
+                pos = bufSize - 1;
+        };
+    }
+    bufInc(pos);
+    bufInc(pos);
+    return pos;
+}

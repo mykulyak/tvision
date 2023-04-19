@@ -12,37 +12,14 @@
  *      All Rights Reserved.
  *
  */
+#ifndef __HELP_WINDOW_H
+#define __HELP_WINDOW_H
 
-#if !defined(__HELP_H)
-#define __HELP_H
+#include <tvision/Window.h>
 
-#include <tvision/tv.h>
-
-#include <tvision/helpbase.h>
-
-// THelpViewer
-
-class THelpViewer : public TScroller {
-public:
-    THelpViewer(const TRect&, TScrollBar*, TScrollBar*, THelpFile*, ushort) noexcept;
-    ~THelpViewer();
-
-    virtual void changeBounds(const TRect&);
-    virtual void draw();
-    virtual TPalette& getPalette() const;
-    virtual void handleEvent(TEvent&);
-    void makeSelectVisible(int, TPoint&, uchar&, int&);
-    void switchToTopic(int);
-
-    THelpFile* hFile;
-    THelpTopic* topic;
-    int selected;
-};
-
-// THelpWindow
+class THelpFile;
 
 class THelpWindow : public TWindow {
-
     static const char* helpWinTitle;
 
 public:
@@ -51,8 +28,4 @@ public:
     virtual TPalette& getPalette() const;
 };
 
-extern void notAssigned(opstream& s, int value);
-
-extern TCrossRefHandler crossRefHandler;
-
-#endif // __HELP_H
+#endif // __HELP_WINDOW_H

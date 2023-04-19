@@ -13,25 +13,7 @@
  *      All Rights Reserved.
  *
  */
-
-#include <tvision/tv.h>
-
-#if !defined(__HELP_H)
-#include "tvision/help.h"
-#endif // __HELP_H
-
-#if !defined(__UTIL_H)
-#include "tvision/util.h"
-#endif // __UTIL_H
-
-#include <climits>
-#include <cstring>
-#include <cctype>
-#include <cstdlib>
-
-#if !defined(__STAT_H)
-#include <sys/stat.h>
-#endif // __STAT_H
+#include <tvision/HelpViewer.h>
 
 #pragma warn - dsz
 
@@ -224,25 +206,3 @@ void THelpViewer::handleEvent(TEvent& event)
         break;
     }
 }
-
-// THelpWindow
-
-THelpWindow::THelpWindow(THelpFile* hFile, ushort context) noexcept
-    : TWindowInit(&THelpWindow::initFrame)
-    , TWindow(TRect(0, 0, 50, 18), helpWinTitle, wnNoNumber)
-{
-    TRect r(0, 0, 50, 18);
-    options = (options | ofCentered);
-    r.grow(-2, -1);
-    insert(new THelpViewer(r,
-        standardScrollBar(sbHorizontal | sbHandleKeyboard),
-        standardScrollBar(sbVertical | sbHandleKeyboard), hFile, context));
-}
-
-TPalette& THelpWindow::getPalette() const
-{
-    static TPalette palette(cHelpWindow, sizeof(cHelpWindow) - 1);
-    return palette;
-}
-
-#pragma warn.dsz

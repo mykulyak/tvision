@@ -88,15 +88,19 @@
 /*                                                                       */
 /*    Lines starting with ';' are skipped.                               */
 /*=======================================================================*/
-
+#include <climits>
+#include <cstring>
+#include <cctype>
+#include <cstdlib>
+#include <fstream>
+#include <strstream>
+#include <cerrno>
+#include <cstdio>
 #include <tvision/tv.h>
 
 #if !defined(__TVHC_H)
 #include "tvhc.h"
 #endif // __TVHC_H
-
-#include <climits>
-#include <cstring>
 
 #if !defined __DOS_H
 #include <dos.h>
@@ -109,17 +113,6 @@
 #if !defined(__IO_H)
 #include <io.h>
 #endif // __IO_H
-
-#include <cctype>
-#include <cstdlib>
-#include <fstream>
-
-#if !defined(__STRSTREA_H)
-#include <strstream>
-#endif // __STRSTREA_H
-
-#include <cerrno>
-#include <cstdio>
 
 /*
  * Help compiler global variables.
