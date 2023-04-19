@@ -14,9 +14,7 @@
 #include <tvision/help.h>
 #include <tvision/tv.h>
 
-#if !defined(__CTYPE_H)
-#include <ctype.h>
-#endif // __CTYPE_H
+#include <cctype>
 
 static const char altCodes1[] = "QWERTYUIOP\0\0\0\0ASDFGHJKL\0\0\0\0\0ZXCVBNM";
 static const char altCodes2[] = "1234567890-=";
@@ -88,17 +86,10 @@ const char* TStringLookupValidator::errorMsg = "Input is not in list of valid st
 const char* TRangeValidator::validUnsignedChars = "+0123456789";
 const char* TRangeValidator::validSignedChars = "+-0123456789";
 
-const char* TListViewer::emptyText = "<empty>";
-
 const char* THelpWindow::helpWinTitle = "Help";
 const char* THelpFile::invalidContext = "\n No help available in this context.";
 
-const char* TEditWindow::clipboardTitle = "Clipboard";
-const char* TEditWindow::untitled = "Untitled";
-
 const char* TFileList::tooManyFiles = "Too many files.";
-
-const char* TProgram::exitText = "~Alt-X~ Exit";
 
 const char* MsgBoxText::yesText = "~Y~es";
 const char* MsgBoxText::noText = "~N~o";
@@ -109,34 +100,12 @@ const char* MsgBoxText::errorText = "Error";
 const char* MsgBoxText::informationText = "Information";
 const char* MsgBoxText::confirmText = "Confirm";
 
-const char* TChDirDialog::changeDirTitle = "Change Directory";
-const char* TChDirDialog::dirNameText = "Directory ~n~ame";
-const char* TChDirDialog::dirTreeText = "Directory ~t~ree";
-const char* TChDirDialog::okText = "O~K~";
-const char* TChDirDialog::chdirText = "~C~hdir";
-const char* TChDirDialog::revertText = "~R~evert";
-const char* TChDirDialog::helpText = "Help";
-const char* TChDirDialog::drivesText = "Drives";
-const char* TChDirDialog::invalidText = "Invalid directory";
-
-const char* TFileDialog::filesText = "~F~iles";
-const char* TFileDialog::openText = "~O~pen";
-const char* TFileDialog::okText = "O~K~";
-const char* TFileDialog::replaceText = "~R~eplace";
-const char* TFileDialog::clearText = "~C~lear";
-const char* TFileDialog::cancelText = "Cancel";
-const char* TFileDialog::helpText = "~H~elp";
-const char* TFileDialog::invalidDriveText = "Invalid drive or directory";
-const char* TFileDialog::invalidFileText = "Invalid file name";
-
 const char* TFileInfoPane::pmText = "p";
 const char* TFileInfoPane::amText = "a";
 const char* const TFileInfoPane::months[] = {
     "", "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 };
-
-const char TDeskTop::defaultBkgrnd = '\xB0';
 
 #if !defined(__FLAT__)
 const char* const TSystemError::errorString[] = {

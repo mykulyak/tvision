@@ -1,8 +1,6 @@
 #ifndef TVISION_CONSTARR_H
 #define TVISION_CONSTARR_H
 
-#include <cstddef>
-
 // std::array is not constexpr until C++17. So we make our own, which costs
 // nothing.
 

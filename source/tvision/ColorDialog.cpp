@@ -3,6 +3,16 @@
 
 const char* const TColorDialog::name = "TColorDialog";
 
+const char* TColorDialog::colors = "Colors";
+const char* TColorDialog::groupText = "~G~roup";
+const char* TColorDialog::itemText = "~I~tem";
+const char* TColorDialog::forText = "~F~oreground";
+const char* TColorDialog::bakText = "~B~ackground";
+const char* TColorDialog::textText = "Text ";
+const char* TColorDialog::colorText = "Color";
+const char* TColorDialog::okText = "O~K~";
+const char* TColorDialog::cancelText = "Cancel";
+
 TColorDialog::TColorDialog(TPalette* aPalette, TColorGroup* aGroups) noexcept
     : TWindowInit(&TColorDialog::initFrame)
     , TDialog(TRect(0, 0, 61, 18), colors)

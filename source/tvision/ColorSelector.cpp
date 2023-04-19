@@ -39,6 +39,8 @@
 
 const char* const TColorSelector::name = "TColorSelector";
 
+const char TColorSelector::icon = '\xDB';
+
 TColorIndex* colorIndexes = 0;
 
 TColorItem::TColorItem(const char* nm, uchar idx, TColorItem* nxt) noexcept

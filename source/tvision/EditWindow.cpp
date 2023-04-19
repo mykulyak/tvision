@@ -18,6 +18,9 @@
 
 const char* const TEditWindow::name = "TEditWindow";
 
+const char* TEditWindow::clipboardTitle = "Clipboard";
+const char* TEditWindow::untitled = "Untitled";
+
 const TPoint minEditWinSize = { 24, 6 };
 
 TEditWindow::TEditWindow(const TRect& bounds,

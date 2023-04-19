@@ -16,6 +16,8 @@
 
 const char* const TCheckBoxes::name = "TCheckBoxes";
 
+const char* TCheckBoxes::button = " [ ] ";
+
 __link(RCluster)
 
 TStreamableClass RCheckBoxes(TCheckBoxes::name,

@@ -26,6 +26,16 @@
 
 const char* const TFileDialog::name = "TFileDialog";
 
+const char* TFileDialog::filesText = "~F~iles";
+const char* TFileDialog::openText = "~O~pen";
+const char* TFileDialog::okText = "O~K~";
+const char* TFileDialog::replaceText = "~R~eplace";
+const char* TFileDialog::clearText = "~C~lear";
+const char* TFileDialog::cancelText = "Cancel";
+const char* TFileDialog::helpText = "~H~elp";
+const char* TFileDialog::invalidDriveText = "Invalid drive or directory";
+const char* TFileDialog::invalidFileText = "Invalid file name";
+
 __link(RDialog)
 __link(RFileInputLine)
 __link(RFileList)

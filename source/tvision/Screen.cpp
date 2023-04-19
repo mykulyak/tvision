@@ -18,6 +18,10 @@
 #include <dos.h>
 #endif // __DOS_H
 
+extern const uchar specialChars[] = {
+    175, 174, 26, 27, ' ', ' '
+};
+
 ushort TScreen::startupMode = 0xFFFF;
 ushort TScreen::startupCursor = 0;
 ushort TScreen::screenMode = 0;
@@ -28,6 +32,36 @@ bool TScreen::checkSnow = true;
 TScreenCell* TScreen::screenBuffer;
 ushort TScreen::cursorLines = 0;
 bool TScreen::clearOnSuspend = true;
+
+static unsigned getCodePage() noexcept
+{
+#if defined(__BORLANDC__)
+#if !defined(__FLAT__)
+    //  get version number, in the form of a normal number
+    unsigned ver = (_version >> 8) | (_version << 8);
+    if (ver < 0x30C)
+        return 437; // United States code page, for all versions before 3.3
+
+#if defined(__FLAT__)
+    Regs r;
+    r.rDS.w.wl = r.rES.w.wl = -1;
+#endif
+
+    _AX = 0x6601; // get code page
+    _genInt(0x21);
+
+#endif
+    return _BX;
+#else
+    return 437;
+#endif
+}
+
+void TDisplay::updateIntlChars() noexcept
+{
+    if (getCodePage() != 437)
+        TFrame::frameChars[30] = '\xCD';
+}
 
 ushort TDisplay::getCursorType() noexcept
 {

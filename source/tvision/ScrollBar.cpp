@@ -22,6 +22,9 @@
 
 const char* const TScrollBar::name = "TScrollBar";
 
+TScrollChars TScrollBar::vChars = { '\x1E', '\x1F', '\xB1', '\xFE', '\xB2' };
+TScrollChars TScrollBar::hChars = { '\x11', '\x10', '\xB1', '\xFE', '\xB2' };
+
 __link(RView)
 
 TStreamableClass RScrollBar(TScrollBar::name,

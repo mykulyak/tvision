@@ -26,6 +26,9 @@ const int
 
 const char* const TButton::name = "TButton";
 
+const char* TButton::shadows = "\xDC\xDB\xDF";
+const char* TButton::markers = "[]";
+
 __link(RView)
 
 TStreamableClass RButton(TButton::name,

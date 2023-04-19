@@ -22,6 +22,9 @@
 
 const char* const TIndicator::name = "TIndicator";
 
+const char TIndicator::dragFrame = '\xCD';
+const char TIndicator::normalFrame = '\xC4';
+
 TIndicator::TIndicator(const TRect& bounds) noexcept
     : TView(bounds)
     , location(TPoint())

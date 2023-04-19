@@ -27,6 +27,8 @@
 
 const char* const TFileEditor::name = "TFileEditor";
 
+const char* TFileEditor::backupExt = ".bak";
+
 TFileEditor::TFileEditor(const TRect& bounds,
     TScrollBar* aHScrollBar,
     TScrollBar* aVScrollBar,

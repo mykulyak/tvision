@@ -21,6 +21,9 @@
 
 const char* const TInputLine::name = "TInputLine";
 
+const char TInputLine::rightArrow = '\x10';
+const char TInputLine::leftArrow = '\x11';
+
 __link(RView)
 
 TStreamableClass RInputLine(TInputLine::name,

@@ -31,6 +31,13 @@
 
 const char* const TDirListBox::name = "TDirListBox";
 
+const char* TDirListBox::pathDir = "\xC0\xC4\xC2";
+const char* TDirListBox::firstDir = "\xC0\xC2\xC4";
+const char* TDirListBox::middleDir = " \xC3\xC4";
+const char* TDirListBox::lastDir = " \xC0\xC4";
+const char* TDirListBox::drives = "Drives";
+const char* TDirListBox::graphics = "\xC0\xC3\xC4";
+
 __link(RListBox)
 
 TStreamableClass RDirListBox(TDirListBox::name,

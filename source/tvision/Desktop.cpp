@@ -17,6 +17,8 @@
 
 const char* const TDeskTop::name = "TDeskTop";
 
+const char TDeskTop::defaultBkgrnd = '\xB0';
+
 __link(RBackground)
 
 TStreamableClass RDeskTop(TDeskTop::name, TDeskTop::build, __DELTA(TDeskTop));

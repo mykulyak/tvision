@@ -16,6 +16,8 @@
 
 const char* const TListViewer::name = "TListViewer";
 
+const char* TListViewer::emptyText = "<empty>";
+
 __link(RView)
 __link(RScrollBar)
 

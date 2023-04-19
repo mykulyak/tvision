@@ -20,6 +20,8 @@
 
 const char* const TStatusLine::name = "TStatusLine";
 
+const char* TStatusLine::hintSeparator = "\xB3 ";
+
 __link(RView)
 
 TStreamableClass RStatusLine(TStatusLine::name,

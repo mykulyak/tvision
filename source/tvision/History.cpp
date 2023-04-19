@@ -22,6 +22,8 @@
 
 const char* const THistory::name = "THistory";
 
+const char* THistory::icon = "\xDE~\x19~\xDD";
+
 __link(RView)
 __link(RInputLine)
 

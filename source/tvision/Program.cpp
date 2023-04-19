@@ -31,6 +31,8 @@ int TProgram::eventTimeout = 20; // 50 wake-ups per second.
 TEvent TProgram::pending;
 TTimerQueue TProgram::timerQueue;
 
+const char* TProgram::exitText = "~Alt-X~ Exit";
+
 extern TPoint shadowSize;
 
 TProgInit::TProgInit(TStatusLine* (*cStatusLine)(TRect),

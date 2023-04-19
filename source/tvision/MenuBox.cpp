@@ -17,6 +17,8 @@
 
 const char* const TMenuBox::name = "TMenuBox";
 
+const char* TMenuBox::frameChars = " \332\304\277  \300\304\331  \263 \263  \303\304\264 ";
+
 TStreamableClass RMenuBox(TMenuBox::name,
     TMenuBox::build,
     __DELTA(TMenuBox));

@@ -29,6 +29,16 @@
 
 const char* const TChDirDialog::name = "TChDirDialog";
 
+const char* TChDirDialog::changeDirTitle = "Change Directory";
+const char* TChDirDialog::dirNameText = "Directory ~n~ame";
+const char* TChDirDialog::dirTreeText = "Directory ~t~ree";
+const char* TChDirDialog::okText = "O~K~";
+const char* TChDirDialog::chdirText = "~C~hdir";
+const char* TChDirDialog::revertText = "~R~evert";
+const char* TChDirDialog::helpText = "Help";
+const char* TChDirDialog::drivesText = "Drives";
+const char* TChDirDialog::invalidText = "Invalid directory";
+
 __link(RDialog)
 __link(RButton)
 __link(RDirListBox)

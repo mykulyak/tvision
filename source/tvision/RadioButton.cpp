@@ -16,6 +16,8 @@
 
 const char* const TRadioButtons::name = "TRadioButtons";
 
+const char* TRadioButtons::button = " ( ) ";
+
 __link(RCluster)
 
 TStreamableClass RRadioButtons(TRadioButtons::name,

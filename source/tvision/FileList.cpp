@@ -11,31 +11,22 @@
  *      All Rights Reserved.
  *
  */
-
+#include <tvision/tobjstrm.h>
 #include <tvision/FileCommands.h>
 #include <tvision/FileList.h>
-
-#if !defined(__DIR_H)
-#include <dir.h>
-#endif // __DIR_H
-
-#include <cassert>
-#include <cctype>
-#include <cerrno>
-#include <cstdio>
-
-#if !defined(__DOS_H)
-#include <dos.h>
-#endif // __DOS_H
-
-#include <cstdlib>
-#include <cstring>
 
 #if defined(__FLAT__) && defined(__BORLANDC__)
 extern "C" char* _CType FUNC strupr(char* __s);
 #endif
 
 const char* const TFileList::name = "TFileList";
+
+__link(RSortedListBox) // In case the object below is moved
+                       //   to another file.
+
+TStreamableClass RFileList(TFileList::name,
+    TFileList::build,
+    __DELTA(TFileList));
 
 TFileList::TFileList(const TRect& bounds,
     TScrollBar* aScrollBar) noexcept
