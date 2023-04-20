@@ -1,20 +1,7 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   TTYPES.H                                                              */
-/*                                                                         */
-/*   provides miscellaneous types used throughout Turbo Vision             */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
+#ifndef TVision_Types_h
+#define TVision_Types_h
 
-#ifndef __TTYPES_H
-#define __TTYPES_H
+/*   provides miscellaneous types used throughout Turbo Vision             */
 
 #ifdef __BORLANDC__
 #define I asm
@@ -130,4 +117,4 @@ extern const uchar specialChars[];
         return *new (this) S(t);                    \
     }
 
-#endif // __TTYPES_H
+#endif // TVision_Types_h

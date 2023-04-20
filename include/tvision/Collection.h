@@ -1,5 +1,5 @@
-#ifndef __TCollection
-#define __TCollection
+#ifndef TVision_TCollection_h
+#define TVision_TCollection_h
 
 #include <tvision/ttypes.h>
 
@@ -48,4 +48,4 @@ inline opstream& operator<<(opstream& os, TCollection* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TCollection
+#endif // TVision_TCollection_h

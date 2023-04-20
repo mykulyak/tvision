@@ -1,5 +1,5 @@
-#ifndef __THistoryWindow
-#define __THistoryWindow
+#ifndef TVision_THistoryWindow_h
+#define TVision_THistoryWindow_h
 
 #include <tvision/Window.h>
 
@@ -41,4 +41,4 @@ protected:
     TListViewer* viewer;
 };
 
-#endif // __THistoryWindow
+#endif // TVision_THistoryWindow_h

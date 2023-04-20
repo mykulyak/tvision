@@ -1,20 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   TOBJSTRM.H                                                            */
-/*                                                                         */
-/*   defines the classes TStreamable, TStreamableClass, pstream,           */
-/*   ipstream, opstream, iopstream, ifpstream, ofpstream, and fpstream.    */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-#ifndef __TOBJSTRM_H
-#define __TOBJSTRM_H
+#ifndef TVision_TObjectStream_h
+#define TVision_TObjectStream_h
 
 typedef unsigned P_id_type;
 
@@ -536,4 +521,4 @@ public:
 
 #endif // __fpstream
 
-#endif // __TOBJSTRM_H
+#endif // TVision_TObjectStream_h

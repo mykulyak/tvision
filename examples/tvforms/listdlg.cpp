@@ -37,21 +37,9 @@ __link(RResourceCollection)
 #include <cstdlib>
 #include <cstring>
 
-#ifndef __DIR_H
 #include <dir.h>
-#endif // __DIR_H
 
-            bool fileExists(char* name)
-{
-    struct ffblk sr;
-    int ccode;
-
-    ccode = findfirst(name, &sr, 0);
-    if (!ccode)
-        return true;
-    else
-        return  false;
-}
+#include <filesystem>
 
 // TListKeyBox
 
@@ -158,24 +146,24 @@ TListDialog::TListDialog(char* rezName, char* title)
 
             insert(new TButton(TRect(buttonX, y, buttonX + buttonWd,
                                    y + 2),
-                "~E~dit", cmFormEdit, bfDefault));
+                "~E~dit", cmFormEdit, TButton::Flags::bfDefault));
 
             y += 2;
 
             insert(new TButton(TRect(buttonX, y, buttonX + buttonWd,
                                    y + 2),
-                "~N~ew", cmFormNew, bfNormal));
+                "~N~ew", cmFormNew, TButton::Flags::bfNormal));
 
             y += 2;
             insert(new TButton(TRect(buttonX, y, buttonX + buttonWd,
                                    y + 2),
-                "~D~elete", cmFormDel, bfNormal));
+                "~D~elete", cmFormDel, TButton::Flags::bfNormal));
 
             y += 2;
 
             insert(new TButton(TRect(buttonX, y, buttonX + buttonWd,
                                    y + 2),
-                "~S~ave", cmListSave, bfNormal));
+                "~S~ave", cmListSave, TButton::Flags::bfNormal));
 
             selectNext (false); // Select first field
             isValid = true;
@@ -394,8 +382,9 @@ bool TListDialog::saveList()
             destroy(formDataFile);
             formDataFile = NULL;
             fnmerge(bufStr, drive, d, n, ".bak");
-            if (fileExists(bufStr))
+            if (std::filesystem::exists(std::filesystem::path(bufStr))) {
                 ::remove(bufStr);
+            }
             ccode = rename(fileName, bufStr);
             // Error trying to erase old .BAK or rename original to .BAK?
             if (ccode) {

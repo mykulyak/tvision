@@ -1,20 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   TEXTVIEW.H                                                            */
-/*                                                                         */
-/*   defines the classes TTextDevice and TTerminal                         */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#ifndef __TTerminal
-#define __TTerminal
+#ifndef TVision_TTerminal_h
+#define TVision_TTerminal_h
 
 #include <tvision/TextDevice.h>
 
@@ -60,4 +45,4 @@ public:
 
 #endif
 
-#endif // __TTerminal
+#endif // TVision_TTerminal_h

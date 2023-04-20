@@ -1,5 +1,5 @@
-#ifndef __TMemo
-#define __TMemo
+#ifndef TVision_TMemo_h
+#define TVision_TMemo_h
 
 #include <tvision/Editor.h>
 
@@ -51,4 +51,4 @@ inline opstream& operator<<(opstream& os, TMemo* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TMemo
+#endif // TVision_TMemo_h

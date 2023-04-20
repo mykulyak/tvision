@@ -1,17 +1,3 @@
-/*-------------------------------------------------------------------*/
-/* filename -       tapplica.cpp                                     */
-/*                                                                   */
-/* function(s)                                                       */
-/*          TApplication member functions (constructor & destructor) */
-/*-------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
 #include <cstdlib>
 #include <iostream>
 #include <signal.h>

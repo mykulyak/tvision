@@ -1,17 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       tcluster.cpp                              */
-/*                                                            */
-/* function(s)                                                */
-/*                  TCluster member functions                 */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
 #include <tvision/tobjstrm.h>
 #include <tvision/Cluster.h>
 #include <tvision/CommandCodes.h>

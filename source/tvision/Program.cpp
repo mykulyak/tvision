@@ -1,17 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       tprogram.cpp                              */
-/*                                                            */
-/* function(s)                                                */
-/*                  TProgram member functions                 */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
 #include <tvision/Desktop.h>
 #include <tvision/EventQueue.h>
 #include <tvision/MenuBar.h>
@@ -19,8 +5,6 @@
 #include <tvision/StatusDef.h>
 #include <tvision/StatusItem.h>
 #include <tvision/TimerQueue.h>
-
-// Public variables
 
 TStatusLine* TProgram::statusLine = 0;
 TMenuBar* TProgram::menuBar = 0;

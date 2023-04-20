@@ -1,20 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   VIEWS.H                                                               */
-/*                                                                         */
-/*   defines the classes TView, TFrame, TScrollBar, TScroller,             */
-/*   TListViewer, TGroup, and TWindow                                      */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-#ifndef __TWindow
-#define __TWindow
+#ifndef TVision_TWindow_h
+#define TVision_TWindow_h
 
 #include <tvision/Group.h>
 #include <tvision/Palette.h>
@@ -51,8 +36,14 @@ protected:
 /* ---------------------------------------------------------------------- */
 
 class TWindow : public TGroup, public virtual TWindowInit {
-
 public:
+    enum Flags {
+        wfMove = 0x01,
+        wfGrow = 0x02,
+        wfClose = 0x04,
+        wfZoom = 0x08,
+    };
+
     TWindow(const TRect& bounds,
         TStringView aTitle,
         short aNumber) noexcept;
@@ -110,4 +101,4 @@ inline opstream& operator<<(opstream& os, TWindow* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TWindow
+#endif // TVision_TWindow_h

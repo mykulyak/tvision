@@ -1,5 +1,5 @@
-#ifndef __TFileList
-#define __TFileList
+#ifndef TVision_TFileList_h
+#define TVision_TFileList_h
 
 #include <tvision/SortedListBox.h>
 #include <tvision/FileCollection.h>
@@ -7,7 +7,6 @@
 class TScrollBar;
 
 class TFileList : public TSortedListBox {
-
 public:
     TFileList(const TRect& bounds,
         TScrollBar* aScrollBar) noexcept;
@@ -75,4 +74,4 @@ inline TFileCollection* TFileList::list()
     return (TFileCollection*)TSortedListBox::list();
 }
 
-#endif // __TFileList
+#endif // TVision_TFileList_h

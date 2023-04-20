@@ -1,5 +1,5 @@
-#ifndef __TPoint
-#define __TPoint
+#ifndef TVision_TPoint_h
+#define TVision_TPoint_h
 
 #include <tvision/tobjstrmfwd.h>
 
@@ -73,4 +73,4 @@ inline opstream& operator<<(opstream& os, TPoint* p)
     return os << p->x << p->y;
 }
 
-#endif // __TPoint
+#endif // TVision_TPoint_h

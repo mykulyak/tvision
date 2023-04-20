@@ -1,5 +1,5 @@
-#ifndef __TColorItem
-#define __TColorItem
+#ifndef TVision_TColorItem_h
+#define TVision_TColorItem_h
 
 #include <tvision/ttypes.h>
 
@@ -19,4 +19,4 @@ public:
 
 TColorItem& operator+(TColorItem& i1, TColorItem& i2) noexcept;
 
-#endif // __TColorItem
+#endif // TVision_TColorItem_h

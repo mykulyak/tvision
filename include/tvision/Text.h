@@ -1,13 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   TTEXT.H                                                               */
-/*                                                                         */
-/*   Defines functions related to multibyte string manipulation.           */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-
-#ifndef __TText
-#define __TText
+#ifndef TVision_TText_h
+#define TVision_TText_h
 
 #include <tvision/ttypes.h>
 #include <tvision/StringView.h>
@@ -20,6 +12,7 @@ struct TTextMetrics {
     uint graphemeCount; // Number of non-combining characters.
 };
 
+/*   Defines functions related to multibyte string manipulation.           */
 class TText {
 public:
     // Returns the width of 'text'.
@@ -484,4 +477,4 @@ inline bool TText::drawOneT(TSpan<TScreenCell> cells, size_t& i,
 
 #endif // __BORLANDC__
 
-#endif // __TText
+#endif // TVision_TText_h

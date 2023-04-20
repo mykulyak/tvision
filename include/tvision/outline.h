@@ -1,20 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   OUTLINE.H                                                             */
-/*                                                                         */
-/*   defines the classes TOutline, and TOutlineViewer.                     */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#ifndef __TOutline
-#define __TOutline
+#ifndef TVision_TOutline_h
+#define TVision_TOutline_h
 
 #include <tvision/OutlineViewer.h>
 
@@ -88,4 +73,4 @@ inline opstream& operator<<(opstream& os, TOutline* o)
     return os << (TStreamable*)o;
 }
 
-#endif // __TOutline
+#endif // TVision_TOutline_h

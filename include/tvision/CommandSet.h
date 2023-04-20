@@ -1,5 +1,5 @@
-#ifndef __TCommandSet
-#define __TCommandSet
+#ifndef TVision_TCommandSet_h
+#define TVision_TCommandSet_h
 
 #include <tvision/ttypes.h>
 
@@ -76,4 +76,4 @@ inline int TCommandSet::mask(int cmd) noexcept
     return masks[cmd & 0x07];
 }
 
-#endif // __TCommandSet
+#endif // TVision_TCommandSet_h

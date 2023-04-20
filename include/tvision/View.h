@@ -187,6 +187,8 @@ protected:
     virtual void* read(ipstream&);
 };
 
+void* message(TView* receiver, ushort what, ushort command, void* infoPtr);
+
 inline ipstream& operator>>(ipstream& is, TView& cl)
 {
     return is >> (TStreamable&)cl;

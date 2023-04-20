@@ -1,16 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       thistory.cpp                              */
-/*                                                            */
-/* function(s)                                                */
-/*                  THistory member functions                 */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <tvision/tobjstrm.h>
 #include <tvision/History.h>
 #include <tvision/HistoryWindow.h>

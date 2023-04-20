@@ -1,51 +1,10 @@
-/*------------------------------------------------------------*/
-/* filename -       tobjstrm.cpp                              */
-/*                                                            */
-/* function(s)                                                */
-/*                  Member function(s) of following classes:  */
-/*                     TParamText                             */
-/*                     TStreamable                            */
-/*                     TStreamableClass                       */
-/*                     TStreamableTypes                       */
-/*                     TPWrittenObjects                       */
-/*                     TPReadObjects                          */
-/*                     pstream                                */
-/*                     ipstream                               */
-/*                     opstream                               */
-/*                     iopstream                              */
-/*                     fpbase                                 */
-/*                     ifpstream                              */
-/*                     ofpstream                              */
-/*                     fpstream                               */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <fstream>
 #include <tvision/tobjstrm.h>
 
-#ifdef __FLAT__
-#define _HUGE
-#else
-#define _HUGE huge
-#endif
-
-// std::ios::open_mode and std::ios::seek_dir are deprecated in modern C++ and are
-// incompatible with the implementation-defined equivalents std::ios::openmode
-// and std::ios::seekdir. We simply redirect to the appropiate type on each platform.
-#ifdef __BORLANDC__
-typedef std::ios::open_mode openmode;
-typedef std::ios::seek_dir seekdir;
-#else
 typedef std::ios::openmode openmode;
 typedef std::ios::seekdir seekdir;
-#endif
 
 const uchar nullStringLen = UCHAR_MAX;
 
@@ -131,7 +90,7 @@ int TPWrittenObjects::compare(void* o1, void* o2)
 {
     if (o1 == o2)
         return 0;
-    else if (((char _HUGE*)o1) + 1 < ((char _HUGE*)o2) + 1) // force normalization
+    else if (((char*)o1) + 1 < ((char*)o2) + 1) // force normalization
         return -1;
     else
         return 1;

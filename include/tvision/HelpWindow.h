@@ -1,19 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   HELP.H                                                                */
-/*                                                                         */
-/*   defines the classes THelpViewer and THelpWindow                       */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-#ifndef __HELP_WINDOW_H
-#define __HELP_WINDOW_H
+#ifndef TVision_THelpWindow_h
+#define TVision_THelpWindow_h
 
 #include <tvision/Window.h>
 
@@ -28,4 +14,4 @@ public:
     virtual TPalette& getPalette() const;
 };
 
-#endif // __HELP_WINDOW_H
+#endif // TVision_THelpWindow_h

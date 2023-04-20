@@ -1,5 +1,5 @@
-#ifndef __TFrame
-#define __TFrame
+#ifndef TVision_TFrame_h
+#define TVision_TFrame_h
 
 #include <tvision/View.h>
 #include <tvision/Palette.h>
@@ -70,4 +70,4 @@ inline opstream& operator<<(opstream& os, TFrame* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TFrame
+#endif // TVision_TFrame_h

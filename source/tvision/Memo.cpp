@@ -1,16 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename - tmemo.cpp                                       */
-/*                                                            */
-/* function(s)                                                */
-/*            TMemo member functions                          */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <tvision/Memo.h>
 #include <iostream>
 

@@ -1,21 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   EDITORS.H                                                             */
-/*                                                                         */
-/*   defines the classes TIndicator, TEditor, TMemo, TFileEditor,          */
-/*   and TEditWindow                                                       */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#ifndef __EDIT_COMMAND_CODES
-#define __EDIT_COMMAND_CODES
+#ifndef TVision_EditCommandCodes_h
+#define TVision_EditCommandCodes_h
 
 const int
     ufUpdate
@@ -96,4 +80,4 @@ const int
     maxLineLength
     = 256;
 
-#endif // __EDIT_COMMAND_CODES
+#endif // TVision_EditCommandCodes_h

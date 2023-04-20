@@ -1,5 +1,5 @@
-#ifndef __TMenuView
-#define __TMenuView
+#ifndef TVision_TMenuView_h
+#define TVision_TMenuView_h
 
 /* ---------------------------------------------------------------------- */
 /*      class TMenuView                                                   */
@@ -109,4 +109,4 @@ inline TMenuView::TMenuView(const TRect& bounds) noexcept
     eventMask |= evBroadcast;
 }
 
-#endif // __TMenuView
+#endif // TVision_TMenuView_h

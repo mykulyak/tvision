@@ -1,5 +1,5 @@
-#ifndef __TChDirDialog
-#define __TChDirDialog
+#ifndef TVision_TChDirDialog_h
+#define TVision_TChDirDialog_h
 
 #include <tvision/Dialog.h>
 
@@ -81,4 +81,4 @@ inline opstream& operator<<(opstream& os, TChDirDialog* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TChDirDialog
+#endif // TVision_TChDirDialog_h

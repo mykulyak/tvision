@@ -1,5 +1,5 @@
-#ifndef __TOutlineViewer
-#define __TOutlineViewer
+#ifndef TVision_TOutlineViewer_h
+#define TVision_TOutlineViewer_h
 
 #include <tvision/StringView.h>
 
@@ -123,4 +123,4 @@ inline TOutlineViewer::TOutlineViewer(StreamableInit s) noexcept
 {
 }
 
-#endif // __TOutlineViewer
+#endif // TVision_TOutlineViewer_h

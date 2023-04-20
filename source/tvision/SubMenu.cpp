@@ -1,17 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       menu.cpp                                  */
-/*                                                            */
-/* function(s)                                                */
-/*                  TSubMenu member functions                 */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
 #include <tvision/Menu.h>
 #include <tvision/StatusDef.h>
 #include <tvision/SubMenu.h>

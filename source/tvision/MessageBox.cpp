@@ -1,16 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       msgbox.cpp                                */
-/*                                                            */
-/* function(s)                                                */
-/*                  messageBox related functions              */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <tvision/Desktop.h>
 #include <tvision/Label.h>
 #include <tvision/StaticText.h>
@@ -60,7 +47,7 @@ ushort messageBoxRect(const TRect& r, TStringView msg, ushort aOptions) noexcept
 
     for (i = 0, x = -2, buttonCount = 0; i < 4; i++) {
         if ((aOptions & (0x0100 << i)) != 0) {
-            buttonList[buttonCount] = new TButton(TRect(0, 0, 10, 2), buttonName[i], commands[i], bfNormal);
+            buttonList[buttonCount] = new TButton(TRect(0, 0, 10, 2), buttonName[i], commands[i], TButton::Flags::bfNormal);
             x += buttonList[buttonCount++]->size.x + 2;
         }
     }
@@ -167,11 +154,11 @@ ushort inputBoxRect(const TRect& bounds,
 
     r = TRect(dialog->size.x - 24, dialog->size.y - 4,
         dialog->size.x - 14, dialog->size.y - 2);
-    dialog->insert(new TButton(r, MsgBoxText::okText, cmOK, bfDefault));
+    dialog->insert(new TButton(r, MsgBoxText::okText, cmOK, TButton::Flags::bfDefault));
 
     r.a.x += 12;
     r.b.x += 12;
-    dialog->insert(new TButton(r, MsgBoxText::cancelText, cmCancel, bfNormal));
+    dialog->insert(new TButton(r, MsgBoxText::cancelText, cmCancel, TButton::Flags::bfNormal));
 
     r.a.x += 12;
     r.b.x += 12;

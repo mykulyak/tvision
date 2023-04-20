@@ -1,23 +1,7 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   STDDLG.H                                                              */
-/*                                                                         */
-/*   defines the classes TFileInputLine, TFileCollection, TSortedListBox,  */
-/*   TFileList, TFileInfoPane, TFileDialog, TDirCollection, TDirListBox,   */
-/*   and TChDirDialog                                                      */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
+#ifndef TVision_TFileDialog_h
+#define TVision_TFileDialog_h
 
-#ifndef __TFileDialog
-#define __TFileDialog
-
+#include <filesystem>
 #include <tvision/Dialog.h>
 
 const int
@@ -48,7 +32,10 @@ public:
     ~TFileDialog();
 
     virtual void getData(void* rec);
+
     void getFileName(char* s) noexcept;
+    std::filesystem::path getFilePath() noexcept;
+
     virtual void handleEvent(TEvent& event);
     virtual void setData(void* rec);
     virtual bool valid(ushort command);
@@ -112,4 +99,4 @@ inline opstream& operator<<(opstream& os, TFileDialog* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TFileDialog
+#endif // TVision_TFileDialog_h

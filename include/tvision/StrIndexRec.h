@@ -1,5 +1,5 @@
-#ifndef __TStrIndexRec
-#define __TStrIndexRec
+#ifndef TVision_TStrIndexRec_h
+#define TVision_TStrIndexRec_h
 
 #include <tvision/ttypes.h>
 
@@ -12,4 +12,4 @@ public:
     ushort offset;
 };
 
-#endif // __TStrIndexRec
+#endif // TVision_TStrIndexRec_h

@@ -1,5 +1,5 @@
-#ifndef __TParamText
-#define __TParamText
+#ifndef TVision_TParamText_h
+#define TVision_TParamText_h
 
 #include <tvision/StaticText.h>
 
@@ -56,4 +56,4 @@ inline opstream& operator<<(opstream& os, TParamText* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TParamText
+#endif // TVision_TParamText_h

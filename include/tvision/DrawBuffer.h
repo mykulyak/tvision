@@ -1,26 +1,12 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   DRAWBUF.H                                                             */
-/*                                                                         */
-/*   defines the class TDrawBuffer, which provides the high-level          */
-/*   interface to the Screen Manager.                                      */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#ifndef __TDrawBuffer
-#define __TDrawBuffer
+#ifndef TVision_TDrawBuffer_h
+#define TVision_TDrawBuffer_h
 
 #include <tvision/ScreenCell.h>
 
+/**
+ * This class provides the high-level interface to the Screen Manager. 
+ */
 class TDrawBuffer {
-
     friend class TSystemError;
     friend class TView;
     friend void genRefs();
@@ -76,4 +62,4 @@ inline size_t TDrawBuffer::length() const noexcept
 #endif
 }
 
-#endif // __TDrawBuffer
+#endif // TVision_TDrawBuffer_h

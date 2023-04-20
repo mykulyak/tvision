@@ -1,5 +1,5 @@
-#ifndef __TResourceItem
-#define __TResourceItem
+#ifndef TVision_TResourceItem_h
+#define TVision_TResourceItem_h
 
 #include <tvision/ttypes.h>
 
@@ -9,4 +9,4 @@ struct TResourceItem {
     char* key;
 };
 
-#endif // __TResourceItem
+#endif // TVision_TResourceItem_h

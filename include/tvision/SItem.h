@@ -1,5 +1,5 @@
-#ifndef __TSItem
-#define __TSItem
+#ifndef TVision_TSItem_h
+#define TVision_TSItem_h
 
 #include <tvision/util.h>
 #include <tvision/StringView.h>
@@ -17,4 +17,4 @@ public:
     TSItem* next;
 };
 
-#endif // __TSItem
+#endif // TVision_TSItem_h

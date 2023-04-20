@@ -1,5 +1,5 @@
-#ifndef __TColorDisplay
-#define __TColorDisplay
+#ifndef TVision_TColorDisplay_h
+#define TVision_TColorDisplay_h
 
 #include <tvision/StringView.h>
 #include <tvision/View.h>
@@ -50,4 +50,4 @@ inline opstream& operator<<(opstream& os, TColorDisplay* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TColorDisplay
+#endif // TVision_TColorDisplay_h

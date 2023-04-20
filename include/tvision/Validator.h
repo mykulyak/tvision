@@ -1,6 +1,5 @@
-
-#ifndef __TValidator
-#define __TValidator
+#ifndef TVision_TValidator_h
+#define TVision_TValidator_h
 
 #include <tvision/ttypes.h>
 #include <tvision/Object.h>
@@ -69,4 +68,4 @@ inline opstream& operator<<(opstream& os, TValidator* v)
     return os << (TStreamable*)v;
 }
 
-#endif
+#endif // TVision_TValidator_h

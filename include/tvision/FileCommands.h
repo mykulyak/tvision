@@ -1,5 +1,5 @@
-#ifndef __FILE_CMDS
-#define __FILE_CMDS
+#ifndef TVision_FileCommands_h
+#define TVision_FileCommands_h
 
 const int
 
@@ -19,4 +19,4 @@ const int
     cmFileDoubleClicked // A file was selected in the TFileList
     = 103;
 
-#endif // __FILE_CMDS
+#endif // TVision_FileCommands_h

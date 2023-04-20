@@ -1,17 +1,3 @@
-/*--------------------------------------------------------------*/
-/* filename -       tresfile.cpp                                */
-/*                                                              */
-/* function(s)                                                  */
-/*                  TResourceFile member functions              */
-/*--------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
 #include <tvision/ResourceFile.h>
 #include <tvision/ResourceItem.h>
 

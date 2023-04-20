@@ -1,5 +1,5 @@
-#ifndef __COLOR_COMMAND_CODES
-#define __COLOR_COMMAND_CODES
+#ifndef TVision_ColorCommandCodes_h
+#define TVision_ColorCommandCodes_h
 
 const int
     cmColorForegroundChanged
@@ -10,4 +10,4 @@ const int
     cmNewColorIndex = 75,
     cmSaveColorIndex = 76;
 
-#endif // __COLOR_COMMAND_CODES
+#endif // TVision_ColorCommandCodes_h

@@ -1,17 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       hardwrvr.cpp                              */
-/*                                                            */
-/* function(s)                                                */
-/*                  Member variables for THardwareInfo class  */
-/*                                                            */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <iostream>
 #include <tvision/HardwareInfo.h>
 

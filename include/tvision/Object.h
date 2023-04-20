@@ -1,5 +1,5 @@
-#ifndef __TObject
-#define __TObject
+#ifndef TVision_TObject_h
+#define TVision_TObject_h
 
 class TObject {
 
@@ -19,4 +19,4 @@ inline void TObject::destroy(TObject* o)
     delete o;
 }
 
-#endif // __TObject
+#endif // TVision_TObject_h

@@ -1,18 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       Help.cpp                                  */
-/*                                                            */
-/* function(s)                                                */
-/*                  Member function(s) of following classes   */
-/*                      THelpViewer                           */
-/*                      THelpWindow                           */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <tvision/HelpViewer.h>
 
 #pragma warn - dsz

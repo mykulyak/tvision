@@ -1,17 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       tbkgrnd.cpp                               */
-/*                                                            */
-/* function(s)                                                */
-/*          TBackground member functions                      */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
 #include <tvision/Background.h>
 
 #define cpBackground "\x01" // background palette

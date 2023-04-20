@@ -1,5 +1,5 @@
-#ifndef __TInputLine
-#define __TInputLine
+#ifndef TVision_TInputLine_h
+#define TVision_TInputLine_h
 
 #include <tvision/View.h>
 
@@ -107,4 +107,4 @@ inline opstream& operator<<(opstream& os, TInputLine* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TInputLine
+#endif // TVision_TInputLine_h

@@ -1,16 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       tchdrdlg.cpp                              */
-/*                                                            */
-/* function(s)                                                */
-/*          TChDirDialog member functions                     */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <strstream>
 #include <tvision/tobjstrm.h>
 #include <tvision/Button.h>
@@ -68,13 +55,13 @@ TChDirDialog::TChDirDialog(ushort opts, ushort histId) noexcept
     insert(dirList);
     insert(new TLabel(TRect(2, 5, 17, 6), dirTreeText, dirList));
 
-    okButton = new TButton(TRect(35, 6, 45, 8), okText, cmOK, bfDefault);
+    okButton = new TButton(TRect(35, 6, 45, 8), okText, cmOK, TButton::Flags::bfDefault);
     insert(okButton);
-    chDirButton = new TButton(TRect(35, 9, 45, 11), chdirText, cmChangeDir, bfNormal);
+    chDirButton = new TButton(TRect(35, 9, 45, 11), chdirText, cmChangeDir, TButton::Flags::bfNormal);
     insert(chDirButton);
-    insert(new TButton(TRect(35, 12, 45, 14), revertText, cmRevert, bfNormal));
+    insert(new TButton(TRect(35, 12, 45, 14), revertText, cmRevert, TButton::Flags::bfNormal));
     if ((opts & cdHelpButton) != 0)
-        insert(new TButton(TRect(35, 15, 45, 17), helpText, cmHelp, bfNormal));
+        insert(new TButton(TRect(35, 15, 45, 17), helpText, cmHelp, TButton::Flags::bfNormal));
     if ((opts & cdNoLoadDir) == 0)
         setUpDialog();
     selectNext (false);

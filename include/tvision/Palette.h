@@ -1,5 +1,5 @@
-#ifndef __TPalette
-#define __TPalette
+#ifndef TVision_TPalette_h
+#define TVision_TPalette_h
 
 #include <tvision/ttypes.h>
 #include <tvision/colors.h>
@@ -30,4 +30,4 @@ inline TColorAttr& TPalette::operator[](int index) const noexcept
     return data[index];
 }
 
-#endif // __TPalette
+#endif // TVision_TPalette_h

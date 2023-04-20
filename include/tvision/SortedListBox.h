@@ -1,5 +1,5 @@
-#ifndef __TSortedListBox
-#define __TSortedListBox
+#ifndef TVision_TSortedListBox_h
+#define TVision_TSortedListBox_h
 
 #include <tvision/ListBox.h>
 
@@ -64,4 +64,4 @@ inline TSortedCollection* TSortedListBox::list()
     return (TSortedCollection*)TListBox::list();
 }
 
-#endif // __TSortedListBox
+#endif // TVision_TSortedListBox_h

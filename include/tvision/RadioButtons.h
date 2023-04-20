@@ -1,5 +1,5 @@
-#ifndef __TRadioButtons
-#define __TRadioButtons
+#ifndef TVision_TRadioButtons_h
+#define TVision_TRadioButtons_h
 
 /* ---------------------------------------------------------------------- */
 /*      class TRadioButtons                                               */
@@ -61,4 +61,4 @@ inline TRadioButtons::TRadioButtons(const TRect& bounds, TSItem* aStrings) noexc
 {
 }
 
-#endif // __TRadioButtons
+#endif // TVision_TRadioButtons_h

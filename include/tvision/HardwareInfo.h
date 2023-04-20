@@ -1,20 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   HARDWARE.H                                                            */
-/*                                                                         */
-/*   defines the class THardwareInfo                                       */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#ifndef __THardwareInfo
-#define __THardwareInfo
+#ifndef TVision_THardwareInfo_h
+#define TVision_THardwareInfo_h
 
 #if defined(__FLAT__)
 
@@ -308,4 +293,4 @@ inline bool THardwareInfo::getDPMIFlag()
 
 #endif
 
-#endif // __THardwareInfo
+#endif // TVision_THardwareInfo_h

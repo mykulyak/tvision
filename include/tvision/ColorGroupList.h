@@ -1,5 +1,5 @@
-#ifndef __TColorGroupList
-#define __TColorGroupList
+#ifndef TVision_TColorGroupList_h
+#define TVision_TColorGroupList_h
 
 #include <tvision/ListViewer.h>
 
@@ -63,4 +63,4 @@ inline opstream& operator<<(opstream& os, TColorGroupList* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TColorGroupList
+#endif // TVision_TColorGroupList_h

@@ -1,5 +1,5 @@
-#ifndef __THistoryViewer
-#define __THistoryViewer
+#ifndef TVision_THistoryViewer_h
+#define TVision_THistoryViewer_h
 
 #include <tvision/ListViewer.h>
 
@@ -32,4 +32,4 @@ protected:
     ushort historyId;
 };
 
-#endif // __THistoryViewer
+#endif // TVision_THistoryViewer_h

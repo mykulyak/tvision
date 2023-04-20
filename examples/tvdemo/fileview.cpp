@@ -1,50 +1,25 @@
-/*---------------------------------------------------------*/
-/*                                                         */
-/*   Turbo Vision FileViewer Demo Support File             */
-/*                                                         */
-/*---------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#include <tvision/tv.h>
-__link(RScroller)
-    __link(RScrollBar)
-
-#include <cctype>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-
 #include <fstream>
-#include <strstream>
+#include <sstream>
 
 #include "fileview.h"
 #include "tvcmds.h"
 
-        const char* const TFileViewer::name
-    = "TFileViewer";
+const char* const TFileViewer::name = "TFileViewer";
+
+__link(RScroller)
+__link(RScrollBar)
 
 TFileViewer::TFileViewer(const TRect& bounds,
     TScrollBar* aHScrollBar,
     TScrollBar* aVScrollBar,
-    const char* aFileName)
-    : TScroller(bounds, aHScrollBar, aVScrollBar)
+    const std::filesystem::path& aFileName)
+    : TScroller(bounds, aHScrollBar, aVScrollBar),
+    fileName(aFileName),
+    fileLines(std::make_unique<TLineCollection>(5, 5)),
+    isValid(true)
 {
     growMode = gfGrowHiX | gfGrowHiY;
-    isValid = true;
-    fileName = 0;
     readFile(aFileName);
-}
-
-TFileViewer::~TFileViewer()
-{
-    delete[] fileName;
-    destroy(fileLines);
 }
 
 void TFileViewer::draw()
@@ -71,41 +46,23 @@ void TFileViewer::scrollDraw()
     draw();
 }
 
-void TFileViewer::readFile(const char* fName)
+void TFileViewer::readFile(const std::filesystem::path& fName)
 {
-    delete[] fileName;
-
     limit.x = 0;
-    fileName = newStr(fName);
-    fileLines = new TLineCollection(5, 5);
+    fileName = fName;
+    fileLines = std::make_unique<TLineCollection>(5, 5);
     std::ifstream fileToView(fName);
     if (!fileToView) {
-        char buf[256] = { 0 };
-        std::ostrstream os(buf, sizeof(buf) - 1);
+        std::ostringstream os;
         os << "Failed to open file '" << fName << "'." << std::ends;
-        messageBox(buf, mfError | mfOKButton);
+        messageBox(os.str(), mfError | mfOKButton);
         isValid =  false;
     } else {
-        char* line = (char*)malloc(maxLineLength);
-        size_t lineSize = maxLineLength;
-        char c;
-        while (!lowMemory() && !fileToView.eof() && fileToView.get(c)) {
-            size_t i = 0;
-            while (!fileToView.eof() && c != '\n' && c != '\r') // read a whole line
-            {
-                if (i == lineSize)
-                    line = (char*)realloc(line, (lineSize *= 2));
-                line[i++] = c ? c : ' ';
-                fileToView.get(c);
-            }
-            line[i] = '\0';
-            if (c == '\r' && fileToView.peek() == '\n')
-                fileToView.get(c); // grab trailing newline on CRLF
-            limit.x = max(limit.x, strwidth(line));
+        std::string line;
+        while (std::getline(fileToView, line)) {
             fileLines->insert(newStr(line));
         }
         isValid = true;
-        ::free(line);
     }
     limit.y = fileLines->getCount();
 }
@@ -113,8 +70,9 @@ void TFileViewer::readFile(const char* fName)
 void TFileViewer::setState(ushort aState, bool enable)
 {
     TScroller::setState(aState, enable);
-    if (enable && (aState & sfExposed))
+    if (enable && (aState & sfExposed)) {
         setLimit(limit.x, limit.y);
+    }
 }
 
 bool TFileViewer::valid(ushort)
@@ -124,20 +82,16 @@ bool TFileViewer::valid(ushort)
 
 void* TFileViewer::read(ipstream& is)
 {
-    char* fName;
-
     TScroller::read(is);
-    fName = is.readString();
-    fileName = 0;
-    readFile(fName);
-    delete[] fName;
+    std::unique_ptr<char[]> fName(is.readString());
+    readFile(fName.get());
     return this;
 }
 
 void TFileViewer::write(opstream& os)
 {
     TScroller::write(os);
-    os.writeString(fileName);
+    os.writeString(fileName.c_str());
 }
 
 TStreamable* TFileViewer::build()
@@ -151,15 +105,13 @@ TStreamableClass RFileView(TFileViewer::name,
 
 static short winNumber = 0;
 
-TFileWindow::TFileWindow(const char* fileName)
+TFileWindow::TFileWindow(const std::filesystem::path& fileName)
     : TWindowInit(&TFileWindow::initFrame)
-    , TWindow(TProgram::deskTop->getExtent(), fileName, winNumber++)
+    , TWindow(TProgram::deskTop->getExtent(), fileName.c_str(), winNumber++)
 {
     options |= ofTileable;
-    TRect r(getExtent());
-    r.grow(-1, -1);
-    insert(new TFileViewer(r,
+    insert(new TFileViewer(getExtent().grow(-1, -1),
         standardScrollBar(sbHorizontal | sbHandleKeyboard),
         standardScrollBar(sbVertical | sbHandleKeyboard),
-        fileName));
+        fileName.c_str()));
 }

@@ -1,5 +1,5 @@
-#ifndef __TLabel
-#define __TLabel
+#ifndef TVision_TLabel_h
+#define TVision_TLabel_h
 
 #include <tvision/StaticText.h>
 
@@ -61,4 +61,4 @@ inline opstream& operator<<(opstream& os, TLabel* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TLabel
+#endif // TVision_TLabel_h

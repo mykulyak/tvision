@@ -1,5 +1,5 @@
-#ifndef __TColorSelector
-#define __TColorSelector
+#ifndef TVision_TColorSelector_h
+#define TVision_TColorSelector_h
 
 #include <tvision/View.h>
 
@@ -59,4 +59,4 @@ inline opstream& operator<<(opstream& os, TColorSelector* cl)
 
 extern TColorIndex* colorIndexes;
 
-#endif // __TColorSelector
+#endif // TVision_TColorSelector_h

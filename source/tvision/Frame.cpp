@@ -1,16 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       tframe.cpp                                */
-/*                                                            */
-/* function(s)                                                */
-/*                  TFrame member functions                   */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <tvision/tobjstrm.h>
 #include <tvision/Frame.h>
 
@@ -109,12 +96,12 @@ void TFrame::draw()
     width = size.x;
     l = width - 10;
 
-    if ((((TWindow*)owner)->flags & (wfClose | wfZoom)) != 0)
+    if ((((TWindow*)owner)->flags & (TWindow::Flags::wfClose | TWindow::Flags::wfZoom)) != 0)
         l -= 6;
     frameLine(b, 0, f, cFrame);
     if (((TWindow*)owner)->number != wnNoNumber && ((TWindow*)owner)->number < 10) {
         l -= 4;
-        if ((((TWindow*)owner)->flags & wfZoom) != 0)
+        if ((((TWindow*)owner)->flags & TWindow::Flags::wfZoom) != 0)
             i = 7;
         else
             i = 3;
@@ -134,9 +121,9 @@ void TFrame::draw()
     }
 
     if ((state & sfActive) != 0) {
-        if ((((TWindow*)owner)->flags & wfClose) != 0)
+        if ((((TWindow*)owner)->flags & TWindow::Flags::wfClose) != 0)
             b.moveCStr(2, closeIcon, cFrame);
-        if ((((TWindow*)owner)->flags & wfZoom) != 0) {
+        if ((((TWindow*)owner)->flags & TWindow::Flags::wfZoom) != 0) {
             TPoint minSize, maxSize;
             owner->sizeLimits(minSize, maxSize);
             if (owner->size == maxSize)
@@ -153,7 +140,7 @@ void TFrame::draw()
     }
     frameLine(b, size.y - 1, f + 6, cFrame);
     if ((state & sfActive) != 0)
-        if ((((TWindow*)owner)->flags & wfGrow) != 0) {
+        if ((((TWindow*)owner)->flags & TWindow::Flags::wfGrow) != 0) {
             b.moveCStr(0, dragLeftIcon, cFrame);
             b.moveCStr(width - 2, dragIcon, cFrame);
         }
@@ -183,7 +170,7 @@ void TFrame::handleEvent(TEvent& event)
     if (event.what == evMouseDown) {
         TPoint mouse = makeLocal(event.mouse.where);
         if (mouse.y == 0) {
-            if ((((TWindow*)owner)->flags & wfClose) != 0 && (state & sfActive) && mouse.x >= 2 && mouse.x <= 4) {
+            if ((((TWindow*)owner)->flags & TWindow::Flags::wfClose) != 0 && (state & sfActive) && mouse.x >= 2 && mouse.x <= 4) {
                 while (mouseEvent(event, evMouse))
                     ;
                 mouse = makeLocal(event.mouse.where);
@@ -194,20 +181,20 @@ void TFrame::handleEvent(TEvent& event)
                     putEvent(event);
                     clearEvent(event);
                 }
-            } else if ((((TWindow*)owner)->flags & wfZoom) != 0 && (state & sfActive) && ((mouse.x >= size.x - 5 && mouse.x <= size.x - 3) || (event.mouse.eventFlags & meDoubleClick))) {
+            } else if ((((TWindow*)owner)->flags & TWindow::Flags::wfZoom) != 0 && (state & sfActive) && ((mouse.x >= size.x - 5 && mouse.x <= size.x - 3) || (event.mouse.eventFlags & meDoubleClick))) {
                 event.what = evCommand;
                 event.message.command = cmZoom;
                 event.message.infoPtr = owner;
                 putEvent(event);
                 clearEvent(event);
-            } else if ((((TWindow*)owner)->flags & wfMove) != 0)
+            } else if ((((TWindow*)owner)->flags & TWindow::Flags::wfMove) != 0)
                 dragWindow(event, dmDragMove);
-        } else if ((state & sfActive) && (mouse.y >= size.y - 1) && (((TWindow*)owner)->flags & wfGrow)) {
+        } else if ((state & sfActive) && (mouse.y >= size.y - 1) && (((TWindow*)owner)->flags & TWindow::Flags::wfGrow)) {
             if (mouse.x >= size.x - 2)
                 dragWindow(event, dmDragGrow);
             else if (mouse.x <= 1)
                 dragWindow(event, dmDragGrowLeft);
-        } else if (event.what == evMouseDown && event.mouse.buttons == mbMiddleButton && 0 < mouse.x && mouse.x < size.x - 1 && 0 < mouse.y && mouse.y < size.y - 1 && (((TWindow*)owner)->flags & wfMove))
+        } else if (event.what == evMouseDown && event.mouse.buttons == mbMiddleButton && 0 < mouse.x && mouse.x < size.x - 1 && 0 < mouse.y && mouse.y < size.y - 1 && (((TWindow*)owner)->flags & TWindow::Flags::wfMove))
             dragWindow(event, dmDragMove);
     }
 }

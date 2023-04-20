@@ -1,5 +1,5 @@
-#ifndef __TMultiCheckBoxes
-#define __TMultiCheckBoxes
+#ifndef TVision_TMultiCheckBoxes_h
+#define TVision_TMultiCheckBoxes_h
 
 #include <tvision/Cluster.h>
 
@@ -69,4 +69,4 @@ inline opstream& operator<<(opstream& os, TMultiCheckBoxes* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TMultiCheckBoxes
+#endif // TVision_TMultiCheckBoxes_h

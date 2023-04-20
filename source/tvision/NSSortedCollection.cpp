@@ -1,17 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       tsortcol.cpp                              */
-/*                                                            */
-/* function(s)                                                */
-/*                  TNSSortedCollection member functions      */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
 #include <tvision/NSSortedCollection.h>
 
 ccIndex TNSSortedCollection::indexOf(void* item)

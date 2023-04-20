@@ -1,5 +1,5 @@
-#ifndef __TSearchRec
-#define __TSearchRec
+#ifndef TVision_TSearchRec_h
+#define TVision_TSearchRec_h
 
 #include <tvision/ttypes.h>
 #include <tvision/compat/borland/dir.h>
@@ -11,4 +11,4 @@ struct TSearchRec {
     char name[MAXFILE + MAXEXT - 1];
 };
 
-#endif // __TSearchRec
+#endif // TVision_TSearchRec_h

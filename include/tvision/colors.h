@@ -1,14 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   COLORS.H                                                              */
-/*                                                                         */
-/*   Defines the structs TColorBIOS, TColorRGB, TColorXTerm,               */
-/*   TColorDesired, TColorAttr and TAttrPair.                              */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-
-#ifndef TVISION_COLORS_H
-#define TVISION_COLORS_H
+#ifndef TVision_Colors_h
+#define TVision_Colors_h
 
 #ifdef __BORLANDC__
 
@@ -730,4 +721,4 @@ inline TAttrPair TColorAttr::operator<<(int shift) const
 
 #endif // __BORLANDC__
 
-#endif // TVISION_COLORS_H
+#endif // TVision_Colors_h

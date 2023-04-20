@@ -1,5 +1,5 @@
-#ifndef __TListBox
-#define __TListBox
+#ifndef TVision_TListBox_h
+#define TVision_TListBox_h
 
 #include <tvision/ListViewer.h>
 
@@ -65,4 +65,4 @@ inline TCollection* TListBox::list()
     return items;
 }
 
-#endif // __TListBox
+#endif // TVision_TListBox_h

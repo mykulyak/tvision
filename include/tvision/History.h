@@ -1,22 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   DIALOGS.H                                                             */
-/*                                                                         */
-/*   defines the classes TDialog, TInputLine, TButton, TCluster,           */
-/*   TRadioButtons, TCheckBoxes, TMultiCheckBoxes, TStaticText,            */
-/*   TParamText, TLabel, THistoryViewer, and THistoryWindow.               */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#ifndef __THistory
-#define __THistory
+#ifndef TVision_THistory_h
+#define TVision_THistory_h
 
 #include <tvision/View.h>
 
@@ -75,4 +58,4 @@ inline opstream& operator<<(opstream& os, THistory* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __THistory
+#endif // TVision_THistory_h

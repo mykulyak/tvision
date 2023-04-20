@@ -1,16 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       thstview.cpp                              */
-/*                                                            */
-/* function(s)                                                */
-/*                  THistoryViewer member functions           */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <tvision/HistoryViewer.h>
 
 #define cpHistoryViewer "\x06\x06\x07\x06\x06"

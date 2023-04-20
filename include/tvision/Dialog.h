@@ -1,5 +1,5 @@
-#ifndef __TDialog
-#define __TDialog
+#ifndef TVision_TDialog_h
+#define TVision_TDialog_h
 
 #include <tvision/Window.h>
 
@@ -102,4 +102,4 @@ inline opstream& operator<<(opstream& os, TDialog* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TDialog
+#endif // TVision_TDialog_h

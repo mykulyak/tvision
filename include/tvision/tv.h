@@ -1,17 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   TV.H                                                                  */
-/*                                                                         */
-/*   includes other header files.                                          */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
+#ifndef TVision_h
+#define TVision_h
 
 #ifndef __BORLANDC__
 #define __FLAT__
@@ -189,3 +177,5 @@
 #if defined(__clang__)
 #pragma clang diagnostic pop
 #endif
+
+#endif // TVision_h

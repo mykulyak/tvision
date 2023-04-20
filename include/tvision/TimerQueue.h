@@ -1,5 +1,5 @@
-#ifndef __TTimerQueue
-#define __TTimerQueue
+#ifndef TVision_TTimerQueue_h
+#define TVision_TTimerQueue_h
 
 #include <tvision/ttypes.h>
 
@@ -27,4 +27,4 @@ private:
     TTimer* first;
 };
 
-#endif // __TTimerQueue
+#endif // TVision_TTimerQueue_h

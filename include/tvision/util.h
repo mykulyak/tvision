@@ -1,20 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   UTIL.H                                                                */
-/*                                                                         */
-/*   defines various utility functions used throughout Turbo Vision        */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#ifndef __UTIL_H
-#define __UTIL_H
+#ifndef TVision_Util_h
+#define TVision_Util_h
 
 #include <cstddef>
 
@@ -60,9 +45,6 @@ void historyAdd(uchar id, TStringView) noexcept;
 int cstrlen(TStringView) noexcept;
 int strwidth(TStringView) noexcept;
 
-class TView;
-void* message(TView* receiver, ushort what, ushort command, void* infoPtr);
-
 class TPoint;
 class TGroup;
 class TMenu;
@@ -102,4 +84,4 @@ char* ultoa(ulong value, char* buffer, int radix) noexcept;
 
 #endif
 
-#endif // __UTIL_H
+#endif // TVision_Util_h

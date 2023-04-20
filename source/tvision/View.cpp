@@ -1,17 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       tview.cpp                                 */
-/*                                                            */
-/* function(s)                                                */
-/*                  TView member functions                    */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
 #include <tvision/tobjstrm.h>
 #include <tvision/View.h>
 
@@ -1485,3 +1471,19 @@ void TView::writeStr(short x, short y, const char* str, uchar color) noexcept
 }
 
 #endif
+
+void* message(TView* receiver, ushort what, ushort command, void* infoPtr)
+{
+    if (receiver == 0)
+        return 0;
+
+    TEvent event;
+    event.what = what;
+    event.message.command = command;
+    event.message.infoPtr = infoPtr;
+    receiver->handleEvent(event);
+    if (event.what == evNothing)
+        return event.message.infoPtr;
+    else
+        return 0;
+}

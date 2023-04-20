@@ -1,5 +1,5 @@
-#ifndef __TClipboard
-#define __TClipboard
+#ifndef TVision_TClipboard_h
+#define TVision_TClipboard_h
 
 #include <tvision/StringView.h>
 
@@ -18,4 +18,4 @@ private:
     static size_t localTextLength;
 };
 
-#endif
+#endif // TVision_TClipboard_h

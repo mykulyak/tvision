@@ -1,5 +1,5 @@
-#ifndef __TStringLookupValidator
-#define __TStringLookupValidator
+#ifndef TVision_TStringLookupValidator_h
+#define TVision_TStringLookupValidator_h
 
 #include <tvision/LookupValidator.h>
 
@@ -46,4 +46,4 @@ inline opstream& operator<<(opstream& os, TStringLookupValidator* v)
     return os << (TStreamable*)v;
 }
 
-#endif // __TStringLookupValidator
+#endif // TVision_TStringLookupValidator_h

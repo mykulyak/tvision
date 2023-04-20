@@ -1,5 +1,5 @@
-#ifndef __TRect
-#define __TRect
+#ifndef TVision_TRect_h
+#define TVision_TRect_h
 
 #include <tvision/Point.h>
 #include <tvision/ttypes.h>
@@ -112,4 +112,4 @@ inline opstream& operator<<(opstream& os, TRect* r)
     return os << r->a << r->b;
 }
 
-#endif // __TRect
+#endif // TVision_TRect_h

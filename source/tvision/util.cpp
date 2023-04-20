@@ -1,19 +1,3 @@
-/*------------------------------------------------------------------------*/
-/*                                                                        */
-/*  filename - drivers2.cpp                                               */
-/*                                                                        */
-/*  function(s)                                                           */
-/*      ctrlToArrow -- map control keys to arrow keys                     */
-/*      cstrlen     -- calculate length of a control string               */
-/*                                                                        */
-/*------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <tvision/Menu.h>
 #include <tvision/MenuPopup.h>
 #include <tvision/StringView.h>
@@ -351,23 +335,6 @@ int cstrlen(TStringView text) noexcept
 int strwidth(TStringView text) noexcept
 {
     return TText::width(text);
-}
-
-
-void* message(TView* receiver, ushort what, ushort command, void* infoPtr)
-{
-    if (receiver == 0)
-        return 0;
-
-    TEvent event;
-    event.what = what;
-    event.message.command = command;
-    event.message.infoPtr = infoPtr;
-    receiver->handleEvent(event);
-    if (event.what == evNothing)
-        return event.message.infoPtr;
-    else
-        return 0;
 }
 
 bool lowMemory() noexcept

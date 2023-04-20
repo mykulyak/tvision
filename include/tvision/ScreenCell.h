@@ -1,13 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   SCRNCELL.H                                                            */
-/*                                                                         */
-/*   Defines the structs TCellChar and TScreenCell.                        */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-
-#ifndef TVISION_SCRNCELL_H
-#define TVISION_SCRNCELL_H
+#ifndef TVision_ScreenCell_h
+#define TVision_ScreenCell_h
 
 #ifdef __BORLANDC__
 
@@ -285,4 +277,4 @@ inline void check_assumptions()
 
 #endif // __BORLANDC__
 
-#endif // TVISION_SCRNCELL_H
+#endif // TVision_ScreenCell_h

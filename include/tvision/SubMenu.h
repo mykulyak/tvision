@@ -1,5 +1,5 @@
-#ifndef __TSubMenu
-#define __TSubMenu
+#ifndef TVision_TSubMenu_h
+#define TVision_TSubMenu_h
 
 #include <tvision/MenuItem.h>
 
@@ -11,4 +11,4 @@ public:
 TSubMenu& operator+(TSubMenu& s, TMenuItem& i) noexcept;
 TSubMenu& operator+(TSubMenu& s1, TSubMenu& s2) noexcept;
 
-#endif // __TSubMenu
+#endif // TVision_TSubMenu_h

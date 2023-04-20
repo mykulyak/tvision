@@ -1,16 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       tevent.cpp                                */
-/*                                                            */
-/* function(s)                                                */
-/*                  TEvent member functions                   */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #if defined(__DPMI16__)
 #pragma inline
 #endif

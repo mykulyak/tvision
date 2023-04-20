@@ -1,11 +1,3 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   TSTRVIEW.H                                                            */
-/*                                                                         */
-/*   Defines the class TStringView and its member functions.               */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-
 #ifndef TVision_StringView_h
 #define TVision_StringView_h
 

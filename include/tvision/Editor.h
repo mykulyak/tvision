@@ -1,5 +1,5 @@
-#ifndef __TEditor
-#define __TEditor
+#ifndef TVision_TEditor_h
+#define TVision_TEditor_h
 
 #include <tvision/View.h>
 
@@ -163,4 +163,4 @@ inline opstream& operator<<(opstream& os, TEditor* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TEditor
+#endif // TVision_TEditor_h

@@ -1,5 +1,5 @@
-#ifndef __TMenuBox
-#define __TMenuBox
+#ifndef TVision_TMenuBox_h
+#define TVision_TMenuBox_h
 
 #include <tvision/MenuView.h>
 
@@ -62,4 +62,4 @@ inline opstream& operator<<(opstream& os, TMenuBox* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TMenuBox
+#endif // TVision_TMenuBox_h

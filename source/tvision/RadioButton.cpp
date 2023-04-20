@@ -1,16 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       tradiobu.cpp                              */
-/*                                                            */
-/* function(s)                                                */
-/*                  TRadioButton member functions             */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <tvision/tobjstrm.h>
 #include <tvision/RadioButtons.h>
 

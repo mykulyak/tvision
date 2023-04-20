@@ -302,7 +302,7 @@ TCalculator::TCalculator()
         int y = (i / 4) * 2 + 4;
         r = TRect(x, y, x + 5, y + 2);
 
-        tv = new TButton(r, keyChar[i], cmCalcButton, bfNormal | bfBroadcast);
+        tv = new TButton(r, keyChar[i], cmCalcButton, TButton::Flags::bfNormal | TButton::Flags::bfBroadcast);
         tv->options &= ~ofSelectable;
         insert(tv);
     }

@@ -1,5 +1,5 @@
-#ifndef __TLookupValidator
-#define __TLookupValidator
+#ifndef TVision_TLookupValidator_h
+#define TVision_TLookupValidator_h
 
 #include <tvision/Validator.h>
 
@@ -36,4 +36,4 @@ inline opstream& operator<<(opstream& os, TLookupValidator* v)
     return os << (TStreamable*)v;
 }
 
-#endif // __TLookupValidator
+#endif // TVision_TLookupValidator_h

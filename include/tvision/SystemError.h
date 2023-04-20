@@ -1,21 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   SYSTEM.H                                                              */
-/*                                                                         */
-/*   defines the classes THWMouse, TMouse, TEventQueue, TDisplay,          */
-/*   TScreen, and TSystemError                                             */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#ifndef __TSystemError
-#define __TSystemError
+#ifndef TVision_TSystemError_h
+#define TVision_TSystemError_h
 
 #include <tvision/ttypes.h>
 
@@ -84,4 +68,4 @@ private:
 };
 #endif
 
-#endif // __TSystemError
+#endif // TVision_TSystemError_h

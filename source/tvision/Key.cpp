@@ -1,10 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename - tkey.cpp                                        */
-/*                                                            */
-/* function(s)                                                */
-/*            TKey member functions                           */
-/*------------------------------------------------------------*/
-
 #include <tvision/Keys.h>
 
 struct TKeyCodeLookupEntry {

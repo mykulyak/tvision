@@ -1,5 +1,5 @@
-#ifndef __TDirListBox
-#define __TDirListBox
+#ifndef TVision_TDirListBox_h
+#define TVision_TDirListBox_h
 
 #include <tvision/ListBox.h>
 
@@ -78,4 +78,4 @@ inline TDirCollection* TDirListBox::list()
     return (TDirCollection*)TListBox::list();
 }
 
-#endif // __TDirListBox
+#endif // TVision_TDirListBox_h

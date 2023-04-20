@@ -1,5 +1,5 @@
-#ifndef __TDeskTop
-#define __TDeskTop
+#ifndef TVision_TDeskTop_h
+#define TVision_TDeskTop_h
 
 #include <tvision/Group.h>
 

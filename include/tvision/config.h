@@ -1,21 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   CONFIG.H                                                              */
-/*                                                                         */
-/*   miscellaneous system-wide configuration parameters                    */
-/*   FOR INTERNAL USE ONLY                                                 */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#ifndef __CONFIG_H
-#define __CONFIG_H
+#ifndef TVision_Config_h
+#define TVision_Config_h
 
 #include <climits>
 
@@ -28,4 +12,4 @@ constexpr int maxViewWidth = 132;
 constexpr int maxFindStrLen = 80;
 constexpr int maxReplaceStrLen = 80;
 
-#endif // __CONFIG_H
+#endif // TVision_Config_h

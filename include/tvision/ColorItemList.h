@@ -1,5 +1,5 @@
-#ifndef __TColorItemList
-#define __TColorItemList
+#ifndef TVision_TColorItemList_h
+#define TVision_TColorItemList_h
 
 #include <tvision/ListViewer.h>
 
@@ -51,4 +51,4 @@ inline opstream& operator<<(opstream& os, TColorItemList* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TColorItemList
+#endif // TVision_TColorItemList_h

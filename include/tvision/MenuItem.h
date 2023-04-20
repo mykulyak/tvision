@@ -1,5 +1,5 @@
-#ifndef __TMenuItem
-#define __TMenuItem
+#ifndef TVision_TMenuItem_h
+#define TVision_TMenuItem_h
 
 #include <tvision/StringView.h>
 #include <tvision/Keys.h>
@@ -49,4 +49,4 @@ inline TMenuItem& newLine() noexcept
     return *new TMenuItem(0, 0, 0, hcNoContext, 0, 0);
 }
 
-#endif // __TMenuItem
+#endif // TVision_TMenuItem_h

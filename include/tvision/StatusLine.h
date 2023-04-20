@@ -1,21 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   MENUS.H                                                               */
-/*                                                                         */
-/*   defines the classes TMenuItem, TMenu, TMenuView, TSubMenu,            */
-/*   TMenuBar, TMenuBox, TStatusItem, TStatusDef, and TStatusLine          */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#ifndef __TStatusLine
-#define __TStatusLine
+#ifndef TVision_TStatusLine_h
+#define TVision_TStatusLine_h
 
 #include <tvision/View.h>
 
@@ -95,4 +79,4 @@ inline opstream& operator<<(opstream& os, TStatusLine* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TStatusLine
+#endif // TVision_TStatusLine_h

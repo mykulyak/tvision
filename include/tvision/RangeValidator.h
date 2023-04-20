@@ -1,5 +1,5 @@
-#ifndef __TRangeValidator
-#define __TRangeValidator
+#ifndef TVision_TRangeValidator_h
+#define TVision_TRangeValidator_h
 
 #include <tvision/FilterValidator.h>
 
@@ -49,4 +49,4 @@ inline opstream& operator<<(opstream& os, TRangeValidator* v)
     return os << (TStreamable*)v;
 }
 
-#endif // __TRangeValidator
+#endif // TVision_TRangeValidator_h

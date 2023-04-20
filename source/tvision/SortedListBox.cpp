@@ -1,20 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       stddlg.cpp                                */
-/*                                                            */
-/* function(s)                                                */
-/*                  Member functions of following classes     */
-/*                      TFileInputLine                        */
-/*                      TSortedListBox                        */
-/*                      TSearchRec                            */
-/*                      TFileInfoPane                         */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <tvision/tobjstrm.h>
 #include <tvision/SortedListBox.h>
 

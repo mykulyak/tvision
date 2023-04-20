@@ -1,5 +1,5 @@
-#ifndef __TStatusItem
-#define __TStatusItem
+#ifndef TVision_TStatusItem_h
+#define TVision_TStatusItem_h
 
 #include <tvision/StringView.h>
 
@@ -33,4 +33,4 @@ inline TStatusItem::~TStatusItem()
     delete[] text;
 }
 
-#endif // __TStatusItem
+#endif // TVision_TStatusItem_h

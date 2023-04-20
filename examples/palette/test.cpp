@@ -108,7 +108,7 @@ void TTestApp::aboutDlg()
                 "\003Borland C++ Tech Support\n"));
         aboutDlgBox->insert(
             new TButton(TRect(18, 10, 29, 12), "OK", cmOK,
-                bfDefault));
+                TButton::Flags::bfDefault));
         aboutDlgBox->options |= ofCentered; // Centered on
                                             // the screen
         execView(aboutDlgBox); // Bring up the

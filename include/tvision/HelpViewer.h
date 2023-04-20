@@ -1,19 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   HELP.H                                                                */
-/*                                                                         */
-/*   defines the classes THelpViewer and THelpWindow                       */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-#ifndef __HELP_VIEWER_H
-#define __HELP_VIEWER_H
+#ifndef TVision_THelpViewer_h
+#define TVision_THelpViewer_h
 
 #include <tvision/HelpFile.h>
 #include <tvision/Scroller.h>
@@ -37,4 +23,4 @@ public:
     int selected;
 };
 
-#endif // __HELP_VIEWER_H
+#endif // TVision_THelpViewer_h

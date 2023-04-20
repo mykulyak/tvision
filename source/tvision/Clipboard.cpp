@@ -1,10 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       tclipbrd.cpp                              */
-/*                                                            */
-/* function(s)                                                */
-/*          TClipboard member functions                       */
-/*------------------------------------------------------------*/
-
 #include <tvision/Clipboard.h>
 #include <tvision/EventQueue.h>
 

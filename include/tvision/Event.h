@@ -1,5 +1,5 @@
-#ifndef __TEvent
-#define __TEvent
+#ifndef TVision_TEvent_h
+#define TVision_TEvent_h
 
 #include <tvision/Point.h>
 #include <tvision/StringView.h>
@@ -165,4 +165,4 @@ struct TEvent {
     static void putNothing() noexcept;
 };
 
-#endif // __TEvent
+#endif // TVision_TEvent_h

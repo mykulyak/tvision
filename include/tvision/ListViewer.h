@@ -1,5 +1,5 @@
-#ifndef __TListViewer
-#define __TListViewer
+#ifndef TVision_TListViewer_h
+#define TVision_TListViewer_h
 
 #include <tvision/View.h>
 #include <tvision/Palette.h>
@@ -71,4 +71,4 @@ inline opstream& operator<<(opstream& os, TListViewer* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TListViewer
+#endif // TVision_TListViewer_h

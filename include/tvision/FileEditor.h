@@ -1,11 +1,8 @@
-#ifndef __TFileEditor
-#define __TFileEditor
+#ifndef TVision_TFileEditor_h
+#define TVision_TFileEditor_h
 
-#include <tvision/Editor.h>
-
-#ifndef __DIR_H
 #include <tvision/compat/borland/dir.h>
-#endif // __DIR_H
+#include <tvision/Editor.h>
 
 class TScrollBar;
 class TIndicator;
@@ -67,4 +64,4 @@ inline opstream& operator<<(opstream& os, TFileEditor* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TFileEditor
+#endif // TVision_TFileEditor_h

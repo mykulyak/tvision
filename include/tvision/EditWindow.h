@@ -1,5 +1,5 @@
-#ifndef __TEditWindow
-#define __TEditWindow
+#ifndef TVision_TEditWindow_h
+#define TVision_TEditWindow_h
 
 #include <tvision/Window.h>
 
@@ -53,4 +53,4 @@ inline opstream& operator<<(opstream& os, TEditWindow* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TEditWindow
+#endif // TVision_TEditWindow_h

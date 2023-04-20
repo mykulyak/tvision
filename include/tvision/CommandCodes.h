@@ -1,5 +1,5 @@
-#ifndef __COMMAND_CODES
-#define __COMMAND_CODES
+#ifndef TVision_CommandCodes_h
+#define TVision_CommandCodes_h
 
 #include <tvision/EventCodes.h>
 #include <tvision/ttypes.h>
@@ -113,13 +113,6 @@ const ushort
     sbVertical = 0x001,
     sbHandleKeyboard = 0x002,
 
-    // TWindow Flags masks
-
-    wfMove = 0x01,
-    wfGrow = 0x02,
-    wfClose = 0x04,
-    wfZoom = 0x08,
-
     //  TView inhibit flags
 
     noMenuBar = 0x0001,
@@ -180,4 +173,4 @@ const ushort
     positionalEvents = evMouse & ~evMouseWheel,
     focusedEvents = evKeyboard | evCommand;
 
-#endif // __COMMAND_CODES
+#endif // TVision_CommandCodes_h

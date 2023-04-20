@@ -1,5 +1,5 @@
-#ifndef __TReplaceDialogRec
-#define __TReplaceDialogRec
+#ifndef TVision_TReplaceDialogRec_h
+#define TVision_TReplaceDialogRec_h
 
 #include <cstring>
 
@@ -15,4 +15,4 @@ struct TReplaceDialogRec {
     ushort options;
 };
 
-#endif // __TReplaceDialogRec
+#endif // TVision_TReplaceDialogRec_h

@@ -1,21 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   VALIDATE.H                                                            */
-/*                                                                         */
-/*   defines the classes TValidator, TPXPictureValidator, TRangeValidator, */
-/*   TFilterValidator, TLookupValidator, and TStringLookupValidator.       */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#ifndef __TFilterValidator
-#define __TFilterValidator
+#ifndef TVision_TFilterValidator_h
+#define TVision_TFilterValidator_h
 
 #include <tvision/Validator.h>
 
@@ -65,4 +49,4 @@ inline opstream& operator<<(opstream& os, TFilterValidator* v)
     return os << (TStreamable*)v;
 }
 
-#endif // __TFilterValidator
+#endif // TVision_TFilterValidator_h

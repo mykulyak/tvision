@@ -1,16 +1,3 @@
-/*-------------------------------------------------------------*/
-/* filename -       textview.cpp                               */
-/*                                                             */
-/* function(s)                                                 */
-/*                  TTerminal and TTextDevice member functions */
-/*-------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <tvision/Terminal.h>
 
 TTerminal::TTerminal(const TRect& bounds,

@@ -155,12 +155,12 @@ TForm *makeForm()
     y += descrHt + 1;
     x = formWd - 2 * (buttonWd + 2);
     r = TRect(x, y, x + buttonWd, y + 2);
-    f->insert( new TButton(r, "~S~ave", cmFormSave, bfDefault));
+    f->insert( new TButton(r, "~S~ave", cmFormSave, TButton::Flags::bfDefault));
 
     x = formWd - 1 * (buttonWd + 2);
     r = TRect(x, y, x + buttonWd, y + 2);
 
-    f->insert( new TButton(r, "Cancel", cmCancel, bfNormal));
+    f->insert( new TButton(r, "Cancel", cmCancel, TButton::Flags::bfNormal));
 
     f->selectNext (false);      // Select first field 
 

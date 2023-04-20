@@ -1,5 +1,5 @@
-#ifndef __TMenu
-#define __TMenu
+#ifndef TVision_TMenu_h
+#define TVision_TMenu_h
 
 #include <tvision/MenuItem.h>
 
@@ -24,4 +24,4 @@ public:
     TMenuItem* deflt;
 };
 
-#endif // __TMenu
+#endif // TVision_TMenu_h

@@ -109,7 +109,7 @@ void TVDemo::aboutDlgBox()
             "\003Borland International"));
 
     aboutBox->insert(
-        new TButton(TRect(14, 10, 26, 12), " OK", cmOK, bfDefault));
+        new TButton(TRect(14, 10, 26, 12), " OK", cmOK, TButton::Flags::bfDefault));
 
     aboutBox->options |= ofCentered;
 

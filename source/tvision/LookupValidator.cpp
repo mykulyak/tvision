@@ -1,20 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       tvalidatcpp                               */
-/*                                                            */
-/* function(s)                                                */
-/*                  TValidator member functions               */
-/*                  TFilterValidator member functions         */
-/*                  TRangeValidator member functions          */
-/*                  TLookupValidator member functions         */
-/*                  TStringLookupValidator member functions   */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <tvision/tobjstrm.h>
 #include <tvision/LookupValidator.h>
 

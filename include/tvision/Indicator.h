@@ -1,5 +1,5 @@
-#ifndef __TIndicator
-#define __TIndicator
+#ifndef TVision_TIndicator_h
+#define TVision_TIndicator_h
 
 #include <tvision/View.h>
 
@@ -51,4 +51,4 @@ inline opstream& operator<<(opstream& os, TIndicator* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TIndicator
+#endif // TVision_TIndicator_h

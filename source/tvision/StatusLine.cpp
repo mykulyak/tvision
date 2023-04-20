@@ -1,16 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       tstatusl.cpp                              */
-/*                                                            */
-/* function(s)                                                */
-/*                  TStatusLine member functions              */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <tvision/tobjstrm.h>
 #include <tvision/StatusDef.h>
 #include <tvision/StatusItem.h>

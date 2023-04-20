@@ -1,5 +1,5 @@
-#ifndef __TGroup
-#define __TGroup
+#ifndef TVision_TGroup_h
+#define TVision_TGroup_h
 
 #include <tvision/View.h>
 
@@ -110,4 +110,4 @@ inline opstream& operator<<(opstream& os, TGroup* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TGroup
+#endif // TVision_TGroup_h

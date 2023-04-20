@@ -15,8 +15,8 @@ TChBackground::TChBackground(TBackground* b)
     input = new TInputLine(TRect(4, 5, 7, 6), 1, 0, ilMaxChars);
     insert(input);
     insert(new TStaticText(TRect(2, 2, 27, 3), "Enter background pattern:"));
-    insert(new TButton(TRect(16, 4, 26, 6), "~A~pply", cmOK, bfDefault));
-    insert(new TButton(TRect(16, 6, 26, 8), "~C~lose", cmCancel, bfNormal));
+    insert(new TButton(TRect(16, 4, 26, 6), "~A~pply", cmOK, TButton::Flags::bfDefault));
+    insert(new TButton(TRect(16, 6, 26, 8), "~C~lose", cmCancel, TButton::Flags::bfNormal));
     input->focus();
 }
 

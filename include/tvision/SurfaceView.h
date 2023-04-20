@@ -1,13 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   SURFACE.H                                                             */
-/*                                                                         */
-/*   Defines the classes TDrawSurface and TSurfaceView.                    */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-
-#ifndef __TSurfaceView
-#define __TSurfaceView
+#ifndef TVision_TSurfaceView_h
+#define TVision_TSurfaceView_h
 
 #include <tvision/View.h>
 #include <tvision/Point.h>
@@ -39,4 +31,4 @@ public:
     virtual TPalette& getPalette() const;
 };
 
-#endif
+#endif // TVision_TSurfaceView_h

@@ -1,17 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       tcmdset.cpp                               */
-/*                                                            */
-/* function(s)                                                */
-/*                  TCommandSet member functions              */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
 #include <tvision/CommandSet.h>
 
 int TCommandSet::masks[8] = {

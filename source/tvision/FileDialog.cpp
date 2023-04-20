@@ -1,16 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       tfildlg.cpp                               */
-/*                                                            */
-/* function(s)                                                */
-/*                  TFileDialog member functions              */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <strstream>
 #include <tvision/tobjstrm.h>
 #include <tvision/FileCommands.h>
@@ -79,13 +66,13 @@ TFileDialog::TFileDialog(TStringView aWildCard,
     first()->growMode = gfGrowHiX | gfGrowHiY;
     insert(new TLabel(TRect(2, 5, 8, 6), filesText, fileList));
     first()->growMode = 0;
-    ushort opt = bfDefault;
+    ushort opt = TButton::Flags::bfDefault;
     TRect r(35, 3, 46, 5);
 
     if ((aOptions & fdOpenButton) != 0) {
         insert(new TButton(r, openText, cmFileOpen, opt));
         first()->growMode = gfGrowLoX | gfGrowHiX;
-        opt = bfNormal;
+        opt = TButton::Flags::bfNormal;
         r.a.y += 3;
         r.b.y += 3;
     }
@@ -93,7 +80,7 @@ TFileDialog::TFileDialog(TStringView aWildCard,
     if ((aOptions & fdOKButton) != 0) {
         insert(new TButton(r, okText, cmFileOpen, opt));
         first()->growMode = gfGrowLoX | gfGrowHiX;
-        opt = bfNormal;
+        opt = TButton::Flags::bfNormal;
         r.a.y += 3;
         r.b.y += 3;
     }
@@ -101,7 +88,7 @@ TFileDialog::TFileDialog(TStringView aWildCard,
     if ((aOptions & fdReplaceButton) != 0) {
         insert(new TButton(r, replaceText, cmFileReplace, opt));
         first()->growMode = gfGrowLoX | gfGrowHiX;
-        opt = bfNormal;
+        opt = TButton::Flags::bfNormal;
         r.a.y += 3;
         r.b.y += 3;
     }
@@ -109,20 +96,20 @@ TFileDialog::TFileDialog(TStringView aWildCard,
     if ((aOptions & fdClearButton) != 0) {
         insert(new TButton(r, clearText, cmFileClear, opt));
         first()->growMode = gfGrowLoX | gfGrowHiX;
-        opt = bfNormal;
+        opt = TButton::Flags::bfNormal;
         r.a.y += 3;
         r.b.y += 3;
     }
 
-    insert(new TButton(r, cancelText, cmCancel, bfNormal));
+    insert(new TButton(r, cancelText, cmCancel, TButton::Flags::bfNormal));
     first()->growMode = gfGrowLoX | gfGrowHiX;
     r.a.y += 3;
     r.b.y += 3;
 
     if ((aOptions & fdHelpButton) != 0) {
-        insert(new TButton(r, helpText, cmHelp, bfNormal));
+        insert(new TButton(r, helpText, cmHelp, TButton::Flags::bfNormal));
         first()->growMode = gfGrowLoX | gfGrowHiX;
-        opt = bfNormal;
+        opt = TButton::Flags::bfNormal;
         r.a.y += 3;
         r.b.y += 3;
     }
@@ -216,6 +203,12 @@ void TFileDialog::getFileName(char* s) noexcept
         fnmerge(buf, drive, path, TName, TExt);
     }
     strcpy(s, buf);
+}
+
+std::filesystem::path TFileDialog::getFilePath() noexcept {
+    char buf[2 * MAXPATH];
+    trim(buf, fileName->data);
+    return std::filesystem::path(buf);
 }
 
 void TFileDialog::handleEvent(TEvent& event)

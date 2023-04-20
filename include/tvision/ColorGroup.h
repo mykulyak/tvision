@@ -1,5 +1,5 @@
-#ifndef __TColorGroup
-#define __TColorGroup
+#ifndef TVision_TColorGroup_h
+#define TVision_TColorGroup_h
 
 #include <tvision/ttypes.h>
 
@@ -28,4 +28,4 @@ public:
 TColorGroup& operator+(TColorGroup& g, TColorItem& i) noexcept;
 TColorGroup& operator+(TColorGroup& g1, TColorGroup& g2) noexcept;
 
-#endif // __TColorGroup
+#endif // TVision_TColorGroup_h

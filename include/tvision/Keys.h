@@ -1,20 +1,7 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   TKEYS.H                                                               */
-/*                                                                         */
-/*   defines constants for all control key combinations                    */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
+#ifndef TVision_TKeys_h
+#define TVision_TKeys_h
 
-#ifndef __TKeys
-#define __TKeys
+/*   defines constants for all control key combinations                    */
 
 #if defined(__FLAT__) && !defined(__WINDOWS_H)
 #include <tvision/compat/windows/windows.h>
@@ -153,7 +140,7 @@ const ushort
     kbPaste = 0x400;
 #endif
 
-#endif // __TKeys
+#endif // TVision_TKeys_h
 
 #ifndef __TKey
 #define __TKey

@@ -1,5 +1,5 @@
-#ifndef __TFileInfoPane
-#define __TFileInfoPane
+#ifndef TVision_TFileInfoPane_h
+#define TVision_TFileInfoPane_h
 
 #include <tvision/SearchRec.h>
 #include <tvision/View.h>
@@ -54,4 +54,4 @@ inline opstream& operator<<(opstream& os, TFileInfoPane* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TFileInfoPane
+#endif // TVision_TFileInfoPane_h

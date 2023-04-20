@@ -1,9 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename - tstrview.cpp                                    */
-/*                                                            */
-/* function(s)                                                */
-/*            TStringView friend functions                    */
-/*------------------------------------------------------------*/
 #include <iostream>
 #include <tvision/StringView.h>
 

@@ -1,13 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       new.cpp                                   */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <cassert>
 #include <cstdlib>
 #include <tvision/VirtualMemoryManager.h>

@@ -1,20 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   HELPBASE.H                                                            */
-/*                                                                         */
-/*   defines the classes TParagraph, TCrossRef, THelpTopic, THelpIndex,    */
-/*      THelpFile                                                          */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-#ifndef __HELP_FILE_H
-#define __HELP_FILE_H
+#ifndef TVision_HelpFile_h
+#define TVision_HelpFile_h
 
 const int32_t magicHeader = 0x46484246L; //"FBHF"
 
@@ -184,4 +169,4 @@ extern void notAssigned(opstream& s, int value);
 
 extern TCrossRefHandler crossRefHandler;
 
-#endif // __HELP_FILE_H
+#endif // TVision_HelpFile_h

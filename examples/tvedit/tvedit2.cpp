@@ -54,9 +54,9 @@ TDialog* createFindDialog()
             new TSItem("~W~hole words only", 0))));
 
     d->insert(
-        new TButton(TRect(14, 9, 24, 11), "O~K~", cmOK, bfDefault));
+        new TButton(TRect(14, 9, 24, 11), "O~K~", cmOK, TButton::Flags::bfDefault));
     d->insert(
-        new TButton(TRect(26, 9, 36, 11), "Cancel", cmCancel, bfNormal));
+        new TButton(TRect(26, 9, 36, 11), "Cancel", cmCancel, TButton::Flags::bfNormal));
 
     d->selectNext (false);
     return d;
@@ -86,9 +86,9 @@ TDialog* createReplaceDialog()
                     new TSItem("~R~eplace all", 0))))));
 
     d->insert(
-        new TButton(TRect(17, 13, 27, 15), "O~K~", cmOK, bfDefault));
+        new TButton(TRect(17, 13, 27, 15), "O~K~", cmOK, TButton::Flags::bfDefault));
     d->insert(new TButton(TRect(28, 13, 38, 15),
-        "Cancel", cmCancel, bfNormal));
+        "Cancel", cmCancel, TButton::Flags::bfNormal));
 
     d->selectNext (false);
 

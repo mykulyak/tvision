@@ -1,12 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       tsurface.cpp                              */
-/*                                                            */
-/* function(s)                                                */
-/*                  Member function(s) of following classes   */
-/*                      TDrawSurface                          */
-/*                      TSurfaceView                          */
-/*------------------------------------------------------------*/
-
 #include <tvision/DrawSurface.h>
 
 #define cpSurfaceView "\x01"

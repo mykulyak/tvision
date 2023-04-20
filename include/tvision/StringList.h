@@ -1,5 +1,5 @@
-#ifndef __TStringList
-#define __TStringList
+#ifndef TVision_TStringList_h
+#define TVision_TStringList_h
 
 #include <tvision/Object.h>
 
@@ -50,4 +50,4 @@ inline opstream& operator<<(opstream& os, TStringList* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TStringList
+#endif // TVision_TStringList_h

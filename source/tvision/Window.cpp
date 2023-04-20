@@ -1,16 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       twindow.cpp                               */
-/*                                                            */
-/* function(s)                                                */
-/*                  TWindow member functions                  */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <tvision/tobjstrm.h>
 #include <tvision/Window.h>
 
@@ -35,7 +22,7 @@ TWindow::TWindow(const TRect& bounds,
     short aNumber) noexcept
     : TWindowInit(&TWindow::initFrame)
     , TGroup(bounds)
-    , flags(wfMove | wfGrow | wfClose | wfZoom)
+    , flags(Flags::wfMove | Flags::wfGrow | Flags::wfClose | Flags::wfZoom)
     , zoomRect(getBounds())
     , number(aNumber)
     , palette(wpBlueWindow)

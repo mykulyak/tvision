@@ -98,10 +98,10 @@ TMouseDialog::TMouseDialog()
     oldDelay = TEventQueue::doubleDelay;
 
     r = TRect(9, 9, 19, 11);
-    insert(new TButton(r, "O~K~", cmOK, bfDefault));
+    insert(new TButton(r, "O~K~", cmOK, TButton::Flags::bfDefault));
 
     r = TRect(21, 9, 31, 11);
-    insert(new TButton(r, "Cancel", cmCancel, bfNormal));
+    insert(new TButton(r, "Cancel", cmCancel, TButton::Flags::bfNormal));
 
     selectNext((bool)0);
 }

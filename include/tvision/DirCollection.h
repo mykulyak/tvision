@@ -1,5 +1,5 @@
-#ifndef __TDirCollection
-#define __TDirCollection
+#ifndef TVision_TDirCollection_h
+#define TVision_TDirCollection_h
 
 #include <tvision/Collection.h>
 
@@ -98,4 +98,4 @@ inline TDirEntry* TDirCollection::lastThat(ccTestFunc func, void* arg)
     return (TDirEntry*)TCollection::lastThat(ccTestFunc(func), arg);
 }
 
-#endif // __TDirCollection
+#endif // TVision_TDirCollection_h

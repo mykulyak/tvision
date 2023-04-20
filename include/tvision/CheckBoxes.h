@@ -1,5 +1,5 @@
-#ifndef __TCheckBoxes
-#define __TCheckBoxes
+#ifndef TVision_TCheckBoxes_h
+#define TVision_TCheckBoxes_h
 
 #include <tvision/Cluster.h>
 
@@ -63,4 +63,4 @@ inline TCheckBoxes::TCheckBoxes(const TRect& bounds, TSItem* aStrings) noexcept
 {
 }
 
-#endif // __TCheckBoxes
+#endif // TVision_TCheckBoxes_h

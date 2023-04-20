@@ -1,5 +1,5 @@
-#ifndef __TColorDialog
-#define __TColorDialog
+#ifndef TVision_TColorDialog_h
+#define TVision_TColorDialog_h
 
 #include <tvision/Dialog.h>
 #include <tvision/ColorGroup.h>
@@ -81,4 +81,4 @@ inline opstream& operator<<(opstream& os, TColorDialog* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TColorDialog
+#endif // TVision_TColorDialog_h

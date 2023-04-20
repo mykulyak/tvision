@@ -1,24 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       colorsel.cpp                              */
-/*                                                            */
-/* function(s)                                                */
-/*                  Member function(s) of following classes   */
-/*                      TColorSelector                        */
-/*                      TMonoSelector                         */
-/*                      TColorDisplay                         */
-/*                      TColorItem                            */
-/*                      TColorItemList                        */
-/*                      TColorGroup                           */
-/*                      TColorGroupList                       */
-/*                      TColorDialog                          */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <tvision/util.h>
 #include <tvision/tobjstrm.h>
 #include <tvision/ColorCommandCodes.h>

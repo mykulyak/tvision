@@ -1,28 +1,12 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   TVOBJS.H                                                              */
-/*                                                                         */
-/*   defines the classes TObject, TNSCollection, and TNSSortedCollection.  */
-/*                                                                         */
+#ifndef TVision_TNSSortedCollection_h
+#define TVision_TNSSortedCollection_h
+
+#include <tvision/NSCollection.h>
+
 /*   The NS variants of collections are Not Streamable.  These are         */
 /*   needed for internal use in the stream manager.  There are             */
 /*   streamable variants of each of these classes for use by the           */
 /*   rest of the library.                                                  */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#ifndef __TNSSortedCollection
-#define __TNSSortedCollection
-
-#include <tvision/NSCollection.h>
-
 class TNSSortedCollection : public virtual TNSCollection {
 public:
     TNSSortedCollection(ccIndex aLimit, ccIndex aDelta) noexcept
@@ -51,4 +35,4 @@ private:
     virtual int compare(void* key1, void* key2) = 0;
 };
 
-#endif // __TNSSortedCollection
+#endif // TVision_TNSSortedCollection_h

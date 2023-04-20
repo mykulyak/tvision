@@ -1,11 +1,10 @@
-#ifndef __TFileCollection
-#define __TFileCollection
+#ifndef TVision_TFileCollection_h
+#define TVision_TFileCollection_h
 
 #include <tvision/SortedCollection.h>
 #include <tvision/SearchRec.h>
 
 class TFileCollection : public TSortedCollection {
-
 public:
     TFileCollection(ccIndex aLimit, ccIndex aDelta) noexcept
         : TSortedCollection(aLimit, aDelta)
@@ -100,4 +99,4 @@ inline TSearchRec* TFileCollection::lastThat(ccTestFunc func, void* arg)
     return (TSearchRec*)TSortedCollection::lastThat(ccTestFunc(func), arg);
 }
 
-#endif // __TFileCollection
+#endif // TVision_TFileCollection_h

@@ -1,5 +1,5 @@
-#ifndef __TResourceCollection
-#define __TResourceCollection
+#ifndef TVision_TResourceCollection_h
+#define TVision_TResourceCollection_h
 
 #include <tvision/StringCollection.h>
 
@@ -44,4 +44,4 @@ inline opstream& operator<<(opstream& os, TResourceCollection* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TResourceCollection
+#endif // TVision_TResourceCollection_h

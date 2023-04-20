@@ -1,13 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   TSPAN.H                                                               */
-/*                                                                         */
-/*   Defines the class TSpan and its member functions.                     */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-
-#ifndef TVISION_TSPAN_H
-#define TVISION_TSPAN_H
+#ifndef TVision_TSpan_h
+#define TVision_TSpan_h
 
 template <class T>
 class TSpan {
@@ -120,4 +112,4 @@ public:
     }
 };
 
-#endif // TVISION_TSPAN_H
+#endif // TVision_TSpan_h

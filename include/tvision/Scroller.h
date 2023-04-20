@@ -1,3 +1,5 @@
+#ifndef TVision_TScroller_h
+#define TVision_TScroller_h
 
 /* ---------------------------------------------------------------------- */
 /*      class TScroller                                                   */
@@ -7,13 +9,9 @@
 /*      2 = Selected text                                                 */
 /* ---------------------------------------------------------------------- */
 
-#ifndef __TScroller
-#define __TScroller
-
 class TScrollBar;
 
 class TScroller : public TView {
-
 public:
     TScroller(const TRect& bounds,
         TScrollBar* aHScrollBar,
@@ -73,4 +71,4 @@ inline opstream& operator<<(opstream& os, TScroller* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TScroller
+#endif // TVision_TScroller_h

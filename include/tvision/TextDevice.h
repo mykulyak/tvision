@@ -1,5 +1,5 @@
-#ifndef __TTextDevice
-#define __TTextDevice
+#ifndef TVision_TTextDevice_h
+#define TVision_TTextDevice_h
 
 #include <iostream>
 #include <tvision/Scroller.h>
@@ -21,4 +21,4 @@ protected:
     virtual int sync();
 };
 
-#endif // __TTextDevice
+#endif // TVision_TTextDevice_h

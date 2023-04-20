@@ -1,21 +1,8 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   BUFFERS.H                                                             */
-/*                                                                         */
+#ifndef TVision_TVMemMgr_h
+#define TVision_TVMemMgr_h
+
 /*   defines the functions getBufMem() and freeBufMem() for use            */
 /*   in allocating and freeing viedo buffers                               */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#ifndef __TVMemMgr
-#define __TVMemMgr
 
 const int DEFAULT_SAFETY_POOL_SIZE = 4096;
 
@@ -65,4 +52,4 @@ private:
     static int initMemMgr() noexcept;
 };
 
-#endif // __TVMemMgr
+#endif // TVision_TVMemMgr_h

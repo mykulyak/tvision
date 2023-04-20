@@ -1,5 +1,5 @@
-#ifndef __TBackground
-#define __TBackground
+#ifndef TVision_TBackground_h
+#define TVision_TBackground_h
 
 #include <tvision/View.h>
 #include <tvision/Palette.h>
@@ -43,4 +43,4 @@ inline opstream& operator<<(opstream& os, TBackground* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TBackground
+#endif // TVision_TBackground_h

@@ -1,21 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   MSGBOX.H                                                              */
-/*                                                                         */
-/*   defines the functions messageBox(), messageBoxRect(),                 */
-/*   inputBox(), and inputBoxRect()                                        */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#ifndef __MsgBox
-#define __MsgBox
+#ifndef TVision_MsgBox_h
+#define TVision_MsgBox_h
 
 #include <tvision/StringView.h>
 
@@ -67,4 +51,4 @@ public:
     static const char* confirmText;
 };
 
-#endif // __MsgBox
+#endif // TVision_MsgBox_h

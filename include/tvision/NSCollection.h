@@ -1,5 +1,5 @@
-#ifndef __TNSCollection
-#define __TNSCollection
+#ifndef TVision_TNSCollection_h
+#define TVision_TNSCollection_h
 
 #include <tvision/Object.h>
 #include <tvision/ttypes.h>
@@ -52,4 +52,4 @@ private:
     virtual void freeItem(void* item);
 };
 
-#endif // __TNSCollection
+#endif // TVision_TNSCollection_h

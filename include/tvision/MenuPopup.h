@@ -1,5 +1,5 @@
-#ifndef __TMenuPopup
-#define __TMenuPopup
+#ifndef TVision_TMenuPopup_h
+#define TVision_TMenuPopup_h
 
 #include <tvision/MenuBox.h>
 
@@ -29,4 +29,4 @@ public:
     static TStreamable* build();
 };
 
-#endif // __TMenuPopup
+#endif // TVision_TMenuPopup_h

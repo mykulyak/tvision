@@ -1,16 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       tscreen.cpp                               */
-/*                                                            */
-/* function(s)                                                */
-/*                  TScreen member functions                  */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <tvision/Screen.h>
 
 #if !defined(__FLAT__) && !defined(__DOS_H)

@@ -1,17 +1,10 @@
-#ifndef __TButton
-#define __TButton
+#ifndef TVision_TButton_h
+#define TVision_TButton_h
 
 #include <tvision/View.h>
 #include <tvision/StringView.h>
 
 const int
-    bfNormal
-    = 0x00,
-    bfDefault = 0x01,
-    bfLeftJust = 0x02,
-    bfBroadcast = 0x04,
-    bfGrabFocus = 0x08,
-
     cmRecordHistory = 60;
 
 /* ---------------------------------------------------------------------- */
@@ -32,6 +25,14 @@ class TDrawBuffer;
 
 class TButton : public TView {
 public:
+    enum Flags {
+        bfNormal = 0x00,
+        bfDefault = 0x01,
+        bfLeftJust = 0x02,
+        bfBroadcast = 0x04,
+        bfGrabFocus = 0x08,
+    };
+
     TButton(const TRect& bounds,
         TStringView aTitle,
         ushort aCommand,
@@ -98,4 +99,4 @@ inline opstream& operator<<(opstream& os, TButton* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TButton
+#endif // TVision_TButton_h

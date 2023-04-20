@@ -391,7 +391,7 @@ void TDirApp::aboutBox(void)
             "\003Borland International"));
 
     aboutBox->insert(
-        new TButton(TRect(14, 8, 25, 10), " OK", cmOK, bfDefault));
+        new TButton(TRect(14, 8, 25, 10), " OK", cmOK, TButton::Flags::bfDefault));
 
     aboutBox->options |= ofCentered;
 

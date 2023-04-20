@@ -45,12 +45,11 @@ void TVDemo::openFile(const char* fileSpec)
         new TFileDialog(fileSpec, "Open a File", "~N~ame", fdOpenButton, 100));
 
     if (d != 0 && deskTop->execView(d) != cmCancel) {
-        char fileName[MAXPATH];
-        d->getFileName(fileName);
         d->helpCtx = hcFOFileOpenDBox;
-        TView* w = validView(new TFileWindow(fileName));
-        if (w != 0)
+        TView* w = validView(new TFileWindow(d->getFilePath().c_str()));
+        if (w != 0) {
             deskTop->insert(w);
+        }
     }
     destroy(d);
 }

@@ -1,5 +1,5 @@
-#ifndef __TEventQueue
-#define __TEventQueue
+#ifndef TVision_TEventQueue_h
+#define TVision_TEventQueue_h
 
 #include <tvision/Event.h>
 #include <tvision/config.h>
@@ -78,4 +78,4 @@ inline void TEvent::getMouseEvent() noexcept
     TEventQueue::getMouseEvent(*this);
 }
 
-#endif // __TEventQueue
+#endif // TVision_TEventQueue_h

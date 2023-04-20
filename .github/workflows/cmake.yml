@@ -142,43 +142,6 @@ jobs:
       shell: bash
       run: cmake --build . -j$(nproc)
 
-  build-windows-bcc32:
-    name: Windows (BCC32) (DPMI32)
-    runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: Install Build Tools
-      shell: bash
-      run: |
-        curl -LJO "https://github.com/magiblot/tvision/files/5578778/BC45-32.zip"
-        curl -LJO "https://github.com/magiblot/tvision/files/5578815/tasm4-32.zip"
-        unzip BC45-32.zip -d C:/BC45
-        unzip tasm4-32.zip -d C:/tasm
-
-    - name: Build
-      shell: bash
-      run: |
-        export PATH="/c/bc45/bin:/c/tasm/bin:$PATH"
-        cd project
-        /c/bc45/bin/make.exe -DDOS32
-
-    - name: Upload Examples
-      uses: actions/upload-artifact@v3
-      with:
-        name: examples-dos32
-        path: |
-          examples/tvdemo/tvdemo.EXE
-          examples/tvedit/tvedit.EXE
-          examples/tvhc/tvhc.EXE
-
-    - name: Upload Library
-      uses: actions/upload-artifact@v3
-      with:
-        name: library-dos32
-        path: |
-          LIB/TV32.LIB
-
   build-macos-clang:
     name: MacOS (Clang)
     runs-on: macos-12

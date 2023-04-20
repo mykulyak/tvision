@@ -67,8 +67,8 @@ TColorDialog::TColorDialog(TPalette* aPalette, TColorGroup* aGroups) noexcept
     monoLabel->hide();
     insert(monoLabel);
 
-    insert(new TButton(TRect(36, 15, 46, 17), okText, cmOK, bfDefault));
-    insert(new TButton(TRect(48, 15, 58, 17), cancelText, cmCancel, bfNormal));
+    insert(new TButton(TRect(36, 15, 46, 17), okText, cmOK, TButton::Flags::bfDefault));
+    insert(new TButton(TRect(48, 15, 58, 17), cancelText, cmCancel, TButton::Flags::bfNormal));
     selectNext (false);
 
     if (pal != 0)

@@ -1,6 +1,5 @@
-
-#ifndef __EVENT_CODES
-#define __EVENT_CODES
+#ifndef TVision_EventCodes_h
+#define TVision_EventCodes_h
 
 /* Event codes */
 
@@ -48,4 +47,4 @@ const int meDoubleClick = DOUBLE_CLICK;
 // 0x04 and 0x08 are reserved by NT (MOUSE_WHEELED, MOUSE_HWHEELED).
 const int meTripleClick = 0x10;
 
-#endif // __EVENT_CODES
+#endif // TVision_EventCodes_h

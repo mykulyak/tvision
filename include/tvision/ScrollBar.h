@@ -1,3 +1,5 @@
+#ifndef TVision_TScrollBar_h
+#define TVision_TScrollBar_h
 
 /* ---------------------------------------------------------------------- */
 /*      class TScrollBar                                                  */
@@ -7,9 +9,6 @@
 /*        2 = Arrows                                                      */
 /*        3 = Indicator                                                   */
 /* ---------------------------------------------------------------------- */
-
-#ifndef __TScrollBar
-#define __TScrollBar
 
 #include <tvision/View.h>
 #include <tvision/Palette.h>
@@ -83,4 +82,4 @@ inline opstream& operator<<(opstream& os, TScrollBar* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TScrollBar
+#endif // TVision_TScrollBar_h

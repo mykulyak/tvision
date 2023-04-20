@@ -1,21 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   RESOURCE.H                                                            */
-/*                                                                         */
-/*   defines the classes TStringCollection, TResourceCollection,           */
-/*   TResourceFile, TStrListMaker, and TStringList                         */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#ifndef __TStrListMaker
-#define __TStrListMaker
+#ifndef TVision_TStrListMaker_h
+#define TVision_TStrListMaker_h
 
 #include <tvision/Object.h>
 
@@ -68,4 +52,4 @@ inline opstream& operator<<(opstream& os, TStrListMaker* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TStrListMaker
+#endif // TVision_TStrListMaker_h

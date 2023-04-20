@@ -1,16 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       tmouse.cpp                                */
-/*                                                            */
-/* function(s)                                                */
-/*                  TMouse and THWMouse member functions      */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #ifndef __FLAT__
 #ifndef __DOS_H
 #include <dos.h>

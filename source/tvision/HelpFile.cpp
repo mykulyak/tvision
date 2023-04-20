@@ -1,19 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename -       HelpBase.cpp                              */
-/*                                                            */
-/* function(s)                                                */
-/*                  Member function(s) of following classes   */
-/*                      THelpTopic                            */
-/*                      THelpIndex                            */
-/*                      THelpFile                             */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <sys/stat.h>
 #include <climits>
 #include <cstring>

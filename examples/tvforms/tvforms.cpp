@@ -38,6 +38,8 @@ __link(RResourceCollection)
 
 #include <cstdlib>
 #include <cstring>
+#include <string>
+#include <filesystem>
 
 #ifndef __FORMCMDS_H
 #include "formcmds.h"
@@ -98,7 +100,6 @@ void TFormApp::openListDialog()
     char fileName[MAXPATH];
     TDialog* listEditor;
     char errorMsg[MAXSIZE];
-    extern bool fileExists(char*);
     char name[MAXFILE];
     char drive[MAXDRIVE];
     char dir[MAXDIR];
@@ -108,11 +109,9 @@ void TFormApp::openListDialog()
         "~N~ame", fdOpenButton, hlOpenListDlg);
     if (validView(d) != NULL) {
         if (deskTop->execView(d) != cmCancel) {
-            d->getFileName(fileName);
-            if (!fileExists(fileName)) {
-                strcpy(errorMsg, "Cannot find file ");
-                strcat(errorMsg, fileName);
-                messageBox(errorMsg, mfError | mfOKButton);
+            auto p = d->getFilePath();
+            if (!std::filesystem::exists(p)) {
+                messageBox(std::string("Cannot find file ") + p.c_str(), mfError | mfOKButton);
             } else {
                 // If listEditor exists, select it; otherwise, open new one
                 fnsplit(fileName, drive, dir, name, ext);

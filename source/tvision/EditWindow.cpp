@@ -1,17 +1,3 @@
-/*------------------------------------------------------------*/
-/* filename - teditwnd.cpp                                    */
-/*                                                            */
-/* function(s)                                                */
-/*            TEditWindow member functions                    */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
 #include <tvision/EditWindow.h>
 #include <tvision/FileEditor.h>
 #include <tvision/Indicator.h>

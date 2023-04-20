@@ -1,5 +1,5 @@
-#ifndef __TStaticText
-#define __TStaticText
+#ifndef TVision_TStaticText_h
+#define TVision_TStaticText_h
 
 #include <tvision/View.h>
 
@@ -56,4 +56,4 @@ inline opstream& operator<<(opstream& os, TStaticText* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TStaticText
+#endif // TVision_TStaticText_h

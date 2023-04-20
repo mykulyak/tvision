@@ -1,5 +1,5 @@
-#ifndef __TScreen
-#define __TScreen
+#ifndef TVision_TScreen_h
+#define TVision_TScreen_h
 
 #include <tvision/ttypes.h>
 
@@ -73,4 +73,4 @@ public:
     static void resume() noexcept;
 };
 
-#endif // __TScreen
+#endif // TVision_TScreen_h

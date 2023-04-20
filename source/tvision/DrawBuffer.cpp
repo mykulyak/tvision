@@ -1,19 +1,3 @@
-/*------------------------------------------------------------------------*/
-/* filename - drivers.cpp                                                 */
-/*                                                                        */
-/* function(s)                                                            */
-/*        moveBuf  --   moves a buffer of char/attribute pairs            */
-/*        moveChar --   sets a buffer with a char/attribute pair          */
-/*        moveCStr --   moves a char array into a buffer & adds an        */
-/*                      attribute to each char                            */
-/*------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 #include <tvision/DrawBuffer.h>
 
 #ifndef __BORLANDC__

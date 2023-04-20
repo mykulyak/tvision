@@ -1,5 +1,5 @@
-#ifndef __TFileInputLine
-#define __TFileInputLine
+#ifndef TVision_TFileInputLine_h
+#define TVision_TFileInputLine_h
 
 #include <tvision/InputLine.h>
 
@@ -42,4 +42,4 @@ inline opstream& operator<<(opstream& os, TFileInputLine* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TFileInputLine
+#endif // TVision_TFileInputLine_h

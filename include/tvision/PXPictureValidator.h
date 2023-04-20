@@ -1,6 +1,5 @@
-
-#ifndef __TPXPictureValidator
-#define __TPXPictureValidator
+#ifndef TVision_TPXPictureValidator_h
+#define TVision_TPXPictureValidator_h
 
 #include <tvision/Validator.h>
 

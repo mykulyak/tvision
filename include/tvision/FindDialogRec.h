@@ -1,5 +1,5 @@
-#ifndef __TFindDialogRec
-#define __TFindDialogRec
+#ifndef TVision_TFindDialogRec_h
+#define TVision_TFindDialogRec_h
 
 #include <cstring>
 
@@ -13,4 +13,4 @@ struct TFindDialogRec {
     ushort options;
 };
 
-#endif // __TFindDialogRec
+#endif // TVision_TFindDialogRec_h

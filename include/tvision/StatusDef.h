@@ -1,5 +1,5 @@
-#ifndef __TStatusDef
-#define __TStatusDef
+#ifndef TVision_TStatusDef_h
+#define TVision_TStatusDef_h
 
 #include <tvision/StatusItem.h>
 
@@ -30,4 +30,4 @@ inline TStatusDef::TStatusDef(ushort aMin,
 TStatusDef& operator+(TStatusDef& s1, TStatusItem& s2) noexcept;
 TStatusDef& operator+(TStatusDef& s1, TStatusDef& s2) noexcept;
 
-#endif // __TStatusDef
+#endif // TVision_TStatusDef_h

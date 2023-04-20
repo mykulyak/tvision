@@ -1,5 +1,5 @@
-#ifndef __TMenuBar
-#define __TMenuBar
+#ifndef TVision_TMenuBar_h
+#define TVision_TMenuBar_h
 
 /* ---------------------------------------------------------------------- */
 /*      class TMenuBar                                                    */
@@ -60,4 +60,4 @@ inline opstream& operator<<(opstream& os, TMenuBar* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TMenuBar
+#endif // TVision_TMenuBar_h

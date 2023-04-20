@@ -1,5 +1,5 @@
-#ifndef __TStringCollection
-#define __TStringCollection
+#ifndef TVision_TStringCollection_h
+#define TVision_TStringCollection_h
 
 #include <tvision/SortedCollection.h>
 
@@ -45,4 +45,4 @@ inline opstream& operator<<(opstream& os, TStringCollection* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TStringCollection
+#endif // TVision_TStringCollection_h

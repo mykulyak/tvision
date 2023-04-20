@@ -1,19 +1,5 @@
-/* ------------------------------------------------------------------------*/
-/*                                                                         */
-/*   OBJECTS.H                                                             */
-/*                                                                         */
-/*   defines the classes TPoint, TRect, TCollection, and TSortedCollection */
-/*                                                                         */
-/* ------------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-#ifndef __TSortedCollection
-#define __TSortedCollection
+#ifndef TVision_TSortedCollection_h
+#define TVision_TSortedCollection_h
 
 #include <tvision/Collection.h>
 
@@ -61,4 +47,4 @@ inline opstream& operator<<(opstream& os, TSortedCollection* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TSortedCollection
+#endif // TVision_TSortedCollection_h
