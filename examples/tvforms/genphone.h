@@ -1,50 +1,17 @@
-/*-------------------------------------------------------*/
-/*                                                       */
-/*   Turbo Vision Forms Demo                             */
-/*                                                       */
-/*-------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
+#ifndef __GENPHONE_H
+#define __GENPHONE_H
 
 // Use GENFORMS.MAK to generate data files for TVFORMS demo
 // (this file is used in GENFORM.CPP).
 
-#ifndef  __GENPHONE_H 
-#define __GENPHONE_H
-
-#include <tvision/tv.h>
-__link( RButton )
-__link( RCheckBoxes )
-__link( RInputLine )
-__link( RLabel )
-__link( RMenuBar )
-__link( RRadioButtons )
-__link( RFrame )
-
-#ifndef  __FORMS_H 
-#include "forms.h"
-#endif  // _FORMS_H
-
-#ifndef  __FORMCMDS_H 
-#include "formcmds.h"
-#endif  // _FORMCMDS_H
-
-#ifndef  __DATACOLL_H 
 #include "datacoll.h"
-#endif  // _DATACOLL_H
-
-#ifndef  __FIELDS_H 
 #include "fields.h"
-#endif  // _FIELDS_H
-
+#include "formcmds.h"
+#include "forms.h"
 #include <cstring>
+#include <tvision/tv.h>
 
-#if defined( __FLAT__ )
+#if defined(__FLAT__)
 #define FORM_EXTENSION "f32"
 #else
 #define FORM_EXTENSION "f16"
@@ -52,14 +19,22 @@ __link( RFrame )
 
 const char rezFileName[] = "phonenum." FORM_EXTENSION;
 
+__link(RButton);
+__link(RCheckBoxes);
+__link(RInputLine);
+__link(RLabel);
+__link(RMenuBar);
+__link(RRadioButtons);
+__link(RFrame);
+
 const int
-    nameWidth = 25,
+    nameWidth
+    = 25,
     companyWidth = 23,
     remarksWidth = 22,
     phoneWidth = 20;
 
-struct TDataRec
-{
+struct TDataRec {
     char name[nameWidth];
     char company[companyWidth];
     char remarks[remarksWidth];
@@ -73,29 +48,29 @@ const bool allowDuplicates = true;
 const KeyTypes dataKeyType = stringKey;
 
 const int
-    dataCount = 4,
-    male      = 0,
-    female    = 1,
-    business  = 0x1,
-    personal  = 0x2;
+    dataCount
+    = 4,
+    male = 0,
+    female = 1,
+    business = 0x1,
+    personal = 0x2;
 
-const TDataRec data[dataCount] =
-{
-    {"Helton, Andrew", "Asterisk International", "Purch. Mgr.", "(415) 868-3964",
-        business | personal, male},
-    {"White, Natalie", "Exclamation, Inc.", "VP sales", "(408) 242-2030",
-        business, female},
-    {"Stern, Peter", "", "Decent violinist", "(111) 222-5555",
-        personal, male},
-    {"Whitcom, Hana O.", "Nate's girlfriend", "Birthday: Jan 8, 1990", "(408) 426-1234",
-        personal, female},
+const TDataRec data[dataCount] = {
+    { "Helton, Andrew", "Asterisk International", "Purch. Mgr.", "(415) 868-3964",
+        business | personal, male },
+    { "White, Natalie", "Exclamation, Inc.", "VP sales", "(408) 242-2030",
+        business, female },
+    { "Stern, Peter", "", "Decent violinist", "(111) 222-5555",
+        personal, male },
+    { "Whitcom, Hana O.", "Nate's girlfriend", "Birthday: Jan 8, 1990", "(408) 426-1234",
+        personal, female },
 };
 
-
-TForm *makeForm()
+TForm* makeForm()
 {
     const int
-        formX1 = 5,
+        formX1
+        = 5,
         formY1 = 3,
         formWd = 41,
         formHt = 17,
@@ -104,9 +79,9 @@ TForm *makeForm()
         inputCol = 11,
         buttonWd = 12;
 
-    TForm *f;
-    int x,y;
-    TView *control;
+    TForm* f;
+    int x, y;
+    TView* control;
 
     // Create a form
     TRect r(formX1, formY1, formX1 + formWd, formY1 + formHt);
@@ -150,27 +125,27 @@ TForm *makeForm()
     // Checkboxes
     x = inputCol;
     y += 3;
-    r = TRect(inputCol, y , inputCol + strlen("Business") + 6, y + 2);
+    r = TRect(inputCol, y, inputCol + strlen("Business") + 6, y + 2);
     control = new TCheckBoxes(r,
-                      new TSItem("Business",
-                      new TSItem("Personal",
-                      NULL)));
+        new TSItem("Business",
+            new TSItem("Personal",
+                NULL)));
     f->insert(control);
     r = TRect(x, y - 1, x + labelWid, y);
     f->insert(new TLabel(r, "~T~ype", control));
 
-    // Radio buttons 
+    // Radio buttons
     x += 15;
     r = TRect(x, y, x + strlen("Female") + 6, y + 2);
 
     control = new TRadioButtons(r,
-                   new TSItem("Male",
-                   new TSItem("Female", NULL)));
+        new TSItem("Male",
+            new TSItem("Female", NULL)));
     f->insert(control);
     r = TRect(x, y - 1, x + labelWid, y);
     f->insert(new TLabel(r, "~G~ender", control));
 
-    // Buttons 
+    // Buttons
     y += 3;
     x = formWd - 2 * (buttonWd + 2);
     r = TRect(x, y, x + buttonWd, y + 2);
@@ -179,9 +154,9 @@ TForm *makeForm()
     x = formWd - 1 * (buttonWd + 2);
     r = TRect(x, y, x + buttonWd, y + 2);
     f->insert(new TButton(r, "Cancel", cmCancel, TButton::Flags::bfNormal));
-    f->selectNext (false);      // Select first field 
+    f->selectNext(false); // Select first field
 
     return f;
 }
 
-#endif  // __GENPHONE_H
+#endif // __GENPHONE_H

@@ -1,5 +1,5 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/Button.h>
+#include <tvision/tobjstrm.h>
 
 const int
 
@@ -12,7 +12,7 @@ const char* const TButton::name = "TButton";
 const char* TButton::shadows = "\xDC\xDB\xDF";
 const char* TButton::markers = "[]";
 
-__link(RView)
+__link(RView);
 
 TStreamableClass RButton(TButton::name,
     TButton::build,
@@ -44,7 +44,7 @@ TButton::~TButton()
 
 void TButton::draw()
 {
-    drawState (false);
+    drawState(false);
 }
 
 void TButton::drawTitle(TDrawBuffer& b,
@@ -160,7 +160,7 @@ void TButton::handleEvent(TEvent& event)
     case evMouseDown:
         if ((state & sfDisabled) == 0) {
             clickRect.b.x++;
-            bool down =  false;
+            bool down = false;
             do {
                 mouse = makeLocal(event.mouse.where);
                 if (down != clickRect.contains(mouse)) {
@@ -170,7 +170,7 @@ void TButton::handleEvent(TEvent& event)
             } while (mouseEvent(event, evMouseMove));
             if (down) {
                 press();
-                drawState (false);
+                drawState(false);
             }
         }
         clearEvent(event);
@@ -178,7 +178,7 @@ void TButton::handleEvent(TEvent& event)
 
     case evKeyDown:
         if (event.keyDown.keyCode != 0 && (event.keyDown.keyCode == getAltCode(c) || (owner->phase == phPostProcess && c != 0 && toupper(event.keyDown.charScan.charCode) == c) || ((state & sfFocused) != 0 && event.keyDown.charScan.charCode == ' '))) {
-            drawState (true);
+            drawState(true);
             if (animationTimer != 0)
                 press();
             animationTimer = setTimer(animationDuration);
@@ -211,7 +211,7 @@ void TButton::handleEvent(TEvent& event)
         case cmTimeout:
             if (animationTimer != 0 && event.message.infoPtr == animationTimer) {
                 animationTimer = 0;
-                drawState (false);
+                drawState(false);
                 press();
                 clearEvent(event);
             }

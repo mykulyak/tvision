@@ -119,8 +119,8 @@ THardwareInfo::THardwareInfo()
     consoleHandle[cnOutput] = GetStdHandle(STD_OUTPUT_HANDLE);
     if (!GetConsoleMode(consoleHandle[cnInput], &consoleMode)) {
         std::cerr << "Error: standard input is being redirected or is not a "
-                "Win32 console."
-             << std::endl;
+                     "Win32 console."
+                  << std::endl;
         ExitProcess(1);
     }
     GetConsoleCursorInfo(consoleHandle[cnOutput], &crInfo);
@@ -221,7 +221,7 @@ void THardwareInfo::setCaretPosition(ushort x, ushort y)
 void THardwareInfo::setCaretSize(ushort size)
 {
     if (size == 0) {
-        crInfo.bVisible =  false;
+        crInfo.bVisible = false;
         crInfo.dwSize = 1;
     } else {
         crInfo.bVisible = true;
@@ -269,7 +269,7 @@ BOOL THardwareInfo::getMouseEvent(MouseEventType& event)
         pendingEvent = 0;
         return true;
     }
-    return  false;
+    return false;
 }
 
 BOOL THardwareInfo::getKeyEvent(TEvent& event)
@@ -280,7 +280,7 @@ BOOL THardwareInfo::getKeyEvent(TEvent& event)
             if (pendingEvent)
                 ReadConsoleInput(consoleHandle[cnInput], &irBuffer, 1, &pendingEvent);
             else
-                return  false;
+                return false;
         }
 
         // Pending mouse events will be read on the next polling loop.
@@ -334,7 +334,7 @@ BOOL THardwareInfo::getKeyEvent(TEvent& event)
         }
     } while (!pendingEvent);
 
-    return  false;
+    return false;
 }
 
 void THardwareInfo::waitForEvent(int timeoutMs)
@@ -349,7 +349,7 @@ void THardwareInfo::stopEventWait()
 
 BOOL THardwareInfo::setClipboardText(TStringView text)
 {
-    BOOL result =  false;
+    BOOL result = false;
     if (pOpenClipboard && pOpenClipboard(0)) {
         HGLOBAL hData = NULL;
         char* pData;
@@ -368,7 +368,7 @@ BOOL THardwareInfo::setClipboardText(TStringView text)
 
 BOOL THardwareInfo::requestClipboardText(void (&accept)(TStringView))
 {
-    BOOL result =  false;
+    BOOL result = false;
     if (pOpenClipboard && pOpenClipboard(0)) {
         HGLOBAL hData;
         char* pData;

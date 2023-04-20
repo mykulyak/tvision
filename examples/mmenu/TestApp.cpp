@@ -1,6 +1,6 @@
-#include <tvision/tv.h>
 #include "Commands.h"
 #include "MultiMenu.h"
+#include <tvision/tv.h>
 
 class TTestApp : public TApplication {
 public:

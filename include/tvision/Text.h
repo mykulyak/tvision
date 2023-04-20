@@ -1,10 +1,10 @@
 #ifndef TVision_TText_h
 #define TVision_TText_h
 
-#include <tvision/ttypes.h>
+#include <tvision/ScreenCell.h>
 #include <tvision/StringView.h>
 #include <tvision/colors.h>
-#include <tvision/ScreenCell.h>
+#include <tvision/ttypes.h>
 
 struct TTextMetrics {
     uint width;
@@ -170,14 +170,14 @@ inline bool TText::next(TStringView text, size_t& index)
 {
     if (index < text.size())
         return ++index, true;
-    return  false;
+    return false;
 }
 
 inline bool TText::next(TStringView text, size_t& index, size_t& width)
 {
     if (index < text.size())
         return ++index, ++width, true;
-    return  false;
+    return false;
 }
 
 inline size_t TText::prev(TStringView text, size_t index)
@@ -200,7 +200,7 @@ inline size_t TText::scroll(TStringView text, int count, bool)
 inline void TText::scroll(TStringView text, int count, bool,
     size_t& length, size_t& width)
 {
-    length = width = (size_t)scroll(text, count,  false);
+    length = width = (size_t)scroll(text, count, false);
 }
 
 #pragma warn - inl
@@ -268,7 +268,7 @@ inline bool TText::drawOne(TSpan<TScreenCell> cells, size_t& i,
         ::setChar(cells[i++], text[j++]);
         return true;
     }
-    return  false;
+    return false;
 }
 
 inline bool TText::drawOne(TSpan<TScreenCell> cells, size_t& i,
@@ -279,7 +279,7 @@ inline bool TText::drawOne(TSpan<TScreenCell> cells, size_t& i,
         ::setCell(cells[i++], text[j++], attr);
         return true;
     }
-    return  false;
+    return false;
 }
 
 #else

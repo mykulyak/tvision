@@ -13,7 +13,7 @@
 
 const char* const TFileEditor::name = "TFileEditor";
 
-__link(REditor)
+__link(REditor);
 
 TStreamableClass RFileEditor(TFileEditor::name,
     TFileEditor::build,
@@ -83,9 +83,9 @@ bool TFileEditor::loadFile() noexcept
         f.seekg(0, std::ios::end);
         ulong fSize = f.tellg();
         f.seekg(0);
-        if (fSize > UINT_MAX - 0x1Fl || setBufSize(uint(fSize)) ==  false) {
+        if (fSize > UINT_MAX - 0x1Fl || setBufSize(uint(fSize)) == false) {
             editorDialog(edOutOfMemory);
-            return  false;
+            return false;
         } else {
             if (fSize > INT_MAX) {
                 f.read(&buffer[bufSize - uint(fSize)], INT_MAX);
@@ -96,7 +96,7 @@ bool TFileEditor::loadFile() noexcept
                 f.read(&buffer[bufSize - uint(fSize)], uint(fSize));
             if (!f) {
                 editorDialog(edReadError, fileName);
-                return  false;
+                return false;
             } else {
                 setBufLen(uint(fSize));
                 return true;
@@ -115,7 +115,7 @@ bool TFileEditor::save() noexcept
 
 bool TFileEditor::saveAs() noexcept
 {
-    bool res =  false;
+    bool res = false;
     if (editorDialog(edSaveAs, fileName) != cmCancel) {
         fexpand(fileName);
         message(owner, evBroadcast, cmUpdateTitle, 0);
@@ -154,16 +154,16 @@ bool TFileEditor::saveFile() noexcept
 
     if (!f) {
         editorDialog(edCreateError, fileName);
-        return  false;
+        return false;
     } else {
         writeBlock(f, buffer, curPtr);
         writeBlock(f, buffer + curPtr + gapLen, bufLen - curPtr);
 
         if (!f) {
             editorDialog(edWriteError, fileName);
-            return  false;
+            return false;
         } else {
-            modified =  false;
+            modified = false;
             update(ufUpdate);
         }
     }
@@ -184,7 +184,7 @@ bool TFileEditor::setBufSize(uint newSize)
            NULL return value. */
         if ((buffer = (char*)malloc(newSize)) == 0) {
             free(temp);
-            return  false;
+            return false;
         }
         uint n = bufLen - curPtr + delCount;
         uint min = newSize < bufSize ? newSize : bufSize;
@@ -199,8 +199,8 @@ bool TFileEditor::setBufSize(uint newSize)
 
 void TFileEditor::shutDown()
 {
-    setCmdState(cmSave,  false);
-    setCmdState(cmSaveAs,  false);
+    setCmdState(cmSave, false);
+    setCmdState(cmSaveAs, false);
     TEditor::shutDown();
 }
 
@@ -227,10 +227,10 @@ bool TFileEditor::valid(ushort command)
             case cmYes:
                 return save();
             case cmNo:
-                modified =  false;
+                modified = false;
                 return true;
             case cmCancel:
-                return  false;
+                return false;
             }
         }
     }
@@ -257,7 +257,7 @@ void* TFileEditor::read(ipstream& is)
         is >> sStart >> sEnd >> curs;
         if (isValid && sEnd <= bufLen) {
             setSelect(sStart, sEnd, bool(curs == sStart));
-            trackCursor (true);
+            trackCursor(true);
         }
     }
     return this;

@@ -1,30 +1,16 @@
-/*---------------------------------------------------------*/
-/*                                                         */
-/*   Calendar.cpp:  TCalenderWindow member functions.      */
-/*                                                         */
-/*---------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#include <tvision/tv.h>
-__link(RView)
-    __link(RWindow)
-
+#include "calendar.h"
 #include <cctype>
 #include <cstdlib>
 #include <cstring>
 #include <ctime>
 #include <iomanip>
 #include <strstream>
+#include <tvision/tv.h>
 
-#include "calendar.h"
+__link(RView);
+__link(RWindow);
 
-        static const char* monthNames[]
+static const char* monthNames[]
     = {
           "",
           "January", "February", "March", "April", "May", "June",

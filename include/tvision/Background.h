@@ -1,8 +1,8 @@
 #ifndef TVision_TBackground_h
 #define TVision_TBackground_h
 
-#include <tvision/View.h>
 #include <tvision/Palette.h>
+#include <tvision/View.h>
 
 class TBackground : public TView {
 public:

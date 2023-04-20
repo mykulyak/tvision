@@ -1,24 +1,6 @@
-/*------------------------------------------------------------------*/
-/*                                                                  */
-/*   Turbo Vision Forms Demo                                        */
-/*                                                                  */
-/*------------------------------------------------------------------*/
-/*                                                                  */
-/*    This program uses GENPHONE.H and GENPARTS.H to generate forms */
-/*  data files which are used by the TVFORMS demo program. Use      */
-/*  GENFORMS.MAK to create data files for TVFORMS demo.             */
-/*                                                                  */
-/*------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
+#include "forms.h"
+#include <cstdlib>
 #include <tvision/tv.h>
-__link(RResourceCollection)
 
 #if defined(PHONENUM)
 #include "genphone.h"
@@ -28,13 +10,9 @@ __link(RResourceCollection)
 #error Specify PHONENUM or PARTS as a conditional define, compile and then run.
 #endif
 
-#ifndef __FORMS_H
-#include "forms.h"
-#endif // __FORMS_H
+__link(RResourceCollection);
 
-#include <cstdlib>
-
-    int main(void)
+int main(void)
 {
     TSortedCollection* collection;
     int i;
@@ -43,7 +21,7 @@ __link(RResourceCollection)
     fpstream* s;
     TResourceFile* r;
 
-    TScreen::clearOnSuspend =  false;
+    TScreen::clearOnSuspend = false;
 
     std::cout << "Creating  " << rezFileName << "\n";
 

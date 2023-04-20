@@ -1,9 +1,9 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/Group.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TGroup::name = "TGroup";
 
-__link(RView)
+__link(RView);
 
 TStreamableClass RGroup(TGroup::name,
     TGroup::build,
@@ -259,7 +259,7 @@ ushort TGroup::execView(TView* p) noexcept
     if (saveOwner == 0)
         remove(p);
     setCurrent(saveCurrent, leaveSelect);
-    p->setState(sfModal,  false);
+    p->setState(sfModal, false);
     p->options = saveOptions;
     TheTopView = saveTopView;
     setCommands(saveCommands);
@@ -509,10 +509,10 @@ void TGroup::setCurrent(TView* p, selectMode mode)
 {
     if (current != p) {
         lock();
-        focusView(current,  false);
+        focusView(current, false);
         if (mode != enterSelect)
             if (current != 0)
-                current->setState(sfSelected,  false);
+                current->setState(sfSelected, false);
         if (mode != leaveSelect)
             if (p != 0)
                 p->setState(sfSelected, true);
@@ -573,7 +573,7 @@ void TGroup::setState(ushort aState, bool enable)
 
     if ((aState & sfExposed) != 0) {
         forEach(doExpose, &enable);
-        if (enable ==  false)
+        if (enable == false)
             freeBuffer();
     }
 }

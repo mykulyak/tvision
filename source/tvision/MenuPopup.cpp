@@ -1,6 +1,6 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/Menu.h>
 #include <tvision/MenuPopup.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TMenuPopup::name = "TMenuPopup";
 
@@ -11,7 +11,7 @@ TStreamableClass RMenuPopup(TMenuPopup::name,
 TMenuPopup::TMenuPopup(const TRect& bounds, TMenu* aMenu, TMenuView* aParentMenu) noexcept
     : TMenuBox(bounds, aMenu, aParentMenu)
 {
-    putClickEventOnExit =  false;
+    putClickEventOnExit = false;
 }
 
 ushort TMenuPopup::execute()

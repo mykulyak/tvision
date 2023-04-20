@@ -1,38 +1,15 @@
-/*-------------------------------------------------------*/
-/*                                                       */
-/*   Turbo Vision Forms Demo                             */
-/*                                                       */
-/*   Forms.cpp: Support source file for TVFORMS demo     */
-/*-------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#include <tvision/tv.h>
-__link(RDialog)
-    __link(RView)
-
-#ifndef __FORMS_H
 #include "forms.h"
-#endif // __FORMS_H
-
-#ifndef __LISTDLG_H
-#include "listdlg.h"
-#endif // __LISTDLG_H
-
-#ifndef __FORMCMDS_H
 #include "formcmds.h"
-#endif // __FORMCMDS_H
-
+#include "listdlg.h"
 #include <cstring>
+#include <tvision/tv.h>
 
-    // Compares two buffers and returns true if contents are equal
+__link(RDialog);
+__link(RView);
 
-    bool compBlocks(void* buf1, void* buf2, ushort bufSize)
+// Compares two buffers and returns true if contents are equal
+
+bool compBlocks(void* buf1, void* buf2, ushort bufSize)
 {
     return bool(memcmp(buf1, buf2, bufSize) == 0);
 }
@@ -81,7 +58,7 @@ bool TForm::changed()
     if (prevData == NULL)
         newForm = true;
     else
-        newForm =  false;
+        newForm = false;
 
     if (newForm) {
         // Dummy up empty record for comparison
@@ -89,7 +66,7 @@ bool TForm::changed()
         memset(prevData, 0, compSize);
     }
     if (compBlocks(prevData, curData, compSize))
-        result =  false;
+        result = false;
     else
         result = true;
 
@@ -101,7 +78,7 @@ bool TForm::changed()
     if (result)
         return true;
     else
-        return  false;
+        return false;
 }
 
 void TForm::handleEvent(TEvent& event)
@@ -179,6 +156,6 @@ bool TForm::valid(ushort command)
         if (action != cmCancel)
             return true;
         else
-            return  false;
+            return false;
     }
 }

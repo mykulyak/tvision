@@ -1,5 +1,5 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/StringCollection.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TStringCollection::name = "TStringCollection";
 

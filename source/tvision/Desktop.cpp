@@ -1,11 +1,11 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/Desktop.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TDeskTop::name = "TDeskTop";
 
 const char TDeskTop::defaultBkgrnd = '\xB0';
 
-__link(RBackground)
+__link(RBackground);
 
 TStreamableClass RDeskTop(TDeskTop::name, TDeskTop::build, __DELTA(TDeskTop));
 
@@ -19,7 +19,7 @@ TDeskTop::TDeskTop(const TRect& bounds) noexcept
     , TGroup(bounds)
 {
     growMode = gfGrowHiX | gfGrowHiY;
-    tileColumnsFirst =  false;
+    tileColumnsFirst = false;
 
     if (createBackground != 0 && (background = createBackground(getExtent())) != 0)
         insert(background);
@@ -83,7 +83,7 @@ void TDeskTop::handleEvent(TEvent& event)
         switch (event.message.command) {
         case cmNext:
             if (valid(cmReleasedFocus))
-                selectNext (false);
+                selectNext(false);
             break;
         case cmPrev:
             if (valid(cmReleasedFocus))
@@ -212,7 +212,7 @@ TDeskTop::TDeskTop(StreamableInit) noexcept
     : TDeskInit(0)
     , TGroup(streamableInit)
 {
-    tileColumnsFirst =  false;
+    tileColumnsFirst = false;
 }
 
 #endif

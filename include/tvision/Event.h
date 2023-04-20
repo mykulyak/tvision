@@ -1,9 +1,9 @@
 #ifndef TVision_TEvent_h
 #define TVision_TEvent_h
 
+#include <tvision/Keys.h>
 #include <tvision/Point.h>
 #include <tvision/StringView.h>
-#include <tvision/Keys.h>
 
 struct MouseEventType {
     TPoint where;

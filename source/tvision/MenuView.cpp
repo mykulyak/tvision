@@ -1,13 +1,13 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/Menu.h>
 #include <tvision/MenuBox.h>
 #include <tvision/MenuView.h>
+#include <tvision/tobjstrm.h>
 
 #define cpMenuView "\x02\x03\x04\x05\x06\x07"
 
 const char* const TMenuView::name = "TMenuView";
 
-__link(RView)
+__link(RView);
 
 TStreamableClass RMenuView(TMenuView::name,
     TMenuView::build,
@@ -111,7 +111,7 @@ void TMenuView::trackKey(bool findNext)
 bool TMenuView::mouseInOwner(TEvent& e)
 {
     if (parentMenu == 0)
-        return  false;
+        return false;
     else {
         TPoint mouse = parentMenu->makeLocal(e.mouse.where);
         TRect r = parentMenu->getItemRect(parentMenu->current);
@@ -142,7 +142,7 @@ enum menuAction { doNothing,
 
 ushort TMenuView::execute()
 {
-    bool autoSelect =  false;
+    bool autoSelect = false;
     bool firstEvent = true;
     menuAction action;
     char ch;
@@ -157,7 +157,7 @@ ushort TMenuView::execute()
 
     current = menu->deflt;
 
-    mouseActive =  false;
+    mouseActive = false;
     do {
         action = doNothing;
         getEvent(e);
@@ -251,7 +251,7 @@ ushort TMenuView::execute()
                 if (size.y != 1) {
                     current = menu->items;
                     if (e.keyDown.keyCode == kbEnd)
-                        trackKey (false);
+                        trackKey(false);
                 }
                 break;
             case kbEnter:
@@ -289,7 +289,7 @@ ushort TMenuView::execute()
             break;
         case evCommand:
             if (e.message.command == cmMenu) {
-                autoSelect =  false;
+                autoSelect = false;
                 lastTargetItem = 0;
                 if (parentMenu != 0)
                     action = doReturn;
@@ -334,7 +334,7 @@ ushort TMenuView::execute()
         } else
             result = 0;
 
-        firstEvent =  false;
+        firstEvent = false;
     } while (action != doReturn);
 
     if (e.what != evNothing && (parentMenu != 0 || e.what == evCommand))
@@ -388,7 +388,7 @@ TPalette& TMenuView::getPalette() const
 
 bool TMenuView::updateMenu(TMenu* menu)
 {
-    bool res =  false;
+    bool res = false;
     if (menu != 0) {
         for (TMenuItem* p = menu->items; p != 0; p = p->next) {
             if (p->name != 0) {

@@ -13,8 +13,7 @@
 #include <tvision/compat/windows/windows.h>
 #endif
 
-namespace tvision
-{
+namespace tvision {
 
 #ifdef _TV_UNIX
 using SysHandle = int;
@@ -22,8 +21,7 @@ using SysHandle = int;
 using SysHandle = HANDLE;
 #endif
 
-struct SysManualEvent
-{
+struct SysManualEvent {
 #ifdef _TV_UNIX
     using Handle = int[2];
     Handle fds;
@@ -32,7 +30,7 @@ struct SysManualEvent
     Handle hEvent;
 #endif
 
-    static bool createHandle(Handle &handle) noexcept;
+    static bool createHandle(Handle& handle) noexcept;
     static SysHandle getWaitableHandle(Handle handle) noexcept;
 
     SysManualEvent(Handle aHandle) noexcept;
@@ -41,11 +39,12 @@ struct SysManualEvent
     void clear() noexcept;
 };
 
-inline SysManualEvent::SysManualEvent(Handle aHandle) noexcept :
+inline SysManualEvent::SysManualEvent(Handle aHandle) noexcept
+    :
 #ifdef _TV_UNIX
-    fds {aHandle[0], aHandle[1]}
+    fds { aHandle[0], aHandle[1] }
 #else
-    hEvent {aHandle}
+    hEvent { aHandle }
 #endif
 {
 }
@@ -59,73 +58,67 @@ inline SysHandle SysManualEvent::getWaitableHandle(Handle handle) noexcept
 #endif
 }
 
-class EventSource
-{
+class EventSource {
 public:
-
     const SysHandle handle;
 
-    EventSource(SysHandle handle) noexcept :
-        handle(handle)
+    EventSource(SysHandle handle) noexcept
+        : handle(handle)
     {
     }
 
-    virtual ~EventSource() {}
+    virtual ~EventSource() { }
 
     virtual bool hasPendingEvents() noexcept;
-    virtual bool getEvent(TEvent &) noexcept;
+    virtual bool getEvent(TEvent&) noexcept;
 };
 
-class WakeUpEventSource : public EventSource
-{
+class WakeUpEventSource : public EventSource {
     SysManualEvent sys;
-    bool (*callback) (void *, TEvent &) noexcept;
-    void *callbackArgs;
-    std::atomic<bool> signaled {false};
+    bool (*callback)(void*, TEvent&) noexcept;
+    void* callbackArgs;
+    std::atomic<bool> signaled { false };
 
     bool clear() noexcept;
 
 public:
-
     // Pre: if 'callback' or 'callbackArgs' are not null, their lifetime must
     // exceed that of 'this'. 'callback' must be noexcept.
-    WakeUpEventSource( SysManualEvent::Handle aHandle,
-                       bool (*aCallback) (void *, TEvent &),
-                       void *aCallbackArgs ) noexcept;
+    WakeUpEventSource(SysManualEvent::Handle aHandle,
+        bool (*aCallback)(void*, TEvent&),
+        void* aCallbackArgs) noexcept;
 
-    WakeUpEventSource &operator=(const WakeUpEventSource &) = delete;
+    WakeUpEventSource& operator=(const WakeUpEventSource&) = delete;
 
     void signal() noexcept; // Multiple producers.
-    bool getEvent(TEvent &event) noexcept override; // Single consumer.
+    bool getEvent(TEvent& event) noexcept override; // Single consumer.
 };
 
-inline WakeUpEventSource::WakeUpEventSource( SysManualEvent::Handle aHandle,
-                                             bool (*aCallback) (void *, TEvent &),
-                                             void *aCallbackArgs ) noexcept :
-    EventSource(SysManualEvent::getWaitableHandle(aHandle)),
-    sys(aHandle),
-    callback((bool (*)(void *, TEvent &) noexcept) aCallback),
-    callbackArgs(aCallbackArgs)
+inline WakeUpEventSource::WakeUpEventSource(SysManualEvent::Handle aHandle,
+    bool (*aCallback)(void*, TEvent&),
+    void* aCallbackArgs) noexcept
+    : EventSource(SysManualEvent::getWaitableHandle(aHandle))
+    , sys(aHandle)
+    , callback((bool (*)(void*, TEvent&) noexcept)aCallback)
+    , callbackArgs(aCallbackArgs)
 {
 }
 
 #ifdef _TV_UNIX
 using PollItem = struct pollfd;
-static inline PollItem pollItem(SysHandle fd) noexcept { return {fd, POLLIN}; }
+static inline PollItem pollItem(SysHandle fd) noexcept { return { fd, POLLIN }; }
 #else
 using PollItem = HANDLE;
 static inline PollItem pollItem(SysHandle h) noexcept { return h; }
 #endif
 
-enum PollState : uint8_t
-{
+enum PollState : uint8_t {
     psNothing,
     psReady,
     psDisconnect,
 };
 
-struct PollData
-{
+struct PollData {
     std::vector<PollItem> items;
     std::vector<PollState> states;
 
@@ -147,27 +140,25 @@ struct PollData
     }
 };
 
-class EventWaiter
-{
-    std::vector<EventSource *> sources;
+class EventWaiter {
+    std::vector<EventSource*> sources;
     PollData pd;
-    std::unique_ptr<WakeUpEventSource> wakeUp {nullptr};
+    std::unique_ptr<WakeUpEventSource> wakeUp { nullptr };
     TEvent readyEvent;
-    bool readyEventPresent {false};
+    bool readyEventPresent { false };
 
     void removeSource(size_t i) noexcept;
     void pollSources(int timeoutMs) noexcept;
     bool hasReadyEvent() noexcept;
-    void getReadyEvent(TEvent &ev) noexcept;
+    void getReadyEvent(TEvent& ev) noexcept;
 
 public:
-
     EventWaiter() noexcept;
 
-    void addSource(EventSource &) noexcept;
-    void removeSource(EventSource &) noexcept;
+    void addSource(EventSource&) noexcept;
+    void removeSource(EventSource&) noexcept;
 
-    bool getEvent(TEvent &ev) noexcept;
+    bool getEvent(TEvent& ev) noexcept;
     void waitForEvent(int ms) noexcept;
     void stopEventWait() noexcept;
 };

@@ -4,7 +4,7 @@
 //  Copyright (C) Borland International, 1991.
 //
 
-#ifndef  _PALETTE_H
+#ifndef _PALETTE_H
 #define _PALETTE_H
 
 //
@@ -19,13 +19,13 @@
 //      getPalette - To have a color to display the text in.
 //
 
-class TTestView : public TView
-{
+class TTestView : public TView {
 public:
-    TTestView( TRect& r );
-    virtual ~TTestView() {}
+    TTestView(TRect& r);
+    virtual ~TTestView() { }
     virtual void draw();
     virtual TPalette& getPalette() const;
+
 private:
 };
 
@@ -42,20 +42,19 @@ private:
 //                    TWindow.
 //
 
-#define TEST_WIDTH   42
-#define TEST_HEIGHT  11
+#define TEST_WIDTH 42
+#define TEST_HEIGHT 11
 
-class TTestWindow : public TWindow
-{
+class TTestWindow : public TWindow {
 public:
     TTestWindow();
-    virtual ~TTestWindow() {}
+    virtual ~TTestWindow() { }
     virtual TPalette& getPalette() const;
-    virtual void sizeLimits( TPoint& min, TPoint& max )
+    virtual void sizeLimits(TPoint& min, TPoint& max)
     {
-          min.x = max.x = TEST_WIDTH;
-          min.y = max.y = TEST_HEIGHT;
+        min.x = max.x = TEST_WIDTH;
+        min.y = max.y = TEST_HEIGHT;
     }
 };
 
-#endif  // _PALETTE_H
+#endif // _PALETTE_H

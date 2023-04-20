@@ -1,8 +1,8 @@
 #ifndef TVision_TSItem_h
 #define TVision_TSItem_h
 
-#include <tvision/util.h>
 #include <tvision/StringView.h>
+#include <tvision/util.h>
 
 class TSItem {
 public:

@@ -1,6 +1,5 @@
-#include <tvision/tv.h>
-
 #include "backgrnd.h"
+#include <tvision/tv.h>
 
 TChBackground::TChBackground(TBackground* b)
     : TWindowInit(&TChBackground::initFrame)
@@ -29,9 +28,9 @@ bool TChBackground::valid(ushort command)
                 background->pattern = pattern;
                 background->drawView();
             }
-            return  false; // Keep dialog open.
+            return false; // Keep dialog open.
         }
         return true;
     }
-    return  false;
+    return false;
 }

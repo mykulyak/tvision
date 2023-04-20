@@ -1,5 +1,4 @@
 #include <strstream>
-#include <tvision/tobjstrm.h>
 #include <tvision/Button.h>
 #include <tvision/ChdirDialog.h>
 #include <tvision/CommandCodes.h>
@@ -12,6 +11,7 @@
 #include <tvision/InputLine.h>
 #include <tvision/Label.h>
 #include <tvision/ScrollBar.h>
+#include <tvision/tobjstrm.h>
 #include <tvision/util.h>
 
 const char* const TChDirDialog::name = "TChDirDialog";
@@ -26,13 +26,13 @@ const char* TChDirDialog::helpText = "Help";
 const char* TChDirDialog::drivesText = "Drives";
 const char* TChDirDialog::invalidText = "Invalid directory";
 
-__link(RDialog)
-__link(RButton)
-__link(RDirListBox)
-__link(RInputLine)
-__link(RHistory)
-__link(RLabel)
-__link(RScrollBar)
+__link(RDialog);
+__link(RButton);
+__link(RDirListBox);
+__link(RInputLine);
+__link(RHistory);
+__link(RLabel);
+__link(RScrollBar);
 
 TStreamableClass RChDirDialog(TChDirDialog::name,
     TChDirDialog::build,
@@ -64,7 +64,7 @@ TChDirDialog::TChDirDialog(ushort opts, ushort histId) noexcept
         insert(new TButton(TRect(35, 15, 45, 17), helpText, cmHelp, TButton::Flags::bfNormal));
     if ((opts & cdNoLoadDir) == 0)
         setUpDialog();
-    selectNext (false);
+    selectNext(false);
 }
 
 ushort TChDirDialog::dataSize()
@@ -174,7 +174,7 @@ bool TChDirDialog::valid(ushort command)
         os << invalidText << ": '" << path << "'." << std::ends;
         buf[sizeof(buf) - 1] = '\0';
         messageBox(buf, mfError | mfOKButton);
-        return  false;
+        return false;
     }
     return true;
 }

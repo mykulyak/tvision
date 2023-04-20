@@ -5,15 +5,13 @@
 
 #ifdef HAVE_NCURSES
 
-#include <unordered_map>
 #include <ncurses.h>
+#include <unordered_map>
 
-namespace tvision
-{
+namespace tvision {
 
-class NcursesDisplay : public TerminalDisplay
-{
-    SCREEN *term;
+class NcursesDisplay : public TerminalDisplay {
+    SCREEN* term;
 
     bool hasColors;
     std::unordered_map<ushort, int> pairIdentifiers;
@@ -21,14 +19,13 @@ class NcursesDisplay : public TerminalDisplay
 
     bool usesNcursesDraw;
 
-    void getCaretPosition(int &x, int &y) noexcept;
+    void getCaretPosition(int& x, int& y) noexcept;
     uint translateAttributes(TColorAttr attr) noexcept;
     uint getColorPair(uchar pairKey) noexcept;
 
 public:
-
     // The lifetime of 'aIo' exceeds that of 'this'.
-    NcursesDisplay(StdioCtl &io) noexcept;
+    NcursesDisplay(StdioCtl& io) noexcept;
     ~NcursesDisplay();
 
     void reloadScreenInfo() noexcept override;
@@ -39,7 +36,6 @@ public:
     void clearScreen() noexcept override;
 
 protected:
-
     void lowlevelWriteChars(TStringView chars, TColorAttr attr) noexcept override;
     void lowlevelMoveCursor(uint x, uint y) noexcept override;
     void lowlevelCursorSize(int size) noexcept override;
@@ -50,10 +46,9 @@ protected:
 
 #else
 
-namespace tvision
-{
+namespace tvision {
 
-class NcursesDisplay : public DisplayStrategy {};
+class NcursesDisplay : public DisplayStrategy { };
 
 } // namespace tvision
 

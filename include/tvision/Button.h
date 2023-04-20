@@ -1,11 +1,12 @@
 #ifndef TVision_TButton_h
 #define TVision_TButton_h
 
-#include <tvision/View.h>
 #include <tvision/StringView.h>
+#include <tvision/View.h>
 
 const int
-    cmRecordHistory = 60;
+    cmRecordHistory
+    = 60;
 
 /* ---------------------------------------------------------------------- */
 /*      TButton object                                                    */

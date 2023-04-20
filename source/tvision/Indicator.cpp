@@ -5,7 +5,7 @@
 
 const char* const TIndicator::name = "TIndicator";
 
-__link(RView)
+__link(RView);
 
 TStreamableClass RIndicator(TIndicator::name,
     TIndicator::build,
@@ -17,7 +17,7 @@ const char TIndicator::normalFrame = '\xC4';
 TIndicator::TIndicator(const TRect& bounds) noexcept
     : TView(bounds)
     , location(TPoint())
-    , modified (false)
+    , modified(false)
 {
     growMode = gfGrowLoY | gfGrowHiY;
 }

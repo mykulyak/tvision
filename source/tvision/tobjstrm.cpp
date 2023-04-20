@@ -1,6 +1,6 @@
-#include <sys/stat.h>
 #include <fcntl.h>
 #include <fstream>
+#include <sys/stat.h>
 #include <tvision/tobjstrm.h>
 
 typedef std::ios::openmode openmode;
@@ -246,11 +246,11 @@ ipstream::ipstream(std::streambuf* sb) noexcept
 
 ipstream::~ipstream()
 {
-    objs.shouldDelete =  false;
+    objs.shouldDelete = false;
     objs.shutDown();
 }
 
- std::streampos ipstream::tellg()
+std::streampos ipstream::tellg()
 {
 #ifdef __BORLANDC__
     return bp->seekoff(0, std::ios::cur, std::ios::in);
@@ -259,7 +259,7 @@ ipstream::~ipstream()
 #endif
 }
 
-ipstream& ipstream::seekg( std::streampos pos)
+ipstream& ipstream::seekg(std::streampos pos)
 {
     objs.removeAll();
 #ifdef __BORLANDC__
@@ -491,7 +491,7 @@ opstream::~opstream()
     delete objs;
 }
 
-opstream& opstream::seekp( std::streampos pos)
+opstream& opstream::seekp(std::streampos pos)
 {
     objs->freeAll();
     objs->removeAll();
@@ -515,7 +515,7 @@ opstream& opstream::seekp(std::streamoff pos, pstream::seekdir dir)
     return *this;
 }
 
- std::streampos opstream::tellp()
+std::streampos opstream::tellp()
 {
 #ifdef __BORLANDC__
     return bp->seekoff(0, std::ios::cur, std::ios::out);

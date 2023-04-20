@@ -1,8 +1,8 @@
 #ifndef TVision_TPalette_h
 #define TVision_TPalette_h
 
-#include <tvision/ttypes.h>
 #include <tvision/colors.h>
+#include <tvision/ttypes.h>
 
 class TPalette {
 public:

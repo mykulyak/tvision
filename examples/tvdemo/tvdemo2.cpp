@@ -1,19 +1,3 @@
-/*----------------------------------------------------------*/
-/*                                                          */
-/*   Turbo Vision TVDEMO source file                        */
-/*                                                          */
-/*----------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-#include <signal.h>
-#include <cstdlib>
-#include <tvision/tv.h>
-
 #include "ascii.h"
 #include "backgrnd.h"
 #include "calc.h"
@@ -22,6 +6,9 @@
 #include "evntview.h"
 #include "tvcmds.h"
 #include "tvdemo.h"
+#include <cstdlib>
+#include <signal.h>
+#include <tvision/tv.h>
 
 //
 // DemoApp::handleEvent()

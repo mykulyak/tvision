@@ -1,10 +1,10 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/ParamText.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TParamText::name = "TParamText";
 
-__link(RView)
-__link(RStaticText)
+__link(RView);
+__link(RStaticText);
 
 TStreamableClass RParamText(TParamText::name,
     TParamText::build,

@@ -13,8 +13,8 @@
 /*        6 = Shortcut selection                                          */
 /* ---------------------------------------------------------------------- */
 
-#include <tvision/View.h>
 #include <tvision/MenuItem.h>
+#include <tvision/View.h>
 
 class TMenuView : public TView {
 public:
@@ -94,7 +94,7 @@ inline TMenuView::TMenuView(const TRect& bounds,
     , parentMenu(aParent)
     , menu(aMenu)
     , current(0)
-    , putClickEventOnExit (true)
+    , putClickEventOnExit(true)
 {
     eventMask |= evBroadcast;
 }
@@ -104,7 +104,7 @@ inline TMenuView::TMenuView(const TRect& bounds) noexcept
     , parentMenu(0)
     , menu(0)
     , current(0)
-    , putClickEventOnExit (true)
+    , putClickEventOnExit(true)
 {
     eventMask |= evBroadcast;
 }

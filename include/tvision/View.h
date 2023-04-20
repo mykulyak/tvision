@@ -1,13 +1,13 @@
 #ifndef TVision_TView_h
 #define TVision_TView_h
 
-#include <tvision/tobjstrm.h>
-#include <tvision/Rect.h>
-#include <tvision/Object.h>
 #include <tvision/CommandSet.h>
-#include <tvision/Span.h>
 #include <tvision/DrawBuffer.h>
+#include <tvision/Object.h>
 #include <tvision/Palette.h>
+#include <tvision/Rect.h>
+#include <tvision/Span.h>
+#include <tvision/tobjstrm.h>
 
 struct write_args {
     void* self;

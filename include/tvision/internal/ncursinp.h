@@ -5,36 +5,33 @@
 
 #ifdef HAVE_NCURSES
 
-namespace tvision
-{
+namespace tvision {
 
 class NcursesDisplay;
 struct InputState;
 
-class NcursesInput : public InputStrategy
-{
+class NcursesInput : public InputStrategy {
     enum : char { KEY_ESC = '\x1B' };
     enum { readTimeout = 10 };
 
-    StdioCtl &io;
-    InputState &state;
+    StdioCtl& io;
+    InputState& state;
     bool mouseEnabled;
 
     static int getch_nb() noexcept;
-    void detectAlt(int keys[4], bool &Alt) noexcept;
-    void parsePrintableChar(TEvent &ev, int keys[4], int &num_keys) noexcept;
-    void readUtf8Char(int keys[4], int &num_keys) noexcept;
+    void detectAlt(int keys[4], bool& Alt) noexcept;
+    void parsePrintableChar(TEvent& ev, int keys[4], int& num_keys) noexcept;
+    void readUtf8Char(int keys[4], int& num_keys) noexcept;
 
     bool parseCursesMouse(TEvent&) noexcept;
     void consumeUnprocessedInput() noexcept;
 
 public:
-
     // Lifetimes of 'io', 'display' and 'state' must exceed that of 'this'.
-    NcursesInput(StdioCtl &io, NcursesDisplay &display, InputState &state, bool mouse) noexcept;
+    NcursesInput(StdioCtl& io, NcursesDisplay& display, InputState& state, bool mouse) noexcept;
     ~NcursesInput();
 
-    bool getEvent(TEvent &ev) noexcept;
+    bool getEvent(TEvent& ev) noexcept;
     int getButtonCount() noexcept;
     bool hasPendingEvents() noexcept;
 };

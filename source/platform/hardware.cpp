@@ -59,7 +59,7 @@ BOOL THardwareInfo::getPendingEvent(TEvent& event, bool mouse) noexcept
             --eventCount;
             return true;
         }
-    return  false;
+    return false;
 }
 
 BOOL THardwareInfo::getMouseEvent(MouseEventType& event) noexcept
@@ -69,13 +69,13 @@ BOOL THardwareInfo::getMouseEvent(MouseEventType& event) noexcept
         event = ev.mouse;
         return true;
     }
-    return  false;
+    return false;
 }
 
 BOOL THardwareInfo::getKeyEvent(TEvent& event) noexcept
 {
     readEvents();
-    if (getPendingEvent(event,  false)) {
+    if (getPendingEvent(event, false)) {
         if (event.what & evKeyboard) {
             if (event.keyDown.keyCode == kbIns)
                 insertState = !insertState;
@@ -84,7 +84,7 @@ BOOL THardwareInfo::getKeyEvent(TEvent& event) noexcept
         }
         return event.what != evNothing;
     }
-    return  false;
+    return false;
 }
 
 void THardwareInfo::readEvents() noexcept

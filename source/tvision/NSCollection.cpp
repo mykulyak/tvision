@@ -7,7 +7,7 @@ TNSCollection::TNSCollection(ccIndex aLimit, ccIndex aDelta) noexcept
     , count(0)
     , limit(0)
     , delta(aDelta)
-    , shouldDelete (true)
+    , shouldDelete(true)
 {
     setLimit(aLimit);
 }
@@ -17,7 +17,7 @@ TNSCollection::TNSCollection() noexcept
     , count(0)
     , limit(0)
     , delta(0)
-    , shouldDelete (true)
+    , shouldDelete(true)
 {
 }
 

@@ -1,8 +1,8 @@
 #ifndef TVision_TSurfaceView_h
 #define TVision_TSurfaceView_h
 
-#include <tvision/View.h>
 #include <tvision/Point.h>
+#include <tvision/View.h>
 
 class TDrawSurface;
 

@@ -1,11 +1,11 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/CheckBoxes.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TCheckBoxes::name = "TCheckBoxes";
 
 const char* TCheckBoxes::button = " [ ] ";
 
-__link(RCluster)
+__link(RCluster);
 
 TStreamableClass RCheckBoxes(TCheckBoxes::name,
     TCheckBoxes::build,

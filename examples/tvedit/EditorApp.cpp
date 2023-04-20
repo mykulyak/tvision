@@ -1,6 +1,6 @@
+#include "EditorApp.h"
 #include <sstream>
 #include <tvision/tv.h>
-#include "EditorApp.h"
 
 ushort execDialog(TDialog* d, void* data)
 {
@@ -40,7 +40,7 @@ TDialog* createFindDialog()
     d->insert(
         new TButton(TRect(26, 9, 36, 11), "Cancel", cmCancel, TButton::Flags::bfNormal));
 
-    d->selectNext (false);
+    d->selectNext(false);
     return d;
 }
 
@@ -72,7 +72,7 @@ TDialog* createReplaceDialog()
     d->insert(new TButton(TRect(28, 13, 38, 15),
         "Cancel", cmCancel, TButton::Flags::bfNormal));
 
-    d->selectNext (false);
+    d->selectNext(false);
 
     return d;
 }
@@ -251,7 +251,8 @@ void EditorApp::fileOpen()
 
     if (execDialog(new TFileDialog("*.*", "Open file",
                        "~N~ame", fdOpenButton, 100),
-            fileName) != cmCancel) {
+            fileName)
+        != cmCancel) {
         std::string fname(fileName);
         openEditor(fname, true);
     }

@@ -1,5 +1,5 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/View.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TView::name = "TView";
 
@@ -9,9 +9,9 @@ TStreamableClass RView(TView::name,
 
 TPoint shadowSize = { 2, 1 };
 uchar shadowAttr = 0x08;
-bool TView::showMarkers =  false;
+bool TView::showMarkers = false;
 uchar TView::errorAttr = 0xCF;
-bool TView::commandSetChanged =  false;
+bool TView::commandSetChanged = false;
 
 extern TView* TheTopView;
 
@@ -329,7 +329,7 @@ void TView::dragView(TEvent& event,
         if (event.keyDown.keyCode == kbEsc)
             locate(saveBounds);
     }
-    setState(sfDragging,  false);
+    setState(sfDragging, false);
 }
 
 void TView::draw()
@@ -356,7 +356,7 @@ void TView::drawShow(TView* lastView)
 {
     drawView();
     if ((state & sfShadow) != 0)
-        drawUnderView (true, lastView);
+        drawUnderView(true, lastView);
 }
 
 void TView::drawUnderRect(TRect& r, TView* lastView)
@@ -369,7 +369,7 @@ void TView::drawUnderRect(TRect& r, TView* lastView)
 void TView::drawUnderView(bool doShadow, TView* lastView)
 {
     TRect r = getBounds();
-    if (doShadow !=  false)
+    if (doShadow != false)
         r.b += shadowSize;
     drawUnderRect(r, lastView);
 }
@@ -430,7 +430,7 @@ bool TView::focus()
                 if (!owner->current || (!(owner->current->options & ofValidate) || owner->current->valid(cmReleasedFocus)))
                     select();
                 else
-                    return  false;
+                    return false;
             }
         }
     }
@@ -525,12 +525,12 @@ void TView::handleEvent(TEvent& event)
 void TView::hide()
 {
     if ((state & sfVisible) != 0)
-        setState(sfVisible,  false);
+        setState(sfVisible, false);
 }
 
 void TView::hideCursor()
 {
-    setState(sfCursorVis,  false);
+    setState(sfCursorVis, false);
 }
 
 void TView::keyEvent(TEvent& event)
@@ -624,7 +624,7 @@ TView* TView::nextView() noexcept
 
 void TView::normalCursor()
 {
-    setState(sfCursorIns,  false);
+    setState(sfCursorIns, false);
 }
 
 TView* TView::prev() noexcept
@@ -745,7 +745,7 @@ void TView::setState(ushort aState, bool enable)
         drawCursor();
         break;
     case sfShadow:
-        drawUnderView (true, 0);
+        drawUnderView(true, 0);
         break;
     case sfFocused:
         resetCursor();
@@ -798,7 +798,7 @@ static bool getEventText(TEvent& event, TSpan<char> dest, size_t& length)
             return true;
         }
     }
-    return  false;
+    return false;
 }
 
 bool TView::textEvent(TEvent& event, TSpan<char> dest, size_t& length)
@@ -885,7 +885,6 @@ TView::TView(StreamableInit) noexcept
 
 #endif
 
-
 #ifdef __FLAT__
 
 struct TVCursor {
@@ -945,7 +944,7 @@ bool TVCursor::caretCovered(TView* v) const
             && (u->origin.x <= x && x < u->origin.x + u->size.x))
             return true;
     }
-    return  false;
+    return false;
 }
 
 int TVCursor::decideCaretSize() const
@@ -956,7 +955,6 @@ int TVCursor::decideCaretSize() const
 }
 
 #endif
-
 
 struct TVExposd {
 
@@ -994,9 +992,9 @@ TVExposd::TVExposd() noexcept
 bool TVExposd::L0(TView* dest) noexcept
 {
     if (!(dest->state & sfExposed))
-        return  false;
+        return false;
     if (0 >= dest->size.x || 0 >= dest->size.y)
-        return  false;
+        return false;
     return L1(dest);
 }
 
@@ -1011,14 +1009,14 @@ bool TVExposd::L1(TView* dest) noexcept
             return true;
         ++i;
     } while (i < dest->size.y);
-    return  false;
+    return false;
 }
 
 bool TVExposd::L10(TView* dest) noexcept
 {
     TGroup* owner = dest->owner;
     if (owner->buffer != 0 || owner->lockFlag != 0)
-        return  false;
+        return false;
     return L11(owner);
 }
 
@@ -1030,7 +1028,7 @@ bool TVExposd::L11(TView* dest) noexcept
     ecx += dest->origin.x;
     TGroup* owner = dest->owner;
     if (!owner)
-        return  false;
+        return false;
     if (eax < owner->clip.a.y)
         return true;
     if (eax >= owner->clip.b.y)
@@ -1109,9 +1107,8 @@ bool TVExposd::L23(TView* next) noexcept
     target = _target;
     if (b)
         return L20(next);
-    return  false;
+    return false;
 }
-
 
 #ifdef __FLAT__
 

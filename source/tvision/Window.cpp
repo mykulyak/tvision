@@ -1,12 +1,12 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/Window.h>
+#include <tvision/tobjstrm.h>
 
 const TPoint minWinSize = { 16, 6 };
 
 const char* const TWindow::name = "TWindow";
 
-__link(RGroup)
-__link(RFrame)
+__link(RGroup);
+__link(RFrame);
 
 TStreamableClass RWindow(TWindow::name,
     TWindow::build,
@@ -113,11 +113,11 @@ void TWindow::handleEvent(TEvent& event)
     else if (event.what == evKeyDown)
         switch (event.keyDown.keyCode) {
         case kbTab:
-            focusNext (false);
+            focusNext(false);
             clearEvent(event);
             break;
         case kbShiftTab:
-            focusNext (true);
+            focusNext(true);
             clearEvent(event);
             break;
         }
@@ -149,7 +149,7 @@ void TWindow::setState(ushort aState, bool enable)
             windowCommands += cmClose;
         if ((flags & wfZoom) != 0)
             windowCommands += cmZoom;
-        if (enable !=  false)
+        if (enable != false)
             enableCommands(windowCommands);
         else
             disableCommands(windowCommands);

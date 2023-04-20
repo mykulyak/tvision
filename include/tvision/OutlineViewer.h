@@ -29,7 +29,7 @@ inline TNode::TNode(TStringView aText) noexcept
     : next(0)
     , text(newStr(aText))
     , childList(0)
-    , expanded (true)
+    , expanded(true)
 {
 }
 

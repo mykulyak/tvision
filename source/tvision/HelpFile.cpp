@@ -1,10 +1,10 @@
-#include <sys/stat.h>
+#include <cctype>
 #include <climits>
 #include <cstring>
-#include <cctype>
 #include <iostream>
-#include <tvision/util.h>
+#include <sys/stat.h>
 #include <tvision/HelpFile.h>
+#include <tvision/util.h>
 
 #pragma warn - dsz
 
@@ -179,7 +179,7 @@ void THelpTopic::getCrossRef(int i, TPoint& loc, uchar& length,
             p = p->next;
             curOffset = 0;
         }
-    } while  (true);
+    } while (true);
 }
 
 TStringView THelpTopic::getLine(int line) noexcept
@@ -315,7 +315,7 @@ bool isBlank(char ch) noexcept
     if (isspace((uchar)ch))
         return true;
     else
-        return  false;
+        return false;
 }
 
 static int scan(char* p, int offset, int size, char c) noexcept
@@ -341,7 +341,7 @@ TStringView THelpTopic::wrapText(char* text, int size, int& offset, bool wrap) n
         i = size - offset;
     if (wrap) {
         size_t l, w;
-        TText::scroll(TStringView(&text[offset], i), width,  false, l, w);
+        TText::scroll(TStringView(&text[offset], i), width, false, l, w);
         if (int(l) < i) {
             int j = l + offset;
             int k = j;
@@ -474,7 +474,7 @@ THelpFile::THelpFile(iopstream& s)
         s >> indexPos;
         s.seekg(indexPos);
         s >> index;
-        modified =  false;
+        modified = false;
     }
     stream = &s;
 }
@@ -488,7 +488,7 @@ THelpFile::~THelpFile(void)
         *stream << index;
         stream->seekp(0);
         magic = magicHeader;
-         std::streampos sp = stream->tellp();
+        std::streampos sp = stream->tellp();
         stream->seekp(0, std::ios::end);
         size = stream->tellp() - (std::streamoff)8;
         stream->seekp(sp);
@@ -523,7 +523,7 @@ THelpTopic* THelpFile::invalidTopic()
     para = new TParagraph;
     para->text = newStr(invalidContext);
     para->size = strlen(invalidContext);
-    para->wrap =  false;
+    para->wrap = false;
     para->next = 0;
     topic->addParagraph(para);
     return topic;

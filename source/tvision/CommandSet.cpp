@@ -82,7 +82,7 @@ bool TCommandSet::isEmpty() noexcept
 {
     for (int i = 0; i < 32; i++)
         if (cmds[i] != 0)
-            return  false;
+            return false;
     return true;
 }
 

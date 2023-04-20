@@ -29,15 +29,15 @@ const char* const TSystemError::errorString[] = {
 const char* TSystemError::sRetryOrCancel = "~Enter~ Retry  ~Esc~ Cancel";
 #endif
 
-bool TSystemError::ctrlBreakHit =  false;
-bool TSystemError::saveCtrlBreak =  false;
+bool TSystemError::ctrlBreakHit = false;
+bool TSystemError::saveCtrlBreak = false;
 
 #ifndef __FLAT__
 short (*TSystemError::sysErrorFunc)(short, uchar) = &TSystemError::sysErr;
 ushort TSystemError::sysColorAttr = 0x4E4F;
 ushort TSystemError::sysMonoAttr = 0x7070;
-bool TSystemError::sysErrActive =  false;
-bool TSystemError::inIDE =  false;
+bool TSystemError::sysErrActive = false;
+bool TSystemError::inIDE = false;
 
 TPMRegs TSystemError::Int24Regs;
 void(interrupt far* TSystemError::Int24RMThunk)();
@@ -61,7 +61,7 @@ static void checkIDE()
 TSystemError::TSystemError() noexcept
 {
 #ifndef __FLAT__
-    inIDE =  false;
+    inIDE = false;
     checkIDE();
 
     if (THardwareInfo::getDPMIFlag())

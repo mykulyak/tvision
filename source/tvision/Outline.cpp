@@ -1,11 +1,11 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/OutlineViewer.h>
+#include <tvision/tobjstrm.h>
 
 #define cpOutlineViewer "\x6\x7\x3\x8"
 
 const char* const TOutline::name = "TOutline";
 
-__link(RScroller)
+__link(RScroller);
 
 TStreamableClass ROutline(TOutline::name,
     TOutline::build,
@@ -75,7 +75,7 @@ bool drawTree(TOutlineViewer* beingDrawn, TNode* cur, int level,
         auxPos = position;
     }
 
-    return  false;
+    return false;
 }
 
 void TOutlineViewer::draw()
@@ -314,12 +314,12 @@ TNode* TOutlineViewer::iterate(TOutlineVisitor action, void* arg,
 
 TNode* TOutlineViewer::forEach(TOutlineVisitor action, void* arg) noexcept
 {
-    return iterate(action, arg,  false);
+    return iterate(action, arg, false);
 }
 
 TNode* TOutlineViewer::forEach(TOutlineVisitorNoArg action) noexcept
 {
-    return iterate(visitNoArg, &action,  false);
+    return iterate(visitNoArg, &action, false);
 }
 
 // Returns the outline palette
@@ -368,7 +368,7 @@ TNode* TOutlineViewer::getNode(int i)
 */
 bool TOutlineViewer::isSelected(int i)
 {
-    return (foc == i) ? true :  false;
+    return (foc == i) ? true : false;
 }
 
 static thread_local long focLines;
@@ -386,7 +386,7 @@ static bool isFocused(TOutlineViewer* focusCheck, TNode* cur, int level,
 
         return true;
     } else
-        return  false;
+        return false;
 }
 
 // Called to handle an event
@@ -486,7 +486,7 @@ void TOutlineViewer::handleEvent(TEvent& event)
             switch (code) {
             case '-':
             case '+':
-                adjust(getNode(newFocus), code == '+' ? true :  false);
+                adjust(getNode(newFocus), code == '+' ? true : false);
                 break;
             case '*':
                 expandAll(getNode(newFocus));
@@ -536,7 +536,7 @@ static bool countNode(TOutlineViewer* beingCounted, TNode* p, int level,
     if (updateMaxX < len)
         updateMaxX = len;
     delete[] graph;
-    return  false;
+    return false;
 }
 
 /*

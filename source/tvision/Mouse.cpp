@@ -5,7 +5,7 @@
 #endif // __FLAT__
 
 uchar THWMouse::buttonCount = 0;
-bool THWMouse::handlerInstalled =  false;
+bool THWMouse::handlerInstalled = false;
 
 THWMouse::THWMouse() noexcept
 {
@@ -48,12 +48,12 @@ void THWMouse::suspend() noexcept
     hide();
     buttonCount = 0;
 #else
-    if (present() ==  false)
+    if (present() == false)
         return;
     hide();
     if (handlerInstalled == true) {
         registerHandler(0, 0);
-        handlerInstalled =  false;
+        handlerInstalled = false;
     }
     buttonCount = 0;
 #endif

@@ -30,9 +30,9 @@ inline void setCell(TScreenCell& cell, TCellChar ch, TColorAttr attr)
 
 #else
 
-#include <tvision/ttypes.h>
-#include <tvision/colors.h>
 #include <tvision/StringView.h>
+#include <tvision/colors.h>
+#include <tvision/ttypes.h>
 
 //// TCellChar
 //

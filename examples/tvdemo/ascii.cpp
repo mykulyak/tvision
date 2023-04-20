@@ -1,37 +1,20 @@
-/*----------------------------------------------------------*/
-/*                                                          */
-/*   Ascii.cpp: Member functions of following classes:      */
-/*                TTable                                    */
-/*                TReport                                   */
-/*                TAsciiChart                               */
-/*                                                          */
-/*----------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#include <tvision/tv.h>
-__link(RView)
-    __link(RWindow)
-
+#include "ascii.h"
 #include <cctype>
 #include <cstdlib>
 #include <cstring>
 #include <iomanip>
 #include <iostream>
 #include <strstream>
+#include <tvision/tv.h>
 
-#include "ascii.h"
+__link(RView);
+__link(RWindow);
 
-    //
-    // TTable functions
-    //
+//
+// TTable functions
+//
 
-    const char* const TTable::name
+const char* const TTable::name
     = "TTable";
 
 void TTable::write(opstream& os)

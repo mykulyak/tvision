@@ -24,7 +24,7 @@ TResourceFile::TResourceFile(fpstream* aStream)
     int32_t streamSize;
 
     stream = aStream;
-    modified =  false;
+    modified = false;
     basePos = stream->tellp();
     stream->seekp(0, std::ios::end);
     streamSize = stream->tellp();
@@ -97,7 +97,7 @@ void TResourceFile::flush()
         *stream << lenRez;
         *stream << indexPos;
         stream->flush();
-        modified =  false;
+        modified = false;
     }
 }
 

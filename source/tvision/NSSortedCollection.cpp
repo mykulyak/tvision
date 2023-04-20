@@ -37,7 +37,7 @@ bool TNSSortedCollection::search(void* key, ccIndex& index)
 {
     ccIndex l = 0;
     ccIndex h = count - 1;
-    bool res =  false;
+    bool res = false;
     while (l <= h) {
         ccIndex i = (l + h) >> 1;
         ccIndex c = compare(keyOf(items[i]), key);

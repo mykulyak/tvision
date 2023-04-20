@@ -1,11 +1,11 @@
-#include <tvision/Memo.h>
 #include <iostream>
+#include <tvision/Memo.h>
 
 #define cpMemo "\x1A\x1B"
 
 const char* const TMemo::name = "TMemo";
 
-__link(REditor)
+__link(REditor);
 
 TStreamableClass RMemo(TMemo::name,
     TMemo::build,

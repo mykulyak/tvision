@@ -33,7 +33,7 @@ void TFileInputLine::handleEvent(TEvent& event)
             strcat(data, "\\");
             strcat(data, ((TFileDialog*)owner)->wildCard);
         }
-        selectAll (false);
+        selectAll(false);
         drawView();
     }
 }

@@ -1,5 +1,5 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/Validator.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TValidator::name = "TValidator";
 
@@ -65,7 +65,7 @@ bool TValidator::validate(const char* s)
 {
     if (!isValid(s)) {
         error();
-        return  false;
+        return false;
     }
     return true;
 }

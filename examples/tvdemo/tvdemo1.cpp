@@ -1,19 +1,3 @@
-/*----------------------------------------------------------*/
-/*                                                          */
-/*   Turbo Vision TVDEMO source file                        */
-/*                                                          */
-/*----------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-// #include <tvision/tv.h>
-#include <tvision/HelpFile.h>
-#include <tvision/HelpWindow.h>
-
 #include "demohelp.h"
 #include "evntview.h"
 #include "fileview.h"
@@ -21,6 +5,8 @@
 #include "puzzle.h"
 #include "tvcmds.h"
 #include "tvdemo.h"
+#include <tvision/HelpFile.h>
+#include <tvision/HelpWindow.h>
 
 #ifdef __FLAT__
 #define HELP_FILENAME "demohelp.h32"
@@ -105,13 +91,13 @@ void TVDemo::getEvent(TEvent& event)
     TWindow* w;
     THelpFile* hFile;
     fpstream* helpStrm;
-    static bool helpInUse =  false;
+    static bool helpInUse = false;
 
     TApplication::getEvent(event);
     printEvent(event);
     switch (event.what) {
     case evCommand:
-        if ((event.message.command == cmHelp) && (helpInUse ==  false)) {
+        if ((event.message.command == cmHelp) && (helpInUse == false)) {
             helpInUse = true;
             helpStrm = new fpstream(HELP_FILENAME, std::ios::in | std::ios::binary);
             hFile = new THelpFile(*helpStrm);
@@ -126,7 +112,7 @@ void TVDemo::getEvent(TEvent& event)
                 }
                 clearEvent(event);
             }
-            helpInUse =  false;
+            helpInUse = false;
         } else if (event.message.command == cmVideoMode) {
             int newMode = TScreen::screenMode ^ TDisplay::smFont8x8;
             if ((newMode & TDisplay::smFont8x8) != 0)

@@ -1,8 +1,8 @@
 #ifndef TVision_TFileCollection_h
 #define TVision_TFileCollection_h
 
-#include <tvision/SortedCollection.h>
 #include <tvision/SearchRec.h>
+#include <tvision/SortedCollection.h>
 
 class TFileCollection : public TSortedCollection {
 public:

@@ -49,7 +49,7 @@ void TBufListEntry::operator delete(void* b) noexcept
 bool TBufListEntry::freeHead() noexcept
 {
     if (bufList == 0)
-        return  false;
+        return false;
     else {
         bufList->destroy();
         return true;

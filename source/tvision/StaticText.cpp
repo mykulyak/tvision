@@ -1,11 +1,11 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/StaticText.h>
+#include <tvision/tobjstrm.h>
 
 #define cpStaticText "\x06"
 
 const char* const TStaticText::name = "TStaticText";
 
-__link(RView)
+__link(RView);
 
 TStreamableClass RStaticText(TStaticText::name,
     TStaticText::build,
@@ -36,7 +36,7 @@ void TStaticText::draw()
     l = strlen(s);
     p = 0;
     y = 0;
-    center =  false;
+    center = false;
     while (y < size.y) {
         b.moveChar(0, ' ', color, size.x);
         if (p < l) {
@@ -45,7 +45,7 @@ void TStaticText::draw()
                 ++p;
             }
             i = p;
-            int last = i + TText::scroll(TStringView(&s[i], l - i), size.x,  false);
+            int last = i + TText::scroll(TStringView(&s[i], l - i), size.x, false);
             do {
                 j = p;
                 while ((p < l) && (s[p] == ' '))
@@ -68,7 +68,7 @@ void TStaticText::draw()
             while ((p < l) && (s[p] == ' '))
                 p++;
             if ((p < l) && (s[p] == '\n')) {
-                center =  false;
+                center = false;
                 p++;
             }
         }

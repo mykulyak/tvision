@@ -1,64 +1,52 @@
-/*-------------------------------------------------------*/
-/*                                                       */
-/*   Turbo Vision Forms Demo                             */
-/*                                                       */
-/*   Forms.h: Header file for Forms.cpp                  */
-/*            (Support header file for TVFORMS Demo)     */
-/*                                                       */
-/*-------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#ifndef  __FORMS_H 
+#ifndef __FORMS_H
 #define __FORMS_H
 
 #include <tvision/tv.h>
 
-class TForm : public TDialog
-{
-
+class TForm : public TDialog {
 public:
-
-    TForm( StreamableInit ) : TWindowInit(&TForm::initFrame), TDialog (streamableInit) {};
-    TForm( const TRect&, const char* );
+    TForm(StreamableInit)
+        : TWindowInit(&TForm::initFrame)
+        , TDialog(streamableInit) {};
+    TForm(const TRect&, const char*);
     virtual bool changed();
-    virtual void handleEvent( TEvent& );
-    virtual bool valid( ushort );
+    virtual void handleEvent(TEvent&);
+    virtual bool valid(ushort);
 
-    TView  *listDialog;
-    void   *prevData;
+    TView* listDialog;
+    void* prevData;
     ushort keyWidth;
 
 private:
-
-    virtual const char *streamableName() const
-        { return name; }
+    virtual const char* streamableName() const
+    {
+        return name;
+    }
 
 protected:
-
-    virtual void write( opstream& );
-    virtual void *read( ipstream& );
+    virtual void write(opstream&);
+    virtual void* read(ipstream&);
 
 public:
-
-    static const char * const name;
-    static TStreamable *build();
-
+    static const char* const name;
+    static TStreamable* build();
 };
 
-inline ipstream& operator >> ( ipstream& is, TForm& cl )
-    { return is >> (TStreamable&)cl; }
-inline ipstream& operator >> ( ipstream& is, TForm*& cl )
-    { return is >> (void *&)cl; }
-inline opstream& operator << ( opstream& os, TForm& cl )
-    { return os << (TStreamable&)cl; }
-inline opstream& operator << ( opstream& os, TForm* cl )
-    { return os << (TStreamable *)cl; }
+inline ipstream& operator>>(ipstream& is, TForm& cl)
+{
+    return is >> (TStreamable&)cl;
+}
+inline ipstream& operator>>(ipstream& is, TForm*& cl)
+{
+    return is >> (void*&)cl;
+}
+inline opstream& operator<<(opstream& os, TForm& cl)
+{
+    return os << (TStreamable&)cl;
+}
+inline opstream& operator<<(opstream& os, TForm* cl)
+{
+    return os << (TStreamable*)cl;
+}
 
-
-#endif  // __FORMS_H
+#endif // __FORMS_H

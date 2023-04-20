@@ -1,9 +1,9 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/Dialog.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TDialog::name = "TDialog";
 
-__link(RWindow)
+__link(RWindow);
 
 TStreamableClass RDialog(TDialog::name, TDialog::build, __DELTA(TDialog));
 

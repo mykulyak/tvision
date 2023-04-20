@@ -13,7 +13,7 @@ ushort TScreen::startupCursor = 0;
 ushort TScreen::screenMode = 0;
 ushort TScreen::screenWidth = 0;
 ushort TScreen::screenHeight = 0;
-bool TScreen::hiResScreen =  false;
+bool TScreen::hiResScreen = false;
 bool TScreen::checkSnow = true;
 TScreenCell* TScreen::screenBuffer;
 ushort TScreen::cursorLines = 0;
@@ -304,11 +304,11 @@ void TScreen::setCrtData() noexcept
 #ifndef __FLAT__
     if (screenMode == smMono) {
         screenBuffer = THardwareInfo::getMonoAddr();
-        checkSnow =  false;
+        checkSnow = false;
     } else {
         screenBuffer = THardwareInfo::getColorAddr();
         if (isEGAorVGA())
-            checkSnow =  false;
+            checkSnow = false;
     }
 #endif
 

@@ -1,13 +1,13 @@
-#include <tvision/util.h>
-#include <tvision/tobjstrm.h>
 #include <tvision/ColorCommandCodes.h>
 #include <tvision/ColorSelector.h>
+#include <tvision/tobjstrm.h>
+#include <tvision/util.h>
 
 const char* const TColorSelector::name = "TColorSelector";
 
-__link(RView)
-__link(RButton)
-__link(RListViewer)
+__link(RView);
+__link(RButton);
+__link(RListViewer);
 
 TStreamableClass RColorSelector(TColorSelector::name,
     TColorSelector::build,

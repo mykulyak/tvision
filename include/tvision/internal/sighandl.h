@@ -2,33 +2,35 @@
 #define TVISION_SIGHANDL_H
 
 #ifdef _TV_UNIX
-#include <signal.h>
 #include <atomic>
+#include <signal.h>
 #endif
 
-namespace tvision
-{
+namespace tvision {
 
 using SignalHandlerCallback = void(bool enter);
 
 #ifdef _TV_UNIX
 
-class SignalHandler
-{
-    static std::atomic<SignalHandlerCallback *> callback;
+class SignalHandler {
+    static std::atomic<SignalHandlerCallback*> callback;
 
-    enum HandledSignals
-    {
-        SigInt, SigQuit, SigIll, SigAbrt, SigFpe, SigSegv, SigTerm, SigTstp,
+    enum HandledSignals {
+        SigInt,
+        SigQuit,
+        SigIll,
+        SigAbrt,
+        SigFpe,
+        SigSegv,
+        SigTerm,
+        SigTstp,
         HandledSignalCount
     };
 
 public:
-
     static const int handledSignals[HandledSignalCount];
 
 private:
-
     static constexpr struct sigaction makeDefaultAction() noexcept
     {
         struct sigaction sa = {};
@@ -44,32 +46,30 @@ private:
         return sa;
     }
 
-    struct HandlerInfo
-    {
-        struct sigaction action {makeDefaultAction()};
-        std::atomic<bool> running {false};
+    struct HandlerInfo {
+        struct sigaction action {
+            makeDefaultAction()
+        };
+        std::atomic<bool> running { false };
     };
 
-    static void handleSignal(int, siginfo_t *, void *);
-    static HandlerInfo &getHandlerInfo(int) noexcept;
-    static bool invokeHandlerOrDefault(int, struct sigaction &, siginfo_t *, void *) noexcept;
-    static bool invokeDefault(int, siginfo_t *) noexcept;
+    static void handleSignal(int, siginfo_t*, void*);
+    static HandlerInfo& getHandlerInfo(int) noexcept;
+    static bool invokeHandlerOrDefault(int, struct sigaction&, siginfo_t*, void*) noexcept;
+    static bool invokeDefault(int, siginfo_t*) noexcept;
 
 public:
-
     // 'aCallback' must be noexcept and signal-safe.
-    static void enable(SignalHandlerCallback &aCallback) noexcept;
+    static void enable(SignalHandlerCallback& aCallback) noexcept;
     static void disable() noexcept;
 };
 
 #else
 
-class SignalHandler
-{
+class SignalHandler {
 public:
-
-    static void enable(SignalHandlerCallback &aCallback) noexcept {}
-    static void disable() noexcept {}
+    static void enable(SignalHandlerCallback& aCallback) noexcept { }
+    static void disable() noexcept { }
 };
 
 #endif // _TV_UNIX

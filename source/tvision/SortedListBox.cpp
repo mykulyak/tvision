@@ -1,9 +1,9 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/SortedListBox.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TSortedListBox::name = "TSortedListBox";
 
-__link(RListBox)
+__link(RListBox);
 
 TStreamableClass RSortedListBox(TSortedListBox::name,
     TSortedListBox::build,

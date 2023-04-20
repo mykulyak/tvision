@@ -14,6 +14,7 @@ const int cmNewDirFocused = 102;
 
 class QuickMessage : public TWindow {
     TParamText* currentDir;
+
 public:
     QuickMessage(const char* drive)
         : TWindowInit(TWindow::initFrame)
@@ -71,7 +72,7 @@ bool TDirOutline::isParent(TOutlineViewer*, TNode* cur, int, int, long, ushort, 
             return true;
         temp = temp->next;
     }
-    return  false;
+    return false;
 }
 
 void TDirOutline::getCurrentPath(char* buffer, short bufferSize)
@@ -122,7 +123,7 @@ TNode* getDirList(const char* path, QuickMessage* qm = 0)
                 if (strcmp(path, searchPath) == 0)
                     break;
                 qm->setCurrentDir(searchPath);
-                temp = new TNode(searchRec.name, getDirList(searchPath, qm), 0,  false);
+                temp = new TNode(searchRec.name, getDirList(searchPath, qm), 0, false);
                 if (current) {
                     current->next = temp;
                     current = current->next;
@@ -184,7 +185,7 @@ static char* formatFileRow(char buf[128], const find_t& searchRec)
         searchRec.attrib & FA_HIDDEN ? 'h' : '\xFA');
     size_t bufLen = strlen(buf) + 1;
     size_t nameLen, nameWidth;
-    TText::scroll(searchRec.name, 18,  false, nameLen, nameWidth);
+    TText::scroll(searchRec.name, 18, false, nameLen, nameWidth);
     size_t namePad = 18 - nameWidth;
     char* row = new char[nameLen + namePad + bufLen];
     memcpy(row, searchRec.name, nameLen);

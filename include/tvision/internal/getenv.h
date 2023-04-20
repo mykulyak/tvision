@@ -3,17 +3,16 @@
 
 #include <cstdlib>
 
-namespace tvision
-{
+namespace tvision {
 
-template<typename T>
-inline T getEnv(const char* name, T def = T{}) noexcept
+template <typename T>
+inline T getEnv(const char* name, T def = T {}) noexcept
 {
     const char* body = getenv(name);
     return body ? body : def;
 }
 
-template<>
+template <>
 inline int getEnv<int>(const char* name, int def) noexcept
 {
     const char* body = getenv(name);

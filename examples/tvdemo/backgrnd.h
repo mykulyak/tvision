@@ -3,19 +3,15 @@
 
 #include <tvision/tv.h>
 
-class TChBackground : public TDialog
-{
+class TChBackground : public TDialog {
 
 public:
-
-    TChBackground( TBackground * );
-    virtual bool valid( ushort );
+    TChBackground(TBackground*);
+    virtual bool valid(ushort);
 
 private:
-
-    TBackground *background;
-    TInputLine *input;
-
+    TBackground* background;
+    TInputLine* input;
 };
 
 #endif

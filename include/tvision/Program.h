@@ -1,8 +1,8 @@
 #ifndef TVision_TProgram_h
 #define TVision_TProgram_h
 
-#include <tvision/Palette.h>
 #include <tvision/Group.h>
+#include <tvision/Palette.h>
 
 // Turbo Vision 2.0 Color Palettes
 

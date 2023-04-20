@@ -4,7 +4,7 @@
 
 const char* const TEditWindow::name = "TEditWindow";
 
-__link(RWindow)
+__link(RWindow);
 
 TStreamableClass REditWindow(TEditWindow::name,
     TEditWindow::build,

@@ -103,7 +103,7 @@ uchar* buffer = 0;
 TCrossRefNode* xRefs;
 TRefTable* refTable = 0;
 char line[MAXSTRSIZE] = "";
-bool lineInBuffer =  false;
+bool lineInBuffer = false;
 int lineCount = 0;
 
 #ifdef __FLAT__
@@ -134,7 +134,7 @@ void copyPath(char* dest, const char* src, size_t size)
 {
     if (strnzcpy(dest, src, size) < strlen(src)) {
         std::cerr << "Path too long (" << strlen(src) << " > " << size << "): \""
-             << src << "\"" << std::endl;
+                  << src << "\"" << std::endl;
         exit(1);
     }
 }
@@ -171,9 +171,9 @@ bool fExists(const char* fileName)
     struct ffblk ffblk;
 
     if (findfirst(fileName, &ffblk, 0))
-        return  (false);
+        return (false);
     else
-        return  (true);
+        return (true);
 }
 
 //----- isComment(line) -------------------------------------------------//
@@ -221,7 +221,7 @@ char* getLine(std::fstream& s)
                 } while ((s.rdstate() & (std::ios::failbit | std::ios::eofbit)) == std::ios::failbit);
             }
         }
-        lineInBuffer =  false;
+        lineInBuffer = false;
         // Skip line if it is a comment.
     } while (isComment(line));
     return line;
@@ -248,10 +248,10 @@ void prntMsg(const char* pref, const char* text)
 {
     if (lineCount > 0)
         std::cerr << pref << ": " << textName << "("
-             << lineCount << "): " << text << "\n";
+                  << lineCount << "): " << text << "\n";
     else
         std::cerr << pref << ": " << textName << " "
-             << text << "\n";
+                  << text << "\n";
 }
 
 //----- error(text) -----------------------------------------------------//
@@ -317,7 +317,7 @@ void TRefTable::freeItem(void* item)
     TReference* ref;
 
     ref = (TReference*)item;
-    if (ref->resolved ==  false)
+    if (ref->resolved == false)
         disposeFixUps(ref->val.fixUpList);
     delete ref->topic;
     delete ref;
@@ -333,7 +333,7 @@ TReference* TRefTable::getReference(const char* topic)
     else {
         ref = new TReference;
         ref->topic = newStr(topic);
-        ref->resolved =  false;
+        ref->resolved = false;
         ref->val.fixUpList = 0;
         insert(ref);
     }
@@ -382,7 +382,7 @@ void recordReference(const char* topic, opstream& s)
 
 void doFixUps(TFixUp* p, uint value, iopstream& s)
 {
-     std::streampos pos;
+    std::streampos pos;
 
     for (pos = s.tellp(); (p != 0); p = p->next) {
         s.seekp(p->pos);
@@ -708,9 +708,9 @@ bool isEndParagraph(State state)
 
     flag = ((line[0] == 0) || (line[0] == commandChar[0]) || (line[0] == 26) || ((line[0] == ' ') && (state == wrapping)) || ((line[0] != ' ') && (state == notWrapping)));
     if (flag)
-        return  (true);
+        return (true);
     else
-        return  (false);
+        return (false);
 }
 
 //---- readParagraph ----------------------------------------------------//
@@ -730,7 +730,7 @@ TParagraph* readParagraph(std::fstream& textFile, int& offset, TCrossRefNode*& x
     state = undefined;
     strnzcpy(line, getLine(textFile), sizeof(line));
     while (strlen(line) == 0) {
-        flag = (state == wrapping) ? true :  false;
+        flag = (state == wrapping) ? true : false;
         addToBuffer(line, flag);
         strnzcpy(line, getLine(textFile), sizeof(line));
     }
@@ -739,7 +739,7 @@ TParagraph* readParagraph(std::fstream& textFile, int& offset, TCrossRefNode*& x
         unGetLine(line);
         return (0);
     }
-    while (isEndParagraph(state) ==  false) {
+    while (isEndParagraph(state) == false) {
         if (state == undefined) {
             if (line[0] == ' ')
                 state = notWrapping;
@@ -747,14 +747,14 @@ TParagraph* readParagraph(std::fstream& textFile, int& offset, TCrossRefNode*& x
                 state = wrapping;
         }
         scanForCrossRefs(line, offset, xRefs);
-        flag = (state == wrapping) ? true :  false;
+        flag = (state == wrapping) ? true : false;
         addToBuffer(line, flag);
         strnzcpy(line, getLine(textFile), sizeof(line));
     }
     unGetLine(line);
     p = new TParagraph;
     p->size = ofs;
-    p->wrap = (state == wrapping) ? true :  false;
+    p->wrap = (state == wrapping) ? true : false;
     p->text = new char[ofs];
     memmove(p->text, buffer, ofs);
     p->next = 0;
@@ -962,21 +962,21 @@ int main(int argc, char** argv)
     }
 
     //  Calculate file names
-    copyPath(textName, replaceExt(argv[1], ".txt",  false), sizeof(textName));
+    copyPath(textName, replaceExt(argv[1], ".txt", false), sizeof(textName));
     if (!fExists(textName)) {
         std::cerr << "Error: File '" << textName << "' not found." << std::endl;
         exit(1);
     }
 
     if (argc >= 3)
-        copyPath(helpName, replaceExt(argv[2], HELPFILE_EXT,  false), sizeof(helpName));
+        copyPath(helpName, replaceExt(argv[2], HELPFILE_EXT, false), sizeof(helpName));
     else
         copyPath(helpName, replaceExt(textName, HELPFILE_EXT, true), sizeof(helpName));
 
     checkOverwrite(helpName);
 
     if (argc >= 4)
-        copyPath(symbName, replaceExt(argv[3], ".h",  false), sizeof(symbName));
+        copyPath(symbName, replaceExt(argv[3], ".h", false), sizeof(symbName));
     else
         copyPath(symbName, replaceExt(helpName, ".h", true), sizeof(symbName));
 

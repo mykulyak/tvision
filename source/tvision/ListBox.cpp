@@ -1,9 +1,9 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/ListBox.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TListBox::name = "TListBox";
 
-__link(RListViewer)
+__link(RListViewer);
 
 TStreamableClass RListBox(TListBox::name,
     TListBox::build,

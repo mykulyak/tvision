@@ -11,7 +11,7 @@ class TNSSortedCollection : public virtual TNSCollection {
 public:
     TNSSortedCollection(ccIndex aLimit, ccIndex aDelta) noexcept
         : TNSCollection(aLimit, aDelta)
-        , duplicates (false)
+        , duplicates(false)
     {
         delta = aDelta;
         setLimit(aLimit);
@@ -27,7 +27,7 @@ public:
 
 protected:
     TNSSortedCollection() noexcept
-        : duplicates (false)
+        : duplicates(false)
     {
     }
 

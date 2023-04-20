@@ -7,23 +7,20 @@
 
 struct TEvent;
 
-namespace tvision
-{
+namespace tvision {
 
-class SigwinchHandler final : public WakeUpEventSource
-{
+class SigwinchHandler final : public WakeUpEventSource {
     struct sigaction oldSa;
 
-    static SigwinchHandler *instance;
+    static SigwinchHandler* instance;
     static void handleSignal(int) noexcept;
-    static bool getEvent(void *, TEvent &) noexcept;
+    static bool getEvent(void*, TEvent&) noexcept;
 
-    SigwinchHandler( SysManualEvent::Handle handle,
-                     const struct sigaction &aOldSa ) noexcept;
+    SigwinchHandler(SysManualEvent::Handle handle,
+        const struct sigaction& aOldSa) noexcept;
 
 public:
-
-    static SigwinchHandler *create() noexcept;
+    static SigwinchHandler* create() noexcept;
     ~SigwinchHandler();
 };
 

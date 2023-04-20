@@ -1,9 +1,9 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/Label.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TLabel::name = "TLabel";
 
-__link(RStaticText)
+__link(RStaticText);
 
 TStreamableClass RLabel(TLabel::name,
     TLabel::build,
@@ -14,7 +14,7 @@ TStreamableClass RLabel(TLabel::name,
 TLabel::TLabel(const TRect& bounds, TStringView aText, TView* aLink) noexcept
     : TStaticText(bounds, aText)
     , link(aLink)
-    , light (false)
+    , light(false)
 {
     options |= ofPreProcess | ofPostProcess;
     eventMask |= evBroadcast;
@@ -89,7 +89,7 @@ void* TLabel::read(ipstream& is)
 {
     TStaticText::read(is);
     is >> link;
-    light =  false;
+    light = false;
     return this;
 }
 

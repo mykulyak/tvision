@@ -1,8 +1,8 @@
 #ifndef TVision_TFileList_h
 #define TVision_TFileList_h
 
-#include <tvision/SortedListBox.h>
 #include <tvision/FileCollection.h>
+#include <tvision/SortedListBox.h>
 
 class TScrollBar;
 

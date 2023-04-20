@@ -4,12 +4,10 @@
 // std::array is not constexpr until C++17. So we make our own, which costs
 // nothing.
 
-namespace tvision
-{
+namespace tvision {
 
 template <class T, size_t N>
-struct constarray
-{
+struct constarray {
     T elems[N];
 
     constexpr T& operator[](size_t i) noexcept
@@ -21,7 +19,6 @@ struct constarray
     {
         return elems[i];
     }
-
 };
 
 } // namespace tvision

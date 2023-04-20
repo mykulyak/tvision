@@ -1,7 +1,7 @@
-#include <tvision/FindDialogRec.h>
-#include <tvision/ReplaceDialogRec.h>
-#include <tvision/Indicator.h>
 #include <tvision/Editor.h>
+#include <tvision/FindDialogRec.h>
+#include <tvision/Indicator.h>
+#include <tvision/ReplaceDialogRec.h>
 
 #ifndef __BORLANDC__
 #define register
@@ -140,8 +140,8 @@ __4:
 
 const char* const TEditor::name = "TEditor";
 
-__link(RView)
-__link(RScrollBar)
+__link(RView);
+__link(RScrollBar);
 
 TStreamableClass REditor(TEditor::name,
     TEditor::build,
@@ -157,11 +157,11 @@ TEditor::TEditor(const TRect& bounds,
     , vScrollBar(aVScrollBar)
     , indicator(aIndicator)
     , bufSize(aBufSize)
-    , canUndo (true)
-    , selecting (false)
-    , overwrite (false)
-    , autoIndent (true)
-    , encSingleByte (false)
+    , canUndo(true)
+    , selecting(false)
+    , overwrite(false)
+    , autoIndent(true)
+    , encSingleByte(false)
     , lockCount(0)
     , updateFlags(0)
     , keyState(0)
@@ -176,7 +176,7 @@ TEditor::TEditor(const TRect& bounds,
     else {
         editorDialog(edOutOfMemory);
         bufSize = 0;
-        isValid =  false;
+        isValid = false;
     }
     setBufLen(0);
 }
@@ -249,7 +249,7 @@ bool TEditor::formatCell(TSpan<TScreenCell> cells, uint& width,
         width = w_;
         return true;
     }
-    return  false;
+    return false;
 }
 
 int TEditor::charPos(uint p, uint target)
@@ -283,7 +283,7 @@ uint TEditor::charPtr(uint p, int target)
 
 bool TEditor::clipCopy()
 {
-    bool res =  false;
+    bool res = false;
     if (clipboard != this) {
         if (clipboard != 0)
             res = clipboard->insertFrom(this);
@@ -292,7 +292,7 @@ bool TEditor::clipCopy()
                 selEnd - selStart));
             res = true;
         }
-        selecting =  false;
+        selecting = false;
         update(ufUpdate);
     }
     return res;
@@ -355,14 +355,14 @@ void TEditor::deleteRange(uint startPtr,
     else {
         setSelect(curPtr, endPtr, true);
         deleteSelect();
-        setSelect(startPtr, curPtr,  false);
+        setSelect(startPtr, curPtr, false);
         deleteSelect();
     }
 }
 
 void TEditor::deleteSelect()
 {
-    insertText(0, 0,  false);
+    insertText(0, 0, false);
 }
 
 void TEditor::doneBuffer()
@@ -375,7 +375,7 @@ void TEditor::doSearchReplace()
     int i;
     do {
         i = cmCancel;
-        if (search(findStr, editorFlags) ==  false) {
+        if (search(findStr, editorFlags) == false) {
             if ((editorFlags & (efReplaceAll | efDoReplace)) != (efReplaceAll | efDoReplace))
                 editorDialog(edSearchFailed);
         } else if ((editorFlags & efDoReplace) != 0) {
@@ -386,8 +386,8 @@ void TEditor::doSearchReplace()
             }
             if (i == cmYes) {
                 lock();
-                insertText(replaceStr, strlen(replaceStr),  false);
-                trackCursor (false);
+                insertText(replaceStr, strlen(replaceStr), false);
+                trackCursor(false);
                 unlock();
             }
         }
@@ -545,14 +545,14 @@ void TEditor::handleEvent(TEvent& event)
                 while (textEvent(event, TSpan<char>(buf, sizeof(buf)), length))
                     insertMultilineText(buf, (uint)length);
             } else {
-                if (overwrite == true && hasSelection() ==  false)
+                if (overwrite == true && hasSelection() == false)
                     if (curPtr != lineEnd(curPtr))
                         selEnd = nextChar(curPtr);
 
                 if (encSingleByte)
-                    insertText(&event.keyDown.charScan.charCode, 1,  false);
+                    insertText(&event.keyDown.charScan.charCode, 1, false);
                 else
-                    insertText(event.keyDown.text, event.keyDown.textLength,  false);
+                    insertText(event.keyDown.text, event.keyDown.textLength, false);
             }
 
             trackCursor(centerCursor);
@@ -639,19 +639,19 @@ void TEditor::handleEvent(TEvent& event)
                 deleteRange(curPtr, nextChar(curPtr), true);
                 break;
             case cmDelWord:
-                deleteRange(curPtr, nextWord(curPtr),  false);
+                deleteRange(curPtr, nextWord(curPtr), false);
                 break;
             case cmDelWordLeft:
-                deleteRange(prevWord(curPtr), curPtr,  false);
+                deleteRange(prevWord(curPtr), curPtr, false);
                 break;
             case cmDelStart:
-                deleteRange(lineStart(curPtr), curPtr,  false);
+                deleteRange(lineStart(curPtr), curPtr, false);
                 break;
             case cmDelEnd:
-                deleteRange(curPtr, lineEnd(curPtr),  false);
+                deleteRange(curPtr, lineEnd(curPtr), false);
                 break;
             case cmDelLine:
-                deleteRange(lineStart(curPtr), nextLine(curPtr),  false);
+                deleteRange(lineStart(curPtr), nextLine(curPtr), false);
                 break;
             case cmInsMode:
                 toggleInsMode();
@@ -739,7 +739,6 @@ uint iScan(const char* block, uint size, const char* str)
         }
     return sfSearchFailed;
 }
-
 }
 
 static int getCharType(char ch)
@@ -791,8 +790,8 @@ bool TEditor::hasSelection()
 
 void TEditor::hideSelect()
 {
-    selecting =  false;
-    setSelect(curPtr, curPtr,  false);
+    selecting = false;
+    setSelect(curPtr, curPtr, false);
 }
 
 void TEditor::initBuffer()
@@ -812,16 +811,16 @@ uint TEditor::insertMultilineText(const char* text, uint length)
     size_t i = 0, j = 0;
     do {
         if (text[i] == '\n' || text[i] == '\r') {
-            if (!insertText(&text[j], i - j,  false))
+            if (!insertText(&text[j], i - j, false))
                 return j;
-            if (!insertEOL (false))
+            if (!insertEOL(false))
                 return i;
             if (i + 1 < length && text[i] == '\r' && text[i + 1] == '\n')
                 ++i;
             j = i + 1;
         }
     } while (++i < length);
-    if (!insertText(&text[j], i - j,  false))
+    if (!insertText(&text[j], i - j, false))
         return j;
     return i;
 }
@@ -832,7 +831,7 @@ bool TEditor::insertBuffer(const char* p,
     bool allowUndo,
     bool selectText)
 {
-    selecting =  false;
+    selecting = false;
     uint selLen = selEnd - selStart;
     if (selLen == 0 && length == 0)
         return true;
@@ -851,10 +850,10 @@ bool TEditor::insertBuffer(const char* p,
         bool bufferText = bool(p >= buffer && p < buffer + bufLen);
         if (bufferText)
             p -= ptrdiff_t(buffer);
-        if (newSize > UINT_MAX - 0x1Fl || setBufSize(uint(newSize)) ==  false) {
+        if (newSize > UINT_MAX - 0x1Fl || setBufSize(uint(newSize)) == false) {
             editorDialog(edOutOfMemory);
             selEnd = selStart;
-            return  false;
+            return false;
         }
         if (bufferText)
             p += ptrdiff_t(buffer);
@@ -891,7 +890,7 @@ bool TEditor::insertBuffer(const char* p,
     drawLine = curPos.y;
     drawPtr = lineStart(curPtr);
     curPos.x = charPos(drawPtr, curPtr);
-    if (selectText ==  false)
+    if (selectText == false)
         selStart = curPtr;
     selEnd = curPtr;
     bufLen += length - selLen;
@@ -902,7 +901,7 @@ bool TEditor::insertBuffer(const char* p,
     }
     limit.y += lines - selLines;
     delta.y = max(0, min(delta.y, limit.y - size.y));
-    if (isClipboard() ==  false)
+    if (isClipboard() == false)
         modified = true;
     setBufSize(bufLen + delCount);
     if (selLines == 0 && lines == 0)
@@ -969,9 +968,9 @@ void TEditor::newLine()
     uint i = p;
     while (i < curPtr && ((buffer[i] == ' ') || (buffer[i] == '\x9')))
         i++;
-    insertEOL (false);
+    insertEOL(false);
     if (autoIndent == true)
-        insertText(&buffer[p], i - p,  false);
+        insertText(&buffer[p], i - p, false);
 }
 
 uint TEditor::nextLine(uint p)
@@ -1059,7 +1058,7 @@ bool TEditor::search(const char* findStr, ushort opts)
             i += pos;
             if ((opts & efWholeWordsOnly) == 0 || !((i != 0 && isWordChar(bufChar(i - 1)) != 0) || (i + strlen(findStr) != bufLen && isWordChar(bufChar(i + strlen(findStr)))))) {
                 lock();
-                setSelect(i, i + strlen(findStr),  false);
+                setSelect(i, i + strlen(findStr), false);
                 trackCursor(bool(!cursorVisible()));
                 unlock();
                 return true;
@@ -1067,7 +1066,7 @@ bool TEditor::search(const char* findStr, ushort opts)
                 pos = i + 1;
         }
     } while (i != sfSearchFailed);
-    return  false;
+    return false;
 }
 
 void TEditor::setBufLen(uint length)
@@ -1086,7 +1085,7 @@ void TEditor::setBufLen(uint length)
     drawPtr = 0;
     delCount = 0;
     insCount = 0;
-    modified =  false;
+    modified = false;
     detectEOL();
     update(ufView);
 }
@@ -1133,7 +1132,7 @@ void TEditor::setCurPtr(uint p, uchar selectMode)
             p = nextLine(p);
             anchor = prevLine(nextLine(anchor));
         }
-        setSelect(anchor, p,  false);
+        setSelect(anchor, p, false);
     }
 }
 
@@ -1231,7 +1230,7 @@ void TEditor::undo()
         uint length = delCount;
         delCount = 0;
         insCount = 0;
-        insertBuffer(buffer, curPtr + gapLen - length, length,  false, true);
+        insertBuffer(buffer, curPtr + gapLen - length, length, false, true);
     }
 }
 
@@ -1254,7 +1253,7 @@ void TEditor::update(uchar aFlags)
 void TEditor::updateCommands()
 {
     setCmdState(cmUndo, bool(delCount != 0 || insCount != 0));
-    if (isClipboard() ==  false) {
+    if (isClipboard() == false) {
         setCmdState(cmCut, hasSelection());
         setCmdState(cmCopy, hasSelection());
         setCmdState(cmPaste,
@@ -1270,7 +1269,6 @@ bool TEditor::valid(ushort)
 {
     return isValid;
 }
-
 
 char TEditor::bufChar(uint P)
 {
@@ -1400,8 +1398,8 @@ void* TEditor::read(ipstream& is)
     eolType = EOLTypes(temp);
     is >> temp;
     encSingleByte = bool(temp);
-    selecting =  false;
-    overwrite =  false;
+    selecting = false;
+    overwrite = false;
     autoIndent = true;
     lockCount = 0;
     updateFlags = 0;
@@ -1410,7 +1408,7 @@ void* TEditor::read(ipstream& is)
     if (buffer != 0)
         isValid = true;
     else {
-        isValid =  false;
+        isValid = false;
         TEditor::editorDialog(edOutOfMemory, 0);
         bufSize = 0;
     }

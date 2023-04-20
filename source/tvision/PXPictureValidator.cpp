@@ -1,5 +1,5 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/PXPictureValidator.h>
+#include <tvision/tobjstrm.h>
 
 static inline char uppercase(char c)
 {
@@ -22,7 +22,7 @@ bool isSpecial(char ch, const char* special)
     if (memchr(special, ch, strlen(special)) != 0)
         return true;
     else
-        return  false;
+        return false;
 }
 
 /*
@@ -54,7 +54,7 @@ const char* const TPXPictureValidator::name = "TPXPictureValidator";
 
 const char* TPXPictureValidator::errorMsg = "Error in picture format.\n %s";
 
-__link(RValidator)
+__link(RValidator);
 
 TStreamableClass RPXPictureValidator(TPXPictureValidator::name,
     TPXPictureValidator::build,
@@ -68,7 +68,7 @@ TPXPictureValidator::TPXPictureValidator(TStringView aPic, bool autoFill)
         options |= voFill;
 
     char s[] = "";
-    if (picture(s,  false) != prEmpty)
+    if (picture(s, false) != prEmpty)
         status = vsSyntax;
 }
 
@@ -123,7 +123,7 @@ bool TPXPictureValidator::isValid(const char* s)
     char str[256];
 
     strcpy(str, s);
-    return bool((pic == 0) || (picture(str,  false) == prComplete));
+    return bool((pic == 0) || (picture(str, false) == prComplete));
 }
 
 // Consume input
@@ -274,7 +274,7 @@ TPicResult TPXPictureValidator::checkComplete(TPicResult rslt, int termCh)
                 break;
 
             default:
-                status =  false;
+                status = false;
             }
 
         if (j == termCh)
@@ -382,7 +382,7 @@ TPicResult TPXPictureValidator::process(char* input, int termCh)
     bool incomp;
     int oldI, oldJ, incompJ = 0, incompI = 0;
 
-    incomp =  false;
+    incomp = false;
     oldI = index;
     oldJ = jndex;
     do {
@@ -431,10 +431,10 @@ bool TPXPictureValidator::syntaxCheck()
     int brkLevel, brcLevel;
 
     if (!pic || (strlen(pic) == 0))
-        return  false;
+        return false;
 
     if (pic[strlen(pic) - 1] == ';')
-        return  false;
+        return false;
 
     i = 0;
     brkLevel = 0;
@@ -486,7 +486,7 @@ TPicResult TPXPictureValidator::picture(char* input, bool autoFill)
         rslt = prError;
 
     if ((rslt == prIncomplete) && autoFill) {
-        reprocess =  false;
+        reprocess = false;
 
         while ((index < (int)strlen(pic)) && !isSpecial(pic[index], "#?&!@*{}[],")) {
             if (pic[index] == ';')

@@ -1,35 +1,14 @@
-/*-------------------------------------------------------*/
-/*                                                       */
-/*   Turbo Vision Forms Demo                             */
-/*                                                       */
-/*   Fields.cpp: Support source file for TVFORMS demo    */
-/*-------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#include <tvision/tv.h>
-__link(RInputLine)
-
-#ifndef __FIELDS_H
 #include "fields.h"
-#endif // __FIELDS_H
-
 #include <cstdlib>
 #include <cstring>
-
-#ifndef __STRSTREAM_H
 #include <strstream>
-#endif // __STRSTREAM_H
+#include <tvision/tv.h>
 
-    // TKeyInputLine
+__link(RInputLine);
 
-    const char* const TKeyInputLine::name
-    = "TKeyInputLine";
+// TKeyInputLine
+
+const char* const TKeyInputLine::name = "TKeyInputLine";
 
 TStreamable* TKeyInputLine::build()
 {
@@ -55,12 +34,12 @@ bool TKeyInputLine::valid(ushort command)
         if (strlen(data) == 0) {
             select();
             messageBox("This field cannot be empty.", mfError | mfOKButton);
-            ok =  false;
+            ok = false;
         }
     if (ok)
         return TInputLine::valid(command);
     else
-        return  false;
+        return false;
 }
 
 // TNumInputLine
@@ -114,7 +93,7 @@ void TNumInputLine::getData(void* rec)
 void TNumInputLine::setData(void* rec)
 {
     ltoa(*(int32_t*)rec, data, 10);
-    selectAll (true);
+    selectAll(true);
 }
 
 bool TNumInputLine::valid(ushort command)
@@ -133,12 +112,12 @@ bool TNumInputLine::valid(ushort command)
             select();
             os << "Number must be from " << min << " to " << max << "." << std::ends;
             messageBox(os.str(), mfError + mfOKButton);
-            selectAll (true);
-            ok =  false;
+            selectAll(true);
+            ok = false;
         }
     }
     if (ok)
         return TInputLine::valid(command);
     else
-        return  false;
+        return false;
 }

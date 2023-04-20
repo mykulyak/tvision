@@ -10,8 +10,8 @@
 /*        3 = Indicator                                                   */
 /* ---------------------------------------------------------------------- */
 
-#include <tvision/View.h>
 #include <tvision/Palette.h>
+#include <tvision/View.h>
 
 typedef char TScrollChars[5];
 

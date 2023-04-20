@@ -3,19 +3,18 @@
 
 #include <internal/platform.h>
 
-namespace tvision
-{
+namespace tvision {
 
 // Terminal quirk flags.
 
 const uint
-    qfBoldIsBright  = 0x0001,
+    qfBoldIsBright
+    = 0x0001,
     qfBlinkIsBright = 0x0002,
-    qfNoItalic      = 0x0004,
-    qfNoUnderline   = 0x0008;
+    qfNoItalic = 0x0004,
+    qfNoUnderline = 0x0008;
 
-enum TermCapColors : uint8_t
-{
+enum TermCapColors : uint8_t {
     NoColor,
     Indexed8,
     Indexed16,
@@ -24,22 +23,19 @@ enum TermCapColors : uint8_t
     TermCapColorCount,
 };
 
-struct TermCap
-{
+struct TermCap {
     TermCapColors colors;
     uint quirks;
 };
 
 // TerminalDisplay is a DisplayStrategy with knowledge of terminal capabilities.
 
-class TerminalDisplay : public DisplayStrategy
-{
+class TerminalDisplay : public DisplayStrategy {
     TermCap getCapabilities() noexcept;
     TPoint lastSize {};
 
 protected:
-
-    StdioCtl &io;
+    StdioCtl& io;
     TermCap termcap;
 
     // The subclass must invoke this in the constructor.
@@ -49,10 +45,9 @@ protected:
     }
 
 public:
-
     // The lifetime of 'aIo' exceeds that of 'this'.
-    TerminalDisplay(StdioCtl &aIo) noexcept :
-        io(aIo)
+    TerminalDisplay(StdioCtl& aIo) noexcept
+        : io(aIo)
     {
     }
 

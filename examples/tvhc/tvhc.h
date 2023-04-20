@@ -6,109 +6,92 @@
 
 /* $Copyright: 1994 */
 
-#ifndef  __TVHC_H 
+#ifndef __TVHC_H
 #define __TVHC_H
 
-#include <tvision/tv.h>
 #include <tvision/HelpFile.h>
+#include <tvision/tv.h>
 
-#ifndef  __DIR_H 
+#ifndef __DIR_H
 #include <dir.h>
-#endif  // __DIR_H
+#endif // __DIR_H
 
-const int MAXSTRSIZE=256;
-const int MAXHELPTOPICID=16379;
+const int MAXSTRSIZE = 256;
+const int MAXHELPTOPICID = 16379;
 const char commandChar[] = ".";
 
-enum State { undefined, wrapping, notWrapping };
+enum State { undefined,
+    wrapping,
+    notWrapping };
 
-class TProtectedStream : public std::fstream
-{
+class TProtectedStream : public std::fstream {
 
 public:
-
 #ifdef __BORLANDC__
     typedef std::ios::open_mode openmode;
 #else
     typedef std::ios::openmode openmode;
 #endif
 
-    TProtectedStream( const char *aFileName, openmode aMode );
+    TProtectedStream(const char* aFileName, openmode aMode);
 
 private:
-
     char fileName[MAXPATH];
     openmode mode;
-
 };
 
 // Topic Reference
 
-struct TFixUp
-{
+struct TFixUp {
 
-     std::streampos pos;
-    TFixUp *next;
-
+    std::streampos pos;
+    TFixUp* next;
 };
 
-union Content
-{
+union Content {
 
     uint value;
-    TFixUp *fixUpList;
-
+    TFixUp* fixUpList;
 };
 
-struct TReference
-{
+struct TReference {
 
-    char *topic;
+    char* topic;
     bool resolved;
     Content val;
-
 };
 
-class TRefTable : public TSortedCollection
-{
+class TRefTable : public TSortedCollection {
 
 public:
+    TRefTable(ccIndex aLimit, ccIndex aDelta);
 
-    TRefTable( ccIndex aLimit, ccIndex aDelta );
-
-    virtual int compare( void *key1,void *key2 );
-    virtual void freeItem( void *item );
-    TReference *getReference( const char *topic );
-    virtual void *keyOf( void *item );
+    virtual int compare(void* key1, void* key2);
+    virtual void freeItem(void* item);
+    TReference* getReference(const char* topic);
+    virtual void* keyOf(void* item);
 
 private:
-
-    virtual void *readItem( ipstream& ) { return 0; };
-    virtual void writeItem( void *, opstream& ) {};
-
+    virtual void* readItem(ipstream&) { return 0; };
+    virtual void writeItem(void*, opstream&) {};
 };
 
-struct TCrossRefNode
-{
-    char *topic;
+struct TCrossRefNode {
+    char* topic;
     int offset;
     uchar length;
-    TCrossRefNode *next;
-
+    TCrossRefNode* next;
 };
 
-class TTopicDefinition : public TObject
-{
+class TTopicDefinition : public TObject {
 
 public:
-
-    TTopicDefinition(const char *aTopic, uint aValue);
+    TTopicDefinition(const char* aTopic, uint aValue);
     ~TTopicDefinition(void);
 
-    char *topic;
+    char* topic;
     uint value;
-    TTopicDefinition *next;
-
+    TTopicDefinition* next;
 };
 
-#endif  // __TVHC_H
+#endif // __TVHC_H

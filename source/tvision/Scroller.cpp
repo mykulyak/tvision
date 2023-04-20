@@ -1,12 +1,12 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/Scroller.h>
+#include <tvision/tobjstrm.h>
 
 #define cpScroller "\x06\x07"
 
 const char* const TScroller::name = "TScroller";
 
-__link(RView)
-__link(RScrollBar)
+__link(RView);
+__link(RScrollBar);
 
 TStreamableClass RScroller(TScroller::name,
     TScroller::build,
@@ -17,7 +17,7 @@ TScroller::TScroller(const TRect& bounds,
     TScrollBar* aVScrollBar) noexcept
     : TView(bounds)
     , drawLock(0)
-    , drawFlag (false)
+    , drawFlag(false)
     , hScrollBar(aHScrollBar)
     , vScrollBar(aVScrollBar)
 {
@@ -39,14 +39,14 @@ void TScroller::changeBounds(const TRect& bounds)
     drawLock++;
     setLimit(limit.x, limit.y);
     drawLock--;
-    drawFlag =  false;
+    drawFlag = false;
     drawView();
 }
 
 void TScroller::checkDraw() noexcept
 {
-    if (drawLock == 0 && drawFlag !=  false) {
-        drawFlag =  false;
+    if (drawLock == 0 && drawFlag != false) {
+        drawFlag = false;
         drawView();
     }
 }
@@ -153,7 +153,7 @@ void* TScroller::read(ipstream& is)
     TView::read(is);
     is >> hScrollBar >> vScrollBar >> delta >> limit;
     drawLock = 0;
-    drawFlag =  false;
+    drawFlag = false;
     return this;
 }
 

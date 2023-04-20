@@ -14,8 +14,8 @@
 /* ---------------------------------------------------------------------- */
 
 #include <tvision/MenuItem.h>
-#include <tvision/SubMenu.h>
 #include <tvision/MenuView.h>
+#include <tvision/SubMenu.h>
 
 class TMenu;
 

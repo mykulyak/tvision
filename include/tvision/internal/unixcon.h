@@ -4,36 +4,33 @@
 #include <internal/platform.h>
 #ifdef _TV_UNIX
 
-namespace tvision
-{
+namespace tvision {
 
 class ScreenLifetime;
 class SigwinchHandler;
 struct InputState;
 class DisplayBuffer;
 
-class UnixConsoleStrategy : public ConsoleStrategy
-{
-    StdioCtl &io;
-    DisplayBuffer &displayBuf;
-    ScreenLifetime &scrl;
-    InputState &inputState;
-    SigwinchHandler *sigwinch;
+class UnixConsoleStrategy : public ConsoleStrategy {
+    StdioCtl& io;
+    DisplayBuffer& displayBuf;
+    ScreenLifetime& scrl;
+    InputState& inputState;
+    SigwinchHandler* sigwinch;
 
-    UnixConsoleStrategy( DisplayStrategy &, InputStrategy &, StdioCtl &,
-                         DisplayBuffer &, ScreenLifetime &, InputState &,
-                         SigwinchHandler * ) noexcept;
+    UnixConsoleStrategy(DisplayStrategy&, InputStrategy&, StdioCtl&,
+        DisplayBuffer&, ScreenLifetime&, InputState&,
+        SigwinchHandler*) noexcept;
 
 public:
-
     // The lifetime of 'io' and 'displayBuf' must exceed that of the returned object.
     // Takes ownership over 'scrl', 'inputState', 'display' and 'input'.
-    static UnixConsoleStrategy &create( StdioCtl &io,
-                                        DisplayBuffer &displayBuf,
-                                        ScreenLifetime &scrl,
-                                        InputState &inputState,
-                                        DisplayStrategy &display,
-                                        InputStrategy &input ) noexcept;
+    static UnixConsoleStrategy& create(StdioCtl& io,
+        DisplayBuffer& displayBuf,
+        ScreenLifetime& scrl,
+        InputState& inputState,
+        DisplayStrategy& display,
+        InputStrategy& input) noexcept;
 
     ~UnixConsoleStrategy();
 

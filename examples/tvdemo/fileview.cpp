@@ -6,17 +6,17 @@
 
 const char* const TFileViewer::name = "TFileViewer";
 
-__link(RScroller)
-__link(RScrollBar)
+__link(RScroller);
+__link(RScrollBar);
 
 TFileViewer::TFileViewer(const TRect& bounds,
     TScrollBar* aHScrollBar,
     TScrollBar* aVScrollBar,
     const std::filesystem::path& aFileName)
-    : TScroller(bounds, aHScrollBar, aVScrollBar),
-    fileName(aFileName),
-    fileLines(std::make_unique<TLineCollection>(5, 5)),
-    isValid(true)
+    : TScroller(bounds, aHScrollBar, aVScrollBar)
+    , fileName(aFileName)
+    , fileLines(std::make_unique<TLineCollection>(5, 5))
+    , isValid(true)
 {
     growMode = gfGrowHiX | gfGrowHiY;
     readFile(aFileName);
@@ -56,7 +56,7 @@ void TFileViewer::readFile(const std::filesystem::path& fName)
         std::ostringstream os;
         os << "Failed to open file '" << fName << "'." << std::ends;
         messageBox(os.str(), mfError | mfOKButton);
-        isValid =  false;
+        isValid = false;
     } else {
         std::string line;
         while (std::getline(fileToView, line)) {

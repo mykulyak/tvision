@@ -3,8 +3,8 @@
 
 const char* const TColorDialog::name = "TColorDialog";
 
-__link(RLabel)
-__link(RDialog)
+__link(RLabel);
+__link(RDialog);
 
 TStreamableClass RColorDialog(TColorDialog::name,
     TColorDialog::build,
@@ -69,7 +69,7 @@ TColorDialog::TColorDialog(TPalette* aPalette, TColorGroup* aGroups) noexcept
 
     insert(new TButton(TRect(36, 15, 46, 17), okText, cmOK, TButton::Flags::bfDefault));
     insert(new TButton(TRect(48, 15, 58, 17), cancelText, cmCancel, TButton::Flags::bfNormal));
-    selectNext (false);
+    selectNext(false);
 
     if (pal != 0)
         setData(pal);

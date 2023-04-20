@@ -439,7 +439,6 @@ ushort getCtrlCode(uchar ch) noexcept
 
 #pragma warn.rng
 
-
 #ifdef __BORLANDC__
 typedef long fmtflags;
 #else

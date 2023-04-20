@@ -3,7 +3,7 @@
 
 const char* const TMonoSelector::name = "TMonoSelector";
 
-__link(RCluster)
+__link(RCluster);
 
 TStreamableClass RMonoSelector(TMonoSelector::name,
     TMonoSelector::build,

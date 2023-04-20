@@ -1,26 +1,10 @@
-/*----------------------------------------------------------*/
-/*                                                          */
-/*   Turbo Vision TVDEMO source file                        */
-/*                                                          */
-/*----------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-#include <tvision/tv.h>
 #include "demohelp.h"
 #include "fileview.h"
 #include "gadgets.h"
 #include "mousedlg.h"
 #include "tvcmds.h"
 #include "tvdemo.h"
-
-//
-// Mouse Control Dialog Box function
-//
+#include <tvision/tv.h>
 
 void TVDemo::mouse()
 {
@@ -34,10 +18,6 @@ void TVDemo::mouse()
     }
     destroy(mouseCage);
 }
-
-//
-// File Viewer function
-//
 
 void TVDemo::openFile(const char* fileSpec)
 {
@@ -53,10 +33,6 @@ void TVDemo::openFile(const char* fileSpec)
     }
     destroy(d);
 }
-
-//
-// "Out of Memory" function ( called by validView() )
-//
 
 void TVDemo::outOfMemory()
 {
@@ -93,7 +69,7 @@ static bool isTileable(TView* p, void*)
     if ((p->options & ofTileable) != 0)
         return true;
     else
-        return  false;
+        return false;
 }
 
 //

@@ -3,22 +3,18 @@
 
 #ifdef _TV_UNIX
 
-namespace tvision
-{
+namespace tvision {
 
-class StderrRedirector
-{
-    int ttyFd {-1};
-    int bufFd[2] {-1, -1};
+class StderrRedirector {
+    int ttyFd { -1 };
+    int bufFd[2] { -1, -1 };
 
 public:
-
     StderrRedirector() noexcept;
     ~StderrRedirector();
 };
 
-class ScreenLifetime
-{
+class ScreenLifetime {
     StderrRedirector sr;
 };
 

@@ -12,7 +12,6 @@ public:
 
 private:
     void greetingBox();
-
 };
 
 THelloApp::THelloApp()

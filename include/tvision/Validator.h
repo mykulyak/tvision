@@ -1,8 +1,8 @@
 #ifndef TVision_TValidator_h
 #define TVision_TValidator_h
 
-#include <tvision/ttypes.h>
 #include <tvision/Object.h>
+#include <tvision/ttypes.h>
 
 // TValidator Status constants
 

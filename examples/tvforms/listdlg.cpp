@@ -1,35 +1,17 @@
-#include <filesystem>
-#include <tvision/tv.h>
-
-__link(RResourceCollection)
-    __link(RDialog)
-        __link(RScrollBar)
-
-#ifndef __LISTDLG_H
 #include "listdlg.h"
-#endif // __LISTDLG_H
-
-#ifndef __FORMCMDS_H
-#include "formcmds.h"
-#endif // __FORMCMDS_H
-
-#ifndef __FORMS_H
-#include "forms.h"
-#endif // __FORMS_H
-
-#ifndef __DATACOLL_H
 #include "datacoll.h"
-#endif // __DATACOLL_H
-
+#include "formcmds.h"
+#include "forms.h"
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-
 #include <dir.h>
-
 #include <filesystem>
+#include <tvision/tv.h>
 
-// TListKeyBox
+__link(RResourceCollection);
+__link(RDialog);
+__link(RScrollBar);
 
 TListKeyBox::TListKeyBox(const TRect& bounds, ushort aNumCols,
     TScrollBar* aScrollBar)
@@ -57,15 +39,13 @@ void TListKeyBox::getText(char* dest, short item, short maxLen)
     }
 }
 
-// TListDialog
-
 TListDialog::TListDialog(char* rezName, char* title)
     : TWindowInit(&TListDialog::initFrame)
     , TDialog(TRect(2, 2, 32, 15), title)
     , dataCollection(0)
     , fileName(newStr(rezName))
-    , isValid (false)
-    , modified (false)
+    , isValid(false)
+    , modified(false)
 {
     const short
         buttonCt
@@ -153,7 +133,7 @@ TListDialog::TListDialog(char* rezName, char* title)
                                    y + 2),
                 "~S~ave", cmListSave, TButton::Flags::bfNormal));
 
-            selectNext (false); // Select first field
+            selectNext(false); // Select first field
             isValid = true;
         }
     }
@@ -267,10 +247,10 @@ void TListDialog::handleEvent(TEvent& event)
     case evCommand:
         switch (event.message.command) {
         case cmFormEdit:
-            formOpen (false);
+            formOpen(false);
             break;
         case cmFormNew:
-            formOpen (true);
+            formOpen(true);
             break;
         case cmFormDel:
             deleteSelection();
@@ -287,7 +267,7 @@ void TListDialog::handleEvent(TEvent& event)
     case evKeyDown:
         switch (event.keyDown.keyCode) {
         case kbIns:
-            formOpen (true);
+            formOpen(true);
             break;
         default:
             return;
@@ -297,7 +277,7 @@ void TListDialog::handleEvent(TEvent& event)
     case evBroadcast:
         switch (event.message.command) { // Respond to broadcast from TSortedListBox
         case cmListItemSelected:
-            formOpen (false);
+            formOpen(false);
             break;
 
         // Keep file from being edited simultaneously by 2 lists
@@ -325,7 +305,7 @@ bool TListDialog::openDataFile(char* name,
     if (!s->good()) {
         destroy(dataFile);
         dataFile = NULL;
-        return  false;
+        return false;
     } else
         return true;
 }
@@ -356,7 +336,7 @@ bool TListDialog::saveList()
         // Create new data file
         fnsplit(fileName, drive, d, n, e);
         fnmerge(bufStr, drive, d, n, ".$$$");
-        if (openDataFile(bufStr, newDataFile, std::ios::out) ==  false)
+        if (openDataFile(bufStr, newDataFile, std::ios::out) == false)
             messageBox("Cannot create file. Data not saved.",
                 mfError | mfOKButton);
         else {
@@ -380,7 +360,7 @@ bool TListDialog::saveList()
                     mfError | mfOKButton);
 
                 // Try to re-open original. New data will still be in memory
-                if (openDataFile(fileName, formDataFile, std::ios::in) ==  false) {
+                if (openDataFile(fileName, formDataFile, std::ios::in) == false) {
                     messageBox("Cannot re-open original file.",
                         mfError | mfOKButton);
                     destroy(this); // Cannot proceed. Free data and close window }
@@ -391,14 +371,14 @@ bool TListDialog::saveList()
                 rename(bufStr, fileName);
                 openDataFile(fileName, formDataFile, std::ios::in);
 
-                modified =  false;
+                modified = false;
                 destroy(form);
                 return true;
             }
         }
         destroy(form);
     }
-    return  false;
+    return false;
 }
 
 bool TListDialog::saveForm(TDialog* f)
@@ -408,13 +388,13 @@ bool TListDialog::saveForm(TDialog* f)
 
     // Validate data before updating collection
     if (!f->valid(cmFormSave))
-        return  false;
+        return false;
 
     // Extract data from form. Don't use safety pool.
     p = new char[dataCollection->itemSize];
     if (p == NULL) {
         TApplication::application->outOfMemory();
-        return  false;
+        return false;
     }
 
     memset(p, 0, dataCollection->itemSize);
@@ -426,7 +406,7 @@ bool TListDialog::saveForm(TDialog* f)
             messageBox("Duplicate keys are not allowed in this database. "
                        "Delete duplicate record before saving this form.",
                 mfError | mfOKButton);
-            return  false;
+            return false;
         }
 
     // Free previous data?
@@ -441,7 +421,7 @@ bool TListDialog::saveForm(TDialog* f)
     if (dataCollection->status != 0) {
         delete[] (char*)p;
         TApplication::application->outOfMemory();
-        return  false;
+        return false;
     }
 
     // Success: store off original data pointer
@@ -500,7 +480,7 @@ bool TListDialog::valid(ushort command)
         if (message(TProgram::deskTop, evBroadcast, cmCanCloseForm, this) == NULL)
             ok = true;
         else
-            ok =  false;
+            ok = false;
 
         // Any data modified?
         if (ok && modified) {
@@ -512,10 +492,10 @@ bool TListDialog::valid(ushort command)
                 ok = saveList();
                 break;
             case cmNo:
-                modified =  false; // abandon changes
+                modified = false; // abandon changes
                 break;
             default:
-                ok =  false; // cancel close request
+                ok = false; // cancel close request
                 break;
             }
         }
@@ -524,5 +504,5 @@ bool TListDialog::valid(ushort command)
     if (ok)
         return TDialog::valid(command);
     else
-        return  false;
+        return false;
 }

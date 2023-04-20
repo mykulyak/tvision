@@ -1,8 +1,8 @@
 #ifndef TVision_TFrame_h
 #define TVision_TFrame_h
 
-#include <tvision/View.h>
 #include <tvision/Palette.h>
+#include <tvision/View.h>
 
 /* ---------------------------------------------------------------------- */
 /*      class TFrame                                                      */

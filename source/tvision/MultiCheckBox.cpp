@@ -1,5 +1,5 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/MultiCheckBoxes.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TMultiCheckBoxes::name = "TMultiCheckBoxes";
 

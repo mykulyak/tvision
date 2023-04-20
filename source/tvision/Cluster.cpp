@@ -1,15 +1,15 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/Cluster.h>
 #include <tvision/CommandCodes.h>
 #include <tvision/Event.h>
 #include <tvision/Group.h>
 #include <tvision/SItem.h>
 #include <tvision/StringCollection.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TCluster::name = "TCluster";
 
-__link(RView)
-__link(RStringCollection)
+__link(RView);
+__link(RStringCollection);
 
 TStreamableClass RCluster(TCluster::name, TCluster::build, __DELTA(TCluster));
 
@@ -276,7 +276,7 @@ void TCluster::setState(ushort aState, bool enable)
 
 bool TCluster::mark(int)
 {
-    return  false;
+    return false;
 }
 
 uchar TCluster::multiMark(int item)
@@ -378,9 +378,9 @@ bool TCluster::buttonState(int item)
         if (enableMask & mask)
             return true;
         else
-            return  false;
+            return false;
     } else
-        return  false;
+        return false;
     // #endif
 }
 

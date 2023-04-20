@@ -1,11 +1,11 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/FilterValidator.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TFilterValidator::name = "TFilterValidator";
 
 const char* TFilterValidator::errorMsg = "Invalid character in input";
 
-__link(RValidator)
+__link(RValidator);
 
 TStreamableClass RFilterValidator(TFilterValidator::name,
     TFilterValidator::build,

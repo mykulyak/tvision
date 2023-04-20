@@ -1,8 +1,8 @@
 #ifndef TVision_TFileEditor_h
 #define TVision_TFileEditor_h
 
-#include <tvision/compat/borland/dir.h>
 #include <tvision/Editor.h>
+#include <tvision/compat/borland/dir.h>
 
 class TScrollBar;
 class TIndicator;

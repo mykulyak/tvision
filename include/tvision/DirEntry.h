@@ -8,9 +8,11 @@ public:
     TDirEntry(TStringView txt, TStringView dir) noexcept
         : displayText(newStr(txt))
         , directory(newStr(dir))
-    {}
+    {
+    }
 
-    ~TDirEntry() {
+    ~TDirEntry()
+    {
         delete[] displayText;
         delete[] directory;
     }

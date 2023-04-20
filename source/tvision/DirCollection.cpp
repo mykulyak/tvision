@@ -1,7 +1,7 @@
 #include <filesystem>
-#include <tvision/tobjstrm.h>
 #include <tvision/DirCollection.h>
 #include <tvision/DirEntry.h>
+#include <tvision/tobjstrm.h>
 
 #pragma warn - asc
 
@@ -91,9 +91,9 @@ bool validFileName(const char* fileName) noexcept
     fnsplit(fileName, path, dir, name, ext);
     strcat(path, dir);
     if (*dir != EOS && !pathValid(path))
-        return  false;
+        return false;
     if (strpbrk(name, illegalChars) != 0 || strpbrk(ext + 1, illegalChars) != 0 || strchr(ext + 1, '.') != 0)
-        return  false;
+        return false;
     return true;
 }
 

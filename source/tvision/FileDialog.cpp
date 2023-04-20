@@ -1,11 +1,11 @@
 #include <sstream>
-#include <tvision/tobjstrm.h>
 #include <tvision/FileCommands.h>
 #include <tvision/FileDialog.h>
 #include <tvision/FileInfoPane.h>
 #include <tvision/FileInputLine.h>
 #include <tvision/FileList.h>
 #include <tvision/Label.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TFileDialog::name = "TFileDialog";
 
@@ -19,14 +19,14 @@ const char* TFileDialog::helpText = "~H~elp";
 const char* TFileDialog::invalidDriveText = "Invalid drive or directory";
 const char* TFileDialog::invalidFileText = "Invalid file name";
 
-__link(RDialog)
-__link(RFileInputLine)
-__link(RFileList)
-__link(RLabel)
-__link(RHistory)
-__link(RScrollBar)
-__link(RButton)
-__link(RFileInfoPane)
+__link(RDialog);
+__link(RFileInputLine);
+__link(RFileList);
+__link(RLabel);
+__link(RHistory);
+__link(RScrollBar);
+__link(RButton);
+__link(RFileInfoPane);
 
 TStreamableClass RFileDialog(TFileDialog::name,
     TFileDialog::build,
@@ -112,7 +112,7 @@ TFileDialog::TFileDialog(TStringView aWildCard,
 
     insert(new TFileInfoPane(TRect(1, 16, 48, 18)));
     first()->growMode = gfGrowAll & ~gfGrowLoX;
-    selectNext (false);
+    selectNext(false);
 
     // I feel too lazy to update all the sizes above. The new default size
     // is set by resizing the dialog.
@@ -201,7 +201,8 @@ static void trim(char* dest, const char* src) noexcept
 //     strcpy(s, buf);
 // }
 
-std::filesystem::path TFileDialog::getFilePath() noexcept {
+std::filesystem::path TFileDialog::getFilePath() noexcept
+{
     char buf[2 * MAXPATH];
     trim(buf, fileName->data);
     fexpand(buf, directory);
@@ -263,7 +264,7 @@ bool TFileDialog::checkDirectory(const char* str)
         os << invalidDriveText << ": '" << str << "'" << std::ends;
         messageBox(os.str().c_str(), mfError | mfOKButton);
         fileName->select();
-        return  false;
+        return false;
     }
 }
 
@@ -311,12 +312,12 @@ bool TFileDialog::valid(ushort command)
                 std::ostringstream os;
                 os << invalidFileText << ": '" << fName << "'" << std::ends;
                 messageBox(os.str().c_str(), mfError | mfOKButton);
-                return  false;
+                return false;
             }
         } else
             return true;
     }
-    return  false;
+    return false;
 }
 
 #ifndef NO_STREAMABLE

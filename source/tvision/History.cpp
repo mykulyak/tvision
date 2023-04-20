@@ -1,13 +1,13 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/History.h>
 #include <tvision/HistoryWindow.h>
+#include <tvision/tobjstrm.h>
 
 const char* const THistory::name = "THistory";
 
 const char* THistory::icon = "\xDE~\x19~\xDD";
 
-__link(RView)
-__link(RInputLine)
+__link(RView);
+__link(RInputLine);
 
 TStreamableClass RHistory(THistory::name,
     THistory::build,
@@ -74,7 +74,7 @@ void THistory::handleEvent(TEvent& event)
                 char rslt[256];
                 historyWindow->getSelection(rslt);
                 strnzcpy(link->data, rslt, link->maxLen + 1);
-                link->selectAll (true);
+                link->selectAll(true);
                 link->drawView();
             }
             destroy(historyWindow);

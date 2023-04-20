@@ -1,9 +1,9 @@
 #ifndef TVision_TMenuItem_h
 #define TVision_TMenuItem_h
 
-#include <tvision/StringView.h>
-#include <tvision/Keys.h>
 #include <tvision/CommandCodes.h>
+#include <tvision/Keys.h>
+#include <tvision/StringView.h>
 
 class TMenu;
 

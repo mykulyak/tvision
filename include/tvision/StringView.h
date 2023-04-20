@@ -2,8 +2,8 @@
 #define TVision_StringView_h
 
 #include <cstring>
-#include <tvision/ttypes.h>
 #include <tvision/Span.h>
+#include <tvision/ttypes.h>
 
 #ifdef TVISION_STL
 #include <string>
@@ -31,7 +31,7 @@ public:
 #if defined(TVISION_STL) && (__cplusplus >= 201703L || __cpp_lib_constexpr_char_traits)
     constexpr
 #endif
-    TStringView(const char* str);
+        TStringView(const char* str);
 
     constexpr TStringView(const char* str, size_t len);
 
@@ -199,14 +199,14 @@ inline constexpr bool operator==(TStringView a, TStringView b)
 {
     return a.size() == b.size()
         ? std::char_traits<char>::compare(a.data(), b.data(), b.size()) == 0
-        :  false;
+        : false;
 }
 #else
 inline bool operator==(TStringView a, TStringView b)
 {
     if (a.size() == b.size())
         return bool(memcmp(a.data(), b.data(), b.size()) == 0);
-    return  false;
+    return false;
 }
 #endif
 

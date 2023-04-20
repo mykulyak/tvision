@@ -1,9 +1,18 @@
+#include "formcmds.h"
+#include "listdlg.h"
+#include <cstdlib>
+#include <cstring>
+#include <filesystem>
+#include <string>
+#include <tvision/tv.h>
+
+#if defined(__FLAT__)
+#define FORM_WILDCARD "*.f32"
+#else
+#define FORM_WILDCARD "*.f16"
+#endif
+
 /*---------------------------------------------------------------------*/
-/*                                                                     */
-/*   Turbo Vision Forms Demo main source file.                         */
-/*                                                                     */
-/*---------------------------------------------------------------------*/
-/*                                                                     */
 /* This Turbo Vision application uses forms to enter and edit data     */
 /* in a collection. Two data files, PHONENUM.F16 and PARTS.F16, are    */
 /* provided and can be loaded using this application's File|Open menu. */
@@ -14,49 +23,21 @@
 /* and runs GENFORM.CPP. You can create additional data files by       */
 /* copying and modifying GENPARTS.H or GENPHONE.H and then             */
 /* incorporating your new header into GENFORM.CPP.                     */
-/*                                                                     */
 /*---------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
 
-#include <tvision/tv.h>
-__link(RResourceCollection)
-    __link(RButton)
-        __link(RCheckBoxes)
-            __link(RInputLine)
-                __link(RLabel)
-                    __link(RMenuBar)
-                        __link(RRadioButtons)
-                            __link(RFrame)
-                                __link(REditor)
-                                    __link(RMemo)
-
-#include <cstdlib>
-#include <cstring>
-#include <string>
-#include <filesystem>
-
-#ifndef __FORMCMDS_H
-#include "formcmds.h"
-#endif // __FORMCMDS_H
-
-#ifndef __LISTDLG_H
-#include "listdlg.h"
-#endif // __LISTDLG_H
-
-#if defined(__FLAT__)
-#define FORM_WILDCARD "*.f32"
-#else
-#define FORM_WILDCARD "*.f16"
-#endif
-
-                                        extern TPoint shadowSize;
+extern TPoint shadowSize;
 const int MAXSIZE = 150;
+
+__link(RResourceCollection);
+__link(RButton);
+__link(RCheckBoxes);
+__link(RInputLine);
+__link(RLabel);
+__link(RMenuBar);
+__link(RRadioButtons);
+__link(RFrame);
+__link(REditor);
+__link(RMemo);
 
 class TFormApp : public TApplication {
 public:

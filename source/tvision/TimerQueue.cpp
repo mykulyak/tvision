@@ -78,7 +78,7 @@ void TTimerQueue::collectTimeouts(void (&func)(TTimerId, void*), void* args)
 
     void* collectId = &collectId;
     TTimePoint now = getTimeMs();
-    while  (true) {
+    while (true) {
         TTimer** p = &first;
         while (*p != 0 && ((*p)->collectId == collectId || now < (*p)->expiresAt))
             p = &(*p)->next;

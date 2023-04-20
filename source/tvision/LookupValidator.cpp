@@ -1,9 +1,9 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/LookupValidator.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TLookupValidator::name = "TLookupValidator";
 
-__link(RValidator)
+__link(RValidator);
 
 TStreamableClass RLookupValidator(TLookupValidator::name,
     TLookupValidator::build,

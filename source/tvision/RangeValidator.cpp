@@ -1,5 +1,5 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/RangeValidator.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TRangeValidator::name = "TRangeValidator";
 
@@ -7,7 +7,7 @@ const char* TRangeValidator::errorMsg = "Value not in the range %ld to %ld";
 const char* TRangeValidator::validUnsignedChars = "+0123456789";
 const char* TRangeValidator::validSignedChars = "+-0123456789";
 
-__link(RFilterValidator)
+__link(RFilterValidator);
 
 TStreamableClass RRangeValidator(TRangeValidator::name,
     TRangeValidator::build,
@@ -60,7 +60,7 @@ bool TRangeValidator::isValid(const char* s)
             if ((value >= min) && (value <= max))
                 return true;
 
-    return  false;
+    return false;
 }
 
 ushort TRangeValidator::transfer(char* s, void* buffer, TVTransfer flag)

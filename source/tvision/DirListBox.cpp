@@ -1,9 +1,9 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/ChdirDialog.h>
 #include <tvision/DirCollection.h>
 #include <tvision/DirEntry.h>
 #include <tvision/DirListBox.h>
 #include <tvision/FileCommands.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TDirListBox::name = "TDirListBox";
 
@@ -14,7 +14,7 @@ const char* TDirListBox::lastDir = " \xC0\xC4";
 const char* TDirListBox::drives = "Drives";
 const char* TDirListBox::graphics = "\xC0\xC3\xC4";
 
-__link(RListBox)
+__link(RListBox);
 
 TStreamableClass RDirListBox(TDirListBox::name,
     TDirListBox::build,
@@ -76,7 +76,7 @@ void TDirListBox::showDrives(TDirCollection* dirs)
                     strcpy(s, firstDir);
                     s[strlen(firstDir)] = oldc[0];
                     s[strlen(firstDir) + 1] = EOS;
-                    isFirst =  false;
+                    isFirst = false;
                 } else {
                     strcpy(s, middleDir);
                     s[strlen(middleDir)] = oldc[0];
@@ -144,7 +144,7 @@ void TDirListBox::showDirs(TDirCollection* dirs)
         if ((ff.ff_attrib & FA_DIREC) != 0 && ff.ff_name[0] != '.') {
             if (isFirst) {
                 memcpy(org, firstDir, strlen(firstDir) + 1);
-                isFirst =  false;
+                isFirst = false;
             } else
                 memcpy(org, middleDir, strlen(middleDir) + 1);
             strcpy(name, ff.ff_name);

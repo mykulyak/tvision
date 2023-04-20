@@ -171,7 +171,7 @@ void TProgram::idle()
 
     if (commandSetChanged == true) {
         message(this, evBroadcast, cmCommandSetChanged, 0);
-        commandSetChanged =  false;
+        commandSetChanged = false;
     }
 
     timerQueue.collectTimeouts(doHandleTimeout, this);
@@ -198,7 +198,7 @@ void TProgram::initScreen()
         else
             shadowSize.x = 2;
         shadowSize.y = 1;
-        showMarkers =  false;
+        showMarkers = false;
         if ((TScreen::screenMode & 0x00FF) == TDisplay::smBW80)
             appPalette = apBlackWhite;
         else
@@ -261,7 +261,7 @@ void TProgram::setScreenMode(ushort mode)
     buffer = TScreen::screenBuffer;
     r = TRect(0, 0, TScreen::screenWidth, TScreen::screenHeight);
     changeBounds(r);
-    setState(sfExposed,  false);
+    setState(sfExposed, false);
     setState(sfExposed, true);
     redraw();
     TEventQueue::mouse->show(); // ShowMouse();

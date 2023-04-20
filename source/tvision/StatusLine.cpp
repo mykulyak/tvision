@@ -1,7 +1,7 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/StatusDef.h>
 #include <tvision/StatusItem.h>
 #include <tvision/StatusLine.h>
+#include <tvision/tobjstrm.h>
 
 #define cpStatusLine "\x02\x03\x04\x05\x06\x07"
 
@@ -9,7 +9,7 @@ const char* const TStatusLine::name = "TStatusLine";
 
 const char* TStatusLine::hintSeparator = "\xB3 ";
 
-__link(RView)
+__link(RView);
 
 TStreamableClass RStatusLine(TStatusLine::name,
     TStatusLine::build,

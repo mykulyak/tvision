@@ -1,6 +1,6 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/FileCommands.h>
 #include <tvision/FileList.h>
+#include <tvision/tobjstrm.h>
 
 #if defined(__FLAT__) && defined(__BORLANDC__)
 extern "C" char* _CType FUNC strupr(char* __s);
@@ -10,8 +10,8 @@ const char* const TFileList::name = "TFileList";
 
 const char* TFileList::tooManyFiles = "Too many files.";
 
-__link(RSortedListBox) // In case the object below is moved
-                       //   to another file.
+__link(RSortedListBox); // In case the object below is moved
+                        //   to another file.
 
 TStreamableClass RFileList(TFileList::name,
     TFileList::build,
@@ -285,7 +285,7 @@ bool getHomeDir(char* drive, char* dir) noexcept
 #endif
     (void)drive;
     (void)dir;
-    return  false;
+    return false;
 }
 
 void fexpand(char* rpath) noexcept

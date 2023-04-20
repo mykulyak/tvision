@@ -1,8 +1,8 @@
 #ifndef TVision_TColorDialog_h
 #define TVision_TColorDialog_h
 
-#include <tvision/Dialog.h>
 #include <tvision/ColorGroup.h>
+#include <tvision/Dialog.h>
 
 class TColorGroup;
 class TColorDisplay;

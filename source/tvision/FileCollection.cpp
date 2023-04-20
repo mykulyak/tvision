@@ -1,7 +1,7 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/FileCollection.h>
 #include <tvision/FileInputLine.h>
 #include <tvision/SearchRec.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TFileCollection::name = "TFileCollection";
 

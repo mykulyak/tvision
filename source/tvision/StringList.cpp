@@ -1,7 +1,7 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/StrIndexRec.h>
 #include <tvision/StrListMaker.h>
 #include <tvision/StringList.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TStringList::name = "TStringList";
 

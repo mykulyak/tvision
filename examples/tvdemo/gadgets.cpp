@@ -1,37 +1,11 @@
-/*-------------------------------------------------------------------*/
-/*                                                                   */
-/*   Turbo Vision Demo                                               */
-/*                                                                   */
-/*   Gadgets.cpp:  Gadgets for the Turbo Vision Demo.  Includes a    */
-/*        heap view and a clock view which display the clock at the  */
-/*        right end of the menu bar and the current heap space at    */
-/*        the right end of the status line.                          */
-/*                                                                   */
-/*-------------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#include <tvision/tv.h>
-
+#include "gadgets.h"
 #include <cctype>
 #include <cstdlib>
 #include <cstring>
 #include <ctime>
 #include <iomanip>
 #include <strstream>
-
-#include "gadgets.h"
-
-// extern "C" unsigned long farcoreleft( void );
-
-//
-// ------------- Heap Viewer functions
-//
+#include <tvision/tv.h>
 
 THeapView::THeapView(TRect& r)
     : TView(r)
@@ -63,7 +37,7 @@ long THeapView::heapSize()
     std::ostrstream totalStr(heapStr, sizeof heapStr);
 
 #ifdef __BORLANDC__
-    // #ifndef  __DPMI32__ 
+    // #ifndef  __DPMI32__
     long total = farcoreleft();
     // #else
     //     long total = 0;

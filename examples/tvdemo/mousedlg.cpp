@@ -1,27 +1,10 @@
-/*---------------------------------------------------------*/
-/*                                                         */
-/*   Mousedlg.cpp : Member functions of following classes: */
-/*                     TClickTester                        */
-/*                     TMouseDialog                        */
-/*                                                         */
-/*---------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#include <tvision/tv.h>
-
+#include "mousedlg.h"
 #include <cctype>
 #include <cstdlib>
 #include <cstring>
 #include <iomanip>
 #include <strstream>
-
-#include "mousedlg.h"
+#include <tvision/tv.h>
 
 #define cpMousePalette "\x07\x08"
 

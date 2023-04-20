@@ -4,7 +4,7 @@
 #include <tvision/ScreenCell.h>
 
 /**
- * This class provides the high-level interface to the Screen Manager. 
+ * This class provides the high-level interface to the Screen Manager.
  */
 class TDrawBuffer {
     friend class TSystemError;

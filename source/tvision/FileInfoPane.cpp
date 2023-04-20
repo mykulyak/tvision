@@ -1,5 +1,5 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/FileInputLine.h>
+#include <tvision/tobjstrm.h>
 
 #include <io.h>
 
@@ -14,7 +14,7 @@ const char* const TFileInfoPane::months[] = {
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 };
 
-__link(RView)
+__link(RView);
 
 TStreamableClass RFileInfoPane(TFileInfoPane::name,
     TFileInfoPane::build,

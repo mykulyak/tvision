@@ -86,7 +86,6 @@ typedef TStreamable* (*BUILDER)();
 #define __DELTA(d) 0
 
 class TStreamableClass {
-
     friend TStreamableTypes;
     friend opstream;
     friend ipstream;
@@ -257,37 +256,37 @@ public:
         ptIndexed,
         ptObject };
 
-     pstream(std::streambuf*) noexcept;
-    virtual  ~pstream();
+    pstream(std::streambuf*) noexcept;
+    virtual ~pstream();
 
     typedef int openmode;
     typedef int seekdir;
 
-    int  rdstate() const noexcept;
-    int  eof() const noexcept;
-    int  fail() const noexcept;
-    int  bad() const noexcept;
-    int  good() const noexcept;
-    void  clear(int = 0) noexcept;
-     operator void*() const noexcept;
-    int  operator!() const noexcept;
+    int rdstate() const noexcept;
+    int eof() const noexcept;
+    int fail() const noexcept;
+    int bad() const noexcept;
+    int good() const noexcept;
+    void clear(int = 0) noexcept;
+    operator void*() const noexcept;
+    int operator!() const noexcept;
 
-    std::streambuf*  rdbuf() const noexcept;
+    std::streambuf* rdbuf() const noexcept;
 
     static void initTypes() noexcept;
     static void registerType(TStreamableClass* ts) noexcept;
 
 protected:
-     pstream() noexcept;
+    pstream() noexcept;
 
-    void  error(StreamableError) noexcept;
-    void  error(StreamableError, const TStreamable&) noexcept;
+    void error(StreamableError) noexcept;
+    void error(StreamableError, const TStreamable&) noexcept;
 
     std::streambuf* bp;
     int state;
 
-    void  init(std::streambuf*) noexcept;
-    void  setstate(int) noexcept;
+    void init(std::streambuf*) noexcept;
+    void setstate(int) noexcept;
 
     static TStreamableTypes* types;
 };
@@ -310,32 +309,32 @@ class TStreamableClass;
 class ipstream : virtual public pstream {
 
 public:
-     ipstream(std::streambuf*) noexcept;
-     ~ipstream();
+    ipstream(std::streambuf*) noexcept;
+    ~ipstream();
 
-    std::streampos  tellg();
-    ipstream&  seekg(std::streampos);
-    ipstream&  seekg(std::streamoff, pstream::seekdir);
+    std::streampos tellg();
+    ipstream& seekg(std::streampos);
+    ipstream& seekg(std::streamoff, pstream::seekdir);
 
-    uchar  readByte();
-    void  readBytes(void*, size_t);
-    ushort  readWord();
-    char*  readString();
-    char*  readString(char*, unsigned);
+    uchar readByte();
+    void readBytes(void*, size_t);
+    ushort readWord();
+    char* readString();
+    char* readString(char*, unsigned);
 
-    friend ipstream&  operator>>(ipstream&, TStreamable&);
-    friend ipstream&  operator>>(ipstream&, void*&);
+    friend ipstream& operator>>(ipstream&, TStreamable&);
+    friend ipstream& operator>>(ipstream&, void*&);
 
 protected:
-     ipstream() noexcept;
+    ipstream() noexcept;
 
-    const TStreamableClass*  readPrefix();
-    void*  readData(const TStreamableClass*,
+    const TStreamableClass* readPrefix();
+    void* readData(const TStreamableClass*,
         TStreamable*);
-    void  readSuffix();
+    void readSuffix();
 
-    const void*  find(P_id_type);
-    void  registerObject(const void* adr);
+    const void* find(P_id_type);
+    void registerObject(const void* adr);
 
 private:
     TPReadObjects objs;
@@ -359,32 +358,32 @@ class TStreamableClass;
 class opstream : virtual public pstream {
 
 public:
-     opstream(std::streambuf*) noexcept;
-     ~opstream();
+    opstream(std::streambuf*) noexcept;
+    ~opstream();
 
-    std::streampos  tellp();
-    opstream&  seekp(std::streampos);
-    opstream&  seekp(std::streamoff, pstream::seekdir);
-    opstream&  flush();
+    std::streampos tellp();
+    opstream& seekp(std::streampos);
+    opstream& seekp(std::streamoff, pstream::seekdir);
+    opstream& flush();
 
-    void  writeByte(uchar);
-    void  writeBytes(const void*, size_t);
-    void  writeWord(ushort);
-    void  writeString(const char*);
-    void  writeString(TStringView);
+    void writeByte(uchar);
+    void writeBytes(const void*, size_t);
+    void writeWord(ushort);
+    void writeString(const char*);
+    void writeString(TStringView);
 
-    friend opstream&  operator<<(opstream&, TStreamable&);
-    friend opstream&  operator<<(opstream&, TStreamable*);
+    friend opstream& operator<<(opstream&, TStreamable&);
+    friend opstream& operator<<(opstream&, TStreamable*);
 
 protected:
-     opstream() noexcept;
+    opstream() noexcept;
 
-    void  writePrefix(const TStreamable&);
-    void  writeData(TStreamable&);
-    void  writeSuffix(const TStreamable&);
+    void writePrefix(const TStreamable&);
+    void writeData(TStreamable&);
+    void writeSuffix(const TStreamable&);
 
-    P_id_type  find(const void* adr);
-    void  registerObject(const void* adr);
+    P_id_type find(const void* adr);
+    void registerObject(const void* adr);
 
 private:
     TPWrittenObjects* objs;
@@ -406,11 +405,11 @@ private:
 class iopstream : public ipstream, public opstream {
 
 public:
-     iopstream(std::streambuf*) noexcept;
-     ~iopstream();
+    iopstream(std::streambuf*) noexcept;
+    ~iopstream();
 
 protected:
-     iopstream() noexcept;
+    iopstream() noexcept;
 };
 
 #endif // __iopstream
@@ -431,13 +430,13 @@ protected:
 class fpbase : virtual public pstream {
 
 public:
-     fpbase() noexcept;
-     fpbase(const char*, pstream::openmode);
-     ~fpbase();
+    fpbase() noexcept;
+    fpbase(const char*, pstream::openmode);
+    ~fpbase();
 
-    void  open(const char*, pstream::openmode);
-    void  close();
-    std::filebuf*  rdbuf() noexcept;
+    void open(const char*, pstream::openmode);
+    void close();
+    std::filebuf* rdbuf() noexcept;
 
 private:
     std::filebuf buf;
@@ -459,13 +458,13 @@ private:
 class ifpstream : public fpbase, public ipstream {
 
 public:
-     ifpstream() noexcept;
-     ifpstream(const char*,
+    ifpstream() noexcept;
+    ifpstream(const char*,
         pstream::openmode = std::ios::in);
-     ~ifpstream();
+    ~ifpstream();
 
-    std::filebuf*  rdbuf() noexcept;
-    void  open(const char*,
+    std::filebuf* rdbuf() noexcept;
+    void open(const char*,
         pstream::openmode = std::ios::in);
 };
 
@@ -511,12 +510,12 @@ public:
 class fpstream : public fpbase, public iopstream {
 
 public:
-     fpstream() noexcept;
-     fpstream(const char*, pstream::openmode);
-     ~fpstream();
+    fpstream() noexcept;
+    fpstream(const char*, pstream::openmode);
+    ~fpstream();
 
-    std::filebuf*  rdbuf() noexcept;
-    void  open(const char*, pstream::openmode);
+    std::filebuf* rdbuf() noexcept;
+    void open(const char*, pstream::openmode);
 };
 
 #endif // __fpstream

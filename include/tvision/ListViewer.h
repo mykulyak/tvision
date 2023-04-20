@@ -1,8 +1,8 @@
 #ifndef TVision_TListViewer_h
 #define TVision_TListViewer_h
 
-#include <tvision/View.h>
 #include <tvision/Palette.h>
+#include <tvision/View.h>
 
 class TScrollBar;
 

@@ -60,7 +60,7 @@ ushort messageBoxRect(const TRect& r, TStringView msg, ushort aOptions) noexcept
         x += buttonList[i]->size.x + 2;
     }
 
-    dialog->selectNext (false);
+    dialog->selectNext(false);
 
     ccode = TProgram::application->execView(dialog);
 
@@ -162,7 +162,7 @@ ushort inputBoxRect(const TRect& bounds,
 
     r.a.x += 12;
     r.b.x += 12;
-    dialog->selectNext (false);
+    dialog->selectNext(false);
     dialog->setData(s);
     c = TProgram::application->execView(dialog);
     if (c != cmCancel)

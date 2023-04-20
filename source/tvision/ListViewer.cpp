@@ -1,12 +1,12 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/ListViewer.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TListViewer::name = "TListViewer";
 
 const char* TListViewer::emptyText = "<empty>";
 
-__link(RView)
-__link(RScrollBar)
+__link(RView);
+__link(RScrollBar);
 
 TStreamableClass RListViewer(TListViewer::name,
     TListViewer::build,
@@ -79,7 +79,7 @@ void TListViewer::draw()
     else
         indent = 0;
 
-    focusedVis =  false;
+    focusedVis = false;
     colWidth = size.x / numCols + 1;
     for (i = 0; i < size.y; i++) {
         for (j = 0; j < numCols; j++) {

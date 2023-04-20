@@ -1,6 +1,6 @@
-#include <tvision/tobjstrm.h>
 #include <tvision/Menu.h>
 #include <tvision/MenuBox.h>
+#include <tvision/tobjstrm.h>
 
 const char* const TMenuBox::name = "TMenuBox";
 

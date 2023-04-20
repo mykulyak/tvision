@@ -1,37 +1,22 @@
-/*------------------------------------------------------------*/
-/*                                                            */
-/*   Calc.cpp:  TCalcDisplay member functions and TCalculator */
-/*              constructor                                   */
-/*                                                            */
-/*------------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#include <tvision/tv.h>
-__link(RView)
-    __link(RDialog)
-        __link(RButton)
-
+#include "calc.h"
 #include <cctype>
 #include <cstdlib>
 #include <cstring>
 #include <iomanip>
 #include <strstream>
-
-#include "calc.h"
+#include <tvision/tv.h>
 
 #define cpCalcPalette "\x13"
 
-    //
-    // TCalcDisplay functions
-    //
+__link(RView);
+__link(RDialog);
+__link(RButton);
 
-    const char* const TCalcDisplay::name
+//
+// TCalcDisplay functions
+//
+
+const char* const TCalcDisplay::name
     = "TCalcDisplay";
 
 void TCalcDisplay::write(opstream& os)

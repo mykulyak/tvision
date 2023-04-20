@@ -1,28 +1,10 @@
-/*-------------------------------------------------------*/
-/*                                                       */
-/*   Turbo Vision Forms Demo                             */
-/*                                                       */
-/*   Datacoll.cpp: Support source file for TVFORMS demo  */
-/*-------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
-#include <tvision/tv.h>
-__link(RStringCollection)
-
-#ifndef __DATACOLL_H
 #include "datacoll.h"
-#endif // __DATACOLL_H
-
 #include <cstring>
+#include <tvision/tv.h>
 
-    const char* const TDataCollection::name
-    = "TDataCollection";
+__link(RStringCollection);
+
+const char* const TDataCollection::name = "TDataCollection";
 
 void TDataCollection::write(opstream& os)
 {

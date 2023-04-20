@@ -3,15 +3,13 @@
 
 #ifdef _WIN32
 
-#include <tvision/compat/windows/windows.h>
 #include <atomic>
+#include <tvision/compat/windows/windows.h>
 #include <unordered_map>
 
-namespace tvision
-{
+namespace tvision {
 
-class WinWidth
-{
+class WinWidth {
     // Since there is no equivalent to wcwidth and the console API allows
     // having buffers out of sight, character widths are measured by printing
     // to a console buffer and taking the cursor position.
@@ -23,8 +21,8 @@ class WinWidth
     static thread_local WinWidth localInstance;
 
     std::unordered_map<uint32_t, short> results;
-    HANDLE cnHandle {INVALID_HANDLE_VALUE};
-    size_t currentReset {lastReset};
+    HANDLE cnHandle { INVALID_HANDLE_VALUE };
+    size_t currentReset { lastReset };
 
     int calcWidth(uint32_t) noexcept;
     void setUp() noexcept;
@@ -33,7 +31,6 @@ class WinWidth
     ~WinWidth();
 
 public:
-
     static int width(uint32_t) noexcept;
     static void reset() noexcept;
 };

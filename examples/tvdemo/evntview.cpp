@@ -1,14 +1,13 @@
-#include <tvision/tv.h>
-__link(RWindow)
-
+#include "evntview.h"
+#include "tvcmds.h"
 #include <iomanip>
 #include <iostream>
 #include <strstream>
+#include <tvision/tv.h>
 
-#include "evntview.h"
-#include "tvcmds.h"
+__link(RWindow);
 
-    const char* const TEventViewer::name
+const char* const TEventViewer::name
     = "TEventViewer";
 
 TStreamable* TEventViewer::build()
@@ -79,7 +78,7 @@ TEventViewer::TEventViewer(const TRect& bounds, ushort aBufSize) noexcept
 
 void TEventViewer::init(ushort aBufSize)
 {
-    stopped =  false;
+    stopped = false;
     eventCount = 0;
     bufSize = aBufSize;
     title = titles[stopped];
@@ -173,7 +172,7 @@ void TEventViewer::printEvent(std::ostream& out, const TEvent& ev)
         bool first = true;
         for (int i = 0; i < ev.keyDown.textLength; ++i) {
             if (first)
-                first =  false;
+                first = false;
             else
                 out << ", ";
             out << "0x" << (int)(uchar)ev.keyDown.text[i];
