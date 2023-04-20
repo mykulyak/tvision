@@ -11,7 +11,7 @@
  *
  */
 
-#if !defined( __TVDEMO_H )
+#ifndef  __TVDEMO_H 
 #define __TVDEMO_H
 
 class TStatusLine;

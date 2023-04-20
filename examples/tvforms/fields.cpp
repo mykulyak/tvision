@@ -15,14 +15,14 @@
 #include <tvision/tv.h>
 __link(RInputLine)
 
-#if !defined(__FIELDS_H)
+#ifndef __FIELDS_H
 #include "fields.h"
 #endif // __FIELDS_H
 
 #include <cstdlib>
 #include <cstring>
 
-#if !defined(__STRSTREAM_H)
+#ifndef __STRSTREAM_H
 #include <strstream>
 #endif // __STRSTREAM_H
 

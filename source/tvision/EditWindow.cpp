@@ -18,6 +18,12 @@
 
 const char* const TEditWindow::name = "TEditWindow";
 
+__link(RWindow)
+
+TStreamableClass REditWindow(TEditWindow::name,
+    TEditWindow::build,
+    __DELTA(TEditWindow));
+
 const char* TEditWindow::clipboardTitle = "Clipboard";
 const char* TEditWindow::untitled = "Untitled";
 
@@ -83,7 +89,7 @@ void TEditWindow::sizeLimits(TPoint& min, TPoint& max)
     min = minEditWinSize;
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TEditWindow::write(opstream& os)
 {

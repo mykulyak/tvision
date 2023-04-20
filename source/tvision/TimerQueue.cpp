@@ -3,7 +3,7 @@
 
 static TTimePoint systemTimeMs()
 {
-#if !defined(__FLAT__)
+#ifndef __FLAT__
     return THardwareInfo::getTickCount() * 55;
 #elif defined(__BORLANDC__)
     return GetTickCount();

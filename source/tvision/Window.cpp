@@ -202,7 +202,7 @@ void TWindow::zoom()
         locate(zoomRect);
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TWindow::write(opstream& os)
 {

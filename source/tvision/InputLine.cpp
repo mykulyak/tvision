@@ -11,13 +11,8 @@
  *      All Rights Reserved.
  *
  */
-
 #include <tvision/tobjstrm.h>
 #include <tvision/InputLine.h>
-
-#if !defined(__DOS_H)
-#include <dos.h>
-#endif // __DOS_H
 
 const char* const TInputLine::name = "TInputLine";
 
@@ -486,7 +481,7 @@ void TInputLine::updateCommands()
     setCmdState(cmPaste, true);
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TInputLine::write(opstream& os)
 {

@@ -14,10 +14,6 @@
 #include <tvision/tobjstrm.h>
 #include <tvision/Button.h>
 
-#if !defined(__DOS_H)
-#include <dos.h>
-#endif // __DOS_H
-
 const int
 
     cmGrabDefault
@@ -273,7 +269,7 @@ void TButton::press()
     }
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TButton::write(opstream& os)
 {

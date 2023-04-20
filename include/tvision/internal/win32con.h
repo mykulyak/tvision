@@ -1,7 +1,6 @@
 #ifndef WIN32CON_H
 #define WIN32CON_H
 
-#include <tvision/tv.h>
 #include <compat/windows/windows.h>
 #include <internal/stdioctl.h>
 #include <internal/termdisp.h>

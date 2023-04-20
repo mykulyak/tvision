@@ -5,8 +5,6 @@
 
 #ifdef HAVE_GPM
 
-#include <tvision/tv.h>
-
 #include <internal/cursor.h>
 #include <gpm.h>
 

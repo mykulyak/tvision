@@ -13,7 +13,7 @@
  *
  */
 
-#if !defined( __TVEDIT_H )
+#ifndef  __TVEDIT_H 
 #define __TVEDIT_H
 
 class TMenuBar;

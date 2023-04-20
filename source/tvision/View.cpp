@@ -867,7 +867,7 @@ void TView::shutDown()
     TObject::shutDown();
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TView::write(opstream& os)
 {

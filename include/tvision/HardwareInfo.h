@@ -18,13 +18,13 @@
 
 #if defined(__FLAT__)
 
-#if !defined(__WINDOWS_H)
+#ifndef __WINDOWS_H
 #include <tvision/compat/windows/windows.h>
 #endif
 
 #else
 
-#if !defined(MAKELONG)
+#ifndef MAKELONG
 #define MAKELONG(h, l) \
     ((long)(((unsigned)(l)) | (((long)((unsigned)(h))) << 16)))
 #endif

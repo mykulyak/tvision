@@ -11,14 +11,9 @@
  *      All Rights Reserved.
  *
  */
-
 #include <tvision/tobjstrm.h>
 #include <tvision/History.h>
 #include <tvision/HistoryWindow.h>
-
-#if !defined(__DOS_H)
-#include <dos.h>
-#endif // __DOS_H
 
 const char* const THistory::name = "THistory";
 
@@ -116,7 +111,7 @@ void THistory::recordHistory(const char* s)
     historyAdd(historyId, s);
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void THistory::write(opstream& os)
 {

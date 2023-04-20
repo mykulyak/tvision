@@ -98,7 +98,7 @@ bool TDialog::valid(ushort command)
         return TGroup::valid(command);
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TStreamable* TDialog::build()
 {

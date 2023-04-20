@@ -15,7 +15,7 @@
 #include <tvision/tv.h>
 __link(RStringCollection)
 
-#if !defined(__DATACOLL_H)
+#ifndef __DATACOLL_H
 #include "datacoll.h"
 #endif // __DATACOLL_H
 

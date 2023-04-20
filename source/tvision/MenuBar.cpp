@@ -98,7 +98,7 @@ TRect TMenuBar::getItemRect(TMenuItem* item)
     }
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TStreamable* TMenuBar::build()
 {

@@ -13,10 +13,10 @@
  *
  */
 
-#if !defined(__BORLANDC__)
+#ifndef __BORLANDC__
 #define __FLAT__
 
-#if !defined(_WIN32)
+#ifndef _WIN32
 #define __cdecl
 #define __stdcall
 #define _TV_UNIX
@@ -33,8 +33,8 @@
 #pragma clang diagnostic ignored "-Woverloaded-virtual"
 #endif
 
-#if !defined(__FLAT__)
-#if !defined(__LARGE__)
+#ifndef __FLAT__
+#ifndef __LARGE__
 #error TV needs the large memory model
 #endif
 #endif

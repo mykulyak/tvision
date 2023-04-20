@@ -1,5 +1,3 @@
-#include <tvision/tv.h>
-
 #include <chrono>
 #include <internal/base64.h>
 #include <internal/constmap.h>
@@ -10,7 +8,7 @@
 using std::chrono::milliseconds;
 using std::chrono::steady_clock;
 
-#include <time.h>
+#include <ctime>
 
 namespace tvision {
 

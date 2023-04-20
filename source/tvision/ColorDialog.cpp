@@ -3,6 +3,13 @@
 
 const char* const TColorDialog::name = "TColorDialog";
 
+__link(RLabel)
+__link(RDialog)
+
+TStreamableClass RColorDialog(TColorDialog::name,
+    TColorDialog::build,
+    __DELTA(TColorDialog));
+
 const char* TColorDialog::colors = "Colors";
 const char* TColorDialog::groupText = "~G~roup";
 const char* TColorDialog::itemText = "~I~tem";
@@ -147,7 +154,7 @@ void TColorDialog::getIndexes(TColorIndex*& colIdx)
         colIdx->colorIndex[index] = groups->getGroupIndex(index);
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TColorDialog::write(opstream& os)
 {

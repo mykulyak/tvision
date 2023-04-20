@@ -13,7 +13,7 @@
  *
  */
 
-#if !defined( __DATACOLL_H )
+#ifndef  __DATACOLL_H 
 #define __DATACOLL_H
 
 #include <tvision/tv.h>

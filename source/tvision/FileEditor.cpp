@@ -18,7 +18,7 @@
 #include <cstring>
 #include <fstream>
 
-#if !defined(__IO_H)
+#ifndef __IO_H
 #include <io.h>
 #endif // __IO_H
 
@@ -26,6 +26,12 @@
 #include <cstdlib>
 
 const char* const TFileEditor::name = "TFileEditor";
+
+__link(REditor)
+
+TStreamableClass RFileEditor(TFileEditor::name,
+    TFileEditor::build,
+    __DELTA(TFileEditor));
 
 const char* TFileEditor::backupExt = ".bak";
 
@@ -245,7 +251,7 @@ bool TFileEditor::valid(ushort command)
     return true;
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TFileEditor::write(opstream& os)
 {

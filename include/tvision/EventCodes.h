@@ -1,5 +1,5 @@
 
-#if !defined(__EVENT_CODES)
+#ifndef __EVENT_CODES
 #define __EVENT_CODES
 
 /* Event codes */
@@ -35,11 +35,11 @@ const int mwRight = 0x08;
 
 /* Mouse event flags */
 
-#if !defined(__FLAT__)
+#ifndef __FLAT__
 const int meMouseMoved = 0x01;
 const int meDoubleClick = 0x02;
 #else
-#if !defined(__WINDOWS_H)
+#ifndef __WINDOWS_H
 #include <tvision/compat/windows/windows.h>
 #endif
 const int meMouseMoved = MOUSE_MOVED; // NT values from WINDOWS.H

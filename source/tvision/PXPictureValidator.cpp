@@ -72,7 +72,7 @@ TPXPictureValidator::TPXPictureValidator(TStringView aPic, bool autoFill)
         status = vsSyntax;
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TPXPictureValidator::TPXPictureValidator(StreamableInit s) noexcept
     : TValidator(s)

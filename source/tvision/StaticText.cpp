@@ -105,7 +105,7 @@ void TStaticText::getText(char* s)
     }
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TStaticText::write(opstream& os)
 {

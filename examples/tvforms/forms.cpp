@@ -16,15 +16,15 @@
 __link(RDialog)
     __link(RView)
 
-#if !defined(__FORMS_H)
+#ifndef __FORMS_H
 #include "forms.h"
 #endif // __FORMS_H
 
-#if !defined(__LISTDLG_H)
+#ifndef __LISTDLG_H
 #include "listdlg.h"
 #endif // __LISTDLG_H
 
-#if !defined(__FORMCMDS_H)
+#ifndef __FORMCMDS_H
 #include "formcmds.h"
 #endif // __FORMCMDS_H
 

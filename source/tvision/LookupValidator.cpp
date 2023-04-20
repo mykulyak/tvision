@@ -26,7 +26,7 @@ TStreamableClass RLookupValidator(TLookupValidator::name,
     TLookupValidator::build,
     __DELTA(TLookupValidator));
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TLookupValidator::TLookupValidator(StreamableInit s) noexcept
     : TValidator(s)
@@ -45,7 +45,7 @@ bool TLookupValidator::lookup(const char* s)
     return true;
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 TStreamable* TLookupValidator::build()
 {
     return new TLookupValidator(streamableInit);

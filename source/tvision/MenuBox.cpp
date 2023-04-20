@@ -128,7 +128,7 @@ TRect TMenuBox::getItemRect(TMenuItem* item)
     return TRect(2, y, size.x - 2, y + 1);
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TStreamable* TMenuBox::build()
 {

@@ -13,7 +13,7 @@
  *
  */
 
-#if !defined(__TTYPES_H)
+#ifndef __TTYPES_H
 #define __TTYPES_H
 
 #ifdef __BORLANDC__
@@ -106,7 +106,7 @@ const int ccNotFound = -1;
 
 extern const uchar specialChars[];
 
-#if !defined(__FLAT__)
+#ifndef __FLAT__
 #define _genInt(i) __int__(i)
 #endif
 

@@ -21,11 +21,6 @@
 #include <tvision/SItem.h>
 #include <tvision/StringCollection.h>
 
-#include <cctype>
-#include <cstring>
-
-#include <dos.h>
-
 const char* const TCluster::name = "TCluster";
 
 __link(RView)
@@ -359,7 +354,7 @@ int TCluster::row(int item)
 
 bool TCluster::buttonState(int item)
 {
-    // #if !defined(__FLAT__)
+    // #ifndef __FLAT__
     //     ushort maskLo = enableMask & 0xffff;
     //     ushort maskHi = enableMask >> 16;
 
@@ -404,7 +399,7 @@ bool TCluster::buttonState(int item)
     // #endif
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TCluster::write(opstream& os)
 {

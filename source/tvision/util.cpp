@@ -163,7 +163,7 @@ void deleteString() noexcept
 {
     size_t len = curRec->len;
     HistRec* n = next(curRec);
-#if !defined(__FLAT__)
+#ifndef __FLAT__
     memmove(n, curRec, size_t((char*)lastRec - (char*)n));
 #else
     memcpy(curRec, n, size_t((char*)lastRec - (char*)n));
@@ -178,7 +178,7 @@ void insertString(uchar id, TStringView str) noexcept
         ushort firstLen = historyBlock->len;
         HistRec* dst = historyBlock;
         HistRec* src = next(historyBlock);
-#if !defined(__FLAT__)
+#ifndef __FLAT__
         memmove(src, dst, size_t((char*)lastRec - (char*)src));
 #else
         memcpy(dst, src, size_t((char*)lastRec - (char*)src));
@@ -659,7 +659,7 @@ static const TConstant keyCodes[] = {
 };
 
 static const TConstant controlKeyStateFlags[] = {
-#if !defined(__FLAT__)
+#ifndef __FLAT__
     NM(kbLeftShift),
     NM(kbRightShift),
     NM(kbCtrlShift),

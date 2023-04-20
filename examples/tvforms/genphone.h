@@ -14,7 +14,7 @@
 // Use GENFORMS.MAK to generate data files for TVFORMS demo
 // (this file is used in GENFORM.CPP).
 
-#if !defined( __GENPHONE_H )
+#ifndef  __GENPHONE_H 
 #define __GENPHONE_H
 
 #include <tvision/tv.h>
@@ -26,19 +26,19 @@ __link( RMenuBar )
 __link( RRadioButtons )
 __link( RFrame )
 
-#if !defined( __FORMS_H )
+#ifndef  __FORMS_H 
 #include "forms.h"
 #endif  // _FORMS_H
 
-#if !defined( __FORMCMDS_H )
+#ifndef  __FORMCMDS_H 
 #include "formcmds.h"
 #endif  // _FORMCMDS_H
 
-#if !defined( __DATACOLL_H )
+#ifndef  __DATACOLL_H 
 #include "datacoll.h"
 #endif  // _DATACOLL_H
 
-#if !defined( __FIELDS_H )
+#ifndef  __FIELDS_H 
 #include "fields.h"
 #endif  // _FIELDS_H
 

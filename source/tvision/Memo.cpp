@@ -11,13 +11,18 @@
  *      All Rights Reserved.
  *
  */
-
 #include <tvision/Memo.h>
 #include <iostream>
 
 #define cpMemo "\x1A\x1B"
 
 const char* const TMemo::name = "TMemo";
+
+__link(REditor)
+
+TStreamableClass RMemo(TMemo::name,
+    TMemo::build,
+    __DELTA(TMemo));
 
 TMemo::TMemo(const TRect& bounds,
     TScrollBar* aHScrollBar,
@@ -64,7 +69,7 @@ void TMemo::handleEvent(TEvent& event)
         TEditor::handleEvent(event);
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TMemo::write(opstream& os)
 {

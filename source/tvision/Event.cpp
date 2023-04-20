@@ -17,19 +17,15 @@
 
 #include <tvision/EventQueue.h>
 
-#if !defined(__FLAT__)
+#ifndef __FLAT__
 
-#if !defined(__BIOS_H)
+#ifndef __BIOS_H
 #include <bios.h>
 #endif // __BIOS_H
 
-#if !defined(__DOS_H)
-#include <dos.h>
-#endif // __DOS_H
-
 #endif
 
-#if !defined(__FLAT__)
+#ifndef __FLAT__
 TEvent TEventQueue::eventQueue[eventQSize] = { { 0 } };
 TEvent* TEventQueue::eventQHead = TEventQueue::eventQueue;
 TEvent* TEventQueue::eventQTail = TEventQueue::eventQueue;
@@ -224,7 +220,7 @@ bool TEventQueue::getMouseState(TEvent& ev) noexcept
 #endif
 }
 
-#if !defined(__FLAT__)
+#ifndef __FLAT__
 #pragma saveregs
 void __MOUSEHUGE TEventQueue::mouseInt()
 {

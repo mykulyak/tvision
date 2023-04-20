@@ -1,10 +1,7 @@
-#ifndef __TMonoSelector
-#define __TMonoSelector
+#ifndef TVision_TMonoSelector_h
+#define TVision_TMonoSelector_h
 
 #include <tvision/Cluster.h>
-
-class TRect;
-struct TEvent;
 
 class TMonoSelector : public TCluster {
 
@@ -55,4 +52,4 @@ inline opstream& operator<<(opstream& os, TMonoSelector* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TMonoSelector
+#endif // TVision_TMonoSelector_h

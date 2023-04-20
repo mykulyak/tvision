@@ -3,6 +3,12 @@
 
 const char* const TColorDisplay::name = "TColorDisplay";
 
+__link(RView)
+
+TStreamableClass RColorDisplay(TColorDisplay::name,
+    TColorDisplay::build,
+    __DELTA(TColorDisplay));
+
 TColorDisplay::TColorDisplay(const TRect& bounds, TStringView aText) noexcept
     : TView(bounds)
     , color(0)
@@ -51,7 +57,7 @@ void TColorDisplay::setColor(TColorAttr* aColor)
     drawView();
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TColorDisplay::write(opstream& os)
 {

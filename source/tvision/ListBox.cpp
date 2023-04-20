@@ -78,7 +78,7 @@ void TListBox::setData(void* rec)
     drawView();
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TListBox::write(opstream& os)
 {

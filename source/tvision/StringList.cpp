@@ -48,7 +48,7 @@ void TStringList::get(char* dest, ushort key)
     } while (count-- > 0);
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void* TStringList::read(ipstream& is)
 {

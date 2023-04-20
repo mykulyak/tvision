@@ -582,7 +582,7 @@ void TOutlineViewer::disposeNode(TNode* node) noexcept
     }
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void* TOutlineViewer::read(ipstream& ip)
 {
@@ -670,7 +670,7 @@ bool TOutline::hasChildren(TNode* node)
     return bool(node->childList != 0);
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TNode* TOutline::readNode(ipstream& ip)
 {

@@ -24,7 +24,7 @@ TRangeValidator::TRangeValidator(int32_t aMin, int32_t aMax) noexcept
         validChars = newStr(TRangeValidator::validSignedChars);
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TRangeValidator::TRangeValidator(StreamableInit s) noexcept
     : TFilterValidator(s)

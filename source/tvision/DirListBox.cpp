@@ -19,16 +19,6 @@
 #include <tvision/DirListBox.h>
 #include <tvision/FileCommands.h>
 
-#include <cstring>
-
-#if !defined(__DIR_H)
-#include <dir.h>
-#endif // __DIR_H
-
-#if !defined(__DOS_H)
-#include <dos.h>
-#endif // __DOS_H
-
 const char* const TDirListBox::name = "TDirListBox";
 
 const char* TDirListBox::pathDir = "\xC0\xC4\xC2";
@@ -211,7 +201,7 @@ void TDirListBox::setState(ushort nState, bool enable)
         ((TChDirDialog*)owner)->chDirButton->makeDefault(enable);
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TStreamable* TDirListBox::build()
 {

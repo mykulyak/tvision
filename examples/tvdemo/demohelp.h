@@ -1,4 +1,4 @@
-#if !defined( __DEMOHELP_H )
+#ifndef  __DEMOHELP_H 
 #define __DEMOHELP_H
 
 const int

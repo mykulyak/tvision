@@ -29,7 +29,7 @@ public:
     static void setCrtMode(ushort) noexcept;
     static ushort getCrtMode() noexcept;
 
-#if !defined(__FLAT__)
+#ifndef __FLAT__
     static int isEGAorVGA();
 #endif
 
@@ -39,7 +39,7 @@ protected:
     ~TDisplay() {};
 
 private:
-#if !defined(__FLAT__)
+#ifndef __FLAT__
     static void videoInt();
 #endif
 

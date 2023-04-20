@@ -5,8 +5,6 @@
 
 #ifdef HAVE_NCURSES
 
-#include <tvision/tv.h>
-
 namespace tvision
 {
 

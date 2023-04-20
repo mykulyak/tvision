@@ -11,6 +11,8 @@
  *      All Rights Reserved.
  *
  */
+#ifndef TVision_Dos_h
+#define TVision_Dos_h
 
 #ifdef __BORLANDC__
 #include <dos.h>
@@ -83,3 +85,5 @@ unsigned _dos_findnext( struct find_t *__finfo ) noexcept;
 #endif // TVISION_COMPAT_DOS_H
 
 #endif // __BORLANDC__
+
+#endif // TVision_Dos_h

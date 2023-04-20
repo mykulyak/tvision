@@ -14,7 +14,7 @@
  *
  */
 
-#if !defined(__EDIT_COMMAND_CODES)
+#ifndef __EDIT_COMMAND_CODES
 #define __EDIT_COMMAND_CODES
 
 const int

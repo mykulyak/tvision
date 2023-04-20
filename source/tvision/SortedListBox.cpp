@@ -112,7 +112,7 @@ void TSortedListBox::newList(TSortedCollection* aList)
     searchPos = -1;
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void* TSortedListBox::read(ipstream& is)
 {

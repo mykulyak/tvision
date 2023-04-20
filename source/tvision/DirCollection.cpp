@@ -11,20 +11,9 @@
  *      All Rights Reserved.
  *
  */
-
 #include <tvision/tobjstrm.h>
 #include <tvision/DirCollection.h>
 #include <tvision/DirEntry.h>
-
-#if !defined(__DIR_H)
-#include <dir.h>
-#endif // __DIR_H
-
-#include <cstring>
-
-#if !defined(__DOS_H)
-#include <dos.h>
-#endif // __DOS_H
 
 #pragma warn - asc
 
@@ -37,7 +26,7 @@ TStreamableClass RDirCollection(TDirCollection::name,
 bool driveValid(char drive) noexcept
 {
 #ifdef _WIN32
-#if !defined(__FLAT__)
+#ifndef __FLAT__
     I MOV AH, 19H // Save the current drive in BL
         I INT 21H I MOV BL,
         AL

@@ -11,16 +11,18 @@
  *      All Rights Reserved.
  *
  */
-
-#include <tvision/Indicator.h>
-
-#if !defined(__STRSTREA_H)
 #include <strstream>
-#endif // __STRSTREA_H
+#include <tvision/Indicator.h>
 
 #define cpIndicator "\x02\x03"
 
 const char* const TIndicator::name = "TIndicator";
+
+__link(RView)
+
+TStreamableClass RIndicator(TIndicator::name,
+    TIndicator::build,
+    __DELTA(TIndicator));
 
 const char TIndicator::dragFrame = '\xCD';
 const char TIndicator::normalFrame = '\xC4';
@@ -82,7 +84,7 @@ void TIndicator::setValue(const TPoint& aLocation, bool aModified)
     }
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TStreamable* TIndicator::build()
 {

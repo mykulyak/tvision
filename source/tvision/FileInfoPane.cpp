@@ -117,7 +117,7 @@ void TFileInfoPane::handleEvent(TEvent& event)
     }
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TStreamable* TFileInfoPane::build()
 {

@@ -11,7 +11,7 @@
  *
  */
 
-#if !defined( __MOUSEDLG_H )
+#ifndef  __MOUSEDLG_H 
 #define __MOUSEDLG_H
 
 class TClickTester : public TStaticText

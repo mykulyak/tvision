@@ -1,7 +1,5 @@
 #ifdef HAVE_GPM
 
-#include <tvision/tv.h>
-
 #include <algorithm>
 #include <cstdlib>
 #include <gpm.h>

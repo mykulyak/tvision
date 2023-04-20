@@ -45,7 +45,7 @@ TPalette& TBackground::getPalette() const
     return palette;
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TBackground::TBackground(StreamableInit) noexcept
     : TView(streamableInit)

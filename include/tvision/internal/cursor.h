@@ -1,8 +1,6 @@
 #ifndef TVISION_CURSOR_H
 #define TVISION_CURSOR_H
 
-#include <tvision/tv.h>
-
 #include <internal/dispbuff.h>
 
 namespace tvision

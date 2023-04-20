@@ -12,7 +12,7 @@
  *
  */
 
-#if !defined(__FORMCMDS_H )
+#ifndef __FORMCMDS_H 
 #define __FORMCMDS_H
 
 // Misc UI commands

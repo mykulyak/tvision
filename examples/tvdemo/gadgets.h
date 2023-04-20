@@ -11,7 +11,7 @@
  *
  */
 
-#if !defined( __GADGETS_H )
+#ifndef  __GADGETS_H 
 #define __GADGETS_H
 
 #include <tvision/tv.h>

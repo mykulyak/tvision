@@ -1,7 +1,5 @@
 #ifdef HAVE_NCURSES
 
-#include <tvision/tv.h>
-
 #include <cstdio>
 #include <cstdlib>
 #include <internal/ncurdisp.h>

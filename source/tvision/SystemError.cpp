@@ -11,14 +11,9 @@
  *      All Rights Reserved.
  *
  */
-#include <dos.h>
-#include <cmath>
-#include <cstdio>
-#include <cstring>
 #include <tvision/SystemError.h>
 
-
-#if !defined(__FLAT__)
+#ifndef __FLAT__
 const char* const TSystemError::errorString[] = {
     "Disk in drive %c is write protected", // 0
     "Unknown unit %c", // 1 - NEW
@@ -50,7 +45,7 @@ const char* TSystemError::sRetryOrCancel = "~Enter~ Retry  ~Esc~ Cancel";
 bool TSystemError::ctrlBreakHit =  false;
 bool TSystemError::saveCtrlBreak =  false;
 
-#if !defined(__FLAT__)
+#ifndef __FLAT__
 short (*TSystemError::sysErrorFunc)(short, uchar) = &TSystemError::sysErr;
 ushort TSystemError::sysColorAttr = 0x4E4F;
 ushort TSystemError::sysMonoAttr = 0x7070;
@@ -78,7 +73,7 @@ static void checkIDE()
 
 TSystemError::TSystemError() noexcept
 {
-#if !defined(__FLAT__)
+#ifndef __FLAT__
     inIDE =  false;
     checkIDE();
 
@@ -91,7 +86,7 @@ TSystemError::TSystemError() noexcept
 TSystemError::~TSystemError()
 {
     suspend();
-#if !defined(__FLAT__)
+#ifndef __FLAT__
     if (THardwareInfo::getDPMIFlag())
         shutdownDPMI();
 #endif
@@ -109,7 +104,7 @@ void TSystemError::suspend() noexcept
 }
 #endif
 
-#if !defined(__FLAT__)
+#ifndef __FLAT__
 ushort TSystemError::selectKey()
 {
     TEvent key;

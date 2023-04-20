@@ -3,7 +3,7 @@
 
 #include <tvision/ListBox.h>
 
-#if !defined(__DIR_H)
+#ifndef __DIR_H
 #include <tvision/compat/borland/dir.h>
 #endif // __DIR_H
 

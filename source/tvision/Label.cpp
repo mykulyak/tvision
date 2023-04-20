@@ -91,7 +91,7 @@ void TLabel::handleEvent(TEvent& event)
     }
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TLabel::write(opstream& os)
 {

@@ -1,7 +1,6 @@
 #ifndef TVISION_STDIOCTL_H
 #define TVISION_STDIOCTL_H
 
-#include <tvision/tv.h>
 #include <cstdio>
 
 #ifdef _WIN32

@@ -1,10 +1,7 @@
 #ifndef TVISION_TERMINAL_H
 #define TVISION_TERMINAL_H
 
-#include <tvision/tv.h>
-
-#include "Event.h"
-
+#include <tvision/Event.h>
 #include <tvision/compat/windows/windows.h>
 
 namespace tvision

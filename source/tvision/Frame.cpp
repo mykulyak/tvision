@@ -219,7 +219,7 @@ void TFrame::setState(ushort aState, bool enable)
         drawView();
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TStreamable* TFrame::build()
 {

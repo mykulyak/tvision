@@ -624,7 +624,7 @@ ushort TGroup::getHelpCtx()
     return h;
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 static void doPut(TView* p, void* osp)
 {

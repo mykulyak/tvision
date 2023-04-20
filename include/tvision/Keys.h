@@ -120,7 +120,7 @@ const ushort
 // The kbScrollState, kbNumState, kbCapsState and kbEnhanced flags are only
 // reported on DOS and Windows.
 
-#if !defined(__FLAT__)
+#ifndef __FLAT__
     kbLeftShift = 0x0001,
     kbRightShift = 0x0002,
     kbShift = kbLeftShift | kbRightShift,
@@ -155,7 +155,7 @@ const ushort
 
 #endif // __TKeys
 
-#if !defined(__TKey)
+#ifndef __TKey
 #define __TKey
 
 //// TKey

@@ -29,7 +29,7 @@ protected:
     static void getEvent(MouseEventType&) noexcept;
     static bool present() noexcept;
 
-#if !defined(__FLAT__)
+#ifndef __FLAT__
     static void registerHandler(unsigned, void (*)());
 #endif
 
@@ -68,7 +68,7 @@ public:
     static void getEvent(MouseEventType&) noexcept;
     static bool present() noexcept;
 
-#if !defined(__FLAT__)
+#ifndef __FLAT__
     static void registerHandler(unsigned, void (*)());
 #endif
 
@@ -104,7 +104,7 @@ inline bool TMouse::present() noexcept
     return THWMouse::present();
 }
 
-#if !defined(__FLAT__)
+#ifndef __FLAT__
 inline void TMouse::registerHandler(unsigned mask, void (*func)())
 {
     THWMouse::registerHandler(mask, func);

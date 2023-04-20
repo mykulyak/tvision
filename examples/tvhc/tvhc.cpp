@@ -88,31 +88,10 @@
 /*                                                                       */
 /*    Lines starting with ';' are skipped.                               */
 /*=======================================================================*/
-#include <climits>
-#include <cstring>
-#include <cctype>
-#include <cstdlib>
-#include <fstream>
 #include <strstream>
-#include <cerrno>
-#include <cstdio>
 #include <tvision/tv.h>
 
-#if !defined(__TVHC_H)
 #include "tvhc.h"
-#endif // __TVHC_H
-
-#if !defined __DOS_H
-#include <dos.h>
-#endif // __DOS_H
-
-#if !defined(__DIR_H)
-#include <dir.h>
-#endif // __DIR_H
-
-#if !defined(__IO_H)
-#include <io.h>
-#endif // __IO_H
 
 /*
  * Help compiler global variables.

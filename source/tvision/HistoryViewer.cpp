@@ -11,15 +11,7 @@
  *      All Rights Reserved.
  *
  */
-
 #include <tvision/HistoryViewer.h>
-
-#include <cctype>
-#include <cstring>
-
-#if !defined(__DOS_H)
-#include <dos.h>
-#endif // __DOS_H
 
 #define cpHistoryViewer "\x06\x06\x07\x06\x06"
 

@@ -153,7 +153,7 @@ void TVMemMgr::freeDiscardable(void* block) noexcept
 
 #if defined(__BORLANDC__)
 
-#if !defined(NDEBUG)
+#ifndef NDEBUG
 const int BLK_SIZE = 16;
 const int BLK_DATA = 0xA6;
 #else
@@ -181,7 +181,7 @@ void* allocBlock(size_t sz)
                 abort();
         }
     }
-#if !defined(NDEBUG)
+#ifndef NDEBUG
     memset(temp, BLK_DATA, BLK_SIZE);
 #endif
     return (char*)temp + BLK_SIZE;
@@ -197,7 +197,7 @@ void* operator new(size_t sz)
     return allocBlock(sz);
 }
 
-#if !defined(NDEBUG)
+#ifndef NDEBUG
 static void check(void* blk)
 {
     for (int i = 0; i < BLK_SIZE; i++)
@@ -211,7 +211,7 @@ static void deleteBlock(void* blk)
     if (blk == 0)
         return;
     void* tmp = (char*)blk - BLK_SIZE;
-#if !defined(NDEBUG)
+#ifndef NDEBUG
     check(tmp);
 #endif
     free(tmp);

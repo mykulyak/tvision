@@ -1,8 +1,6 @@
 #ifndef TVISION_DISPBUFF_H
 #define TVISION_DISPBUFF_H
 
-#include <tvision/tv.h>
-
 #include <vector>
 #include <chrono>
 

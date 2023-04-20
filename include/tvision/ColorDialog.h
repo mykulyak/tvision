@@ -5,7 +5,6 @@
 #include <tvision/ColorGroup.h>
 
 class TColorGroup;
-struct TEvent;
 class TColorDisplay;
 class TColorGroupList;
 class TLabel;

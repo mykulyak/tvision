@@ -1,10 +1,6 @@
 #ifndef TVISION_STRINGS_H
 #define TVISION_STRINGS_H
 
-#ifndef _TV_VERSION
-#include <tvision/tv.h>
-#endif
-
 namespace tvision
 {
 

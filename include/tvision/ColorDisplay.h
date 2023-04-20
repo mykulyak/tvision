@@ -1,14 +1,10 @@
 #ifndef __TColorDisplay
 #define __TColorDisplay
 
-#include <tvision/View.h>
 #include <tvision/StringView.h>
-
-class TRect;
-struct TEvent;
+#include <tvision/View.h>
 
 class TColorDisplay : public TView {
-
 public:
     TColorDisplay(const TRect& bounds, TStringView aText) noexcept;
     virtual ~TColorDisplay();

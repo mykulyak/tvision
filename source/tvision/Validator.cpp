@@ -13,7 +13,7 @@ TValidator::TValidator() noexcept
     options = 0;
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 #pragma argsused
 TValidator::TValidator(StreamableInit s) noexcept
@@ -46,7 +46,7 @@ bool TValidator::isValid(const char* s)
     return true;
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TValidator::write(opstream& os)
 {
@@ -70,7 +70,7 @@ bool TValidator::validate(const char* s)
     return true;
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TStreamable* TValidator::build()
 {

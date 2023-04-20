@@ -192,7 +192,7 @@ bool TChDirDialog::valid(ushort command)
     return true;
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TChDirDialog::write(opstream& os)
 {

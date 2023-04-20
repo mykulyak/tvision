@@ -1,8 +1,6 @@
 #ifndef TVISION_SIGHANDL_H
 #define TVISION_SIGHANDL_H
 
-#include <tvision/tv.h>
-
 #ifdef _TV_UNIX
 #include <signal.h>
 #include <atomic>

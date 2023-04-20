@@ -6,7 +6,6 @@
 #include <internal/win32con.h>
 #include <internal/winwidth.h>
 #include <locale.h>
-#include <tvision/tv.h>
 
 namespace tvision {
 

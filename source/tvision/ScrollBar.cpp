@@ -14,10 +14,6 @@
 #include <tvision/tobjstrm.h>
 #include <tvision/ScrollBar.h>
 
-#if !defined(__DOS_H)
-#include <dos.h>
-#endif // __DOS_H
-
 #define cpScrollBar "\x04\x05\x05"
 
 const char* const TScrollBar::name = "TScrollBar";
@@ -321,7 +317,7 @@ void TScrollBar::setValue(int aValue) noexcept
     setParams(aValue, minVal, maxVal, pgStep, arStep);
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TScrollBar::write(opstream& os)
 {

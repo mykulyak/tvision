@@ -3,7 +3,6 @@
 
 #ifdef _WIN32
 
-#include <tvision/tv.h>
 #include <tvision/compat/windows/windows.h>
 #include <atomic>
 #include <unordered_map>

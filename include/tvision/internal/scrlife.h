@@ -1,8 +1,6 @@
 #ifndef TVISION_SCRLIFE_H
 #define TVISION_SCRLIFE_H
 
-#include <tvision/tv.h>
-
 #ifdef _TV_UNIX
 
 namespace tvision

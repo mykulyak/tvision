@@ -39,11 +39,11 @@ __link(RResourceCollection)
 #include <cstdlib>
 #include <cstring>
 
-#if !defined(__FORMCMDS_H)
+#ifndef __FORMCMDS_H
 #include "formcmds.h"
 #endif // __FORMCMDS_H
 
-#if !defined(__LISTDLG_H)
+#ifndef __LISTDLG_H
 #include "listdlg.h"
 #endif // __LISTDLG_H
 

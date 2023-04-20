@@ -1,8 +1,6 @@
 #ifndef TVISION_SIGWINCH_H
 #define TVISION_SIGWINCH_H
 
-#include <tvision/tv.h>
-
 #ifdef _TV_UNIX
 #include <internal/events.h>
 #include <signal.h>

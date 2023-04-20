@@ -349,7 +349,7 @@ void TListViewer::shutDown()
     TView::shutDown();
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TListViewer::write(opstream& os)
 {

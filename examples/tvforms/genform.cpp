@@ -28,7 +28,7 @@ __link(RResourceCollection)
 #error Specify PHONENUM or PARTS as a conditional define, compile and then run.
 #endif
 
-#if !defined(__FORMS_H)
+#ifndef __FORMS_H
 #include "forms.h"
 #endif // __FORMS_H
 

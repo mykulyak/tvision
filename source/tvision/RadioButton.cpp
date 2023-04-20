@@ -50,7 +50,7 @@ void TRadioButtons::setData(void* rec)
     sel = (int)value;
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TStreamable* TRadioButtons::build()
 {

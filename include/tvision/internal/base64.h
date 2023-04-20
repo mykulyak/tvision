@@ -1,7 +1,6 @@
 #ifndef TVISION_BASE64_H
 #define TVISION_BASE64_H
 
-#include <tvision/tv.h>
 #include <string>
 
 namespace tvision

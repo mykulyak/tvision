@@ -496,7 +496,7 @@ TMenuView* TMenuView::newSubView(const TRect& bounds,
     return new TMenuBox(bounds, aMenu, aParentMenu);
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TMenuView::writeMenu(opstream& os, TMenu* menu)
 {

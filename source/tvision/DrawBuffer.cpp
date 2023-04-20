@@ -14,11 +14,9 @@
  *      All Rights Reserved.
  *
  */
-#include <cstring>
-#include <dos.h>
 #include <tvision/DrawBuffer.h>
 
-#if !defined(__BORLANDC__)
+#ifndef __BORLANDC__
 #define register
 #endif
 
@@ -46,7 +44,7 @@ void TDrawBuffer::moveBuf(ushort indent, const void* source,
     TColorAttr attr, ushort count) noexcept
 
 {
-#if !defined(__FLAT__)
+#ifndef __FLAT__
 
     I MOV CX, count I JCXZ __5 I PUSH DS
 
@@ -117,7 +115,7 @@ void TDrawBuffer::moveBuf(ushort indent, const void* source,
 
 void TDrawBuffer::moveChar(ushort indent, char c, TColorAttr attr, ushort count) noexcept
 {
-#if !defined(__FLAT__)
+#ifndef __FLAT__
     I MOV CX, count I JCXZ __4
 
                   _ES

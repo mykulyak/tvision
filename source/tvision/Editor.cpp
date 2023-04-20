@@ -99,7 +99,7 @@ TEditor* TEditor::clipboard = 0;
 
 ushort scanKeyMap(const void* keyMap, ushort keyCode)
 {
-#if !defined(__FLAT__)
+#ifndef __FLAT__
     asm {
     PUSH DS
     LDS SI,keyMap
@@ -152,6 +152,13 @@ __4:
 #define cpEditor "\x06\x07"
 
 const char* const TEditor::name = "TEditor";
+
+__link(RView)
+__link(RScrollBar)
+
+TStreamableClass REditor(TEditor::name,
+    TEditor::build,
+    __DELTA(TEditor));
 
 TEditor::TEditor(const TRect& bounds,
     TScrollBar* aHScrollBar,
@@ -1384,7 +1391,7 @@ uint TEditor::prevChar(uint P)
     return 0;
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TEditor::write(opstream& os)
 {

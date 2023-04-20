@@ -19,25 +19,20 @@
  *      All Rights Reserved.
  *
  */
-
-#include <tvision/ColorCommandCodes.h>
-#include <tvision/ColorDialog.h>
-#include <tvision/ColorDisplay.h>
-#include <tvision/ColorGroup.h>
-#include <tvision/ColorGroupList.h>
-#include <tvision/ColorItem.h>
-#include <tvision/ColorItemList.h>
-#include <tvision/ColorSelector.h>
-#include <tvision/CommandCodes.h>
-#include <tvision/Event.h>
-#include <tvision/Label.h>
-#include <tvision/ListViewer.h>
-#include <tvision/MonoSelector.h>
 #include <tvision/util.h>
-
-#include <cstring>
+#include <tvision/tobjstrm.h>
+#include <tvision/ColorCommandCodes.h>
+#include <tvision/ColorSelector.h>
 
 const char* const TColorSelector::name = "TColorSelector";
+
+__link(RView)
+__link(RButton)
+__link(RListViewer)
+
+TStreamableClass RColorSelector(TColorSelector::name,
+    TColorSelector::build,
+    __DELTA(TColorSelector));
 
 const char TColorSelector::icon = '\xDB';
 
@@ -220,7 +215,7 @@ void TColorSelector::handleEvent(TEvent& event)
     clearEvent(event);
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TColorSelector::write(opstream& os)
 {
@@ -250,6 +245,10 @@ TColorSelector::TColorSelector(StreamableInit) noexcept
 #endif
 
 const char* const TColorGroupList::name = "TColorGroupList";
+
+TStreamableClass RColorGroupList(TColorGroupList::name,
+    TColorGroupList::build,
+    __DELTA(TColorGroupList));
 
 TColorGroupList::TColorGroupList(const TRect& bounds,
     TScrollBar* aScrollBar,
@@ -307,7 +306,7 @@ void TColorGroupList::getText(char* dest, short item, short maxChars)
     dest[maxChars] = '\0';
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TColorGroupList::writeItems(opstream& os, TColorItem* items)
 {
@@ -386,7 +385,7 @@ uchar TColorGroupList::getNumGroups()
     return n;
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TColorGroupList::write(opstream& os)
 {
@@ -450,6 +449,10 @@ TColorGroupList::TColorGroupList(StreamableInit) noexcept
 
 const char* const TColorItemList::name = "TColorItemList";
 
+TStreamableClass RColorItemList(TColorItemList::name,
+    TColorItemList::build,
+    __DELTA(TColorItemList));
+
 TColorItemList::TColorItemList(const TRect& bounds,
     TScrollBar* aScrollBar,
     TColorItem* aItems) noexcept
@@ -510,7 +513,7 @@ void TColorItemList::handleEvent(TEvent& event)
     }
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TStreamable* TColorItemList::build()
 {

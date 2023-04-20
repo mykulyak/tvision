@@ -11,7 +11,6 @@
  *      All Rights Reserved.
  *
  */
-
 #include <tvision/Screen.h>
 
 #if !defined(__FLAT__) && !defined(__DOS_H)
@@ -36,7 +35,7 @@ bool TScreen::clearOnSuspend = true;
 static unsigned getCodePage() noexcept
 {
 #if defined(__BORLANDC__)
-#if !defined(__FLAT__)
+#ifndef __FLAT__
     //  get version number, in the form of a normal number
     unsigned ver = (_version >> 8) | (_version << 8);
     if (ver < 0x30C)
@@ -96,7 +95,7 @@ ushort TDisplay::getCursorType() noexcept
 #endif
 }
 
-#if !defined(__FLAT__)
+#ifndef __FLAT__
 int TDisplay::isEGAorVGA(void)
 {
     _BL = 0x10;
@@ -153,7 +152,7 @@ void TDisplay::clearScreen(uchar w, uchar h) noexcept
 
 #pragma warn - asc
 
-#if !defined(__FLAT__)
+#ifndef __FLAT__
 void TDisplay::videoInt() {
 
     I PUSH BP
@@ -315,7 +314,7 @@ void TScreen::setCrtData() noexcept
     screenHeight = getRows();
     hiResScreen = bool(screenHeight > 25);
 
-#if !defined(__FLAT__)
+#ifndef __FLAT__
     if (screenMode == smMono) {
         screenBuffer = THardwareInfo::getMonoAddr();
         checkSnow =  false;

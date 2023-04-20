@@ -11,7 +11,7 @@
  *
  */
 
-#if !defined( __FILEVIEW_H )
+#ifndef  __FILEVIEW_H 
 #define __FILEVIEW_H
 
 #include <tvision/tv.h>

@@ -19,24 +19,16 @@
  *      All Rights Reserved.
  *
  */
-
 #include <tvision/ColorCommandCodes.h>
-#include <tvision/ColorDialog.h>
-#include <tvision/ColorDisplay.h>
-#include <tvision/ColorGroup.h>
-#include <tvision/ColorGroupList.h>
-#include <tvision/ColorItemList.h>
-#include <tvision/ColorSelector.h>
-#include <tvision/Event.h>
-#include <tvision/EventCodes.h>
-#include <tvision/Group.h>
-#include <tvision/Label.h>
 #include <tvision/MonoSelector.h>
-#include <tvision/SItem.h>
-
-#include <cstring>
 
 const char* const TMonoSelector::name = "TMonoSelector";
+
+__link(RCluster)
+
+TStreamableClass RMonoSelector(TMonoSelector::name,
+    TMonoSelector::build,
+    __DELTA(TMonoSelector));
 
 const char* TMonoSelector::button = " ( ) ";
 const char* TMonoSelector::normal = "Normal";
@@ -91,7 +83,7 @@ void TMonoSelector::movedTo(int item)
     newColor();
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TStreamable* TMonoSelector::build()
 {

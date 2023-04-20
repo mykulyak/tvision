@@ -1,10 +1,6 @@
 #ifndef TVISION_CODEPAGE_H
 #define TVISION_CODEPAGE_H
 
-#ifndef _TV_VERSION
-#include <tvision/tv.h>
-#endif
-
 #include <unordered_map>
 #include <array>
 

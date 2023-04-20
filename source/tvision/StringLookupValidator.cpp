@@ -33,7 +33,7 @@ TStringLookupValidator::TStringLookupValidator(TStringCollection* aStrings) noex
     strings = aStrings;
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TStringLookupValidator::write(opstream& os)
 {
@@ -84,7 +84,7 @@ void TStringLookupValidator::newStringList(TStringCollection* aStrings)
     strings = aStrings;
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TStreamable* TStringLookupValidator::build()
 {

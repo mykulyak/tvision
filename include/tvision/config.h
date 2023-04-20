@@ -14,7 +14,7 @@
  *
  */
 
-#if !defined(__CONFIG_H)
+#ifndef __CONFIG_H
 #define __CONFIG_H
 
 #include <climits>

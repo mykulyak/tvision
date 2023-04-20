@@ -1,5 +1,5 @@
-#ifndef __TCluster
-#define __TCluster
+#ifndef TVision_TCluster_h
+#define TVision_TCluster_h
 
 #include <tvision/View.h>
 
@@ -14,9 +14,7 @@
 /*        5 = Disabled text                                               */
 /* ---------------------------------------------------------------------- */
 
-class TRect;
 class TSItem;
-struct TEvent;
 class TPoint;
 class TStringCollection;
 
@@ -89,4 +87,4 @@ inline opstream& operator<<(opstream& os, TCluster* cl)
     return os << (TStreamable*)cl;
 }
 
-#endif // __TCluster
+#endif // TVision_TCluster_h

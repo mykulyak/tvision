@@ -54,7 +54,7 @@ void TMenuPopup::handleEvent(TEvent& event)
     TMenuBox::handleEvent(event);
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TStreamable* TMenuPopup::build()
 {

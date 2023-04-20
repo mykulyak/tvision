@@ -11,11 +11,8 @@
  *      All Rights Reserved.
  *
  */
-
-#include <tvision/tv.h>
-
-#if !defined(__FLAT__)
-#if !defined(__DOS_H)
+#ifndef __FLAT__
+#ifndef __DOS_H
 #include <dos.h>
 #endif // __DOS_H
 #endif // __FLAT__
@@ -117,7 +114,7 @@ void THWMouse::hide() noexcept
 #pragma argsused
 void THWMouse::setRange(ushort rx, ushort ry) noexcept
 {
-#if !defined(__FLAT__)
+#ifndef __FLAT__
     if (buttonCount != 0) {
         _DX = rx;
         _DX <<= 3;
@@ -155,7 +152,7 @@ void THWMouse::getEvent(MouseEventType& me) noexcept
 #endif
 }
 
-#if !defined(__FLAT__)
+#ifndef __FLAT__
 void THWMouse::registerHandler(unsigned mask, void (*func)())
 {
     if (!present())

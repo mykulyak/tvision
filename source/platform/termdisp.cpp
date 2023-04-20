@@ -1,5 +1,3 @@
-#include <tvision/tv.h>
-
 #include <internal/getenv.h>
 #include <internal/linuxcon.h>
 #include <internal/termdisp.h>

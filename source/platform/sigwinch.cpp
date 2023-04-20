@@ -1,5 +1,3 @@
-#include <tvision/tv.h>
-
 #ifdef _TV_UNIX
 
 #include <internal/sigwinch.h>

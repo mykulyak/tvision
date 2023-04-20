@@ -37,7 +37,7 @@ void* TResourceCollection::keyOf(void* item)
     return ((TResourceItem*)item)->key;
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TStreamable* TResourceCollection::build()
 {

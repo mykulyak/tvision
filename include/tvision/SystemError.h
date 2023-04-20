@@ -37,14 +37,14 @@ public:
     static void suspend() noexcept;
     static void resume() noexcept;
 
-#if !defined(__FLAT__)
+#ifndef __FLAT__
     static short (*sysErrorFunc)(short, uchar);
 #endif
 
 private:
     static bool saveCtrlBreak;
 
-#if !defined(__FLAT__)
+#ifndef __FLAT__
     static ushort sysColorAttr;
     static ushort sysMonoAttr;
     static bool sysErrActive;
@@ -71,7 +71,7 @@ private:
 #endif
 };
 
-#if !defined(__FLAT__)
+#ifndef __FLAT__
 class Int11trap {
 
 public:

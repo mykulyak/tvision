@@ -13,6 +13,9 @@
  *
  */
 
+#ifndef TVision_Dir_h
+#define TVision_Dir_h
+
 #ifdef __BORLANDC__
 #include <dir.h>
 #else
@@ -72,3 +75,5 @@ int setdisk( int __drive ) noexcept;
 #endif // TVISION_COMPAT_DIR_H
 
 #endif // __BORLANDC__
+
+#endif // TVision_Dir_h

@@ -1,12 +1,10 @@
+#ifndef TVision_TView_h
+#define TVision_TView_h
 
-#ifndef __TView
-#define __TView
-
-#include "ttypes.h"
-#include "Object.h"
-#include "CommandSet.h"
-#include "tobjstrm.h"
-#include "Span.h"
+#include <tvision/tobjstrm.h>
+#include <tvision/Object.h>
+#include <tvision/CommandSet.h>
+#include <tvision/Span.h>
 #include <tvision/DrawBuffer.h>
 #include <tvision/Palette.h>
 
@@ -220,4 +218,4 @@ inline void TView::writeLine(short x, short y, short w, short h,
     writeLine(x, y, min(w, short(b.length() - x)), h, &b.data[0]);
 }
 
-#endif // __TView
+#endif // TVision_TView_h

@@ -39,7 +39,7 @@ void TCheckBoxes::press(int item)
     value = value ^ (1 << item);
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TStreamable* TCheckBoxes::build()
 {

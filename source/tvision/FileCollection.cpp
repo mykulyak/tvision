@@ -11,17 +11,10 @@
  *      All Rights Reserved.
  *
  */
-
 #include <tvision/tobjstrm.h>
 #include <tvision/FileCollection.h>
 #include <tvision/FileInputLine.h>
 #include <tvision/SearchRec.h>
-
-#include <cstring>
-
-#if !defined(__DOS_H)
-#include <dos.h>
-#endif // __DOS_H
 
 const char* const TFileCollection::name = "TFileCollection";
 

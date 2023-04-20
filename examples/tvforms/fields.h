@@ -13,7 +13,7 @@
  *
  */
 
-#if !defined( __FIELDS_H )
+#ifndef  __FIELDS_H 
 #define __FIELDS_H
 
 #include <tvision/tv.h>

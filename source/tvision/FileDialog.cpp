@@ -20,7 +20,7 @@
 #include <tvision/FileList.h>
 #include <tvision/Label.h>
 
-#if !defined(__DIR_H)
+#ifndef __DIR_H
 #include <dir.h>
 #endif // __DIR_H
 
@@ -333,7 +333,7 @@ bool TFileDialog::valid(ushort command)
     return  false;
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TFileDialog::write(opstream& os)
 {

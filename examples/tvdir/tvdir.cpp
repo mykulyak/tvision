@@ -8,10 +8,6 @@
  *      All Rights Reserved.
  *
  */
-
-#include <cstdio>
-#include <cstring>
-#include <dos.h>
 #include <strstream>
 #include <tvision/tv.h>
 

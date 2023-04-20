@@ -6,14 +6,11 @@
 /*                                                                         */
 /* ------------------------------------------------------------------------*/
 
-#ifndef TVISION_TSTRVIEW_H
-#define TVISION_TSTRVIEW_H
+#ifndef TVision_StringView_h
+#define TVision_StringView_h
 
-#include <cstring>
-#include <iosfwd>
-
-#include "Span.h"
-#include "ttypes.h"
+#include <tvision/ttypes.h>
+#include <tvision/Span.h>
 
 #ifdef TVISION_STL
 #include <string>
@@ -41,10 +38,14 @@ public:
 #if defined(TVISION_STL) && (__cplusplus >= 201703L || __cpp_lib_constexpr_char_traits)
     constexpr
 #endif
-        TStringView(const char* str);
+    TStringView(const char* str);
+
     constexpr TStringView(const char* str, size_t len);
+
     constexpr TStringView(TSpan<char> span);
+
     constexpr TStringView(TSpan<const char> span);
+
 #ifdef TVISION_STL
 #if __cplusplus >= 201703L || __cpp_lib_string_view
     constexpr TStringView(std::string_view text);
@@ -243,4 +244,4 @@ struct hash<TStringView> : public std::hash<std::string> {
 
 #endif // TVISION_STL && __cplusplus >= 201103L
 
-#endif // TVISION_TSTRVIEW_H
+#endif // TVision_StringView_h

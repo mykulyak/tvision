@@ -63,7 +63,7 @@ void TParamText::setText(const char* fmt, ...)
     drawView();
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TParamText::write(opstream& os)
 {

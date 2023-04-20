@@ -1,7 +1,6 @@
 #ifndef TVISION_PLATFORM_H
 #define TVISION_PLATFORM_H
 
-#include <tvision/tv.h>
 #include <internal/stdioctl.h>
 #include <internal/dispbuff.h>
 #include <internal/events.h>

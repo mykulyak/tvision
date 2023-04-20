@@ -63,7 +63,7 @@ long THeapView::heapSize()
     std::ostrstream totalStr(heapStr, sizeof heapStr);
 
 #ifdef __BORLANDC__
-    // #if !defined( __DPMI32__ )
+    // #ifndef  __DPMI32__ 
     long total = farcoreleft();
     // #else
     //     long total = 0;

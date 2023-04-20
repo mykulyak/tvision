@@ -14,7 +14,7 @@
  *
  */
 
-#if !defined( __FORMS_H )
+#ifndef  __FORMS_H 
 #define __FORMS_H
 
 #include <tvision/tv.h>

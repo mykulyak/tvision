@@ -13,7 +13,7 @@
  *
  */
 
-#if !defined(__UTIL_H)
+#ifndef __UTIL_H
 #define __UTIL_H
 
 #include <cstddef>
@@ -28,7 +28,7 @@ inline constexpr int max(int a, int b)
     return a > b ? a : b;
 }
 
-#if !defined(__MINMAX_DEFINED) // Also defined in Borland C++'s stdlib.h.
+#ifndef __MINMAX_DEFINED // Also defined in Borland C++'s stdlib.h.
 #define __MINMAX_DEFINED
 template <class T>
 inline constexpr const T& min(const T& a, const T& b)

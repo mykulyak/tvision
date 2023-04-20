@@ -215,7 +215,7 @@ void TDeskTop::tileError()
 {
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TStreamable* TDeskTop::build()
 {

@@ -11,7 +11,7 @@
  *
  */
 
-#if !defined( __PUZZLE_H )
+#ifndef  __PUZZLE_H 
 #define __PUZZLE_H
 
 class TPuzzleView : public TView

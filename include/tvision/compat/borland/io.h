@@ -1,3 +1,6 @@
+#ifndef TVision_IO_h
+#define TVision_IO_h
+
 #ifdef __BORLANDC__
 #include <io.h>
 #else
@@ -43,3 +46,5 @@ inline off_t filelength( int fd ) noexcept
 #endif // TVISION_COMPAT_IO_H
 
 #endif // __BORLANDC__
+
+#endif // TVision_IO_h

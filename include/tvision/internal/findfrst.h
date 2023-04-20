@@ -1,7 +1,6 @@
 #ifndef TVISION_FINDFRST_H
 #define TVISION_FINDFRST_H
 
-#include <tvision/tv.h>
 #include <string>
 #include <vector>
 #include <mutex>

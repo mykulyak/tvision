@@ -1,9 +1,9 @@
 #ifndef __TBackground
 #define __TBackground
 
-#include "View.h"
-#include "Rect.h"
-#include "Palette.h"
+#include <tvision/View.h>
+#include <tvision/Palette.h>
+#include <tvision/Rect.h>
 
 class TBackground : public TView {
 public:

@@ -200,7 +200,7 @@ void TStatusLine::update()
     }
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TStatusLine::writeItems(opstream& os, TStatusItem* ts)
 {

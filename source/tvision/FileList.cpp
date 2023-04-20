@@ -368,7 +368,7 @@ void fexpand(char* rpath, const char* relativeTo) noexcept
     strnzcpy(rpath, path, MAXPATH);
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TStreamable* TFileList::build()
 {

@@ -13,16 +13,16 @@
  *
  */
 
-#if !defined( __LISTDLG_H )
+#ifndef  __LISTDLG_H 
 #define __LISTDLG_H
 
 #include <tvision/tv.h>
 
-#if !defined( __DATACOLL_H )
+#ifndef  __DATACOLL_H 
 #include "datacoll.h"
 #endif  // __DATACOLL_H
 
-#if !defined( __FORMS_H )
+#ifndef  __FORMS_H 
 #include "forms.h"
 #endif  // __FORMS_H
 

@@ -1,7 +1,5 @@
 #ifdef HAVE_NCURSES
 
-#include <tvision/tv.h>
-
 #include <chrono>
 #include <internal/codepage.h>
 #include <internal/constmap.h>

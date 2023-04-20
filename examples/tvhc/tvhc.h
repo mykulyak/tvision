@@ -6,13 +6,13 @@
 
 /* $Copyright: 1994 */
 
-#if !defined( __TVHC_H )
+#ifndef  __TVHC_H 
 #define __TVHC_H
 
 #include <tvision/tv.h>
 #include <tvision/HelpFile.h>
 
-#if !defined( __DIR_H )
+#ifndef  __DIR_H 
 #include <dir.h>
 #endif  // __DIR_H
 

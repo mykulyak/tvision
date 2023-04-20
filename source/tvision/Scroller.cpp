@@ -14,10 +14,6 @@
 #include <tvision/tobjstrm.h>
 #include <tvision/Scroller.h>
 
-#if !defined(__DOS_H)
-#include <dos.h>
-#endif // __DOS_H
-
 #define cpScroller "\x06\x07"
 
 const char* const TScroller::name = "TScroller";
@@ -157,7 +153,7 @@ void TScroller::setState(ushort aState, bool enable)
     }
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TScroller::write(opstream& os)
 {

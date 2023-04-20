@@ -11,7 +11,7 @@
  *
  */
 
-#if !defined( __CALENDAR_H )
+#ifndef  __CALENDAR_H 
 #define __CALENDAR_H
 
 class TCalendarView : public TView

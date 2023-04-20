@@ -33,7 +33,7 @@ const int
                           // WildCard by using SetData or store
                           // the dialog on a stream.
 
-#if !defined(__DIR_H)
+#ifndef __DIR_H
 #include <tvision/compat/borland/dir.h>
 #endif // __DIR_H
 

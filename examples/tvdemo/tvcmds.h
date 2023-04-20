@@ -11,7 +11,7 @@
  *
  */
 
-#if !defined( __TVCMDS_H )
+#ifndef  __TVCMDS_H 
 #define __TVCMDS_H
 
 const int cmAboutCmd    = 100;

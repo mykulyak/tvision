@@ -16,7 +16,7 @@ TFilterValidator::TFilterValidator(TStringView aValidChars) noexcept
     validChars = newStr(aValidChars);
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TFilterValidator::TFilterValidator(StreamableInit s) noexcept
     : TValidator(s)
@@ -30,7 +30,7 @@ TFilterValidator::~TFilterValidator()
     delete[] validChars;
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 void TFilterValidator::write(opstream& os)
 {

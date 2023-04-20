@@ -31,7 +31,7 @@ TMultiCheckBoxes::TMultiCheckBoxes(TRect& bounds, TSItem* aStrings,
     states = newStr(aStates);
 }
 
-#if !defined(NO_STREAMABLE)
+#ifndef NO_STREAMABLE
 
 TMultiCheckBoxes::TMultiCheckBoxes(StreamableInit) noexcept
     : TCluster(streamableInit)

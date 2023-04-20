@@ -12,7 +12,6 @@
  *      All Rights Reserved.
  *
  */
-#include <dos.h>
 #include <iostream>
 #include <tvision/HardwareInfo.h>
 
