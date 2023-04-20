@@ -21,10 +21,9 @@
 #ifndef __TNSSortedCollection
 #define __TNSSortedCollection
 
-#include "NSCollection.h"
+#include <tvision/NSCollection.h>
 
 class TNSSortedCollection : public virtual TNSCollection {
-
 public:
     TNSSortedCollection(ccIndex aLimit, ccIndex aDelta) noexcept
         : TNSCollection(aLimit, aDelta)

@@ -31,11 +31,9 @@
 
 #endif
 
-struct TEvent;
 struct MouseEventType;
 
 class THardwareInfo {
-
 public:
     THardwareInfo() noexcept;
     ~THardwareInfo();

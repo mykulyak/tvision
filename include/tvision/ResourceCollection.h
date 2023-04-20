@@ -4,7 +4,6 @@
 #include <tvision/StringCollection.h>
 
 class TResourceCollection : public TStringCollection {
-
 public:
     TResourceCollection(StreamableInit) noexcept
         : TStringCollection(streamableInit) {};

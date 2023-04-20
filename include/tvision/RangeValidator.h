@@ -3,8 +3,6 @@
 
 #include <tvision/FilterValidator.h>
 
-// TRangeValidator
-
 class TRangeValidator : public TFilterValidator {
 
     static const char* validUnsignedChars;

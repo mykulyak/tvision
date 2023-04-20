@@ -10,10 +10,7 @@
 /*        1 = Text                                                        */
 /* ---------------------------------------------------------------------- */
 
-class TRect;
-
 class TStaticText : public TView {
-
 public:
     TStaticText(const TRect& bounds, TStringView aText) noexcept;
     ~TStaticText();

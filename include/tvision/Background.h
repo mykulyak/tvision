@@ -3,7 +3,6 @@
 
 #include <tvision/View.h>
 #include <tvision/Palette.h>
-#include <tvision/Rect.h>
 
 class TBackground : public TView {
 public:

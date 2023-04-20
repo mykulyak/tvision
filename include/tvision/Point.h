@@ -1,10 +1,9 @@
 #ifndef __TPoint
 #define __TPoint
 
-#include "tobjstrm.h"
+#include <tvision/tobjstrmfwd.h>
 
 class TPoint {
-
 public:
     TPoint& operator+=(const TPoint& adder) noexcept;
     TPoint& operator-=(const TPoint& subber) noexcept;

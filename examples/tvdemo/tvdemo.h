@@ -16,7 +16,6 @@
 
 class TStatusLine;
 class TMenuBar;
-struct TEvent;
 class TPalette;
 class THeapView;
 class TClockView;

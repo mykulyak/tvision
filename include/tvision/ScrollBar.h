@@ -11,12 +11,8 @@
 #ifndef __TScrollBar
 #define __TScrollBar
 
-#include "View.h"
-#include "Palette.h"
-#include "tobjstrm.h"
-
-class TRect;
-struct TEvent;
+#include <tvision/View.h>
+#include <tvision/Palette.h>
 
 typedef char TScrollChars[5];
 

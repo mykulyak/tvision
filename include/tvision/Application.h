@@ -1,8 +1,7 @@
-#ifndef __TApplication
-#define __TApplication
+#ifndef TVision_TApplication_h
+#define TVision_TApplication_h
 
-#include "Program.h"
-#include "Rect.h"
+#include <tvision/Program.h>
 
 class TStaticInit {
 public:
@@ -27,4 +26,4 @@ public:
     virtual void writeShellMsg();
 };
 
-#endif
+#endif // TVision_TApplication_h

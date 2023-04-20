@@ -12,7 +12,7 @@
  *
  */
 
-#include "Palette.h"
+#include <tvision/Palette.h>
 
 TPalette::TPalette(const char* d, ushort len) noexcept
     : data(new TColorAttr[len + 1])

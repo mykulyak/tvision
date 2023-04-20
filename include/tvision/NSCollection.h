@@ -1,11 +1,10 @@
 #ifndef __TNSCollection
 #define __TNSCollection
 
-#include "Object.h"
-#include "ttypes.h"
+#include <tvision/Object.h>
+#include <tvision/ttypes.h>
 
 class TNSCollection : public TObject {
-
 public:
     TNSCollection(ccIndex aLimit, ccIndex aDelta) noexcept;
     ~TNSCollection();

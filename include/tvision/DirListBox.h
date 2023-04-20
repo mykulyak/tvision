@@ -7,9 +7,7 @@
 #include <tvision/compat/borland/dir.h>
 #endif // __DIR_H
 
-class TRect;
 class TScrollBar;
-struct TEvent;
 class TDirCollection;
 
 class TDirListBox : public TListBox {

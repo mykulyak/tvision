@@ -13,12 +13,7 @@
 /*        4 = Selected shortcut                                           */
 /* ---------------------------------------------------------------------- */
 
-class TRect;
-struct TEvent;
-class TView;
-
 class TLabel : public TStaticText {
-
 public:
     TLabel(const TRect& bounds, TStringView aText, TView* aLink) noexcept;
 

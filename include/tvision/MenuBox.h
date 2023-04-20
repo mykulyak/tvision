@@ -15,13 +15,11 @@
 /*        6 = Shortcut selection                                          */
 /* ---------------------------------------------------------------------- */
 
-class TRect;
 class TMenu;
 class TMenuView;
 class TDrawBuffer;
 
 class TMenuBox : public TMenuView {
-
 public:
     TMenuBox(const TRect& bounds, TMenu* aMenu, TMenuView* aParentMenu) noexcept;
 

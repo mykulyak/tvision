@@ -104,16 +104,16 @@
 #include <tvision/FileEditor.h>
 #include <tvision/EditWindow.h>
 
-#include "CommandCodes.h"
-#include "CommandSet.h"
-#include "Palette.h"
-#include "View.h"
-#include "Frame.h"
-#include "ScrollBar.h"
-#include "Scroller.h"
-#include "ListViewer.h"
-#include "Group.h"
-#include "Window.h"
+#include <tvision/CommandCodes.h>
+#include <tvision/CommandSet.h>
+#include <tvision/Palette.h>
+#include <tvision/View.h>
+#include <tvision/Frame.h>
+#include <tvision/ScrollBar.h>
+#include <tvision/Scroller.h>
+#include <tvision/ListViewer.h>
+#include <tvision/Group.h>
+#include <tvision/Window.h>
 
 #include <tvision/VirtualMemoryManager.h>
 

@@ -3,8 +3,6 @@
 
 #include <tvision/Validator.h>
 
-// TLookupValidator
-
 class TLookupValidator : public TValidator {
 public:
     TLookupValidator() noexcept {};

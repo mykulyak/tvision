@@ -4,7 +4,6 @@
 #include <tvision/MenuItem.h>
 
 class TSubMenu : public TMenuItem {
-
 public:
     TSubMenu(TStringView nm, TKey key, ushort helpCtx = hcNoContext) noexcept;
 };

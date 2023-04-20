@@ -13,11 +13,7 @@
 
 #include <tvision/Cluster.h>
 
-class TRect;
-class TSItem;
-
 class TRadioButtons : public TCluster {
-
 public:
     TRadioButtons(const TRect& bounds, TSItem* aStrings) noexcept;
 

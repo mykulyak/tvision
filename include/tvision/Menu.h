@@ -4,7 +4,6 @@
 #include <tvision/MenuItem.h>
 
 class TMenu {
-
 public:
     TMenu() noexcept
         : items(0)

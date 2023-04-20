@@ -7,7 +7,6 @@ class TResourceCollection;
 class fpstream;
 
 class TResourceFile : public TObject {
-
 public:
     TResourceFile(fpstream* aStream);
     ~TResourceFile();

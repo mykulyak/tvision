@@ -37,7 +37,6 @@ const int
 #include <tvision/compat/borland/dir.h>
 #endif // __DIR_H
 
-struct TEvent;
 class TFileInputLine;
 class TFileList;
 

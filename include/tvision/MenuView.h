@@ -16,12 +16,7 @@
 #include <tvision/View.h>
 #include <tvision/MenuItem.h>
 
-class TRect;
-class TMenu;
-struct TEvent;
-
 class TMenuView : public TView {
-
 public:
     TMenuView(const TRect& bounds, TMenu* aMenu, TMenuView* aParent = 0) noexcept;
     TMenuView(const TRect& bounds) noexcept;

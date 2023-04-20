@@ -1,11 +1,10 @@
 #ifndef __TPalette
 #define __TPalette
 
-#include "ttypes.h"
-#include "colors.h"
+#include <tvision/ttypes.h>
+#include <tvision/colors.h>
 
 class TPalette {
-
 public:
     TPalette(const char*, ushort) noexcept;
 #ifndef __BORLANDC__

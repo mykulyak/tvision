@@ -4,7 +4,6 @@
 #include <tvision/SortedCollection.h>
 
 class TStringCollection : public TSortedCollection {
-
 public:
     TStringCollection(short aLimit, short aDelta) noexcept;
 

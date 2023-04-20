@@ -4,9 +4,6 @@
 #include <tvision/SearchRec.h>
 #include <tvision/View.h>
 
-class TRect;
-struct TEvent;
-
 class TFileInfoPane : public TView {
 
 public:

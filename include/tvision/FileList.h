@@ -4,9 +4,7 @@
 #include <tvision/SortedListBox.h>
 #include <tvision/FileCollection.h>
 
-class TRect;
 class TScrollBar;
-struct TEvent;
 
 class TFileList : public TSortedListBox {
 

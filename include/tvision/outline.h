@@ -28,9 +28,7 @@
 /*        4 = Not expanded color                                           */
 /* ------------------------------------------------------------------------*/
 
-class TRect;
 class TScrollBar;
-struct TEvent;
 
 class TOutline : public TOutlineViewer {
 public:

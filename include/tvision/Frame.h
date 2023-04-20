@@ -1,8 +1,8 @@
 #ifndef __TFrame
 #define __TFrame
 
-#include "View.h"
-#include "Palette.h"
+#include <tvision/View.h>
+#include <tvision/Palette.h>
 
 /* ---------------------------------------------------------------------- */
 /*      class TFrame                                                      */
@@ -15,12 +15,9 @@
 /*        5 = Icons                                                       */
 /* ---------------------------------------------------------------------- */
 
-class TRect;
-struct TEvent;
 class TDrawBuffer;
 
 class TFrame : public TView {
-
 public:
     TFrame(const TRect& bounds) noexcept;
 

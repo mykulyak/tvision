@@ -17,7 +17,7 @@
 #ifndef __TSystemError
 #define __TSystemError
 
-#include "ttypes.h"
+#include <tvision/ttypes.h>
 
 class TDrawBuffer;
 

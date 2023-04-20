@@ -18,7 +18,6 @@ const unsigned short cfOneBit = 0x0101,
 /*        4 = Selected shortcut                                           */
 /* ---------------------------------------------------------------------- */
 
-class TRect;
 class TSItem;
 
 class TMultiCheckBoxes : public TCluster {

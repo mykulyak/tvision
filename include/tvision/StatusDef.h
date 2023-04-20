@@ -4,7 +4,6 @@
 #include <tvision/StatusItem.h>
 
 class TStatusDef {
-
 public:
     TStatusDef(ushort aMin,
         ushort aMax,

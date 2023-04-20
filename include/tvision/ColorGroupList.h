@@ -3,13 +3,11 @@
 
 #include <tvision/ListViewer.h>
 
-class TRect;
 class TScrollBar;
 class TColorGroup;
 class TColorItem;
 
 class TColorGroupList : public TListViewer {
-
 public:
     TColorGroupList(const TRect& bounds,
         TScrollBar* aScrollBar,

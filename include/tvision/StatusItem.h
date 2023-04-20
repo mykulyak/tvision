@@ -4,7 +4,6 @@
 #include <tvision/StringView.h>
 
 class TStatusItem {
-
 public:
     TStatusItem(TStringView aText,
         TKey aKey,

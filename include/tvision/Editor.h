@@ -3,10 +3,8 @@
 
 #include <tvision/View.h>
 
-class TRect;
 class TScrollBar;
 class TIndicator;
-struct TEvent;
 class TMenuItem;
 
 typedef ushort (*TEditorDialog)(int, ...);

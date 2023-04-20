@@ -20,9 +20,7 @@
 
 #include <tvision/View.h>
 
-class TRect;
 class TInputLine;
-struct TEvent;
 class THistoryWindow;
 
 class THistory : public TView {

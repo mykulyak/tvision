@@ -14,11 +14,9 @@
 /*        5 = Divider                                                     */
 /* ---------------------------------------------------------------------- */
 
-class TRect;
 class TScrollBar;
 
 class THistoryViewer : public TListViewer {
-
 public:
     THistoryViewer(const TRect& bounds,
         TScrollBar* aHScrollBar,

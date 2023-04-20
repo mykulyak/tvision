@@ -3,10 +3,7 @@
 
 #include <tvision/LookupValidator.h>
 
-// TStringLookupValidator
-
 class TStringLookupValidator : public TLookupValidator {
-
     static const char* errorMsg;
 
 public:

@@ -8,7 +8,6 @@
 class TMenu;
 
 class TMenuItem {
-
 public:
     TMenuItem(TStringView aName,
         ushort aCommand,

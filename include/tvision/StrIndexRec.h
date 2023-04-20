@@ -4,7 +4,6 @@
 #include <tvision/ttypes.h>
 
 class TStrIndexRec {
-
 public:
     TStrIndexRec() noexcept;
 

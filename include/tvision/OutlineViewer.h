@@ -57,10 +57,8 @@ inline TNode::~TNode()
 /*        4 = Not expanded color                                           */
 /* ------------------------------------------------------------------------*/
 
-class TRect;
 class TScrollBar;
 class TOutlineViewer;
-struct TEvent;
 
 // Callback types for TOutlineViewer's traverse functions.
 

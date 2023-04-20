@@ -4,12 +4,10 @@
 #include <tvision/Window.h>
 
 class TListViewer;
-class TRect;
 class TWindow;
 class TInputLine;
 
 class THistInit {
-
 public:
     THistInit(TListViewer* (*cListViewer)(TRect, TWindow*, ushort)) noexcept;
 
@@ -31,7 +29,6 @@ protected:
 /* ---------------------------------------------------------------------- */
 
 class THistoryWindow : public TWindow, public virtual THistInit {
-
 public:
     THistoryWindow(const TRect& bounds, ushort historyId) noexcept;
 

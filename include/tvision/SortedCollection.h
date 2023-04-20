@@ -12,14 +12,12 @@
  *      All Rights Reserved.
  *
  */
-
 #ifndef __TSortedCollection
 #define __TSortedCollection
 
 #include <tvision/Collection.h>
 
 class TSortedCollection : public TNSSortedCollection, public TCollection {
-
 public:
     TSortedCollection(ccIndex aLimit, ccIndex aDelta) noexcept
         : TCollection(aLimit, aDelta)

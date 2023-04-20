@@ -29,7 +29,6 @@ class TDrawSurface;
 // The "empty area" color maps to TWindow's and TDialog's "frame passive" color.
 
 class TSurfaceView : public TView {
-
 public:
     const TDrawSurface* surface;
     TPoint delta;

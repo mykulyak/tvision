@@ -3,10 +3,7 @@
 
 #include <tvision/View.h>
 
-class TRect;
-
 class TIndicator : public TView {
-
 public:
     TIndicator(const TRect&) noexcept;
 

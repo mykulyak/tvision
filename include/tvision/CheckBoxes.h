@@ -13,11 +13,9 @@
 /*        4 = Selected shortcut                                           */
 /* ---------------------------------------------------------------------- */
 
-class TRect;
 class TSItem;
 
 class TCheckBoxes : public TCluster {
-
 public:
     TCheckBoxes(const TRect& bounds, TSItem* aStrings) noexcept;
 

@@ -3,7 +3,6 @@
 
 #include <tvision/ListViewer.h>
 
-class TRect;
 class TScrollBar;
 class TCollection;
 
@@ -13,7 +12,6 @@ struct TListBoxRec {
 };
 
 class TListBox : public TListViewer {
-
 public:
     TListBox(const TRect& bounds, ushort aNumCols, TScrollBar* aScrollBar) noexcept;
     ~TListBox();

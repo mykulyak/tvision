@@ -7,10 +7,8 @@
 #include <tvision/compat/borland/dir.h>
 #endif // __DIR_H
 
-class TRect;
 class TScrollBar;
 class TIndicator;
-struct TEvent;
 
 class TFileEditor : public TEditor {
 

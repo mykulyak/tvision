@@ -19,8 +19,6 @@ const ushort
     ilMaxWidth = 1,
     ilMaxChars = 2;
 
-class TRect;
-struct TEvent;
 class TValidator;
 
 class TInputLine : public TView {

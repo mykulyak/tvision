@@ -1,7 +1,7 @@
 #ifndef __TTimerQueue
 #define __TTimerQueue
 
-#include "ttypes.h"
+#include <tvision/ttypes.h>
 
 #ifdef __BORLANDC__
 typedef uint32_t TTimePoint;

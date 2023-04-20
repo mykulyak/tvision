@@ -1,7 +1,7 @@
 #ifndef __TCollection
 #define __TCollection
 
-#include "tobjstrm.h"
+#include <tvision/ttypes.h>
 
 class TCollection : public virtual TNSCollection, public TStreamable {
 

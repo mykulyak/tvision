@@ -10,10 +10,7 @@
 /*        1 = Text                                                        */
 /* ---------------------------------------------------------------------- */
 
-class TRect;
-
 class TParamText : public TStaticText {
-
 public:
     TParamText(const TRect& bounds) noexcept;
     ~TParamText();

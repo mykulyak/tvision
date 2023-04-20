@@ -17,7 +17,6 @@
 #include <tvision/CommandCodes.h>
 #include <tvision/Event.h>
 #include <tvision/Group.h>
-#include <tvision/Rect.h>
 #include <tvision/SItem.h>
 #include <tvision/StringCollection.h>
 

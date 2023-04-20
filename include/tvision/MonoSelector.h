@@ -4,7 +4,6 @@
 #include <tvision/Cluster.h>
 
 class TMonoSelector : public TCluster {
-
 public:
     TMonoSelector(const TRect& bounds) noexcept;
     virtual void draw();

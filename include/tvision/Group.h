@@ -2,7 +2,6 @@
 #define __TGroup
 
 #include <tvision/View.h>
-#include "tobjstrm.h"
 
 class TGroup : public TView {
 

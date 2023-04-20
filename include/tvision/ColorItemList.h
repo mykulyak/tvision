@@ -3,10 +3,8 @@
 
 #include <tvision/ListViewer.h>
 
-class TRect;
 class TScrollBar;
 class TColorItem;
-struct TEvent;
 
 class TColorItemList : public TListViewer {
 

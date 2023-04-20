@@ -18,11 +18,9 @@
 
 #include <tvision/TextDevice.h>
 
-class TRect;
 class TScrollBar;
 
 class TTerminal : public TTextDevice {
-
 public:
     friend void genRefs();
 

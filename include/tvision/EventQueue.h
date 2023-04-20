@@ -1,8 +1,8 @@
 #ifndef __TEventQueue
 #define __TEventQueue
 
-#include "Event.h"
-#include "config.h"
+#include <tvision/Event.h>
+#include <tvision/config.h>
 
 class TEventQueue {
 public:

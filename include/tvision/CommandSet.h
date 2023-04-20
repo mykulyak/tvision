@@ -1,7 +1,7 @@
 #ifndef __TCommandSet
 #define __TCommandSet
 
-#include "ttypes.h"
+#include <tvision/ttypes.h>
 
 class TCommandSet {
 

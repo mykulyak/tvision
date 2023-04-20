@@ -11,7 +11,7 @@
  *      All Rights Reserved.
  *
  */
-#include "Object.h"
+#include <tvision/Object.h>
 
 void TObject::shutDown()
 {

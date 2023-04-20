@@ -34,12 +34,7 @@ class TStatusItem;
 /*        6 = Shortcut selection                                          */
 /* ---------------------------------------------------------------------- */
 
-class TRect;
-struct TEvent;
-class TPoint;
-
 class TStatusLine : public TView {
-
 public:
     TStatusLine(const TRect& bounds, TStatusDef& aDefs) noexcept;
     ~TStatusLine();

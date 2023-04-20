@@ -2,10 +2,7 @@
 #define __TSearchRec
 
 #include <tvision/ttypes.h>
-
-#ifndef __DIR_H
 #include <tvision/compat/borland/dir.h>
-#endif // __DIR_H
 
 struct TSearchRec {
     uchar attr;

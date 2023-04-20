@@ -16,7 +16,6 @@
 /* ---------------------------------------------------------------------- */
 
 class TMenuPopup : public TMenuBox {
-
 public:
     TMenuPopup(const TRect& bounds, TMenu* aMenu, TMenuView* aParent = 0) noexcept;
     virtual ushort execute();

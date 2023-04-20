@@ -17,11 +17,9 @@
 #include <tvision/SubMenu.h>
 #include <tvision/MenuView.h>
 
-class TRect;
 class TMenu;
 
 class TMenuBar : public TMenuView {
-
 public:
     TMenuBar(const TRect& bounds, TMenu* aMenu) noexcept;
     TMenuBar(const TRect& bounds, TSubMenu& aMenu) noexcept;

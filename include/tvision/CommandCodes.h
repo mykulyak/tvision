@@ -2,7 +2,7 @@
 #define __COMMAND_CODES
 
 #include <tvision/EventCodes.h>
-#include "ttypes.h"
+#include <tvision/ttypes.h>
 
 const ushort
 

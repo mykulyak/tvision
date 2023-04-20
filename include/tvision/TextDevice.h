@@ -4,11 +4,9 @@
 #include <iostream>
 #include <tvision/Scroller.h>
 
-class TRect;
 class TScrollBar;
 
 class TTextDevice : public TScroller, public std::streambuf {
-
 public:
     TTextDevice(const TRect& bounds,
         TScrollBar* aHScrollBar,

@@ -1,12 +1,11 @@
 #ifndef __TRect
 #define __TRect
 
-#include "Point.h"
-#include "ttypes.h"
-#include "util.h"
+#include <tvision/Point.h>
+#include <tvision/ttypes.h>
+#include <tvision/util.h>
 
 class TRect {
-
 public:
     TRect(int ax, int ay, int bx, int by) noexcept;
     TRect(TPoint p1, TPoint p2) noexcept;

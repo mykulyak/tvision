@@ -16,17 +16,14 @@
 #ifndef __TWindow
 #define __TWindow
 
-#include "Group.h"
-#include "Palette.h"
+#include <tvision/Group.h>
+#include <tvision/Palette.h>
 
 #define cpBlueWindow "\x08\x09\x0A\x0B\x0C\x0D\x0E\x0F"
 #define cpCyanWindow "\x10\x11\x12\x13\x14\x15\x16\x17"
 #define cpGrayWindow "\x18\x19\x1A\x1B\x1C\x1D\x1E\x1F"
 
 class TFrame;
-class TRect;
-class TPoint;
-struct TEvent;
 class TFrame;
 class TScrollBar;
 

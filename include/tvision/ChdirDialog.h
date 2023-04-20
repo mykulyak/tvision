@@ -9,7 +9,6 @@ const int
     cdNoLoadDir = 0x0001, // Option to init the dialog to store on a stream
     cdHelpButton = 0x0002; // Put a help button in the dialog
 
-struct TEvent;
 class TInputLine;
 class TDirListBox;
 class TButton;

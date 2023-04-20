@@ -1,10 +1,9 @@
 #ifndef __TScreen
 #define __TScreen
 
-#include "ttypes.h"
+#include <tvision/ttypes.h>
 
 class TDisplay {
-
 public:
     friend class TView;
 

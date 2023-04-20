@@ -10,9 +10,7 @@
 #ifndef __TScroller
 #define __TScroller
 
-class TRect;
 class TScrollBar;
-struct TEvent;
 
 class TScroller : public TView {
 

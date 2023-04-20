@@ -20,7 +20,6 @@
 #include <tvision/Object.h>
 
 class TStrListMaker : public TObject, public TStreamable {
-
 public:
     TStrListMaker(ushort aStrSize, ushort aIndexSize) noexcept;
     ~TStrListMaker();

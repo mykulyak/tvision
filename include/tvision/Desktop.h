@@ -1,12 +1,9 @@
 #ifndef __TDeskTop
 #define __TDeskTop
 
-#include "Group.h"
-#include "tobjstrm.h"
+#include <tvision/Group.h>
 
 class TBackground;
-class TRect;
-struct TEvent;
 
 class TDeskInit {
 public:

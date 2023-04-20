@@ -61,10 +61,6 @@ const int
     dpCyanDialog = 1,
     dpGrayDialog = 2;
 
-class TRect;
-struct TEvent;
-class TValidator;
-
 class TDialog : public TWindow {
 
 public:

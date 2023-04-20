@@ -3,12 +3,9 @@
 
 #include <tvision/ListBox.h>
 
-class TRect;
 class TScrollBar;
-struct TEvent;
 
 class TSortedListBox : public TListBox {
-
 public:
     TSortedListBox(const TRect& bounds,
         ushort aNumCols,

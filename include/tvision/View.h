@@ -2,6 +2,7 @@
 #define TVision_TView_h
 
 #include <tvision/tobjstrm.h>
+#include <tvision/Rect.h>
 #include <tvision/Object.h>
 #include <tvision/CommandSet.h>
 #include <tvision/Span.h>
@@ -15,12 +16,10 @@ struct write_args {
     ushort offset;
 };
 
-class TRect;
 struct TEvent;
 class TGroup;
 
 class TView : public TObject, public TStreamable {
-
 public:
     friend void genRefs();
 

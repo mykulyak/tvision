@@ -9,6 +9,7 @@
 #ifndef TVision_StringView_h
 #define TVision_StringView_h
 
+#include <cstring>
 #include <tvision/ttypes.h>
 #include <tvision/Span.h>
 

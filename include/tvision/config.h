@@ -19,13 +19,13 @@
 
 #include <climits>
 
-const int eventQSize = 16;
-const int keyEventQSize = 3;
-const int maxCollectionSize = (int)(((unsigned long)UINT_MAX - 16) / sizeof(void*));
+constexpr int eventQSize = 16;
+constexpr int keyEventQSize = 3;
+constexpr int maxCollectionSize = (int)(((unsigned long)UINT_MAX - 16) / sizeof(void*));
 
-const int maxViewWidth = 132;
+constexpr int maxViewWidth = 132;
 
-const int maxFindStrLen = 80;
-const int maxReplaceStrLen = 80;
+constexpr int maxFindStrLen = 80;
+constexpr int maxReplaceStrLen = 80;
 
 #endif // __CONFIG_H

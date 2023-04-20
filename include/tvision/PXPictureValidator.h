@@ -4,8 +4,6 @@
 
 #include <tvision/Validator.h>
 
-// TPXPictureValidator result type
-
 enum TPicResult { prComplete,
     prIncomplete,
     prEmpty,
@@ -13,8 +11,6 @@ enum TPicResult { prComplete,
     prSyntax,
     prAmbiguous,
     prIncompNoFill };
-
-// TPXPictureValidator
 
 class TPXPictureValidator : public TValidator {
 

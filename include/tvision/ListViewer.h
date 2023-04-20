@@ -1,13 +1,10 @@
 #ifndef __TListViewer
 #define __TListViewer
 
-#include "View.h"
-#include "Palette.h"
-#include "tobjstrm.h"
+#include <tvision/View.h>
+#include <tvision/Palette.h>
 
-class TRect;
 class TScrollBar;
-struct TEvent;
 
 class TListViewer : public TView {
 

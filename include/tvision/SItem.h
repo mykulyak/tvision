@@ -5,7 +5,6 @@
 #include <tvision/StringView.h>
 
 class TSItem {
-
 public:
     TSItem(TStringView aValue, TSItem* aNext) noexcept
     {

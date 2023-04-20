@@ -19,7 +19,6 @@
 #include <tvision/Scroller.h>
 
 class TScrollBar;
-class TEvent;
 
 class THelpViewer : public TScroller {
 public:

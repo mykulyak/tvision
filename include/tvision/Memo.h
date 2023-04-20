@@ -3,15 +3,12 @@
 
 #include <tvision/Editor.h>
 
-struct TEvent;
-
 struct TMemoData {
     ushort length;
     char buffer[1];
 };
 
 class TMemo : public TEditor {
-
 public:
     TMemo(const TRect&, TScrollBar*, TScrollBar*, TIndicator*, ushort) noexcept;
     virtual void getData(void* rec);

@@ -6,7 +6,6 @@
 class TStrIndexRec;
 
 class TStringList : public TObject, public TStreamable {
-
 public:
     ~TStringList();
 

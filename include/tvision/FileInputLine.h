@@ -3,9 +3,6 @@
 
 #include <tvision/InputLine.h>
 
-class TRect;
-struct TEvent;
-
 class TFileInputLine : public TInputLine {
 
 public:

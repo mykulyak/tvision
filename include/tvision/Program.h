@@ -15,9 +15,8 @@
 #ifndef __TProgram
 #define __TProgram
 
-#include "Rect.h"
-#include "Palette.h"
-#include "Group.h"
+#include <tvision/Palette.h>
+#include <tvision/Group.h>
 
 // Turbo Vision 2.0 Color Palettes
 
@@ -85,8 +84,6 @@ const unsigned short hcClose = 0xFF27;
 class TStatusLine;
 class TMenuBar;
 class TDeskTop;
-struct TEvent;
-class TView;
 
 class TProgInit {
 public:

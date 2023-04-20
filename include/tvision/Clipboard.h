@@ -1,7 +1,7 @@
 #ifndef __TClipboard
 #define __TClipboard
 
-#include "StringView.h"
+#include <tvision/StringView.h>
 
 class TClipboard {
 public:

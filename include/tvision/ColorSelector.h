@@ -3,8 +3,6 @@
 
 #include <tvision/View.h>
 
-class TRect;
-struct TEvent;
 class TColorIndex;
 
 class TColorSelector : public TView {

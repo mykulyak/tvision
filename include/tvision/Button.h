@@ -28,12 +28,9 @@ const int
 /*        8 = Shadow                                                      */
 /* ---------------------------------------------------------------------- */
 
-class TRect;
-struct TEvent;
 class TDrawBuffer;
 
 class TButton : public TView {
-
 public:
     TButton(const TRect& bounds,
         TStringView aTitle,
