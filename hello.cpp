@@ -1,22 +1,8 @@
-/*---------------------------------------------------------*/
-/*                                                         */
-/*   Turbo Vision Hello World Demo Source File             */
-/*                                                         */
-/*---------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
 #include <tvision/tv.h>
 
 const int GreetThemCmd = 100;
 
 class THelloApp : public TApplication {
-
 public:
     THelloApp();
 
@@ -26,6 +12,7 @@ public:
 
 private:
     void greetingBox();
+
 };
 
 THelloApp::THelloApp()
@@ -66,7 +53,6 @@ void THelloApp::handleEvent(TEvent& event)
 
 TMenuBar* THelloApp::initMenuBar(TRect r)
 {
-
     r.b.y = r.a.y + 1;
 
     return new TMenuBar(r,
@@ -84,5 +70,6 @@ int main()
 {
     THelloApp helloWorld;
     helloWorld.run();
+    helloWorld.shutDown();
     return 0;
 }

@@ -33,14 +33,6 @@ struct  ftime   {
 #include <unistd.h>
 #include <sys/stat.h>
 
-inline off_t filelength( int fd ) noexcept
-{
-    struct stat s;
-    if ( fstat( fd, &s ) == (off_t) -1 )
-        return -1;
-    return s.st_size;
-}
-
 #endif // !_MSC_VER && !__MINGW32__ && !_WIN32
 
 #endif // TVISION_COMPAT_IO_H

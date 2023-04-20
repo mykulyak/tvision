@@ -33,7 +33,7 @@ public:
 
     virtual void getData(void* rec);
 
-    void getFileName(char* s) noexcept;
+    // void getFileName(char* s) noexcept;
     std::filesystem::path getFilePath() noexcept;
 
     virtual void handleEvent(TEvent& event);

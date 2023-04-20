@@ -1,18 +1,3 @@
-/*-------------------------------------------------------*/
-/*                                                       */
-/*   Turbo Vision Forms Demo                             */
-/*                                                       */
-/*   Datacoll.h: Header file for Datacoll.cpp            */
-/*               (Support header file for TVFORMS Demo)  */
-/*-------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-
 #ifndef  __DATACOLL_H 
 #define __DATACOLL_H
 

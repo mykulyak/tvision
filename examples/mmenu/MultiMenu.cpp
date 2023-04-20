@@ -1,36 +1,6 @@
-/***********************************************************************
- *                                                                     *
- * MMENU.CPP                                                           *
- *   This module contains the code to support the TMultiMenu class.    *
- *                                                                     *
- ***********************************************************************/
-
-#include "mmenu.h"
+#include "MultiMenu.h"
 
 /***********************************************************************
- * global operator +
- *
- * Since the objects will always be in a linked list, and the operator+
- * is processd left-to-right, we will define the function as appending
- * menuItem2 to menuItem1, and then return menuItem1.
- ***********************************************************************/
-
-#if 0 // This function is now already provided by the library.
-TMenuItem& operator +( TMenuItem& menuItem1, TMenuItem& menuItem2 )
-{
-    TMenuItem *p = &menuItem1;
-    while( p->next != NULL )
-        p = p->next;
-    p->next = &menuItem2;
-    return menuItem1;
-}
-#endif
-
-/***********************************************************************
- *                                                                     *
- * class TTestList                                                     *
- *                                                                     *
- ***********************************************************************
  * TMultiMenu::TMultiMenu
  *   Constructor for a TMultiMenu object.  This version takes an array
  *   of TMenu pointers.

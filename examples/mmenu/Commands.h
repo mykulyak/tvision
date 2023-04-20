@@ -14,8 +14,8 @@
  *                                                                     *
  ***********************************************************************/
 
-#ifndef _CMDS_H
-#define _CMDS_H
+#ifndef TVision_MMenu_Commands_h
+#define TVision_MMenu_Commands_h
 
 const unsigned cmOne     = 100;
 const unsigned cmTwo     = 101;
@@ -23,4 +23,4 @@ const unsigned cmThree   = 102;
 const unsigned cmCycle   = 110;
 const unsigned cmNothing = 111;
 
-#endif
+#endif // TVision_MMenu_Commands_h

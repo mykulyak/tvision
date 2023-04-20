@@ -1,14 +1,4 @@
-/*---------------------------------------------------------*/
-/*                                                         */
-/*---------------------------------------------------------*/
-/*
- *      Turbo Vision - Version 2.0
- *
- *      Copyright (c) 1994 by Borland International
- *      All Rights Reserved.
- *
- */
-#include <strstream>
+#include <sstream>
 #include <tvision/tv.h>
 
 const int cmDirTree = 100;
@@ -24,28 +14,28 @@ const int cmNewDirFocused = 102;
 
 class QuickMessage : public TWindow {
     TParamText* currentDir;
-
 public:
     QuickMessage(const char* drive)
         : TWindowInit(TWindow::initFrame)
         , TWindow(TRect(15, 8, 65, 19), "Please Wait...", 0)
     {
-
         flags = 0; // no move, close, grow or zoom
         options |= ofCentered;
         palette = wpGrayWindow;
-        char temp[64];
-        std::ostrstream os(temp, sizeof(temp));
+
+        std::ostringstream os;
         os << "Scanning Drive '" << drive << "'\n"
            << std::ends;
-        insert(new TStaticText(TRect(2, 2, 48, 3), temp));
+        insert(new TStaticText(TRect(2, 2, 48, 3), os.str().c_str()));
         currentDir = new TParamText(TRect(2, 3, 48, 9));
         insert(currentDir);
     }
+
     virtual void handleEvent(TEvent& event)
     {
         TWindow::handleEvent(event);
     }
+
     void setCurrentDir(char* newDir)
     {
         currentDir->setText(newDir);
@@ -117,8 +107,10 @@ TNode* getDirList(const char* path, QuickMessage* qm = 0)
     int result;
     TNode* temp;
 
-    std::ostrstream os(searchPath, sizeof(searchPath) - 1);
+    std::ostringstream os;
     os << path << sep "*.*" << std::ends;
+    strcpy(searchPath, os.str().c_str());
+
     result = _dos_findfirst(searchPath, 0xff, &searchRec);
 
     while (result == 0) {
@@ -210,8 +202,10 @@ void TFilePane::newDir(const char* path)
 
     deleteFiles();
 
-    std::ostrstream os(searchPath, sizeof(searchPath) - 1);
+    std::ostringstream os;
     os << path << "*.*" << std::ends;
+    strcpy(searchPath, os.str().c_str());
+
     result = _dos_findfirst(searchPath, 0xff, &searchRec);
     while (result == 0) {
         if (!(searchRec.attrib & FA_DIREC))
@@ -366,7 +360,6 @@ void TDirApp::handleEvent(TEvent& event)
 
 TMenuBar* TDirApp::initMenuBar(TRect r)
 {
-
     r.b.y = r.a.y + 1;
 
     return new TMenuBar(r,
@@ -400,8 +393,8 @@ void TDirApp::aboutBox(void)
 
 int main(int argc, char* argv[])
 {
-    TDirApp* dirApp = new TDirApp(argc == 2 ? argv[1] : ".");
-    dirApp->run();
-    TObject::destroy(dirApp);
+    TDirApp dirApp(argc == 2 ? argv[1] : ".");
+    dirApp.run();
+    dirApp.shutDown();
     return 0;
 }

@@ -1,38 +1,8 @@
-/***********************************************************************
- *                                                                     *
- * TEST.CPP                                                            *
- *   This module contains the Turbo Vision application code to run     *
- *   this example.  It sets up the necessary menus to bring up the     *
- *   test module represented by this demo.                             *
- *                                                                     *
- * TEST MODULE for Multiple Menu Bar Demo.                             *
- *                                                                     *
- ***********************************************************************
- *                                                                     *
- * This code was written by Borland Technical Support.                 *
- * It is provided as is with no warranties expressed or implied.       *
- *                                                                     *
- ***********************************************************************/
+#include <tvision/tv.h>
+#include "Commands.h"
+#include "MultiMenu.h"
 
-#include <tv.h>
-
-#pragma hdrstop
-
-#ifndef __CMDS_H
-#include "cmds.h"
-#endif
-
-#ifndef __MMENU_H
-#include "mmenu.h"
-#endif
-
-/***********************************************************************
- *
- * Application object for demo.
- *
- ***********************************************************************/
 class TTestApp : public TApplication {
-
 public:
     TTestApp();
     static TMenuBar* initMenuBar(TRect r);
@@ -111,14 +81,10 @@ void TTestApp::handleEvent(TEvent& event)
         TApplication::handleEvent(event);
 }
 
-/***********************************************************************
- *
- * main()
- *
- ***********************************************************************/
 int main()
 {
-    TTestApp TB;
-    TB.run();
+    TTestApp app;
+    app.run();
+    app.shutDown();
     return 0;
 }

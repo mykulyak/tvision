@@ -24,7 +24,6 @@ TDirListBox::TDirListBox(const TRect& bounds, TScrollBar* aScrollBar) noexcept
     : TListBox(bounds, 1, aScrollBar)
     , cur(0)
 {
-    *dir = EOS;
 }
 
 TDirListBox::~TDirListBox()

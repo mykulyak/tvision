@@ -1,4 +1,4 @@
-#include <strstream>
+#include <sstream>
 #include <tvision/tobjstrm.h>
 #include <tvision/FileCommands.h>
 #include <tvision/FileDialog.h>
@@ -6,10 +6,6 @@
 #include <tvision/FileInputLine.h>
 #include <tvision/FileList.h>
 #include <tvision/Label.h>
-
-#ifndef __DIR_H
-#include <dir.h>
-#endif // __DIR_H
 
 const char* const TFileDialog::name = "TFileDialog";
 
@@ -185,29 +181,30 @@ static void trim(char* dest, const char* src) noexcept
     *dest = EOS;
 }
 
-void TFileDialog::getFileName(char* s) noexcept
-{
-    char buf[2 * MAXPATH];
-    char drive[MAXDRIVE];
-    char path[MAXDIR];
-    char name[MAXFILE];
-    char ext[MAXEXT];
-    char TName[MAXFILE];
-    char TExt[MAXEXT];
+// void TFileDialog::getFileName(char* s) noexcept
+// {
+//     char buf[2 * MAXPATH];
+//     char drive[MAXDRIVE];
+//     char path[MAXDIR];
+//     char name[MAXFILE];
+//     char ext[MAXEXT];
+//     char TName[MAXFILE];
+//     char TExt[MAXEXT];
 
-    trim(buf, fileName->data);
-    fexpand(buf, directory);
-    fnsplit(buf, drive, path, name, ext);
-    if (name[0] == EOS && ext[0] == EOS) {
-        fnsplit(wildCard, 0, 0, TName, TExt);
-        fnmerge(buf, drive, path, TName, TExt);
-    }
-    strcpy(s, buf);
-}
+//     trim(buf, fileName->data);
+//     fexpand(buf, directory);
+//     fnsplit(buf, drive, path, name, ext);
+//     if (name[0] == EOS && ext[0] == EOS) {
+//         fnsplit(wildCard, 0, 0, TName, TExt);
+//         fnmerge(buf, drive, path, TName, TExt);
+//     }
+//     strcpy(s, buf);
+// }
 
 std::filesystem::path TFileDialog::getFilePath() noexcept {
     char buf[2 * MAXPATH];
     trim(buf, fileName->data);
+    fexpand(buf, directory);
     return std::filesystem::path(buf);
 }
 
@@ -254,7 +251,7 @@ void TFileDialog::setData(void* rec)
 
 void TFileDialog::getData(void* rec)
 {
-    getFileName((char*)rec);
+    strcpy((char*)rec, getFilePath().c_str());
 }
 
 bool TFileDialog::checkDirectory(const char* str)
@@ -262,11 +259,9 @@ bool TFileDialog::checkDirectory(const char* str)
     if (pathValid(str))
         return true;
     else {
-        char buf[256];
-        std::ostrstream os(buf, sizeof(buf) - 1);
+        std::ostringstream os;
         os << invalidDriveText << ": '" << str << "'" << std::ends;
-        buf[sizeof(buf) - 1] = '\0';
-        messageBox(buf, mfError | mfOKButton);
+        messageBox(os.str().c_str(), mfError | mfOKButton);
         fileName->select();
         return  false;
     }
@@ -285,7 +280,7 @@ bool TFileDialog::valid(ushort command)
 
     if (TDialog::valid(command)) {
         if (command != cmCancel && command != cmFileClear) {
-            getFileName(fName);
+            strcpy(fName, getFilePath().c_str());
 
             if (isWild(fName)) {
                 fnsplit(fName, drive, dir, name, ext);
@@ -313,11 +308,9 @@ bool TFileDialog::valid(ushort command)
             } else if (validFileName(fName))
                 return true;
             else {
-                char buf[256];
-                std::ostrstream os(buf, sizeof(buf) - 1);
+                std::ostringstream os;
                 os << invalidFileText << ": '" << fName << "'" << std::ends;
-                buf[sizeof(buf) - 1] = '\0';
-                messageBox(buf, mfError | mfOKButton);
+                messageBox(os.str().c_str(), mfError | mfOKButton);
                 return  false;
             }
         } else

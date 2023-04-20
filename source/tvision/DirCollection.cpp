@@ -1,3 +1,4 @@
+#include <filesystem>
 #include <tvision/tobjstrm.h>
 #include <tvision/DirCollection.h>
 #include <tvision/DirEntry.h>
@@ -49,8 +50,8 @@ bool driveValid(char drive) noexcept
 
 bool isDir(const char* str) noexcept
 {
-    ffblk ff;
-    return bool(findfirst(str, &ff, FA_DIREC) == 0 && (ff.ff_attrib & FA_DIREC) != 0);
+    std::filesystem::path p(str);
+    return std::filesystem::is_directory(p);
 }
 
 #define isSeparator(c) (c == '\\' || c == '/')
@@ -126,10 +127,8 @@ void TDirCollection::writeItem(void* obj, opstream& os)
 
 void* TDirCollection::readItem(ipstream& is)
 {
-    char* txt = is.readString();
-    char* dir = is.readString();
-    TDirEntry* entry = new TDirEntry(txt, dir);
-    delete txt;
-    delete dir;
+    std::unique_ptr<char[]> txt(is.readString());
+    std::unique_ptr<char[]> dir(is.readString());
+    TDirEntry* entry = new TDirEntry(txt.get(), dir.get());
     return entry;
 }

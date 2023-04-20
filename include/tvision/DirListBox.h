@@ -2,16 +2,12 @@
 #define TVision_TDirListBox_h
 
 #include <tvision/ListBox.h>
-
-#ifndef __DIR_H
 #include <tvision/compat/borland/dir.h>
-#endif // __DIR_H
 
 class TScrollBar;
 class TDirCollection;
 
 class TDirListBox : public TListBox {
-
 public:
     TDirListBox(const TRect& bounds, TScrollBar* aScrollBar) noexcept;
     ~TDirListBox();

@@ -1,22 +1,7 @@
-/***********************************************************************
- *                                                                     *
- * MMENU.H                                                             *
- *   This module contains the class definitions for the MMENU.CPP      *
- *   source module.                                                    *
- *                                                                     *
- * Classes:                                                            *
- *   TMultiMenu         New object derived from TMenuBar to support    *
- *                      dynamic changing of menus.                     *
- *                                                                     *
- *   TMenuItem& operator+( TMenuItem& one, TMenuItem& two )            *
- *                      Operator that links two TMenuItems together    *
- *                                                                     *
- ***********************************************************************
- *                                                                     *
- * This code was written by Borland Technical Support.                 *
- * It is provided as is with no warranties expressed or implied.       *
- *                                                                     *
- ***********************************************************************/
+#ifndef TVision_MMenu_MultiMenu_h
+#define TVision_MMenu_MultiMenu_h
+
+#include <tvision/MenuBar.h>
 
 /*
  * class TMultiMenu - A new menubar that supports dynamic changing of menus
@@ -62,16 +47,9 @@
  * make the example code in the test module much easier to read.
  */
 
-#ifndef  __MMENU_H
-#define __MMENU_H
-
-#include <tvision/MenuBar.h>
-
-class TMultiMenu : public TMenuBar
+class TMultiMenu: public TMenuBar
 {
-
 public:
-
     TMultiMenu( const TRect& bounds, TMenu *aMenu[], int nMenus = 0 );
     TMultiMenu( const TRect& bounds, TSubMenu aMenu[], int nMenus );
     ~TMultiMenu();
@@ -79,7 +57,6 @@ public:
     virtual void handleEvent( TEvent& event );
 
 protected:
-
     TMenu **mList;
     int numMenus;
 
@@ -87,4 +64,4 @@ protected:
 
 const unsigned cmMMChangeMenu = 0x1600;
 
-#endif // __MMENU_H
+#endif // TVision_MMenu_MultiMenu_h
