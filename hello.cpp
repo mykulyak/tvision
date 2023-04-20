@@ -15,9 +15,7 @@ private:
 };
 
 THelloApp::THelloApp()
-    : TProgInit(&THelloApp::initStatusLine,
-        &THelloApp::initMenuBar,
-        &THelloApp::initDeskTop)
+    : TProgInit(&THelloApp::initStatusLine, &THelloApp::initMenuBar, &THelloApp::initDeskTop)
 {
 }
 
@@ -55,14 +53,16 @@ TMenuBar* THelloApp::initMenuBar(TRect r)
     r.b.y = r.a.y + 1;
 
     return new TMenuBar(r,
-        *new TSubMenu("~H~ello", kbAltH) + *new TMenuItem("~G~reeting...", GreetThemCmd, kbAltG) + newLine() + *new TMenuItem("E~x~it", cmQuit, cmQuit, hcNoContext, "Alt-X"));
+        *new TSubMenu("~H~ello", kbAltH) + *new TMenuItem("~G~reeting...", GreetThemCmd, kbAltG)
+            + newLine() + *new TMenuItem("E~x~it", cmQuit, cmQuit, hcNoContext, "Alt-X"));
 }
 
 TStatusLine* THelloApp::initStatusLine(TRect r)
 {
     r.a.y = r.b.y - 1;
     return new TStatusLine(r,
-        *new TStatusDef(0, 0xFFFF) + *new TStatusItem("~Alt-X~ Exit", kbAltX, cmQuit) + *new TStatusItem(0, kbF10, cmMenu));
+        *new TStatusDef(0, 0xFFFF) + *new TStatusItem("~Alt-X~ Exit", kbAltX, cmQuit)
+            + *new TStatusItem(0, kbF10, cmMenu));
 }
 
 int main()

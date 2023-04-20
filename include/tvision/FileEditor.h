@@ -11,11 +11,7 @@ class TFileEditor : public TEditor {
 
 public:
     char fileName[MAXPATH];
-    TFileEditor(const TRect&,
-        TScrollBar*,
-        TScrollBar*,
-        TIndicator*,
-        TStringView) noexcept;
+    TFileEditor(const TRect&, TScrollBar*, TScrollBar*, TIndicator*, TStringView) noexcept;
     virtual void doneBuffer();
     virtual void handleEvent(TEvent&);
     virtual void initBuffer();
@@ -31,10 +27,7 @@ public:
 private:
     static const char* backupExt;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TFileEditor(StreamableInit) noexcept;
@@ -46,22 +39,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TFileEditor& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TFileEditor*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TFileEditor& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TFileEditor*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TFileEditor& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TFileEditor* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TFileEditor& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TFileEditor* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TFileEditor_h

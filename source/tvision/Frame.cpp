@@ -5,9 +5,12 @@
 
 const char* const TFrame::name = "TFrame";
 
-const char TFrame::initFrame[19] = "\x06\x0A\x0C\x05\x00\x05\x03\x0A\x09\x16\x1A\x1C\x15\x00\x15\x13\x1A\x19";
+const char TFrame::initFrame[19]
+    = "\x06\x0A\x0C\x05\x00\x05\x03\x0A\x09\x16\x1A\x1C\x15\x00\x15\x13\x1A\x19";
 
-char TFrame::frameChars[33] = "   \xC0 \xB3\xDA\xC3 \xD9\xC4\xC1\xBF\xB4\xC2\xC5   \xC8 \xBA\xC9\xC7 \xBC\xCD\xCF\xBB\xB6\xD1 "; // for UnitedStates code page
+char TFrame::frameChars[33]
+    = "   \xC0 \xB3\xDA\xC3 \xD9\xC4\xC1\xBF\xB4\xC2\xC5   \xC8 \xBA\xC9\xC7 "
+      "\xBC\xCD\xCF\xBB\xB6\xD1 "; // for UnitedStates code page
 
 const char* TFrame::closeIcon = "[~\xFE~]";
 const char* TFrame::zoomIcon = "[~\x18~]";
@@ -15,9 +18,7 @@ const char* TFrame::unZoomIcon = "[~\x12~]";
 const char* TFrame::dragIcon = "~\xC4\xD9~";
 const char* TFrame::dragLeftIcon = "~\xC0\xC4~";
 
-TStreamableClass RFrame(TFrame::name,
-    TFrame::build,
-    __DELTA(TFrame));
+TStreamableClass RFrame(TFrame::name, TFrame::build, __DELTA(TFrame));
 
 TFrame::TFrame(const TRect& bounds) noexcept
     : TView(bounds)
@@ -170,7 +171,8 @@ void TFrame::handleEvent(TEvent& event)
     if (event.what == evMouseDown) {
         TPoint mouse = makeLocal(event.mouse.where);
         if (mouse.y == 0) {
-            if ((((TWindow*)owner)->flags & TWindow::Flags::wfClose) != 0 && (state & sfActive) && mouse.x >= 2 && mouse.x <= 4) {
+            if ((((TWindow*)owner)->flags & TWindow::Flags::wfClose) != 0 && (state & sfActive)
+                && mouse.x >= 2 && mouse.x <= 4) {
                 while (mouseEvent(event, evMouse))
                     ;
                 mouse = makeLocal(event.mouse.where);
@@ -181,7 +183,10 @@ void TFrame::handleEvent(TEvent& event)
                     putEvent(event);
                     clearEvent(event);
                 }
-            } else if ((((TWindow*)owner)->flags & TWindow::Flags::wfZoom) != 0 && (state & sfActive) && ((mouse.x >= size.x - 5 && mouse.x <= size.x - 3) || (event.mouse.eventFlags & meDoubleClick))) {
+            } else if ((((TWindow*)owner)->flags & TWindow::Flags::wfZoom) != 0
+                && (state & sfActive)
+                && ((mouse.x >= size.x - 5 && mouse.x <= size.x - 3)
+                    || (event.mouse.eventFlags & meDoubleClick))) {
                 event.what = evCommand;
                 event.message.command = cmZoom;
                 event.message.infoPtr = owner;
@@ -189,12 +194,15 @@ void TFrame::handleEvent(TEvent& event)
                 clearEvent(event);
             } else if ((((TWindow*)owner)->flags & TWindow::Flags::wfMove) != 0)
                 dragWindow(event, dmDragMove);
-        } else if ((state & sfActive) && (mouse.y >= size.y - 1) && (((TWindow*)owner)->flags & TWindow::Flags::wfGrow)) {
+        } else if ((state & sfActive) && (mouse.y >= size.y - 1)
+            && (((TWindow*)owner)->flags & TWindow::Flags::wfGrow)) {
             if (mouse.x >= size.x - 2)
                 dragWindow(event, dmDragGrow);
             else if (mouse.x <= 1)
                 dragWindow(event, dmDragGrowLeft);
-        } else if (event.what == evMouseDown && event.mouse.buttons == mbMiddleButton && 0 < mouse.x && mouse.x < size.x - 1 && 0 < mouse.y && mouse.y < size.y - 1 && (((TWindow*)owner)->flags & TWindow::Flags::wfMove))
+        } else if (event.what == evMouseDown && event.mouse.buttons == mbMiddleButton && 0 < mouse.x
+            && mouse.x < size.x - 1 && 0 < mouse.y && mouse.y < size.y - 1
+            && (((TWindow*)owner)->flags & TWindow::Flags::wfMove))
             dragWindow(event, dmDragMove);
     }
 }
@@ -208,10 +216,7 @@ void TFrame::setState(ushort aState, bool enable)
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TFrame::build()
-{
-    return new TFrame(streamableInit);
-}
+TStreamable* TFrame::build() { return new TFrame(streamableInit); }
 
 TFrame::TFrame(StreamableInit) noexcept
     : TView(streamableInit)

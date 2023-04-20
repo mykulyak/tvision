@@ -9,9 +9,7 @@ class TTerminal : public TTextDevice {
 public:
     friend void genRefs();
 
-    TTerminal(const TRect& bounds,
-        TScrollBar* aHScrollBar,
-        TScrollBar* aVScrollBar,
+    TTerminal(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,
         ushort aBufSize) noexcept;
     ~TTerminal();
 

@@ -4,9 +4,8 @@
 
 const char* const TResourceCollection::name = "TResourceCollection";
 
-TStreamableClass RResourceCollection(TResourceCollection::name,
-    TResourceCollection::build,
-    __DELTA(TResourceCollection));
+TStreamableClass RResourceCollection(
+    TResourceCollection::name, TResourceCollection::build, __DELTA(TResourceCollection));
 
 TResourceCollection::TResourceCollection(short aLimit, short aDelta) noexcept
     : TStringCollection(aLimit, aDelta)
@@ -19,17 +18,11 @@ void TResourceCollection::freeItem(void* item)
     delete (TResourceItem*)item;
 }
 
-void* TResourceCollection::keyOf(void* item)
-{
-    return ((TResourceItem*)item)->key;
-}
+void* TResourceCollection::keyOf(void* item) { return ((TResourceItem*)item)->key; }
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TResourceCollection::build()
-{
-    return new TResourceCollection(streamableInit);
-}
+TStreamable* TResourceCollection::build() { return new TResourceCollection(streamableInit); }
 
 void TResourceCollection::writeItem(void* obj, opstream& os)
 {

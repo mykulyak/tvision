@@ -25,22 +25,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TBackground& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TBackground*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TBackground& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TBackground*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TBackground& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TBackground* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TBackground& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TBackground* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TBackground_h

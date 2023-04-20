@@ -7,23 +7,15 @@ const char* const TMemo::name = "TMemo";
 
 __link(REditor);
 
-TStreamableClass RMemo(TMemo::name,
-    TMemo::build,
-    __DELTA(TMemo));
+TStreamableClass RMemo(TMemo::name, TMemo::build, __DELTA(TMemo));
 
-TMemo::TMemo(const TRect& bounds,
-    TScrollBar* aHScrollBar,
-    TScrollBar* aVScrollBar,
-    TIndicator* aIndicator,
-    ushort aBufSize) noexcept
+TMemo::TMemo(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,
+    TIndicator* aIndicator, ushort aBufSize) noexcept
     : TEditor(bounds, aHScrollBar, aVScrollBar, aIndicator, aBufSize)
 {
 }
 
-ushort TMemo::dataSize()
-{
-    return bufSize + sizeof(ushort);
-}
+ushort TMemo::dataSize() { return bufSize + sizeof(ushort); }
 
 void TMemo::getData(void* rec)
 {
@@ -79,10 +71,7 @@ void* TMemo::read(ipstream& is)
     return this;
 }
 
-TStreamable* TMemo::build()
-{
-    return new TMemo(streamableInit);
-}
+TStreamable* TMemo::build() { return new TMemo(streamableInit); }
 
 TMemo::TMemo(StreamableInit) noexcept
     : TEditor(streamableInit)

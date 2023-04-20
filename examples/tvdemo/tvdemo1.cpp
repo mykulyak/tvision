@@ -42,9 +42,7 @@ int main(int argc, char** argv)
 //
 
 TVDemo::TVDemo(int argc, char** argv)
-    : TProgInit(&TVDemo::initStatusLine,
-        &TVDemo::initMenuBar,
-        &TVDemo::initDeskTop)
+    : TProgInit(&TVDemo::initStatusLine, &TVDemo::initMenuBar, &TVDemo::initDeskTop)
 {
     TView* w;
     char fileSpec[128];
@@ -138,7 +136,13 @@ TStatusLine* TVDemo::initStatusLine(TRect r)
     r.a.y = r.b.y - 1;
 
     return (new TStatusLine(r,
-        *new TStatusDef(0, 50) + *new TStatusItem("~F1~ Help", kbF1, cmHelp) + *new TStatusItem("~Alt-X~ Exit", kbAltX, cmQuit) + *new TStatusItem(0, kbShiftDel, cmCut) + *new TStatusItem(0, kbCtrlIns, cmCopy) + *new TStatusItem(0, kbShiftIns, cmPaste) + *new TStatusItem(0, kbAltF3, cmClose) + *new TStatusItem(0, kbF10, cmMenu) + *new TStatusItem(0, kbF5, cmZoom) + *new TStatusItem(0, kbCtrlF5, cmResize) + *new TStatusDef(50, 0xffff) + *new TStatusItem("Howdy", kbF1, cmHelp)));
+        *new TStatusDef(0, 50) + *new TStatusItem("~F1~ Help", kbF1, cmHelp)
+            + *new TStatusItem("~Alt-X~ Exit", kbAltX, cmQuit)
+            + *new TStatusItem(0, kbShiftDel, cmCut) + *new TStatusItem(0, kbCtrlIns, cmCopy)
+            + *new TStatusItem(0, kbShiftIns, cmPaste) + *new TStatusItem(0, kbAltF3, cmClose)
+            + *new TStatusItem(0, kbF10, cmMenu) + *new TStatusItem(0, kbF5, cmZoom)
+            + *new TStatusItem(0, kbCtrlF5, cmResize) + *new TStatusDef(50, 0xffff)
+            + *new TStatusItem("Howdy", kbF1, cmHelp)));
 }
 
 //

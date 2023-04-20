@@ -6,9 +6,7 @@ const char* const TParamText::name = "TParamText";
 __link(RView);
 __link(RStaticText);
 
-TStreamableClass RParamText(TParamText::name,
-    TParamText::build,
-    __DELTA(TParamText));
+TStreamableClass RParamText(TParamText::name, TParamText::build, __DELTA(TParamText));
 
 TParamText::TParamText(const TRect& bounds) noexcept
     : TStaticText(bounds, 0)
@@ -17,10 +15,7 @@ TParamText::TParamText(const TRect& bounds) noexcept
     str[0] = EOS;
 }
 
-TParamText::~TParamText()
-{
-    delete[] (char*)str;
-}
+TParamText::~TParamText() { delete[] (char*)str; }
 
 void TParamText::getText(char* s)
 {
@@ -30,10 +25,7 @@ void TParamText::getText(char* s)
         *s = EOS;
 }
 
-int TParamText::getTextLen()
-{
-    return (str != 0) ? strlen(str) : 0;
-}
+int TParamText::getTextLen() { return (str != 0) ? strlen(str) : 0; }
 
 void TParamText::setText(const char* fmt, ...)
 {
@@ -66,10 +58,7 @@ void* TParamText::read(ipstream& is)
     return this;
 }
 
-TStreamable* TParamText::build()
-{
-    return new TParamText(streamableInit);
-}
+TStreamable* TParamText::build() { return new TParamText(streamableInit); }
 
 TParamText::TParamText(StreamableInit) noexcept
     : TStaticText(streamableInit)

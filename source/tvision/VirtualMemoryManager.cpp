@@ -31,20 +31,11 @@ void TBufListEntry::destroy() noexcept
     delete this;
 }
 
-void* TBufListEntry::operator new(size_t sz, size_t extra) noexcept
-{
-    return malloc(sz + extra);
-}
+void* TBufListEntry::operator new(size_t sz, size_t extra) noexcept { return malloc(sz + extra); }
 
-void* TBufListEntry::operator new(size_t) noexcept
-{
-    return 0;
-}
+void* TBufListEntry::operator new(size_t) noexcept { return 0; }
 
-void TBufListEntry::operator delete(void* b) noexcept
-{
-    free(b);
-}
+void TBufListEntry::operator delete(void* b) noexcept { free(b); }
 
 bool TBufListEntry::freeHead() noexcept
 {
@@ -85,10 +76,7 @@ void TVMemMgr::resizeSafetyPool(size_t sz) noexcept
     safetyPoolSize = sz;
 }
 
-int TVMemMgr::safetyPoolExhausted() noexcept
-{
-    return inited && (safetyPool == 0);
-}
+int TVMemMgr::safetyPoolExhausted() noexcept { return inited && (safetyPool == 0); }
 
 void TVMemMgr::allocateDiscardable(void*& adr, size_t sz) noexcept
 {
@@ -177,15 +165,9 @@ void* allocBlock(size_t sz)
     return (char*)temp + BLK_SIZE;
 }
 
-void* operator new[](size_t sz)
-{
-    return allocBlock(sz);
-}
+void* operator new[](size_t sz) { return allocBlock(sz); }
 
-void* operator new(size_t sz)
-{
-    return allocBlock(sz);
-}
+void* operator new(size_t sz) { return allocBlock(sz); }
 
 #ifndef NDEBUG
 static void check(void* blk)
@@ -209,14 +191,8 @@ static void deleteBlock(void* blk)
         TVMemMgr::resizeSafetyPool();
 }
 
-void operator delete(void* blk)
-{
-    deleteBlock(blk);
-}
+void operator delete(void* blk) { deleteBlock(blk); }
 
-void operator delete[](void* blk)
-{
-    deleteBlock(blk);
-}
+void operator delete[](void* blk) { deleteBlock(blk); }
 
 #endif

@@ -7,32 +7,32 @@
 
 const char* const TDirCollection::name = "TDirCollection";
 
-TStreamableClass RDirCollection(TDirCollection::name,
-    TDirCollection::build,
-    __DELTA(TDirCollection));
+TStreamableClass RDirCollection(
+    TDirCollection::name, TDirCollection::build, __DELTA(TDirCollection));
 
 bool driveValid(char drive) noexcept
 {
 #ifdef _WIN32
 #ifndef __FLAT__
-    I MOV AH, 19H // Save the current drive in BL
+    I MOV AH,
+        19H // Save the current drive in BL
         I INT 21H I MOV BL,
-        AL
-            I MOV DL,
+        AL I MOV DL,
         drive // Select the given drive
             I SUB DL,
-        'A' I MOV AH, 0EH I INT 21H I MOV AH, 19H // Retrieve what DOS thinks is current
+        'A' I MOV AH, 0EH I INT 21H I MOV AH,
+        19H // Retrieve what DOS thinks is current
         I INT 21H I MOV CX,
         0 // Assume false
         I CMP AL,
         DL // Is the current drive the given drive?
-            I JNE __1
-                I MOV CX,
+            I JNE __1 I MOV CX,
         1 // It is, so the drive is valid
         I MOV DL,
         BL // Restore the old drive
             I MOV AH,
-        0EH I INT 21H __1 : I XCHG AX, CX // Put the return value into AX
+        0EH I INT 21H __1 : I XCHG AX,
+                            CX // Put the return value into AX
                             return bool(_AX);
 #else
     drive = (char)toupper(drive);
@@ -92,7 +92,8 @@ bool validFileName(const char* fileName) noexcept
     strcat(path, dir);
     if (*dir != EOS && !pathValid(path))
         return false;
-    if (strpbrk(name, illegalChars) != 0 || strpbrk(ext + 1, illegalChars) != 0 || strchr(ext + 1, '.') != 0)
+    if (strpbrk(name, illegalChars) != 0 || strpbrk(ext + 1, illegalChars) != 0
+        || strchr(ext + 1, '.') != 0)
         return false;
     return true;
 }
@@ -108,15 +109,9 @@ void getCurDir(char* dir, char drive) noexcept
         strnzcat(dir, "\\", MAXPATH);
 }
 
-bool isWild(const char* f) noexcept
-{
-    return bool(strpbrk(f, "?*") != 0);
-}
+bool isWild(const char* f) noexcept { return bool(strpbrk(f, "?*") != 0); }
 
-TStreamable* TDirCollection::build()
-{
-    return new TDirCollection(streamableInit);
-}
+TStreamable* TDirCollection::build() { return new TDirCollection(streamableInit); }
 
 void TDirCollection::writeItem(void* obj, opstream& os)
 {

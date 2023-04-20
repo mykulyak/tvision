@@ -13,15 +13,11 @@ using std::chrono::steady_clock;
 namespace tvision {
 
 // Request IDs
-const char
-    f2lNoAnswer
-    = '\0',
-    f2lPing = '\x04',
-    f2lClipGetData = '\xA0';
+const char f2lNoAnswer = '\0', f2lPing = '\x04', f2lClipGetData = '\xA0';
 
 static char f2lClientIdData[32 + 1];
-static TStringView f2lClientId = (sprintf(f2lClientIdData, "%032llu", (unsigned long long)time(nullptr)),
-    f2lClientIdData);
+static TStringView f2lClientId
+    = (sprintf(f2lClientIdData, "%032llu", (unsigned long long)time(nullptr)), f2lClientIdData);
 
 static const const_unordered_map<uchar, ushort> virtualKeyCodeToKeyCode = {
     { VK_BACK, kbBack },
@@ -190,16 +186,11 @@ ParseResult parseFar2lAnswer(GetChBuf& buf, TEvent& ev, InputState& state) noexc
 
 template <bool write = true, class... Args>
 size_t concat(char* out, TStringView, Args... args) noexcept;
-template <bool write = true, class... Args>
-size_t concat(char* out, char c, Args... args) noexcept;
+template <bool write = true, class... Args> size_t concat(char* out, char c, Args... args) noexcept;
 template <bool write = true, class... Args>
 size_t concat(char* out, uint32_t i, Args... args) noexcept;
 
-template <bool write = true, class... Args>
-inline size_t concat(char* out) noexcept
-{
-    return 0;
-}
+template <bool write = true, class... Args> inline size_t concat(char* out) noexcept { return 0; }
 
 template <bool write, class... Args>
 inline size_t concat(char* out, TStringView s, Args... args) noexcept
@@ -210,8 +201,7 @@ inline size_t concat(char* out, TStringView s, Args... args) noexcept
     return len + concat<write>(out + len, args...);
 }
 
-template <bool write, class... Args>
-inline size_t concat(char* out, char c, Args... args) noexcept
+template <bool write, class... Args> inline size_t concat(char* out, char c, Args... args) noexcept
 {
     size_t len = sizeof(c);
     if (write)
@@ -228,8 +218,7 @@ inline size_t concat(char* out, uint32_t i, Args... args) noexcept
     return len + concat<write>(out + len, args...);
 }
 
-template <class... Args>
-inline size_t concatLength(Args... args) noexcept
+template <class... Args> inline size_t concatLength(Args... args) noexcept
 {
     return concat<false>(nullptr, args...);
 }
@@ -255,25 +244,14 @@ bool setFar2lClipboard(StdioCtl& io, TStringView text, InputState& state) noexce
     if (state.far2l.enabled) {
         std::vector<char> out, tmp;
         // CLIP_OPEN
-        pushFar2lRequest(out, tmp,
-            f2lClientId,
-            (uint32_t)f2lClientId.size(),
-            "oc",
-            f2lNoAnswer);
+        pushFar2lRequest(out, tmp, f2lClientId, (uint32_t)f2lClientId.size(), "oc", f2lNoAnswer);
         // CLIP_SETDATA
         if (text.size() > UINT_MAX - 1)
             text = text.substr(0, UINT_MAX - 1);
-        pushFar2lRequest(out, tmp,
-            text,
-            '\0',
-            (uint32_t)(text.size() + 1),
-            (uint32_t)CF_TEXT,
-            "sc",
+        pushFar2lRequest(out, tmp, text, '\0', (uint32_t)(text.size() + 1), (uint32_t)CF_TEXT, "sc",
             f2lNoAnswer);
         // CLIP_CLOSE
-        pushFar2lRequest(out, tmp,
-            "cc",
-            f2lNoAnswer);
+        pushFar2lRequest(out, tmp, "cc", f2lNoAnswer);
         io.write(out.data(), out.size());
         return true;
     }
@@ -285,20 +263,11 @@ bool requestFar2lClipboard(StdioCtl& io, InputState& state) noexcept
     if (state.far2l.enabled) {
         std::vector<char> out, tmp;
         // CLIP_OPEN
-        pushFar2lRequest(out, tmp,
-            f2lClientId,
-            (uint32_t)f2lClientId.size(),
-            "oc",
-            f2lNoAnswer);
+        pushFar2lRequest(out, tmp, f2lClientId, (uint32_t)f2lClientId.size(), "oc", f2lNoAnswer);
         // CLIP_GETDATA
-        pushFar2lRequest(out, tmp,
-            (uint32_t)CF_TEXT,
-            "gc",
-            f2lClipGetData);
+        pushFar2lRequest(out, tmp, (uint32_t)CF_TEXT, "gc", f2lClipGetData);
         // CLIP_CLOSE
-        pushFar2lRequest(out, tmp,
-            "cc",
-            f2lNoAnswer);
+        pushFar2lRequest(out, tmp, "cc", f2lNoAnswer);
         io.write(out.data(), out.size());
         return true;
     }
@@ -312,7 +281,8 @@ void waitFar2lPing(EventSource& source, InputState& state) noexcept
         auto begin = steady_clock::now();
         do {
             source.getEvent(ev);
-        } while ((ev.what != evNothing || ev.message.infoPtr != &state.far2l) && steady_clock::now() - begin <= milliseconds(pingTimeout));
+        } while ((ev.what != evNothing || ev.message.infoPtr != &state.far2l)
+            && steady_clock::now() - begin <= milliseconds(pingTimeout));
     }
 }
 

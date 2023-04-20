@@ -11,11 +11,8 @@ namespace tvision {
 
 class StdioCtl final {
 #ifdef _WIN32
-    enum { input = 0,
-        startupOutput = 1,
-        activeOutput = 2 };
-    struct
-    {
+    enum { input = 0, startupOutput = 1, activeOutput = 2 };
+    struct {
         HANDLE handle { INVALID_HANDLE_VALUE };
         bool owning { false };
     } cn[3];
@@ -36,16 +33,10 @@ public:
     TPoint getFontSize() const noexcept;
 
 #ifdef _WIN32
-    HANDLE in() const noexcept
-    {
-        return cn[input].handle;
-    }
+    HANDLE in() const noexcept { return cn[input].handle; }
     HANDLE out() const noexcept { return cn[activeOutput].handle; }
 #else
-    int in() const noexcept
-    {
-        return fds[0];
-    }
+    int in() const noexcept { return fds[0]; }
     int out() const noexcept { return fds[1]; }
     FILE* fin() const noexcept { return infile; }
     FILE* fout() const noexcept { return outfile; }

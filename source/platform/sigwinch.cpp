@@ -21,8 +21,8 @@ bool SigwinchHandler::getEvent(void*, TEvent& ev) noexcept
     return true;
 }
 
-inline SigwinchHandler::SigwinchHandler(SysManualEvent::Handle handle,
-    const struct sigaction& aOldSa) noexcept
+inline SigwinchHandler::SigwinchHandler(
+    SysManualEvent::Handle handle, const struct sigaction& aOldSa) noexcept
     : WakeUpEventSource(handle, &getEvent, nullptr)
     , oldSa(aOldSa)
 {

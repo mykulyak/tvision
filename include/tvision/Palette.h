@@ -25,9 +25,6 @@ public:
     TColorAttr* data;
 };
 
-inline TColorAttr& TPalette::operator[](int index) const noexcept
-{
-    return data[index];
-}
+inline TColorAttr& TPalette::operator[](int index) const noexcept { return data[index]; }
 
 #endif // TVision_TPalette_h

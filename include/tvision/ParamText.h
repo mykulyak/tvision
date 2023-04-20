@@ -23,10 +23,7 @@ protected:
     char* str;
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TParamText(StreamableInit) noexcept;
@@ -38,22 +35,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TParamText& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TParamText*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TParamText& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TParamText*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TParamText& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TParamText* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TParamText& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TParamText* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TParamText_h

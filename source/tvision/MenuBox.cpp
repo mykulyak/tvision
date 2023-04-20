@@ -6,9 +6,7 @@ const char* const TMenuBox::name = "TMenuBox";
 
 const char* TMenuBox::frameChars = " \332\304\277  \300\304\331  \263 \263  \303\304\264 ";
 
-TStreamableClass RMenuBox(TMenuBox::name,
-    TMenuBox::build,
-    __DELTA(TMenuBox));
+TStreamableClass RMenuBox(TMenuBox::name, TMenuBox::build, __DELTA(TMenuBox));
 
 static TRect getRect(const TRect& bounds, TMenu* aMenu)
 {
@@ -43,9 +41,7 @@ static TRect getRect(const TRect& bounds, TMenu* aMenu)
     return r;
 }
 
-TMenuBox::TMenuBox(const TRect& bounds,
-    TMenu* aMenu,
-    TMenuView* aParentMenu) noexcept
+TMenuBox::TMenuBox(const TRect& bounds, TMenu* aMenu, TMenuView* aParentMenu) noexcept
     : TMenuView(getRect(bounds, aMenu), aMenu, aParentMenu)
 {
     state |= sfShadow;
@@ -91,9 +87,7 @@ void TMenuBox::draw()
                 if (p->command == 0)
                     b.putChar(size.x - 4, 16);
                 else if (p->param != 0)
-                    b.moveStr(size.x - 3 - strwidth(p->param),
-                        p->param,
-                        color);
+                    b.moveStr(size.x - 3 - strwidth(p->param), p->param, color);
             }
             writeBuf(0, y++, size.x, 1, b);
         }
@@ -117,10 +111,7 @@ TRect TMenuBox::getItemRect(TMenuItem* item)
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TMenuBox::build()
-{
-    return new TMenuBox(streamableInit);
-}
+TStreamable* TMenuBox::build() { return new TMenuBox(streamableInit); }
 
 TMenuBox::TMenuBox(StreamableInit) noexcept
     : TMenuView(streamableInit)

@@ -6,19 +6,12 @@
 
 namespace tvision {
 
-template <class T, size_t N>
-struct constarray {
+template <class T, size_t N> struct constarray {
     T elems[N];
 
-    constexpr T& operator[](size_t i) noexcept
-    {
-        return elems[i];
-    }
+    constexpr T& operator[](size_t i) noexcept { return elems[i]; }
 
-    constexpr const T& operator[](size_t i) const noexcept
-    {
-        return elems[i];
-    }
+    constexpr const T& operator[](size_t i) const noexcept { return elems[i]; }
 };
 
 } // namespace tvision

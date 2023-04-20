@@ -39,10 +39,7 @@ private:
     static const char* dragIcon;
     static const char* dragLeftIcon;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TFrame(StreamableInit) noexcept;
@@ -52,22 +49,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TFrame& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TFrame*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TFrame& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TFrame*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TFrame& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TFrame* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TFrame& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TFrame* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TFrame_h

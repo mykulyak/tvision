@@ -13,10 +13,7 @@ public:
     }
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
     virtual void* readItem(ipstream&) = 0;
     virtual void writeItem(void*, opstream&) = 0;
@@ -30,22 +27,10 @@ public:
     static const char* const name;
 };
 
-inline ipstream& operator>>(ipstream& is, TCollection& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TCollection*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TCollection& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TCollection*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TCollection& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TCollection* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TCollection& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TCollection* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TCollection_h

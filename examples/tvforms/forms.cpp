@@ -31,14 +31,9 @@ void* TForm::read(ipstream& is)
     return this;
 }
 
-TStreamable* TForm::build()
-{
-    return new TForm(streamableInit);
-}
+TStreamable* TForm::build() { return new TForm(streamableInit); }
 
-TStreamableClass RForm(TForm::name,
-    TForm::build,
-    __DELTA(TForm));
+TStreamableClass RForm(TForm::name, TForm::build, __DELTA(TForm));
 
 TForm::TForm(const TRect& bounds, const char* aTitle)
     : TWindowInit(&TForm::initFrame)
@@ -84,7 +79,8 @@ bool TForm::changed()
 void TForm::handleEvent(TEvent& event)
 {
     // Respond to CANCEL button and ESC
-    if (((event.what == evKeyDown) && (event.keyDown.keyCode == kbEsc)) || ((event.what == evCommand) && (event.message.command == cmCancel))) {
+    if (((event.what == evKeyDown) && (event.keyDown.keyCode == kbEsc))
+        || ((event.what == evCommand) && (event.message.command == cmCancel))) {
         clearEvent(event);
         destroy(this);
         return;
@@ -134,8 +130,7 @@ bool TForm::valid(ushort command)
     if (command == cmClose) {
         if (changed()) {
             select();
-            action = messageBox("Form data has been modified. Save? ",
-                mfYesNoCancel);
+            action = messageBox("Form data has been modified. Save? ", mfYesNoCancel);
             switch (action) {
             case cmYes:
                 // Try to save changes. Cancel if save fails

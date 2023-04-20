@@ -73,9 +73,6 @@ private:
     static bool keyPasteState;
 };
 
-inline void TEvent::getMouseEvent() noexcept
-{
-    TEventQueue::getMouseEvent(*this);
-}
+inline void TEvent::getMouseEvent() noexcept { TEventQueue::getMouseEvent(*this); }
 
 #endif // TVision_TEventQueue_h

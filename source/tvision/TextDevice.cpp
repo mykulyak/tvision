@@ -1,10 +1,8 @@
 #include <tvision/TextDevice.h>
 
 #pragma argsused
-TTextDevice::TTextDevice(const TRect& bounds,
-    TScrollBar* aHScrollBar,
-    TScrollBar* aVScrollBar,
-    ushort aBufSize) noexcept
+TTextDevice::TTextDevice(
+    const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar, ushort aBufSize) noexcept
     : TScroller(bounds, aHScrollBar, aVScrollBar)
 {
     // Borland's streambuf::sputn is wrong and never invokes overflow().
@@ -20,10 +18,7 @@ TTextDevice::TTextDevice(const TRect& bounds,
     }
 }
 
-TTextDevice::~TTextDevice()
-{
-    delete[] pbase();
-}
+TTextDevice::~TTextDevice() { delete[] pbase(); }
 
 int TTextDevice::overflow(int c)
 {

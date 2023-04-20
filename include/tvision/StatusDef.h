@@ -5,10 +5,8 @@
 
 class TStatusDef {
 public:
-    TStatusDef(ushort aMin,
-        ushort aMax,
-        TStatusItem* someItems = 0,
-        TStatusDef* aNext = 0) noexcept;
+    TStatusDef(
+        ushort aMin, ushort aMax, TStatusItem* someItems = 0, TStatusDef* aNext = 0) noexcept;
 
     TStatusDef* next;
     ushort min;
@@ -16,10 +14,8 @@ public:
     TStatusItem* items;
 };
 
-inline TStatusDef::TStatusDef(ushort aMin,
-    ushort aMax,
-    TStatusItem* someItems,
-    TStatusDef* aNext) noexcept
+inline TStatusDef::TStatusDef(
+    ushort aMin, ushort aMax, TStatusItem* someItems, TStatusDef* aNext) noexcept
     : next(aNext)
     , min(aMin)
     , max(aMax)

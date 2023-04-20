@@ -30,9 +30,11 @@ ConsoleStrategy& Platform::createConsole() noexcept
         display = new AnsiDisplay<NcursesDisplay>(io);
 #ifdef __linux__
     if (io.isLinuxConsole())
-        return LinuxConsoleStrategy::create(io, scrl, inputState, *display, *new NcursesInput(io, *display, inputState, false));
+        return LinuxConsoleStrategy::create(
+            io, scrl, inputState, *display, *new NcursesInput(io, *display, inputState, false));
 #endif // __linux__
-    return UnixConsoleStrategy::create(io, displayBuf, scrl, inputState, *display, *new NcursesInput(io, *display, inputState, true));
+    return UnixConsoleStrategy::create(io, displayBuf, scrl, inputState, *display,
+        *new NcursesInput(io, *display, inputState, true));
 #endif // _WIN32
 }
 
@@ -60,8 +62,7 @@ void Platform::checkConsole() noexcept
 
 bool Platform::getEvent(TEvent& ev) noexcept
 {
-    if (waiter.getEvent(ev)
-        && (ev.what != evCommand || ev.message.command != cmScreenChanged))
+    if (waiter.getEvent(ev) && (ev.what != evCommand || ev.message.command != cmScreenChanged))
         return true;
     if (screenChanged()) {
         ev.what = evCommand;

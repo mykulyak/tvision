@@ -8,8 +8,7 @@ TChBackground::TChBackground(TBackground* b)
 {
     // Ideally, we would show an ASCII table and let the user choose from there.
     TRect r = getExtent();
-    r.move((TProgram::deskTop->size.x - r.b.x) / 2,
-        (TProgram::deskTop->size.y - r.b.y) / 2);
+    r.move((TProgram::deskTop->size.x - r.b.x) / 2, (TProgram::deskTop->size.y - r.b.y) / 2);
     changeBounds(r);
     input = new TInputLine(TRect(4, 5, 7, 6), 1, 0, ilMaxChars);
     insert(input);

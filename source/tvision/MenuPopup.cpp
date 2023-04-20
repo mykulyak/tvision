@@ -4,9 +4,7 @@
 
 const char* const TMenuPopup::name = "TMenuPopup";
 
-TStreamableClass RMenuPopup(TMenuPopup::name,
-    TMenuPopup::build,
-    __DELTA(TMenuPopup));
+TStreamableClass RMenuPopup(TMenuPopup::name, TMenuPopup::build, __DELTA(TMenuPopup));
 
 TMenuPopup::TMenuPopup(const TRect& bounds, TMenu* aMenu, TMenuView* aParentMenu) noexcept
     : TMenuBox(bounds, aMenu, aParentMenu)
@@ -43,10 +41,7 @@ void TMenuPopup::handleEvent(TEvent& event)
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TMenuPopup::build()
-{
-    return new TMenuPopup(streamableInit);
-}
+TStreamable* TMenuPopup::build() { return new TMenuPopup(streamableInit); }
 
 TMenuPopup::TMenuPopup(StreamableInit) noexcept
     : TMenuBox(streamableInit)

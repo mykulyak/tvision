@@ -1,15 +1,6 @@
 #include <tvision/CommandSet.h>
 
-int TCommandSet::masks[8] = {
-    0x0001,
-    0x0002,
-    0x0004,
-    0x0008,
-    0x0010,
-    0x0020,
-    0x0040,
-    0x0080
-};
+int TCommandSet::masks[8] = { 0x0001, 0x0002, 0x0004, 0x0008, 0x0010, 0x0020, 0x0040, 0x0080 };
 
 TCommandSet::TCommandSet() noexcept
 {
@@ -23,15 +14,9 @@ TCommandSet::TCommandSet(const TCommandSet& tc) noexcept
         cmds[i] = tc.cmds[i];
 }
 
-bool TCommandSet::has(int cmd) noexcept
-{
-    return bool((cmds[loc(cmd)] & mask(cmd)) != 0);
-}
+bool TCommandSet::has(int cmd) noexcept { return bool((cmds[loc(cmd)] & mask(cmd)) != 0); }
 
-void TCommandSet::disableCmd(int cmd) noexcept
-{
-    cmds[loc(cmd)] &= ~mask(cmd);
-}
+void TCommandSet::disableCmd(int cmd) noexcept { cmds[loc(cmd)] &= ~mask(cmd); }
 
 void TCommandSet::enableCmd(const TCommandSet& tc) noexcept
 {
@@ -45,10 +30,7 @@ void TCommandSet::disableCmd(const TCommandSet& tc) noexcept
         cmds[i] &= ~(tc.cmds[i]);
 }
 
-void TCommandSet::enableCmd(int cmd) noexcept
-{
-    cmds[loc(cmd)] |= mask(cmd);
-}
+void TCommandSet::enableCmd(int cmd) noexcept { cmds[loc(cmd)] |= mask(cmd); }
 
 TCommandSet& TCommandSet::operator&=(const TCommandSet& tc) noexcept
 {

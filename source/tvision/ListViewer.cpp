@@ -8,16 +8,12 @@ const char* TListViewer::emptyText = "<empty>";
 __link(RView);
 __link(RScrollBar);
 
-TStreamableClass RListViewer(TListViewer::name,
-    TListViewer::build,
-    __DELTA(TListViewer));
+TStreamableClass RListViewer(TListViewer::name, TListViewer::build, __DELTA(TListViewer));
 
 #define cpListViewer "\x1A\x1A\x1B\x1C\x1D"
 
-TListViewer::TListViewer(const TRect& bounds,
-    ushort aNumCols,
-    TScrollBar* aHScrollBar,
-    TScrollBar* aVScrollBar) noexcept
+TListViewer::TListViewer(
+    const TRect& bounds, ushort aNumCols, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar) noexcept
     : TView(bounds)
     , numCols(aNumCols)
     , topItem(0)
@@ -85,7 +81,8 @@ void TListViewer::draw()
         for (j = 0; j < numCols; j++) {
             item = j * size.y + i + topItem;
             curCol = j * colWidth;
-            if ((state & (sfSelected | sfActive)) == (sfSelected | sfActive) && focused == item && range > 0) {
+            if ((state & (sfSelected | sfActive)) == (sfSelected | sfActive) && focused == item
+                && range > 0) {
                 color = focusedColor;
                 setCursor(curCol + 1, i);
                 scOff = 0;
@@ -160,15 +157,9 @@ TPalette& TListViewer::getPalette() const
     return palette;
 }
 
-void TListViewer::getText(char* dest, short, short)
-{
-    *dest = EOS;
-}
+void TListViewer::getText(char* dest, short, short) { *dest = EOS; }
 
-bool TListViewer::isSelected(short item)
-{
-    return bool(item == focused);
-}
+bool TListViewer::isSelected(short item) { return bool(item == focused); }
 
 void TListViewer::handleEvent(TEvent& event)
 {
@@ -279,7 +270,8 @@ void TListViewer::handleEvent(TEvent& event)
         clearEvent(event);
     } else if (event.what == evBroadcast) {
         if ((options & ofSelectable) != 0) {
-            if (event.message.command == cmScrollBarClicked && (event.message.infoPtr == hScrollBar || event.message.infoPtr == vScrollBar))
+            if (event.message.command == cmScrollBarClicked
+                && (event.message.infoPtr == hScrollBar || event.message.infoPtr == vScrollBar))
                 select();
             else if (event.message.command == cmScrollBarChanged) {
                 if (vScrollBar == event.message.infoPtr) {
@@ -292,10 +284,7 @@ void TListViewer::handleEvent(TEvent& event)
     }
 }
 
-void TListViewer::selectItem(short)
-{
-    message(owner, evBroadcast, cmListItemSelected, this);
-}
+void TListViewer::selectItem(short) { message(owner, evBroadcast, cmListItemSelected, this); }
 
 void TListViewer::setRange(short aRange)
 {
@@ -303,8 +292,7 @@ void TListViewer::setRange(short aRange)
     if (focused >= aRange)
         focused = 0;
     if (vScrollBar != 0)
-        vScrollBar->setParams(focused, 0, aRange - 1, vScrollBar->pgStep,
-            vScrollBar->arStep);
+        vScrollBar->setParams(focused, 0, aRange - 1, vScrollBar->pgStep, vScrollBar->arStep);
     else
         drawView();
 }
@@ -341,22 +329,17 @@ void TListViewer::shutDown()
 void TListViewer::write(opstream& os)
 {
     TView::write(os);
-    os << hScrollBar << vScrollBar << numCols
-       << topItem << focused << range;
+    os << hScrollBar << vScrollBar << numCols << topItem << focused << range;
 }
 
 void* TListViewer::read(ipstream& is)
 {
     TView::read(is);
-    is >> hScrollBar >> vScrollBar >> numCols
-        >> topItem >> focused >> range;
+    is >> hScrollBar >> vScrollBar >> numCols >> topItem >> focused >> range;
     return this;
 }
 
-TStreamable* TListViewer::build()
-{
-    return new TListViewer(streamableInit);
-}
+TStreamable* TListViewer::build() { return new TListViewer(streamableInit); }
 
 TListViewer::TListViewer(StreamableInit) noexcept
     : TView(streamableInit)

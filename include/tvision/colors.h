@@ -3,15 +3,9 @@
 
 #ifdef __BORLANDC__
 
-inline TColorDesired getFore(const TColorAttr& attr)
-{
-    return uchar(attr & 0xF);
-}
+inline TColorDesired getFore(const TColorAttr& attr) { return uchar(attr & 0xF); }
 
-inline TColorDesired getBack(const TColorAttr& attr)
-{
-    return uchar(attr >> 4);
-}
+inline TColorDesired getBack(const TColorAttr& attr) { return uchar(attr >> 4); }
 
 inline void setFore(TColorAttr& attr, TColorDesired color)
 {
@@ -23,10 +17,7 @@ inline void setBack(TColorAttr& attr, TColorDesired color)
     attr = uchar(attr & 0xF) | uchar(color << 4);
 }
 
-inline TColorAttr reverseAttribute(TColorAttr attr)
-{
-    return uchar(attr << 4) | uchar(attr >> 4);
-}
+inline TColorAttr reverseAttribute(TColorAttr attr) { return uchar(attr << 4) | uchar(attr >> 4); }
 
 #else // __BORLANDC__
 
@@ -36,8 +27,7 @@ inline TColorAttr reverseAttribute(TColorAttr attr)
 
 namespace colors {
 
-template <class T, T mask = static_cast<T>(-1)>
-struct alignas(T) trivially_convertible {
+template <class T, T mask = static_cast<T>(-1)> struct alignas(T) trivially_convertible {
 
     using trivial_t = T;
 
@@ -75,11 +65,7 @@ struct alignas(T) trivially_convertible {
 //     uint32_t(TColorRGB(0xAABBCCDD)) == 0xBBCCDD;
 
 struct TColorRGB : colors::trivially_convertible<uint32_t, 0xFFFFFF> {
-    uint32_t
-        b : 8,
-        g : 8,
-        r : 8,
-        _unused : 8;
+    uint32_t b : 8, g : 8, r : 8, _unused : 8;
 
     using trivially_convertible::trivially_convertible;
     TColorRGB() = default;
@@ -108,12 +94,7 @@ constexpr inline TColorRGB::TColorRGB(uint8_t r, uint8_t g, uint8_t b)
 //     uint8_t(TColorBIOS(0xAB)) == 0xB;
 
 struct TColorBIOS : colors::trivially_convertible<uint8_t, 0xF> {
-    uint8_t
-        b : 1,
-        g : 1,
-        r : 1,
-        bright : 1,
-        _unused : 4;
+    uint8_t b : 1, g : 1, r : 1, bright : 1, _unused : 4;
 
     using trivially_convertible::trivially_convertible;
     TColorBIOS() = default;
@@ -166,8 +147,7 @@ inline TColorRGB XTerm256toRGB(uint8_t); // Only for indices 16..255.
 inline uint8_t XTerm256toXTerm16(uint8_t);
 
 namespace tvision {
-template <class T, size_t N>
-struct constarray;
+template <class T, size_t N> struct constarray;
 
 uint8_t RGBtoXTerm16Impl(TColorRGB) noexcept;
 extern const constarray<uint8_t, 256> XTerm256toXTerm16LUT;
@@ -183,10 +163,7 @@ inline uint8_t BIOStoXTerm16(TColorBIOS c)
     return c;
 }
 
-inline TColorBIOS RGBtoBIOS(TColorRGB c)
-{
-    return XTerm16toBIOS(RGBtoXTerm16(c));
-}
+inline TColorBIOS RGBtoBIOS(TColorRGB c) { return XTerm16toBIOS(RGBtoXTerm16(c)); }
 
 inline uint8_t RGBtoXTerm16(TColorRGB c)
 {
@@ -220,9 +197,7 @@ inline uint8_t RGBtoXTerm256(TColorRGB c)
             c += 20 & -(c < 75);
             return uchar(max<uchar>(c, 35) - 35) / 40;
         };
-        uchar r = scale(c.r),
-              g = scale(c.g),
-              b = scale(c.b);
+        uchar r = scale(c.r), g = scale(c.g), b = scale(c.b);
         return 16 + uchar(r * uchar(6) + g) * uchar(6) + b;
     };
     auto cnvGray = [](uchar l) {
@@ -235,8 +210,7 @@ inline uint8_t RGBtoXTerm256(TColorRGB c)
 
     uchar idx = cnvColor(c);
     if (c != XTerm256toRGB(idx)) {
-        uchar Xmin = min(min(c.r, c.g), c.b),
-              Xmax = max(max(c.r, c.g), c.b);
+        uchar Xmin = min(min(c.r, c.g), c.b), Xmax = max(max(c.r, c.g), c.b);
         uchar C = Xmax - Xmin; // Chroma in the HSL/HSV theory.
         if (C < 12 || idx == 16) // Grayscale if Chroma < 12 or rounded to black.
         {
@@ -247,10 +221,7 @@ inline uint8_t RGBtoXTerm256(TColorRGB c)
     return idx;
 }
 
-inline TColorBIOS XTerm16toBIOS(uint8_t idx)
-{
-    return BIOStoXTerm16(idx);
-}
+inline TColorBIOS XTerm16toBIOS(uint8_t idx) { return BIOStoXTerm16(idx); }
 
 inline uint8_t XTerm256toXTerm16(uint8_t idx)
 {
@@ -280,9 +251,7 @@ inline TColorRGB XTerm256toRGB(uint8_t idx)
 // In a terminal emulator, the 'default color' is the color of text that has no
 // display attributes (bold, color...) enabled.
 
-const uchar
-    ctDefault
-    = 0x0, // Terminal default.
+const uchar ctDefault = 0x0, // Terminal default.
     ctBIOS = 0x1, // TColorBIOS.
     ctRGB = 0x2, // TColorRGB.
     ctXTerm = 0x3; // TColorXTerm.
@@ -361,45 +330,21 @@ inline TColorDesired::TColorDesired(TColorXTerm xterm)
 {
 }
 
-constexpr inline uchar TColorDesired::type() const
-{
-    return _data >> 24;
-}
+constexpr inline uchar TColorDesired::type() const { return _data >> 24; }
 
-constexpr inline bool TColorDesired::isDefault() const
-{
-    return type() == ctDefault;
-}
+constexpr inline bool TColorDesired::isDefault() const { return type() == ctDefault; }
 
-constexpr inline bool TColorDesired::isBIOS() const
-{
-    return type() == ctBIOS;
-}
+constexpr inline bool TColorDesired::isBIOS() const { return type() == ctBIOS; }
 
-constexpr inline bool TColorDesired::isRGB() const
-{
-    return type() == ctRGB;
-}
+constexpr inline bool TColorDesired::isRGB() const { return type() == ctRGB; }
 
-constexpr inline bool TColorDesired::isXTerm() const
-{
-    return type() == ctXTerm;
-}
+constexpr inline bool TColorDesired::isXTerm() const { return type() == ctXTerm; }
 
-inline TColorBIOS TColorDesired::asBIOS() const
-{
-    return _data;
-}
+inline TColorBIOS TColorDesired::asBIOS() const { return _data; }
 
-inline TColorRGB TColorDesired::asRGB() const
-{
-    return _data;
-}
+inline TColorRGB TColorDesired::asRGB() const { return _data; }
 
-inline TColorXTerm TColorDesired::asXTerm() const
-{
-    return _data;
-}
+inline TColorXTerm TColorDesired::asXTerm() const { return _data; }
 
 inline TColorBIOS TColorDesired::toBIOS(bool isForeground) const
 {
@@ -424,20 +369,11 @@ inline bool TColorDesired::operator==(TColorDesired other) const
     return memcmp(this, &other, sizeof(*this)) == 0;
 }
 
-inline bool TColorDesired::operator!=(TColorDesired other) const
-{
-    return !(*this == other);
-}
+inline bool TColorDesired::operator!=(TColorDesired other) const { return !(*this == other); }
 
-constexpr inline uint32_t TColorDesired::bitCast() const
-{
-    return _data;
-}
+constexpr inline uint32_t TColorDesired::bitCast() const { return _data; }
 
-constexpr inline void TColorDesired::bitCast(uint32_t val)
-{
-    _data = val;
-}
+constexpr inline void TColorDesired::bitCast(uint32_t val) { _data = val; }
 
 //// TColorAttr
 //
@@ -472,9 +408,7 @@ const ushort
 
     slBold
     = 0x001,
-    slItalic = 0x002,
-    slUnderline = 0x004,
-    slBlink = 0x008,
+    slItalic = 0x002, slUnderline = 0x004, slBlink = 0x008,
     slReverse = 0x010, // Prefer using 'reverseAttribute()' instead.
     slStrike = 0x020,
 
@@ -487,10 +421,7 @@ struct TAttrPair;
 struct TColorAttr {
     using Style = ushort;
 
-    uint64_t
-        _style : 10,
-        _fg : 27,
-        _bg : 27;
+    uint64_t _style : 10, _fg : 27, _bg : 27;
 
     TColorAttr() = default;
     constexpr inline TColorAttr(int bios);
@@ -550,35 +481,22 @@ inline uchar TColorAttr::asBIOS() const
 
 inline uchar TColorAttr::toBIOS() const
 {
-    auto fg = ::getFore(*this),
-         bg = ::getBack(*this);
+    auto fg = ::getFore(*this), bg = ::getBack(*this);
     return fg.toBIOS(true) | (bg.toBIOS(false) << 4);
 }
 
-inline TColorAttr::operator uchar() const
-{
-    return asBIOS();
-}
+inline TColorAttr::operator uchar() const { return asBIOS(); }
 
 inline bool TColorAttr::operator==(const TColorAttr& other) const
 {
     return memcmp(this, &other, sizeof(*this)) == 0;
 }
 
-inline bool TColorAttr::operator!=(const TColorAttr& other) const
-{
-    return !(*this == other);
-}
+inline bool TColorAttr::operator!=(const TColorAttr& other) const { return !(*this == other); }
 
-inline bool TColorAttr::operator==(int bios) const
-{
-    return *this == TColorAttr { (uchar)bios };
-}
+inline bool TColorAttr::operator==(int bios) const { return *this == TColorAttr { (uchar)bios }; }
 
-inline bool TColorAttr::operator!=(int bios) const
-{
-    return !(*this == bios);
-}
+inline bool TColorAttr::operator!=(int bios) const { return !(*this == bios); }
 
 constexpr inline TColorDesired getFore(const TColorAttr& attr)
 {
@@ -594,30 +512,17 @@ constexpr inline TColorDesired getBack(const TColorAttr& attr)
     return color;
 }
 
-constexpr inline ushort getStyle(const TColorAttr& attr)
-{
-    return attr._style;
-}
+constexpr inline ushort getStyle(const TColorAttr& attr) { return attr._style; }
 
-constexpr inline void setFore(TColorAttr& attr, TColorDesired color)
-{
-    attr._fg = color.bitCast();
-}
+constexpr inline void setFore(TColorAttr& attr, TColorDesired color) { attr._fg = color.bitCast(); }
 
-constexpr inline void setBack(TColorAttr& attr, TColorDesired color)
-{
-    attr._bg = color.bitCast();
-}
+constexpr inline void setBack(TColorAttr& attr, TColorDesired color) { attr._bg = color.bitCast(); }
 
-constexpr inline void setStyle(TColorAttr& attr, ushort style)
-{
-    attr._style = style;
-}
+constexpr inline void setStyle(TColorAttr& attr, ushort style) { attr._style = style; }
 
 constexpr inline TColorAttr reverseAttribute(TColorAttr attr)
 {
-    auto fg = ::getFore(attr),
-         bg = ::getBack(attr);
+    auto fg = ::getFore(attr), bg = ::getBack(attr);
     // The 'slReverse' attribute is represented differently by every terminal,
     // so it is better to swap the colors manually unless any of them is default.
     if ((int)fg.isDefault() | bg.isDefault())
@@ -674,10 +579,7 @@ inline ushort TAttrPair::asBIOS() const
     return _attrs[0].asBIOS() | ushort(_attrs[1].asBIOS() << 8);
 }
 
-inline TAttrPair::operator ushort() const
-{
-    return asBIOS();
-}
+inline TAttrPair::operator ushort() const { return asBIOS(); }
 
 inline TAttrPair TAttrPair::operator>>(int shift) const
 {
@@ -694,22 +596,13 @@ inline TAttrPair& TAttrPair::operator|=(TColorAttr attr)
     return *this;
 }
 
-inline TColorAttr& TAttrPair::operator[](size_t i)
-{
-    return _attrs[i];
-}
+inline TColorAttr& TAttrPair::operator[](size_t i) { return _attrs[i]; }
 
-inline const TColorAttr& TAttrPair::operator[](size_t i) const
-{
-    return _attrs[i];
-}
+inline const TColorAttr& TAttrPair::operator[](size_t i) const { return _attrs[i]; }
 
 // Pending methods from TColorAttr.
 
-inline TColorAttr::TColorAttr(const TAttrPair& attrs)
-{
-    *this = attrs[0];
-}
+inline TColorAttr::TColorAttr(const TAttrPair& attrs) { *this = attrs[0]; }
 
 inline TAttrPair TColorAttr::operator<<(int shift) const
 {

@@ -18,10 +18,7 @@ public:
     ushort keyWidth;
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     virtual void write(opstream&);
@@ -32,21 +29,9 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TForm& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TForm*& cl)
-{
-    return is >> (void*&)cl;
-}
-inline opstream& operator<<(opstream& os, TForm& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TForm* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline ipstream& operator>>(ipstream& is, TForm& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TForm*& cl) { return is >> (void*&)cl; }
+inline opstream& operator<<(opstream& os, TForm& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TForm* cl) { return os << (TStreamable*)cl; }
 
 #endif // __FORMS_H

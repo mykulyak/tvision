@@ -77,8 +77,7 @@ struct ThisThread {
 #warning The code below assumes that atomic pointers are lock-free, but they are not.
 #endif
 
-template <class T>
-struct SignalThreadSafe {
+template <class T> struct SignalThreadSafe {
     T t;
     std::atomic<ThreadId> lockingThread {};
 
@@ -108,10 +107,7 @@ struct SignalThreadSafe {
         return func(t);
     }
 
-    bool lockedByThisThread() const noexcept
-    {
-        return lockingThread == ThisThread::id();
-    }
+    bool lockedByThisThread() const noexcept { return lockingThread == ThisThread::id(); }
 };
 
 class Platform {
@@ -195,7 +191,10 @@ public:
         return console.lock([](auto* c) { return c->display.getScreenMode(); });
     }
     void setCaretSize(int size) noexcept { displayBuf.setCaretSize(size); }
-    void screenWrite(int x, int y, TScreenCell* b, int l) noexcept { displayBuf.screenWrite(x, y, b, l); }
+    void screenWrite(int x, int y, TScreenCell* b, int l) noexcept
+    {
+        displayBuf.screenWrite(x, y, b, l);
+    }
     void flushScreen() noexcept
     {
         console.lock([&](auto* c) { displayBuf.flushScreen(c->display); });

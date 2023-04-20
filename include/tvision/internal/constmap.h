@@ -78,10 +78,10 @@ class const_unordered_map<uint64_t, Value> : public const_unordered_map_base<uin
 public:
     using super::super;
 
-    static const_unordered_map with_string_keys(std::initializer_list<StringAsIntPair> init) noexcept
+    static const_unordered_map with_string_keys(
+        std::initializer_list<StringAsIntPair> init) noexcept
     {
-        return const_unordered_map(
-            static_cast<const typename super::value_type*>(init.begin()),
+        return const_unordered_map(static_cast<const typename super::value_type*>(init.begin()),
             static_cast<const typename super::value_type*>(init.end()));
     }
 

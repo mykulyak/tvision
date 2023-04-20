@@ -13,23 +13,15 @@ public:
 
     virtual void* getKey(const char*);
     virtual void getText(char*, short, short);
-    void newList(TDataCollection*);
-    TDataCollection* list();
+
+    void newList(TDataCollection* aList) { TSortedListBox::newList(aList); }
+
+    TDataCollection* list() { return (TDataCollection*)TSortedListBox::list(); }
 };
-
-inline void TListKeyBox::newList(TDataCollection* aList)
-{
-    TSortedListBox::newList(aList);
-}
-
-inline TDataCollection* TListKeyBox::list()
-{
-    return (TDataCollection*)TSortedListBox::list();
-}
 
 class TListDialog : public TDialog {
 public:
-    TListDialog(char*, char*);
+    TListDialog(const char*, const char*);
     ~TListDialog(void);
 
     virtual void close();

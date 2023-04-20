@@ -7,17 +7,11 @@
 
 __link(RWindow);
 
-const char* const TEventViewer::name
-    = "TEventViewer";
+const char* const TEventViewer::name = "TEventViewer";
 
-TStreamable* TEventViewer::build()
-{
-    return new TEventViewer(streamableInit);
-}
+TStreamable* TEventViewer::build() { return new TEventViewer(streamableInit); }
 
-TStreamableClass REventViewer(TEventViewer::name,
-    TEventViewer::build,
-    __DELTA(TEventViewer));
+TStreamableClass REventViewer(TEventViewer::name, TEventViewer::build, __DELTA(TEventViewer));
 
 void TEventViewer::write(opstream& os)
 {
@@ -83,10 +77,7 @@ void TEventViewer::init(ushort aBufSize)
     bufSize = aBufSize;
     title = titles[stopped];
     scrollBar = standardScrollBar(sbVertical | sbHandleKeyboard);
-    interior = new TTerminal(getExtent().grow(-1, -1),
-        0,
-        scrollBar,
-        bufSize);
+    interior = new TTerminal(getExtent().grow(-1, -1), 0, scrollBar, bufSize);
     insert(interior);
     out = new std::ostream(interior);
 }
@@ -114,8 +105,7 @@ void TEventViewer::handleEvent(TEvent& ev)
 
 static void printConstants(std::ostream& out, ushort value, void (&doPrint)(std::ostream&, ushort))
 {
-    out << std::hex << std::setfill('0')
-        << "0x" << std::setw(4) << value;
+    out << std::hex << std::setfill('0') << "0x" << std::setw(4) << value;
     char buf[256];
     std::ostrstream os(buf, sizeof(buf));
     doPrint(os, value);
@@ -166,9 +156,7 @@ void TEventViewer::printEvent(std::ostream& out, const TEvent& ev)
             << "    },\n"
             << "    .controlKeyState = ";
         printConstants(out, ev.keyDown.controlKeyState, printControlKeyState);
-        out << ",\n"
-            << std::hex
-            << "    .text = {";
+        out << ",\n" << std::hex << "    .text = {";
         bool first = true;
         for (int i = 0; i < ev.keyDown.textLength; ++i) {
             if (first)
@@ -178,8 +166,7 @@ void TEventViewer::printEvent(std::ostream& out, const TEvent& ev)
             out << "0x" << (int)(uchar)ev.keyDown.text[i];
         }
         out << "},\n"
-            << std::dec
-            << "    .textLength = " << (int)ev.keyDown.textLength << "\n"
+            << std::dec << "    .textLength = " << (int)ev.keyDown.textLength << "\n"
             << "  }\n";
     }
     if (ev.what & evCommand)

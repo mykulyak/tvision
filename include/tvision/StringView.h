@@ -111,10 +111,7 @@ inline constexpr TStringView::TStringView(std::string_view text)
 {
 }
 
-inline constexpr TStringView::operator std::string_view() const
-{
-    return { str, len };
-}
+inline constexpr TStringView::operator std::string_view() const { return { str, len }; }
 #endif
 
 inline TStringView::TStringView(const std::string& text)
@@ -123,10 +120,7 @@ inline TStringView::TStringView(const std::string& text)
 {
 }
 
-inline TStringView::operator std::string() const
-{
-    return { str, len };
-}
+inline TStringView::operator std::string() const { return { str, len }; }
 #endif // TVISION_STL
 
 inline constexpr TStringView::operator TSpan<const char>() const
@@ -134,35 +128,17 @@ inline constexpr TStringView::operator TSpan<const char>() const
     return TSpan<const char>(str, len);
 }
 
-inline constexpr const char* TStringView::data() const
-{
-    return str;
-}
+inline constexpr const char* TStringView::data() const { return str; }
 
-inline constexpr size_t TStringView::size() const
-{
-    return len;
-}
+inline constexpr size_t TStringView::size() const { return len; }
 
-inline constexpr bool TStringView::empty() const
-{
-    return bool(size() == 0);
-}
+inline constexpr bool TStringView::empty() const { return bool(size() == 0); }
 
-inline constexpr const char& TStringView::operator[](size_t pos) const
-{
-    return str[pos];
-}
+inline constexpr const char& TStringView::operator[](size_t pos) const { return str[pos]; }
 
-inline constexpr const char& TStringView::front() const
-{
-    return str[0];
-}
+inline constexpr const char& TStringView::front() const { return str[0]; }
 
-inline constexpr const char& TStringView::back() const
-{
-    return str[len - 1];
-}
+inline constexpr const char& TStringView::back() const { return str[len - 1]; }
 
 inline constexpr TStringView TStringView::substr(size_t pos) const
 {
@@ -174,32 +150,19 @@ inline constexpr TStringView TStringView::substr(size_t pos, size_t n) const
     return TStringView(str + pos, n <= len - pos ? n : len - pos);
 }
 
-inline constexpr const char* TStringView::begin() const
-{
-    return &str[0];
-}
+inline constexpr const char* TStringView::begin() const { return &str[0]; }
 
-inline constexpr const char* TStringView::cbegin() const
-{
-    return &str[0];
-}
+inline constexpr const char* TStringView::cbegin() const { return &str[0]; }
 
-inline constexpr const char* TStringView::end() const
-{
-    return &str[len];
-}
+inline constexpr const char* TStringView::end() const { return &str[len]; }
 
-inline constexpr const char* TStringView::cend() const
-{
-    return &str[len];
-}
+inline constexpr const char* TStringView::cend() const { return &str[len]; }
 
 #if defined(TVISION_STL) && (__cplusplus >= 201703L || __cpp_lib_constexpr_char_traits)
 inline constexpr bool operator==(TStringView a, TStringView b)
 {
-    return a.size() == b.size()
-        ? std::char_traits<char>::compare(a.data(), b.data(), b.size()) == 0
-        : false;
+    return a.size() == b.size() ? std::char_traits<char>::compare(a.data(), b.data(), b.size()) == 0
+                                : false;
 }
 #else
 inline bool operator==(TStringView a, TStringView b)
@@ -225,13 +188,9 @@ constexpr
 
 namespace std {
 #if __cplusplus >= 201703L || __cpp_lib_string_view
-template <>
-struct hash<TStringView> : public std::hash<std::string_view> {
-};
+template <> struct hash<TStringView> : public std::hash<std::string_view> { };
 #else
-template <>
-struct hash<TStringView> : public std::hash<std::string> {
-};
+template <> struct hash<TStringView> : public std::hash<std::string> { };
 #endif
 } // namespace std
 

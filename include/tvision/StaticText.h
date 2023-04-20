@@ -1,6 +1,7 @@
 #ifndef TVision_TStaticText_h
 #define TVision_TStaticText_h
 
+#include <string>
 #include <tvision/View.h>
 
 /* ---------------------------------------------------------------------- */
@@ -20,13 +21,10 @@ public:
     virtual void getText(char*);
 
 protected:
-    const char* text;
+    std::string text;
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TStaticText(StreamableInit) noexcept;
@@ -38,22 +36,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TStaticText& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TStaticText*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TStaticText& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TStaticText*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TStaticText& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TStaticText* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TStaticText& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TStaticText* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TStaticText_h

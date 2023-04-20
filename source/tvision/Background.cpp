@@ -6,9 +6,7 @@ const char* const TBackground::name = "TBackground";
 
 __link(RView);
 
-TStreamableClass RBackground(TBackground::name,
-    TBackground::build,
-    __DELTA(TBackground));
+TStreamableClass RBackground(TBackground::name, TBackground::build, __DELTA(TBackground));
 
 TBackground::TBackground(const TRect& bounds, char aPattern) noexcept
     : TView(bounds)
@@ -51,9 +49,6 @@ void* TBackground::read(ipstream& is)
     return this;
 }
 
-TStreamable* TBackground::build()
-{
-    return new TBackground(streamableInit);
-}
+TStreamable* TBackground::build() { return new TBackground(streamableInit); }
 
 #endif

@@ -35,7 +35,8 @@ class DisplayBuffer {
 
     static DisplayBuffer* instance;
 #ifdef _WIN32
-    static constexpr int defaultFPS = 120; // Just 60 feels notably slower on Windows, I don't know why.
+    static constexpr int defaultFPS
+        = 120; // Just 60 feels notably slower on Windows, I don't know why.
 #else
     static constexpr int defaultFPS = 60;
 #endif
@@ -96,10 +97,7 @@ inline void DisplayBuffer::removeCursor(ScreenCursor* cursor) noexcept
             return (void)cursors.erase(it);
 }
 
-inline void DisplayBuffer::changeCursor() noexcept
-{
-    instance->caretMoved = true;
-}
+inline void DisplayBuffer::changeCursor() noexcept { instance->caretMoved = true; }
 
 } // namespace tvision
 

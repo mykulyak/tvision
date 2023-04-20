@@ -16,8 +16,7 @@ __link(RButton);
 // TCalcDisplay functions
 //
 
-const char* const TCalcDisplay::name
-    = "TCalcDisplay";
+const char* const TCalcDisplay::name = "TCalcDisplay";
 
 void TCalcDisplay::write(opstream& os)
 {
@@ -41,14 +40,9 @@ void* TCalcDisplay::read(ipstream& is)
     return this;
 }
 
-TStreamable* TCalcDisplay::build()
-{
-    return new TCalcDisplay(streamableInit);
-}
+TStreamable* TCalcDisplay::build() { return new TCalcDisplay(streamableInit); }
 
-TStreamableClass RCalcDisplay(TCalcDisplay::name,
-    TCalcDisplay::build,
-    __DELTA(TCalcDisplay));
+TStreamableClass RCalcDisplay(TCalcDisplay::name, TCalcDisplay::build, __DELTA(TCalcDisplay));
 
 TCalcDisplay::TCalcDisplay(TRect& r)
     : TView(r)
@@ -59,10 +53,7 @@ TCalcDisplay::TCalcDisplay(TRect& r)
     clear();
 }
 
-TCalcDisplay::~TCalcDisplay()
-{
-    delete[] number;
-}
+TCalcDisplay::~TCalcDisplay() { delete[] number; }
 
 TPalette& TCalcDisplay::getPalette() const
 {
@@ -253,10 +244,7 @@ void TCalcDisplay::calcKey(unsigned char key)
 }
 
 static const char* keyChar[20] = { "C", "\x1B", "%", "\xF1", // 0x1B is escape, 0xF1 is +/- char.
-    "7", "8", "9", "/",
-    "4", "5", "6", "*",
-    "1", "2", "3", "-",
-    "0", ".", "=", "+" };
+    "7", "8", "9", "/", "4", "5", "6", "*", "1", "2", "3", "-", "0", ".", "=", "+" };
 
 //
 // TCalculator functions
@@ -264,14 +252,9 @@ static const char* keyChar[20] = { "C", "\x1B", "%", "\xF1", // 0x1B is escape, 
 
 const char* const TCalculator::name = "TCalculator";
 
-TStreamable* TCalculator::build()
-{
-    return new TCalculator(streamableInit);
-}
+TStreamable* TCalculator::build() { return new TCalculator(streamableInit); }
 
-TStreamableClass RCalculator(TCalculator::name,
-    TCalculator::build,
-    __DELTA(TCalculator));
+TStreamableClass RCalculator(TCalculator::name, TCalculator::build, __DELTA(TCalculator));
 
 TCalculator::TCalculator()
     : TWindowInit(&TCalculator::initFrame)
@@ -287,7 +270,8 @@ TCalculator::TCalculator()
         int y = (i / 4) * 2 + 4;
         r = TRect(x, y, x + 5, y + 2);
 
-        tv = new TButton(r, keyChar[i], cmCalcButton, TButton::Flags::bfNormal | TButton::Flags::bfBroadcast);
+        tv = new TButton(
+            r, keyChar[i], cmCalcButton, TButton::Flags::bfNormal | TButton::Flags::bfBroadcast);
         tv->options &= ~ofSelectable;
         insert(tv);
     }

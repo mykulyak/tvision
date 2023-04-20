@@ -83,18 +83,14 @@ const uint XTermModDefault = 1;
 static KeyDownEvent keyWithXTermMods(ushort keyCode, uint mods) noexcept
 {
     mods -= XTermModDefault;
-    ushort tvmods = (kbShift & -(mods & 1))
-        | (kbAltShift & -(mods & 2))
-        | (kbCtrlShift & -(mods & 4));
+    ushort tvmods
+        = (kbShift & -(mods & 1)) | (kbAltShift & -(mods & 2)) | (kbCtrlShift & -(mods & 4));
     KeyDownEvent keyDown { { keyCode }, tvmods };
     TermIO::normalizeKey(keyDown);
     return keyDown;
 }
 
-static bool isAlpha(uint32_t ascii) noexcept
-{
-    return ' ' <= ascii && ascii < 127;
-};
+static bool isAlpha(uint32_t ascii) noexcept { return ' ' <= ascii && ascii < 127; };
 
 static bool isPrivate(uint32_t codepoint) noexcept
 {
@@ -215,7 +211,8 @@ static bool keyFromCodepoint(uint value, uint mods, KeyDownEvent& keyDown) noexc
     if (isAlpha(keyDown.keyCode) || (keyDown.keyCode == 0 && ' ' <= value && !isPrivate(value))) {
         uint32_t codepoint = keyDown.keyCode == 0 ? value : keyDown.keyCode;
         keyDown.textLength = utf32To8(codepoint, keyDown.text);
-        keyDown.charScan.charCode = CpTranslator::printableFromUtf8({ keyDown.text, keyDown.textLength });
+        keyDown.charScan.charCode
+            = CpTranslator::printableFromUtf8({ keyDown.text, keyDown.textLength });
     }
     return keyDown.keyCode != 0 || keyDown.textLength != 0;
 }
@@ -374,13 +371,12 @@ void TermIO::keyModsOn(StdioCtl& io) noexcept
 
 void TermIO::keyModsOff(StdioCtl& io, EventSource& source, InputState& state) noexcept
 {
-    TStringView seq = far2lPingSeq
-        far2lDisableSeq
-        "\x1B[<u" // Restore previous keyboard mode (Kitty).
-        "\x1B[>4m" // Reset modifyOtherKeys (XTerm).
-        "\x1B[?2004l" // Disable bracketed paste.
-        "\x1B[?2004r" // Restore bracketed paste.
-        "\x1B[?1036r" // Restore metaSendsEscape (XTerm).
+    TStringView seq
+        = far2lPingSeq far2lDisableSeq "\x1B[<u" // Restore previous keyboard mode (Kitty).
+                                       "\x1B[>4m" // Reset modifyOtherKeys (XTerm).
+                                       "\x1B[?2004l" // Disable bracketed paste.
+                                       "\x1B[?2004r" // Restore bracketed paste.
+                                       "\x1B[?1036r" // Restore metaSendsEscape (XTerm).
         ;
     io.write(seq.data(), seq.size());
     // If we are running across a slow connection, it is highly likely that
@@ -394,9 +390,7 @@ void TermIO::normalizeKey(KeyDownEvent& keyDown) noexcept
     TKey key(keyDown);
     if (key.mods & (kbShift | kbCtrlShift | kbAltShift)) {
         // Modifier precedece: Shift < Ctrl < Alt.
-        int largestMod = (key.mods & kbAltShift) ? 2
-            : (key.mods & kbCtrlShift)           ? 1
-                                                 : 0;
+        int largestMod = (key.mods & kbAltShift) ? 2 : (key.mods & kbCtrlShift) ? 1 : 0;
         if (ushort keyCode = moddedKeyCodes[key.code][largestMod]) {
             keyDown.keyCode = keyCode;
             if (keyDown.charScan.charCode < ' ')
@@ -466,10 +460,7 @@ ParseResult TermIO::parseEscapeSeq(GetChBuf& buf, TEvent& ev, InputState& state)
     return res;
 }
 
-const ushort
-    mmAlt
-    = 0x08,
-    mmCtrl = 0x10;
+const ushort mmAlt = 0x08, mmCtrl = 0x10;
 
 ParseResult TermIO::parseX10Mouse(GetChBuf& buf, TEvent& ev, InputState& state) noexcept
 // Pre: "\x1B[M" has just been read.
@@ -885,15 +876,14 @@ static bool requestOsc52Clipboard(StdioCtl& io, InputState& state) noexcept
 
 bool TermIO::setClipboardText(StdioCtl& io, TStringView text, InputState& state) noexcept
 {
-    return setFar2lClipboard(io, text, state)
-        || setOsc52Clipboard(io, text, state);
+    return setFar2lClipboard(io, text, state) || setOsc52Clipboard(io, text, state);
 }
 
-bool TermIO::requestClipboardText(StdioCtl& io, void (&accept)(TStringView), InputState& state) noexcept
+bool TermIO::requestClipboardText(
+    StdioCtl& io, void (&accept)(TStringView), InputState& state) noexcept
 {
     state.putPaste = &accept;
-    return requestFar2lClipboard(io, state)
-        || requestOsc52Clipboard(io, state);
+    return requestFar2lClipboard(io, state) || requestOsc52Clipboard(io, state);
 }
 
 char* TermIO::readUntilBelOrSt(GetChBuf& buf) noexcept

@@ -69,10 +69,7 @@ TResourceFile::~TResourceFile()
     delete stream;
 }
 
-short TResourceFile::count()
-{
-    return index->getCount();
-}
+short TResourceFile::count() { return index->getCount(); }
 
 void TResourceFile::remove(const char* key)
 {
@@ -113,10 +110,7 @@ void* TResourceFile::get(const char* key)
     return p;
 }
 
-const char* TResourceFile::keyAt(short i)
-{
-    return ((TResourceItem*)(index->at(i)))->key;
-}
+const char* TResourceFile::keyAt(short i) { return ((TResourceItem*)(index->at(i)))->key; }
 
 void TResourceFile::put(TStreamable* item, const char* key)
 {

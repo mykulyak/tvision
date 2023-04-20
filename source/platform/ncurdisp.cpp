@@ -62,14 +62,10 @@ int NcursesDisplay::getCaretSize() noexcept
 {
     int size = curs_set(0);
     curs_set(size);
-    return size <= 0 ? 0 : size == 1 ? 1
-                                     : 100;
+    return size <= 0 ? 0 : size == 1 ? 1 : 100;
 }
 
-int NcursesDisplay::getColorCount() noexcept
-{
-    return COLORS;
-}
+int NcursesDisplay::getColorCount() noexcept { return COLORS; }
 
 void NcursesDisplay::clearScreen() noexcept { wclear(stdscr); }
 void NcursesDisplay::lowlevelMoveCursor(uint x, uint y) noexcept { wmove(stdscr, y, x); }

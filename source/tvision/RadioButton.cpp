@@ -7,29 +7,15 @@ const char* TRadioButtons::button = " ( ) ";
 
 __link(RCluster);
 
-TStreamableClass RRadioButtons(TRadioButtons::name,
-    TRadioButtons::build,
-    __DELTA(TRadioButtons));
+TStreamableClass RRadioButtons(TRadioButtons::name, TRadioButtons::build, __DELTA(TRadioButtons));
 
-void TRadioButtons::draw()
-{
-    drawMultiBox(button, " \x7");
-}
+void TRadioButtons::draw() { drawMultiBox(button, " \x7"); }
 
-bool TRadioButtons::mark(int item)
-{
-    return bool(item == (int)value);
-}
+bool TRadioButtons::mark(int item) { return bool(item == (int)value); }
 
-void TRadioButtons::press(int item)
-{
-    value = item;
-}
+void TRadioButtons::press(int item) { value = item; }
 
-void TRadioButtons::movedTo(int item)
-{
-    value = item;
-}
+void TRadioButtons::movedTo(int item) { value = item; }
 
 void TRadioButtons::setData(void* rec)
 {
@@ -39,10 +25,7 @@ void TRadioButtons::setData(void* rec)
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TRadioButtons::build()
-{
-    return new TRadioButtons(streamableInit);
-}
+TStreamable* TRadioButtons::build() { return new TRadioButtons(streamableInit); }
 
 TRadioButtons::TRadioButtons(StreamableInit) noexcept
     : TCluster(streamableInit)

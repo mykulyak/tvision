@@ -12,8 +12,7 @@ namespace ttext {
 // Copyright (c) 2008-2010 Bjoern Hoehrmann <bjoern@hoehrmann.de>
 // See http://bjoern.hoehrmann.de/utf-8/decoder/dfa/ for details.
 
-enum { UTF8_ACCEPT = 0,
-    UTF8_REJECT = 12 };
+enum { UTF8_ACCEPT = 0, UTF8_REJECT = 12 };
 
 static const uint8_t utf8d[] = {
     // The first part of the table maps bytes to character classes that
@@ -463,10 +462,7 @@ static mbstat_r mbstat(TStringView text) noexcept
 namespace tvision {
 
 #ifdef _TV_UNIX
-int UnixConsoleStrategy::charWidth(uint32_t wc) noexcept
-{
-    return wcwidth(wc);
-}
+int UnixConsoleStrategy::charWidth(uint32_t wc) noexcept { return wcwidth(wc); }
 #endif // _TV_UNIX
 
 #ifdef __linux__
@@ -476,15 +472,19 @@ int LinuxConsoleStrategy::charWidth(uint32_t wc) noexcept
     // all characters are either single or double-width. Additionally, the
     // double-width characters are the same as in the wcwidth() implementation by
     // Markus Kuhn from 2007-05-26 (https://www.cl.cam.ac.uk/~mgk25/ucs/wcwidth.c).
-    return 1 + (wc >= 0x1100 && (wc <= 0x115f || wc == 0x2329 || wc == 0x232a || (wc >= 0x2e80 && wc <= 0xa4cf && wc != 0x303f) || (wc >= 0xac00 && wc <= 0xd7a3) || (wc >= 0xf900 && wc <= 0xfaff) || (wc >= 0xfe10 && wc <= 0xfe19) || (wc >= 0xfe30 && wc <= 0xfe6f) || (wc >= 0xff00 && wc <= 0xff60) || (wc >= 0xffe0 && wc <= 0xffe6) || (wc >= 0x20000 && wc <= 0x2fffd) || (wc >= 0x30000 && wc <= 0x3fffd)));
+    return 1
+        + (wc >= 0x1100
+            && (wc <= 0x115f || wc == 0x2329 || wc == 0x232a
+                || (wc >= 0x2e80 && wc <= 0xa4cf && wc != 0x303f) || (wc >= 0xac00 && wc <= 0xd7a3)
+                || (wc >= 0xf900 && wc <= 0xfaff) || (wc >= 0xfe10 && wc <= 0xfe19)
+                || (wc >= 0xfe30 && wc <= 0xfe6f) || (wc >= 0xff00 && wc <= 0xff60)
+                || (wc >= 0xffe0 && wc <= 0xffe6) || (wc >= 0x20000 && wc <= 0x2fffd)
+                || (wc >= 0x30000 && wc <= 0x3fffd)));
 }
 #endif // __linux__
 
 #ifdef _WIN32
-int Win32ConsoleStrategy::charWidth(uint32_t wc) noexcept
-{
-    return WinWidth::width(wc);
-}
+int Win32ConsoleStrategy::charWidth(uint32_t wc) noexcept { return WinWidth::width(wc); }
 #endif // _WIN32
 
 } // namespace tvision
@@ -538,10 +538,7 @@ TText::Lw TText::nextImpl(TSpan<const uint32_t> text) noexcept
     using namespace tvision;
     if (text.size()) {
         int width = Platform::charWidth(text[0]);
-        return {
-            1,
-            size_t(width ? max(width, 1) : 0)
-        };
+        return { 1, size_t(width ? max(width, 1) : 0) };
     }
     return { 0, 0 };
 }
@@ -617,8 +614,8 @@ static inline bool isZWJ(TStringView mbc)
 
 } // namespace ttext
 
-TText::Lw TText::drawOneImpl(TSpan<TScreenCell> cells, size_t i,
-    TStringView text, size_t j) noexcept
+TText::Lw TText::drawOneImpl(
+    TSpan<TScreenCell> cells, size_t i, TStringView text, size_t j) noexcept
 {
     using namespace tvision;
     using namespace ttext;
@@ -667,8 +664,8 @@ TText::Lw TText::drawOneImpl(TSpan<TScreenCell> cells, size_t i,
     return { 0, 0 };
 }
 
-TText::Lw TText::drawOneImpl(TSpan<TScreenCell> cells, size_t i,
-    TSpan<const uint32_t> textU32, size_t j) noexcept
+TText::Lw TText::drawOneImpl(
+    TSpan<TScreenCell> cells, size_t i, TSpan<const uint32_t> textU32, size_t j) noexcept
 {
     using namespace tvision;
     using namespace ttext;

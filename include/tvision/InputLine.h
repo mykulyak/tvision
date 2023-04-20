@@ -13,18 +13,15 @@
 /*        4 = Arrows                                                      */
 /* ---------------------------------------------------------------------- */
 
-const ushort
-    ilMaxBytes
-    = 0,
-    ilMaxWidth = 1,
-    ilMaxChars = 2;
+const ushort ilMaxBytes = 0, ilMaxWidth = 1, ilMaxChars = 2;
 
 class TValidator;
 
 class TInputLine : public TView {
 
 public:
-    TInputLine(const TRect& bounds, uint limit, TValidator* aValid = 0, ushort limitMode = ilMaxBytes) noexcept;
+    TInputLine(const TRect& bounds, uint limit, TValidator* aValid = 0,
+        ushort limitMode = ilMaxBytes) noexcept;
     ~TInputLine();
 
     virtual ushort dataSize();
@@ -65,10 +62,7 @@ private:
     static const char rightArrow;
     static const char leftArrow;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
     TValidator* validator;
 
@@ -89,22 +83,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TInputLine& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TInputLine*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TInputLine& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TInputLine*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TInputLine& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TInputLine* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TInputLine& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TInputLine* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TInputLine_h

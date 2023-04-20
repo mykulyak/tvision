@@ -20,10 +20,7 @@ private:
     static const char dragFrame;
     static const char normalFrame;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TIndicator(StreamableInit) noexcept;
@@ -33,22 +30,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TIndicator& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TIndicator*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TIndicator& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TIndicator*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TIndicator& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TIndicator* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TIndicator& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TIndicator* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TIndicator_h

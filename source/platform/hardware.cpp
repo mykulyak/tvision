@@ -18,9 +18,7 @@ THardwareInfo::THardwareInfo() noexcept
     alwaysFlush = getEnv<int>("TVISION_MAX_FPS", 0) < 0;
 }
 
-THardwareInfo::~THardwareInfo()
-{
-}
+THardwareInfo::~THardwareInfo() { }
 
 // For brevity.
 static constexpr auto* platf = &tvision::Platform::instance;
@@ -105,10 +103,7 @@ void THardwareInfo::waitForEvent(int timeoutMs) noexcept
     }
 }
 
-void THardwareInfo::stopEventWait() noexcept
-{
-    platf->stopEventWait();
-}
+void THardwareInfo::stopEventWait() noexcept { platf->stopEventWait(); }
 
 BOOL THardwareInfo::setClipboardText(TStringView text) noexcept
 {

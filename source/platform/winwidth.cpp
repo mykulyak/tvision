@@ -8,10 +8,7 @@ namespace tvision {
 std::atomic<size_t> WinWidth::lastReset { 0 };
 WinWidth thread_local WinWidth::localInstance;
 
-WinWidth::~WinWidth()
-{
-    tearDown();
-}
+WinWidth::~WinWidth() { tearDown(); }
 
 void WinWidth::setUp() noexcept
 {
@@ -19,11 +16,7 @@ void WinWidth::setUp() noexcept
         tearDown();
         currentReset = lastReset;
         cnHandle = CreateConsoleScreenBuffer(
-            GENERIC_READ | GENERIC_WRITE,
-            0,
-            0,
-            CONSOLE_TEXTMODE_BUFFER,
-            0);
+            GENERIC_READ | GENERIC_WRITE, 0, 0, CONSOLE_TEXTMODE_BUFFER, 0);
         CONSOLE_CURSOR_INFO info = { 1, FALSE };
         SetConsoleCursorInfo(cnHandle, &info);
     }
@@ -55,7 +48,8 @@ int WinWidth::calcWidth(uint32_t u32) noexcept
                 SetConsoleCursorPosition(cnHandle, { 0, 0 });
                 WriteConsoleW(cnHandle, (wchar_t*)u16, len + 1, 0, 0);
                 CONSOLE_SCREEN_BUFFER_INFO sbInfo;
-                if (GetConsoleScreenBufferInfo(cnHandle, &sbInfo) && (res = sbInfo.dwCursorPosition.X - 1) > 1) {
+                if (GetConsoleScreenBufferInfo(cnHandle, &sbInfo)
+                    && (res = sbInfo.dwCursorPosition.X - 1) > 1) {
                     COORD coord { 1, sbInfo.dwCursorPosition.Y };
                     DWORD count = 0;
                     wchar_t charAfter;

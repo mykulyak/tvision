@@ -88,15 +88,13 @@ void TVDemo::aboutDlgBox()
 {
     TDialog* aboutBox = new TDialog(TRect(0, 0, 39, 13), "About");
 
-    aboutBox->insert(
-        new TStaticText(TRect(9, 2, 30, 9),
-            "\003Turbo Vision Demo\n\n" // These strings will be
-            "\003C++ Version\n\n" // concatenated by the compiler.
-            "\003Copyright (c) 1994\n\n" // The \003 centers the line.
-            "\003Borland International"));
+    aboutBox->insert(new TStaticText(TRect(9, 2, 30, 9),
+        "\003Turbo Vision Demo\n\n" // These strings will be
+        "\003C++ Version\n\n" // concatenated by the compiler.
+        "\003Copyright (c) 1994\n\n" // The \003 centers the line.
+        "\003Borland International"));
 
-    aboutBox->insert(
-        new TButton(TRect(14, 10, 26, 12), " OK", cmOK, TButton::Flags::bfDefault));
+    aboutBox->insert(new TButton(TRect(14, 10, 26, 12), " OK", cmOK, TButton::Flags::bfDefault));
 
     aboutBox->options |= ofCentered;
 
@@ -193,29 +191,54 @@ void TVDemo::colors()
 {
     TColorGroup& group1 = *new TColorGroup("Desktop") + *new TColorItem("Color", 1) +
 
-        *new TColorGroup("Menus") + *new TColorItem("Normal", 2) + *new TColorItem("Disabled", 3) + *new TColorItem("Shortcut", 4) + *new TColorItem("Selected", 5) + *new TColorItem("Selected disabled", 6) + *new TColorItem("Shortcut selected", 7);
+        *new TColorGroup("Menus") + *new TColorItem("Normal", 2) + *new TColorItem("Disabled", 3)
+        + *new TColorItem("Shortcut", 4) + *new TColorItem("Selected", 5)
+        + *new TColorItem("Selected disabled", 6) + *new TColorItem("Shortcut selected", 7);
 
-    TColorGroup& group2 = *new TColorGroup("Dialogs/Calc") + *new TColorItem("Frame/background", 33) + *new TColorItem("Frame icons", 34) + *new TColorItem("Scroll bar page", 35) + *new TColorItem("Scroll bar icons", 36) + *new TColorItem("Static text", 37) +
+    TColorGroup& group2 = *new TColorGroup("Dialogs/Calc") + *new TColorItem("Frame/background", 33)
+        + *new TColorItem("Frame icons", 34) + *new TColorItem("Scroll bar page", 35)
+        + *new TColorItem("Scroll bar icons", 36) + *new TColorItem("Static text", 37) +
 
-        *new TColorItem("Label normal", 38) + *new TColorItem("Label selected", 39) + *new TColorItem("Label shortcut", 40);
+        *new TColorItem("Label normal", 38) + *new TColorItem("Label selected", 39)
+        + *new TColorItem("Label shortcut", 40);
 
-    TColorItem& item_coll1 = *new TColorItem("Button normal", 41) + *new TColorItem("Button default", 42) + *new TColorItem("Button selected", 43) + *new TColorItem("Button disabled", 44) + *new TColorItem("Button shortcut", 45) + *new TColorItem("Button shadow", 46) + *new TColorItem("Cluster normal", 47) + *new TColorItem("Cluster selected", 48) + *new TColorItem("Cluster shortcut", 49);
+    TColorItem& item_coll1 = *new TColorItem("Button normal", 41)
+        + *new TColorItem("Button default", 42) + *new TColorItem("Button selected", 43)
+        + *new TColorItem("Button disabled", 44) + *new TColorItem("Button shortcut", 45)
+        + *new TColorItem("Button shadow", 46) + *new TColorItem("Cluster normal", 47)
+        + *new TColorItem("Cluster selected", 48) + *new TColorItem("Cluster shortcut", 49);
 
-    TColorItem& item_coll2 = *new TColorItem("Input normal", 50) + *new TColorItem("Input selected", 51) + *new TColorItem("Input arrow", 52) +
+    TColorItem& item_coll2 = *new TColorItem("Input normal", 50)
+        + *new TColorItem("Input selected", 51) + *new TColorItem("Input arrow", 52) +
 
-        *new TColorItem("History button", 53) + *new TColorItem("History sides", 54) + *new TColorItem("History bar page", 55) + *new TColorItem("History bar icons", 56) +
+        *new TColorItem("History button", 53) + *new TColorItem("History sides", 54)
+        + *new TColorItem("History bar page", 55) + *new TColorItem("History bar icons", 56) +
 
-        *new TColorItem("List normal", 57) + *new TColorItem("List focused", 58) + *new TColorItem("List selected", 59) + *new TColorItem("List divider", 60) +
+        *new TColorItem("List normal", 57) + *new TColorItem("List focused", 58)
+        + *new TColorItem("List selected", 59) + *new TColorItem("List divider", 60) +
 
         *new TColorItem("Information pane", 61);
 
     group2 = group2 + item_coll1 + item_coll2;
 
-    TColorGroup& group3 = *new TColorGroup("Viewer") + *new TColorItem("Frame passive", 8) + *new TColorItem("Frame active", 9) + *new TColorItem("Frame icons", 10) + *new TColorItem("Scroll bar page", 11) + *new TColorItem("Scroll bar icons", 12) + *new TColorItem("Text", 13) + *new TColorGroup("Puzzle") + *new TColorItem("Frame passive", 8) + *new TColorItem("Frame active", 9) + *new TColorItem("Frame icons", 10) + *new TColorItem("Scroll bar page", 11) + *new TColorItem("Scroll bar icons", 12) + *new TColorItem("Normal text", 13) + *new TColorItem("Highlighted text", 14);
+    TColorGroup& group3 = *new TColorGroup("Viewer") + *new TColorItem("Frame passive", 8)
+        + *new TColorItem("Frame active", 9) + *new TColorItem("Frame icons", 10)
+        + *new TColorItem("Scroll bar page", 11) + *new TColorItem("Scroll bar icons", 12)
+        + *new TColorItem("Text", 13) + *new TColorGroup("Puzzle")
+        + *new TColorItem("Frame passive", 8) + *new TColorItem("Frame active", 9)
+        + *new TColorItem("Frame icons", 10) + *new TColorItem("Scroll bar page", 11)
+        + *new TColorItem("Scroll bar icons", 12) + *new TColorItem("Normal text", 13)
+        + *new TColorItem("Highlighted text", 14);
 
-    TColorGroup& group4 = *new TColorGroup("Calendar") + *new TColorItem("Frame passive", 16) + *new TColorItem("Frame active", 17) + *new TColorItem("Frame icons", 18) + *new TColorItem("Scroll bar page", 19) + *new TColorItem("Scroll bar icons", 20) + *new TColorItem("Normal text", 21) + *new TColorItem("Current day", 22) +
+    TColorGroup& group4 = *new TColorGroup("Calendar") + *new TColorItem("Frame passive", 16)
+        + *new TColorItem("Frame active", 17) + *new TColorItem("Frame icons", 18)
+        + *new TColorItem("Scroll bar page", 19) + *new TColorItem("Scroll bar icons", 20)
+        + *new TColorItem("Normal text", 21) + *new TColorItem("Current day", 22) +
 
-        *new TColorGroup("Ascii table") + *new TColorItem("Frame passive", 24) + *new TColorItem("Frame active", 25) + *new TColorItem("Frame icons", 26) + *new TColorItem("Scroll bar page", 27) + *new TColorItem("Scroll bar icons", 28) + *new TColorItem("Text", 29);
+        *new TColorGroup("Ascii table") + *new TColorItem("Frame passive", 24)
+        + *new TColorItem("Frame active", 25) + *new TColorItem("Frame icons", 26)
+        + *new TColorItem("Scroll bar page", 27) + *new TColorItem("Scroll bar icons", 28)
+        + *new TColorItem("Text", 29);
 
     TColorGroup& group5 = group1 + group2 + group3 + group4;
 

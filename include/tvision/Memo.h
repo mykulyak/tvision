@@ -18,10 +18,7 @@ public:
     virtual void handleEvent(TEvent&);
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TMemo(StreamableInit) noexcept;
@@ -33,22 +30,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TMemo& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TMemo*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TMemo& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TMemo*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TMemo& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TMemo* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TMemo& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TMemo* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TMemo_h

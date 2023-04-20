@@ -10,8 +10,7 @@ THelpWindow::THelpWindow(THelpFile* hFile, ushort context) noexcept
     TRect r(0, 0, 50, 18);
     options = (options | ofCentered);
     r.grow(-2, -1);
-    insert(new THelpViewer(r,
-        standardScrollBar(sbHorizontal | sbHandleKeyboard),
+    insert(new THelpViewer(r, standardScrollBar(sbHorizontal | sbHandleKeyboard),
         standardScrollBar(sbVertical | sbHandleKeyboard), hFile, context));
 }
 

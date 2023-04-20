@@ -7,21 +7,16 @@ const char* const TStaticText::name = "TStaticText";
 
 __link(RView);
 
-TStreamableClass RStaticText(TStaticText::name,
-    TStaticText::build,
-    __DELTA(TStaticText));
+TStreamableClass RStaticText(TStaticText::name, TStaticText::build, __DELTA(TStaticText));
 
 TStaticText::TStaticText(const TRect& bounds, TStringView aText) noexcept
     : TView(bounds)
-    , text(newStr(aText))
+    , text(aText.begin(), aText.end())
 {
     growMode |= gfFixed;
 }
 
-TStaticText::~TStaticText()
-{
-    delete[] (char*)text;
-}
+TStaticText::~TStaticText() { }
 
 void TStaticText::draw()
 {
@@ -84,12 +79,8 @@ TPalette& TStaticText::getPalette() const
 
 void TStaticText::getText(char* s)
 {
-    if (text == 0)
-        *s = EOS;
-    else {
-        strncpy(s, text, 255);
-        s[255] = EOS;
-    }
+    strncpy(s, text.c_str(), 255);
+    s[255] = EOS;
 }
 
 #ifndef NO_STREAMABLE
@@ -97,20 +88,18 @@ void TStaticText::getText(char* s)
 void TStaticText::write(opstream& os)
 {
     TView::write(os);
-    os.writeString(text);
+    os.writeString(text.c_str());
 }
 
 void* TStaticText::read(ipstream& is)
 {
     TView::read(is);
-    text = is.readString();
+    std::unique_ptr<char[]> buf(is.readString());
+    text.assign(buf.get());
     return this;
 }
 
-TStreamable* TStaticText::build()
-{
-    return new TStaticText(streamableInit);
-}
+TStreamable* TStaticText::build() { return new TStaticText(streamableInit); }
 
 TStaticText::TStaticText(StreamableInit) noexcept
     : TView(streamableInit)

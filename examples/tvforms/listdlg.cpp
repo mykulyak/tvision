@@ -13,8 +13,7 @@ __link(RResourceCollection);
 __link(RDialog);
 __link(RScrollBar);
 
-TListKeyBox::TListKeyBox(const TRect& bounds, ushort aNumCols,
-    TScrollBar* aScrollBar)
+TListKeyBox::TListKeyBox(const TRect& bounds, ushort aNumCols, TScrollBar* aScrollBar)
     : TSortedListBox(bounds, aNumCols, aScrollBar)
 {
 }
@@ -39,7 +38,7 @@ void TListKeyBox::getText(char* dest, short item, short maxLen)
     }
 }
 
-TListDialog::TListDialog(char* rezName, char* title)
+TListDialog::TListDialog(const char* rezName, const char* title)
     : TWindowInit(&TListDialog::initFrame)
     , TDialog(TRect(2, 2, 32, 15), title)
     , dataCollection(0)
@@ -47,17 +46,8 @@ TListDialog::TListDialog(char* rezName, char* title)
     , isValid(false)
     , modified(false)
 {
-    const short
-        buttonCt
-        = 4,
-        listX = 2,
-        listY = 3,
-        formWd = 30,
-        formHt = 13,
-        defaultListWd = 12,
-        listHt = buttonCt * 2,
-        buttonWd = 12,
-        buttonY = listY;
+    const short buttonCt = 4, listX = 2, listY = 3, formWd = 30, formHt = 13, defaultListWd = 12,
+                listHt = buttonCt * 2, buttonWd = 12, buttonY = listY;
     TScrollBar* sb;
     short y;
     TForm* f;
@@ -92,46 +82,37 @@ TListDialog::TListDialog(char* rezName, char* title)
             // Loaded successfully: build ListDialog dialog
 
             // Scrollbar
-            sb = new TScrollBar(TRect(listX + listWd, listY,
-                listX + listWd + 1, listY + listHt));
+            sb = new TScrollBar(TRect(listX + listWd, listY, listX + listWd + 1, listY + listHt));
             insert(sb);
 
             // List box
-            list = new TListKeyBox(TRect(listX, listY, listX + listWd,
-                                       listY + listHt),
-                1, sb);
+            list = new TListKeyBox(TRect(listX, listY, listX + listWd, listY + listHt), 1, sb);
             list->newList(dataCollection);
             insert(list);
 
             // Label
-            insert(new TLabel(TRect(listX, listY - 1,
-                                  listX + 10, listY),
-                "~K~eys", list));
+            insert(new TLabel(TRect(listX, listY - 1, listX + 10, listY), "~K~eys", list));
 
             // Buttons
             buttonX = listX + listWd + 2;
             y = buttonY;
 
-            insert(new TButton(TRect(buttonX, y, buttonX + buttonWd,
-                                   y + 2),
-                "~E~dit", cmFormEdit, TButton::Flags::bfDefault));
+            insert(new TButton(TRect(buttonX, y, buttonX + buttonWd, y + 2), "~E~dit", cmFormEdit,
+                TButton::Flags::bfDefault));
 
             y += 2;
 
-            insert(new TButton(TRect(buttonX, y, buttonX + buttonWd,
-                                   y + 2),
-                "~N~ew", cmFormNew, TButton::Flags::bfNormal));
+            insert(new TButton(TRect(buttonX, y, buttonX + buttonWd, y + 2), "~N~ew", cmFormNew,
+                TButton::Flags::bfNormal));
 
             y += 2;
-            insert(new TButton(TRect(buttonX, y, buttonX + buttonWd,
-                                   y + 2),
-                "~D~elete", cmFormDel, TButton::Flags::bfNormal));
+            insert(new TButton(TRect(buttonX, y, buttonX + buttonWd, y + 2), "~D~elete", cmFormDel,
+                TButton::Flags::bfNormal));
 
             y += 2;
 
-            insert(new TButton(TRect(buttonX, y, buttonX + buttonWd,
-                                   y + 2),
-                "~S~ave", cmListSave, TButton::Flags::bfNormal));
+            insert(new TButton(TRect(buttonX, y, buttonX + buttonWd, y + 2), "~S~ave", cmListSave,
+                TButton::Flags::bfNormal));
 
             selectNext(false); // Select first field
             isValid = true;
@@ -164,8 +145,8 @@ TForm* TListDialog::editingForm()
 {
     // Return pointer to the form that is editing the current selection
 
-    return (TForm*)message(TProgram::deskTop, evBroadcast, cmEditingForm,
-        dataCollection->at(list->focused));
+    return (TForm*)message(
+        TProgram::deskTop, evBroadcast, cmEditingForm, dataCollection->at(list->focused));
 }
 
 void TListDialog::formOpen(bool newForm)
@@ -217,14 +198,13 @@ void TListDialog::deleteSelection()
     f = editingForm();
     if (f != NULL) {
         f->select();
-        messageBox("Data is already being edited. Close form before deleting.",
-            mfWarning | mfOKButton);
+        messageBox(
+            "Data is already being edited. Close form before deleting.", mfWarning | mfOKButton);
         return;
     }
 
     // Confirm delete
-    if (messageBox("Are you sure you want to delete this item?",
-            mfWarning | mfYesNoCancel)
+    if (messageBox("Are you sure you want to delete this item?", mfWarning | mfYesNoCancel)
         == cmYes) {
         dataCollection->atFree(list->focused);
         list->setRange(dataCollection->getCount());
@@ -295,8 +275,7 @@ void TListDialog::handleEvent(TEvent& event)
     }
 }
 
-bool TListDialog::openDataFile(char* name,
-    TResourceFile*& dataFile, pstream::openmode mode)
+bool TListDialog::openDataFile(char* name, TResourceFile*& dataFile, pstream::openmode mode)
 {
     fpstream* s;
 
@@ -330,15 +309,13 @@ bool TListDialog::saveList()
     //  Read form definition out of original form file
     form = (TForm*)formDataFile->get("FormDialog");
     if (form == NULL)
-        messageBox("Cannot find original file. Data not saved.",
-            mfError | mfOKButton);
+        messageBox("Cannot find original file. Data not saved.", mfError | mfOKButton);
     else {
         // Create new data file
         fnsplit(fileName, drive, d, n, e);
         fnmerge(bufStr, drive, d, n, ".$$$");
         if (openDataFile(bufStr, newDataFile, std::ios::out) == false)
-            messageBox("Cannot create file. Data not saved.",
-                mfError | mfOKButton);
+            messageBox("Cannot create file. Data not saved.", mfError | mfOKButton);
         else {
             // Create new from form and collection in memory
             newDataFile->put(form, "FormDialog");
@@ -356,13 +333,11 @@ bool TListDialog::saveList()
             ccode = rename(fileName, bufStr);
             // Error trying to erase old .BAK or rename original to .BAK?
             if (ccode) {
-                messageBox("Cannot create .BAK file. Data not saved.",
-                    mfError | mfOKButton);
+                messageBox("Cannot create .BAK file. Data not saved.", mfError | mfOKButton);
 
                 // Try to re-open original. New data will still be in memory
                 if (openDataFile(fileName, formDataFile, std::ios::in) == false) {
-                    messageBox("Cannot re-open original file.",
-                        mfError | mfOKButton);
+                    messageBox("Cannot re-open original file.", mfError | mfOKButton);
                     destroy(this); // Cannot proceed. Free data and close window }
                 }
             } else {
@@ -485,8 +460,7 @@ bool TListDialog::valid(ushort command)
         // Any data modified?
         if (ok && modified) {
             select();
-            reply = messageBox("Database has been modified. Save? ",
-                mfYesNoCancel);
+            reply = messageBox("Database has been modified. Save? ", mfYesNoCancel);
             switch (reply) {
             case cmYes:
                 ok = saveList();

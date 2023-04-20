@@ -35,15 +35,9 @@ public:
     static void reset() noexcept;
 };
 
-inline int WinWidth::width(uint32_t wc) noexcept
-{
-    return localInstance.calcWidth(wc);
-}
+inline int WinWidth::width(uint32_t wc) noexcept { return localInstance.calcWidth(wc); }
 
-inline void WinWidth::reset() noexcept
-{
-    ++lastReset;
-}
+inline void WinWidth::reset() noexcept { ++lastReset; }
 
 } // namespace tvision
 

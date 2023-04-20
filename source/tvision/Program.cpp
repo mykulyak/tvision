@@ -19,8 +19,7 @@ const char* TProgram::exitText = "~Alt-X~ Exit";
 
 extern TPoint shadowSize;
 
-TProgInit::TProgInit(TStatusLine* (*cStatusLine)(TRect),
-    TMenuBar* (*cMenuBar)(TRect),
+TProgInit::TProgInit(TStatusLine* (*cStatusLine)(TRect), TMenuBar* (*cMenuBar)(TRect),
     TDeskTop* (*cDeskTop)(TRect)) noexcept
     : createStatusLine(cStatusLine)
     , createMenuBar(cMenuBar)
@@ -29,9 +28,7 @@ TProgInit::TProgInit(TStatusLine* (*cStatusLine)(TRect),
 }
 
 TProgram::TProgram() noexcept
-    : TProgInit(&TProgram::initStatusLine,
-        &TProgram::initMenuBar,
-        &TProgram::initDeskTop)
+    : TProgInit(&TProgram::initStatusLine, &TProgram::initMenuBar, &TProgram::initDeskTop)
     , TGroup(TRect(0, 0, TScreen::screenWidth, TScreen::screenHeight))
 {
     application = this;
@@ -50,10 +47,7 @@ TProgram::TProgram() noexcept
         insert(menuBar);
 }
 
-TProgram::~TProgram()
-{
-    application = 0;
-}
+TProgram::~TProgram() { application = 0; }
 
 void TProgram::shutDown()
 {
@@ -63,10 +57,7 @@ void TProgram::shutDown()
     TGroup::shutDown();
 }
 
-bool TProgram::canMoveFocus()
-{
-    return deskTop->valid(cmReleasedFocus);
-}
+bool TProgram::canMoveFocus() { return deskTop->valid(cmReleasedFocus); }
 
 int TProgram::eventWaitTimeout()
 {
@@ -113,7 +104,8 @@ void TProgram::getEvent(TEvent& event)
     }
 
     if (statusLine != 0) {
-        if ((event.what & evKeyDown) != 0 || ((event.what & evMouseDown) != 0 && firstThat(viewHasMouse, &event) == statusLine))
+        if ((event.what & evKeyDown) != 0
+            || ((event.what & evMouseDown) != 0 && firstThat(viewHasMouse, &event) == statusLine))
             statusLine->handleEvent(event);
     }
     if (event.what == evCommand && event.message.command == cmScreenChanged) {
@@ -127,11 +119,7 @@ TPalette& TProgram::getPalette() const
     static TPalette color(cpAppColor, sizeof(cpAppColor) - 1);
     static TPalette blackwhite(cpAppBlackWhite, sizeof(cpAppBlackWhite) - 1);
     static TPalette monochrome(cpAppMonochrome, sizeof(cpAppMonochrome) - 1);
-    static TPalette* palettes[] = {
-        &color,
-        &blackwhite,
-        &monochrome
-    };
+    static TPalette* palettes[] = { &color, &blackwhite, &monochrome };
     return *(palettes[appPalette]);
 }
 
@@ -141,11 +129,7 @@ void TProgram::handleEvent(TEvent& event)
         char c = getAltChar(event.keyDown.keyCode);
         if (c >= '1' && c <= '9') {
             if (canMoveFocus()) {
-                if (message(deskTop,
-                        evBroadcast,
-                        cmSelectWindowNum,
-                        (void*)(size_t)(c - '0'))
-                    != 0)
+                if (message(deskTop, evBroadcast, cmSelectWindowNum, (void*)(size_t)(c - '0')) != 0)
                     clearEvent(event);
             } else
                 clearEvent(event);
@@ -216,7 +200,9 @@ TStatusLine* TProgram::initStatusLine(TRect r)
 {
     r.a.y = r.b.y - 1;
     return new TStatusLine(r,
-        *new TStatusDef(0, 0xFFFF) + *new TStatusItem(exitText, kbAltX, cmQuit) + *new TStatusItem(0, kbF10, cmMenu) + *new TStatusItem(0, kbAltF3, cmClose) + *new TStatusItem(0, kbF5, cmZoom) + *new TStatusItem(0, kbCtrlF5, cmResize));
+        *new TStatusDef(0, 0xFFFF) + *new TStatusItem(exitText, kbAltX, cmQuit)
+            + *new TStatusItem(0, kbF10, cmMenu) + *new TStatusItem(0, kbAltF3, cmClose)
+            + *new TStatusItem(0, kbF5, cmZoom) + *new TStatusItem(0, kbCtrlF5, cmResize));
 }
 
 TWindow* TProgram::insertWindow(TWindow* pWin)
@@ -232,24 +218,13 @@ TWindow* TProgram::insertWindow(TWindow* pWin)
     return NULL;
 }
 
-void TProgram::killTimer(TTimerId id)
-{
-    timerQueue.killTimer(id);
-}
+void TProgram::killTimer(TTimerId id) { timerQueue.killTimer(id); }
 
-void TProgram::outOfMemory()
-{
-}
+void TProgram::outOfMemory() { }
 
-void TProgram::putEvent(TEvent& event)
-{
-    pending = event;
-}
+void TProgram::putEvent(TEvent& event) { pending = event; }
 
-void TProgram::run()
-{
-    execute();
-}
+void TProgram::run() { execute(); }
 
 void TProgram::setScreenMode(ushort mode)
 {

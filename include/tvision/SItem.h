@@ -1,19 +1,21 @@
 #ifndef TVision_TSItem_h
 #define TVision_TSItem_h
 
+#include <string>
 #include <tvision/StringView.h>
 #include <tvision/util.h>
 
 class TSItem {
 public:
     TSItem(TStringView aValue, TSItem* aNext) noexcept
+        : value(aValue.cbegin(), aValue.cend())
+        , next(aNext)
     {
-        value = newStr(aValue);
-        next = aNext;
     }
-    ~TSItem() { delete[] (char*)value; }
 
-    const char* value;
+    ~TSItem() { }
+
+    const std::string value;
     TSItem* next;
 };
 

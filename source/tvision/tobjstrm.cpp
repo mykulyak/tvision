@@ -23,19 +23,11 @@ TStreamableTypes::TStreamableTypes() noexcept
 {
 }
 
-void* TStreamableTypes::operator new(size_t, void* arena)
-{
-    return arena;
-}
+void* TStreamableTypes::operator new(size_t, void* arena) { return arena; }
 
-TStreamableTypes::~TStreamableTypes()
-{
-}
+TStreamableTypes::~TStreamableTypes() { }
 
-void TStreamableTypes::registerType(const TStreamableClass* d)
-{
-    insert((void*)d);
-}
+void TStreamableTypes::registerType(const TStreamableClass* d) { insert((void*)d); }
 
 const TStreamableClass* TStreamableTypes::lookup(const char* name)
 {
@@ -46,15 +38,9 @@ const TStreamableClass* TStreamableTypes::lookup(const char* name)
         return 0;
 }
 
-void* TStreamableTypes::keyOf(void* d)
-{
-    return (void*)((TStreamableClass*)d)->name;
-}
+void* TStreamableTypes::keyOf(void* d) { return (void*)((TStreamableClass*)d)->name; }
 
-int TStreamableTypes::compare(void* d1, void* d2)
-{
-    return strcmp((char*)d1, (char*)d2);
-}
+int TStreamableTypes::compare(void* d1, void* d2) { return strcmp((char*)d1, (char*)d2); }
 
 TPWrittenObjects::TPWrittenObjects() noexcept
     : TNSSortedCollection(5, 5)
@@ -62,9 +48,7 @@ TPWrittenObjects::TPWrittenObjects() noexcept
 {
 }
 
-TPWrittenObjects::~TPWrittenObjects()
-{
-}
+TPWrittenObjects::~TPWrittenObjects() { }
 
 void TPWrittenObjects::registerObject(const void* adr)
 {
@@ -81,10 +65,7 @@ P_id_type TPWrittenObjects::find(const void* d)
         return P_id_notFound;
 }
 
-void* TPWrittenObjects::keyOf(void* d)
-{
-    return (void*)((TPWObj*)d)->address;
-}
+void* TPWrittenObjects::keyOf(void* d) { return (void*)((TPWObj*)d)->address; }
 
 int TPWrittenObjects::compare(void* o1, void* o2)
 {
@@ -108,9 +89,7 @@ TPReadObjects::TPReadObjects() noexcept
 {
 }
 
-TPReadObjects::~TPReadObjects()
-{
-}
+TPReadObjects::~TPReadObjects() { }
 
 void TPReadObjects::registerObject(const void* adr)
 {
@@ -122,21 +101,13 @@ void TPReadObjects::registerObject(const void* adr)
     ++curId;
 }
 
-const void* TPReadObjects::find(P_id_type id)
-{
-    return at(id);
-}
+const void* TPReadObjects::find(P_id_type id) { return at(id); }
 
 TStreamableTypes* pstream::types = (pstream::initTypes(), pstream::types);
 
-pstream::pstream(std::streambuf* sb) noexcept
-{
-    init(sb);
-}
+pstream::pstream(std::streambuf* sb) noexcept { init(sb); }
 
-pstream::~pstream()
-{
-}
+pstream::~pstream() { }
 
 void pstream::initTypes() noexcept
 {
@@ -144,38 +115,31 @@ void pstream::initTypes() noexcept
         types = new TStreamableTypes;
 }
 
-int pstream::rdstate() const noexcept
-{
-    return state;
-}
+int pstream::rdstate() const noexcept { return state; }
 
-int pstream::eof() const noexcept
-{
-    return state & std::ios::eofbit;
-}
+int pstream::eof() const noexcept { return state & std::ios::eofbit; }
 
 int pstream::fail() const noexcept
 {
-    return state & (std::ios::failbit | std::ios::badbit
+    return state
+        & (std::ios::failbit | std::ios::badbit
 #ifdef __BORLANDC__
-               | std::ios::hardfail
+            | std::ios::hardfail
 #endif
-           );
+        );
 }
 
 int pstream::bad() const noexcept
 {
-    return state & (std::ios::badbit
+    return state
+        & (std::ios::badbit
 #ifdef __BORLANDC__
-               | std::ios::hardfail
+            | std::ios::hardfail
 #endif
-           );
+        );
 }
 
-int pstream::good() const noexcept
-{
-    return state == 0;
-}
+int pstream::good() const noexcept { return state == 0; }
 
 void pstream::clear(int i) noexcept
 {
@@ -186,29 +150,15 @@ void pstream::clear(int i) noexcept
         ;
 }
 
-void pstream::registerType(TStreamableClass* ts) noexcept
-{
-    types->registerType(ts);
-}
+void pstream::registerType(TStreamableClass* ts) noexcept { types->registerType(ts); }
 
-pstream::operator void*() const noexcept
-{
-    return fail() ? 0 : (void*)this;
-}
+pstream::operator void*() const noexcept { return fail() ? 0 : (void*)this; }
 
-int pstream::operator!() const noexcept
-{
-    return fail();
-}
+int pstream::operator!() const noexcept { return fail(); }
 
-std::streambuf* pstream::rdbuf() const noexcept
-{
-    return bp;
-}
+std::streambuf* pstream::rdbuf() const noexcept { return bp; }
 
-pstream::pstream() noexcept
-{
-}
+pstream::pstream() noexcept { }
 
 void pstream::error(StreamableError e) noexcept
 {
@@ -222,7 +172,8 @@ void pstream::error(StreamableError e) noexcept
 void pstream::error(StreamableError e, const TStreamable& t) noexcept
 {
     if (e == peNotRegistered)
-        std::cerr << "pstream error: type '" << t.streamableName() << "' not registered" << std::endl;
+        std::cerr << "pstream error: type '" << t.streamableName() << "' not registered"
+                  << std::endl;
     else
         error(e);
     abort();
@@ -234,15 +185,9 @@ void pstream::init(std::streambuf* sbp) noexcept
     bp = sbp;
 }
 
-void pstream::setstate(int b) noexcept
-{
-    state |= (b & 0xFF);
-}
+void pstream::setstate(int b) noexcept { state |= (b & 0xFF); }
 
-ipstream::ipstream(std::streambuf* sb) noexcept
-{
-    pstream::init(sb);
-}
+ipstream::ipstream(std::streambuf* sb) noexcept { pstream::init(sb); }
 
 ipstream::~ipstream()
 {
@@ -281,10 +226,7 @@ ipstream& ipstream::seekg(std::streamoff off, pstream::seekdir dir)
     return *this;
 }
 
-uchar ipstream::readByte()
-{
-    return bp->sbumpc();
-}
+uchar ipstream::readByte() { return bp->sbumpc(); }
 
 ushort ipstream::readWord()
 {
@@ -293,10 +235,7 @@ ushort ipstream::readWord()
     return temp;
 }
 
-void ipstream::readBytes(void* data, size_t sz)
-{
-    bp->sgetn((char*)data, sz);
-}
+void ipstream::readBytes(void* data, size_t sz) { bp->sgetn((char*)data, sz); }
 
 char* ipstream::readString()
 {
@@ -429,9 +368,7 @@ ipstream& operator>>(ipstream& ps, void*& t)
     return ps;
 }
 
-ipstream::ipstream() noexcept
-{
-}
+ipstream::ipstream() noexcept { }
 
 const TStreamableClass* ipstream::readPrefix()
 {
@@ -464,20 +401,11 @@ void ipstream::readSuffix()
               // not checking assertions
 }
 
-const void* ipstream::find(P_id_type id)
-{
-    return objs.find(id);
-}
+const void* ipstream::find(P_id_type id) { return objs.find(id); }
 
-void ipstream::registerObject(const void* adr)
-{
-    objs.registerObject(adr);
-}
+void ipstream::registerObject(const void* adr) { objs.registerObject(adr); }
 
-opstream::opstream() noexcept
-{
-    objs = new TPWrittenObjects;
-}
+opstream::opstream() noexcept { objs = new TPWrittenObjects; }
 
 opstream::opstream(std::streambuf* sb) noexcept
 {
@@ -534,20 +462,11 @@ opstream& opstream::flush()
     return *this;
 }
 
-void opstream::writeByte(uchar ch)
-{
-    bp->sputc(ch);
-}
+void opstream::writeByte(uchar ch) { bp->sputc(ch); }
 
-void opstream::writeBytes(const void* data, size_t sz)
-{
-    bp->sputn((char*)data, sz);
-}
+void opstream::writeBytes(const void* data, size_t sz) { bp->sputn((char*)data, sz); }
 
-void opstream::writeWord(ushort sh)
-{
-    bp->sputn((char*)&sh, sizeof(ushort));
-}
+void opstream::writeWord(ushort sh) { bp->sputn((char*)&sh, sizeof(ushort)); }
 
 void opstream::writeString(const char* str)
 {
@@ -674,38 +593,19 @@ void opstream::writeData(TStreamable& t)
     }
 }
 
-void opstream::writeSuffix(const TStreamable&)
-{
-    writeByte(']');
-}
+void opstream::writeSuffix(const TStreamable&) { writeByte(']'); }
 
-P_id_type opstream::find(const void* adr)
-{
-    return objs->find(adr);
-}
+P_id_type opstream::find(const void* adr) { return objs->find(adr); }
 
-void opstream::registerObject(const void* adr)
-{
-    objs->registerObject(adr);
-}
+void opstream::registerObject(const void* adr) { objs->registerObject(adr); }
 
-iopstream::iopstream(std::streambuf* sb) noexcept
-{
-    pstream::init(sb);
-}
+iopstream::iopstream(std::streambuf* sb) noexcept { pstream::init(sb); }
 
-iopstream::~iopstream()
-{
-}
+iopstream::~iopstream() { }
 
-iopstream::iopstream() noexcept
-{
-}
+iopstream::iopstream() noexcept { }
 
-fpbase::fpbase() noexcept
-{
-    pstream::init(&buf);
-}
+fpbase::fpbase() noexcept { pstream::init(&buf); }
 
 fpbase::fpbase(const char* name, pstream::openmode omode)
 {
@@ -713,9 +613,7 @@ fpbase::fpbase(const char* name, pstream::openmode omode)
     open(name, omode);
 }
 
-fpbase::~fpbase()
-{
-}
+fpbase::~fpbase() { }
 
 void fpbase::open(const char* b, pstream::openmode m)
 {
@@ -735,74 +633,50 @@ void fpbase::close()
         setstate(std::ios::failbit);
 }
 
-std::filebuf* fpbase::rdbuf() noexcept
-{
-    return &buf;
-}
+std::filebuf* fpbase::rdbuf() noexcept { return &buf; }
 
-ifpstream::ifpstream() noexcept
-{
-}
+ifpstream::ifpstream() noexcept { }
 
 ifpstream::ifpstream(const char* name, pstream::openmode omode)
     : fpbase(name, omode | std::ios::in | std::ios::binary)
 {
 }
 
-ifpstream::~ifpstream()
-{
-}
+ifpstream::~ifpstream() { }
 
-std::filebuf* ifpstream::rdbuf() noexcept
-{
-    return fpbase::rdbuf();
-}
+std::filebuf* ifpstream::rdbuf() noexcept { return fpbase::rdbuf(); }
 
 void ifpstream::open(const char* name, pstream::openmode omode)
 {
     fpbase::open(name, omode | std::ios::in | std::ios::binary);
 }
 
-ofpstream::ofpstream() noexcept
-{
-}
+ofpstream::ofpstream() noexcept { }
 
 ofpstream::ofpstream(const char* name, pstream::openmode omode)
     : fpbase(name, omode | std::ios::out | std::ios::binary)
 {
 }
 
-ofpstream::~ofpstream()
-{
-}
+ofpstream::~ofpstream() { }
 
-std::filebuf* ofpstream::rdbuf() noexcept
-{
-    return fpbase::rdbuf();
-}
+std::filebuf* ofpstream::rdbuf() noexcept { return fpbase::rdbuf(); }
 
 void ofpstream::open(const char* name, pstream::openmode omode)
 {
     fpbase::open(name, omode | std::ios::out | std::ios::binary);
 }
 
-fpstream::fpstream() noexcept
-{
-}
+fpstream::fpstream() noexcept { }
 
 fpstream::fpstream(const char* name, pstream::openmode omode)
     : fpbase(name, omode | std::ios::binary)
 {
 }
 
-fpstream::~fpstream()
-{
-}
+fpstream::~fpstream() { }
 
-std::filebuf* fpstream::rdbuf() noexcept
-{
-    return fpbase::rdbuf();
-}
+std::filebuf* fpstream::rdbuf() noexcept { return fpbase::rdbuf(); }
 
 void fpstream::open(const char* name, pstream::openmode omode)
 {

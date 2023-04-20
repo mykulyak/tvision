@@ -15,32 +15,17 @@ protected:
         : TInputLine(streamableInit) {};
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 public:
     static const char* const name;
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TKeyInputLine& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TKeyInputLine*& cl)
-{
-    return is >> (void*&)cl;
-}
-inline opstream& operator<<(opstream& os, TKeyInputLine& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TKeyInputLine* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline ipstream& operator>>(ipstream& is, TKeyInputLine& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TKeyInputLine*& cl) { return is >> (void*&)cl; }
+inline opstream& operator<<(opstream& os, TKeyInputLine& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TKeyInputLine* cl) { return os << (TStreamable*)cl; }
 
 // Accepts only valid numeric input between Min and Max
 
@@ -61,31 +46,16 @@ protected:
     virtual void* read(ipstream&);
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 public:
     static const char* const name;
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TNumInputLine& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TNumInputLine*& cl)
-{
-    return is >> (void*&)cl;
-}
-inline opstream& operator<<(opstream& os, TNumInputLine& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TNumInputLine* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline ipstream& operator>>(ipstream& is, TNumInputLine& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TNumInputLine*& cl) { return is >> (void*&)cl; }
+inline opstream& operator<<(opstream& os, TNumInputLine& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TNumInputLine* cl) { return os << (TStreamable*)cl; }
 
 #endif // __FIELDS_H

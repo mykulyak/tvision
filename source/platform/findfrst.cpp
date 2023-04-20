@@ -7,8 +7,8 @@ namespace tvision {
 
 FindFirstRec::RecList FindFirstRec::recList;
 
-FindFirstRec* FindFirstRec::allocate(struct find_t* fileinfo, unsigned attrib,
-    const char* pathname) noexcept
+FindFirstRec* FindFirstRec::allocate(
+    struct find_t* fileinfo, unsigned attrib, const char* pathname) noexcept
 {
     // The findfirst interface based on DOS call 0x4E doesn't provide a
     // findclose function. The strategy here is the same as in Borland's RTL:
@@ -127,7 +127,8 @@ bool FindFirstRec::setPath(const char* pathname) noexcept
 bool FindFirstRec::matchEntry(struct dirent* e) noexcept
 {
     struct stat st;
-    if (wildcardMatch(wildcard.c_str(), e->d_name) && stat((searchDir + e->d_name).c_str(), &st) == 0) {
+    if (wildcardMatch(wildcard.c_str(), e->d_name)
+        && stat((searchDir + e->d_name).c_str(), &st) == 0) {
         unsigned fileAttr = cvtAttr(&st, e->d_name);
         if (attrMatch(fileAttr)) {
             // Match found, fill finfo.
@@ -204,12 +205,8 @@ void FindFirstRec::cvtTime(const struct stat* st, struct find_t* fileinfo) noexc
     }* wr_time = (FatTime*)&fileinfo->wr_time;
 
     struct tm* lt = localtime(&st->st_mtime);
-    *wr_date = { ushort(lt->tm_mday),
-        ushort(lt->tm_mon + 1),
-        ushort(lt->tm_year - 80) };
-    *wr_time = { ushort(lt->tm_sec / 2),
-        ushort(lt->tm_min),
-        ushort(lt->tm_hour) };
+    *wr_date = { ushort(lt->tm_mday), ushort(lt->tm_mon + 1), ushort(lt->tm_year - 80) };
+    *wr_time = { ushort(lt->tm_sec / 2), ushort(lt->tm_min), ushort(lt->tm_hour) };
 }
 
 #else
@@ -228,9 +225,8 @@ bool FindFirstRec::next() noexcept
     WIN32_FIND_DATAW findData;
     while (true) {
         if (hFindFile == INVALID_HANDLE_VALUE) {
-            MultiByteToWideChar(CP_UTF8, 0,
-                fileName.c_str(), -1,
-                findData.cFileName, sizeof(findData.cFileName) / sizeof(wchar_t));
+            MultiByteToWideChar(CP_UTF8, 0, fileName.c_str(), -1, findData.cFileName,
+                sizeof(findData.cFileName) / sizeof(wchar_t));
             hFindFile = FindFirstFileW(findData.cFileName, &findData);
         } else if (!FindNextFileW(hFindFile, &findData)) {
             close();
@@ -244,10 +240,8 @@ bool FindFirstRec::next() noexcept
                 finfo->size = findData.nFileSizeLow;
                 finfo->attrib = attr;
                 cvtTime(&findData, finfo);
-                WideCharToMultiByte(CP_UTF8, 0,
-                    findData.cFileName, -1,
-                    finfo->name, sizeof(finfo->name),
-                    nullptr, nullptr);
+                WideCharToMultiByte(CP_UTF8, 0, findData.cFileName, -1, finfo->name,
+                    sizeof(finfo->name), nullptr, nullptr);
                 return true;
             }
         } else
@@ -255,10 +249,7 @@ bool FindFirstRec::next() noexcept
     }
 }
 
-bool FindFirstRec::open() noexcept
-{
-    return true;
-}
+bool FindFirstRec::open() noexcept { return true; }
 
 void FindFirstRec::close() noexcept
 {
@@ -268,8 +259,7 @@ void FindFirstRec::close() noexcept
 
 bool FindFirstRec::attrMatch(unsigned attrib) noexcept
 {
-    return ((searchAttr & _A_VOLID) && (attrib & _A_VOLID))
-        || !(attrib & SPECIAL_BITS)
+    return ((searchAttr & _A_VOLID) && (attrib & _A_VOLID)) || !(attrib & SPECIAL_BITS)
         || (searchAttr & attrib & SPECIAL_BITS);
 }
 

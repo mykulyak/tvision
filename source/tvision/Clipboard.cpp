@@ -2,17 +2,13 @@
 #include <tvision/EventQueue.h>
 
 TClipboard TClipboard::instance;
-char* TClipboard::localText = 0;
-size_t TClipboard::localTextLength = 0;
 
 TClipboard::TClipboard()
+    : localText()
 {
 }
 
-TClipboard::~TClipboard()
-{
-    delete[] localText;
-}
+TClipboard::~TClipboard() { }
 
 void TClipboard::setText(TStringView text) noexcept
 {
@@ -20,9 +16,8 @@ void TClipboard::setText(TStringView text) noexcept
     if (THardwareInfo::setClipboardText(text))
         return;
 #endif
-    delete[] localText;
-    localText = newStr(text);
-    localTextLength = localText ? text.size() : 0;
+
+    instance.localText.assign(text.begin(), text.end());
 }
 
 void TClipboard::requestText() noexcept
@@ -31,5 +26,5 @@ void TClipboard::requestText() noexcept
     if (THardwareInfo::requestClipboardText(TEventQueue::putPaste))
         return;
 #endif
-    TEventQueue::putPaste(TStringView(localText, localTextLength));
+    TEventQueue::putPaste(TStringView(instance.localText.c_str(), instance.localText.size()));
 }

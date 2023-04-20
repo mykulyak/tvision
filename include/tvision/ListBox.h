@@ -25,10 +25,7 @@ public:
     TCollection* list();
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TCollection* items;
@@ -42,27 +39,12 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TListBox& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TListBox*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TListBox& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TListBox*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TListBox& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TListBox* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TListBox& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TListBox* cl) { return os << (TStreamable*)cl; }
 
-inline TCollection* TListBox::list()
-{
-    return items;
-}
+inline TCollection* TListBox::list() { return items; }
 
 #endif // TVision_TListBox_h

@@ -1,6 +1,7 @@
 #ifndef TVision_TClipboard_h
 #define TVision_TClipboard_h
 
+#include <string>
 #include <tvision/StringView.h>
 
 class TClipboard {
@@ -14,8 +15,8 @@ private:
     TClipboard();
 
     static TClipboard instance;
-    static char* localText;
-    static size_t localTextLength;
+
+    std::string localText;
 };
 
 #endif // TVision_TClipboard_h

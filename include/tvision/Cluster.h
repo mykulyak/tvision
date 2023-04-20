@@ -18,7 +18,6 @@ class TSItem;
 class TStringCollection;
 
 class TCluster : public TView {
-
 public:
     TCluster(const TRect& bounds, TSItem* aStrings) noexcept;
     ~TCluster();
@@ -51,10 +50,7 @@ private:
     int row(int item);
     void moveSel(int, int);
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TCluster(StreamableInit) noexcept;
@@ -68,22 +64,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TCluster& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TCluster*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TCluster& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TCluster*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TCluster& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TCluster* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TCluster& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TCluster* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TCluster_h

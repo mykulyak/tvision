@@ -133,8 +133,8 @@ void warning(const char* text);
 void copyPath(char* dest, const char* src, size_t size)
 {
     if (strnzcpy(dest, src, size) < strlen(src)) {
-        std::cerr << "Path too long (" << strlen(src) << " > " << size << "): \""
-                  << src << "\"" << std::endl;
+        std::cerr << "Path too long (" << strlen(src) << " > " << size << "): \"" << src << "\""
+                  << std::endl;
         exit(1);
     }
 }
@@ -180,10 +180,7 @@ bool fExists(const char* fileName)
 //  Checks if line contains a comment.                                   //
 //-----------------------------------------------------------------------//
 
-int isComment(const char* line)
-{
-    return line[0] == ';';
-}
+int isComment(const char* line) { return line[0] == ';'; }
 
 //----- getLine(s) ------------------------------------------------------//
 //  Returns the next line out of the stream.                             //
@@ -218,7 +215,8 @@ char* getLine(std::fstream& s)
                     char buf[MAXSTRSIZE] = { 0 };
                     s.clear(s.rdstate() & ~std::ios::failbit);
                     s.getline(buf, sizeof(buf), '\n');
-                } while ((s.rdstate() & (std::ios::failbit | std::ios::eofbit)) == std::ios::failbit);
+                } while (
+                    (s.rdstate() & (std::ios::failbit | std::ios::eofbit)) == std::ios::failbit);
             }
         }
         lineInBuffer = false;
@@ -247,11 +245,9 @@ void unGetLine(const char* s)
 void prntMsg(const char* pref, const char* text)
 {
     if (lineCount > 0)
-        std::cerr << pref << ": " << textName << "("
-                  << lineCount << "): " << text << "\n";
+        std::cerr << pref << ": " << textName << "(" << lineCount << "): " << text << "\n";
     else
-        std::cerr << pref << ": " << textName << " "
-                  << text << "\n";
+        std::cerr << pref << ": " << textName << " " << text << "\n";
 }
 
 //----- error(text) -----------------------------------------------------//
@@ -268,10 +264,7 @@ void error(const char* text)
 //  Used to indicate an warning.                                         //
 //-----------------------------------------------------------------------//
 
-void warning(const char* text)
-{
-    prntMsg("Warning", text);
-}
+void warning(const char* text) { prntMsg("Warning", text); }
 
 //====================== Topic Reference Management =====================//
 
@@ -340,10 +333,7 @@ TReference* TRefTable::getReference(const char* topic)
     return (ref);
 }
 
-void* TRefTable::keyOf(void* item)
-{
-    return (((TReference*)item)->topic);
-}
+void* TRefTable::keyOf(void* item) { return (((TReference*)item)->topic); }
 
 //----- initRefTable ---------------------------------------------------//
 //  Make sure the reference table is initialized.                       //
@@ -517,8 +507,8 @@ TTopicDefinition* topicDefinition(const char* line, int& i)
             char buf[MAXSTRSIZE] = { 0 };
             std::ostrstream os(buf, sizeof(buf) - 1);
 
-            os << "Topic id for topic '" << topic
-               << "' exceeds limit of " << MAXHELPTOPICID << std::ends;
+            os << "Topic id for topic '" << topic << "' exceeds limit of " << MAXHELPTOPICID
+               << std::ends;
 
             error(buf);
             return 0;
@@ -706,7 +696,9 @@ bool isEndParagraph(State state)
     int wrapping = 1;
     int notWrapping = 2;
 
-    flag = ((line[0] == 0) || (line[0] == commandChar[0]) || (line[0] == 26) || ((line[0] == ' ') && (state == wrapping)) || ((line[0] != ' ') && (state == notWrapping)));
+    flag = ((line[0] == 0) || (line[0] == commandChar[0]) || (line[0] == 26)
+        || ((line[0] == ' ') && (state == wrapping))
+        || ((line[0] != ' ') && (state == notWrapping)));
     if (flag)
         return (true);
     else
@@ -885,8 +877,7 @@ void doWriteSymbol(void* p, void* p1)
         os << " = " << ((TReference*)p)->val.value << "," << std::ends;
         *symbFile << os.str();
     } else {
-        os << "Unresolved forward reference \""
-           << ((TReference*)p)->topic << "\"" << std::ends;
+        os << "Unresolved forward reference \"" << ((TReference*)p)->topic << "\"" << std::ends;
         warning(os.str());
     }
 }
@@ -909,9 +900,7 @@ void writeSymbFile(TProtectedStream* symbFile)
 // Compile the given stream, and output a help file.                    //
 //----------------------------------------------------------------------//
 
-void processText(TProtectedStream& textFile,
-    iopstream& helpFile,
-    TProtectedStream& symbFile)
+void processText(TProtectedStream& textFile, iopstream& helpFile, TProtectedStream& symbFile)
 {
     THelpFile* helpRez;
 
@@ -949,11 +938,12 @@ int main(int argc, char** argv)
     // Banner messages
     char initialText[] = "Help Compiler " TARGET "  Version 2.0  Copyright (c) 1994"
                          " Borland International.\n";
-    char helpText[] = "\n  Syntax  TVHC <Help text>[.txt] [<Help file>[" HELPFILE_EXT "] [<Symbol file>[.h]]\n"
-                      "\n"
-                      "     Help text   = Help file source\n"
-                      "     Help file   = Compiled help file\n"
-                      "     Symbol file = An include file containing all the screen names as const's\n";
+    char helpText[]
+        = "\n  Syntax  TVHC <Help text>[.txt] [<Help file>[" HELPFILE_EXT "] [<Symbol file>[.h]]\n"
+          "\n"
+          "     Help text   = Help file source\n"
+          "     Help file   = Compiled help file\n"
+          "     Symbol file = An include file containing all the screen names as const's\n";
 
     std::cout << initialText;
     if (argc < 2) {

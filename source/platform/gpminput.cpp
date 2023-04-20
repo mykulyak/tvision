@@ -13,14 +13,12 @@ GpmInput* GpmInput::create() noexcept
 {
     // Let coordinates begin at zero instead of one.
     gpm_zerobased = 1;
-    Gpm_Connect conn = {
-        .eventMask = GPM_DOWN | GPM_UP | GPM_DRAG | GPM_MOVE,
+    Gpm_Connect conn = { .eventMask = GPM_DOWN | GPM_UP | GPM_DRAG | GPM_MOVE,
         .defaultMask = 0, // Disable cursor drawing by the server.
         /* Disable mouse event reporting when keyboard modifiers are active.
          * In such case, GPM text selection and copy/paste will be active. */
         .minMod = 0,
-        .maxMod = 0
-    };
+        .maxMod = 0 };
     // Because we only instantiate GPM in the Linux console, discard the
     // TERM variable during Gpm_Open so that GPM won't assume it is being
     // ran under xterm (e.g. if TERM=xterm), and 'gpm_fd' won't be -2.
@@ -43,15 +41,9 @@ GpmInput::GpmInput() noexcept
 {
 }
 
-GpmInput::~GpmInput()
-{
-    Gpm_Close();
-}
+GpmInput::~GpmInput() { Gpm_Close(); }
 
-int GpmInput::getButtonCount() noexcept
-{
-    return 2;
-}
+int GpmInput::getButtonCount() noexcept { return 2; }
 
 void GpmInput::fitEvent(Gpm_Event& gpmEvent) noexcept
 {

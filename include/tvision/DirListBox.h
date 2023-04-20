@@ -35,10 +35,7 @@ private:
     static const char* drives;
     static const char* graphics;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TDirListBox(StreamableInit) noexcept
@@ -51,27 +48,12 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TDirListBox& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TDirListBox*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TDirListBox& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TDirListBox*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TDirListBox& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TDirListBox* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TDirListBox& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TDirListBox* cl) { return os << (TStreamable*)cl; }
 
-inline TDirCollection* TDirListBox::list()
-{
-    return (TDirCollection*)TListBox::list();
-}
+inline TDirCollection* TDirListBox::list() { return (TDirCollection*)TListBox::list(); }
 
 #endif // TVision_TDirListBox_h

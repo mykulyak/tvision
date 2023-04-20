@@ -58,16 +58,9 @@ struct ffblk {
 
 int findfirst(const char* __path, struct ffblk* __ffblk, int __attrib) noexcept;
 int findnext(struct ffblk* __ffblk) noexcept;
-void fnmerge(char* __path,
-    const char* __drive,
-    const char* __dir,
-    const char* __name,
+void fnmerge(char* __path, const char* __drive, const char* __dir, const char* __name,
     const char* __ext) noexcept;
-int fnsplit(const char* __path,
-    char* __drive,
-    char* __dir,
-    char* __name,
-    char* __ext) noexcept;
+int fnsplit(const char* __path, char* __drive, char* __dir, char* __name, char* __ext) noexcept;
 int getcurdir(int __drive, char* __directory) noexcept;
 int getdisk(void) noexcept;
 int setdisk(int __drive) noexcept;

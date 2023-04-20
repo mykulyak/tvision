@@ -72,10 +72,7 @@ void TEventQueue::resume() noexcept
     TMouse::setRange(TScreen::screenWidth - 1, TScreen::screenHeight - 1);
 }
 
-void TEventQueue::suspend() noexcept
-{
-    mouse->suspend();
-}
+void TEventQueue::suspend() noexcept { mouse->suspend(); }
 
 TEventQueue::~TEventQueue()
 {
@@ -120,7 +117,8 @@ void TEventQueue::getMouseEvent(TEvent& ev) noexcept
         }
 
         if (ev.mouse.buttons != 0 && lastMouse.buttons == 0) {
-            if (ev.mouse.buttons == downMouse.buttons && ev.mouse.where == downMouse.where && ev.what - downTicks <= doubleDelay) {
+            if (ev.mouse.buttons == downMouse.buttons && ev.mouse.where == downMouse.where
+                && ev.what - downTicks <= doubleDelay) {
                 if (!(downMouse.eventFlags & (meDoubleClick | meTripleClick)))
                     ev.mouse.eventFlags |= meDoubleClick;
                 else if (downMouse.eventFlags & meDoubleClick) {
@@ -217,8 +215,7 @@ void __MOUSEHUGE TEventQueue::mouseInt()
             I MOV AX,
         DGROUP //  style prolog code.  This is an asynchronous callback!
             I MOV DS,
-        AX
-            I POP AX
+        AX I POP AX
 #endif
 
         unsigned flag
@@ -226,8 +223,7 @@ void __MOUSEHUGE TEventQueue::mouseInt()
     MouseEventType tempMouse;
 
     tempMouse.buttons = _BL;
-    tempMouse.wheel = _BH == 0 ? 0 : char(_BH) > 0 ? mwDown
-                                                   : mwUp; // CuteMouse
+    tempMouse.wheel = _BH == 0 ? 0 : char(_BH) > 0 ? mwDown : mwUp; // CuteMouse
     tempMouse.eventFlags = 0;
     tempMouse.where.x = _CX >> 3;
     tempMouse.where.y = _DX >> 3;
@@ -273,7 +269,8 @@ void TEventQueue::getKeyEvent(TEvent& ev) noexcept
             TEvent next;
             getKeyOrPasteEvent(next);
 
-            if (next.what == evKeyDown && (next.keyDown.controlKeyState & kbPaste) != 0 && next.keyDown.textLength == 1 && next.keyDown.text[0] == '\n')
+            if (next.what == evKeyDown && (next.keyDown.controlKeyState & kbPaste) != 0
+                && next.keyDown.textLength == 1 && next.keyDown.text[0] == '\n')
                 ; // Drop event.
             else
                 pendingKey = next;
@@ -297,8 +294,7 @@ void TEventQueue::putPaste(TStringView text) noexcept
 bool TEventQueue::getPasteEvent(TEvent& ev) noexcept
 {
     if (pasteText) {
-        TSpan<char> text(pasteText + pasteTextIndex,
-            pasteTextLength - pasteTextIndex);
+        TSpan<char> text(pasteText + pasteTextIndex, pasteTextLength - pasteTextIndex);
         size_t length = TText::next(text);
         if (length > 0) {
             KeyDownEvent keyDown = { { 0x0000 }, kbPaste, { 0 }, (uchar)length };
@@ -316,7 +312,9 @@ bool TEventQueue::getPasteEvent(TEvent& ev) noexcept
 
 static int isTextEvent(TEvent& ev) noexcept
 {
-    return ev.what == evKeyDown && (ev.keyDown.textLength != 0 || ev.keyDown.keyCode == kbEnter || ev.keyDown.keyCode == kbTab);
+    return ev.what == evKeyDown
+        && (ev.keyDown.textLength != 0 || ev.keyDown.keyCode == kbEnter
+            || ev.keyDown.keyCode == kbTab);
 }
 
 void TEventQueue::getKeyOrPasteEvent(TEvent& ev) noexcept
@@ -379,7 +377,8 @@ keyWaiting:
 #endif
 #if defined(__BORLANDC__)
     if (ev.what == evKeyDown) {
-        if (' ' <= ev.keyDown.charScan.charCode && ev.keyDown.charScan.charCode != 0x7F && ev.keyDown.charScan.charCode != 0xFF) {
+        if (' ' <= ev.keyDown.charScan.charCode && ev.keyDown.charScan.charCode != 0x7F
+            && ev.keyDown.charScan.charCode != 0xFF) {
             ev.keyDown.text[0] = (char)ev.keyDown.charScan.charCode;
             ev.keyDown.textLength = 1;
         } else
@@ -399,15 +398,9 @@ void TEventQueue::waitForEvent(int timeoutMs) noexcept
 #endif
 }
 
-void TEvent::getKeyEvent() noexcept
-{
-    TEventQueue::getKeyEvent(*this);
-}
+void TEvent::getKeyEvent() noexcept { TEventQueue::getKeyEvent(*this); }
 
-void TEvent::waitForEvent(int timeoutMs) noexcept
-{
-    TEventQueue::waitForEvent(timeoutMs);
-}
+void TEvent::waitForEvent(int timeoutMs) noexcept { TEventQueue::waitForEvent(timeoutMs); }
 
 void TEvent::putNothing() noexcept
 {

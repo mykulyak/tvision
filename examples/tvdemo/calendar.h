@@ -13,10 +13,7 @@ private:
     unsigned days, month, year;
     unsigned curDay, curMonth, curYear;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     virtual void write(opstream&);
@@ -27,23 +24,11 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TCalendarView& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TCalendarView*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TCalendarView& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TCalendarView*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TCalendarView& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TCalendarView* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TCalendarView& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TCalendarView* cl) { return os << (TStreamable*)cl; }
 
 class TCalendarWindow : public TWindow {
 
@@ -54,10 +39,7 @@ public:
         , TWindow(streamableInit) {};
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     virtual void write(opstream&);
@@ -68,22 +50,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TCalendarWindow& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TCalendarWindow*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TCalendarWindow& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TCalendarWindow*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TCalendarWindow& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TCalendarWindow* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TCalendarWindow& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TCalendarWindow* cl) { return os << (TStreamable*)cl; }
 
 #endif // __CALENDAR_H

@@ -8,18 +8,14 @@ const char* const TWindow::name = "TWindow";
 __link(RGroup);
 __link(RFrame);
 
-TStreamableClass RWindow(TWindow::name,
-    TWindow::build,
-    __DELTA(TWindow));
+TStreamableClass RWindow(TWindow::name, TWindow::build, __DELTA(TWindow));
 
 TWindowInit::TWindowInit(TFrame* (*cFrame)(TRect)) noexcept
     : createFrame(cFrame)
 {
 }
 
-TWindow::TWindow(const TRect& bounds,
-    TStringView aTitle,
-    short aNumber) noexcept
+TWindow::TWindow(const TRect& bounds, TStringView aTitle, short aNumber) noexcept
     : TWindowInit(&TWindow::initFrame)
     , TGroup(bounds)
     , flags(Flags::wfMove | Flags::wfGrow | Flags::wfClose | Flags::wfZoom)
@@ -36,10 +32,7 @@ TWindow::TWindow(const TRect& bounds,
         insert(frame);
 }
 
-TWindow::~TWindow()
-{
-    delete[] (char*)title;
-}
+TWindow::~TWindow() { delete[] (char*)title; }
 
 void TWindow::close()
 {
@@ -60,18 +53,11 @@ TPalette& TWindow::getPalette() const
     static TPalette blue(cpBlueWindow, sizeof(cpBlueWindow) - 1);
     static TPalette cyan(cpCyanWindow, sizeof(cpCyanWindow) - 1);
     static TPalette gray(cpGrayWindow, sizeof(cpGrayWindow) - 1);
-    static TPalette* palettes[] = {
-        &blue,
-        &cyan,
-        &gray
-    };
+    static TPalette* palettes[] = { &blue, &cyan, &gray };
     return *(palettes[palette]);
 }
 
-const char* TWindow::getTitle(short)
-{
-    return title;
-}
+const char* TWindow::getTitle(short) { return title; }
 
 void TWindow::handleEvent(TEvent& event)
 {
@@ -85,13 +71,13 @@ void TWindow::handleEvent(TEvent& event)
             if ((flags & (wfMove | wfGrow)) != 0) {
                 limits = owner->getExtent();
                 sizeLimits(min, max);
-                dragView(event, dragMode | (flags & (wfMove | wfGrow)),
-                    limits, min, max);
+                dragView(event, dragMode | (flags & (wfMove | wfGrow)), limits, min, max);
                 clearEvent(event);
             }
             break;
         case cmClose:
-            if ((flags & wfClose) != 0 && (event.message.infoPtr == 0 || event.message.infoPtr == this)) {
+            if ((flags & wfClose) != 0
+                && (event.message.infoPtr == 0 || event.message.infoPtr == this)) {
                 clearEvent(event);
                 if ((state & sfModal) == 0)
                     close();
@@ -104,7 +90,8 @@ void TWindow::handleEvent(TEvent& event)
             }
             break;
         case cmZoom:
-            if ((flags & wfZoom) != 0 && (event.message.infoPtr == 0 || event.message.infoPtr == this)) {
+            if ((flags & wfZoom) != 0
+                && (event.message.infoPtr == 0 || event.message.infoPtr == this)) {
                 zoom();
                 clearEvent(event);
             }
@@ -121,16 +108,14 @@ void TWindow::handleEvent(TEvent& event)
             clearEvent(event);
             break;
         }
-    else if (event.what == evBroadcast && event.message.command == cmSelectWindowNum && event.message.infoInt == number && (options & ofSelectable) != 0) {
+    else if (event.what == evBroadcast && event.message.command == cmSelectWindowNum
+        && event.message.infoInt == number && (options & ofSelectable) != 0) {
         select();
         clearEvent(event);
     }
 }
 
-TFrame* TWindow::initFrame(TRect r)
-{
-    return new TFrame(r);
-}
+TFrame* TWindow::initFrame(TRect r) { return new TFrame(r); }
 
 void TWindow::setState(ushort aState, bool enable)
 {
@@ -208,10 +193,7 @@ void* TWindow::read(ipstream& is)
     return this;
 }
 
-TStreamable* TWindow::build()
-{
-    return new TWindow(streamableInit);
-}
+TStreamable* TWindow::build() { return new TWindow(streamableInit); }
 
 TWindow::TWindow(StreamableInit) noexcept
     : TWindowInit(0)

@@ -34,10 +34,7 @@ inline ScreenCursor::ScreenCursor() noexcept
     DisplayBuffer::addCursor(this);
 }
 
-inline ScreenCursor::~ScreenCursor()
-{
-    DisplayBuffer::removeCursor(this);
-}
+inline ScreenCursor::~ScreenCursor() { DisplayBuffer::removeCursor(this); }
 
 inline void ScreenCursor::show() noexcept
 {
@@ -46,15 +43,9 @@ inline void ScreenCursor::show() noexcept
     visible = true;
 }
 
-inline void ScreenCursor::hide() noexcept
-{
-    visible = false;
-}
+inline void ScreenCursor::hide() noexcept { visible = false; }
 
-inline bool ScreenCursor::isVisible() const noexcept
-{
-    return visible;
-}
+inline bool ScreenCursor::isVisible() const noexcept { return visible; }
 
 inline void ScreenCursor::setPos(const TPoint& p) noexcept
 {
@@ -63,10 +54,7 @@ inline void ScreenCursor::setPos(const TPoint& p) noexcept
     pos = p;
 }
 
-inline const TPoint& ScreenCursor::getPos() const noexcept
-{
-    return pos;
-}
+inline const TPoint& ScreenCursor::getPos() const noexcept { return pos; }
 
 inline void ScreenCursor::apply(TColorAttr& attr) noexcept
 {
@@ -74,10 +62,7 @@ inline void ScreenCursor::apply(TColorAttr& attr) noexcept
     draw(attr);
 }
 
-inline void ScreenCursor::restore(TColorAttr& attr) const noexcept
-{
-    attr = backup;
-}
+inline void ScreenCursor::restore(TColorAttr& attr) const noexcept { attr = backup; }
 
 class ReverseScreenCursor : public ScreenCursor {
     void draw(TColorAttr& attr) const noexcept override;

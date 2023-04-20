@@ -7,25 +7,13 @@
 
 namespace tvision {
 
-inline AnsiDisplayBase::Buffer::~Buffer()
-{
-    free(head);
-}
+inline AnsiDisplayBase::Buffer::~Buffer() { free(head); }
 
-inline char* AnsiDisplayBase::Buffer::data() noexcept
-{
-    return head;
-}
+inline char* AnsiDisplayBase::Buffer::data() noexcept { return head; }
 
-inline size_t AnsiDisplayBase::Buffer::size() const noexcept
-{
-    return tail - head;
-}
+inline size_t AnsiDisplayBase::Buffer::size() const noexcept { return tail - head; }
 
-inline void AnsiDisplayBase::Buffer::clear() noexcept
-{
-    tail = head;
-}
+inline void AnsiDisplayBase::Buffer::clear() noexcept { tail = head; }
 
 inline void AnsiDisplayBase::Buffer::push(TStringView s) noexcept
 {
@@ -33,10 +21,7 @@ inline void AnsiDisplayBase::Buffer::push(TStringView s) noexcept
     tail += s.size();
 }
 
-inline void AnsiDisplayBase::Buffer::push(char c) noexcept
-{
-    *tail++ = c;
-}
+inline void AnsiDisplayBase::Buffer::push(char c) noexcept { *tail++ = c; }
 
 inline void AnsiDisplayBase::Buffer::reserve(size_t extraCapacity) noexcept
 {
@@ -90,8 +75,8 @@ void AnsiDisplayBase::clearScreen() noexcept
 
 static char* convertAttributes(const TColorAttr&, TermAttr&, const TermCap&, char*) noexcept;
 
-void AnsiDisplayBase::lowlevelWriteChars(TStringView chars, TColorAttr attr,
-    const TermCap& termcap) noexcept
+void AnsiDisplayBase::lowlevelWriteChars(
+    TStringView chars, TColorAttr attr, const TermCap& termcap) noexcept
 {
     buf.reserve(256);
     buf.tail = convertAttributes(attr, lastAttr, termcap, buf.tail);
@@ -120,12 +105,13 @@ void AnsiDisplayBase::lowlevelFlush() noexcept
 //////////////////////////////////////////////////////////////////////////
 // Attribute conversion
 
-static void convertColor(TColorDesired, TermColor&, TColorAttr::Style&, const TermCap&, bool) noexcept;
+static void convertColor(
+    TColorDesired, TermColor&, TColorAttr::Style&, const TermCap&, bool) noexcept;
 static char* writeAttributes(const TermAttr&, const TermAttr&, char*) noexcept;
 static char* writeColor(TermColor, bool, char*) noexcept;
 
-static inline char* convertAttributes(const TColorAttr& c, TermAttr& lastAttr,
-    const TermCap& termcap, char* buf) noexcept
+static inline char* convertAttributes(
+    const TColorAttr& c, TermAttr& lastAttr, const TermCap& termcap, char* buf) noexcept
 {
     TermAttr attr {};
     attr.style = ::getStyle(c);
@@ -180,9 +166,8 @@ static constexpr ColorConverter colorConverters[TermCapColorCount] = {
     { convertDirect },
 };
 
-static inline void convertColor(TColorDesired c,
-    TermColor& resultColor, TColorAttr::Style& resultStyle,
-    const TermCap& termcap, bool isFg) noexcept
+static inline void convertColor(TColorDesired c, TermColor& resultColor,
+    TColorAttr::Style& resultStyle, const TermCap& termcap, bool isFg) noexcept
 {
     auto cnv = colorConverters[termcap.colors].apply(c, termcap, isFg);
     resultColor = cnv.color;
@@ -202,8 +187,8 @@ static inline void push(char*& p, bool b, const char* s1, const char* s2) noexce
     b ? push(p, s1) : push(p, s2);
 }
 
-static inline void writeFlag(char*& p, TermAttr attr, TermAttr lastAttr,
-    ushort mask, const char* const OnOff[2]) noexcept
+static inline void writeFlag(
+    char*& p, TermAttr attr, TermAttr lastAttr, ushort mask, const char* const OnOff[2]) noexcept
 {
     if ((attr.style & mask) != (lastAttr.style & mask)) {
         push(p, attr.style & mask, OnOff[0], OnOff[1]);
@@ -213,17 +198,12 @@ static inline void writeFlag(char*& p, TermAttr attr, TermAttr lastAttr,
 
 typedef const char* c_str;
 
-static constexpr c_str
-    boldOnOff[2]
-    = { "1", "22" },
-    italicOnOff[2] = { "3", "23" },
-    underlineOnOff[2] = { "4", "24" },
-    blinkOnOff[2] = { "5", "25" },
-    reverseOnOff[2] = { "7", "27" },
-    strikeOnOff[2] = { "9", "29" };
+static constexpr c_str boldOnOff[2] = { "1", "22" }, italicOnOff[2] = { "3", "23" },
+                       underlineOnOff[2] = { "4", "24" }, blinkOnOff[2] = { "5", "25" },
+                       reverseOnOff[2] = { "7", "27" }, strikeOnOff[2] = { "9", "29" };
 
-static inline char* writeAttributes(const TermAttr& attr,
-    const TermAttr& lastAttr, char* p) noexcept
+static inline char* writeAttributes(
+    const TermAttr& attr, const TermAttr& lastAttr, char* p) noexcept
 {
     push(p, CSI);
 
@@ -315,8 +295,7 @@ static colorconv_r convertNoColor(TColorDesired color, const TermCap&, bool isFg
     return cnv;
 }
 
-static colorconv_r convertIndexed8(TColorDesired color,
-    const TermCap& termcap, bool isFg) noexcept
+static colorconv_r convertIndexed8(TColorDesired color, const TermCap& termcap, bool isFg) noexcept
 {
     auto cnv = convertIndexed16(color, termcap, isFg);
     if (cnv.color.type == TermColor::Indexed && cnv.color.idx >= 8) {
@@ -332,8 +311,7 @@ static colorconv_r convertIndexed8(TColorDesired color,
     return cnv;
 }
 
-static colorconv_r convertIndexed16(TColorDesired color,
-    const TermCap&, bool) noexcept
+static colorconv_r convertIndexed16(TColorDesired color, const TermCap&, bool) noexcept
 {
     if (color.isBIOS()) {
         uint8_t idx = BIOStoXTerm16(color.asBIOS());
@@ -350,8 +328,8 @@ static colorconv_r convertIndexed16(TColorDesired color,
     return { { TermColor::Default } };
 }
 
-static colorconv_r convertIndexed256(TColorDesired color,
-    const TermCap& termcap, bool isFg) noexcept
+static colorconv_r convertIndexed256(
+    TColorDesired color, const TermCap& termcap, bool isFg) noexcept
 {
     if (color.isXTerm()) {
         uint8_t idx = color.asXTerm();
@@ -363,8 +341,7 @@ static colorconv_r convertIndexed256(TColorDesired color,
     return convertIndexed16(color, termcap, isFg);
 }
 
-static colorconv_r convertDirect(TColorDesired color,
-    const TermCap& termcap, bool isFg) noexcept
+static colorconv_r convertDirect(TColorDesired color, const TermCap& termcap, bool isFg) noexcept
 {
     if (color.isRGB()) {
         auto rgb = color.asRGB();

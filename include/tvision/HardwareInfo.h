@@ -10,8 +10,7 @@
 #else
 
 #ifndef MAKELONG
-#define MAKELONG(h, l) \
-    ((long)(((unsigned)(l)) | (((long)((unsigned)(h))) << 16)))
+#define MAKELONG(h, l) ((long)(((unsigned)(l)) | (((long)((unsigned)(h))) << 16)))
 #endif
 
 #endif
@@ -27,12 +26,8 @@ public:
 
 #if defined(__FLAT__)
 
-    enum ConsoleType { cnInput = 0,
-        cnOutput = 1,
-        cnStartup = 2 };
-    enum PlatformType { plDPMI32 = 1,
-        plWinNT = 2,
-        plOS2 = 4 };
+    enum ConsoleType { cnInput = 0, cnOutput = 1, cnStartup = 2 };
+    enum PlatformType { plDPMI32 = 1, plWinNT = 2, plOS2 = 4 };
 
     static PlatformType getPlatform() noexcept;
 
@@ -129,35 +124,20 @@ private:
 
 #if defined(__FLAT__)
 
-inline THardwareInfo::PlatformType THardwareInfo::getPlatform() noexcept
-{
-    return platform;
-}
+inline THardwareInfo::PlatformType THardwareInfo::getPlatform() noexcept { return platform; }
 
 #ifdef __BORLANDC__
 // Caret functions.
 
-inline ushort THardwareInfo::getCaretSize() noexcept
-{
-    return crInfo.dwSize;
-}
+inline ushort THardwareInfo::getCaretSize() noexcept { return crInfo.dwSize; }
 
-inline BOOL THardwareInfo::isCaretVisible() noexcept
-{
-    return crInfo.bVisible;
-}
+inline BOOL THardwareInfo::isCaretVisible() noexcept { return crInfo.bVisible; }
 
 // Screen functions.
 
-inline ushort THardwareInfo::getScreenRows() noexcept
-{
-    return sbInfo.dwSize.Y;
-}
+inline ushort THardwareInfo::getScreenRows() noexcept { return sbInfo.dwSize.Y; }
 
-inline ushort THardwareInfo::getScreenCols() noexcept
-{
-    return sbInfo.dwSize.X;
-}
+inline ushort THardwareInfo::getScreenCols() noexcept { return sbInfo.dwSize.X; }
 
 inline void THardwareInfo::clearScreen(ushort w, ushort h) noexcept
 {
@@ -168,9 +148,7 @@ inline void THardwareInfo::clearScreen(ushort w, ushort h) noexcept
     FillConsoleOutputCharacterA(consoleHandle[cnOutput], ' ', w * h, coord, &read);
 }
 
-inline void THardwareInfo::flushScreen() noexcept
-{
-}
+inline void THardwareInfo::flushScreen() noexcept { }
 
 inline TScreenCell* THardwareInfo::allocateScreenBuffer() noexcept
 {
@@ -212,10 +190,7 @@ inline void THardwareInfo::cursorOff()
 
 // Event functions.
 
-inline void THardwareInfo::clearPendingEvent() noexcept
-{
-    pendingEvent = 0;
-}
+inline void THardwareInfo::clearPendingEvent() noexcept { pendingEvent = 0; }
 
 // System functions.
 
@@ -251,45 +226,24 @@ inline ushort* THardwareInfo::getMonoAddr(ushort offset)
     return (ushort*)MAKELONG(monoSel, offset);
 }
 
-inline uint32_t THardwareInfo::getTickCount()
-{
-    return *(uint32_t*)MAKELONG(biosSel, 0x6C);
-}
+inline uint32_t THardwareInfo::getTickCount() { return *(uint32_t*)MAKELONG(biosSel, 0x6C); }
 
-inline uchar THardwareInfo::getShiftState()
-{
-    return *(uchar*)MAKELONG(biosSel, 0x17);
-}
+inline uchar THardwareInfo::getShiftState() { return *(uchar*)MAKELONG(biosSel, 0x17); }
 
-inline uchar THardwareInfo::getBiosScreenRows()
-{
-    return *(uchar*)MAKELONG(biosSel, 0x84);
-}
+inline uchar THardwareInfo::getBiosScreenRows() { return *(uchar*)MAKELONG(biosSel, 0x84); }
 
-inline uchar THardwareInfo::getBiosVideoInfo()
-{
-    return *(uchar*)MAKELONG(biosSel, 0x87);
-}
+inline uchar THardwareInfo::getBiosVideoInfo() { return *(uchar*)MAKELONG(biosSel, 0x87); }
 
-inline void THardwareInfo::setBiosVideoInfo(uchar info)
-{
-    *(uchar*)MAKELONG(biosSel, 0x87) = info;
-}
+inline void THardwareInfo::setBiosVideoInfo(uchar info) { *(uchar*)MAKELONG(biosSel, 0x87) = info; }
 
-inline ushort THardwareInfo::getBiosEquipmentFlag()
-{
-    return *(ushort*)MAKELONG(biosSel, 0x10);
-}
+inline ushort THardwareInfo::getBiosEquipmentFlag() { return *(ushort*)MAKELONG(biosSel, 0x10); }
 
 inline void THardwareInfo::setBiosEquipmentFlag(ushort flag)
 {
     *(ushort*)MAKELONG(biosSel, 0x10) = flag;
 }
 
-inline bool THardwareInfo::getDPMIFlag()
-{
-    return dpmiFlag;
-}
+inline bool THardwareInfo::getDPMIFlag() { return dpmiFlag; }
 
 #endif
 

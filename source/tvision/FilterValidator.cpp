@@ -7,9 +7,8 @@ const char* TFilterValidator::errorMsg = "Invalid character in input";
 
 __link(RValidator);
 
-TStreamableClass RFilterValidator(TFilterValidator::name,
-    TFilterValidator::build,
-    __DELTA(TFilterValidator));
+TStreamableClass RFilterValidator(
+    TFilterValidator::name, TFilterValidator::build, __DELTA(TFilterValidator));
 
 TFilterValidator::TFilterValidator(TStringView aValidChars) noexcept
 {
@@ -25,10 +24,7 @@ TFilterValidator::TFilterValidator(StreamableInit s) noexcept
 
 #endif
 
-TFilterValidator::~TFilterValidator()
-{
-    delete[] validChars;
-}
+TFilterValidator::~TFilterValidator() { delete[] validChars; }
 
 #ifndef NO_STREAMABLE
 
@@ -45,24 +41,15 @@ void* TFilterValidator::read(ipstream& is)
     return this;
 }
 
-TStreamable* TFilterValidator::build()
-{
-    return new TFilterValidator(streamableInit);
-}
+TStreamable* TFilterValidator::build() { return new TFilterValidator(streamableInit); }
 
 #endif
 
-bool TFilterValidator::isValid(const char* s)
-{
-    return bool(strspn(s, validChars) == strlen(s));
-}
+bool TFilterValidator::isValid(const char* s) { return bool(strspn(s, validChars) == strlen(s)); }
 
 bool TFilterValidator::isValidInput(char* s, bool suppressFill)
 {
     return bool(strspn(s, validChars) == strlen(s));
 }
 
-void TFilterValidator::error()
-{
-    messageBox(mfError | mfOKButton, errorMsg);
-}
+void TFilterValidator::error() { messageBox(mfError | mfOKButton, errorMsg); }

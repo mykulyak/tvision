@@ -29,10 +29,7 @@ public:
     virtual TRect getItemRect(TMenuItem* item);
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TMenuBar(StreamableInit) noexcept;
@@ -42,22 +39,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TMenuBar& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TMenuBar*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TMenuBar& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TMenuBar*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TMenuBar& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TMenuBar* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TMenuBar& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TMenuBar* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TMenuBar_h

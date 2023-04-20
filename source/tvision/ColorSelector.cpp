@@ -9,37 +9,31 @@ __link(RView);
 __link(RButton);
 __link(RListViewer);
 
-TStreamableClass RColorSelector(TColorSelector::name,
-    TColorSelector::build,
-    __DELTA(TColorSelector));
+TStreamableClass RColorSelector(
+    TColorSelector::name, TColorSelector::build, __DELTA(TColorSelector));
 
 const char TColorSelector::icon = '\xDB';
 
 TColorIndex* colorIndexes = 0;
 
 TColorItem::TColorItem(const char* nm, uchar idx, TColorItem* nxt) noexcept
+    : name(nm)
+    , index(idx)
+    , next(nxt)
 {
-    index = idx;
-    next = nxt;
-    name = newStr(nm);
 }
 
-TColorItem::~TColorItem()
-{
-    delete[] (char*)name;
-}
+TColorItem::~TColorItem() { }
 
 TColorGroup::TColorGroup(const char* nm, TColorItem* itm, TColorGroup* nxt) noexcept
+    : name(nm)
+    , index(0)
+    , items(itm)
+    , next(nxt)
 {
-    items = itm;
-    next = nxt;
-    name = newStr(nm);
 }
 
-TColorGroup::~TColorGroup()
-{
-    delete[] (char*)name;
-}
+TColorGroup::~TColorGroup() { }
 
 TColorItem& operator+(TColorItem& i1, TColorItem& i2) noexcept
 {
@@ -211,10 +205,7 @@ void* TColorSelector::read(ipstream& is)
     return this;
 }
 
-TStreamable* TColorSelector::build()
-{
-    return new TColorSelector(streamableInit);
-}
+TStreamable* TColorSelector::build() { return new TColorSelector(streamableInit); }
 
 TColorSelector::TColorSelector(StreamableInit) noexcept
     : TView(streamableInit)
@@ -225,13 +216,11 @@ TColorSelector::TColorSelector(StreamableInit) noexcept
 
 const char* const TColorGroupList::name = "TColorGroupList";
 
-TStreamableClass RColorGroupList(TColorGroupList::name,
-    TColorGroupList::build,
-    __DELTA(TColorGroupList));
+TStreamableClass RColorGroupList(
+    TColorGroupList::name, TColorGroupList::build, __DELTA(TColorGroupList));
 
-TColorGroupList::TColorGroupList(const TRect& bounds,
-    TScrollBar* aScrollBar,
-    TColorGroup* aGroups) noexcept
+TColorGroupList::TColorGroupList(
+    const TRect& bounds, TScrollBar* aScrollBar, TColorGroup* aGroups) noexcept
     : TListViewer(bounds, 1, 0, aScrollBar)
     , groups(aGroups)
 {
@@ -262,10 +251,7 @@ static void freeGroups(TColorGroup* curGroup) noexcept
     }
 }
 
-TColorGroupList::~TColorGroupList()
-{
-    freeGroups(groups);
-}
+TColorGroupList::~TColorGroupList() { freeGroups(groups); }
 
 void TColorGroupList::focusItem(short item)
 {
@@ -281,7 +267,7 @@ void TColorGroupList::getText(char* dest, short item, short maxChars)
     TColorGroup* curGroup = groups;
     while (item-- > 0)
         curGroup = curGroup->next;
-    strncpy(dest, curGroup->name, maxChars);
+    strncpy(dest, curGroup->name.c_str(), maxChars);
     dest[maxChars] = '\0';
 }
 
@@ -298,7 +284,7 @@ void TColorGroupList::writeItems(opstream& os, TColorItem* items)
     os << count;
 
     for (cur = items; cur != 0; cur = cur->next) {
-        os.writeString(cur->name);
+        os.writeString(cur->name.c_str());
         os << cur->index;
     }
 }
@@ -314,7 +300,7 @@ void TColorGroupList::writeGroups(opstream& os, TColorGroup* groups)
     os << count;
 
     for (cur = groups; cur != 0; cur = cur->next) {
-        os.writeString(cur->name);
+        os.writeString(cur->name.c_str());
         writeItems(os, cur->items);
     }
 }
@@ -414,10 +400,7 @@ void* TColorGroupList::read(ipstream& is)
     return this;
 }
 
-TStreamable* TColorGroupList::build()
-{
-    return new TColorGroupList(streamableInit);
-}
+TStreamable* TColorGroupList::build() { return new TColorGroupList(streamableInit); }
 
 TColorGroupList::TColorGroupList(StreamableInit) noexcept
     : TListViewer(streamableInit)
@@ -428,13 +411,11 @@ TColorGroupList::TColorGroupList(StreamableInit) noexcept
 
 const char* const TColorItemList::name = "TColorItemList";
 
-TStreamableClass RColorItemList(TColorItemList::name,
-    TColorItemList::build,
-    __DELTA(TColorItemList));
+TStreamableClass RColorItemList(
+    TColorItemList::name, TColorItemList::build, __DELTA(TColorItemList));
 
-TColorItemList::TColorItemList(const TRect& bounds,
-    TScrollBar* aScrollBar,
-    TColorItem* aItems) noexcept
+TColorItemList::TColorItemList(
+    const TRect& bounds, TScrollBar* aScrollBar, TColorItem* aItems) noexcept
     : TListViewer(bounds, 1, 0, aScrollBar)
     , items(aItems)
 {
@@ -463,7 +444,7 @@ void TColorItemList::getText(char* dest, short item, short maxChars)
     TColorItem* curItem = items;
     while (item-- > 0)
         curItem = curItem->next;
-    strncpy(dest, curItem->name, maxChars);
+    strncpy(dest, curItem->name.c_str(), maxChars);
     dest[maxChars] = '\0';
 }
 
@@ -494,10 +475,7 @@ void TColorItemList::handleEvent(TEvent& event)
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TColorItemList::build()
-{
-    return new TColorItemList(streamableInit);
-}
+TStreamable* TColorItemList::build() { return new TColorItemList(streamableInit); }
 
 TColorItemList::TColorItemList(StreamableInit) noexcept
     : TListViewer(streamableInit)

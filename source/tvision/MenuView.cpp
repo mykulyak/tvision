@@ -9,15 +9,9 @@ const char* const TMenuView::name = "TMenuView";
 
 __link(RView);
 
-TStreamableClass RMenuView(TMenuView::name,
-    TMenuView::build,
-    __DELTA(TMenuView));
+TStreamableClass RMenuView(TMenuView::name, TMenuView::build, __DELTA(TMenuView));
 
-TMenuItem::TMenuItem(TStringView aName,
-    ushort aCommand,
-    TKey aKey,
-    ushort aHelpCtx,
-    TStringView p,
+TMenuItem::TMenuItem(TStringView aName, ushort aCommand, TKey aKey, ushort aHelpCtx, TStringView p,
     TMenuItem* aNext) noexcept
 {
     name = newStr(aName);
@@ -32,11 +26,8 @@ TMenuItem::TMenuItem(TStringView aName,
     next = aNext;
 }
 
-TMenuItem::TMenuItem(TStringView aName,
-    TKey aKey,
-    TMenu* aSubMenu,
-    ushort aHelpCtx,
-    TMenuItem* aNext) noexcept
+TMenuItem::TMenuItem(
+    TStringView aName, TKey aKey, TMenu* aSubMenu, ushort aHelpCtx, TMenuItem* aNext) noexcept
 {
     name = newStr(aName);
     command = 0;
@@ -136,9 +127,7 @@ TMenuView* TMenuView::topMenu()
     return p;
 }
 
-enum menuAction { doNothing,
-    doSelect,
-    doReturn };
+enum menuAction { doNothing, doSelect, doReturn };
 
 ushort TMenuView::execute()
 {
@@ -309,7 +298,8 @@ ushort TMenuView::execute()
             drawView();
         }
 
-        if ((action == doSelect || (action == doNothing && autoSelect)) && current != 0 && current->name != 0) {
+        if ((action == doSelect || (action == doNothing && autoSelect)) && current != 0
+            && current->name != 0) {
             if (current->command == 0 && !current->disabled) {
                 if ((e.what & (evMouseDown | evMouseMove)) != 0)
                     putEvent(e);
@@ -362,16 +352,14 @@ TMenuItem* TMenuView::findItem(char ch)
     return 0;
 }
 
-TRect TMenuView::getItemRect(TMenuItem*)
-{
-    return TRect(0, 0, 0, 0);
-}
+TRect TMenuView::getItemRect(TMenuItem*) { return TRect(0, 0, 0, 0); }
 
 ushort TMenuView::getHelpCtx()
 {
     TMenuView* c = this;
 
-    while (c != 0 && (c->current == 0 || c->current->helpCtx == hcNoContext || c->current->name == 0))
+    while (
+        c != 0 && (c->current == 0 || c->current->helpCtx == hcNoContext || c->current->name == 0))
         c = c->parentMenu;
 
     if (c != 0)
@@ -471,14 +459,9 @@ TMenuItem* TMenuView::findHotKey(TMenuItem* p, TKey key)
     return 0;
 }
 
-TMenuItem* TMenuView::hotKey(TKey key)
-{
-    return findHotKey(menu->items, key);
-}
+TMenuItem* TMenuView::hotKey(TKey key) { return findHotKey(menu->items, key); }
 
-TMenuView* TMenuView::newSubView(const TRect& bounds,
-    TMenu* aMenu,
-    TMenuView* aParentMenu)
+TMenuView* TMenuView::newSubView(const TRect& bounds, TMenu* aMenu, TMenuView* aParentMenu)
 {
     return new TMenuBox(bounds, aMenu, aParentMenu);
 }
@@ -494,8 +477,7 @@ void TMenuView::writeMenu(opstream& os, TMenu* menu)
     for (TMenuItem* item = menu->items; item != 0; item = item->next) {
         os << tok;
         os.writeString(item->name);
-        os << item->command << (int)(item->disabled)
-           << item->keyCode << item->helpCtx;
+        os << item->command << (int)(item->disabled) << item->keyCode << item->helpCtx;
         if (item->name != 0) {
             if (item->command == 0)
                 writeMenu(os, item->subMenu);
@@ -530,8 +512,7 @@ TMenu* TMenuView::readMenu(ipstream& is)
         last = &(item->next);
         item->name = is.readString();
         int temp;
-        is >> item->command >> temp
-            >> item->keyCode >> item->helpCtx;
+        is >> item->command >> temp >> item->keyCode >> item->helpCtx;
         item->disabled = bool(temp);
         if (item->name != 0) {
             if (item->command == 0)
@@ -555,10 +536,7 @@ void* TMenuView::read(ipstream& is)
     return this;
 }
 
-TStreamable* TMenuView::build()
-{
-    return new TMenuView(streamableInit);
-}
+TStreamable* TMenuView::build() { return new TMenuView(streamableInit); }
 
 TMenuView::TMenuView(StreamableInit) noexcept
     : TView(streamableInit)

@@ -21,17 +21,13 @@ void initHistory();
 void doneHistory();
 
 TApplication::TApplication() noexcept
-    : TProgInit(&TApplication::initStatusLine,
-        &TApplication::initMenuBar,
-        &TApplication::initDeskTop)
+    : TProgInit(
+        &TApplication::initStatusLine, &TApplication::initMenuBar, &TApplication::initDeskTop)
 {
     initHistory();
 }
 
-TApplication::~TApplication()
-{
-    doneHistory();
-}
+TApplication::~TApplication() { doneHistory(); }
 
 void TApplication::suspend()
 {
@@ -66,10 +62,7 @@ void TApplication::dosShell()
     redraw();
 }
 
-TRect TApplication::getTileRect()
-{
-    return deskTop->getExtent();
-}
+TRect TApplication::getTileRect() { return deskTop->getExtent(); }
 
 void TApplication::handleEvent(TEvent& event)
 {

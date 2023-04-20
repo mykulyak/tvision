@@ -6,8 +6,7 @@
  *   of TMenu pointers.
  ***********************************************************************/
 
-TMultiMenu::TMultiMenu(const TRect& bounds, TMenu* aMenu[],
-    int nMenus)
+TMultiMenu::TMultiMenu(const TRect& bounds, TMenu* aMenu[], int nMenus)
     : TMenuBar(bounds, aMenu[0])
 {
     if (nMenus == 0)
@@ -26,8 +25,7 @@ TMultiMenu::TMultiMenu(const TRect& bounds, TMenu* aMenu[],
  *   of TSubMenu objects.
  ***********************************************************************/
 
-TMultiMenu::TMultiMenu(const TRect& bounds, TSubMenu aMenu[],
-    int nMenus)
+TMultiMenu::TMultiMenu(const TRect& bounds, TSubMenu aMenu[], int nMenus)
     : TMenuBar(bounds, aMenu[0])
     , mList(new TMenu*[nMenus])
     , numMenus(nMenus)

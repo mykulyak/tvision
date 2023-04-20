@@ -10,9 +10,7 @@ TScrollChars TScrollBar::hChars = { '\x11', '\x10', '\xB1', '\xFE', '\xB2' };
 
 __link(RView);
 
-TStreamableClass RScrollBar(TScrollBar::name,
-    TScrollBar::build,
-    __DELTA(TScrollBar));
+TStreamableClass RScrollBar(TScrollBar::name, TScrollBar::build, __DELTA(TScrollBar));
 
 TScrollBar::TScrollBar(const TRect& bounds) noexcept
     : TView(bounds)
@@ -32,10 +30,7 @@ TScrollBar::TScrollBar(const TRect& bounds) noexcept
     eventMask |= evMouseWheel;
 }
 
-void TScrollBar::draw()
-{
-    drawPos(getPos());
-}
+void TScrollBar::draw() { drawPos(getPos()); }
 
 void TScrollBar::drawPos(int pos) noexcept
 {
@@ -175,7 +170,8 @@ void TScrollBar::handleEvent(TEvent& event)
                 i = min(i, s - 1);
                 p = i;
                 if (s > 2) // Update the scroll value if there's free scroll space.
-                    setValue(int(((long(p - 1) * (maxVal - minVal) + ((s - 2) >> 1)) / (s - 2)) + minVal));
+                    setValue(int(
+                        ((long(p - 1) * (maxVal - minVal) + ((s - 2) >> 1)) / (s - 2)) + minVal));
                 drawPos(p);
             } while (mouseEvent(event, evMouseMove));
             break;
@@ -246,10 +242,7 @@ void TScrollBar::handleEvent(TEvent& event)
     }
 }
 
-void TScrollBar::scrollDraw()
-{
-    message(owner, evBroadcast, cmScrollBarChanged, this);
-}
+void TScrollBar::scrollDraw() { message(owner, evBroadcast, cmScrollBarChanged, this); }
 
 int TScrollBar::scrollStep(int part)
 {
@@ -265,11 +258,7 @@ int TScrollBar::scrollStep(int part)
         return step;
 }
 
-void TScrollBar::setParams(int aValue,
-    int aMin,
-    int aMax,
-    int aPgStep,
-    int aArStep) noexcept
+void TScrollBar::setParams(int aValue, int aMin, int aMax, int aPgStep, int aArStep) noexcept
 {
     int sValue;
 
@@ -321,10 +310,7 @@ void* TScrollBar::read(ipstream& is)
     return this;
 }
 
-TStreamable* TScrollBar::build()
-{
-    return new TScrollBar(streamableInit);
-}
+TStreamable* TScrollBar::build() { return new TScrollBar(streamableInit); }
 
 TScrollBar::TScrollBar(StreamableInit) noexcept
     : TView(streamableInit)

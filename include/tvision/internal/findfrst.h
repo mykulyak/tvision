@@ -69,10 +69,7 @@ private:
                 r.close();
         }
         std::mutex m;
-        operator std::mutex&()
-        {
-            return m;
-        }
+        operator std::mutex&() { return m; }
     } static recList;
 };
 

@@ -39,10 +39,7 @@ Platform::Platform() noexcept
 #endif // _WIN32
 }
 
-Platform::~Platform()
-{
-    restoreConsole();
-}
+Platform::~Platform() { restoreConsole(); }
 
 void Platform::restoreConsole(ConsoleStrategy*& c) noexcept
 {

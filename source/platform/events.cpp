@@ -56,35 +56,20 @@ bool SysManualEvent::createHandle(HANDLE& hEvent) noexcept
     return (hEvent = CreateEventW(nullptr, TRUE, FALSE, nullptr)) != NULL;
 }
 
-SysManualEvent::~SysManualEvent()
-{
-    CloseHandle(hEvent);
-}
+SysManualEvent::~SysManualEvent() { CloseHandle(hEvent); }
 
-void SysManualEvent::signal() noexcept
-{
-    SetEvent(hEvent);
-}
+void SysManualEvent::signal() noexcept { SetEvent(hEvent); }
 
-void SysManualEvent::clear() noexcept
-{
-    ResetEvent(hEvent);
-}
+void SysManualEvent::clear() noexcept { ResetEvent(hEvent); }
 
 #endif
 
 /////////////////////////////////////////////////////////////////////////
 // EventSource
 
-bool EventSource::hasPendingEvents() noexcept
-{
-    return false;
-}
+bool EventSource::hasPendingEvents() noexcept { return false; }
 
-bool EventSource::getEvent(TEvent&) noexcept
-{
-    return false;
-}
+bool EventSource::getEvent(TEvent&) noexcept { return false; }
 
 /////////////////////////////////////////////////////////////////////////
 // WakeUpEventSource
@@ -152,16 +137,15 @@ static void pollHandles(PollData& pd, int ms) noexcept
     if (handles.size() == 0)
         Sleep(ms);
     else {
-        DWORD res = WaitForMultipleObjects(
-            handles.size(), handles.data(), FALSE, ms < 0 ? INFINITE : ms);
+        DWORD res
+            = WaitForMultipleObjects(handles.size(), handles.data(), FALSE, ms < 0 ? INFINITE : ms);
         size_t i = 0;
         while (WAIT_OBJECT_0 <= res && res <= WAIT_OBJECT_0 + handles.size() - i - 1) {
             i += res - WAIT_OBJECT_0;
             states[i] = psReady;
             if (++i < handles.size())
                 // Isn't this awful?
-                res = WaitForMultipleObjects(
-                    handles.size() - i, &handles[i], FALSE, 0);
+                res = WaitForMultipleObjects(handles.size() - i, &handles[i], FALSE, 0);
             else
                 break;
         }

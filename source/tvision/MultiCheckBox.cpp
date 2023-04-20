@@ -3,13 +3,11 @@
 
 const char* const TMultiCheckBoxes::name = "TMultiCheckBoxes";
 
-TStreamableClass RMultiCheckBoxes(TMultiCheckBoxes::name,
-    TMultiCheckBoxes::build,
-    __DELTA(TMultiCheckBoxes));
+TStreamableClass RMultiCheckBoxes(
+    TMultiCheckBoxes::name, TMultiCheckBoxes::build, __DELTA(TMultiCheckBoxes));
 
-TMultiCheckBoxes::TMultiCheckBoxes(TRect& bounds, TSItem* aStrings,
-    uchar aSelRange, ushort aFlags,
-    const char* aStates) noexcept
+TMultiCheckBoxes::TMultiCheckBoxes(
+    TRect& bounds, TSItem* aStrings, uchar aSelRange, ushort aFlags, const char* aStates) noexcept
     : TCluster(bounds, aStrings)
 {
     selRange = aSelRange;
@@ -40,27 +38,15 @@ void TMultiCheckBoxes::write(opstream& os)
     os.writeString(states);
 }
 
-TStreamable* TMultiCheckBoxes::build()
-{
-    return new TMultiCheckBoxes(streamableInit);
-}
+TStreamable* TMultiCheckBoxes::build() { return new TMultiCheckBoxes(streamableInit); }
 
 #endif
 
-TMultiCheckBoxes::~TMultiCheckBoxes()
-{
-    delete states;
-}
+TMultiCheckBoxes::~TMultiCheckBoxes() { delete states; }
 
-void TMultiCheckBoxes::draw()
-{
-    drawMultiBox(" [ ] ", states);
-}
+void TMultiCheckBoxes::draw() { drawMultiBox(" [ ] ", states); }
 
-ushort TMultiCheckBoxes::dataSize()
-{
-    return sizeof(int32_t);
-}
+ushort TMultiCheckBoxes::dataSize() { return sizeof(int32_t); }
 
 uchar TMultiCheckBoxes::multiMark(int item)
 {

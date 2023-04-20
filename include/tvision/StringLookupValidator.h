@@ -32,10 +32,7 @@ inline ipstream& operator>>(ipstream& is, TStringLookupValidator& v)
 {
     return is >> (TStreamable&)v;
 }
-inline ipstream& operator>>(ipstream& is, TStringLookupValidator*& v)
-{
-    return is >> (void*&)v;
-}
+inline ipstream& operator>>(ipstream& is, TStringLookupValidator*& v) { return is >> (void*&)v; }
 
 inline opstream& operator<<(opstream& os, TStringLookupValidator& v)
 {

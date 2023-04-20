@@ -96,10 +96,7 @@ void TDeskTop::handleEvent(TEvent& event)
     }
 }
 
-TBackground* TDeskTop::initBackground(TRect r)
-{
-    return new TBackground(r, defaultBkgrnd);
-}
+TBackground* TDeskTop::initBackground(TRect r) { return new TBackground(r, defaultBkgrnd); }
 
 short iSqr(short i)
 {
@@ -197,16 +194,11 @@ void TDeskTop::tile(const TRect& r)
     }
 }
 
-void TDeskTop::tileError()
-{
-}
+void TDeskTop::tileError() { }
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TDeskTop::build()
-{
-    return new TDeskTop(streamableInit);
-}
+TStreamable* TDeskTop::build() { return new TDeskTop(streamableInit); }
 
 TDeskTop::TDeskTop(StreamableInit) noexcept
     : TDeskInit(0)

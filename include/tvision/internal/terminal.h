@@ -53,10 +53,7 @@ public:
     bool readStr(TStringView) noexcept;
 };
 
-inline int GetChBuf::getUnbuffered() noexcept
-{
-    return in.get();
-}
+inline int GetChBuf::getUnbuffered() noexcept { return in.get(); }
 
 inline int GetChBuf::get(bool keepErr = false) noexcept
 {
@@ -136,9 +133,7 @@ inline bool GetChBuf::readStr(TStringView str) noexcept
     return false;
 }
 
-enum ParseResult { Rejected = 0,
-    Accepted,
-    Ignored };
+enum ParseResult { Rejected = 0, Accepted, Ignored };
 
 struct CSIData {
     // Represents the data stored in a CSI escape sequence:
@@ -166,10 +161,7 @@ struct CSIData {
         return false;
     }
 
-    uint terminator() const noexcept
-    {
-        return length ? sep[length - 1] : 0;
-    }
+    uint terminator() const noexcept { return length ? sep[length - 1] : 0; }
 };
 
 namespace TermIO {

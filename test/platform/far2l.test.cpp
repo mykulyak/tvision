@@ -16,10 +16,7 @@ public:
     {
     }
 
-    int get() noexcept override
-    {
-        return i < str.size() ? str[i++] : -1;
-    }
+    int get() noexcept override { return i < str.size() ? str[i++] : -1; }
 
     void unget(int) noexcept override
     {
@@ -44,7 +41,9 @@ static bool operator==(const ParseResultEvent& a, const ParseResultEvent& b)
     if (a.ev.what == evNothing)
         return true;
     if (a.ev.what == evKeyDown)
-        return a.ev.keyDown.keyCode == b.ev.keyDown.keyCode && a.ev.keyDown.controlKeyState == b.ev.keyDown.controlKeyState && a.ev.keyDown.getText() == b.ev.keyDown.getText();
+        return a.ev.keyDown.keyCode == b.ev.keyDown.keyCode
+            && a.ev.keyDown.controlKeyState == b.ev.keyDown.controlKeyState
+            && a.ev.keyDown.getText() == b.ev.keyDown.getText();
     abort();
 }
 
@@ -78,28 +77,23 @@ constexpr static TEvent keyDownEv(ushort keyCode, ushort controlKeyState, TStrin
     ev.what = evKeyDown;
     ev.keyDown.keyCode = keyCode;
     ev.keyDown.controlKeyState = controlKeyState;
-    while (ev.keyDown.textLength <= sizeof(ev.keyDown.text) && ev.keyDown.textLength < text.size()) {
+    while (
+        ev.keyDown.textLength <= sizeof(ev.keyDown.text) && ev.keyDown.textLength < text.size()) {
         ev.keyDown.text[ev.keyDown.textLength] = text[ev.keyDown.textLength];
         ++ev.keyDown.textLength;
     }
     return ev;
 }
 
-const ushort
-    kbS
-    = 0x1f73,
-    kb9 = 0x0a39;
+const ushort kbS = 0x1f73, kb9 = 0x0a39;
 
 TEST(Far2l, ShouldReadFar2lKeys)
 {
     static constexpr char longString[1024 * 1024] = { 0 };
     static const TestCase<TStringView, ParseResultEvent> testCases[] = {
-        { "", { Ignored } },
-        { "\x07", { Ignored } },
-        { "çśdfç32rç€v\x07", { Ignored } },
+        { "", { Ignored } }, { "\x07", { Ignored } }, { "çśdfç32rç€v\x07", { Ignored } },
         { { longString, sizeof(longString) }, { Ignored } },
-        { "AQBTAAAAAAAAAHMAAAB=", { Ignored } },
-        { "AQBTAAAAAAAAAHMAAABLaa==", { Ignored } },
+        { "AQBTAAAAAAAAAHMAAAB=", { Ignored } }, { "AQBTAAAAAAAAAHMAAABLaa==", { Ignored } },
         { "AQBTAAAAAAAAAHMAAHMAAABL", { Ignored } },
         { "AQBTAAAAAAAAAHMAAABL", { Accepted, keyDownEv(kbS, 0x0000, "s") } },
         { "AQBTAAAAAAAAAHMAAABL\x07", { Accepted, keyDownEv(kbS, 0x0000, "s") } },

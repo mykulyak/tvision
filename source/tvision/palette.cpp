@@ -23,10 +23,7 @@ TPalette::TPalette(const TPalette& tp) noexcept
     memcpy(data, tp.data, (tp.data[0] + 1) * sizeof(TColorAttr));
 }
 
-TPalette::~TPalette()
-{
-    delete[] data;
-}
+TPalette::~TPalette() { delete[] data; }
 
 TPalette& TPalette::operator=(const TPalette& tp) noexcept
 {

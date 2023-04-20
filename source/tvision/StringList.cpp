@@ -5,9 +5,7 @@
 
 const char* const TStringList::name = "TStringList";
 
-TStreamableClass RStringList(TStringList::name,
-    TStringList::build,
-    __DELTA(TStringList));
+TStreamableClass RStringList(TStringList::name, TStringList::build, __DELTA(TStringList));
 
 TStringList::TStringList(StreamableInit) noexcept
     : basePos(0)
@@ -18,10 +16,7 @@ TStringList::TStringList(StreamableInit) noexcept
 
 #pragma warn - dsz
 
-TStringList::~TStringList()
-{
-    delete[] index;
-}
+TStringList::~TStringList() { delete[] index; }
 
 #pragma warn.dsz
 
@@ -65,9 +60,6 @@ void* TStringList::read(ipstream& is)
     return this;
 }
 
-TStreamable* TStringList::build()
-{
-    return new TStringList(streamableInit);
-}
+TStreamable* TStringList::build() { return new TStringList(streamableInit); }
 
 #endif

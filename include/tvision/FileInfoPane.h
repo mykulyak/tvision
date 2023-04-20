@@ -20,10 +20,7 @@ private:
     static const char* pmText;
     static const char* amText;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TFileInfoPane(StreamableInit) noexcept
@@ -36,22 +33,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TFileInfoPane& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TFileInfoPane*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TFileInfoPane& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TFileInfoPane*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TFileInfoPane& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TFileInfoPane* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TFileInfoPane& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TFileInfoPane* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TFileInfoPane_h

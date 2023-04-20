@@ -12,13 +12,13 @@ namespace tvision {
 inline constexpr uint Utf8BytesLeft(char first_byte) noexcept
 {
     // https://en.wikipedia.org/wiki/UTF-8
-    return (first_byte & 0b11100000) == 0b11000000 ? 1 : (first_byte & 0b11110000) == 0b11100000 ? 2
-        : (first_byte & 0b11111000) == 0b11110000                                                ? 3
-                                                                                                 : 0;
+    return (first_byte & 0b11100000) == 0b11000000 ? 1
+        : (first_byte & 0b11110000) == 0b11100000  ? 2
+        : (first_byte & 0b11111000) == 0b11110000  ? 3
+                                                   : 0;
 }
 
-template <size_t N>
-inline std::array<uint32_t, N> make_utf8int(const TStringView utf8[N]) noexcept
+template <size_t N> inline std::array<uint32_t, N> make_utf8int(const TStringView utf8[N]) noexcept
 {
     std::array<uint32_t, N> result {};
     for (size_t i = 0; i < N; ++i)
@@ -37,7 +37,8 @@ inline constexpr uint32_t utf8To32(TStringView s) noexcept
     case 3:
         return ((s[0] & 0b00001111) << 12) | ((s[1] & 0b00111111) << 6) | (s[2] & 0b00111111);
     case 4:
-        return ((s[0] & 0b00001111) << 18) | ((s[1] & 0b00111111) << 12) | ((s[2] & 0b00111111) << 6) | (s[3] & 0b00111111);
+        return ((s[0] & 0b00001111) << 18) | ((s[1] & 0b00111111) << 12)
+            | ((s[2] & 0b00111111) << 6) | (s[3] & 0b00111111);
     }
     return 0;
 }

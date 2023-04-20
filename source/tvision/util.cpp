@@ -66,8 +66,7 @@ static void autoPlacePopup(TMenuPopup* m, TPoint p)
     // bottom right corner, for usability.
     {
         TPoint d = app->size - p;
-        r.move(min(m->size.x, d.x),
-            min(m->size.y + 1, d.y));
+        r.move(min(m->size.x, d.x), min(m->size.y + 1, d.y));
     }
     // If the popup then contains 'p', try to move it to a better place.
     if (r.contains(p) && r.b.y - r.a.y < p.y)
@@ -88,10 +87,7 @@ public:
     char str[1];
 };
 
-void* HistRec::operator new(size_t, HistRec* hr) noexcept
-{
-    return hr;
-}
+void* HistRec::operator new(size_t, HistRec* hr) noexcept { return hr; }
 
 void* HistRec::operator new(size_t) noexcept
 {
@@ -107,25 +103,13 @@ inline HistRec::HistRec(uchar nId, TStringView nStr) noexcept
     str[nStr.size()] = EOS;
 }
 
-inline HistRec* advance(HistRec* ptr, size_t s) noexcept
-{
-    return (HistRec*)((char*)ptr + s);
-}
+inline HistRec* advance(HistRec* ptr, size_t s) noexcept { return (HistRec*)((char*)ptr + s); }
 
-inline HistRec* backup(HistRec* ptr, size_t s) noexcept
-{
-    return (HistRec*)((char*)ptr - s);
-}
+inline HistRec* backup(HistRec* ptr, size_t s) noexcept { return (HistRec*)((char*)ptr - s); }
 
-inline HistRec* next(HistRec* ptr) noexcept
-{
-    return advance(ptr, ptr->len);
-}
+inline HistRec* next(HistRec* ptr) noexcept { return advance(ptr, ptr->len); }
 
-inline HistRec* prev(HistRec* ptr) noexcept
-{
-    return backup(ptr, ptr->len);
-}
+inline HistRec* prev(HistRec* ptr) noexcept { return backup(ptr, ptr->len); }
 
 ushort historySize = 1024; // initial size of history block
 
@@ -228,10 +212,7 @@ void initHistory() noexcept
     clearHistory();
 }
 
-void doneHistory() noexcept
-{
-    ::free(historyBlock);
-}
+void doneHistory() noexcept { ::free(historyBlock); }
 
 char* newStr(TStringView s) noexcept
 {
@@ -260,15 +241,11 @@ char* newStr(TStringView s) noexcept
 ushort ctrlToArrow(ushort keyCode) noexcept
 {
 
-    const uchar ctrlCodes[] = {
-        kbCtrlS, kbCtrlD, kbCtrlE, kbCtrlX, kbCtrlA,
-        kbCtrlF, kbCtrlG, kbCtrlV, kbCtrlR, kbCtrlC, kbCtrlH
-    };
+    const uchar ctrlCodes[] = { kbCtrlS, kbCtrlD, kbCtrlE, kbCtrlX, kbCtrlA, kbCtrlF, kbCtrlG,
+        kbCtrlV, kbCtrlR, kbCtrlC, kbCtrlH };
 
-    const ushort arrowCodes[] = {
-        kbLeft, kbRight, kbUp, kbDown, kbHome,
-        kbEnd, kbDel, kbIns, kbPgUp, kbPgDn, kbBack
-    };
+    const ushort arrowCodes[]
+        = { kbLeft, kbRight, kbUp, kbDown, kbHome, kbEnd, kbDel, kbIns, kbPgUp, kbPgDn, kbBack };
 
     for (size_t i = 0; i < sizeof(ctrlCodes); i++)
         if ((keyCode & 0x00ff) == ctrlCodes[i])
@@ -332,15 +309,9 @@ int cstrlen(TStringView text) noexcept
 /*                                                                        */
 /*------------------------------------------------------------------------*/
 
-int strwidth(TStringView text) noexcept
-{
-    return TText::width(text);
-}
+int strwidth(TStringView text) noexcept { return TText::width(text); }
 
-bool lowMemory() noexcept
-{
-    return bool(TVMemMgr::safetyPoolExhausted());
-}
+bool lowMemory() noexcept { return bool(TVMemMgr::safetyPoolExhausted()); }
 
 size_t strnzcpy(char* dest, TStringView src, size_t size) noexcept
 {
@@ -450,13 +421,13 @@ struct TConstant {
     const char* name;
 };
 
-#define NM(x) \
-    {         \
-        x, #x \
+#define NM(x)                                                                                      \
+    {                                                                                              \
+        x, #x                                                                                      \
     }
-#define NMEND() \
-    {           \
-        0, 0    \
+#define NMEND()                                                                                    \
+    {                                                                                              \
+        0, 0                                                                                       \
     }
 
 static const TConstant keyCodes[] = {
@@ -724,20 +695,14 @@ static void printCode(std::ostream& os, ushort code, const TConstant* constants)
     os.fill(ch);
 }
 
-void printKeyCode(std::ostream& os, ushort keyCode)
-{
-    printCode(os, keyCode, keyCodes);
-}
+void printKeyCode(std::ostream& os, ushort keyCode) { printCode(os, keyCode, keyCodes); }
 
 void printControlKeyState(std::ostream& os, ushort controlKeyState)
 {
     printFlags(os, controlKeyState, controlKeyStateFlags);
 }
 
-void printEventCode(std::ostream& os, ushort eventCode)
-{
-    printCode(os, eventCode, eventCodes);
-}
+void printEventCode(std::ostream& os, ushort eventCode) { printCode(os, eventCode, eventCodes); }
 
 void printMouseButtonState(std::ostream& os, ushort buttonState)
 {

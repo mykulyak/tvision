@@ -32,10 +32,7 @@ inline void path_dos2unix(char* c, bool drive = true) noexcept
 
 // path_unix2dos: replaces '/' with '\'.
 
-inline void path_unix2dos(std::string& s) noexcept
-{
-    std::replace(s.begin(), s.end(), '/', '\\');
-}
+inline void path_unix2dos(std::string& s) noexcept { std::replace(s.begin(), s.end(), '/', '\\'); }
 
 inline void path_unix2dos(char* c) noexcept
 {

@@ -15,10 +15,7 @@ public:
     void charFocused();
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     virtual void write(opstream&);
@@ -29,23 +26,11 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TTable& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TTable*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TTable& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TTable*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TTable& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TTable* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TTable& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TTable* cl) { return os << (TStreamable*)cl; }
 
 class TReport : public TView {
 
@@ -59,10 +44,7 @@ public:
 private:
     uchar asciiChar;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     virtual void write(opstream&);
@@ -73,23 +55,11 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TReport& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TReport*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TReport& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TReport*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TReport& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TReport* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TReport& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TReport* cl) { return os << (TStreamable*)cl; }
 
 class TAsciiChart : public TWindow {
 
@@ -101,10 +71,7 @@ public:
     virtual void handleEvent(TEvent& event);
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     virtual void write(opstream&);
@@ -115,22 +82,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TAsciiChart& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TAsciiChart*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TAsciiChart& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TAsciiChart*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TAsciiChart& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TAsciiChart* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TAsciiChart& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TAsciiChart* cl) { return os << (TStreamable*)cl; }
 
 #endif // __ASCII_H

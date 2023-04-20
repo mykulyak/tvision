@@ -34,9 +34,7 @@ __link(RHistory);
 __link(RLabel);
 __link(RScrollBar);
 
-TStreamableClass RChDirDialog(TChDirDialog::name,
-    TChDirDialog::build,
-    __DELTA(TChDirDialog));
+TStreamableClass RChDirDialog(TChDirDialog::name, TChDirDialog::build, __DELTA(TChDirDialog));
 
 TChDirDialog::TChDirDialog(ushort opts, ushort histId) noexcept
     : TWindowInit(&TChDirDialog::initFrame)
@@ -57,7 +55,8 @@ TChDirDialog::TChDirDialog(ushort opts, ushort histId) noexcept
 
     okButton = new TButton(TRect(35, 6, 45, 8), okText, cmOK, TButton::Flags::bfDefault);
     insert(okButton);
-    chDirButton = new TButton(TRect(35, 9, 45, 11), chdirText, cmChangeDir, TButton::Flags::bfNormal);
+    chDirButton
+        = new TButton(TRect(35, 9, 45, 11), chdirText, cmChangeDir, TButton::Flags::bfNormal);
     insert(chDirButton);
     insert(new TButton(TRect(35, 12, 45, 14), revertText, cmRevert, TButton::Flags::bfNormal));
     if ((opts & cdHelpButton) != 0)
@@ -67,10 +66,7 @@ TChDirDialog::TChDirDialog(ushort opts, ushort histId) noexcept
     selectNext(false);
 }
 
-ushort TChDirDialog::dataSize()
-{
-    return 0;
-}
+ushort TChDirDialog::dataSize() { return 0; }
 
 void TChDirDialog::shutDown()
 {
@@ -81,9 +77,7 @@ void TChDirDialog::shutDown()
     TDialog::shutDown();
 }
 
-void TChDirDialog::getData(void*)
-{
-}
+void TChDirDialog::getData(void*) { }
 
 #define isSeparator(c) (c == '\\' || c == '/')
 
@@ -132,9 +126,7 @@ void TChDirDialog::handleEvent(TEvent& event)
     }
 }
 
-void TChDirDialog::setData(void*)
-{
-}
+void TChDirDialog::setData(void*) { }
 
 void TChDirDialog::setUpDialog()
 {
@@ -195,9 +187,6 @@ void* TChDirDialog::read(ipstream& is)
     return this;
 }
 
-TStreamable* TChDirDialog::build()
-{
-    return new TChDirDialog(streamableInit);
-}
+TStreamable* TChDirDialog::build() { return new TChDirDialog(streamableInit); }
 
 #endif

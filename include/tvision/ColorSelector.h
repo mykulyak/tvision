@@ -8,8 +8,7 @@ class TColorIndex;
 class TColorSelector : public TView {
 
 public:
-    enum ColorSel { csBackground,
-        csForeground };
+    enum ColorSel { csBackground, csForeground };
 
     TColorSelector(const TRect& Bounds, ColorSel ASelType) noexcept;
     virtual void draw();
@@ -24,10 +23,7 @@ private:
 
     static const char icon;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TColorSelector(StreamableInit) noexcept;
@@ -39,23 +35,11 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TColorSelector& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TColorSelector*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TColorSelector& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TColorSelector*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TColorSelector& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TColorSelector* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TColorSelector& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TColorSelector* cl) { return os << (TStreamable*)cl; }
 
 extern TColorIndex* colorIndexes;
 

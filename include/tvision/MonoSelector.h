@@ -20,10 +20,7 @@ private:
     static const char* underline;
     static const char* inverse;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TMonoSelector(StreamableInit) noexcept;
@@ -33,22 +30,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TMonoSelector& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TMonoSelector*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TMonoSelector& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TMonoSelector*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TMonoSelector& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TMonoSelector* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TMonoSelector& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TMonoSelector* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TMonoSelector_h

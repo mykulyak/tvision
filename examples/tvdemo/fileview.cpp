@@ -9,9 +9,7 @@ const char* const TFileViewer::name = "TFileViewer";
 __link(RScroller);
 __link(RScrollBar);
 
-TFileViewer::TFileViewer(const TRect& bounds,
-    TScrollBar* aHScrollBar,
-    TScrollBar* aVScrollBar,
+TFileViewer::TFileViewer(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,
     const std::filesystem::path& aFileName)
     : TScroller(bounds, aHScrollBar, aVScrollBar)
     , fileName(aFileName)
@@ -75,10 +73,7 @@ void TFileViewer::setState(ushort aState, bool enable)
     }
 }
 
-bool TFileViewer::valid(ushort)
-{
-    return isValid;
-}
+bool TFileViewer::valid(ushort) { return isValid; }
 
 void* TFileViewer::read(ipstream& is)
 {
@@ -94,14 +89,9 @@ void TFileViewer::write(opstream& os)
     os.writeString(fileName.c_str());
 }
 
-TStreamable* TFileViewer::build()
-{
-    return new TFileViewer(streamableInit);
-}
+TStreamable* TFileViewer::build() { return new TFileViewer(streamableInit); }
 
-TStreamableClass RFileView(TFileViewer::name,
-    TFileViewer::build,
-    __DELTA(TFileViewer));
+TStreamableClass RFileView(TFileViewer::name, TFileViewer::build, __DELTA(TFileViewer));
 
 static short winNumber = 0;
 
@@ -112,6 +102,5 @@ TFileWindow::TFileWindow(const std::filesystem::path& fileName)
     options |= ofTileable;
     insert(new TFileViewer(getExtent().grow(-1, -1),
         standardScrollBar(sbHorizontal | sbHandleKeyboard),
-        standardScrollBar(sbVertical | sbHandleKeyboard),
-        fileName.c_str()));
+        standardScrollBar(sbVertical | sbHandleKeyboard), fileName.c_str()));
 }

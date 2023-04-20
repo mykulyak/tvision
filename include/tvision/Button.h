@@ -4,9 +4,7 @@
 #include <tvision/StringView.h>
 #include <tvision/View.h>
 
-const int
-    cmRecordHistory
-    = 60;
+const int cmRecordHistory = 60;
 
 /* ---------------------------------------------------------------------- */
 /*      TButton object                                                    */
@@ -34,10 +32,7 @@ public:
         bfGrabFocus = 0x08,
     };
 
-    TButton(const TRect& bounds,
-        TStringView aTitle,
-        ushort aCommand,
-        ushort aFlags) noexcept;
+    TButton(const TRect& bounds, TStringView aTitle, ushort aCommand, ushort aFlags) noexcept;
     ~TButton();
 
     virtual void draw();
@@ -66,10 +61,7 @@ private:
     static const char* shadows;
     static const char* markers;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TButton(StreamableInit) noexcept
@@ -82,22 +74,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TButton& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TButton*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TButton& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TButton*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TButton& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TButton* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TButton& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TButton* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TButton_h

@@ -3,10 +3,7 @@
 #include <chrono>
 #include <windows.h>
 
-extern "C" DWORD GetTickCount() noexcept
-{
-    return (DWORD)GetTickCount64();
-}
+extern "C" DWORD GetTickCount() noexcept { return (DWORD)GetTickCount64(); }
 
 extern "C" ULONGLONG GetTickCount64() noexcept
 {

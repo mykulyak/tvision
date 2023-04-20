@@ -41,7 +41,8 @@ static const TKeyCodeLookupEntry extKeyLookup[] = {
     /* 0x0200 */ { ' ', kbAltShift },
     /* 0x0300 */ { 0, 0 },
     /* 0x0400 */ { kbIns, kbCtrlShift },
-    /* 0x0500 */ {
+    /* 0x0500 */
+    {
         kbIns,
         kbShift,
     },
@@ -212,16 +213,13 @@ static const TKeyCodeLookupEntry extKeyLookup[] = {
 
 enum { extKeyLookupSize = sizeof(extKeyLookup) / sizeof(extKeyLookup[0]) };
 
-static const TKeyCodeLookupEntry
-    kbCtrlBackEntry
-    = { kbBack, kbCtrlShift },
-    kbCtrlEnterEntry = { kbEnter, kbCtrlShift };
+static const TKeyCodeLookupEntry kbCtrlBackEntry = { kbBack, kbCtrlShift },
+                                 kbCtrlEnterEntry = { kbEnter, kbCtrlShift };
 
 static int isRawCtrlKey(uchar scanCode, uchar charCode)
 {
     static const char scanKeys[35 + 1] = "QWERTYUIOP\0\0\0\0ASDFGHJKL\0\0\0\0\0ZXCVBNM";
-    return 16 <= scanCode && scanCode < 16 + 35
-        && scanKeys[scanCode - 16] == charCode - 1 + 'A';
+    return 16 <= scanCode && scanCode < 16 + 35 && scanKeys[scanCode - 16] == charCode - 1 + 'A';
 };
 
 static int isPrintableCharacter(uchar charCode) noexcept
@@ -231,14 +229,14 @@ static int isPrintableCharacter(uchar charCode) noexcept
 
 static int isKeypadCharacter(uchar scanCode) noexcept
 {
-    return scanCode == 0x35 || scanCode == 0x37
-        || scanCode == 0x4A || scanCode == 0x4E;
+    return scanCode == 0x35 || scanCode == 0x37 || scanCode == 0x4A || scanCode == 0x4E;
 }
 
 TKey::TKey(ushort keyCode, ushort shiftState) noexcept
 {
     ushort code = keyCode;
-    ushort mods = (shiftState & kbShift ? kbShift : 0) | (shiftState & kbCtrlShift ? kbCtrlShift : 0) | (shiftState & kbAltShift ? kbAltShift : 0);
+    ushort mods = (shiftState & kbShift ? kbShift : 0)
+        | (shiftState & kbCtrlShift ? kbCtrlShift : 0) | (shiftState & kbAltShift ? kbAltShift : 0);
     uchar scanCode = keyCode >> 8;
     uchar charCode = keyCode & 0xFF;
 

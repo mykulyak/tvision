@@ -20,10 +20,7 @@ private:
     TStrIndexRec cur;
     void closeCurrent();
 
-    virtual const char* streamableName() const
-    {
-        return TStringList::name;
-    }
+    virtual const char* streamableName() const { return TStringList::name; }
 
 protected:
     TStrListMaker(StreamableInit) noexcept;
@@ -34,22 +31,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TStrListMaker& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TStrListMaker*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TStrListMaker& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TStrListMaker*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TStrListMaker& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TStrListMaker* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TStrListMaker& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TStrListMaker* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TStrListMaker_h

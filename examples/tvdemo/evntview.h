@@ -43,10 +43,7 @@ public:
     static TStreamable* build();
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
     virtual void write(opstream&);
     virtual void* read(ipstream&);

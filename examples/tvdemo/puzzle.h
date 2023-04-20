@@ -19,10 +19,7 @@ private:
     int moves;
     char solved;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     virtual void write(opstream&);
@@ -33,23 +30,11 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TPuzzleView& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TPuzzleView*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TPuzzleView& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TPuzzleView*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TPuzzleView& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TPuzzleView* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TPuzzleView& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TPuzzleView* cl) { return os << (TStreamable*)cl; }
 
 class TPuzzleWindow : public TWindow {
 
@@ -60,10 +45,7 @@ public:
         , TWindow(streamableInit) {};
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     virtual void write(opstream&);
@@ -74,22 +56,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TPuzzleWindow& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TPuzzleWindow*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TPuzzleWindow& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TPuzzleWindow*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TPuzzleWindow& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TPuzzleWindow* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TPuzzleWindow& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TPuzzleWindow* cl) { return os << (TStreamable*)cl; }
 
 #endif // __PUZZLE_H

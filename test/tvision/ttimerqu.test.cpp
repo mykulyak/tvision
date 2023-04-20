@@ -11,10 +11,7 @@ static TTimePoint mockCurrentTime()
 }
 
 static int timeouts;
-static void handleTimeout(TTimerId, void*)
-{
-    ++timeouts;
-}
+static void handleTimeout(TTimerId, void*) { ++timeouts; }
 
 TEST(TTimerQueue, EmptyQueueShouldReturnNoTimeouts)
 {

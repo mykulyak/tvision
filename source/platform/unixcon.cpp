@@ -34,7 +34,8 @@ constexpr const char* pbpasteArgv[] = { "pbpaste", 0 };
 constexpr const char* wlCopyArgv[] = { "wl-copy", 0 };
 constexpr const char* xselCopyArgv[] = { "xsel", "--input", "--clipboard", 0 };
 constexpr const char* xclipCopyArgv[] = { "xclip", "-in", "-selection", "clipboard", 0 };
-constexpr const char* wslCopyArgv[] = { "/mnt/c/Windows/System32/cmd.exe", "/D", "/Q", "/C", "clip.exe", 0 };
+constexpr const char* wslCopyArgv[]
+    = { "/mnt/c/Windows/System32/cmd.exe", "/D", "/Q", "/C", "clip.exe", 0 };
 constexpr const char* wlPasteArgv[] = { "wl-paste", "--no-newline", 0 };
 constexpr const char* xselPasteArgv[] = { "xsel", "--output", "--clipboard", 0 };
 constexpr const char* xclipPasteArgv[] = { "xclip", "-out", "-selection", "clipboard", 0 };
@@ -140,12 +141,8 @@ constexpr Command pasteCommands[] = {
 #endif
 };
 
-inline UnixConsoleStrategy::UnixConsoleStrategy(DisplayStrategy& aDisplay,
-    InputStrategy& aInput,
-    StdioCtl& aIo,
-    DisplayBuffer& aDisplayBuf,
-    ScreenLifetime& aScrl,
-    InputState& aInputState,
+inline UnixConsoleStrategy::UnixConsoleStrategy(DisplayStrategy& aDisplay, InputStrategy& aInput,
+    StdioCtl& aIo, DisplayBuffer& aDisplayBuf, ScreenLifetime& aScrl, InputState& aInputState,
     SigwinchHandler* aSigwinch) noexcept
     : ConsoleStrategy(aDisplay, aInput, { &aInput, aSigwinch })
     , io(aIo)
@@ -156,11 +153,8 @@ inline UnixConsoleStrategy::UnixConsoleStrategy(DisplayStrategy& aDisplay,
 {
 }
 
-UnixConsoleStrategy& UnixConsoleStrategy::create(StdioCtl& io,
-    DisplayBuffer& displayBuf,
-    ScreenLifetime& scrl,
-    InputState& inputState,
-    DisplayStrategy& display,
+UnixConsoleStrategy& UnixConsoleStrategy::create(StdioCtl& io, DisplayBuffer& displayBuf,
+    ScreenLifetime& scrl, InputState& inputState, DisplayStrategy& display,
     InputStrategy& input) noexcept
 {
     auto* sigwinch = SigwinchHandler::create();
@@ -182,7 +176,8 @@ static bool write_subprocess(const char* const cmd[], TStringView, int timeoutMs
 
 static bool commandIsAvailable(const Command& cmd)
 {
-    return (!cmd.requiredEnv || !getEnv<TStringView>(cmd.requiredEnv).empty()) && executable_exists(cmd.argv[0]);
+    return (!cmd.requiredEnv || !getEnv<TStringView>(cmd.requiredEnv).empty())
+        && executable_exists(cmd.argv[0]);
 }
 
 bool UnixConsoleStrategy::setClipboardText(TStringView text) noexcept
@@ -256,7 +251,8 @@ struct run_subprocess_t {
     int fd { -1 };
 };
 
-static run_subprocess_t run_subprocess(const char* const argv[], const char* const env[], run_subprocess_mode mode)
+static run_subprocess_t run_subprocess(
+    const char* const argv[], const char* const env[], run_subprocess_mode mode)
 {
     int fds[2];
     if (pipe(fds) == -1)
@@ -270,12 +266,8 @@ static run_subprocess_t run_subprocess(const char* const argv[], const char* con
         int new_in = mode == run_subprocess_mode::read ? nul : fds[0];
         int new_out = mode == run_subprocess_mode::read ? fds[1] : nul;
 
-        if (nul != -1
-            && dup2(new_in, STDIN_FILENO) != -1
-            && dup2(new_out, STDOUT_FILENO) != -1
-            && dup2(nul, STDERR_FILENO) != -1
-            && close(fds[0]) != -1
-            && close(fds[1]) != -1
+        if (nul != -1 && dup2(new_in, STDIN_FILENO) != -1 && dup2(new_out, STDOUT_FILENO) != -1
+            && dup2(nul, STDERR_FILENO) != -1 && close(fds[0]) != -1 && close(fds[1]) != -1
             && close(nul) != -1) {
             execvp(argv[0], (char* const*)argv);
         }

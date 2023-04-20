@@ -6,12 +6,16 @@
 namespace tvision {
 
 std::atomic<SignalHandlerCallback*> SignalHandler::callback { nullptr };
-const int SignalHandler::handledSignals[HandledSignalCount] = { SIGINT, SIGQUIT, SIGILL, SIGABRT, SIGFPE, SIGSEGV, SIGTERM, SIGTSTP };
+const int SignalHandler::handledSignals[HandledSignalCount]
+    = { SIGINT, SIGQUIT, SIGILL, SIGABRT, SIGFPE, SIGSEGV, SIGTERM, SIGTSTP };
 
 static bool operator==(const struct sigaction& a, const struct sigaction& b) noexcept
 {
-    constexpr int knownFlags = SA_NOCLDSTOP | SA_NOCLDWAIT | SA_SIGINFO | SA_ONSTACK | SA_RESTART | SA_NODEFER | SA_RESETHAND;
-    return ((a.sa_flags & knownFlags) == (b.sa_flags & knownFlags)) && ((a.sa_flags & SA_SIGINFO) ? a.sa_sigaction == b.sa_sigaction : a.sa_handler == b.sa_handler);
+    constexpr int knownFlags = SA_NOCLDSTOP | SA_NOCLDWAIT | SA_SIGINFO | SA_ONSTACK | SA_RESTART
+        | SA_NODEFER | SA_RESETHAND;
+    return ((a.sa_flags & knownFlags) == (b.sa_flags & knownFlags))
+        && ((a.sa_flags & SA_SIGINFO) ? a.sa_sigaction == b.sa_sigaction
+                                      : a.sa_handler == b.sa_handler);
 }
 
 void SignalHandler::enable(SignalHandlerCallback& aCallback) noexcept
@@ -93,8 +97,8 @@ void SignalHandler::handleSignal(int signo, siginfo_t* info, void* context)
     }
 }
 
-bool SignalHandler::invokeHandlerOrDefault(int signo, struct sigaction& action,
-    siginfo_t* info, void* context) noexcept
+bool SignalHandler::invokeHandlerOrDefault(
+    int signo, struct sigaction& action, siginfo_t* info, void* context) noexcept
 {
     // If the handler is a custom one, invoke it directly.
     if (action.sa_flags & SA_SIGINFO && action.sa_sigaction)

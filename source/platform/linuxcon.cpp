@@ -15,14 +15,9 @@
 namespace tvision {
 
 inline LinuxConsoleStrategy::LinuxConsoleStrategy(DisplayStrategy& aDisplay,
-    LinuxConsoleInput& aWrapper,
-    ScreenLifetime& aScrl,
-    InputState& aInputState,
-    SigwinchHandler* aSigwinch,
-    GpmInput* aGpm) noexcept
-    : ConsoleStrategy(aDisplay,
-        aGpm ? *aGpm : aWrapper.input,
-        { &aWrapper, aGpm, aSigwinch })
+    LinuxConsoleInput& aWrapper, ScreenLifetime& aScrl, InputState& aInputState,
+    SigwinchHandler* aSigwinch, GpmInput* aGpm) noexcept
+    : ConsoleStrategy(aDisplay, aGpm ? *aGpm : aWrapper.input, { &aWrapper, aGpm, aSigwinch })
     , scrl(aScrl)
     , inputState(aInputState)
     , sigwinch(aSigwinch)
@@ -32,9 +27,7 @@ inline LinuxConsoleStrategy::LinuxConsoleStrategy(DisplayStrategy& aDisplay,
 }
 
 LinuxConsoleStrategy& LinuxConsoleStrategy::create(StdioCtl& io, ScreenLifetime& scrl,
-    InputState& inputState,
-    DisplayStrategy& display,
-    InputStrategy& input) noexcept
+    InputState& inputState, DisplayStrategy& display, InputStrategy& input) noexcept
 {
     auto* sigwinch = SigwinchHandler::create();
     auto& wrapper = *new LinuxConsoleInput(io, input);
@@ -67,7 +60,8 @@ bool LinuxConsoleInput::getEvent(TEvent& ev) noexcept
         // Special cases for Ctrl+Back and Shift+Tab.
         if (keyCode == 0x001F && (ev.keyDown.controlKeyState & kbCtrlShift))
             keyCode = kbCtrlBack;
-        else if (keyCode == kbAltTab && ((ev.keyDown.controlKeyState & (kbShift | kbCtrlShift | kbAltShift)) == kbShift))
+        else if (keyCode == kbAltTab
+            && ((ev.keyDown.controlKeyState & (kbShift | kbCtrlShift | kbAltShift)) == kbShift))
             keyCode = kbShiftTab;
         TermIO::normalizeKey(ev.keyDown);
         return true;
@@ -75,10 +69,7 @@ bool LinuxConsoleInput::getEvent(TEvent& ev) noexcept
     return false;
 }
 
-bool LinuxConsoleInput::hasPendingEvents() noexcept
-{
-    return input.hasPendingEvents();
-}
+bool LinuxConsoleInput::hasPendingEvents() noexcept { return input.hasPendingEvents(); }
 
 ushort LinuxConsoleInput::getKeyboardModifiers(StdioCtl& io) noexcept
 {

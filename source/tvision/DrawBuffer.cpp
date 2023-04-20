@@ -24,45 +24,40 @@
 /*                                                                        */
 /*------------------------------------------------------------------------*/
 
-void TDrawBuffer::moveBuf(ushort indent, const void* source,
-    TColorAttr attr, ushort count) noexcept
+void TDrawBuffer::moveBuf(ushort indent, const void* source, TColorAttr attr, ushort count) noexcept
 
 {
 #ifndef __FLAT__
 
-    I MOV CX, count I JCXZ __5 I PUSH DS
+    I MOV CX,
+        count I JCXZ __5 I PUSH DS
 
-                  _ES
+            _ES
         = FP_SEG(&data[indent]);
     _DI = FP_OFF(&data[indent]);
 
     //    _DS = FP_SEG( source );
     //    _SI = FP_OFF( source );
-    I LDS SI, source
+    I LDS SI,
+        source
 
-                  I MOV AH,
-        [BYTE PTR attr] I CLD
-            I OR AH,
-        AH
-            I JE __3
+            I MOV AH,
+        [BYTE PTR attr] I CLD I OR AH,
+        AH I JE __3
 
-                __1 :
+            __1 :
 
-        I LODSB
-            I STOSW
-                I LOOP __1
-                    I JMP __4
+        I LODSB I STOSW I LOOP __1 I JMP __4
 
-                        __2 :
+            __2 :
 
         I INC DI
 
             __3 :
 
-        I MOVSB
-            I LOOP __2
+        I MOVSB I LOOP __2
 
-                __4 :
+            __4 :
 
         I POP DS
 
@@ -100,15 +95,17 @@ void TDrawBuffer::moveBuf(ushort indent, const void* source,
 void TDrawBuffer::moveChar(ushort indent, char c, TColorAttr attr, ushort count) noexcept
 {
 #ifndef __FLAT__
-    I MOV CX, count I JCXZ __4
+    I MOV CX,
+        count I JCXZ __4
 
-                  _ES
+            _ES
         = FP_SEG(&data[indent]);
     _DI = FP_OFF(&data[indent]);
 
-    I MOV AL, c I MOV AH, [BYTE PTR attr] I CLD I OR AL, AL I JE __1 I OR AH, AH I JE __3 I REP STOSW I JMP __4
+    I MOV AL, c I MOV AH, [BYTE PTR attr] I CLD I OR AL, AL I JE __1 I OR AH,
+        AH I JE __3 I REP STOSW I JMP __4
 
-                                                                                  __1 :
+            __1 :
 
         I MOV AL,
         AH
@@ -119,10 +116,9 @@ void TDrawBuffer::moveChar(ushort indent, char c, TColorAttr attr, ushort count)
 
             __3 :
 
-        I STOSB
-            I LOOP __2
+        I STOSB I LOOP __2
 
-                __4:;
+            __4:;
 
 #else
     register TScreenCell* dest = &data[indent];
@@ -229,7 +225,8 @@ ushort TDrawBuffer::moveCStr(ushort indent, TStringView str, TAttrPair attrs) no
 /*                                                                        */
 /*------------------------------------------------------------------------*/
 
-ushort TDrawBuffer::moveCStr(ushort indent, TStringView str, TAttrPair attrs, ushort width, ushort begin) noexcept
+ushort TDrawBuffer::moveCStr(
+    ushort indent, TStringView str, TAttrPair attrs, ushort width, ushort begin) noexcept
 {
     size_t i = indent, j = 0, w = 0;
     int toggle = 1;
@@ -327,8 +324,8 @@ ushort TDrawBuffer::moveStr(ushort indent, TStringView str, TColorAttr attr) noe
 /*                                                                        */
 /*------------------------------------------------------------------------*/
 
-ushort TDrawBuffer::moveStr(ushort indent, TStringView str, TColorAttr attr,
-    ushort width, ushort begin) noexcept
+ushort TDrawBuffer::moveStr(
+    ushort indent, TStringView str, TColorAttr attr, ushort width, ushort begin) noexcept
 {
 #ifdef __BORLANDC__
     if (begin < str.size())
@@ -361,10 +358,7 @@ TDrawBuffer::TDrawBuffer() noexcept
 #endif
 }
 
-TDrawBuffer::~TDrawBuffer()
-{
-    delete[] data.data();
-}
+TDrawBuffer::~TDrawBuffer() { delete[] data.data(); }
 #endif
 
 #pragma warn.asc

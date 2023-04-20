@@ -9,9 +9,8 @@ const char* TRangeValidator::validSignedChars = "+-0123456789";
 
 __link(RFilterValidator);
 
-TStreamableClass RRangeValidator(TRangeValidator::name,
-    TRangeValidator::build,
-    __DELTA(TRangeValidator));
+TStreamableClass RRangeValidator(
+    TRangeValidator::name, TRangeValidator::build, __DELTA(TRangeValidator));
 
 TRangeValidator::TRangeValidator(int32_t aMin, int32_t aMax) noexcept
     : TFilterValidator(0)
@@ -46,10 +45,7 @@ void* TRangeValidator::read(ipstream& is)
 
 #endif
 
-void TRangeValidator::error()
-{
-    messageBox(mfError | mfOKButton, errorMsg, min, max);
-}
+void TRangeValidator::error() { messageBox(mfError | mfOKButton, errorMsg, min, max); }
 
 bool TRangeValidator::isValid(const char* s)
 {
@@ -84,7 +80,4 @@ ushort TRangeValidator::transfer(char* s, void* buffer, TVTransfer flag)
         return 0;
 }
 
-TStreamable* TRangeValidator::build()
-{
-    return new TRangeValidator(streamableInit);
-}
+TStreamable* TRangeValidator::build() { return new TRangeValidator(streamableInit); }

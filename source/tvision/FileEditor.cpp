@@ -15,17 +15,12 @@ const char* const TFileEditor::name = "TFileEditor";
 
 __link(REditor);
 
-TStreamableClass RFileEditor(TFileEditor::name,
-    TFileEditor::build,
-    __DELTA(TFileEditor));
+TStreamableClass RFileEditor(TFileEditor::name, TFileEditor::build, __DELTA(TFileEditor));
 
 const char* TFileEditor::backupExt = ".bak";
 
-TFileEditor::TFileEditor(const TRect& bounds,
-    TScrollBar* aHScrollBar,
-    TScrollBar* aVScrollBar,
-    TIndicator* aIndicator,
-    TStringView aFileName) noexcept
+TFileEditor::TFileEditor(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,
+    TIndicator* aIndicator, TStringView aFileName) noexcept
     : TEditor(bounds, aHScrollBar, aVScrollBar, aIndicator, 0)
 {
     TEditor::doneBuffer();
@@ -41,10 +36,7 @@ TFileEditor::TFileEditor(const TRect& bounds,
     }
 }
 
-void TFileEditor::doneBuffer()
-{
-    free(buffer);
-}
+void TFileEditor::doneBuffer() { free(buffer); }
 
 void TFileEditor::handleEvent(TEvent& event)
 {
@@ -68,10 +60,7 @@ void TFileEditor::handleEvent(TEvent& event)
     clearEvent(event);
 }
 
-void TFileEditor::initBuffer()
-{
-    buffer = (char*)malloc(bufSize);
-}
+void TFileEditor::initBuffer() { buffer = (char*)malloc(bufSize); }
 
 bool TFileEditor::loadFile() noexcept
 {
@@ -89,8 +78,7 @@ bool TFileEditor::loadFile() noexcept
         } else {
             if (fSize > INT_MAX) {
                 f.read(&buffer[bufSize - uint(fSize)], INT_MAX);
-                f.read(&buffer[bufSize - uint(fSize) + INT_MAX],
-                    uint(fSize - INT_MAX));
+                f.read(&buffer[bufSize - uint(fSize) + INT_MAX], uint(fSize - INT_MAX));
 
             } else
                 f.read(&buffer[bufSize - uint(fSize)], uint(fSize));
@@ -263,10 +251,7 @@ void* TFileEditor::read(ipstream& is)
     return this;
 }
 
-TStreamable* TFileEditor::build()
-{
-    return new TFileEditor(streamableInit);
-}
+TStreamable* TFileEditor::build() { return new TFileEditor(streamableInit); }
 
 TFileEditor::TFileEditor(StreamableInit) noexcept
     : TEditor(streamableInit)

@@ -7,10 +7,7 @@
 uchar THWMouse::buttonCount = 0;
 bool THWMouse::handlerInstalled = false;
 
-THWMouse::THWMouse() noexcept
-{
-    resume();
-}
+THWMouse::THWMouse() noexcept { resume(); }
 
 void THWMouse::resume() noexcept
 {
@@ -37,10 +34,7 @@ void THWMouse::resume() noexcept
 #endif
 }
 
-THWMouse::~THWMouse()
-{
-    suspend();
-}
+THWMouse::~THWMouse() { suspend(); }
 
 void THWMouse::suspend() noexcept
 {
@@ -131,8 +125,7 @@ void THWMouse::getEvent(MouseEventType& me) noexcept
     _genInt(0x33);
     _AX = _BX;
     me.buttons = _AL;
-    me.wheel = _AH == 0 ? 0 : char(_AH) > 0 ? mwDown
-                                            : mwUp; // CuteMouse
+    me.wheel = _AH == 0 ? 0 : char(_AH) > 0 ? mwDown : mwUp; // CuteMouse
     me.where.x = _CX >> 3;
     me.where.y = _DX >> 3;
     me.eventFlags = 0;

@@ -6,22 +6,16 @@
 
 // TValidator Status constants
 
-static const int
-    vsOk
-    = 0,
-    vsSyntax = 1, // Error in the syntax of either a TPXPictureValidator
-                  // or a TDBPictureValidator
+static const int vsOk = 0,
+                 vsSyntax = 1, // Error in the syntax of either a TPXPictureValidator
+                               // or a TDBPictureValidator
 
     // Validator option flags
-    voFill = 0x0001,
-    voTransfer = 0x0002,
-    voReserved = 0x00FC;
+    voFill = 0x0001, voTransfer = 0x0002, voReserved = 0x00FC;
 
 // TVTransfer constants
 
-enum TVTransfer { vtDataSize,
-    vtSetData,
-    vtGetData };
+enum TVTransfer { vtDataSize, vtSetData, vtGetData };
 
 // Abstract TValidator object
 
@@ -50,22 +44,10 @@ public:
     static const char* const name;
 };
 
-inline ipstream& operator>>(ipstream& is, TValidator& v)
-{
-    return is >> (TStreamable&)v;
-}
-inline ipstream& operator>>(ipstream& is, TValidator*& v)
-{
-    return is >> (void*&)v;
-}
+inline ipstream& operator>>(ipstream& is, TValidator& v) { return is >> (TStreamable&)v; }
+inline ipstream& operator>>(ipstream& is, TValidator*& v) { return is >> (void*&)v; }
 
-inline opstream& operator<<(opstream& os, TValidator& v)
-{
-    return os << (TStreamable&)v;
-}
-inline opstream& operator<<(opstream& os, TValidator* v)
-{
-    return os << (TStreamable*)v;
-}
+inline opstream& operator<<(opstream& os, TValidator& v) { return os << (TStreamable&)v; }
+inline opstream& operator<<(opstream& os, TValidator* v) { return os << (TStreamable*)v; }
 
 #endif // TVision_TValidator_h

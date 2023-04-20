@@ -3,9 +3,7 @@
 
 #include <tvision/Cluster.h>
 
-const unsigned short cfOneBit = 0x0101,
-                     cfTwoBits = 0x0203,
-                     cfFourBits = 0x040F,
+const unsigned short cfOneBit = 0x0101, cfTwoBits = 0x0203, cfFourBits = 0x040F,
                      cfEightBits = 0x08FF;
 
 /* ---------------------------------------------------------------------- */
@@ -36,10 +34,7 @@ private:
     ushort flags;
     char* states;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TMultiCheckBoxes(StreamableInit) noexcept;
@@ -51,22 +46,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TMultiCheckBoxes& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TMultiCheckBoxes*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TMultiCheckBoxes& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TMultiCheckBoxes*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TMultiCheckBoxes& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TMultiCheckBoxes* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TMultiCheckBoxes& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TMultiCheckBoxes* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TMultiCheckBoxes_h

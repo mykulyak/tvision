@@ -41,10 +41,7 @@ private:
 
     static const char* hintSeparator;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
     static void writeItems(opstream&, TStatusItem*);
     static void writeDefs(opstream&, TStatusDef*);
@@ -61,22 +58,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TStatusLine& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TStatusLine*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TStatusLine& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TStatusLine*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TStatusLine& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TStatusLine* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TStatusLine& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TStatusLine* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TStatusLine_h

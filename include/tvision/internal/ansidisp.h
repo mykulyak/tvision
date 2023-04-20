@@ -9,10 +9,7 @@ namespace tvision {
 // using certain ANSI escape sequences.
 
 struct TermColor {
-    enum TermColorTypes : uint8_t { Default,
-        Indexed,
-        RGB,
-        NoColor };
+    enum TermColorTypes : uint8_t { Default, Indexed, RGB, NoColor };
 
     union {
         uint8_t idx;
@@ -45,10 +42,7 @@ struct TermColor {
     {
         *this = uint32_t(c) | (uint32_t(aType) << 24);
     }
-    TermColor(TermColorTypes aType) noexcept
-    {
-        *this = uint32_t(aType) << 24;
-    }
+    TermColor(TermColorTypes aType) noexcept { *this = uint32_t(aType) << 24; }
 };
 
 struct TermAttr {
@@ -109,8 +103,7 @@ protected:
     void lowlevelFlush() noexcept;
 };
 
-template <class DisplayBase>
-class AnsiDisplay : public DisplayBase, public AnsiDisplayBase {
+template <class DisplayBase> class AnsiDisplay : public DisplayBase, public AnsiDisplayBase {
 
 public:
     template <typename... Args>
@@ -134,10 +127,7 @@ public:
     {
         AnsiDisplayBase::lowlevelMoveCursorX(x, y);
     }
-    void lowlevelFlush() noexcept override
-    {
-        AnsiDisplayBase::lowlevelFlush();
-    }
+    void lowlevelFlush() noexcept override { AnsiDisplayBase::lowlevelFlush(); }
 
     void reloadScreenInfo() noexcept override
     {

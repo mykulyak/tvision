@@ -13,8 +13,8 @@ ushort messageBoxRect(const TRect& r, ushort aOptions, const char* msg, ...) noe
 
 ushort inputBox(TStringView Title, TStringView aLabel, char* s, uchar limit) noexcept;
 
-ushort inputBoxRect(const TRect& bounds, TStringView title,
-    TStringView aLabel, char* s, uchar limit) noexcept;
+ushort inputBoxRect(
+    const TRect& bounds, TStringView title, TStringView aLabel, char* s, uchar limit) noexcept;
 
 const int
 

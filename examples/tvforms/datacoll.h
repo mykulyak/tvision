@@ -3,8 +3,7 @@
 
 #include <tvision/tv.h>
 
-enum KeyTypes { stringKey,
-    longIntKey };
+enum KeyTypes { stringKey, longIntKey };
 
 class TDataCollection : public TStringCollection {
 
@@ -22,10 +21,7 @@ protected:
     virtual void* read(ipstream&);
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
     virtual void* readItem(ipstream&);
     virtual void writeItem(void*, opstream&);
 
@@ -37,21 +33,9 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TDataCollection& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TDataCollection*& cl)
-{
-    return is >> (void*&)cl;
-}
-inline opstream& operator<<(opstream& os, TDataCollection& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TDataCollection* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline ipstream& operator>>(ipstream& is, TDataCollection& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TDataCollection*& cl) { return is >> (void*&)cl; }
+inline opstream& operator<<(opstream& os, TDataCollection& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TDataCollection* cl) { return os << (TStreamable*)cl; }
 
 #endif // __DATACOLL_H

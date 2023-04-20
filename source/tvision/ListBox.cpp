@@ -5,27 +5,18 @@ const char* const TListBox::name = "TListBox";
 
 __link(RListViewer);
 
-TStreamableClass RListBox(TListBox::name,
-    TListBox::build,
-    __DELTA(TListBox));
+TStreamableClass RListBox(TListBox::name, TListBox::build, __DELTA(TListBox));
 
-TListBox::TListBox(const TRect& bounds,
-    ushort aNumCols,
-    TScrollBar* aScrollBar) noexcept
+TListBox::TListBox(const TRect& bounds, ushort aNumCols, TScrollBar* aScrollBar) noexcept
     : TListViewer(bounds, aNumCols, 0, aScrollBar)
     , items(0)
 {
     setRange(0);
 }
 
-TListBox::~TListBox()
-{
-}
+TListBox::~TListBox() { }
 
-ushort TListBox::dataSize()
-{
-    return sizeof(TListBoxRec);
-}
+ushort TListBox::dataSize() { return sizeof(TListBoxRec); }
 
 void TListBox::getData(void* rec)
 {
@@ -79,10 +70,7 @@ void* TListBox::read(ipstream& is)
     return this;
 }
 
-TStreamable* TListBox::build()
-{
-    return new TListBox(streamableInit);
-}
+TStreamable* TListBox::build() { return new TListBox(streamableInit); }
 
 TListBox::TListBox(StreamableInit) noexcept
     : TListViewer(streamableInit)

@@ -1,8 +1,7 @@
 #ifndef TVision_TSpan_h
 #define TVision_TSpan_h
 
-template <class T>
-class TSpan {
+template <class T> class TSpan {
 
     // This is actually a generalization of TStringView for any kind of element
     // type (and without enforcing the 'const' qualifier).
@@ -41,75 +40,36 @@ public:
     }
 #endif
 
-    constexpr operator TSpan<const T>() const
-    {
-        return TSpan<const T>(ptr, len);
-    }
+    constexpr operator TSpan<const T>() const { return TSpan<const T>(ptr, len); }
 
-    constexpr T* data() const
-    {
-        return ptr;
-    }
+    constexpr T* data() const { return ptr; }
 
-    constexpr size_t size() const
-    {
-        return len;
-    }
+    constexpr size_t size() const { return len; }
 
-    constexpr size_t size_bytes() const
-    {
-        return size() * sizeof(T);
-    }
+    constexpr size_t size_bytes() const { return size() * sizeof(T); }
 
-    constexpr bool empty() const
-    {
-        return bool(size() == 0);
-    }
+    constexpr bool empty() const { return bool(size() == 0); }
 
-    constexpr T& operator[](size_t pos) const
-    {
-        return ptr[pos];
-    }
+    constexpr T& operator[](size_t pos) const { return ptr[pos]; }
 
-    constexpr T& front() const
-    {
-        return ptr[0];
-    }
+    constexpr T& front() const { return ptr[0]; }
 
-    constexpr T& back() const
-    {
-        return ptr[len - 1];
-    }
+    constexpr T& back() const { return ptr[len - 1]; }
 
-    constexpr TSpan subspan(size_t pos) const
-    {
-        return TSpan<T>(ptr + pos, len - pos);
-    }
+    constexpr TSpan subspan(size_t pos) const { return TSpan<T>(ptr + pos, len - pos); }
 
     constexpr TSpan subspan(size_t pos, size_t n) const
     {
         return TSpan<T>(ptr + pos, n <= len - pos ? n : len - pos);
     }
 
-    constexpr T* begin() const
-    {
-        return &ptr[0];
-    }
+    constexpr T* begin() const { return &ptr[0]; }
 
-    constexpr const T* cbegin() const
-    {
-        return &ptr[0];
-    }
+    constexpr const T* cbegin() const { return &ptr[0]; }
 
-    constexpr T* end() const
-    {
-        return &ptr[len];
-    }
+    constexpr T* end() const { return &ptr[len]; }
 
-    constexpr const T* cend() const
-    {
-        return &ptr[len];
-    }
+    constexpr const T* cend() const { return &ptr[len]; }
 };
 
 #endif // TVision_TSpan_h

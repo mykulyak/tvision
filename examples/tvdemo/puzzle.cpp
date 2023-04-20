@@ -16,8 +16,7 @@ __link(RWindow);
 // TPuzzleView functions & static variables
 //
 
-const char* const TPuzzleView::name
-    = "TPuzzleView";
+const char* const TPuzzleView::name = "TPuzzleView";
 
 void TPuzzleView::write(opstream& os)
 {
@@ -34,24 +33,14 @@ void* TPuzzleView::read(ipstream& is)
     return this;
 }
 
-TStreamable* TPuzzleView::build()
-{
-    return new TPuzzleView(streamableInit);
-}
+TStreamable* TPuzzleView::build() { return new TPuzzleView(streamableInit); }
 
-TStreamableClass RPuzzleView(TPuzzleView::name,
-    TPuzzleView::build,
-    __DELTA(TPuzzleView));
+TStreamableClass RPuzzleView(TPuzzleView::name, TPuzzleView::build, __DELTA(TPuzzleView));
 
-static char boardStart[16] = { 'A', 'B', 'C', 'D',
-    'E', 'F', 'G', 'H',
-    'I', 'J', 'K', 'L',
-    'M', 'N', 'O', ' ' };
+static char boardStart[16]
+    = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', ' ' };
 
-static char map[15] = { 0, 1, 0, 1,
-    1, 0, 1, 0,
-    0, 1, 0, 1,
-    1, 0, 1 };
+static char map[15] = { 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1 };
 
 TPuzzleView::TPuzzleView(TRect& r)
     : TView(r)
@@ -253,10 +242,7 @@ void TPuzzleView::winCheck()
 
 const char* const TPuzzleWindow::name = "TPuzzleWindow";
 
-void TPuzzleWindow::write(opstream& os)
-{
-    TWindow::write(os);
-}
+void TPuzzleWindow::write(opstream& os) { TWindow::write(os); }
 
 void* TPuzzleWindow::read(ipstream& is)
 {
@@ -264,14 +250,9 @@ void* TPuzzleWindow::read(ipstream& is)
     return this;
 }
 
-TStreamable* TPuzzleWindow::build()
-{
-    return new TPuzzleWindow(streamableInit);
-}
+TStreamable* TPuzzleWindow::build() { return new TPuzzleWindow(streamableInit); }
 
-TStreamableClass RPuzzleWindow(TPuzzleWindow::name,
-    TPuzzleWindow::build,
-    __DELTA(TPuzzleWindow));
+TStreamableClass RPuzzleWindow(TPuzzleWindow::name, TPuzzleWindow::build, __DELTA(TPuzzleWindow));
 
 TPuzzleWindow::TPuzzleWindow()
     : TWindowInit(&TPuzzleWindow::initFrame)

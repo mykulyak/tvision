@@ -4,9 +4,7 @@
 #include <filesystem>
 #include <tvision/Dialog.h>
 
-const int
-    fdOKButton
-    = 0x0001, // Put an OK button in the dialog
+const int fdOKButton = 0x0001, // Put an OK button in the dialog
     fdOpenButton = 0x0002, // Put an Open button in the dialog
     fdReplaceButton = 0x0004, // Put a Replace button in the dialog
     fdClearButton = 0x0008, // Put a Clear button in the dialog
@@ -27,8 +25,8 @@ class TFileList;
 class TFileDialog : public TDialog {
 
 public:
-    TFileDialog(TStringView aWildCard, TStringView aTitle,
-        TStringView inputName, ushort aOptions, uchar histId) noexcept;
+    TFileDialog(TStringView aWildCard, TStringView aTitle, TStringView inputName, ushort aOptions,
+        uchar histId) noexcept;
     ~TFileDialog();
 
     virtual void getData(void* rec);
@@ -62,10 +60,7 @@ private:
     static const char* invalidDriveText;
     static const char* invalidFileText;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TFileDialog(StreamableInit) noexcept
@@ -81,22 +76,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TFileDialog& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TFileDialog*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TFileDialog& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TFileDialog*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TFileDialog& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TFileDialog* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TFileDialog& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TFileDialog* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TFileDialog_h

@@ -46,10 +46,7 @@ private:
     static const char* okText;
     static const char* cancelText;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TColorDialog(StreamableInit) noexcept;
@@ -63,22 +60,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TColorDialog& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TColorDialog*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TColorDialog& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TColorDialog*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TColorDialog& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TColorDialog* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TColorDialog& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TColorDialog* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TColorDialog_h

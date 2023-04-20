@@ -3,29 +3,15 @@
 
 #include <cstddef>
 
-inline constexpr int min(int a, int b)
-{
-    return a < b ? a : b;
-}
+inline constexpr int min(int a, int b) { return a < b ? a : b; }
 
-inline constexpr int max(int a, int b)
-{
-    return a > b ? a : b;
-}
+inline constexpr int max(int a, int b) { return a > b ? a : b; }
 
 #ifndef __MINMAX_DEFINED // Also defined in Borland C++'s stdlib.h.
 #define __MINMAX_DEFINED
-template <class T>
-inline constexpr const T& min(const T& a, const T& b)
-{
-    return a < b ? a : b;
-}
+template <class T> inline constexpr const T& min(const T& a, const T& b) { return a < b ? a : b; }
 
-template <class T>
-inline constexpr const T& max(const T& a, const T& b)
-{
-    return a > b ? a : b;
-}
+template <class T> inline constexpr const T& max(const T& a, const T& b) { return a > b ? a : b; }
 #endif // __MINMAX_DEFINED
 
 void fexpand(char* rpath) noexcept;

@@ -55,22 +55,10 @@ inline int operator!=(const TPoint& one, const TPoint& two) noexcept
     return one.x != two.x || one.y != two.y;
 }
 
-inline ipstream& operator>>(ipstream& is, TPoint& p)
-{
-    return is >> p.x >> p.y;
-}
-inline ipstream& operator>>(ipstream& is, TPoint*& p)
-{
-    return is >> p->x >> p->y;
-}
+inline ipstream& operator>>(ipstream& is, TPoint& p) { return is >> p.x >> p.y; }
+inline ipstream& operator>>(ipstream& is, TPoint*& p) { return is >> p->x >> p->y; }
 
-inline opstream& operator<<(opstream& os, TPoint& p)
-{
-    return os << p.x << p.y;
-}
-inline opstream& operator<<(opstream& os, TPoint* p)
-{
-    return os << p->x << p->y;
-}
+inline opstream& operator<<(opstream& os, TPoint& p) { return os << p.x << p.y; }
+inline opstream& operator<<(opstream& os, TPoint* p) { return os << p->x << p->y; }
 
 #endif // TVision_TPoint_h

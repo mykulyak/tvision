@@ -1,5 +1,3 @@
 #include <tvision/Object.h>
 
-void TObject::shutDown()
-{
-}
+void TObject::shutDown() { }

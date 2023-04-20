@@ -4,9 +4,7 @@
 #include <dos.h>
 #endif // __DOS_H
 
-extern const uchar specialChars[] = {
-    175, 174, 26, 27, ' ', ' '
-};
+extern const uchar specialChars[] = { 175, 174, 26, 27, ' ', ' ' };
 
 ushort TScreen::startupMode = 0xFFFF;
 ushort TScreen::startupCursor = 0;
@@ -142,10 +140,7 @@ void TDisplay::clearScreen(uchar w, uchar h) noexcept
 #ifndef __FLAT__
 void TDisplay::videoInt() {
 
-    I PUSH BP
-        I PUSH ES
-            I INT 10h I POP ES
-                I POP BP
+    I PUSH BP I PUSH ES I INT 10h I POP ES I POP BP
 
 }
 #endif
@@ -316,10 +311,7 @@ void TScreen::setCrtData() noexcept
     setCursorType(0);
 }
 
-void TScreen::clearScreen() noexcept
-{
-    TDisplay::clearScreen(screenWidth, screenHeight);
-}
+void TScreen::clearScreen() noexcept { TDisplay::clearScreen(screenWidth, screenHeight); }
 
 void TScreen::flushScreen() noexcept
 {

@@ -60,10 +60,7 @@ private:
     void writeParagraphs(opstream& s);
     void writeCrossRefs(opstream& s);
     void disposeParagraphs() noexcept;
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
     int width;
     int lastOffset;
     int lastLine;
@@ -78,23 +75,11 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, THelpTopic& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, THelpTopic*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, THelpTopic& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, THelpTopic*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, THelpTopic& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, THelpTopic* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, THelpTopic& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, THelpTopic* cl) { return os << (TStreamable*)cl; }
 
 // THelpIndex
 
@@ -111,10 +96,7 @@ public:
     int32_t* index;
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     virtual void write(opstream&);
@@ -125,23 +107,11 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, THelpIndex& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, THelpIndex*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, THelpIndex& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, THelpIndex*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, THelpIndex& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, THelpIndex* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, THelpIndex& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, THelpIndex* cl) { return os << (TStreamable*)cl; }
 
 // THelpFile
 

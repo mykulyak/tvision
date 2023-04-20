@@ -4,8 +4,8 @@
 
 // THelpViewer
 
-THelpViewer::THelpViewer(const TRect& bounds, TScrollBar* aHScrollBar,
-    TScrollBar* aVScrollBar, THelpFile* aHelpFile, ushort context) noexcept
+THelpViewer::THelpViewer(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,
+    THelpFile* aHelpFile, ushort context) noexcept
     : TScroller(bounds, aHScrollBar, aVScrollBar)
 {
     options = (options | ofSelectable);
@@ -89,8 +89,7 @@ TPalette& THelpViewer::getPalette() const
     return palette;
 }
 
-void THelpViewer::makeSelectVisible(int selected, TPoint& keyPoint,
-    uchar& keyLength, int& keyRef)
+void THelpViewer::makeSelectVisible(int selected, TPoint& keyPoint, uchar& keyLength, int& keyRef)
 {
     TPoint d;
 
@@ -176,7 +175,8 @@ void THelpViewer::handleEvent(TEvent& event)
             if (keyCount > topic->getNumCrossRefs())
                 return;
             topic->getCrossRef(keyCount - 1, keyPoint, keyLength, keyRef);
-        } while (!((keyPoint.y == mouse.y + 1) && (mouse.x >= keyPoint.x) && (mouse.x < keyPoint.x + keyLength)));
+        } while (!((keyPoint.y == mouse.y + 1) && (mouse.x >= keyPoint.x)
+            && (mouse.x < keyPoint.x + keyLength)));
         selected = keyCount;
         drawView();
         switchToTopic(keyRef);

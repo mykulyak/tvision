@@ -23,12 +23,8 @@ class TView : public TObject, public TStreamable {
 public:
     friend void genRefs();
 
-    enum phaseType { phFocused,
-        phPreProcess,
-        phPostProcess };
-    enum selectMode { normalSelect,
-        enterSelect,
-        leaveSelect };
+    enum phaseType { phFocused, phPreProcess, phPostProcess };
+    enum selectMode { normalSelect, enterSelect, leaveSelect };
 
     TView(const TRect& bounds) noexcept;
     ~TView();
@@ -155,12 +151,7 @@ public:
     virtual void shutDown();
 
 private:
-    void moveGrow(TPoint p,
-        TPoint s,
-        TRect& limits,
-        TPoint minSize,
-        TPoint maxSize,
-        uchar mode);
+    void moveGrow(TPoint p, TPoint s, TRect& limits, TPoint minSize, TPoint maxSize, uchar mode);
     void change(uchar, TPoint delta, TPoint& p, TPoint& s, ushort ctrlState) noexcept;
     static void writeView(write_args);
     void writeView(short x, short y, short count, const void* b) noexcept;
@@ -170,10 +161,7 @@ private:
 
     TPoint resizeBalance;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TView(StreamableInit) noexcept;
@@ -189,32 +177,18 @@ protected:
 
 void* message(TView* receiver, ushort what, ushort command, void* infoPtr);
 
-inline ipstream& operator>>(ipstream& is, TView& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TView*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TView& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TView*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TView& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TView* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TView& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TView* cl) { return os << (TStreamable*)cl; }
 
-inline void TView::writeBuf(short x, short y, short w, short h,
-    const TDrawBuffer& b) noexcept
+inline void TView::writeBuf(short x, short y, short w, short h, const TDrawBuffer& b) noexcept
 {
     writeBuf(x, y, min(w, short(b.length() - x)), h, &b.data[0]);
 }
 
-inline void TView::writeLine(short x, short y, short w, short h,
-    const TDrawBuffer& b) noexcept
+inline void TView::writeLine(short x, short y, short w, short h, const TDrawBuffer& b) noexcept
 {
     writeLine(x, y, min(w, short(b.length() - x)), h, &b.data[0]);
 }

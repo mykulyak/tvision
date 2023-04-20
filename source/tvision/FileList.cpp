@@ -13,12 +13,9 @@ const char* TFileList::tooManyFiles = "Too many files.";
 __link(RSortedListBox); // In case the object below is moved
                         //   to another file.
 
-TStreamableClass RFileList(TFileList::name,
-    TFileList::build,
-    __DELTA(TFileList));
+TStreamableClass RFileList(TFileList::name, TFileList::build, __DELTA(TFileList));
 
-TFileList::TFileList(const TRect& bounds,
-    TScrollBar* aScrollBar) noexcept
+TFileList::TFileList(const TRect& bounds, TScrollBar* aScrollBar) noexcept
     : TSortedListBox(bounds, 2, aScrollBar)
 {
 }
@@ -40,18 +37,11 @@ void TFileList::selectItem(short item)
     message(owner, evBroadcast, cmFileDoubleClicked, list()->at(item));
 }
 
-void TFileList::getData(void*)
-{
-}
+void TFileList::getData(void*) { }
 
-void TFileList::setData(void*)
-{
-}
+void TFileList::setData(void*) { }
 
-ushort TFileList::dataSize()
-{
-    return 0;
-}
+ushort TFileList::dataSize() { return 0; }
 
 void* TFileList::getKey(const char* s)
 {
@@ -231,15 +221,9 @@ void squeeze(char* path) noexcept
     *dest = EOS; // zero terminator
 }
 
-static inline int isSep(char c)
-{
-    return c == '\\' || c == '/';
-}
+static inline int isSep(char c) { return c == '\\' || c == '/'; }
 
-static inline int isHomeExpand(const char* path)
-{
-    return path[0] == '~' && isSep(path[1]);
-}
+static inline int isHomeExpand(const char* path) { return path[0] == '~' && isSep(path[1]); }
 
 static inline int isAbsolute(const char* path)
 {
@@ -314,8 +298,10 @@ void fexpand(char* rpath, const char* relativeTo) noexcept
     int flags = fnsplit(rpath, 0, dir, file, ext);
     if ((flags & DIRECTORY) == 0 || !isSep(dir[0])) {
         char rbase[MAXPATH];
-        if (isHomeExpand(dir) && getHomeDir(drive, rbase)) // Home expansion. Overwrite drive if necessary.
-            strnzcat(rbase, dir + 1, MAXDIR); // 'dir' begins with "~/" or "~\", so we can reuse the separator.
+        if (isHomeExpand(dir)
+            && getHomeDir(drive, rbase)) // Home expansion. Overwrite drive if necessary.
+            strnzcat(rbase, dir + 1,
+                MAXDIR); // 'dir' begins with "~/" or "~\", so we can reuse the separator.
         else {
             // If 'rpath' is relative but contains a drive letter, just swap drives.
             if (getPathDrive(rpath) != -1) {
@@ -357,9 +343,6 @@ void fexpand(char* rpath, const char* relativeTo) noexcept
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TFileList::build()
-{
-    return new TFileList(streamableInit);
-}
+TStreamable* TFileList::build() { return new TFileList(streamableInit); }
 
 #endif

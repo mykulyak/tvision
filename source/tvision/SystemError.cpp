@@ -80,15 +80,9 @@ TSystemError::~TSystemError()
 }
 
 #if defined(__FLAT__) // 16-bit version is in SYSINT.ASM
-void TSystemError::resume() noexcept
-{
-    THardwareInfo::setCtrlBrkHandler(TRUE);
-}
+void TSystemError::resume() noexcept { THardwareInfo::setCtrlBrkHandler(TRUE); }
 
-void TSystemError::suspend() noexcept
-{
-    THardwareInfo::setCtrlBrkHandler(FALSE);
-}
+void TSystemError::suspend() noexcept { THardwareInfo::setCtrlBrkHandler(FALSE); }
 #endif
 
 #ifndef __FLAT__
@@ -149,10 +143,7 @@ Int11trap::Int11trap()
     setvect(0x11, &Int11trap::handler);
 }
 
-Int11trap::~Int11trap()
-{
-    setvect(0x11, oldHandler);
-}
+Int11trap::~Int11trap() { setvect(0x11, oldHandler); }
 
 void interrupt (*Int11trap::oldHandler)(...) = 0;
 

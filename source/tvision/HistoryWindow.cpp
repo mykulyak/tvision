@@ -8,8 +8,7 @@ THistInit::THistInit(TListViewer* (*cListViewer)(TRect, TWindow*, ushort)) noexc
 
 #define cpHistoryWindow "\x13\x13\x15\x18\x17\x13\x14"
 
-THistoryWindow::THistoryWindow(const TRect& bounds,
-    ushort historyId) noexcept
+THistoryWindow::THistoryWindow(const TRect& bounds, ushort historyId) noexcept
     : TWindowInit(&THistoryWindow::initFrame)
     , THistInit(&THistoryWindow::initViewer)
     , TWindow(bounds, 0, wnNoNumber)
@@ -25,10 +24,7 @@ TPalette& THistoryWindow::getPalette() const
     return palette;
 }
 
-void THistoryWindow::getSelection(char* dest)
-{
-    viewer->getText(dest, viewer->focused, 255);
-}
+void THistoryWindow::getSelection(char* dest) { viewer->getText(dest, viewer->focused, 255); }
 
 void THistoryWindow::handleEvent(TEvent& event)
 {
@@ -42,8 +38,6 @@ void THistoryWindow::handleEvent(TEvent& event)
 TListViewer* THistoryWindow::initViewer(TRect r, TWindow* win, ushort historyId)
 {
     r.grow(-1, -1);
-    return new THistoryViewer(r,
-        win->standardScrollBar(sbHorizontal | sbHandleKeyboard),
-        win->standardScrollBar(sbVertical | sbHandleKeyboard),
-        historyId);
+    return new THistoryViewer(r, win->standardScrollBar(sbHorizontal | sbHandleKeyboard),
+        win->standardScrollBar(sbVertical | sbHandleKeyboard), historyId);
 }

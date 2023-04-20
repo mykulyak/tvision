@@ -28,9 +28,7 @@ public:
     virtual TPalette& getPalette() const;
     virtual void handleEvent(TEvent& event);
     TMenuItem* hotKey(TKey key);
-    TMenuView* newSubView(const TRect& bounds,
-        TMenu* aMenu,
-        TMenuView* aParentMenu);
+    TMenuView* newSubView(const TRect& bounds, TMenu* aMenu, TMenuView* aParentMenu);
 
 protected:
     TMenuView* parentMenu;
@@ -52,10 +50,7 @@ private:
     TMenuItem* findHotKey(TMenuItem* p, TKey key);
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
     static void writeMenu(opstream&, TMenu*);
     static TMenu* readMenu(ipstream&);
 
@@ -69,27 +64,13 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TMenuView& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TMenuView*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TMenuView& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TMenuView*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TMenuView& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TMenuView* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TMenuView& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TMenuView* cl) { return os << (TStreamable*)cl; }
 
-inline TMenuView::TMenuView(const TRect& bounds,
-    TMenu* aMenu,
-    TMenuView* aParent) noexcept
+inline TMenuView::TMenuView(const TRect& bounds, TMenu* aMenu, TMenuView* aParent) noexcept
     : TView(bounds)
     , parentMenu(aParent)
     , menu(aMenu)

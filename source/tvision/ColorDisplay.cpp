@@ -5,9 +5,7 @@ const char* const TColorDisplay::name = "TColorDisplay";
 
 __link(RView);
 
-TStreamableClass RColorDisplay(TColorDisplay::name,
-    TColorDisplay::build,
-    __DELTA(TColorDisplay));
+TStreamableClass RColorDisplay(TColorDisplay::name, TColorDisplay::build, __DELTA(TColorDisplay));
 
 TColorDisplay::TColorDisplay(const TRect& bounds, TStringView aText) noexcept
     : TView(bounds)
@@ -17,10 +15,7 @@ TColorDisplay::TColorDisplay(const TRect& bounds, TStringView aText) noexcept
     eventMask |= evBroadcast;
 }
 
-TColorDisplay::~TColorDisplay()
-{
-    delete[] (char*)text;
-}
+TColorDisplay::~TColorDisplay() { delete[] (char*)text; }
 
 void TColorDisplay::draw()
 {
@@ -73,10 +68,7 @@ void* TColorDisplay::read(ipstream& is)
     return this;
 }
 
-TStreamable* TColorDisplay::build()
-{
-    return new TColorDisplay(streamableInit);
-}
+TStreamable* TColorDisplay::build() { return new TColorDisplay(streamableInit); }
 
 TColorDisplay::TColorDisplay(StreamableInit) noexcept
     : TView(streamableInit)

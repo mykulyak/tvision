@@ -11,8 +11,9 @@
 //  TTestView constructor
 //
 
-#define cpTestView "\x9\xA\xB\xC\xD\xE" // SIX colors available
-                                        // in this view.
+#define cpTestView                                                                                 \
+    "\x9\xA\xB\xC\xD\xE" // SIX colors available
+                         // in this view.
 
 TTestView::TTestView(TRect& r)
     : TView(r)
@@ -84,12 +85,9 @@ TTestWindow::TTestWindow()
 
 TPalette& TTestWindow::getPalette() const
 {
-    static TPalette blue(cpBlueWindow cpTestWindow,
-        sizeof(cpBlueWindow cpTestWindow) - 1);
-    static TPalette cyan(cpCyanWindow cpTestWindow,
-        sizeof(cpCyanWindow cpTestWindow) - 1);
-    static TPalette gray(cpGrayWindow cpTestWindow,
-        sizeof(cpGrayWindow cpTestWindow) - 1);
+    static TPalette blue(cpBlueWindow cpTestWindow, sizeof(cpBlueWindow cpTestWindow) - 1);
+    static TPalette cyan(cpCyanWindow cpTestWindow, sizeof(cpCyanWindow cpTestWindow) - 1);
+    static TPalette gray(cpGrayWindow cpTestWindow, sizeof(cpGrayWindow cpTestWindow) - 1);
     static TPalette* palettes[] = { &blue, &cyan, &gray };
     return *(palettes[palette]); // 'palette' is a member
                                  // variable that

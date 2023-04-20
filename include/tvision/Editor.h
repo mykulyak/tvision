@@ -110,9 +110,7 @@ public:
     bool overwrite;
     bool autoIndent;
 
-    enum EOLTypes { eolCRLF,
-        eolLF,
-        eolCR } eolType;
+    enum EOLTypes { eolCRLF, eolLF, eolCR } eolType;
 
     bool encSingleByte;
     void nextChar(TStringView, uint& P, uint& width);
@@ -130,10 +128,7 @@ public:
     int keyState;
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TEditor(StreamableInit) noexcept;
@@ -145,22 +140,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TEditor& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TEditor*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TEditor& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TEditor*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TEditor& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TEditor* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TEditor& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TEditor* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TEditor_h

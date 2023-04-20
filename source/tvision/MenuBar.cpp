@@ -4,9 +4,7 @@
 
 const char* const TMenuBar::name = "TMenuBar";
 
-TStreamableClass RMenuBar(TMenuBar::name,
-    TMenuBar::build,
-    __DELTA(TMenuBar));
+TStreamableClass RMenuBar(TMenuBar::name, TMenuBar::build, __DELTA(TMenuBar));
 
 TMenuBar::TMenuBar(const TRect& bounds, TMenu* aMenu) noexcept
     : TMenuView(bounds)
@@ -24,10 +22,7 @@ TMenuBar::TMenuBar(const TRect& bounds, TSubMenu& aMenu) noexcept
     options |= ofPreProcess;
 }
 
-TMenuBar::~TMenuBar()
-{
-    delete menu;
-}
+TMenuBar::~TMenuBar() { delete menu; }
 
 void TMenuBar::draw()
 {
@@ -86,10 +81,7 @@ TRect TMenuBar::getItemRect(TMenuItem* item)
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TMenuBar::build()
-{
-    return new TMenuBar(streamableInit);
-}
+TStreamable* TMenuBar::build() { return new TMenuBar(streamableInit); }
 
 TMenuBar::TMenuBar(StreamableInit) noexcept
     : TMenuView(streamableInit)

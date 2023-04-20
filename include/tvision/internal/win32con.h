@@ -20,9 +20,7 @@ class Win32ConsoleStrategy final : public ConsoleStrategy {
     StdioCtl& io;
     UINT cpInput, cpOutput;
 
-    Win32ConsoleStrategy(StdioCtl& aIo,
-        UINT cpInput, UINT cpOutput,
-        DisplayStrategy& aDisplay,
+    Win32ConsoleStrategy(StdioCtl& aIo, UINT cpInput, UINT cpOutput, DisplayStrategy& aDisplay,
         InputStrategy& aInput) noexcept
         : ConsoleStrategy(aDisplay, aInput, { &aInput })
         , io(aIo)

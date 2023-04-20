@@ -29,7 +29,10 @@ TTestApp::TTestApp()
 TMenuBar* TTestApp::initMenuBar(TRect bounds)
 {
     bounds.b.y = bounds.a.y + 1;
-    TMenuBar* mainMenu = new TMenuBar(bounds, new TMenu(*new TMenuItem("~A~bout...", cmAbout, kbAltA, hcNoContext, 0, new TMenuItem("~P~alette", cmPaletteView, kbAltP, hcNoContext, 0, new TMenuItem("E~x~it", cmQuit, kbAltX)))));
+    TMenuBar* mainMenu = new TMenuBar(bounds,
+        new TMenu(*new TMenuItem("~A~bout...", cmAbout, kbAltA, hcNoContext, 0,
+            new TMenuItem("~P~alette", cmPaletteView, kbAltP, hcNoContext, 0,
+                new TMenuItem("E~x~it", cmQuit, kbAltX)))));
     return (mainMenu);
 }
 
@@ -71,18 +74,10 @@ void TTestApp::handleEvent(TEvent& event)
 
 TPalette& TTestApp::getPalette() const
 {
-    static TPalette
-    newColor(cpAppColor cpTestAppC,
-        sizeof(cpAppColor cpTestAppC) - 1),
-        newBlackWhite(cpAppBlackWhite cpTestAppBW,
-            sizeof(cpAppBlackWhite cpTestAppBW) - 1),
-        newMonochrome(cpAppMonochrome cpTestAppM,
-            sizeof(cpAppMonochrome cpTestAppM) - 1);
-    static TPalette* palettes[] = {
-        &newColor,
-        &newBlackWhite,
-        &newMonochrome
-    };
+    static TPalette newColor(cpAppColor cpTestAppC, sizeof(cpAppColor cpTestAppC) - 1),
+        newBlackWhite(cpAppBlackWhite cpTestAppBW, sizeof(cpAppBlackWhite cpTestAppBW) - 1),
+        newMonochrome(cpAppMonochrome cpTestAppM, sizeof(cpAppMonochrome cpTestAppM) - 1);
+    static TPalette* palettes[] = { &newColor, &newBlackWhite, &newMonochrome };
     return *(palettes[appPalette]); // 'appPalette' is a member
                                     // variable that
                                     // indicates which palette
@@ -99,16 +94,13 @@ void TTestApp::aboutDlg()
 {
     TDialog* aboutDlgBox = new TDialog(TRect(0, 0, 47, 13), "About");
     if (validView(aboutDlgBox)) {
+        aboutDlgBox->insert(new TStaticText(TRect(2, 1, 45, 9),
+            "\n\003PALETTE EXAMPLE\n \n"
+            "\003A Turbo Vision Demo\n \n"
+            "\003written by\n \n"
+            "\003Borland C++ Tech Support\n"));
         aboutDlgBox->insert(
-            new TStaticText(
-                TRect(2, 1, 45, 9),
-                "\n\003PALETTE EXAMPLE\n \n"
-                "\003A Turbo Vision Demo\n \n"
-                "\003written by\n \n"
-                "\003Borland C++ Tech Support\n"));
-        aboutDlgBox->insert(
-            new TButton(TRect(18, 10, 29, 12), "OK", cmOK,
-                TButton::Flags::bfDefault));
+            new TButton(TRect(18, 10, 29, 12), "OK", cmOK, TButton::Flags::bfDefault));
         aboutDlgBox->options |= ofCentered; // Centered on
                                             // the screen
         execView(aboutDlgBox); // Bring up the

@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <filesystem>
+#include <memory>
 #include <string>
 #include <tvision/tv.h>
 
@@ -52,9 +53,7 @@ public:
 
 // TFormApp
 TFormApp::TFormApp()
-    : TProgInit(&TFormApp::initStatusLine,
-        &TFormApp::initMenuBar,
-        &TFormApp::initDeskTop)
+    : TProgInit(&TFormApp::initStatusLine, &TFormApp::initMenuBar, &TFormApp::initDeskTop)
     , TApplication()
 {
     TEvent event;
@@ -77,33 +76,25 @@ void TFormApp::changeDir()
 
 void TFormApp::openListDialog()
 {
-    TFileDialog* d;
-    char fileName[MAXPATH];
-    TDialog* listEditor;
-    char errorMsg[MAXSIZE];
-    char name[MAXFILE];
-    char drive[MAXDRIVE];
-    char dir[MAXDIR];
-    char ext[MAXEXT];
+    std::unique_ptr<TFileDialog> dialog(std::make_unique<TFileDialog>(
+        FORM_WILDCARD, "Open File", "~N~ame", fdOpenButton, hlOpenListDlg));
 
-    d = new TFileDialog(FORM_WILDCARD, "Open File",
-        "~N~ame", fdOpenButton, hlOpenListDlg);
-    if (validView(d) != NULL) {
-        if (deskTop->execView(d) != cmCancel) {
-            auto p = d->getFilePath();
-            if (!std::filesystem::exists(p)) {
-                messageBox(std::string("Cannot find file ") + p.c_str(), mfError | mfOKButton);
+    if (validView(dialog.get()) != NULL) {
+        if (deskTop->execView(dialog.get()) != cmCancel) {
+            std::filesystem::path path = dialog->getFilePath();
+            if (!std::filesystem::exists(path)) {
+                messageBox(std::string("Cannot find file ") + path.c_str(), mfError | mfOKButton);
             } else {
                 // If listEditor exists, select it; otherwise, open new one
-                fnsplit(fileName, drive, dir, name, ext);
-                listEditor = (TDialog*)message(deskTop, evBroadcast, cmEditingFile, fileName);
+                TDialog* listEditor = (TDialog*)message(deskTop, evBroadcast, cmEditingFile, 0);
                 if (listEditor == NULL)
-                    deskTop->insert(validView(new TListDialog(fileName, name)));
+                    deskTop->insert(
+                        validView(new TListDialog(path.c_str(), path.filename().c_str())));
                 else
                     listEditor->select();
             }
         }
-        destroy(d);
+        dialog->shutDown();
     }
 }
 
@@ -143,26 +134,39 @@ void TFormApp::handleEvent(TEvent& event)
 
 TMenuBar* TFormApp::initMenuBar(TRect r)
 {
-
     r.b.y = r.a.y + 1;
     return new TMenuBar(r,
-        *new TSubMenu("~\xF0~", hcNoContext) + *new TMenuItem("~V~ideo mode", cmVideoMode, kbNoKey, hcNoContext, "") + newLine() + *new TMenuItem("~A~bout...", cmAboutBox, kbNoKey, hcNoContext) + *new TSubMenu("~F~ile", hcNoContext) + *new TMenuItem("~O~pen...", cmListOpen, kbF3, hcNoContext, "F3") + *new TMenuItem("~S~ave", cmListSave, kbF2, hcNoContext, "F2") + newLine() + *new TMenuItem("~C~hange directory...", cmChgDir, kbNoKey, hcNoContext) + *new TMenuItem("~D~OS shell", cmDosShell, kbNoKey, hcNoContext) + *new TMenuItem("E~x~it", cmQuit, kbAltX, hcNoContext, "Alt-X") + *new TSubMenu("~W~indow", hcNoContext) + *new TMenuItem("~M~ove", cmResize, kbCtrlF5, hcNoContext, "Cntl-F5") + *new TMenuItem("~N~ext", cmNext, kbF6, hcNoContext, "F6") + *new TMenuItem("~P~rev", cmPrev, kbShiftF6, hcNoContext, "Shift-F6") + *new TMenuItem("~C~lose", cmClose, kbAltF3, hcNoContext, "Alt-F3"));
+        *new TSubMenu("~\xF0~", hcNoContext)
+            + *new TMenuItem("~V~ideo mode", cmVideoMode, kbNoKey, hcNoContext, "") + newLine()
+            + *new TMenuItem("~A~bout...", cmAboutBox, kbNoKey, hcNoContext)
+            + *new TSubMenu("~F~ile", hcNoContext)
+            + *new TMenuItem("~O~pen...", cmListOpen, kbF3, hcNoContext, "F3")
+            + *new TMenuItem("~S~ave", cmListSave, kbF2, hcNoContext, "F2") + newLine()
+            + *new TMenuItem("~C~hange directory...", cmChgDir, kbNoKey, hcNoContext)
+            + *new TMenuItem("~D~OS shell", cmDosShell, kbNoKey, hcNoContext)
+            + *new TMenuItem("E~x~it", cmQuit, kbAltX, hcNoContext, "Alt-X")
+            + *new TSubMenu("~W~indow", hcNoContext)
+            + *new TMenuItem("~M~ove", cmResize, kbCtrlF5, hcNoContext, "Cntl-F5")
+            + *new TMenuItem("~N~ext", cmNext, kbF6, hcNoContext, "F6")
+            + *new TMenuItem("~P~rev", cmPrev, kbShiftF6, hcNoContext, "Shift-F6")
+            + *new TMenuItem("~C~lose", cmClose, kbAltF3, hcNoContext, "Alt-F3"));
 }
 
 TStatusLine* TFormApp::initStatusLine(TRect r)
 {
     r.a.y = r.b.y - 1;
     return new TStatusLine(r,
-        *new TStatusDef(0, 0xFFFF) + *new TStatusItem("~F2~ Save", kbF2, cmListSave) + *new TStatusItem("~F3~ Open", kbF3, cmListOpen) + *new TStatusItem("~F10~ Menu", kbF10, cmMenu) + *new TStatusItem(0, kbShiftDel, cmCut) + *new TStatusItem(0, kbCtrlIns, cmCopy) + *new TStatusItem(0, kbShiftIns, cmPaste) + *new TStatusItem("", kbCtrlF5, cmResize));
+        *new TStatusDef(0, 0xFFFF) + *new TStatusItem("~F2~ Save", kbF2, cmListSave)
+            + *new TStatusItem("~F3~ Open", kbF3, cmListOpen)
+            + *new TStatusItem("~F10~ Menu", kbF10, cmMenu) + *new TStatusItem(0, kbShiftDel, cmCut)
+            + *new TStatusItem(0, kbCtrlIns, cmCopy) + *new TStatusItem(0, kbShiftIns, cmPaste)
+            + *new TStatusItem("", kbCtrlF5, cmResize));
 }
 
 int main()
 {
-    TFormApp* formApp = new TFormApp;
-
-    formApp->run();
-
-    TObject::destroy(formApp);
-
+    TFormApp formApp;
+    formApp.run();
+    formApp.shutDown();
     return 0;
 }

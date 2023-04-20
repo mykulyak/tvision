@@ -42,22 +42,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TDeskTop& cl)
-{
-    return is >> (TStreamable&)(TGroup&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TDeskTop*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TDeskTop& cl) { return is >> (TStreamable&)(TGroup&)cl; }
+inline ipstream& operator>>(ipstream& is, TDeskTop*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TDeskTop& cl)
-{
-    return os << (TStreamable&)(TGroup&)cl;
-}
-inline opstream& operator<<(opstream& os, TDeskTop* cl)
-{
-    return os << (TStreamable*)(TGroup*)cl;
-}
+inline opstream& operator<<(opstream& os, TDeskTop& cl) { return os << (TStreamable&)(TGroup&)cl; }
+inline opstream& operator<<(opstream& os, TDeskTop* cl) { return os << (TStreamable*)(TGroup*)cl; }
 
 #endif

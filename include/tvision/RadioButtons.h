@@ -25,10 +25,7 @@ public:
 
 private:
     static const char* button;
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TRadioButtons(StreamableInit) noexcept;
@@ -38,23 +35,11 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TRadioButtons& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TRadioButtons*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TRadioButtons& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TRadioButtons*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TRadioButtons& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TRadioButtons* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TRadioButtons& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TRadioButtons* cl) { return os << (TStreamable*)cl; }
 
 inline TRadioButtons::TRadioButtons(const TRect& bounds, TSItem* aStrings) noexcept
     : TCluster(bounds, aStrings)

@@ -7,74 +7,26 @@
 #define register
 #endif
 
-const ushort firstKeys[] = {
-    41,
-    kbCtrlA, cmSelectAll,
-    kbCtrlC, cmPageDown,
-    kbCtrlD, cmCharRight,
-    kbCtrlE, cmLineUp,
-    kbCtrlF, cmWordRight,
-    kbCtrlG, cmDelChar,
-    kbCtrlH, cmBackSpace,
-    kbCtrlK, 0xFF02,
-    kbCtrlL, cmSearchAgain,
-    kbCtrlM, cmNewLine,
-    kbCtrlO, cmIndentMode,
-    kbCtrlP, cmEncoding,
-    kbCtrlQ, 0xFF01,
-    kbCtrlR, cmPageUp,
-    kbCtrlS, cmCharLeft,
-    kbCtrlT, cmDelWord,
-    kbCtrlU, cmUndo,
-    kbCtrlV, cmInsMode,
-    kbCtrlX, cmLineDown,
-    kbCtrlY, cmDelLine,
-    kbLeft, cmCharLeft,
-    kbRight, cmCharRight,
-    kbAltBack, cmDelWordLeft,
-    kbCtrlBack, cmDelWordLeft,
-    kbCtrlDel, cmDelWord,
-    kbCtrlLeft, cmWordLeft,
-    kbCtrlRight, cmWordRight,
-    kbHome, cmLineStart,
-    kbEnd, cmLineEnd,
-    kbUp, cmLineUp,
-    kbDown, cmLineDown,
-    kbPgUp, cmPageUp,
-    kbPgDn, cmPageDown,
-    kbCtrlHome, cmTextStart,
-    kbCtrlEnd, cmTextEnd,
-    kbIns, cmInsMode,
-    kbDel, cmDelChar,
-    kbShiftIns, cmPaste,
-    kbShiftDel, cmCut,
-    kbCtrlIns, cmCopy,
-    kbCtrlDel, cmClear
-};
+const ushort firstKeys[] = { 41, kbCtrlA, cmSelectAll, kbCtrlC, cmPageDown, kbCtrlD, cmCharRight,
+    kbCtrlE, cmLineUp, kbCtrlF, cmWordRight, kbCtrlG, cmDelChar, kbCtrlH, cmBackSpace, kbCtrlK,
+    0xFF02, kbCtrlL, cmSearchAgain, kbCtrlM, cmNewLine, kbCtrlO, cmIndentMode, kbCtrlP, cmEncoding,
+    kbCtrlQ, 0xFF01, kbCtrlR, cmPageUp, kbCtrlS, cmCharLeft, kbCtrlT, cmDelWord, kbCtrlU, cmUndo,
+    kbCtrlV, cmInsMode, kbCtrlX, cmLineDown, kbCtrlY, cmDelLine, kbLeft, cmCharLeft, kbRight,
+    cmCharRight, kbAltBack, cmDelWordLeft, kbCtrlBack, cmDelWordLeft, kbCtrlDel, cmDelWord,
+    kbCtrlLeft, cmWordLeft, kbCtrlRight, cmWordRight, kbHome, cmLineStart, kbEnd, cmLineEnd, kbUp,
+    cmLineUp, kbDown, cmLineDown, kbPgUp, cmPageUp, kbPgDn, cmPageDown, kbCtrlHome, cmTextStart,
+    kbCtrlEnd, cmTextEnd, kbIns, cmInsMode, kbDel, cmDelChar, kbShiftIns, cmPaste, kbShiftDel,
+    cmCut, kbCtrlIns, cmCopy, kbCtrlDel, cmClear };
 
-const ushort quickKeys[] = { 8,
-    'A', cmReplace,
-    'C', cmTextEnd,
-    'D', cmLineEnd,
-    'F', cmFind,
-    'H', cmDelStart,
-    'R', cmTextStart,
-    'S', cmLineStart,
-    'Y', cmDelEnd };
+const ushort quickKeys[] = { 8, 'A', cmReplace, 'C', cmTextEnd, 'D', cmLineEnd, 'F', cmFind, 'H',
+    cmDelStart, 'R', cmTextStart, 'S', cmLineStart, 'Y', cmDelEnd };
 
-const ushort blockKeys[] = { 5,
-    'B', cmStartSelect,
-    'C', cmPaste,
-    'H', cmHideSelect,
-    'K', cmCopy,
-    'Y', cmCut };
+const ushort blockKeys[]
+    = { 5, 'B', cmStartSelect, 'C', cmPaste, 'H', cmHideSelect, 'K', cmCopy, 'Y', cmCut };
 
 const ushort* keyMap[] = { firstKeys, quickKeys, blockKeys };
 
-ushort defEditorDialog(int, ...)
-{
-    return cmCancel;
-}
+ushort defEditorDialog(int, ...) { return cmCancel; }
 
 TEditorDialog TEditor::editorDialog = defEditorDialog;
 ushort TEditor::editorFlags = efBackupFiles | efPromptOnReplace;
@@ -143,15 +95,10 @@ const char* const TEditor::name = "TEditor";
 __link(RView);
 __link(RScrollBar);
 
-TStreamableClass REditor(TEditor::name,
-    TEditor::build,
-    __DELTA(TEditor));
+TStreamableClass REditor(TEditor::name, TEditor::build, __DELTA(TEditor));
 
-TEditor::TEditor(const TRect& bounds,
-    TScrollBar* aHScrollBar,
-    TScrollBar* aVScrollBar,
-    TIndicator* aIndicator,
-    uint aBufSize) noexcept
+TEditor::TEditor(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,
+    TIndicator* aIndicator, uint aBufSize) noexcept
     : TView(bounds)
     , hScrollBar(aHScrollBar)
     , vScrollBar(aVScrollBar)
@@ -181,9 +128,7 @@ TEditor::TEditor(const TRect& bounds,
     setBufLen(0);
 }
 
-TEditor::~TEditor()
-{
-}
+TEditor::~TEditor() { }
 
 void TEditor::shutDown()
 {
@@ -240,8 +185,8 @@ void TEditor::nextChar(TStringView s, uint& p, uint& width)
     }
 }
 
-bool TEditor::formatCell(TSpan<TScreenCell> cells, uint& width,
-    TStringView text, uint& p, TColorAttr color)
+bool TEditor::formatCell(
+    TSpan<TScreenCell> cells, uint& width, TStringView text, uint& p, TColorAttr color)
 {
     size_t p_ = 0, w_ = width;
     if (TText::drawOne(cells, w_, text, p_, color)) {
@@ -288,8 +233,7 @@ bool TEditor::clipCopy()
         if (clipboard != 0)
             res = clipboard->insertFrom(this);
         else {
-            TClipboard::setText(TStringView(buffer + bufPtr(selStart),
-                selEnd - selStart));
+            TClipboard::setText(TStringView(buffer + bufPtr(selStart), selEnd - selStart));
             res = true;
         }
         selecting = false;
@@ -317,7 +261,8 @@ void TEditor::clipPaste()
 void TEditor::convertEvent(TEvent& event)
 {
     if (event.what == evKeyDown) {
-        if ((event.keyDown.controlKeyState & kbShift) != 0 && event.keyDown.charScan.scanCode >= 0x47 && event.keyDown.charScan.scanCode <= 0x51)
+        if ((event.keyDown.controlKeyState & kbShift) != 0
+            && event.keyDown.charScan.scanCode >= 0x47 && event.keyDown.charScan.scanCode <= 0x51)
             event.keyDown.charScan.charCode = 0;
 
         ushort key = event.keyDown.keyCode;
@@ -346,9 +291,7 @@ bool TEditor::cursorVisible()
     return bool((curPos.y >= delta.y) && (curPos.y < delta.y + size.y));
 }
 
-void TEditor::deleteRange(uint startPtr,
-    uint endPtr,
-    bool delSelect)
+void TEditor::deleteRange(uint startPtr, uint endPtr, bool delSelect)
 {
     if (hasSelection() == true && delSelect == true)
         deleteSelect();
@@ -360,15 +303,9 @@ void TEditor::deleteRange(uint startPtr,
     }
 }
 
-void TEditor::deleteSelect()
-{
-    insertText(0, 0, false);
-}
+void TEditor::deleteSelect() { insertText(0, 0, false); }
 
-void TEditor::doneBuffer()
-{
-    delete[] buffer;
-}
+void TEditor::doneBuffer() { delete[] buffer; }
 
 void TEditor::doSearchReplace()
 {
@@ -454,8 +391,7 @@ uint TEditor::getMousePtr(TPoint m)
     TPoint mouse = makeLocal(m);
     mouse.x = max(0, min(mouse.x, size.x - 1));
     mouse.y = max(0, min(mouse.y, size.y - 1));
-    return charPtr(lineMove(drawPtr, mouse.y + delta.y - drawLine),
-        mouse.x + delta.x);
+    return charPtr(lineMove(drawPtr, mouse.y + delta.y - drawLine), mouse.x + delta.x);
 }
 
 TPalette& TEditor::getPalette() const
@@ -464,9 +400,7 @@ TPalette& TEditor::getPalette() const
     return palette;
 }
 
-void TEditor::checkScrollBar(const TEvent& event,
-    TScrollBar* p,
-    int& d)
+void TEditor::checkScrollBar(const TEvent& event, TScrollBar* p, int& d)
 {
     if ((event.message.infoPtr == p) && (p->value != d)) {
         d = p->value;
@@ -481,7 +415,8 @@ void TEditor::handleEvent(TEvent& event)
     bool centerCursor = bool(!cursorVisible());
     uchar selectMode = 0;
 
-    if (selecting == true || (event.what & evMouse && (event.mouse.controlKeyState & kbShift) != 0) || (event.what & evKeyboard && (event.keyDown.controlKeyState & kbShift) != 0))
+    if (selecting == true || (event.what & evMouse && (event.mouse.controlKeyState & kbShift) != 0)
+        || (event.what & evKeyboard && (event.keyDown.controlKeyState & kbShift) != 0))
         selectMode = smExtend;
 
     convertEvent(event);
@@ -537,7 +472,8 @@ void TEditor::handleEvent(TEvent& event)
         break;
 
     case evKeyDown:
-        if ((!encSingleByte && event.keyDown.textLength) || event.keyDown.charScan.charCode == 9 || (event.keyDown.charScan.charCode >= 32 && event.keyDown.charScan.charCode < 255)) {
+        if ((!encSingleByte && event.keyDown.textLength) || event.keyDown.charScan.charCode == 9
+            || (event.keyDown.charScan.charCode >= 32 && event.keyDown.charScan.charCode < 255)) {
             lock();
             if (event.keyDown.controlKeyState & kbPaste) {
                 char buf[512];
@@ -752,10 +688,7 @@ static int getCharType(char ch)
     return 3;
 }
 
-static inline int isWordBoundary(char a, char b)
-{
-    return getCharType(a) != getCharType(b);
-}
+static inline int isWordBoundary(char a, char b) { return getCharType(a) != getCharType(b); }
 
 static inline int isWordChar(int ch)
 {
@@ -783,10 +716,7 @@ void TEditor::detectEOL()
     eolType = eolCRLF;
 }
 
-bool TEditor::hasSelection()
-{
-    return bool(selStart != selEnd);
-}
+bool TEditor::hasSelection() { return bool(selStart != selEnd); }
 
 void TEditor::hideSelect()
 {
@@ -794,16 +724,16 @@ void TEditor::hideSelect()
     setSelect(curPtr, curPtr, false);
 }
 
-void TEditor::initBuffer()
-{
-    buffer = new char[bufSize];
-}
+void TEditor::initBuffer() { buffer = new char[bufSize]; }
 
 TMenuItem& TEditor::initContextMenu(TPoint)
 // The TPoint argument is the future location of the context menu.
 // You can get the text under it with 'getMousePtr'.
 {
-    return *new TMenuItem("Cu~t~", cmCut, kbShiftDel, hcNoContext, "Shift-Del") + *new TMenuItem("~C~opy", cmCopy, kbCtrlIns, hcNoContext, "Ctrl-Ins") + *new TMenuItem("~P~aste", cmPaste, kbShiftIns, hcNoContext, "Shift-Ins") + *new TMenuItem("~U~ndo", cmUndo, kbCtrlU, hcNoContext, "Ctrl-U");
+    return *new TMenuItem("Cu~t~", cmCut, kbShiftDel, hcNoContext, "Shift-Del")
+        + *new TMenuItem("~C~opy", cmCopy, kbCtrlIns, hcNoContext, "Ctrl-Ins")
+        + *new TMenuItem("~P~aste", cmPaste, kbShiftIns, hcNoContext, "Shift-Ins")
+        + *new TMenuItem("~U~ndo", cmUndo, kbCtrlU, hcNoContext, "Ctrl-U");
 }
 
 uint TEditor::insertMultilineText(const char* text, uint length)
@@ -825,11 +755,7 @@ uint TEditor::insertMultilineText(const char* text, uint length)
     return i;
 }
 
-bool TEditor::insertBuffer(const char* p,
-    uint offset,
-    uint length,
-    bool allowUndo,
-    bool selectText)
+bool TEditor::insertBuffer(const char* p, uint offset, uint length, bool allowUndo, bool selectText)
 {
     selecting = false;
     uint selLen = selEnd - selStart;
@@ -863,10 +789,7 @@ bool TEditor::insertBuffer(const char* p,
     if (curPtr == selEnd) {
         if (allowUndo == true) {
             if (delLen > 0)
-                memmove(
-                    &buffer[curPtr + gapLen - delCount - delLen],
-                    &buffer[selStart],
-                    delLen);
+                memmove(&buffer[curPtr + gapLen - delCount - delLen], &buffer[selStart], delLen);
             insCount -= selLen - delLen;
         }
         curPtr = selStart;
@@ -879,10 +802,7 @@ bool TEditor::insertBuffer(const char* p,
     }
 
     if (length > 0)
-        memmove(
-            &buffer[curPtr],
-            &p[offset],
-            length);
+        memmove(&buffer[curPtr], &p[offset], length);
 
     uint lines = countLines(&buffer[curPtr], length);
     curPtr += length;
@@ -920,11 +840,8 @@ bool TEditor::insertEOL(bool selectText)
 
 bool TEditor::insertFrom(TEditor* editor)
 {
-    return insertBuffer(editor->buffer,
-        editor->bufPtr(editor->selStart),
-        editor->selEnd - editor->selStart,
-        canUndo,
-        isClipboard());
+    return insertBuffer(editor->buffer, editor->bufPtr(editor->selStart),
+        editor->selEnd - editor->selStart, canUndo, isClipboard());
 }
 
 bool TEditor::insertText(const void* text, uint length, bool selectText)
@@ -932,10 +849,7 @@ bool TEditor::insertText(const void* text, uint length, bool selectText)
     return insertBuffer((const char*)text, 0, length, canUndo, selectText);
 }
 
-bool TEditor::isClipboard()
-{
-    return bool(clipboard == this);
-}
+bool TEditor::isClipboard() { return bool(clipboard == this); }
 
 uint TEditor::lineMove(uint p, int count)
 {
@@ -957,10 +871,7 @@ uint TEditor::lineMove(uint p, int count)
     return p;
 }
 
-void TEditor::lock()
-{
-    lockCount++;
-}
+void TEditor::lock() { lockCount++; }
 
 void TEditor::newLine()
 {
@@ -973,10 +884,7 @@ void TEditor::newLine()
         insertText(&buffer[p], i - p, false);
 }
 
-uint TEditor::nextLine(uint p)
-{
-    return nextChar(lineEnd(p));
-}
+uint TEditor::nextLine(uint p) { return nextChar(lineEnd(p)); }
 
 uint TEditor::nextWord(uint p)
 {
@@ -991,10 +899,7 @@ uint TEditor::nextWord(uint p)
     return p;
 }
 
-uint TEditor::prevLine(uint p)
-{
-    return lineStart(prevChar(p));
-}
+uint TEditor::prevLine(uint p) { return lineStart(prevChar(p)); }
 
 uint TEditor::prevWord(uint p)
 {
@@ -1056,7 +961,10 @@ bool TEditor::search(const char* findStr, ushort opts)
 
         if (i != sfSearchFailed) {
             i += pos;
-            if ((opts & efWholeWordsOnly) == 0 || !((i != 0 && isWordChar(bufChar(i - 1)) != 0) || (i + strlen(findStr) != bufLen && isWordChar(bufChar(i + strlen(findStr)))))) {
+            if ((opts & efWholeWordsOnly) == 0
+                || !((i != 0 && isWordChar(bufChar(i - 1)) != 0)
+                    || (i + strlen(findStr) != bufLen
+                        && isWordChar(bufChar(i + strlen(findStr)))))) {
                 lock();
                 setSelect(i, i + strlen(findStr), false);
                 trackCursor(bool(!cursorVisible()));
@@ -1090,10 +998,7 @@ void TEditor::setBufLen(uint length)
     update(ufView);
 }
 
-bool TEditor::setBufSize(uint newSize)
-{
-    return bool(newSize <= bufSize);
-}
+bool TEditor::setBufSize(uint newSize) { return bool(newSize <= bufSize); }
 
 void TEditor::setCmdState(ushort command, bool enable)
 {
@@ -1256,8 +1161,7 @@ void TEditor::updateCommands()
     if (isClipboard() == false) {
         setCmdState(cmCut, hasSelection());
         setCmdState(cmCopy, hasSelection());
-        setCmdState(cmPaste,
-            bool(clipboard == 0 || clipboard->hasSelection()));
+        setCmdState(cmPaste, bool(clipboard == 0 || clipboard->hasSelection()));
     }
     setCmdState(cmClear, hasSelection());
     setCmdState(cmFind, true);
@@ -1265,34 +1169,20 @@ void TEditor::updateCommands()
     setCmdState(cmSearchAgain, true);
 }
 
-bool TEditor::valid(ushort)
-{
-    return isValid;
-}
+bool TEditor::valid(ushort) { return isValid; }
 
-char TEditor::bufChar(uint P)
-{
-    return buffer[bufPtr(P)];
-}
+char TEditor::bufChar(uint P) { return buffer[bufPtr(P)]; }
 
-uint TEditor::bufPtr(uint P)
-{
-    return P < curPtr ? P : P + gapLen;
-}
+uint TEditor::bufPtr(uint P) { return P < curPtr ? P : P + gapLen; }
 
-void TEditor::formatLine(TScreenCell* DrawBuf,
-    uint P,
-    int Width,
-    TAttrPair Colors)
+void TEditor::formatLine(TScreenCell* DrawBuf, uint P, int Width, TAttrPair Colors)
 {
     const struct {
         TColorAttr color;
         uint end;
-    } ranges[] = {
-        // The attributes for normal text are in the lower half of 'Colors'.
+    } ranges[] = { // The attributes for normal text are in the lower half of 'Colors'.
         // The attributes for text selection are in the upper half.
-        { TColorAttr(Colors), selStart },
-        { TColorAttr(Colors >> 8), selEnd },
+        { TColorAttr(Colors), selStart }, { TColorAttr(Colors >> 8), selEnd },
         { TColorAttr(Colors), bufLen }
     };
 
@@ -1381,16 +1271,14 @@ uint TEditor::prevChar(uint P)
 void TEditor::write(opstream& os)
 {
     TView::write(os);
-    os << hScrollBar << vScrollBar << indicator
-       << bufSize << (uchar)canUndo << (uchar)eolType
+    os << hScrollBar << vScrollBar << indicator << bufSize << (uchar)canUndo << (uchar)eolType
        << (uchar)encSingleByte;
 }
 
 void* TEditor::read(ipstream& is)
 {
     TView::read(is);
-    is >> hScrollBar >> vScrollBar >> indicator
-        >> bufSize;
+    is >> hScrollBar >> vScrollBar >> indicator >> bufSize;
     uchar temp;
     is >> temp;
     canUndo = bool(temp);
@@ -1418,10 +1306,7 @@ void* TEditor::read(ipstream& is)
     return this;
 }
 
-TStreamable* TEditor::build()
-{
-    return new TEditor(streamableInit);
-}
+TStreamable* TEditor::build() { return new TEditor(streamableInit); }
 
 TEditor::TEditor(StreamableInit) noexcept
     : TView(streamableInit)

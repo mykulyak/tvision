@@ -7,9 +7,7 @@ const char* const TIndicator::name = "TIndicator";
 
 __link(RView);
 
-TStreamableClass RIndicator(TIndicator::name,
-    TIndicator::build,
-    __DELTA(TIndicator));
+TStreamableClass RIndicator(TIndicator::name, TIndicator::build, __DELTA(TIndicator));
 
 const char TIndicator::dragFrame = '\xCD';
 const char TIndicator::normalFrame = '\xC4';
@@ -42,8 +40,7 @@ void TIndicator::draw()
         b.putChar(0, 15);
     std::ostrstream os(s, 15);
 
-    os << ' ' << (location.y + 1)
-       << ':' << (location.x + 1) << ' ' << std::ends;
+    os << ' ' << (location.y + 1) << ':' << (location.x + 1) << ' ' << std::ends;
 
     b.moveStr(8 - int(strchr(s, ':') - s), s, color);
     writeBuf(0, 0, size.x, 1, b);
@@ -73,10 +70,7 @@ void TIndicator::setValue(const TPoint& aLocation, bool aModified)
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TIndicator::build()
-{
-    return new TIndicator(streamableInit);
-}
+TStreamable* TIndicator::build() { return new TIndicator(streamableInit); }
 
 TIndicator::TIndicator(StreamableInit) noexcept
     : TView(streamableInit)

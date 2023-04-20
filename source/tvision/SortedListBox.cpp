@@ -5,13 +5,11 @@ const char* const TSortedListBox::name = "TSortedListBox";
 
 __link(RListBox);
 
-TStreamableClass RSortedListBox(TSortedListBox::name,
-    TSortedListBox::build,
-    __DELTA(TSortedListBox));
+TStreamableClass RSortedListBox(
+    TSortedListBox::name, TSortedListBox::build, __DELTA(TSortedListBox));
 
-TSortedListBox::TSortedListBox(const TRect& bounds,
-    ushort aNumCols,
-    TScrollBar* aScrollBar) noexcept
+TSortedListBox::TSortedListBox(
+    const TRect& bounds, ushort aNumCols, TScrollBar* aScrollBar) noexcept
     : TListBox(bounds, aNumCols, aScrollBar)
     , shiftState(0)
     , searchPos(-1)
@@ -34,7 +32,8 @@ void TSortedListBox::handleEvent(TEvent& event)
 
     oldValue = focused;
     TListBox::handleEvent(event);
-    if (oldValue != focused || (event.what == evBroadcast && event.message.command == cmReleasedFocus))
+    if (oldValue != focused
+        || (event.what == evBroadcast && event.message.command == cmReleasedFocus))
         searchPos = -1;
     if (event.what == evKeyDown) {
         if (event.keyDown.charScan.charCode != 0) {
@@ -84,10 +83,7 @@ void TSortedListBox::handleEvent(TEvent& event)
     }
 }
 
-void* TSortedListBox::getKey(const char* s)
-{
-    return (void*)s;
-}
+void* TSortedListBox::getKey(const char* s) { return (void*)s; }
 
 void TSortedListBox::newList(TSortedCollection* aList)
 {
@@ -105,9 +101,6 @@ void* TSortedListBox::read(ipstream& is)
     return this;
 }
 
-TStreamable* TSortedListBox::build()
-{
-    return new TSortedListBox(streamableInit);
-}
+TStreamable* TSortedListBox::build() { return new TSortedListBox(streamableInit); }
 
 #endif

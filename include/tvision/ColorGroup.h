@@ -1,19 +1,21 @@
 #ifndef TVision_TColorGroup_h
 #define TVision_TColorGroup_h
 
+#include <string>
 #include <tvision/ttypes.h>
 
 class TColorItem;
 
 class TColorGroup {
-
 public:
     TColorGroup(const char* nm, TColorItem* itm = 0, TColorGroup* nxt = 0) noexcept;
     virtual ~TColorGroup();
-    const char* name;
+
+    std::string name;
     uchar index;
     TColorItem* items;
     TColorGroup* next;
+
     friend TColorGroup& operator+(TColorGroup&, TColorItem&) noexcept;
     friend TColorGroup& operator+(TColorGroup& g1, TColorGroup& g2) noexcept;
 };

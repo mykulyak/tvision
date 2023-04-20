@@ -1,9 +1,7 @@
 #include <tvision/Terminal.h>
 
-TTerminal::TTerminal(const TRect& bounds,
-    TScrollBar* aHScrollBar,
-    TScrollBar* aVScrollBar,
-    ushort aBufSize) noexcept
+TTerminal::TTerminal(
+    const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar, ushort aBufSize) noexcept
     : TTextDevice(bounds, aHScrollBar, aVScrollBar)
     , queFront(0)
     , queBack(0)
@@ -16,10 +14,7 @@ TTerminal::TTerminal(const TRect& bounds,
     showCursor();
 }
 
-TTerminal::~TTerminal()
-{
-    delete[] buffer;
-}
+TTerminal::~TTerminal() { delete[] buffer; }
 
 void TTerminal::bufDec(ushort& val)
 {
@@ -37,31 +32,31 @@ void TTerminal::bufInc(ushort& val)
 
 bool TTerminal::canInsert(ushort amount)
 {
-    long T = (queFront < queBack) ? (queFront + amount) : (long(queFront) - bufSize + amount); // cast needed so we get
-                                                                                               // signed comparison
+    long T = (queFront < queBack) ? (queFront + amount)
+                                  : (long(queFront) - bufSize + amount); // cast needed so we get
+                                                                         // signed comparison
     return bool(queBack > T);
 }
 
 #ifdef __FLAT__
 
 #define DRAW_DYNAMIC_STR 1
-#define resizeStr(_len)                                               \
-    slen = _len;                                                      \
-    if (slen > scap) {                                                \
-        char* ss = (char*)::realloc(s, (scap = max(slen, 2 * scap))); \
-        if (ss)                                                       \
-            s = ss;                                                   \
-        else {                                                        \
-            ::free(s);                                                \
-            return;                                                   \
-        }                                                             \
+#define resizeStr(_len)                                                                            \
+    slen = _len;                                                                                   \
+    if (slen > scap) {                                                                             \
+        char* ss = (char*)::realloc(s, (scap = max(slen, 2 * scap)));                              \
+        if (ss)                                                                                    \
+            s = ss;                                                                                \
+        else {                                                                                     \
+            ::free(s);                                                                             \
+            return;                                                                                \
+        }                                                                                          \
     }
 
 #else
 
 #define DRAW_DYNAMIC_STR 0
-#define resizeStr(_len) \
-    slen = _len;
+#define resizeStr(_len) slen = _len;
 
 #endif // __FLAT__
 
@@ -174,10 +169,7 @@ int TTerminal::do_sputn(const char* s, int count)
     return count;
 }
 
-bool TTerminal::queEmpty()
-{
-    return bool(queBack == queFront);
-}
+bool TTerminal::queEmpty() { return bool(queBack == queFront); }
 
 otstream::otstream(TTerminal* tt)
     : std::ostream(tt)

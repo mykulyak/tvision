@@ -25,15 +25,9 @@ void* TDataCollection::read(ipstream& is)
     return this;
 }
 
-TStreamable* TDataCollection::build()
-{
-    return new TDataCollection(streamableInit);
-}
+TStreamable* TDataCollection::build() { return new TDataCollection(streamableInit); }
 
-void TDataCollection::writeItem(void* obj, opstream& os)
-{
-    os.writeBytes(obj, itemSize);
-}
+void TDataCollection::writeItem(void* obj, opstream& os) { os.writeBytes(obj, itemSize); }
 
 void* TDataCollection::readItem(ipstream& is)
 {
@@ -44,13 +38,10 @@ void* TDataCollection::readItem(ipstream& is)
     return obj;
 }
 
-TStreamableClass RDataCollection(TDataCollection::name,
-    TDataCollection::build,
-    __DELTA(TDataCollection));
+TStreamableClass RDataCollection(
+    TDataCollection::name, TDataCollection::build, __DELTA(TDataCollection));
 
-TDataCollection::TDataCollection(short aLimit, short aDelta,
-    int anItemSize,
-    KeyTypes aKeyType)
+TDataCollection::TDataCollection(short aLimit, short aDelta, int anItemSize, KeyTypes aKeyType)
     : TStringCollection(aLimit, aDelta)
     , itemSize(anItemSize)
     , keyType(aKeyType)

@@ -63,7 +63,8 @@ TEST(TText, ShouldConvertUtf32ControlCharacters)
 
     for (auto& testCase : testCases) {
         TScreenCell cells[1] {};
-        TSpan<const uint32_t> input { (const uint32_t*)testCase.input.data(), testCase.input.size() };
+        TSpan<const uint32_t> input { (const uint32_t*)testCase.input.data(),
+            testCase.input.size() };
         size_t i = 0, j = 0;
         while (TText::drawOne(cells, i, input, j))
             ;

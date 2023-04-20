@@ -31,22 +31,10 @@ public:
     static const char* const name;
 };
 
-inline ipstream& operator>>(ipstream& is, TRangeValidator& v)
-{
-    return is >> (TStreamable&)v;
-}
-inline ipstream& operator>>(ipstream& is, TRangeValidator*& v)
-{
-    return is >> (void*&)v;
-}
+inline ipstream& operator>>(ipstream& is, TRangeValidator& v) { return is >> (TStreamable&)v; }
+inline ipstream& operator>>(ipstream& is, TRangeValidator*& v) { return is >> (void*&)v; }
 
-inline opstream& operator<<(opstream& os, TRangeValidator& v)
-{
-    return os << (TStreamable&)v;
-}
-inline opstream& operator<<(opstream& os, TRangeValidator* v)
-{
-    return os << (TStreamable*)v;
-}
+inline opstream& operator<<(opstream& os, TRangeValidator& v) { return os << (TStreamable&)v; }
+inline opstream& operator<<(opstream& os, TRangeValidator* v) { return os << (TStreamable*)v; }
 
 #endif // TVision_TRangeValidator_h

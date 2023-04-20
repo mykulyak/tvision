@@ -1,36 +1,25 @@
 #ifndef TVision_TStatusItem_h
 #define TVision_TStatusItem_h
 
+#include <string>
 #include <tvision/StringView.h>
 
 class TStatusItem {
 public:
-    TStatusItem(TStringView aText,
-        TKey aKey,
-        ushort cmd,
-        TStatusItem* aNext = 0) noexcept;
-    ~TStatusItem();
+    TStatusItem(TStringView aText, TKey aKey, ushort cmd, TStatusItem* aNext = 0) noexcept
+        : next(aNext)
+        , text(aText.begin(), aText.end())
+        , keyCode(aKey)
+        , command(cmd)
+    {
+    }
+
+    ~TStatusItem() { }
 
     TStatusItem* next;
-    char* text;
+    std::string text;
     TKey keyCode;
     ushort command;
 };
-
-inline TStatusItem::TStatusItem(TStringView aText,
-    TKey aKey,
-    ushort cmd,
-    TStatusItem* aNext) noexcept
-    : next(aNext)
-    , text(newStr(aText))
-    , keyCode(aKey)
-    , command(cmd)
-{
-}
-
-inline TStatusItem::~TStatusItem()
-{
-    delete[] text;
-}
 
 #endif // TVision_TStatusItem_h

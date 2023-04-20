@@ -13,9 +13,7 @@ class TScrollBar;
 
 class TScroller : public TView {
 public:
-    TScroller(const TRect& bounds,
-        TScrollBar* aHScrollBar,
-        TScrollBar* aVScrollBar) noexcept;
+    TScroller(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar) noexcept;
 
     virtual void changeBounds(const TRect& bounds);
     virtual TPalette& getPalette() const;
@@ -38,10 +36,7 @@ protected:
 private:
     void showSBar(TScrollBar* sBar);
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TScroller(StreamableInit) noexcept;
@@ -53,22 +48,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TScroller& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TScroller*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TScroller& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TScroller*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TScroller& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TScroller* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TScroller& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TScroller* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TScroller_h

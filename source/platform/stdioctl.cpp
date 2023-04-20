@@ -126,10 +126,7 @@ namespace tvision {
 
 namespace stdioctl {
 
-    static bool isValid(HANDLE h)
-    {
-        return h && h != INVALID_HANDLE_VALUE;
-    }
+    static bool isValid(HANDLE h) { return h && h != INVALID_HANDLE_VALUE; }
 
     static bool isConsole(HANDLE h)
     {
@@ -200,32 +197,16 @@ StdioCtl::StdioCtl() noexcept
     }
     if (!isValid(cn[input].handle)) {
         cn[input].handle = CreateFileW(
-            L"CONIN$",
-            GENERIC_READ | GENERIC_WRITE,
-            FILE_SHARE_READ,
-            nullptr,
-            OPEN_EXISTING,
-            0,
-            0);
+            L"CONIN$", GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ, nullptr, OPEN_EXISTING, 0, 0);
         cn[input].owning = true;
     }
     if (!isValid(cn[startupOutput].handle)) {
-        cn[startupOutput].handle = CreateFileW(
-            L"CONOUT$",
-            GENERIC_READ | GENERIC_WRITE,
-            FILE_SHARE_WRITE,
-            nullptr,
-            OPEN_EXISTING,
-            0,
-            0);
+        cn[startupOutput].handle = CreateFileW(L"CONOUT$", GENERIC_READ | GENERIC_WRITE,
+            FILE_SHARE_WRITE, nullptr, OPEN_EXISTING, 0, 0);
         cn[startupOutput].owning = true;
     }
     cn[activeOutput].handle = CreateConsoleScreenBuffer(
-        GENERIC_READ | GENERIC_WRITE,
-        0,
-        nullptr,
-        CONSOLE_TEXTMODE_BUFFER,
-        nullptr);
+        GENERIC_READ | GENERIC_WRITE, 0, nullptr, CONSOLE_TEXTMODE_BUFFER, nullptr);
     cn[activeOutput].owning = true;
     {
         CONSOLE_SCREEN_BUFFER_INFO sbInfo {};

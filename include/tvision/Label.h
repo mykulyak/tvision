@@ -27,10 +27,7 @@ protected:
     bool light;
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
     void focusLink(TEvent&);
 
 protected:
@@ -43,22 +40,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TLabel& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TLabel*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TLabel& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TLabel*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TLabel& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TLabel* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TLabel& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TLabel* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TLabel_h

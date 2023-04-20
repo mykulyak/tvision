@@ -9,15 +9,11 @@ const char* THistory::icon = "\xDE~\x19~\xDD";
 __link(RView);
 __link(RInputLine);
 
-TStreamableClass RHistory(THistory::name,
-    THistory::build,
-    __DELTA(THistory));
+TStreamableClass RHistory(THistory::name, THistory::build, __DELTA(THistory));
 
 #define cpHistory "\x16\x17"
 
-THistory::THistory(const TRect& bounds,
-    TInputLine* aLink,
-    ushort aHistoryId) noexcept
+THistory::THistory(const TRect& bounds, TInputLine* aLink, ushort aHistoryId) noexcept
     : TView(bounds)
     , link(aLink)
     , historyId(aHistoryId)
@@ -53,7 +49,9 @@ void THistory::handleEvent(TEvent& event)
     ushort c;
 
     TView::handleEvent(event);
-    if (event.what == evMouseDown || (event.what == evKeyDown && ctrlToArrow(event.keyDown.keyCode) == kbDown && (link->state & sfFocused) != 0)) {
+    if (event.what == evMouseDown
+        || (event.what == evKeyDown && ctrlToArrow(event.keyDown.keyCode) == kbDown
+            && (link->state & sfFocused) != 0)) {
         if (!link->focus()) {
             clearEvent(event);
             return;
@@ -81,7 +79,8 @@ void THistory::handleEvent(TEvent& event)
         }
         clearEvent(event);
     } else if (event.what == evBroadcast) {
-        if ((event.message.command == cmReleasedFocus && event.message.infoPtr == link) || event.message.command == cmRecordHistory)
+        if ((event.message.command == cmReleasedFocus && event.message.infoPtr == link)
+            || event.message.command == cmRecordHistory)
             recordHistory(link->data);
     }
 }
@@ -93,10 +92,7 @@ THistoryWindow* THistory::initHistoryWindow(const TRect& bounds)
     return p;
 }
 
-void THistory::recordHistory(const char* s)
-{
-    historyAdd(historyId, s);
-}
+void THistory::recordHistory(const char* s) { historyAdd(historyId, s); }
 
 #ifndef NO_STREAMABLE
 
@@ -113,10 +109,7 @@ void* THistory::read(ipstream& is)
     return this;
 }
 
-TStreamable* THistory::build()
-{
-    return new THistory(streamableInit);
-}
+TStreamable* THistory::build() { return new THistory(streamableInit); }
 
 THistory::THistory(StreamableInit) noexcept
     : TView(streamableInit)

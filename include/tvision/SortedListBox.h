@@ -7,9 +7,7 @@ class TScrollBar;
 
 class TSortedListBox : public TListBox {
 public:
-    TSortedListBox(const TRect& bounds,
-        ushort aNumCols,
-        TScrollBar* aScrollBar) noexcept;
+    TSortedListBox(const TRect& bounds, ushort aNumCols, TScrollBar* aScrollBar) noexcept;
 
     virtual void handleEvent(TEvent& event);
     void newList(TSortedCollection* aList);
@@ -24,10 +22,7 @@ private:
 
     short searchPos;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TSortedListBox(StreamableInit) noexcept
@@ -41,27 +36,12 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TSortedListBox& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TSortedListBox*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TSortedListBox& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TSortedListBox*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TSortedListBox& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TSortedListBox* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TSortedListBox& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TSortedListBox* cl) { return os << (TStreamable*)cl; }
 
-inline TSortedCollection* TSortedListBox::list()
-{
-    return (TSortedCollection*)TListBox::list();
-}
+inline TSortedCollection* TSortedListBox::list() { return (TSortedCollection*)TListBox::list(); }
 
 #endif // TVision_TSortedListBox_h

@@ -38,18 +38,15 @@ class LinuxConsoleStrategy : public ConsoleStrategy {
     LinuxConsoleInput& wrapper;
     GpmInput* gpm;
 
-    LinuxConsoleStrategy(DisplayStrategy&, LinuxConsoleInput&,
-        ScreenLifetime&, InputState&, SigwinchHandler*,
-        GpmInput*) noexcept;
+    LinuxConsoleStrategy(DisplayStrategy&, LinuxConsoleInput&, ScreenLifetime&, InputState&,
+        SigwinchHandler*, GpmInput*) noexcept;
 
 public:
     // Pre: 'io.isLinuxConsole()' returns 'true'.
     // The lifetime of 'io' must exceed that of the returned object.
     // Takes ownership over 'scrl', 'inputState', 'display' and 'input'.
-    static LinuxConsoleStrategy& create(StdioCtl& io, ScreenLifetime& scrl,
-        InputState& inputState,
-        DisplayStrategy& display,
-        InputStrategy& input) noexcept;
+    static LinuxConsoleStrategy& create(StdioCtl& io, ScreenLifetime& scrl, InputState& inputState,
+        DisplayStrategy& display, InputStrategy& input) noexcept;
     ~LinuxConsoleStrategy();
 
     static int charWidth(uint32_t) noexcept;

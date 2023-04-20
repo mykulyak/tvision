@@ -33,10 +33,7 @@ DisplayBuffer::DisplayBuffer() noexcept
         flushDelay = microseconds((int)1e6 / fps);
 }
 
-DisplayBuffer::~DisplayBuffer()
-{
-    instance = 0;
-}
+DisplayBuffer::~DisplayBuffer() { instance = 0; }
 
 TScreenCell* DisplayBuffer::reloadScreenInfo(DisplayStrategy& display) noexcept
 {
@@ -75,10 +72,7 @@ void DisplayBuffer::redrawScreen(DisplayStrategy& display) noexcept
     flushScreen(display);
 }
 
-void DisplayBuffer::setCaretSize(int size) noexcept
-{
-    newCaretSize = size;
-}
+void DisplayBuffer::setCaretSize(int size) noexcept { newCaretSize = size; }
 
 void DisplayBuffer::setCaretPosition(int x, int y) noexcept
 {
@@ -326,9 +320,8 @@ namespace {
         writeCell(ch, cell->attr, 0);
     }
 
-    inline void FlushScreenAlgorithm::writeCell(const TCellChar& Char,
-        const TColorAttr& Attr,
-        bool wide) noexcept
+    inline void FlushScreenAlgorithm::writeCell(
+        const TCellChar& Char, const TColorAttr& Attr, bool wide) noexcept
     {
         // 'last' is the last written cell occupied by text.
         // That is, the hardware cursor is located at {last.x + 1, last.y}.

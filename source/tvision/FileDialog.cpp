@@ -28,15 +28,10 @@ __link(RScrollBar);
 __link(RButton);
 __link(RFileInfoPane);
 
-TStreamableClass RFileDialog(TFileDialog::name,
-    TFileDialog::build,
-    __DELTA(TFileDialog));
+TStreamableClass RFileDialog(TFileDialog::name, TFileDialog::build, __DELTA(TFileDialog));
 
-TFileDialog::TFileDialog(TStringView aWildCard,
-    TStringView aTitle,
-    TStringView inputName,
-    ushort aOptions,
-    uchar histId) noexcept
+TFileDialog::TFileDialog(TStringView aWildCard, TStringView aTitle, TStringView inputName,
+    ushort aOptions, uchar histId) noexcept
     : TWindowInit(&TFileDialog::initFrame)
     , TDialog(TRect(15, 1, 64, 20), aTitle)
     , directory(newStr(""))
@@ -50,9 +45,7 @@ TFileDialog::TFileDialog(TStringView aWildCard,
     insert(fileName);
     first()->growMode = gfGrowHiX;
 
-    insert(new TLabel(TRect(2, 2, 3 + cstrlen(inputName), 3),
-        inputName,
-        fileName));
+    insert(new TLabel(TRect(2, 2, 3 + cstrlen(inputName), 3), inputName, fileName));
     first()->growMode = 0;
     insert(new THistory(TRect(31, 3, 34, 4), fileName, histId));
     first()->growMode = gfGrowLoX | gfGrowHiX;
@@ -145,10 +138,7 @@ TFileDialog::TFileDialog(TStringView aWildCard,
         readDirectory();
 }
 
-TFileDialog::~TFileDialog()
-{
-    delete[] (char*)directory;
-}
+TFileDialog::~TFileDialog() { delete[] (char*)directory; }
 
 void TFileDialog::shutDown()
 {
@@ -250,10 +240,7 @@ void TFileDialog::setData(void* rec)
     }
 }
 
-void TFileDialog::getData(void* rec)
-{
-    strcpy((char*)rec, getFilePath().c_str());
-}
+void TFileDialog::getData(void* rec) { strcpy((char*)rec, getFilePath().c_str()); }
 
 bool TFileDialog::checkDirectory(const char* str)
 {
@@ -338,9 +325,6 @@ void* TFileDialog::read(ipstream& is)
     return this;
 }
 
-TStreamable* TFileDialog::build()
-{
-    return new TFileDialog(streamableInit);
-}
+TStreamable* TFileDialog::build() { return new TFileDialog(streamableInit); }
 
 #endif

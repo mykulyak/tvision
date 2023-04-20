@@ -13,10 +13,11 @@ const int cmNewDirFocused = 102;
 #endif
 
 class QuickMessage : public TWindow {
+private:
     TParamText* currentDir;
 
 public:
-    QuickMessage(const char* drive)
+    QuickMessage(const std::string& drive)
         : TWindowInit(TWindow::initFrame)
         , TWindow(TRect(15, 8, 65, 19), "Please Wait...", 0)
     {
@@ -25,17 +26,13 @@ public:
         palette = wpGrayWindow;
 
         std::ostringstream os;
-        os << "Scanning Drive '" << drive << "'\n"
-           << std::ends;
+        os << "Scanning Drive '" << drive << "'\n" << std::ends;
         insert(new TStaticText(TRect(2, 2, 48, 3), os.str().c_str()));
         currentDir = new TParamText(TRect(2, 3, 48, 9));
         insert(currentDir);
     }
 
-    virtual void handleEvent(TEvent& event)
-    {
-        TWindow::handleEvent(event);
-    }
+    virtual void handleEvent(TEvent& event) { TWindow::handleEvent(event); }
 
     void setCurrentDir(char* newDir)
     {
@@ -56,10 +53,7 @@ public:
         message(owner, evCommand, cmNewDirFocused, 0);
     }
     static bool isParent(TOutlineViewer*, TNode* cur, int, int, long, ushort, void*);
-    TNode* getParent(TNode* child)
-    {
-        return firstThat(isParent, child);
-    }
+    TNode* getParent(TNode* child) { return firstThat(isParent, child); }
     void getCurrentPath(char* buffer, short bufferSize);
 };
 
@@ -101,8 +95,7 @@ void TDirOutline::getCurrentPath(char* buffer, short bufferSize)
 
 TNode* getDirList(const char* path, QuickMessage* qm = 0)
 {
-    TNode *dirList = 0,
-          *current = 0;
+    TNode *dirList = 0, *current = 0;
     char searchPath[128] = { 0 };
     find_t searchRec;
     int result;
@@ -147,10 +140,7 @@ public:
         fileCount = 0;
         files = 0;
     }
-    ~TFilePane()
-    {
-        deleteFiles();
-    }
+    ~TFilePane() { deleteFiles(); }
     void newDir(const char* path);
     virtual void draw();
     void deleteFiles();
@@ -172,16 +162,11 @@ void TFilePane::draw()
 
 static char* formatFileRow(char buf[128], const find_t& searchRec)
 {
-    sprintf(buf, "  %8ld %2d-%02d-%02d  %2d:%02d  %c%c%c%c",
-        (long)searchRec.size,
-        ((searchRec.wr_date & 0x01E0) >> 5),
-        (searchRec.wr_date & 0x001F),
-        ((searchRec.wr_date >> 9) + 1980) % 100,
-        ((searchRec.wr_time & 0xF800) >> 11) % 13,
-        ((searchRec.wr_time & 0x07E0) >> 5),
-        searchRec.attrib & FA_ARCH ? 'a' : '\xFA',
-        searchRec.attrib & FA_RDONLY ? 'r' : '\xFA',
-        searchRec.attrib & FA_SYSTEM ? 's' : '\xFA',
+    sprintf(buf, "  %8ld %2d-%02d-%02d  %2d:%02d  %c%c%c%c", (long)searchRec.size,
+        ((searchRec.wr_date & 0x01E0) >> 5), (searchRec.wr_date & 0x001F),
+        ((searchRec.wr_date >> 9) + 1980) % 100, ((searchRec.wr_time & 0xF800) >> 11) % 13,
+        ((searchRec.wr_time & 0x07E0) >> 5), searchRec.attrib & FA_ARCH ? 'a' : '\xFA',
+        searchRec.attrib & FA_RDONLY ? 'r' : '\xFA', searchRec.attrib & FA_SYSTEM ? 's' : '\xFA',
         searchRec.attrib & FA_HIDDEN ? 'h' : '\xFA');
     size_t bufLen = strlen(buf) + 1;
     size_t nameLen, nameWidth;
@@ -238,20 +223,19 @@ void TFilePane::deleteFiles()
 }
 
 class TDirWindow : public TWindow {
-    char* drive;
+private:
+    std::string drive;
     TNode* dirTree;
     TDirOutline* ol;
     TFilePane* fp;
     TScrollBar *hsb, *vsb;
 
 public:
-    TDirWindow(const char* driveInit)
+    TDirWindow(const std::string& driveInit)
         : TWindowInit(TWindow::initFrame)
-        , TWindow(TRect(1, 1, 76, 21), driveInit, 0)
+        , TWindow(TRect(1, 1, 76, 21), driveInit.c_str(), 0)
+        , drive(driveInit)
     {
-
-        drive = newStr(driveInit);
-
         vsb = new TScrollBar(TRect(74, 1, 75, 15));
         hsb = new TScrollBar(TRect(22, 15, 73, 16));
 
@@ -269,7 +253,7 @@ public:
         QuickMessage* qm = new QuickMessage(drive);
         TProgram::deskTop->insert(qm);
 
-        dirTree = new TNode(drive, getDirList(drive, qm), 0, true);
+        dirTree = new TNode(drive, getDirList(drive.c_str(), qm), 0, true);
 
         TProgram::deskTop->remove(qm);
         destroy(qm);
@@ -288,10 +272,9 @@ public:
         ol->getCurrentPath(path, 128);
         fp->newDir(path);
     }
-    ~TDirWindow()
-    {
-        delete[] drive;
-    }
+
+    ~TDirWindow() { }
+
     virtual void handleEvent(TEvent& event)
     {
         char buffer[128];
@@ -314,10 +297,11 @@ public:
 };
 
 class TDirApp : public TApplication {
-    char* drive;
+private:
+    std::string drive;
 
 public:
-    TDirApp(const char* driveInit);
+    TDirApp(const std::string& driveInit);
     ~TDirApp();
 
     virtual void handleEvent(TEvent& event);
@@ -326,19 +310,14 @@ public:
     void aboutBox(void);
 };
 
-TDirApp::TDirApp(const char* driveInit)
-    : TProgInit(&TDirApp::initStatusLine,
-        &TDirApp::initMenuBar,
-        &TDirApp::initDeskTop)
+TDirApp::TDirApp(const std::string& driveInit)
+    : TProgInit(&TDirApp::initStatusLine, &TDirApp::initMenuBar, &TDirApp::initDeskTop)
+    , drive(driveInit)
 {
-    drive = newStr(driveInit);
     insertWindow(new TDirWindow(driveInit));
 }
 
-TDirApp::~TDirApp()
-{
-    delete[] drive;
-}
+TDirApp::~TDirApp() { }
 
 void TDirApp::handleEvent(TEvent& event)
 {
@@ -364,28 +343,29 @@ TMenuBar* TDirApp::initMenuBar(TRect r)
     r.b.y = r.a.y + 1;
 
     return new TMenuBar(r,
-        *new TSubMenu("~\xF0~", kbAltSpace) + *new TMenuItem("~A~bout...", cmAbout, kbAltA) + *new TSubMenu("~F~ile", kbAltF) + *new TMenuItem("~N~ew Window...", cmDirTree, kbAltN) + newLine() + *new TMenuItem("E~x~it", cmQuit, cmQuit, hcNoContext, "Alt-X"));
+        *new TSubMenu("~\xF0~", kbAltSpace) + *new TMenuItem("~A~bout...", cmAbout, kbAltA)
+            + *new TSubMenu("~F~ile", kbAltF) + *new TMenuItem("~N~ew Window...", cmDirTree, kbAltN)
+            + newLine() + *new TMenuItem("E~x~it", cmQuit, cmQuit, hcNoContext, "Alt-X"));
 }
 
 TStatusLine* TDirApp::initStatusLine(TRect r)
 {
     r.a.y = r.b.y - 1;
     return new TStatusLine(r,
-        *new TStatusDef(0, 0xFFFF) + *new TStatusItem("~Alt-X~ Exit", kbAltX, cmQuit) + *new TStatusItem(0, kbF10, cmMenu));
+        *new TStatusDef(0, 0xFFFF) + *new TStatusItem("~Alt-X~ Exit", kbAltX, cmQuit)
+            + *new TStatusItem(0, kbF10, cmMenu));
 }
 
 void TDirApp::aboutBox(void)
 {
     TDialog* aboutBox = new TDialog(TRect(0, 0, 39, 11), "About");
 
-    aboutBox->insert(
-        new TStaticText(TRect(9, 2, 30, 7),
-            "\003Outline Viewer Demo\n\n" // These strings will be
-            "\003Copyright (c) 1994\n\n" // The \003 centers the line.
-            "\003Borland International"));
+    aboutBox->insert(new TStaticText(TRect(9, 2, 30, 7),
+        "\003Outline Viewer Demo\n\n" // These strings will be
+        "\003Copyright (c) 1994\n\n" // The \003 centers the line.
+        "\003Borland International"));
 
-    aboutBox->insert(
-        new TButton(TRect(14, 8, 25, 10), " OK", cmOK, TButton::Flags::bfDefault));
+    aboutBox->insert(new TButton(TRect(14, 8, 25, 10), " OK", cmOK, TButton::Flags::bfDefault));
 
     aboutBox->options |= ofCentered;
 
@@ -394,7 +374,9 @@ void TDirApp::aboutBox(void)
 
 int main(int argc, char* argv[])
 {
-    TDirApp dirApp(argc == 2 ? argv[1] : ".");
+    const std::string drive(argc == 2 ? argv[1] : ".");
+
+    TDirApp dirApp(drive);
     dirApp.run();
     dirApp.shutDown();
     return 0;

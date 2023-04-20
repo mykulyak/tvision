@@ -5,9 +5,7 @@ const char* const TGroup::name = "TGroup";
 
 __link(RView);
 
-TStreamableClass RGroup(TGroup::name,
-    TGroup::build,
-    __DELTA(TGroup));
+TStreamableClass RGroup(TGroup::name, TGroup::build, __DELTA(TGroup));
 
 TView* TheTopView = 0;
 TGroup* ownerGroup = 0;
@@ -26,9 +24,7 @@ TGroup::TGroup(const TRect& bounds) noexcept
     eventMask = 0xFFFF;
 }
 
-TGroup::~TGroup()
-{
-}
+TGroup::~TGroup() { }
 
 TView* TGroup::at(short index) noexcept
 {
@@ -127,15 +123,9 @@ void doCalcChange(TView* p, void* d)
 }
 
 #pragma warn - par
-static void doAwaken(TView* v, void* p)
-{
-    v->awaken();
-}
+static void doAwaken(TView* v, void* p) { v->awaken(); }
 
-void TGroup::awaken()
-{
-    forEach(doAwaken, 0);
-}
+void TGroup::awaken() { forEach(doAwaken, 0); }
 
 void TGroup::changeBounds(const TRect& bounds)
 {
@@ -156,10 +146,7 @@ void TGroup::changeBounds(const TRect& bounds)
     }
 }
 
-void addSubviewDataSize(TView* p, void* T)
-{
-    *((ushort*)T) += p->dataSize();
-}
+void addSubviewDataSize(TView* p, void* T) { *((ushort*)T) += p->dataSize(); }
 
 ushort TGroup::dataSize()
 {
@@ -287,7 +274,9 @@ TView* TGroup::findNext(bool forwards) noexcept
             else
                 p = p->prev();
 
-        } while (!((((p->state & (sfVisible | sfDisabled)) == sfVisible) && (p->options & ofSelectable)) || (p == current)));
+        } while (
+            !((((p->state & (sfVisible | sfDisabled)) == sfVisible) && (p->options & ofSelectable))
+                || (p == current)));
 
         if (p != current)
             result = p;
@@ -374,7 +363,9 @@ static void doHandleEvent(TView* p, void* s)
 {
     handleStruct* ptr = (handleStruct*)s;
 
-    if (p == 0 || ((p->state & sfDisabled) != 0 && (ptr->event.what & (positionalEvents | focusedEvents)) != 0))
+    if (p == 0
+        || ((p->state & sfDisabled) != 0
+            && (ptr->event.what & (positionalEvents | focusedEvents)) != 0))
         return;
 
     switch (ptr->grp.phase) {
@@ -393,10 +384,7 @@ static void doHandleEvent(TView* p, void* s)
         p->handleEvent(ptr->event);
 }
 
-static bool hasMouse(TView* p, void* s)
-{
-    return p->containsMouse(*(TEvent*)s);
-}
+static bool hasMouse(TView* p, void* s) { return p->containsMouse(*(TEvent*)s); }
 
 void TGroup::handleEvent(TEvent& event)
 {
@@ -422,10 +410,7 @@ void TGroup::handleEvent(TEvent& event)
     }
 }
 
-void TGroup::insert(TView* p) noexcept
-{
-    insertBefore(p, first());
-}
+void TGroup::insert(TView* p) noexcept { insertBefore(p, first()); }
 
 void TGroup::insertBefore(TView* p, TView* Target)
 {
@@ -468,15 +453,9 @@ void TGroup::lock() noexcept
         lockFlag++;
 }
 
-void TGroup::redraw() noexcept
-{
-    drawSubViews(first(), 0);
-}
+void TGroup::redraw() noexcept { drawSubViews(first(), 0); }
 
-void TGroup::resetCurrent()
-{
-    setCurrent(firstMatch(sfVisible, ofSelectable), normalSelect);
-}
+void TGroup::resetCurrent() { setCurrent(firstMatch(sfVisible, ofSelectable), normalSelect); }
 
 void TGroup::resetCursor()
 {
@@ -547,10 +526,7 @@ struct setBlock {
     bool en;
 };
 
-static void doSetState(TView* p, void* b)
-{
-    p->setState(((setBlock*)b)->st, ((setBlock*)b)->en);
-}
+static void doSetState(TView* p, void* b) { p->setState(((setBlock*)b)->st, ((setBlock*)b)->en); }
 
 void TGroup::setState(ushort aState, bool enable)
 {
@@ -584,10 +560,7 @@ void TGroup::unlock() noexcept
         drawView();
 }
 
-bool isInvalid(TView* p, void* command)
-{
-    return bool(!p->valid(*(ushort*)command));
-}
+bool isInvalid(TView* p, void* command) { return bool(!p->valid(*(ushort*)command)); }
 
 bool TGroup::valid(ushort command)
 {
@@ -613,10 +586,7 @@ ushort TGroup::getHelpCtx()
 
 #ifndef NO_STREAMABLE
 
-static void doPut(TView* p, void* osp)
-{
-    *(opstream*)osp << p;
-}
+static void doPut(TView* p, void* osp) { *(opstream*)osp << p; }
 
 void TGroup::write(opstream& os)
 {
@@ -668,10 +638,7 @@ void* TGroup::read(ipstream& is)
     return this;
 }
 
-TStreamable* TGroup::build()
-{
-    return new TGroup(streamableInit);
-}
+TStreamable* TGroup::build() { return new TGroup(streamableInit); }
 
 TGroup::TGroup(StreamableInit) noexcept
     : TView(streamableInit)

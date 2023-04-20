@@ -44,9 +44,7 @@ public:
         wfZoom = 0x08,
     };
 
-    TWindow(const TRect& bounds,
-        TStringView aTitle,
-        short aNumber) noexcept;
+    TWindow(const TRect& bounds, TStringView aTitle, short aNumber) noexcept;
     ~TWindow();
 
     virtual void close();
@@ -68,10 +66,7 @@ public:
     const char* title;
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TWindow(StreamableInit) noexcept;
@@ -83,22 +78,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TWindow& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TWindow*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TWindow& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TWindow*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TWindow& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TWindow* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TWindow& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TWindow* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TWindow_h

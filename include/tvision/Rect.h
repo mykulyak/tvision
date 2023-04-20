@@ -75,41 +75,19 @@ inline TRect& TRect::Union(const TRect& r) noexcept
 
 inline bool TRect::contains(const TPoint& p) const noexcept
 {
-    return bool(
-        p.x >= a.x && p.x < b.x && p.y >= a.y && p.y < b.y);
+    return bool(p.x >= a.x && p.x < b.x && p.y >= a.y && p.y < b.y);
 }
 
-inline bool TRect::operator==(const TRect& r) const noexcept
-{
-    return bool(a == r.a && b == r.b);
-}
+inline bool TRect::operator==(const TRect& r) const noexcept { return bool(a == r.a && b == r.b); }
 
-inline bool TRect::operator!=(const TRect& r) const noexcept
-{
-    return bool(!(*this == r));
-}
+inline bool TRect::operator!=(const TRect& r) const noexcept { return bool(!(*this == r)); }
 
-inline bool TRect::isEmpty() noexcept
-{
-    return bool(a.x >= b.x || a.y >= b.y);
-}
+inline bool TRect::isEmpty() noexcept { return bool(a.x >= b.x || a.y >= b.y); }
 
-inline ipstream& operator>>(ipstream& is, TRect& r)
-{
-    return is >> r.a >> r.b;
-}
-inline ipstream& operator>>(ipstream& is, TRect*& r)
-{
-    return is >> r->a >> r->b;
-}
+inline ipstream& operator>>(ipstream& is, TRect& r) { return is >> r.a >> r.b; }
+inline ipstream& operator>>(ipstream& is, TRect*& r) { return is >> r->a >> r->b; }
 
-inline opstream& operator<<(opstream& os, TRect& r)
-{
-    return os << r.a << r.b;
-}
-inline opstream& operator<<(opstream& os, TRect* r)
-{
-    return os << r->a << r->b;
-}
+inline opstream& operator<<(opstream& os, TRect& r) { return os << r.a << r.b; }
+inline opstream& operator<<(opstream& os, TRect* r) { return os << r->a << r->b; }
 
 #endif // TVision_TRect_h

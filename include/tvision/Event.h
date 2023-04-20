@@ -45,15 +45,9 @@ private:
     static bool noMouse;
 };
 
-inline bool THWMouse::present() noexcept
-{
-    return bool(buttonCount != 0);
-}
+inline bool THWMouse::present() noexcept { return bool(buttonCount != 0); }
 
-inline void THWMouse::inhibit() noexcept
-{
-    noMouse = true;
-}
+inline void THWMouse::inhibit() noexcept { noMouse = true; }
 
 class TMouse : public THWMouse {
 
@@ -72,37 +66,19 @@ public:
     static void registerHandler(unsigned, void (*)());
 #endif
 
-    static void suspend() noexcept
-    {
-        THWMouse::suspend();
-    }
+    static void suspend() noexcept { THWMouse::suspend(); }
     static void resume() noexcept { THWMouse::resume(); }
 };
 
-inline void TMouse::show() noexcept
-{
-    THWMouse::show();
-}
+inline void TMouse::show() noexcept { THWMouse::show(); }
 
-inline void TMouse::hide() noexcept
-{
-    THWMouse::hide();
-}
+inline void TMouse::hide() noexcept { THWMouse::hide(); }
 
-inline void TMouse::setRange(ushort rx, ushort ry) noexcept
-{
-    THWMouse::setRange(rx, ry);
-}
+inline void TMouse::setRange(ushort rx, ushort ry) noexcept { THWMouse::setRange(rx, ry); }
 
-inline void TMouse::getEvent(MouseEventType& me) noexcept
-{
-    THWMouse::getEvent(me);
-}
+inline void TMouse::getEvent(MouseEventType& me) noexcept { THWMouse::getEvent(me); }
 
-inline bool TMouse::present() noexcept
-{
-    return THWMouse::present();
-}
+inline bool TMouse::present() noexcept { return THWMouse::present(); }
 
 #ifndef __FLAT__
 inline void TMouse::registerHandler(unsigned mask, void (*func)())
@@ -129,15 +105,9 @@ struct KeyDownEvent {
     operator TKey() const;
 };
 
-inline TStringView KeyDownEvent::getText() const
-{
-    return TStringView(text, textLength);
-}
+inline TStringView KeyDownEvent::getText() const { return TStringView(text, textLength); }
 
-inline KeyDownEvent::operator TKey() const
-{
-    return TKey(keyCode, controlKeyState);
-}
+inline KeyDownEvent::operator TKey() const { return TKey(keyCode, controlKeyState); }
 
 struct MessageEvent {
     ushort command;

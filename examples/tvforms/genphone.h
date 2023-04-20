@@ -27,12 +27,7 @@ __link(RMenuBar);
 __link(RRadioButtons);
 __link(RFrame);
 
-const int
-    nameWidth
-    = 25,
-    companyWidth = 23,
-    remarksWidth = 22,
-    phoneWidth = 20;
+const int nameWidth = 25, companyWidth = 23, remarksWidth = 22, phoneWidth = 20;
 
 struct TDataRec {
     char name[nameWidth];
@@ -47,37 +42,21 @@ const bool allowDuplicates = true;
 
 const KeyTypes dataKeyType = stringKey;
 
-const int
-    dataCount
-    = 4,
-    male = 0,
-    female = 1,
-    business = 0x1,
-    personal = 0x2;
+const int dataCount = 4, male = 0, female = 1, business = 0x1, personal = 0x2;
 
 const TDataRec data[dataCount] = {
     { "Helton, Andrew", "Asterisk International", "Purch. Mgr.", "(415) 868-3964",
         business | personal, male },
-    { "White, Natalie", "Exclamation, Inc.", "VP sales", "(408) 242-2030",
-        business, female },
-    { "Stern, Peter", "", "Decent violinist", "(111) 222-5555",
-        personal, male },
-    { "Whitcom, Hana O.", "Nate's girlfriend", "Birthday: Jan 8, 1990", "(408) 426-1234",
-        personal, female },
+    { "White, Natalie", "Exclamation, Inc.", "VP sales", "(408) 242-2030", business, female },
+    { "Stern, Peter", "", "Decent violinist", "(111) 222-5555", personal, male },
+    { "Whitcom, Hana O.", "Nate's girlfriend", "Birthday: Jan 8, 1990", "(408) 426-1234", personal,
+        female },
 };
 
 TForm* makeForm()
 {
-    const int
-        formX1
-        = 5,
-        formY1 = 3,
-        formWd = 41,
-        formHt = 17,
-        labelCol = 1,
-        labelWid = 8,
-        inputCol = 11,
-        buttonWd = 12;
+    const int formX1 = 5, formY1 = 3, formWd = 41, formHt = 17, labelCol = 1, labelWid = 8,
+              inputCol = 11, buttonWd = 12;
 
     TForm* f;
     int x, y;
@@ -126,10 +105,7 @@ TForm* makeForm()
     x = inputCol;
     y += 3;
     r = TRect(inputCol, y, inputCol + strlen("Business") + 6, y + 2);
-    control = new TCheckBoxes(r,
-        new TSItem("Business",
-            new TSItem("Personal",
-                NULL)));
+    control = new TCheckBoxes(r, new TSItem("Business", new TSItem("Personal", NULL)));
     f->insert(control);
     r = TRect(x, y - 1, x + labelWid, y);
     f->insert(new TLabel(r, "~T~ype", control));
@@ -138,9 +114,7 @@ TForm* makeForm()
     x += 15;
     r = TRect(x, y, x + strlen("Female") + 6, y + 2);
 
-    control = new TRadioButtons(r,
-        new TSItem("Male",
-            new TSItem("Female", NULL)));
+    control = new TRadioButtons(r, new TSItem("Male", new TSItem("Female", NULL)));
     f->insert(control);
     r = TRect(x, y - 1, x + labelWid, y);
     f->insert(new TLabel(r, "~G~ender", control));

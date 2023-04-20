@@ -5,9 +5,7 @@ const char* const TLabel::name = "TLabel";
 
 __link(RStaticText);
 
-TStreamableClass RLabel(TLabel::name,
-    TLabel::build,
-    __DELTA(TLabel));
+TStreamableClass RLabel(TLabel::name, TLabel::build, __DELTA(TLabel));
 
 #define cpLabel "\x07\x08\x09\x09"
 
@@ -41,8 +39,8 @@ void TLabel::draw()
     }
 
     b.moveChar(0, ' ', color, size.x);
-    if (text != 0)
-        b.moveCStr(1, text, color);
+    if (text.size() != 0)
+        b.moveCStr(1, text.c_str(), color);
     if (showMarkers)
         b.putChar(0, specialChars[scOff]);
     writeLine(0, 0, size.x, 1, b);
@@ -68,10 +66,14 @@ void TLabel::handleEvent(TEvent& event)
         focusLink(event);
 
     else if (event.what == evKeyDown) {
-        char c = hotKey(text);
-        if (event.keyDown.keyCode != 0 && (getAltCode(c) == event.keyDown.keyCode || (c != 0 && owner->phase == TGroup::phPostProcess && toupper(event.keyDown.charScan.charCode) == c)))
+        char c = hotKey(text.c_str());
+        if (event.keyDown.keyCode != 0
+            && (getAltCode(c) == event.keyDown.keyCode
+                || (c != 0 && owner->phase == TGroup::phPostProcess
+                    && toupper(event.keyDown.charScan.charCode) == c)))
             focusLink(event);
-    } else if (event.what == evBroadcast && link && (event.message.command == cmReceivedFocus || event.message.command == cmReleasedFocus)) {
+    } else if (event.what == evBroadcast && link
+        && (event.message.command == cmReceivedFocus || event.message.command == cmReleasedFocus)) {
         light = bool((link->state & sfFocused) != 0);
         drawView();
     }
@@ -93,10 +95,7 @@ void* TLabel::read(ipstream& is)
     return this;
 }
 
-TStreamable* TLabel::build()
-{
-    return new TLabel(streamableInit);
-}
+TStreamable* TLabel::build() { return new TLabel(streamableInit); }
 
 TLabel::TLabel(StreamableInit) noexcept
     : TStaticText(streamableInit)

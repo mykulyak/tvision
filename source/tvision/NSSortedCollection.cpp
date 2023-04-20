@@ -28,10 +28,7 @@ ccIndex TNSSortedCollection::insert(void* item)
     return i;
 }
 
-void* TNSSortedCollection::keyOf(void* item)
-{
-    return item;
-}
+void* TNSSortedCollection::keyOf(void* item) { return item; }
 
 bool TNSSortedCollection::search(void* key, ccIndex& index)
 {

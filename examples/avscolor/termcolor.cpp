@@ -53,8 +53,7 @@ static void process_rgb(const PVideoFrame& src, PVideoFrame& dst, TPoint size)
 {
     const uint8_t* srcp = src->GetReadPtr();
     uint8_t* dstp = dst->GetWritePtr();
-    auto src_pitch = src->GetPitch(),
-         dst_pitch = dst->GetPitch();
+    auto src_pitch = src->GetPitch(), dst_pitch = dst->GetPitch();
     constexpr size_t pixel_size = 3 + alpha;
     for (int y = 0; y < size.y; ++y) {
         size_t stride = 0;
@@ -123,7 +122,8 @@ AVSValue TermColor::Create(AVSValue args, void*, IScriptEnvironment* env)
             break;
         }
     if (mode == TermColorCount)
-        env->ThrowError("TermColor: 'mode' must be one of: indexed8, indexed16, indexed256, direct.");
+        env->ThrowError(
+            "TermColor: 'mode' must be one of: indexed8, indexed16, indexed256, direct.");
 
     return new TermColor(child, frameProcessors[pixel][mode]);
 }

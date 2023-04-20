@@ -34,8 +34,7 @@ int main(void)
     r->put(f, "FormDialog");
 
     // Data
-    collection = new TDataCollection((dataCount + 10), 5, sizeof(TDataRec),
-        dataKeyType);
+    collection = new TDataCollection((dataCount + 10), 5, sizeof(TDataRec), dataKeyType);
     collection->duplicates = allowDuplicates;
     for (i = 0; i < dataCount; ++i) {
         p = new TDataRec;

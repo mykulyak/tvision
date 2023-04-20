@@ -8,8 +8,7 @@ class TScrollBar;
 
 class TFileList : public TSortedListBox {
 public:
-    TFileList(const TRect& bounds,
-        TScrollBar* aScrollBar) noexcept;
+    TFileList(const TRect& bounds, TScrollBar* aScrollBar) noexcept;
     ~TFileList();
 
     virtual void focusItem(short item);
@@ -30,10 +29,7 @@ private:
 
     static const char* tooManyFiles;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TFileList(StreamableInit) noexcept
@@ -46,32 +42,14 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TFileList& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TFileList*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TFileList& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TFileList*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TFileList& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TFileList* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TFileList& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TFileList* cl) { return os << (TStreamable*)cl; }
 
-inline void TFileList::newList(TFileCollection* f)
-{
-    TSortedListBox::newList(f);
-}
+inline void TFileList::newList(TFileCollection* f) { TSortedListBox::newList(f); }
 
-inline TFileCollection* TFileList::list()
-{
-    return (TFileCollection*)TSortedListBox::list();
-}
+inline TFileCollection* TFileList::list() { return (TFileCollection*)TSortedListBox::list(); }
 
 #endif // TVision_TFileList_h

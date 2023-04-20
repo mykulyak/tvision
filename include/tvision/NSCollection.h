@@ -34,10 +34,7 @@ public:
     void pack();
     virtual void setLimit(ccIndex aLimit);
 
-    ccIndex getCount()
-    {
-        return count;
-    }
+    ccIndex getCount() { return count; }
 
 protected:
     TNSCollection() noexcept;

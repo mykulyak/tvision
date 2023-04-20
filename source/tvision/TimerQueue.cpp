@@ -89,7 +89,9 @@ void TTimerQueue::collectTimeouts(void (&func)(TTimerId, void*), void* args)
         if ((*p)->period >= 0) {
             (*p)->collectId = collectId;
             if ((*p)->period > 0)
-                (*p)->expiresAt = (1 + (now - (*p)->expiresAt + (*p)->period) / (*p)->period) * (*p)->period + (*p)->expiresAt - (*p)->period;
+                (*p)->expiresAt
+                    = (1 + (now - (*p)->expiresAt + (*p)->period) / (*p)->period) * (*p)->period
+                    + (*p)->expiresAt - (*p)->period;
         } else // One-shot timer
         {
             TTimer* next = (*p)->next;

@@ -30,7 +30,7 @@ TCluster::TCluster(const TRect& bounds, TSItem* aStrings) noexcept
 
     while (aStrings != 0) {
         p = aStrings;
-        strings->atInsert(strings->getCount(), newStr(aStrings->value));
+        strings->atInsert(strings->getCount(), newStr(aStrings->value.c_str()));
         aStrings = aStrings->next;
         delete p;
     }
@@ -40,10 +40,7 @@ TCluster::TCluster(const TRect& bounds, TSItem* aStrings) noexcept
     enableMask = 0xFFFFFFFFL;
 }
 
-TCluster::~TCluster()
-{
-    destroy((TCollection*)strings);
-}
+TCluster::~TCluster() { destroy((TCollection*)strings); }
 
 ushort TCluster::dataSize()
 {
@@ -78,8 +75,7 @@ void TCluster::drawMultiBox(const char* icon, const char* marker)
             if (cur < strings->getCount()) {
                 int col = column(cur);
 
-                if (((col + cstrlen((const char*)strings->at(cur)) + 5)
-                        < (int)b.length())
+                if (((col + cstrlen((const char*)strings->at(cur)) + 5) < (int)b.length())
                     && (col < size.x)) {
                     if (!buttonState(cur))
                         color = cDis;
@@ -222,7 +218,10 @@ void TCluster::handleEvent(TEvent& event)
         default:
             for (int i = 0; i < strings->getCount(); i++) {
                 char c = hotKey((char*)(strings->at(i)));
-                if (event.keyDown.keyCode != 0 && (getAltCode(c) == event.keyDown.keyCode || ((owner->phase == phPostProcess || (state & sfFocused) != 0) && c != 0 && toupper(event.keyDown.charScan.charCode) == c))) {
+                if (event.keyDown.keyCode != 0
+                    && (getAltCode(c) == event.keyDown.keyCode
+                        || ((owner->phase == phPostProcess || (state & sfFocused) != 0) && c != 0
+                            && toupper(event.keyDown.charScan.charCode) == c))) {
                     if (buttonState(i)) {
                         if (focus()) {
                             sel = i;
@@ -274,23 +273,13 @@ void TCluster::setState(ushort aState, bool enable)
         drawView();
 }
 
-bool TCluster::mark(int)
-{
-    return false;
-}
+bool TCluster::mark(int) { return false; }
 
-uchar TCluster::multiMark(int item)
-{
-    return (uchar)(mark(item) == true);
-}
+uchar TCluster::multiMark(int item) { return (uchar)(mark(item) == true); }
 
-void TCluster::movedTo(int)
-{
-}
+void TCluster::movedTo(int) { }
 
-void TCluster::press(int)
-{
-}
+void TCluster::press(int) { }
 
 int TCluster::column(int item)
 {
@@ -332,10 +321,7 @@ int TCluster::findSel(TPoint p)
     }
 }
 
-int TCluster::row(int item)
-{
-    return item % size.y;
-}
+int TCluster::row(int item) { return item % size.y; }
 
 bool TCluster::buttonState(int item)
 {
@@ -403,10 +389,7 @@ void* TCluster::read(ipstream& is)
     return this;
 }
 
-TStreamable* TCluster::build()
-{
-    return new TCluster(streamableInit);
-}
+TStreamable* TCluster::build() { return new TCluster(streamableInit); }
 
 TCluster::TCluster(StreamableInit) noexcept
     : TView(streamableInit)

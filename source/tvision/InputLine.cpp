@@ -8,9 +8,7 @@ const char TInputLine::leftArrow = '\x11';
 
 __link(RView);
 
-TStreamableClass RInputLine(TInputLine::name,
-    TInputLine::build,
-    __DELTA(TInputLine));
+TStreamableClass RInputLine(TInputLine::name, TInputLine::build, __DELTA(TInputLine));
 
 const int CONTROL_Y = 25;
 
@@ -44,7 +42,8 @@ static int nextWord(TStringView s, int pos) noexcept
 
 #define cpInputLine "\x13\x13\x14\x15"
 
-TInputLine::TInputLine(const TRect& bounds, uint limit, TValidator* aValid, ushort limitMode) noexcept
+TInputLine::TInputLine(
+    const TRect& bounds, uint limit, TValidator* aValid, ushort limitMode) noexcept
     : TView(bounds)
     , maxLen((limitMode == ilMaxBytes) ? min(max(limit - 1, 0), 255) : 255)
     , maxWidth((limitMode == ilMaxWidth) ? limit : UINT_MAX)
@@ -152,10 +151,7 @@ int TInputLine::mousePos(TEvent& event)
     return TText::scroll(text, pos, false);
 }
 
-int TInputLine::displayedPos(int pos)
-{
-    return strwidth(TStringView(data, pos));
-}
+int TInputLine::displayedPos(int pos) { return strwidth(TStringView(data, pos)); }
 
 void TInputLine::deleteSelect()
 {
@@ -273,7 +269,8 @@ void TInputLine::handleEvent(TEvent& event)
         case evKeyDown:
             saveState();
             event.keyDown.keyCode = ctrlToArrow(event.keyDown.keyCode);
-            if (memchr(padKeys, event.keyDown.charScan.scanCode, sizeof(padKeys)) != 0 && (event.keyDown.controlKeyState & kbShift) != 0) {
+            if (memchr(padKeys, event.keyDown.charScan.scanCode, sizeof(padKeys)) != 0
+                && (event.keyDown.controlKeyState & kbShift) != 0) {
                 event.keyDown.charScan.charCode = 0;
                 if (curPos == selEnd)
                     anchor = selStart;
@@ -352,7 +349,8 @@ void TInputLine::handleEvent(TEvent& event)
                             keyText[0] = ' '; // Replace tabs and newlines into spaces.
                         TTextMetrics dataMts = TText::measure(data);
                         TTextMetrics keyMts = TText::measure(keyText);
-                        if (strlen(data) + len <= maxLen && dataMts.width + keyMts.width <= maxWidth && dataMts.graphemeCount + keyMts.graphemeCount <= maxChars) {
+                        if (strlen(data) + len <= maxLen && dataMts.width + keyMts.width <= maxWidth
+                            && dataMts.graphemeCount + keyMts.graphemeCount <= maxChars) {
                             if (firstPos > curPos)
                                 firstPos = curPos;
                             memmove(data + curPos + len, data + curPos, strlen(data + curPos) + 1);
@@ -446,10 +444,7 @@ void TInputLine::setValidator(TValidator* aValid)
     validator = aValid;
 }
 
-bool TInputLine::canUpdateCommands()
-{
-    return bool((~state & (sfActive | sfSelected)) == 0);
-}
+bool TInputLine::canUpdateCommands() { return bool((~state & (sfActive | sfSelected)) == 0); }
 
 void TInputLine::setCmdState(ushort command, bool enable)
 {
@@ -473,8 +468,7 @@ void TInputLine::updateCommands()
 void TInputLine::write(opstream& os)
 {
     TView::write(os);
-    os << maxLen << maxWidth << maxChars << curPos << firstPos
-       << selStart << selEnd;
+    os << maxLen << maxWidth << maxChars << curPos << firstPos << selStart << selEnd;
     os.writeString(data);
     os << validator;
 }
@@ -482,8 +476,7 @@ void TInputLine::write(opstream& os)
 void* TInputLine::read(ipstream& is)
 {
     TView::read(is);
-    is >> maxLen >> maxWidth >> maxChars >> curPos >> firstPos
-        >> selStart >> selEnd;
+    is >> maxLen >> maxWidth >> maxChars >> curPos >> firstPos >> selStart >> selEnd;
     data = new char[maxLen + 1];
     oldData = new char[maxLen + 1];
     is.readString(data, maxLen + 1);
@@ -492,10 +485,7 @@ void* TInputLine::read(ipstream& is)
     return this;
 }
 
-TStreamable* TInputLine::build()
-{
-    return new TInputLine(streamableInit);
-}
+TStreamable* TInputLine::build() { return new TInputLine(streamableInit); }
 
 TInputLine::TInputLine(StreamableInit) noexcept
     : TView(streamableInit)

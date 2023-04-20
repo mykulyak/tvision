@@ -11,10 +11,7 @@ public:
     virtual void handleEvent(TEvent& event);
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TFileInputLine(StreamableInit) noexcept;
@@ -24,22 +21,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TFileInputLine& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TFileInputLine*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TFileInputLine& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TFileInputLine*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TFileInputLine& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TFileInputLine* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TFileInputLine& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TFileInputLine* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TFileInputLine_h

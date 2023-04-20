@@ -18,22 +18,10 @@ private:
     virtual const char* streamableName() const { return name; };
 };
 
-inline ipstream& operator>>(ipstream& is, TLookupValidator& v)
-{
-    return is >> (TStreamable&)v;
-}
-inline ipstream& operator>>(ipstream& is, TLookupValidator*& v)
-{
-    return is >> (void*&)v;
-}
+inline ipstream& operator>>(ipstream& is, TLookupValidator& v) { return is >> (TStreamable&)v; }
+inline ipstream& operator>>(ipstream& is, TLookupValidator*& v) { return is >> (void*&)v; }
 
-inline opstream& operator<<(opstream& os, TLookupValidator& v)
-{
-    return os << (TStreamable&)v;
-}
-inline opstream& operator<<(opstream& os, TLookupValidator* v)
-{
-    return os << (TStreamable*)v;
-}
+inline opstream& operator<<(opstream& os, TLookupValidator& v) { return os << (TStreamable&)v; }
+inline opstream& operator<<(opstream& os, TLookupValidator* v) { return os << (TStreamable*)v; }
 
 #endif // TVision_TLookupValidator_h

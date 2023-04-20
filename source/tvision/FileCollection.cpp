@@ -5,19 +5,12 @@
 
 const char* const TFileCollection::name = "TFileCollection";
 
-TStreamableClass RFileCollection(TFileCollection::name,
-    TFileCollection::build,
-    __DELTA(TFileCollection));
+TStreamableClass RFileCollection(
+    TFileCollection::name, TFileCollection::build, __DELTA(TFileCollection));
 
-inline const char* getName(void* k)
-{
-    return ((TSearchRec*)k)->name;
-}
+inline const char* getName(void* k) { return ((TSearchRec*)k)->name; }
 
-inline int attr(void* k)
-{
-    return ((TSearchRec*)k)->attr;
-}
+inline int attr(void* k) { return ((TSearchRec*)k)->attr; }
 
 int TFileCollection::compare(void* key1, void* key2)
 {
@@ -37,10 +30,7 @@ int TFileCollection::compare(void* key1, void* key2)
     return strcmp(getName(key1), getName(key2));
 }
 
-TStreamable* TFileCollection::build()
-{
-    return new TFileCollection(streamableInit);
-}
+TStreamable* TFileCollection::build() { return new TFileCollection(streamableInit); }
 
 void TFileCollection::writeItem(void* obj, opstream& os)
 {

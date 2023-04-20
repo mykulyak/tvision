@@ -3,25 +3,13 @@
 
 #ifdef __BORLANDC__
 
-inline const TColorAttr& getAttr(const TScreenCell& cell)
-{
-    return ((uchar*)&cell)[1];
-}
+inline const TColorAttr& getAttr(const TScreenCell& cell) { return ((uchar*)&cell)[1]; }
 
-inline void setAttr(TScreenCell& cell, TColorAttr attr)
-{
-    ((uchar*)&cell)[1] = attr;
-}
+inline void setAttr(TScreenCell& cell, TColorAttr attr) { ((uchar*)&cell)[1] = attr; }
 
-inline const TCellChar& getChar(const TScreenCell& cell)
-{
-    return ((uchar*)&cell)[0];
-}
+inline const TCellChar& getChar(const TScreenCell& cell) { return ((uchar*)&cell)[0]; }
 
-inline void setChar(TScreenCell& cell, TCellChar ch)
-{
-    ((uchar*)&cell)[0] = ch;
-}
+inline void setChar(TScreenCell& cell, TCellChar ch) { ((uchar*)&cell)[0] = ch; }
 
 inline void setCell(TScreenCell& cell, TCellChar ch, TColorAttr attr)
 {
@@ -48,8 +36,7 @@ inline void setCell(TScreenCell& cell, TCellChar ch, TColorAttr attr)
 //     3. A special value that marks it as wide char trail.
 
 struct TCellChar {
-    enum : uint8_t { fWide = 0x1,
-        fTrail = 0x2 };
+    enum : uint8_t { fWide = 0x1, fTrail = 0x2 };
 
     char _text[15];
     uint8_t _flags;
@@ -70,10 +57,7 @@ struct TCellChar {
     constexpr inline const char& operator[](size_t i) const;
 };
 
-inline void TCellChar::moveChar(char ch)
-{
-    moveInt((uchar)ch);
-}
+inline void TCellChar::moveChar(char ch) { moveInt((uchar)ch); }
 
 inline void TCellChar::moveInt(uint32_t mbc, bool wide)
 {
@@ -108,15 +92,9 @@ inline void TCellChar::moveWideCharTrail()
     _flags = fTrail;
 }
 
-constexpr inline bool TCellChar::isWide() const
-{
-    return _flags & fWide;
-}
+constexpr inline bool TCellChar::isWide() const { return _flags & fWide; }
 
-constexpr inline bool TCellChar::isWideCharTrail() const
-{
-    return _flags & fTrail;
-}
+constexpr inline bool TCellChar::isWideCharTrail() const { return _flags & fTrail; }
 
 constexpr inline void TCellChar::appendZeroWidth(TStringView mbc)
 // Pre: !isWideCharTrail();
@@ -138,10 +116,7 @@ constexpr inline void TCellChar::appendZeroWidth(TStringView mbc)
     }
 }
 
-constexpr inline TStringView TCellChar::getText() const
-{
-    return { _text, size() };
-}
+constexpr inline TStringView TCellChar::getText() const { return { _text, size() }; }
 
 constexpr inline size_t TCellChar::size() const
 {
@@ -151,15 +126,9 @@ constexpr inline size_t TCellChar::size() const
     return i;
 }
 
-constexpr inline char& TCellChar::operator[](size_t i)
-{
-    return _text[i];
-}
+constexpr inline char& TCellChar::operator[](size_t i) { return _text[i]; }
 
-constexpr inline const char& TCellChar::operator[](size_t i) const
-{
-    return _text[i];
-}
+constexpr inline const char& TCellChar::operator[](size_t i) const { return _text[i]; }
 
 //// TScreenCell
 //
@@ -202,35 +171,20 @@ inline TScreenCell::TScreenCell(ushort bios)
     attr = uchar(bios >> 8);
 }
 
-constexpr inline bool TScreenCell::isWide() const
-{
-    return _ch.isWide();
-}
+constexpr inline bool TScreenCell::isWide() const { return _ch.isWide(); }
 
 inline bool TScreenCell::operator==(const TScreenCell& other) const
 {
     return memcmp(this, &other, sizeof(*this)) == 0;
 }
 
-inline bool TScreenCell::operator!=(const TScreenCell& other) const
-{
-    return !(*this == other);
-}
+inline bool TScreenCell::operator!=(const TScreenCell& other) const { return !(*this == other); }
 
-inline const TColorAttr& getAttr(const TScreenCell& cell)
-{
-    return cell.attr;
-}
+inline const TColorAttr& getAttr(const TScreenCell& cell) { return cell.attr; }
 
-inline void setAttr(TScreenCell& cell, const TColorAttr& attr)
-{
-    cell.attr = attr;
-}
+inline void setAttr(TScreenCell& cell, const TColorAttr& attr) { cell.attr = attr; }
 
-inline void setChar(TScreenCell& cell, char ch)
-{
-    cell._ch.moveChar(ch);
-}
+inline void setChar(TScreenCell& cell, char ch) { cell._ch.moveChar(ch); }
 
 inline void setCell(TScreenCell& cell, char ch, const TColorAttr& attr)
 {
@@ -243,14 +197,9 @@ inline void setCell(TScreenCell& cell, char ch, const TColorAttr& attr)
 #include <type_traits>
 
 namespace scrncell {
-template <class T>
-inline void check_trivial()
-{
-    static_assert(std::is_trivial<T>(), "");
-}
+template <class T> inline void check_trivial() { static_assert(std::is_trivial<T>(), ""); }
 
-template <class C, class T = typename C::trivial_t>
-static void check_convertible()
+template <class C, class T = typename C::trivial_t> static void check_convertible()
 {
     scrncell::check_trivial<C>();
     static_assert(sizeof(C) == sizeof(T), "");

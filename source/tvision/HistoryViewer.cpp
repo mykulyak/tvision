@@ -2,10 +2,8 @@
 
 #define cpHistoryViewer "\x06\x06\x07\x06\x06"
 
-THistoryViewer::THistoryViewer(const TRect& bounds,
-    TScrollBar* aHScrollBar,
-    TScrollBar* aVScrollBar,
-    ushort aHistoryId) noexcept
+THistoryViewer::THistoryViewer(const TRect& bounds, TScrollBar* aHScrollBar,
+    TScrollBar* aVScrollBar, ushort aHistoryId) noexcept
     : TListViewer(bounds, 1, aHScrollBar, aVScrollBar)
     , historyId(aHistoryId)
 {
@@ -33,10 +31,12 @@ void THistoryViewer::getText(char* dest, short item, short maxChars)
 
 void THistoryViewer::handleEvent(TEvent& event)
 {
-    if ((event.what == evMouseDown && (event.mouse.eventFlags & meDoubleClick)) || (event.what == evKeyDown && event.keyDown.keyCode == kbEnter)) {
+    if ((event.what == evMouseDown && (event.mouse.eventFlags & meDoubleClick))
+        || (event.what == evKeyDown && event.keyDown.keyCode == kbEnter)) {
         endModal(cmOK);
         clearEvent(event);
-    } else if ((event.what == evKeyDown && event.keyDown.keyCode == kbEsc) || (event.what == evCommand && event.message.command == cmCancel)) {
+    } else if ((event.what == evKeyDown && event.keyDown.keyCode == kbEsc)
+        || (event.what == evCommand && event.message.command == cmCancel)) {
         endModal(cmCancel);
         clearEvent(event);
     } else

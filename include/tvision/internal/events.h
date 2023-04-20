@@ -84,8 +84,7 @@ class WakeUpEventSource : public EventSource {
 public:
     // Pre: if 'callback' or 'callbackArgs' are not null, their lifetime must
     // exceed that of 'this'. 'callback' must be noexcept.
-    WakeUpEventSource(SysManualEvent::Handle aHandle,
-        bool (*aCallback)(void*, TEvent&),
+    WakeUpEventSource(SysManualEvent::Handle aHandle, bool (*aCallback)(void*, TEvent&),
         void* aCallbackArgs) noexcept;
 
     WakeUpEventSource& operator=(const WakeUpEventSource&) = delete;
@@ -94,9 +93,8 @@ public:
     bool getEvent(TEvent& event) noexcept override; // Single consumer.
 };
 
-inline WakeUpEventSource::WakeUpEventSource(SysManualEvent::Handle aHandle,
-    bool (*aCallback)(void*, TEvent&),
-    void* aCallbackArgs) noexcept
+inline WakeUpEventSource::WakeUpEventSource(
+    SysManualEvent::Handle aHandle, bool (*aCallback)(void*, TEvent&), void* aCallbackArgs) noexcept
     : EventSource(SysManualEvent::getWaitableHandle(aHandle))
     , sys(aHandle)
     , callback((bool (*)(void*, TEvent&) noexcept)aCallback)
@@ -134,10 +132,7 @@ struct PollData {
         states.erase(states.begin() + i);
     }
 
-    size_t size()
-    {
-        return items.size();
-    }
+    size_t size() { return items.size(); }
 };
 
 class EventWaiter {

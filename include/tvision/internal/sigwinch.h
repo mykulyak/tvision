@@ -16,8 +16,7 @@ class SigwinchHandler final : public WakeUpEventSource {
     static void handleSignal(int) noexcept;
     static bool getEvent(void*, TEvent&) noexcept;
 
-    SigwinchHandler(SysManualEvent::Handle handle,
-        const struct sigaction& aOldSa) noexcept;
+    SigwinchHandler(SysManualEvent::Handle handle, const struct sigaction& aOldSa) noexcept;
 
 public:
     static SigwinchHandler* create() noexcept;

@@ -19,6 +19,4 @@ void* TCollection::read(ipstream& is)
     return this;
 }
 
-TCollection::TCollection(StreamableInit) noexcept
-{
-}
+TCollection::TCollection(StreamableInit) noexcept { }

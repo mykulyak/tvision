@@ -1,15 +1,9 @@
 #include <tvision/PXPictureValidator.h>
 #include <tvision/tobjstrm.h>
 
-static inline char uppercase(char c)
-{
-    return (('a' <= c) && (c <= 'z')) ? c + 'A' - 'a' : c;
-}
+static inline char uppercase(char c) { return (('a' <= c) && (c <= 'z')) ? c + 'A' - 'a' : c; }
 
-bool isNumber(char ch)
-{
-    return bool(('0' <= ch) && (ch <= '9'));
-}
+bool isNumber(char ch) { return bool(('0' <= ch) && (ch <= '9')); }
 
 bool isLetter(char ch)
 {
@@ -56,9 +50,8 @@ const char* TPXPictureValidator::errorMsg = "Error in picture format.\n %s";
 
 __link(RValidator);
 
-TStreamableClass RPXPictureValidator(TPXPictureValidator::name,
-    TPXPictureValidator::build,
-    __DELTA(TPXPictureValidator));
+TStreamableClass RPXPictureValidator(
+    TPXPictureValidator::name, TPXPictureValidator::build, __DELTA(TPXPictureValidator));
 
 TPXPictureValidator::TPXPictureValidator(TStringView aPic, bool autoFill)
     : TValidator()
@@ -94,22 +87,13 @@ void* TPXPictureValidator::read(ipstream& is)
     return this;
 }
 
-TStreamable* TPXPictureValidator::build()
-{
-    return new TPXPictureValidator(streamableInit);
-}
+TStreamable* TPXPictureValidator::build() { return new TPXPictureValidator(streamableInit); }
 
 #endif
 
-TPXPictureValidator::~TPXPictureValidator()
-{
-    delete[] pic;
-}
+TPXPictureValidator::~TPXPictureValidator() { delete[] pic; }
 
-void TPXPictureValidator::error()
-{
-    messageBox(mfError | mfOKButton, errorMsg, pic);
-}
+void TPXPictureValidator::error() { messageBox(mfError | mfOKButton, errorMsg, pic); }
 
 bool TPXPictureValidator::isValidInput(char* s, bool suppressFill)
 {

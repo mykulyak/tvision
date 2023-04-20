@@ -24,8 +24,8 @@ struct fLink {
 
 #ifndef __COUNTER__
 
-#define __link(s)              \
-    extern TStreamableClass s; \
+#define __link(s)                                                                                  \
+    extern TStreamableClass s;                                                                     \
     static fLink force##s = { (fLink*)&force##s, (fLink::forceLink = &s, (TStreamableClass*)&s) };
 
 #else
@@ -33,8 +33,8 @@ struct fLink {
 // Take advantage of the __COUNTER__ macro so that linking the same object twice
 // doesn't trigger a compilation error.
 
-#define __link_declare(s, n)   \
-    extern TStreamableClass s; \
+#define __link_declare(s, n)                                                                       \
+    extern TStreamableClass s;                                                                     \
     static void* const force##s##n = ((void)force##s##n, fLink::forceLink = &s, nullptr);
 
 #define __link_expand(s, ...) __link_declare(s, __VA_ARGS__)
@@ -250,11 +250,8 @@ class pstream {
     friend TStreamableTypes;
 
 public:
-    enum StreamableError { peNotRegistered,
-        peInvalidType };
-    enum PointerTypes { ptNull,
-        ptIndexed,
-        ptObject };
+    enum StreamableError { peNotRegistered, peInvalidType };
+    enum PointerTypes { ptNull, ptIndexed, ptObject };
 
     pstream(std::streambuf*) noexcept;
     virtual ~pstream();
@@ -329,8 +326,7 @@ protected:
     ipstream() noexcept;
 
     const TStreamableClass* readPrefix();
-    void* readData(const TStreamableClass*,
-        TStreamable*);
+    void* readData(const TStreamableClass*, TStreamable*);
     void readSuffix();
 
     const void* find(P_id_type);
@@ -459,13 +455,11 @@ class ifpstream : public fpbase, public ipstream {
 
 public:
     ifpstream() noexcept;
-    ifpstream(const char*,
-        pstream::openmode = std::ios::in);
+    ifpstream(const char*, pstream::openmode = std::ios::in);
     ~ifpstream();
 
     std::filebuf* rdbuf() noexcept;
-    void open(const char*,
-        pstream::openmode = std::ios::in);
+    void open(const char*, pstream::openmode = std::ios::in);
 };
 
 #endif // __ifpstream

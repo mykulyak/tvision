@@ -10,16 +10,10 @@
 __link(RView);
 __link(RWindow);
 
-static const char* monthNames[]
-    = {
-          "",
-          "January", "February", "March", "April", "May", "June",
-          "July", "August", "September", "October", "November", "December"
-      };
+static const char* monthNames[] = { "", "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December" };
 
-static unsigned char daysInMonth[] = {
-    0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
-};
+static unsigned char daysInMonth[] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 //
 // TCalendarView functions
@@ -40,14 +34,9 @@ void* TCalendarView::read(ipstream& is)
     return this;
 }
 
-TStreamable* TCalendarView::build()
-{
-    return new TCalendarView(streamableInit);
-}
+TStreamable* TCalendarView::build() { return new TCalendarView(streamableInit); }
 
-TStreamableClass RCalendarView(TCalendarView::name,
-    TCalendarView::build,
-    __DELTA(TCalendarView));
+TStreamableClass RCalendarView(TCalendarView::name, TCalendarView::build, __DELTA(TCalendarView));
 
 TCalendarView::TCalendarView(TRect& r)
     : TView(r)
@@ -79,7 +68,8 @@ int dayOfWeek(int day, int month, int year)
 
     century = year / 100;
     yr = year % 100;
-    dw = (((26 * (int)month - 2) / 10) + (int)day + yr + (yr / 4) + (century / 4) - (2 * century)) % 7;
+    dw = (((26 * (int)month - 2) / 10) + (int)day + yr + (yr / 4) + (century / 4) - (2 * century))
+        % 7;
 
     if (dw < 0)
         dw += 7;
@@ -102,8 +92,8 @@ void TCalendarView::draw()
     buf.moveChar(0, ' ', color, 22);
     {
         std::ostrstream os(str, sizeof str);
-        os << std::setw(9) << monthNames[month] << " " << std::setw(4) << year
-           << " " << (char)30 << "  " << (char)31 << " " << std::ends;
+        os << std::setw(9) << monthNames[month] << " " << std::setw(4) << year << " " << (char)30
+           << "  " << (char)31 << " " << std::ends;
     }
     buf.moveStr(0, str, color);
     writeLine(0, 0, 22, 1, buf);
@@ -181,10 +171,7 @@ void TCalendarView::handleEvent(TEvent& event)
 
 const char* const TCalendarWindow::name = "TCalendarWindow";
 
-void TCalendarWindow::write(opstream& os)
-{
-    TWindow::write(os);
-}
+void TCalendarWindow::write(opstream& os) { TWindow::write(os); }
 
 void* TCalendarWindow::read(ipstream& is)
 {
@@ -192,14 +179,10 @@ void* TCalendarWindow::read(ipstream& is)
     return this;
 }
 
-TStreamable* TCalendarWindow::build()
-{
-    return new TCalendarWindow(streamableInit);
-}
+TStreamable* TCalendarWindow::build() { return new TCalendarWindow(streamableInit); }
 
-TStreamableClass RCalendarWindow(TCalendarWindow::name,
-    TCalendarWindow::build,
-    __DELTA(TCalendarWindow));
+TStreamableClass RCalendarWindow(
+    TCalendarWindow::name, TCalendarWindow::build, __DELTA(TCalendarWindow));
 
 TCalendarWindow::TCalendarWindow()
     : TWindowInit(&TCalendarWindow::initFrame)

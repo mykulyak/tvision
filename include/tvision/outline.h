@@ -44,10 +44,7 @@ public:
     static const char* const name;
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 };
 
 inline TOutline::TOutline(StreamableInit s) noexcept
@@ -55,22 +52,10 @@ inline TOutline::TOutline(StreamableInit s) noexcept
 {
 }
 
-inline ipstream& operator>>(ipstream& is, TOutline& o)
-{
-    return is >> (TStreamable&)o;
-}
-inline ipstream& operator>>(ipstream& is, TOutline*& o)
-{
-    return is >> (void*&)o;
-}
+inline ipstream& operator>>(ipstream& is, TOutline& o) { return is >> (TStreamable&)o; }
+inline ipstream& operator>>(ipstream& is, TOutline*& o) { return is >> (void*&)o; }
 
-inline opstream& operator<<(opstream& os, TOutline& o)
-{
-    return os << (TStreamable&)o;
-}
-inline opstream& operator<<(opstream& os, TOutline* o)
-{
-    return os << (TStreamable*)o;
-}
+inline opstream& operator<<(opstream& os, TOutline& o) { return os << (TStreamable&)o; }
+inline opstream& operator<<(opstream& os, TOutline* o) { return os << (TStreamable*)o; }
 
 #endif // TVision_TOutline_h

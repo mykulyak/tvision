@@ -14,16 +14,11 @@ const char* TButton::markers = "[]";
 
 __link(RView);
 
-TStreamableClass RButton(TButton::name,
-    TButton::build,
-    __DELTA(TButton));
+TStreamableClass RButton(TButton::name, TButton::build, __DELTA(TButton));
 
 #define cpButton "\x0A\x0B\x0C\x0D\x0E\x0E\x0E\x0F"
 
-TButton::TButton(const TRect& bounds,
-    TStringView aTitle,
-    ushort aCommand,
-    ushort aFlags) noexcept
+TButton::TButton(const TRect& bounds, TStringView aTitle, ushort aCommand, ushort aFlags) noexcept
     : TView(bounds)
     , title(newStr(aTitle))
     , command(aCommand)
@@ -37,21 +32,11 @@ TButton::TButton(const TRect& bounds,
         state |= sfDisabled;
 }
 
-TButton::~TButton()
-{
-    delete[] (char*)title;
-}
+TButton::~TButton() { delete[] (char*)title; }
 
-void TButton::draw()
-{
-    drawState(false);
-}
+void TButton::draw() { drawState(false); }
 
-void TButton::drawTitle(TDrawBuffer& b,
-    int s,
-    int i,
-    TAttrPair cButton,
-    bool down)
+void TButton::drawTitle(TDrawBuffer& b, int s, int i, TAttrPair cButton, bool down)
 {
     int l, scOff;
     if ((flags & bfLeftJust) != 0)
@@ -177,7 +162,11 @@ void TButton::handleEvent(TEvent& event)
         break;
 
     case evKeyDown:
-        if (event.keyDown.keyCode != 0 && (event.keyDown.keyCode == getAltCode(c) || (owner->phase == phPostProcess && c != 0 && toupper(event.keyDown.charScan.charCode) == c) || ((state & sfFocused) != 0 && event.keyDown.charScan.charCode == ' '))) {
+        if (event.keyDown.keyCode != 0
+            && (event.keyDown.keyCode == getAltCode(c)
+                || (owner->phase == phPostProcess && c != 0
+                    && toupper(event.keyDown.charScan.charCode) == c)
+                || ((state & sfFocused) != 0 && event.keyDown.charScan.charCode == ' '))) {
             drawState(true);
             if (animationTimer != 0)
                 press();
@@ -224,10 +213,7 @@ void TButton::handleEvent(TEvent& event)
 void TButton::makeDefault(bool enable)
 {
     if ((flags & bfDefault) == 0) {
-        message(owner,
-            evBroadcast,
-            (enable == true) ? cmGrabDefault : cmReleaseDefault,
-            this);
+        message(owner, evBroadcast, (enable == true) ? cmGrabDefault : cmReleaseDefault, this);
         amDefault = enable;
         drawView();
     }
@@ -279,9 +265,6 @@ void* TButton::read(ipstream& is)
     return this;
 }
 
-TStreamable* TButton::build()
-{
-    return new TButton(streamableInit);
-}
+TStreamable* TButton::build() { return new TButton(streamableInit); }
 
 #endif

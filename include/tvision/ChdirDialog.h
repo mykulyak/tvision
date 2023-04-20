@@ -3,9 +3,7 @@
 
 #include <tvision/Dialog.h>
 
-const int
-    cdNormal
-    = 0x0000, // Option to use dialog immediately
+const int cdNormal = 0x0000, // Option to use dialog immediately
     cdNoLoadDir = 0x0001, // Option to init the dialog to store on a stream
     cdHelpButton = 0x0002; // Put a help button in the dialog
 
@@ -44,10 +42,7 @@ private:
     static const char* drivesText;
     static const char* invalidText;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TChDirDialog(StreamableInit) noexcept
@@ -63,22 +58,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TChDirDialog& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TChDirDialog*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TChDirDialog& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TChDirDialog*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TChDirDialog& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TChDirDialog* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TChDirDialog& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TChDirDialog* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TChDirDialog_h

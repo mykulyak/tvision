@@ -10,8 +10,7 @@
 #include <bitset>
 #endif
 
-unsigned _dos_findfirst(const char* pathname, unsigned attrib,
-    struct find_t* fileinfo) noexcept
+unsigned _dos_findfirst(const char* pathname, unsigned attrib, struct find_t* fileinfo) noexcept
 {
     using namespace tvision;
     // The original findfirst sets errno on failure. We don't do this for now.
@@ -35,13 +34,10 @@ int findfirst(const char* pathname, struct ffblk* ffblk, int attrib) noexcept
     return _dos_findfirst(pathname, attrib, (struct find_t*)ffblk);
 }
 
-int findnext(struct ffblk* ffblk) noexcept
-{
-    return _dos_findnext((struct find_t*)ffblk);
-}
+int findnext(struct ffblk* ffblk) noexcept { return _dos_findnext((struct find_t*)ffblk); }
 
-void fnmerge(char* pathP, const char* driveP, const char* dirP,
-    const char* nameP, const char* extP) noexcept
+void fnmerge(
+    char* pathP, const char* driveP, const char* dirP, const char* nameP, const char* extP) noexcept
 {
     using namespace tvision;
     // fnmerge is often used before accessing files, so producing a

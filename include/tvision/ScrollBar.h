@@ -25,8 +25,7 @@ public:
     virtual void handleEvent(TEvent& event);
     virtual void scrollDraw();
     virtual int scrollStep(int part);
-    void setParams(int aValue, int aMin, int aMax,
-        int aPgStep, int aArStep) noexcept;
+    void setParams(int aValue, int aMin, int aMax, int aPgStep, int aArStep) noexcept;
     void setRange(int aMin, int aMax) noexcept;
     void setStep(int aPgStep, int aArStep) noexcept;
     void setValue(int aValue) noexcept;
@@ -49,10 +48,7 @@ private:
     static TScrollChars vChars;
     static TScrollChars hChars;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TScrollBar(StreamableInit) noexcept;
@@ -64,22 +60,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TScrollBar& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TScrollBar*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TScrollBar& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TScrollBar*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TScrollBar& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TScrollBar* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TScrollBar& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TScrollBar* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TScrollBar_h

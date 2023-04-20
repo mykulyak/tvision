@@ -25,10 +25,7 @@ protected:
 private:
     static const char* icon;
 
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     THistory(StreamableInit) noexcept;
@@ -40,22 +37,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, THistory& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, THistory*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, THistory& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, THistory*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, THistory& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, THistory* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, THistory& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, THistory* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_THistory_h

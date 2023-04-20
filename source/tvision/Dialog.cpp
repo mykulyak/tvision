@@ -86,10 +86,7 @@ bool TDialog::valid(ushort command)
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TDialog::build()
-{
-    return new TDialog(streamableInit);
-}
+TStreamable* TDialog::build() { return new TDialog(streamableInit); }
 
 TDialog::TDialog(StreamableInit) noexcept
     : TWindowInit(0)

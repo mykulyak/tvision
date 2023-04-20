@@ -56,10 +56,7 @@ static constexpr HCL RGBtoHCL(uint8_t R, uint8_t G, uint8_t B) noexcept
     return { (uint8_t)H, C, L };
 }
 
-static constexpr uint8_t u8(double d) noexcept
-{
-    return uint8_t(d * 255);
-}
+static constexpr uint8_t u8(double d) noexcept { return uint8_t(d * 255); }
 
 static constexpr uint8_t RGBtoXTerm16(uint8_t r, uint8_t g, uint8_t b) noexcept
 {
@@ -69,8 +66,9 @@ static constexpr uint8_t RGBtoXTerm16(uint8_t r, uint8_t g, uint8_t b) noexcept
     {
         constexpr uint8_t normal[6] = { 0x1, 0x3, 0x2, 0x6, 0x4, 0x5 };
         constexpr uint8_t bright[6] = { 0x9, 0xB, 0xA, 0xE, 0xC, 0xD };
-        uint8_t index = uint8_t(c.h < HUE_MAX - HUE_PRECISION / 2 ? c.h + HUE_PRECISION / 2
-                                                                  : c.h - (HUE_MAX - HUE_PRECISION / 2))
+        uint8_t index
+            = uint8_t(c.h < HUE_MAX - HUE_PRECISION / 2 ? c.h + HUE_PRECISION / 2
+                                                        : c.h - (HUE_MAX - HUE_PRECISION / 2))
             / HUE_PRECISION;
         if (c.l < u8(0.5))
             return normal[index];
@@ -142,9 +140,6 @@ extern constexpr constarray<uint8_t, 256> XTerm256toXTerm16LUT = initXTerm256toX
 
 extern constexpr constarray<uint32_t, 256> XTerm256toRGBLUT = initXTerm256toRGBLUT();
 
-uint8_t RGBtoXTerm16Impl(TColorRGB c) noexcept
-{
-    return RGBtoXTerm16(c.r, c.g, c.b);
-}
+uint8_t RGBtoXTerm16Impl(TColorRGB c) noexcept { return RGBtoXTerm16(c.r, c.g, c.b); }
 
 } // namespace tvision

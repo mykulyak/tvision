@@ -16,10 +16,7 @@ TDrawSurface::TDrawSurface(TPoint aSize) noexcept
     resize(aSize);
 }
 
-TDrawSurface::~TDrawSurface()
-{
-    ::free(data);
-}
+TDrawSurface::~TDrawSurface() { ::free(data); }
 
 void TDrawSurface::resize(TPoint aSize)
 {
@@ -49,13 +46,9 @@ void TDrawSurface::resize(TPoint aSize)
     size = aSize;
 }
 
-void TDrawSurface::clear()
-{
-    memset(data, 0, dataLength * sizeof(TScreenCell));
-}
+void TDrawSurface::clear() { memset(data, 0, dataLength * sizeof(TScreenCell)); }
 
-TSurfaceView::TSurfaceView(const TRect& bounds,
-    const TDrawSurface* aSurface) noexcept
+TSurfaceView::TSurfaceView(const TRect& bounds, const TDrawSurface* aSurface) noexcept
     : TView(bounds)
     , surface(aSurface)
 {
@@ -81,9 +74,8 @@ void TSurfaceView::draw()
         const TRect extent = TRect(TPoint(), size);
         // This is the rectangle within the current view's extent where the
         // surface is to be drawn.
-        const TRect clip = TRect(TPoint(), surface->size)
-                               .move(-delta.x, -delta.y)
-                               .intersect(extent);
+        const TRect clip
+            = TRect(TPoint(), surface->size).move(-delta.x, -delta.y).intersect(extent);
         if (0 <= clip.a.x && clip.a.x < clip.b.x && 0 <= clip.a.y && clip.a.y < clip.b.y) {
             const TScreenCell* data = &surface->at(max(delta.y, 0), max(delta.x, 0));
             if (clip == extent)

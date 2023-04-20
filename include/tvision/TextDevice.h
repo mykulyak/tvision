@@ -8,9 +8,7 @@ class TScrollBar;
 
 class TTextDevice : public TScroller, public std::streambuf {
 public:
-    TTextDevice(const TRect& bounds,
-        TScrollBar* aHScrollBar,
-        TScrollBar* aVScrollBar,
+    TTextDevice(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,
         ushort aBufSize = 256) noexcept;
     ~TTextDevice();
 

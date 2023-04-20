@@ -6,9 +6,7 @@ const char* const TColorDialog::name = "TColorDialog";
 __link(RLabel);
 __link(RDialog);
 
-TStreamableClass RColorDialog(TColorDialog::name,
-    TColorDialog::build,
-    __DELTA(TColorDialog));
+TStreamableClass RColorDialog(TColorDialog::name, TColorDialog::build, __DELTA(TColorDialog));
 
 const char* TColorDialog::colors = "Colors";
 const char* TColorDialog::groupText = "~G~roup";
@@ -45,14 +43,12 @@ TColorDialog::TColorDialog(TPalette* aPalette, TColorGroup* aGroups) noexcept
     insert(p);
     insert(new TLabel(TRect(20, 2, 25, 3), itemText, p));
 
-    forSel = new TColorSelector(TRect(45, 3, 57, 7),
-        TColorSelector::csForeground);
+    forSel = new TColorSelector(TRect(45, 3, 57, 7), TColorSelector::csForeground);
     insert(forSel);
     forLabel = new TLabel(TRect(45, 2, 57, 3), forText, forSel);
     insert(forLabel);
 
-    bakSel = new TColorSelector(TRect(45, 9, 57, 11),
-        TColorSelector::csBackground);
+    bakSel = new TColorSelector(TRect(45, 9, 57, 11), TColorSelector::csBackground);
     insert(bakSel);
     bakLabel = new TLabel(TRect(45, 8, 57, 9), bakText, bakSel);
     insert(bakLabel);
@@ -75,10 +71,7 @@ TColorDialog::TColorDialog(TPalette* aPalette, TColorGroup* aGroups) noexcept
         setData(pal);
 }
 
-TColorDialog::~TColorDialog()
-{
-    delete pal;
-}
+TColorDialog::~TColorDialog() { delete pal; }
 
 void TColorDialog::handleEvent(TEvent& event)
 {
@@ -89,10 +82,7 @@ void TColorDialog::handleEvent(TEvent& event)
         display->setColor(&pal->data[event.message.infoByte]);
 }
 
-ushort TColorDialog::dataSize()
-{
-    return *pal->data + 1;
-}
+ushort TColorDialog::dataSize() { return *pal->data + 1; }
 
 void TColorDialog::getData(void* rec)
 {
@@ -159,23 +149,18 @@ void TColorDialog::getIndexes(TColorIndex*& colIdx)
 void TColorDialog::write(opstream& os)
 {
     TDialog::write(os);
-    os << display << groups << forLabel << forSel
-       << bakLabel << bakSel << monoLabel << monoSel;
+    os << display << groups << forLabel << forSel << bakLabel << bakSel << monoLabel << monoSel;
 }
 
 void* TColorDialog::read(ipstream& is)
 {
     TDialog::read(is);
-    is >> display >> groups >> forLabel >> forSel
-        >> bakLabel >> bakSel >> monoLabel >> monoSel;
+    is >> display >> groups >> forLabel >> forSel >> bakLabel >> bakSel >> monoLabel >> monoSel;
     pal = 0;
     return this;
 }
 
-TStreamable* TColorDialog::build()
-{
-    return new TColorDialog(streamableInit);
-}
+TStreamable* TColorDialog::build() { return new TColorDialog(streamableInit); }
 
 TColorDialog::TColorDialog(StreamableInit) noexcept
     : TWindowInit(0)

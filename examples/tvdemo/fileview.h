@@ -29,9 +29,7 @@ public:
     std::unique_ptr<TLineCollection> fileLines;
     bool isValid;
 
-    TFileViewer(const TRect& bounds,
-        TScrollBar* aHScrollBar,
-        TScrollBar* aVScrollBar,
+    TFileViewer(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,
         const std::filesystem::path& aFileName);
     TFileViewer(StreamableInit)
         : TScroller(streamableInit) {};
@@ -42,10 +40,7 @@ public:
     bool valid(ushort command);
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     virtual void write(opstream&);

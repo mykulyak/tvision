@@ -48,33 +48,18 @@ namespace tvision {
 
 static constexpr KeyDownEvent fromNonPrintableAscii[32] = {
     { { '@' }, kbLeftCtrl, { '@' }, 1 }, // ^@, Null
-    { { kbCtrlA }, kbLeftCtrl },
-    { { kbCtrlB }, kbLeftCtrl },
-    { { kbCtrlC }, kbLeftCtrl },
-    { { kbCtrlD }, kbLeftCtrl },
-    { { kbCtrlE }, kbLeftCtrl },
-    { { kbCtrlF }, kbLeftCtrl },
-    { { kbCtrlG }, kbLeftCtrl },
-    { { kbBack }, 0 }, // ^H, Backspace
+    { { kbCtrlA }, kbLeftCtrl }, { { kbCtrlB }, kbLeftCtrl }, { { kbCtrlC }, kbLeftCtrl },
+    { { kbCtrlD }, kbLeftCtrl }, { { kbCtrlE }, kbLeftCtrl }, { { kbCtrlF }, kbLeftCtrl },
+    { { kbCtrlG }, kbLeftCtrl }, { { kbBack }, 0 }, // ^H, Backspace
     { { kbTab }, 0 }, // ^I, Tab
     { { kbEnter }, 0 }, // ^J, Line Feed
-    { { kbCtrlK }, kbLeftCtrl },
-    { { kbCtrlL }, kbLeftCtrl },
+    { { kbCtrlK }, kbLeftCtrl }, { { kbCtrlL }, kbLeftCtrl },
     { { kbEnter }, 0 }, // ^M, Carriage Return
-    { { kbCtrlN }, kbLeftCtrl },
-    { { kbCtrlO }, kbLeftCtrl },
-    { { kbCtrlP }, kbLeftCtrl },
-    { { kbCtrlQ }, kbLeftCtrl },
-    { { kbCtrlR }, kbLeftCtrl },
-    { { kbCtrlS }, kbLeftCtrl },
-    { { kbCtrlT }, kbLeftCtrl },
-    { { kbCtrlU }, kbLeftCtrl },
-    { { kbCtrlV }, kbLeftCtrl },
-    { { kbCtrlW }, kbLeftCtrl },
-    { { kbCtrlX }, kbLeftCtrl },
-    { { kbCtrlY }, kbLeftCtrl },
-    { { kbCtrlZ }, kbLeftCtrl },
-    { { kbEsc }, 0 }, // ^[, Escape
+    { { kbCtrlN }, kbLeftCtrl }, { { kbCtrlO }, kbLeftCtrl }, { { kbCtrlP }, kbLeftCtrl },
+    { { kbCtrlQ }, kbLeftCtrl }, { { kbCtrlR }, kbLeftCtrl }, { { kbCtrlS }, kbLeftCtrl },
+    { { kbCtrlT }, kbLeftCtrl }, { { kbCtrlU }, kbLeftCtrl }, { { kbCtrlV }, kbLeftCtrl },
+    { { kbCtrlW }, kbLeftCtrl }, { { kbCtrlX }, kbLeftCtrl }, { { kbCtrlY }, kbLeftCtrl },
+    { { kbCtrlZ }, kbLeftCtrl }, { { kbEsc }, 0 }, // ^[, Escape
     { { '\\' }, kbLeftCtrl, { '\\' }, 1 }, // ^\, File Separator
     { { ']' }, kbLeftCtrl, { ']' }, 1 }, // ^], Group Separator
     { { '^' }, kbLeftCtrl, { '^' }, 1 }, // ^^, Record Separator
@@ -82,77 +67,45 @@ static constexpr KeyDownEvent fromNonPrintableAscii[32] = {
 };
 
 static const const_unordered_map<ushort, KeyDownEvent> fromCursesKeyCode = {
-    { KEY_DOWN, { { kbDown }, 0 } },
-    { KEY_UP, { { kbUp }, 0 } },
-    { KEY_LEFT, { { kbLeft }, 0 } },
-    { KEY_RIGHT, { { kbRight }, 0 } },
-    { KEY_HOME, { { kbHome }, 0 } },
-    { KEY_BACKSPACE, { { kbBack }, 0 } },
-    { KEY_DC, { { kbDel }, 0 } },
-    { KEY_IC, { { kbIns }, 0 } },
-    { KEY_SF, { { kbDown }, kbShift } },
-    { KEY_SR, { { kbUp }, kbShift } },
-    { KEY_NPAGE, { { kbPgDn }, 0 } },
-    { KEY_PPAGE, { { kbPgUp }, 0 } },
-    { KEY_ENTER, { { kbEnter }, 0 } },
-    { KEY_BTAB, { { kbShiftTab }, kbShift } },
-    { KEY_END, { { kbEnd }, 0 } },
-    { KEY_SDC, { { kbShiftDel }, kbShift } },
-    { KEY_SEND, { { kbEnd }, kbShift } },
-    { KEY_SHOME, { { kbHome }, kbShift } },
-    { KEY_SIC, { { kbShiftIns }, kbShift } },
-    { KEY_SLEFT, { { kbLeft }, kbShift } },
-    { KEY_SRIGHT, { { kbRight }, kbShift } },
+    { KEY_DOWN, { { kbDown }, 0 } }, { KEY_UP, { { kbUp }, 0 } }, { KEY_LEFT, { { kbLeft }, 0 } },
+    { KEY_RIGHT, { { kbRight }, 0 } }, { KEY_HOME, { { kbHome }, 0 } },
+    { KEY_BACKSPACE, { { kbBack }, 0 } }, { KEY_DC, { { kbDel }, 0 } },
+    { KEY_IC, { { kbIns }, 0 } }, { KEY_SF, { { kbDown }, kbShift } },
+    { KEY_SR, { { kbUp }, kbShift } }, { KEY_NPAGE, { { kbPgDn }, 0 } },
+    { KEY_PPAGE, { { kbPgUp }, 0 } }, { KEY_ENTER, { { kbEnter }, 0 } },
+    { KEY_BTAB, { { kbShiftTab }, kbShift } }, { KEY_END, { { kbEnd }, 0 } },
+    { KEY_SDC, { { kbShiftDel }, kbShift } }, { KEY_SEND, { { kbEnd }, kbShift } },
+    { KEY_SHOME, { { kbHome }, kbShift } }, { KEY_SIC, { { kbShiftIns }, kbShift } },
+    { KEY_SLEFT, { { kbLeft }, kbShift } }, { KEY_SRIGHT, { { kbRight }, kbShift } },
     { KEY_SUSPEND, { { kbCtrlZ }, kbLeftCtrl } },
     // Avoid using these, as they are reserved by the Linux console.
-    { KEY_SPREVIOUS, { { kbPgUp }, kbShift } },
-    { KEY_SNEXT, { { kbPgDn }, kbShift } },
+    { KEY_SPREVIOUS, { { kbPgUp }, kbShift } }, { KEY_SNEXT, { { kbPgDn }, kbShift } },
     // Keypad
-    { KEY_A1, { { kbHome }, 0 } },
-    { KEY_A3, { { kbPgUp }, 0 } },
-    { KEY_C1, { { kbEnd }, 0 } },
+    { KEY_A1, { { kbHome }, 0 } }, { KEY_A3, { { kbPgUp }, 0 } }, { KEY_C1, { { kbEnd }, 0 } },
     { KEY_C3, { { kbPgDn }, 0 } },
     // Function keys F1-F12
-    { KEY_F0 + 1, { { kbF1 }, 0 } },
-    { KEY_F0 + 2, { { kbF2 }, 0 } },
-    { KEY_F0 + 3, { { kbF3 }, 0 } },
-    { KEY_F0 + 4, { { kbF4 }, 0 } },
-    { KEY_F0 + 5, { { kbF5 }, 0 } },
-    { KEY_F0 + 6, { { kbF6 }, 0 } },
-    { KEY_F0 + 7, { { kbF7 }, 0 } },
-    { KEY_F0 + 8, { { kbF8 }, 0 } },
-    { KEY_F0 + 9, { { kbF9 }, 0 } },
-    { KEY_F0 + 10, { { kbF10 }, 0 } },
-    { KEY_F0 + 11, { { kbF11 }, 0 } },
-    { KEY_F0 + 12, { { kbF12 }, 0 } },
+    { KEY_F0 + 1, { { kbF1 }, 0 } }, { KEY_F0 + 2, { { kbF2 }, 0 } },
+    { KEY_F0 + 3, { { kbF3 }, 0 } }, { KEY_F0 + 4, { { kbF4 }, 0 } },
+    { KEY_F0 + 5, { { kbF5 }, 0 } }, { KEY_F0 + 6, { { kbF6 }, 0 } },
+    { KEY_F0 + 7, { { kbF7 }, 0 } }, { KEY_F0 + 8, { { kbF8 }, 0 } },
+    { KEY_F0 + 9, { { kbF9 }, 0 } }, { KEY_F0 + 10, { { kbF10 }, 0 } },
+    { KEY_F0 + 11, { { kbF11 }, 0 } }, { KEY_F0 + 12, { { kbF12 }, 0 } },
     // Shift+F1-F12
-    { KEY_F0 + 13, { { kbShiftF1 }, kbShift } },
-    { KEY_F0 + 14, { { kbShiftF2 }, kbShift } },
-    { KEY_F0 + 15, { { kbShiftF3 }, kbShift } },
-    { KEY_F0 + 16, { { kbShiftF4 }, kbShift } },
-    { KEY_F0 + 17, { { kbShiftF5 }, kbShift } },
-    { KEY_F0 + 18, { { kbShiftF6 }, kbShift } },
-    { KEY_F0 + 19, { { kbShiftF7 }, kbShift } },
-    { KEY_F0 + 20, { { kbShiftF8 }, kbShift } },
-    { KEY_F0 + 21, { { kbShiftF9 }, kbShift } },
-    { KEY_F0 + 22, { { kbShiftF10 }, kbShift } },
-    { KEY_F0 + 23, { { kbShiftF11 }, kbShift } },
-    { KEY_F0 + 24, { { kbShiftF12 }, kbShift } },
+    { KEY_F0 + 13, { { kbShiftF1 }, kbShift } }, { KEY_F0 + 14, { { kbShiftF2 }, kbShift } },
+    { KEY_F0 + 15, { { kbShiftF3 }, kbShift } }, { KEY_F0 + 16, { { kbShiftF4 }, kbShift } },
+    { KEY_F0 + 17, { { kbShiftF5 }, kbShift } }, { KEY_F0 + 18, { { kbShiftF6 }, kbShift } },
+    { KEY_F0 + 19, { { kbShiftF7 }, kbShift } }, { KEY_F0 + 20, { { kbShiftF8 }, kbShift } },
+    { KEY_F0 + 21, { { kbShiftF9 }, kbShift } }, { KEY_F0 + 22, { { kbShiftF10 }, kbShift } },
+    { KEY_F0 + 23, { { kbShiftF11 }, kbShift } }, { KEY_F0 + 24, { { kbShiftF12 }, kbShift } },
     /* Linux console support for function keys ends here, so please
      * avoid using any of the following: */
     // Ctrl+F1-F12
-    { KEY_F0 + 25, { { kbCtrlF1 }, kbLeftCtrl } },
-    { KEY_F0 + 26, { { kbCtrlF2 }, kbLeftCtrl } },
-    { KEY_F0 + 27, { { kbCtrlF3 }, kbLeftCtrl } },
-    { KEY_F0 + 28, { { kbCtrlF4 }, kbLeftCtrl } },
-    { KEY_F0 + 29, { { kbCtrlF5 }, kbLeftCtrl } },
-    { KEY_F0 + 30, { { kbCtrlF6 }, kbLeftCtrl } },
-    { KEY_F0 + 31, { { kbCtrlF7 }, kbLeftCtrl } },
-    { KEY_F0 + 32, { { kbCtrlF8 }, kbLeftCtrl } },
-    { KEY_F0 + 33, { { kbCtrlF9 }, kbLeftCtrl } },
-    { KEY_F0 + 34, { { kbCtrlF10 }, kbLeftCtrl } },
-    { KEY_F0 + 35, { { kbCtrlF11 }, kbLeftCtrl } },
-    { KEY_F0 + 36, { { kbCtrlF12 }, kbLeftCtrl } },
+    { KEY_F0 + 25, { { kbCtrlF1 }, kbLeftCtrl } }, { KEY_F0 + 26, { { kbCtrlF2 }, kbLeftCtrl } },
+    { KEY_F0 + 27, { { kbCtrlF3 }, kbLeftCtrl } }, { KEY_F0 + 28, { { kbCtrlF4 }, kbLeftCtrl } },
+    { KEY_F0 + 29, { { kbCtrlF5 }, kbLeftCtrl } }, { KEY_F0 + 30, { { kbCtrlF6 }, kbLeftCtrl } },
+    { KEY_F0 + 31, { { kbCtrlF7 }, kbLeftCtrl } }, { KEY_F0 + 32, { { kbCtrlF8 }, kbLeftCtrl } },
+    { KEY_F0 + 33, { { kbCtrlF9 }, kbLeftCtrl } }, { KEY_F0 + 34, { { kbCtrlF10 }, kbLeftCtrl } },
+    { KEY_F0 + 35, { { kbCtrlF11 }, kbLeftCtrl } }, { KEY_F0 + 36, { { kbCtrlF12 }, kbLeftCtrl } },
     // Ctrl+Shift+F1-12
     { KEY_F0 + 37, { { kbCtrlF1 }, kbShift | kbLeftCtrl } },
     { KEY_F0 + 38, { { kbCtrlF2 }, kbShift | kbLeftCtrl } },
@@ -167,85 +120,80 @@ static const const_unordered_map<ushort, KeyDownEvent> fromCursesKeyCode = {
     { KEY_F0 + 47, { { kbCtrlF11 }, kbShift | kbLeftCtrl } },
     { KEY_F0 + 48, { { kbCtrlF12 }, kbShift | kbLeftCtrl } },
     // Alt+F1-F12
-    { KEY_F0 + 49, { { kbAltF1 }, kbLeftAlt } },
-    { KEY_F0 + 50, { { kbAltF2 }, kbLeftAlt } },
-    { KEY_F0 + 51, { { kbAltF3 }, kbLeftAlt } },
-    { KEY_F0 + 52, { { kbAltF4 }, kbLeftAlt } },
-    { KEY_F0 + 53, { { kbAltF5 }, kbLeftAlt } },
-    { KEY_F0 + 54, { { kbAltF6 }, kbLeftAlt } },
-    { KEY_F0 + 55, { { kbAltF7 }, kbLeftAlt } },
-    { KEY_F0 + 56, { { kbAltF8 }, kbLeftAlt } },
-    { KEY_F0 + 57, { { kbAltF9 }, kbLeftAlt } },
-    { KEY_F0 + 58, { { kbAltF10 }, kbLeftAlt } },
-    { KEY_F0 + 59, { { kbAltF11 }, kbLeftAlt } },
-    { KEY_F0 + 60, { { kbAltF12 }, kbLeftAlt } }
+    { KEY_F0 + 49, { { kbAltF1 }, kbLeftAlt } }, { KEY_F0 + 50, { { kbAltF2 }, kbLeftAlt } },
+    { KEY_F0 + 51, { { kbAltF3 }, kbLeftAlt } }, { KEY_F0 + 52, { { kbAltF4 }, kbLeftAlt } },
+    { KEY_F0 + 53, { { kbAltF5 }, kbLeftAlt } }, { KEY_F0 + 54, { { kbAltF6 }, kbLeftAlt } },
+    { KEY_F0 + 55, { { kbAltF7 }, kbLeftAlt } }, { KEY_F0 + 56, { { kbAltF8 }, kbLeftAlt } },
+    { KEY_F0 + 57, { { kbAltF9 }, kbLeftAlt } }, { KEY_F0 + 58, { { kbAltF10 }, kbLeftAlt } },
+    { KEY_F0 + 59, { { kbAltF11 }, kbLeftAlt } }, { KEY_F0 + 60, { { kbAltF12 }, kbLeftAlt } }
 };
 
-static const auto fromCursesHighKey = const_unordered_map<uint64_t, KeyDownEvent>::with_string_keys({
-    /* These keys are identified by name. The int value is not known
-     * at compilation time. */
-    { "kDC3", { { kbAltDel }, kbLeftAlt } },
-    { "kEND3", { { kbAltEnd }, kbLeftAlt } },
-    { "kHOM3", { { kbAltHome }, kbLeftAlt } },
-    { "kIC3", { { kbAltIns }, kbLeftAlt } },
-    { "kLFT3", { { kbAltLeft }, kbLeftAlt } },
-    { "kNXT3", { { kbAltPgDn }, kbLeftAlt } },
-    { "kPRV3", { { kbAltPgUp }, kbLeftAlt } },
-    { "kRIT3", { { kbAltRight }, kbLeftAlt } },
-    { "kUP3", { { kbAltUp }, kbLeftAlt } },
-    { "kDN3", { { kbAltDown }, kbLeftAlt } },
-    { "kDC4", { { kbAltDel }, kbShift | kbLeftAlt } },
-    { "kEND4", { { kbAltEnd }, kbShift | kbLeftAlt } },
-    { "kHOM4", { { kbAltHome }, kbShift | kbLeftAlt } },
-    { "kIC4", { { kbAltIns }, kbShift | kbLeftAlt } },
-    { "kLFT4", { { kbAltLeft }, kbShift | kbLeftAlt } },
-    { "kNXT4", { { kbAltPgDn }, kbShift | kbLeftAlt } },
-    { "kPRV4", { { kbAltPgUp }, kbShift | kbLeftAlt } },
-    { "kRIT4", { { kbAltRight }, kbShift | kbLeftAlt } },
-    { "kUP4", { { kbAltUp }, kbShift | kbLeftAlt } },
-    { "kDN4", { { kbAltDown }, kbShift | kbLeftAlt } },
-    { "kDC5", { { kbCtrlDel }, kbLeftCtrl } },
-    { "kEND5", { { kbCtrlEnd }, kbLeftCtrl } },
-    { "kHOM5", { { kbCtrlHome }, kbLeftCtrl } },
-    { "kIC5", { { kbCtrlIns }, kbLeftCtrl } },
-    { "kLFT5", { { kbCtrlLeft }, kbLeftCtrl } },
-    { "kNXT5", { { kbCtrlPgDn }, kbLeftCtrl } },
-    { "kPRV5", { { kbCtrlPgUp }, kbLeftCtrl } },
-    { "kRIT5", { { kbCtrlRight }, kbLeftCtrl } },
-    { "kUP5", { { kbCtrlUp }, kbLeftCtrl } },
-    { "kDN5", { { kbCtrlDown }, kbLeftCtrl } },
-    { "kDC6", { { kbCtrlDel }, kbLeftCtrl | kbShift } },
-    { "kEND6", { { kbCtrlEnd }, kbLeftCtrl | kbShift } },
-    { "kHOM6", { { kbCtrlHome }, kbLeftCtrl | kbShift } },
-    { "kIC6", { { kbCtrlIns }, kbLeftCtrl | kbShift } },
-    { "kLFT6", { { kbCtrlLeft }, kbLeftCtrl | kbShift } },
-    { "kNXT6", { { kbCtrlPgDn }, kbLeftCtrl | kbShift } },
-    { "kPRV6", { { kbCtrlPgUp }, kbLeftCtrl | kbShift } },
-    { "kRIT6", { { kbCtrlRight }, kbLeftCtrl | kbShift } },
-    { "kUP6", { { kbCtrlUp }, kbLeftCtrl | kbShift } },
-    { "kDN6", { { kbCtrlDown }, kbLeftCtrl | kbShift } },
-    { "kDC7", { { kbAltDel }, kbLeftCtrl | kbLeftAlt } }, // Please do not attempt this one
-    { "kEND7", { { kbAltEnd }, kbLeftCtrl | kbLeftAlt } },
-    { "kHOM7", { { kbAltHome }, kbLeftCtrl | kbLeftAlt } },
-    { "kIC7", { { kbAltIns }, kbLeftCtrl | kbLeftAlt } },
-    { "kLFT7", { { kbAltLeft }, kbLeftCtrl | kbLeftAlt } },
-    { "kNXT7", { { kbAltPgDn }, kbLeftCtrl | kbLeftAlt } },
-    { "kPRV7", { { kbAltPgUp }, kbLeftCtrl | kbLeftAlt } },
-    { "kRIT7", { { kbAltRight }, kbLeftCtrl | kbLeftAlt } },
-    { "kUP7", { { kbAltUp }, kbLeftCtrl | kbLeftAlt } },
-    { "kDN7", { { kbAltDown }, kbLeftCtrl | kbLeftAlt } },
-    { "kpCMA", { { '+' }, 0, { '+' }, 1 } },
-    { "kpADD", { { '+' }, 0, { '+' }, 1 } },
-    { "kpSUB", { { '-' }, 0, { '-' }, 1 } },
-    { "kpMUL", { { '*' }, 0, { '*' }, 1 } },
-    { "kpDIV", { { '/' }, 0, { '/' }, 1 } },
-    { "kpZRO", { { '0' }, 0, { '0' }, 1 } },
-    { "kpDOT", { { '.' }, 0, { '.' }, 1 } },
-    { "ka2", { { kbUp }, 0 } },
-    { "kb1", { { kbLeft }, 0 } },
-    { "kb3", { { kbRight }, 0 } },
-    { "kc2", { { kbDown }, 0 } },
-});
+static const auto fromCursesHighKey
+    = const_unordered_map<uint64_t, KeyDownEvent>::with_string_keys({
+        /* These keys are identified by name. The int value is not known
+         * at compilation time. */
+        { "kDC3", { { kbAltDel }, kbLeftAlt } },
+        { "kEND3", { { kbAltEnd }, kbLeftAlt } },
+        { "kHOM3", { { kbAltHome }, kbLeftAlt } },
+        { "kIC3", { { kbAltIns }, kbLeftAlt } },
+        { "kLFT3", { { kbAltLeft }, kbLeftAlt } },
+        { "kNXT3", { { kbAltPgDn }, kbLeftAlt } },
+        { "kPRV3", { { kbAltPgUp }, kbLeftAlt } },
+        { "kRIT3", { { kbAltRight }, kbLeftAlt } },
+        { "kUP3", { { kbAltUp }, kbLeftAlt } },
+        { "kDN3", { { kbAltDown }, kbLeftAlt } },
+        { "kDC4", { { kbAltDel }, kbShift | kbLeftAlt } },
+        { "kEND4", { { kbAltEnd }, kbShift | kbLeftAlt } },
+        { "kHOM4", { { kbAltHome }, kbShift | kbLeftAlt } },
+        { "kIC4", { { kbAltIns }, kbShift | kbLeftAlt } },
+        { "kLFT4", { { kbAltLeft }, kbShift | kbLeftAlt } },
+        { "kNXT4", { { kbAltPgDn }, kbShift | kbLeftAlt } },
+        { "kPRV4", { { kbAltPgUp }, kbShift | kbLeftAlt } },
+        { "kRIT4", { { kbAltRight }, kbShift | kbLeftAlt } },
+        { "kUP4", { { kbAltUp }, kbShift | kbLeftAlt } },
+        { "kDN4", { { kbAltDown }, kbShift | kbLeftAlt } },
+        { "kDC5", { { kbCtrlDel }, kbLeftCtrl } },
+        { "kEND5", { { kbCtrlEnd }, kbLeftCtrl } },
+        { "kHOM5", { { kbCtrlHome }, kbLeftCtrl } },
+        { "kIC5", { { kbCtrlIns }, kbLeftCtrl } },
+        { "kLFT5", { { kbCtrlLeft }, kbLeftCtrl } },
+        { "kNXT5", { { kbCtrlPgDn }, kbLeftCtrl } },
+        { "kPRV5", { { kbCtrlPgUp }, kbLeftCtrl } },
+        { "kRIT5", { { kbCtrlRight }, kbLeftCtrl } },
+        { "kUP5", { { kbCtrlUp }, kbLeftCtrl } },
+        { "kDN5", { { kbCtrlDown }, kbLeftCtrl } },
+        { "kDC6", { { kbCtrlDel }, kbLeftCtrl | kbShift } },
+        { "kEND6", { { kbCtrlEnd }, kbLeftCtrl | kbShift } },
+        { "kHOM6", { { kbCtrlHome }, kbLeftCtrl | kbShift } },
+        { "kIC6", { { kbCtrlIns }, kbLeftCtrl | kbShift } },
+        { "kLFT6", { { kbCtrlLeft }, kbLeftCtrl | kbShift } },
+        { "kNXT6", { { kbCtrlPgDn }, kbLeftCtrl | kbShift } },
+        { "kPRV6", { { kbCtrlPgUp }, kbLeftCtrl | kbShift } },
+        { "kRIT6", { { kbCtrlRight }, kbLeftCtrl | kbShift } },
+        { "kUP6", { { kbCtrlUp }, kbLeftCtrl | kbShift } },
+        { "kDN6", { { kbCtrlDown }, kbLeftCtrl | kbShift } },
+        { "kDC7", { { kbAltDel }, kbLeftCtrl | kbLeftAlt } }, // Please do not attempt this one
+        { "kEND7", { { kbAltEnd }, kbLeftCtrl | kbLeftAlt } },
+        { "kHOM7", { { kbAltHome }, kbLeftCtrl | kbLeftAlt } },
+        { "kIC7", { { kbAltIns }, kbLeftCtrl | kbLeftAlt } },
+        { "kLFT7", { { kbAltLeft }, kbLeftCtrl | kbLeftAlt } },
+        { "kNXT7", { { kbAltPgDn }, kbLeftCtrl | kbLeftAlt } },
+        { "kPRV7", { { kbAltPgUp }, kbLeftCtrl | kbLeftAlt } },
+        { "kRIT7", { { kbAltRight }, kbLeftCtrl | kbLeftAlt } },
+        { "kUP7", { { kbAltUp }, kbLeftCtrl | kbLeftAlt } },
+        { "kDN7", { { kbAltDown }, kbLeftCtrl | kbLeftAlt } },
+        { "kpCMA", { { '+' }, 0, { '+' }, 1 } },
+        { "kpADD", { { '+' }, 0, { '+' }, 1 } },
+        { "kpSUB", { { '-' }, 0, { '-' }, 1 } },
+        { "kpMUL", { { '*' }, 0, { '*' }, 1 } },
+        { "kpDIV", { { '/' }, 0, { '/' }, 1 } },
+        { "kpZRO", { { '0' }, 0, { '0' }, 1 } },
+        { "kpDOT", { { '.' }, 0, { '.' }, 1 } },
+        { "ka2", { { kbUp }, 0 } },
+        { "kb1", { { kbLeft }, 0 } },
+        { "kb3", { { kbRight }, 0 } },
+        { "kc2", { { kbDown }, 0 } },
+    });
 
 static class NcursesInputGetter : public InputGetter {
     int get() noexcept override
@@ -254,14 +202,10 @@ static class NcursesInputGetter : public InputGetter {
         return k != ERR ? k : -1;
     }
 
-    void unget(int k) noexcept override
-    {
-        ungetch(k);
-    }
+    void unget(int k) noexcept override { ungetch(k); }
 } ncInputGetter;
 
-NcursesInput::NcursesInput(StdioCtl& aIo, NcursesDisplay&,
-    InputState& aState, bool mouse) noexcept
+NcursesInput::NcursesInput(StdioCtl& aIo, NcursesDisplay&, InputState& aState, bool mouse) noexcept
     : InputStrategy(aIo.in())
     , io(aIo)
     , state(aState)
@@ -454,8 +398,7 @@ bool NcursesInput::parseCursesMouse(TEvent& ev) noexcept
         // is not enabled. We don't know which one was read. We could query terminal
         // capabilities to deduce it, but it is also possible to just follow
         // a trial and error approach. 'parseSGRMouse' is more likely to fail, so try it first.
-        for (auto& parseMouse : { TermIO::parseSGRMouse,
-                 TermIO::parseX10Mouse }) {
+        for (auto& parseMouse : { TermIO::parseSGRMouse, TermIO::parseX10Mouse }) {
             GetChBuf buf(ncInputGetter);
             switch (parseMouse(buf, ev, state)) {
             case Rejected:

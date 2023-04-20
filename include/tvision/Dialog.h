@@ -41,25 +41,21 @@
 /*       32 = Reserved                                                    */
 /* ---------------------------------------------------------------------- */
 
-#define cpGrayDialog                                                   \
-    "\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x2A\x2B\x2C\x2D\x2E\x2F" \
+#define cpGrayDialog                                                                               \
+    "\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x2A\x2B\x2C\x2D\x2E\x2F"                             \
     "\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x3A\x3B\x3C\x3D\x3E\x3F"
 
-#define cpBlueDialog                                                   \
-    "\x40\x41\x42\x43\x44\x45\x46\x47\x48\x49\x4a\x4b\x4c\x4d\x4e\x4f" \
+#define cpBlueDialog                                                                               \
+    "\x40\x41\x42\x43\x44\x45\x46\x47\x48\x49\x4a\x4b\x4c\x4d\x4e\x4f"                             \
     "\x50\x51\x52\x53\x54\x55\x56\x57\x58\x59\x5a\x5b\x5c\x5d\x5e\x5f"
 
-#define cpCyanDialog                                                   \
-    "\x60\x61\x62\x63\x64\x65\x66\x67\x68\x69\x6a\x6b\x6c\x6d\x6e\x6f" \
+#define cpCyanDialog                                                                               \
+    "\x60\x61\x62\x63\x64\x65\x66\x67\x68\x69\x6a\x6b\x6c\x6d\x6e\x6f"                             \
     "\x70\x71\x72\x73\x74\x75\x76\x77\x78\x79\x7a\x7b\x7c\x7d\x7e\x7f"
 
 #define cpDialog cpGrayDialog
 
-const int
-    dpBlueDialog
-    = 0,
-    dpCyanDialog = 1,
-    dpGrayDialog = 2;
+const int dpBlueDialog = 0, dpCyanDialog = 1, dpGrayDialog = 2;
 
 class TDialog : public TWindow {
 
@@ -71,10 +67,7 @@ public:
     virtual bool valid(ushort command);
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
 
 protected:
     TDialog(StreamableInit) noexcept;
@@ -84,22 +77,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TDialog& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TDialog*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TDialog& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TDialog*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TDialog& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TDialog* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TDialog& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TDialog* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TDialog_h

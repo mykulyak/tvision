@@ -9,9 +9,7 @@ class TColorItem;
 
 class TColorGroupList : public TListViewer {
 public:
-    TColorGroupList(const TRect& bounds,
-        TScrollBar* aScrollBar,
-        TColorGroup* aGroups) noexcept;
+    TColorGroupList(const TRect& bounds, TScrollBar* aScrollBar, TColorGroup* aGroups) noexcept;
     virtual ~TColorGroupList();
     virtual void focusItem(short item);
     virtual void getText(char* dest, short item, short maxLen);
@@ -22,10 +20,7 @@ protected:
     TColorGroup* groups;
 
 private:
-    virtual const char* streamableName() const
-    {
-        return name;
-    }
+    virtual const char* streamableName() const { return name; }
     static void writeItems(opstream&, TColorItem*);
     static void writeGroups(opstream&, TColorGroup*);
     static TColorItem* readItems(ipstream&);
@@ -45,22 +40,10 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TColorGroupList& cl)
-{
-    return is >> (TStreamable&)cl;
-}
-inline ipstream& operator>>(ipstream& is, TColorGroupList*& cl)
-{
-    return is >> (void*&)cl;
-}
+inline ipstream& operator>>(ipstream& is, TColorGroupList& cl) { return is >> (TStreamable&)cl; }
+inline ipstream& operator>>(ipstream& is, TColorGroupList*& cl) { return is >> (void*&)cl; }
 
-inline opstream& operator<<(opstream& os, TColorGroupList& cl)
-{
-    return os << (TStreamable&)cl;
-}
-inline opstream& operator<<(opstream& os, TColorGroupList* cl)
-{
-    return os << (TStreamable*)cl;
-}
+inline opstream& operator<<(opstream& os, TColorGroupList& cl) { return os << (TStreamable&)cl; }
+inline opstream& operator<<(opstream& os, TColorGroupList* cl) { return os << (TStreamable*)cl; }
 
 #endif // TVision_TColorGroupList_h

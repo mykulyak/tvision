@@ -11,9 +11,7 @@ const char* TStatusLine::hintSeparator = "\xB3 ";
 
 __link(RView);
 
-TStreamableClass RStatusLine(TStatusLine::name,
-    TStatusLine::build,
-    __DELTA(TStatusLine));
+TStreamableClass RStatusLine(TStatusLine::name, TStatusLine::build, __DELTA(TStatusLine));
 
 TStatusLine::TStatusLine(const TRect& bounds, TStatusDef& aDefs) noexcept
     : TView(bounds)
@@ -44,10 +42,7 @@ TStatusLine::~TStatusLine(void)
     }
 }
 
-void TStatusLine::draw()
-{
-    drawSelect(0);
-}
+void TStatusLine::draw() { drawSelect(0); }
 
 void TStatusLine::drawSelect(TStatusItem* selected)
 {
@@ -63,8 +58,8 @@ void TStatusLine::drawSelect(TStatusItem* selected)
     ushort i = 0;
 
     while (T != 0) {
-        if (T->text != 0) {
-            ushort l = cstrlen(T->text);
+        if (T->text.size() != 0) {
+            ushort l = T->text.size();
             if (i + l < size.x) {
                 if (commandEnabled(T->command))
                     if (T == selected)
@@ -77,7 +72,7 @@ void TStatusLine::drawSelect(TStatusItem* selected)
                     color = cNormDisabled;
 
                 b.moveChar(i, ' ', color, 1);
-                b.moveCStr(i + 1, T->text, color);
+                b.moveCStr(i + 1, T->text.c_str(), color);
                 b.moveChar(i + l + 1, ' ', color, 1);
             }
             i += l + 2;
@@ -118,8 +113,8 @@ TStatusItem* TStatusLine::itemMouseIsIn(TPoint mouse)
     TStatusItem* T;
 
     for (i = 0, T = items; T != 0; T = T->next) {
-        if (T->text != 0) {
-            ushort k = i + cstrlen(T->text) + 2;
+        if (T->text.size() != 0) {
+            ushort k = i + T->text.size() + 2;
             if (mouse.x >= i && mouse.x < k)
                 return T;
             i = k;
@@ -171,10 +166,7 @@ void TStatusLine::handleEvent(TEvent& event)
     }
 }
 
-const char* TStatusLine::hint(ushort)
-{
-    return "";
-}
+const char* TStatusLine::hint(ushort) { return ""; }
 
 void TStatusLine::update()
 {
@@ -196,7 +188,7 @@ void TStatusLine::writeItems(opstream& os, TStatusItem* ts)
         count++;
     os << count;
     for (; ts != 0; ts = ts->next) {
-        os.writeString(ts->text);
+        os.writeString(ts->text.c_str());
         os << ts->keyCode << ts->command;
     }
 }
@@ -265,10 +257,7 @@ void* TStatusLine::read(ipstream& is)
     return this;
 }
 
-TStreamable* TStatusLine::build()
-{
-    return new TStatusLine(streamableInit);
-}
+TStreamable* TStatusLine::build() { return new TStatusLine(streamableInit); }
 
 TStatusLine::TStatusLine(StreamableInit) noexcept
     : TView(streamableInit)

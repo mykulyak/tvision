@@ -3,8 +3,7 @@
 
 namespace tvision {
 
-template <class Int>
-inline constexpr Int string_as_int(TStringView s) noexcept
+template <class Int> inline constexpr Int string_as_int(TStringView s) noexcept
 {
     Int res = 0;
     for (size_t i = 0; i < min(s.size(), sizeof(res)); ++i)
@@ -15,8 +14,7 @@ inline constexpr Int string_as_int(TStringView s) noexcept
 
 char* fast_utoa(uint32_t value, char* buffer) noexcept;
 
-template <class T, size_t N>
-struct constarray;
+template <class T, size_t N> struct constarray;
 
 struct alignas(4) btoa_lut_elem_t {
     char chars[3];

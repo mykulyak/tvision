@@ -29,14 +29,9 @@ void* THelpTopic::read(ipstream& is)
     return this;
 }
 
-TStreamable* THelpTopic::build()
-{
-    return new THelpTopic(streamableInit);
-}
+TStreamable* THelpTopic::build() { return new THelpTopic(streamableInit); }
 
-TStreamableClass RHelpTopic(THelpTopic::name,
-    THelpTopic::build,
-    __DELTA(THelpTopic));
+TStreamableClass RHelpTopic(THelpTopic::name, THelpTopic::build, __DELTA(THelpTopic));
 
 THelpTopic::THelpTopic() noexcept
     : TObject()
@@ -146,8 +141,7 @@ void THelpTopic::addParagraph(TParagraph* p) noexcept
     p->next = 0;
 }
 
-void THelpTopic::getCrossRef(int i, TPoint& loc, uchar& length,
-    int& ref) noexcept
+void THelpTopic::getCrossRef(int i, TPoint& loc, uchar& length, int& ref) noexcept
 {
     int curOffset, offset, paraOffset;
     TParagraph* p;
@@ -214,10 +208,7 @@ TStringView THelpTopic::getLine(int line) noexcept
     return TStringView();
 }
 
-int THelpTopic::getNumCrossRefs() noexcept
-{
-    return numRefs;
-}
+int THelpTopic::getNumCrossRefs() noexcept { return numRefs; }
 
 int THelpTopic::numLines() noexcept
 {
@@ -268,10 +259,7 @@ void THelpTopic::setNumCrossRefs(int i) noexcept
     numRefs = i;
 }
 
-void THelpTopic::setWidth(int aWidth) noexcept
-{
-    width = aWidth;
-}
+void THelpTopic::setWidth(int aWidth) noexcept { width = aWidth; }
 
 void THelpTopic::writeParagraphs(opstream& s)
 {
@@ -393,19 +381,11 @@ void* THelpIndex::read(ipstream& is)
     return this;
 }
 
-TStreamable* THelpIndex::build()
-{
-    return new THelpIndex(streamableInit);
-}
+TStreamable* THelpIndex::build() { return new THelpIndex(streamableInit); }
 
-TStreamableClass RHelpIndex(THelpIndex::name,
-    THelpIndex::build,
-    __DELTA(THelpIndex));
+TStreamableClass RHelpIndex(THelpIndex::name, THelpIndex::build, __DELTA(THelpIndex));
 
-THelpIndex::~THelpIndex()
-{
-    delete[] index;
-}
+THelpIndex::~THelpIndex() { delete[] index; }
 
 THelpIndex::THelpIndex(void) noexcept
     : TObject()
@@ -543,6 +523,4 @@ void THelpFile::putTopic(THelpTopic* topic)
     modified = true;
 }
 
-void notAssigned(opstream&, int)
-{
-}
+void notAssigned(opstream&, int) { }

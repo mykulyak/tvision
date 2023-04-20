@@ -20,15 +20,11 @@ StderrRedirector::StderrRedirector() noexcept
     // Make 'stderr' point to a pipe buffer so that the contents can be
     // dumped to the screen after restoring the screen buffer.
     int flags;
-    if (fileno(stderr) == STDERR_FILENO
-        && isatty(STDERR_FILENO)
-        && (ttyFd = dup(STDERR_FILENO)) != -1
-        && pipe(bufFd) != -1
-        && dup2(bufFd[1], STDERR_FILENO) != -1
-        && (flags = fcntl(STDERR_FILENO, F_GETFL)) != -1
+    if (fileno(stderr) == STDERR_FILENO && isatty(STDERR_FILENO)
+        && (ttyFd = dup(STDERR_FILENO)) != -1 && pipe(bufFd) != -1
+        && dup2(bufFd[1], STDERR_FILENO) != -1 && (flags = fcntl(STDERR_FILENO, F_GETFL)) != -1
         && fcntl(STDERR_FILENO, F_SETFL, flags | O_NONBLOCK) != -1
-        && fcntl(ttyFd, F_SETFD, FD_CLOEXEC) != -1
-        && fcntl(bufFd[0], F_SETFD, FD_CLOEXEC) != -1
+        && fcntl(ttyFd, F_SETFD, FD_CLOEXEC) != -1 && fcntl(bufFd[0], F_SETFD, FD_CLOEXEC) != -1
         && fcntl(bufFd[1], F_SETFD, FD_CLOEXEC) != -1) {
         // Success.
     } else {
@@ -42,9 +38,7 @@ StderrRedirector::StderrRedirector() noexcept
 static bool isSameFile(int fd1, int fd2)
 {
     struct stat stat1, stat2;
-    return fstat(fd1, &stat1) != -1
-        && fstat(fd2, &stat2) != -1
-        && stat1.st_dev == stat2.st_dev
+    return fstat(fd1, &stat1) != -1 && fstat(fd2, &stat2) != -1 && stat1.st_dev == stat2.st_dev
         && stat1.st_ino == stat2.st_ino;
 }
 

@@ -40,9 +40,7 @@ char* fast_utoa(uint32_t value, char* buffer) noexcept
 #define BTOA_CONSTEXPR_VAR const
 #endif
 
-static BTOA_CONSTEXPR
-    btoa_lut_t
-    init_btoa_lut() noexcept
+static BTOA_CONSTEXPR btoa_lut_t init_btoa_lut() noexcept
 {
     btoa_lut_t res {};
     for (uint32_t i = 0; i < 256; ++i)
@@ -50,9 +48,7 @@ static BTOA_CONSTEXPR
     return res;
 }
 
-extern BTOA_CONSTEXPR_VAR
-    btoa_lut_t btoa_lut
-    = init_btoa_lut();
+extern BTOA_CONSTEXPR_VAR btoa_lut_t btoa_lut = init_btoa_lut();
 
 } // namespace tvision
 
@@ -60,10 +56,7 @@ extern BTOA_CONSTEXPR_VAR
 
 #include <strings.h>
 
-int stricmp(const char* s1, const char* s2) noexcept
-{
-    return strcasecmp(s1, s2);
-}
+int stricmp(const char* s1, const char* s2) noexcept { return strcasecmp(s1, s2); }
 
 int strnicmp(const char* s1, const char* s2, size_t maxlen) noexcept
 {

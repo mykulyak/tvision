@@ -18,9 +18,7 @@ class TScrollBar;
 
 class THistoryViewer : public TListViewer {
 public:
-    THistoryViewer(const TRect& bounds,
-        TScrollBar* aHScrollBar,
-        TScrollBar* aVScrollBar,
+    THistoryViewer(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,
         ushort aHistoryId) noexcept;
 
     virtual TPalette& getPalette() const;

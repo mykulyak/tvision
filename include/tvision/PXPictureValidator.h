@@ -3,13 +3,15 @@
 
 #include <tvision/Validator.h>
 
-enum TPicResult { prComplete,
+enum TPicResult {
+    prComplete,
     prIncomplete,
     prEmpty,
     prError,
     prSyntax,
     prAmbiguous,
-    prIncompNoFill };
+    prIncompNoFill
+};
 
 class TPXPictureValidator : public TValidator {
 

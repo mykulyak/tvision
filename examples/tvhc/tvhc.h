@@ -20,9 +20,7 @@ const int MAXSTRSIZE = 256;
 const int MAXHELPTOPICID = 16379;
 const char commandChar[] = ".";
 
-enum State { undefined,
-    wrapping,
-    notWrapping };
+enum State { undefined, wrapping, notWrapping };
 
 class TProtectedStream : public std::fstream {
 

@@ -7,12 +7,8 @@ namespace tvision {
 
 // Terminal quirk flags.
 
-const uint
-    qfBoldIsBright
-    = 0x0001,
-    qfBlinkIsBright = 0x0002,
-    qfNoItalic = 0x0004,
-    qfNoUnderline = 0x0008;
+const uint qfBoldIsBright = 0x0001, qfBlinkIsBright = 0x0002, qfNoItalic = 0x0004,
+           qfNoUnderline = 0x0008;
 
 enum TermCapColors : uint8_t {
     NoColor,
@@ -39,10 +35,7 @@ protected:
     TermCap termcap;
 
     // The subclass must invoke this in the constructor.
-    void initCapabilities() noexcept
-    {
-        termcap = getCapabilities();
-    }
+    void initCapabilities() noexcept { termcap = getCapabilities(); }
 
 public:
     // The lifetime of 'aIo' exceeds that of 'this'.

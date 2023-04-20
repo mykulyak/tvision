@@ -9,14 +9,10 @@ __link(RInputLine)
 {
 }
 
-TStreamable* TFileInputLine::build()
-{
-    return new TFileInputLine(streamableInit);
-}
+TStreamable* TFileInputLine::build() { return new TFileInputLine(streamableInit); }
 
-TStreamableClass RFileInputLine(TFileInputLine::name,
-    TFileInputLine::build,
-    __DELTA(TFileInputLine));
+TStreamableClass RFileInputLine(
+    TFileInputLine::name, TFileInputLine::build, __DELTA(TFileInputLine));
 
 TFileInputLine::TFileInputLine(const TRect& bounds, short aMaxLen) noexcept
     : TInputLine(bounds, aMaxLen)
@@ -27,7 +23,8 @@ TFileInputLine::TFileInputLine(const TRect& bounds, short aMaxLen) noexcept
 void TFileInputLine::handleEvent(TEvent& event)
 {
     TInputLine::handleEvent(event);
-    if (event.what == evBroadcast && event.message.command == cmFileFocused && !(state & sfSelected)) {
+    if (event.what == evBroadcast && event.message.command == cmFileFocused
+        && !(state & sfSelected)) {
         strcpy(data, ((TSearchRec*)event.message.infoPtr)->name);
         if ((((TSearchRec*)event.message.infoPtr)->attr & FA_DIREC) != 0) {
             strcat(data, "\\");

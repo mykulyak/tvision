@@ -105,16 +105,15 @@ extern const uchar specialChars[];
 // This means that if we define a custom 'T& operator=(int)', the assignment
 // 't = {}' will be equivalent to 't = 0' instead of 't = T()'. This would
 // break the programmer's expectations completely.
-#define TV_TRIVIALLY_ASSIGNABLE(S)                  \
-    void* operator new(size_t, void* p) noexcept    \
-    {                                               \
-        return p;                                   \
-    }                                               \
-    void operator delete(void*, void*) noexcept {}; \
-    template <class T>                              \
-    S& operator=(const T& t)                        \
-    {                                               \
-        return *new (this) S(t);                    \
+#define TV_TRIVIALLY_ASSIGNABLE(S)                                                                 \
+    void* operator new(size_t, void* p) noexcept                                                   \
+    {                                                                                              \
+        return p;                                                                                  \
+    }                                                                                              \
+    void operator delete(void*, void*) noexcept {};                                                \
+    template <class T> S& operator=(const T& t)                                                    \
+    {                                                                                              \
+        return *new (this) S(t);                                                                   \
     }
 
 #endif // TVision_Types_h

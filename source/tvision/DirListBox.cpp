@@ -16,9 +16,7 @@ const char* TDirListBox::graphics = "\xC0\xC3\xC4";
 
 __link(RListBox);
 
-TStreamableClass RDirListBox(TDirListBox::name,
-    TDirListBox::build,
-    __DELTA(TDirListBox));
+TStreamableClass RDirListBox(TDirListBox::name, TDirListBox::build, __DELTA(TDirListBox));
 
 TDirListBox::TDirListBox(const TRect& bounds, TScrollBar* aScrollBar) noexcept
     : TListBox(bounds, 1, aScrollBar)
@@ -58,10 +56,7 @@ void TDirListBox::handleEvent( TEvent& event )
 }
 */
 
-bool TDirListBox::isSelected(short item)
-{
-    return bool(item == cur);
-}
+bool TDirListBox::isSelected(short item) { return bool(item == cur); }
 
 void TDirListBox::showDrives(TDirCollection* dirs)
 {
@@ -188,9 +183,6 @@ void TDirListBox::setState(ushort nState, bool enable)
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TDirListBox::build()
-{
-    return new TDirListBox(streamableInit);
-}
+TStreamable* TDirListBox::build() { return new TDirListBox(streamableInit); }
 
 #endif

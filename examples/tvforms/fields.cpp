@@ -10,19 +10,14 @@ __link(RInputLine);
 
 const char* const TKeyInputLine::name = "TKeyInputLine";
 
-TStreamable* TKeyInputLine::build()
-{
-    return new TKeyInputLine(streamableInit);
-}
+TStreamable* TKeyInputLine::build() { return new TKeyInputLine(streamableInit); }
 
 TKeyInputLine::TKeyInputLine(const TRect& bounds, int aMaxLen)
     : TInputLine(bounds, aMaxLen)
 {
 }
 
-TStreamableClass RKeyInputLine(TKeyInputLine::name,
-    TKeyInputLine::build,
-    __DELTA(TKeyInputLine));
+TStreamableClass RKeyInputLine(TKeyInputLine::name, TKeyInputLine::build, __DELTA(TKeyInputLine));
 
 bool TKeyInputLine::valid(ushort command)
 {
@@ -61,34 +56,20 @@ void* TNumInputLine::read(ipstream& is)
     return this;
 }
 
-TStreamable* TNumInputLine::build()
-{
-    return new TNumInputLine(streamableInit);
-}
+TStreamable* TNumInputLine::build() { return new TNumInputLine(streamableInit); }
 
-TStreamableClass RNumInputLine(TNumInputLine::name,
-    TNumInputLine::build,
-    __DELTA(TNumInputLine));
+TStreamableClass RNumInputLine(TNumInputLine::name, TNumInputLine::build, __DELTA(TNumInputLine));
 
-TNumInputLine::TNumInputLine(const TRect& bounds,
-    int aMaxLen,
-    int32_t aMin,
-    int32_t aMax)
+TNumInputLine::TNumInputLine(const TRect& bounds, int aMaxLen, int32_t aMin, int32_t aMax)
     : TInputLine(bounds, aMaxLen)
 {
     min = aMin;
     max = aMax;
 }
 
-ushort TNumInputLine::dataSize()
-{
-    return sizeof(int32_t);
-}
+ushort TNumInputLine::dataSize() { return sizeof(int32_t); }
 
-void TNumInputLine::getData(void* rec)
-{
-    *(int32_t*)rec = atol(data);
-}
+void TNumInputLine::getData(void* rec) { *(int32_t*)rec = atol(data); }
 
 void TNumInputLine::setData(void* rec)
 {

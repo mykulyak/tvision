@@ -3,15 +3,9 @@
 
 #include <tvision/StringView.h>
 
-const int
-    ovExpanded
-    = 0x01,
-    ovChildren = 0x02,
-    ovLast = 0x04;
+const int ovExpanded = 0x01, ovChildren = 0x02, ovLast = 0x04;
 
-const int
-    cmOutlineItemSelected
-    = 301;
+const int cmOutlineItemSelected = 301;
 
 class TNode {
 public:
@@ -33,8 +27,7 @@ inline TNode::TNode(TStringView aText) noexcept
 {
 }
 
-inline TNode::TNode(TStringView aText, TNode* aChildren,
-    TNode* aNext, bool initialState) noexcept
+inline TNode::TNode(TStringView aText, TNode* aChildren, TNode* aNext, bool initialState) noexcept
     : next(aNext)
     , text(newStr(aText))
     , childList(aChildren)
@@ -42,10 +35,7 @@ inline TNode::TNode(TStringView aText, TNode* aChildren,
 {
 }
 
-inline TNode::~TNode()
-{
-    delete[] (char*)text;
-}
+inline TNode::~TNode() { delete[] (char*)text; }
 
 /* ------------------------------------------------------------------------*/
 /*      class TOutlineViewer                                               */
@@ -62,15 +52,12 @@ class TOutlineViewer;
 
 // Callback types for TOutlineViewer's traverse functions.
 
-typedef bool (*TOutlineVisitor)(TOutlineViewer*, TNode*,
-    int, int, long, ushort, void*);
-typedef bool (*TOutlineVisitorNoArg)(TOutlineViewer*, TNode*,
-    int, int, long, ushort);
+typedef bool (*TOutlineVisitor)(TOutlineViewer*, TNode*, int, int, long, ushort, void*);
+typedef bool (*TOutlineVisitorNoArg)(TOutlineViewer*, TNode*, int, int, long, ushort);
 
 class TOutlineViewer : public TScroller {
 public:
-    TOutlineViewer(const TRect& bounds, TScrollBar* aHScrollBar,
-        TScrollBar* aVScrollBar) noexcept;
+    TOutlineViewer(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar) noexcept;
     TOutlineViewer(StreamableInit s) noexcept;
     virtual void adjust(TNode* node, bool expand) = 0;
     virtual void draw();
@@ -99,8 +86,8 @@ public:
     TNode* forEach(TOutlineVisitor action, void* arg) noexcept;
     TNode* forEach(TOutlineVisitorNoArg action) noexcept;
 
-    char* createGraph(int level, long lines, ushort flags, int levWidth,
-        int endWidth, const char* chars) noexcept;
+    char* createGraph(int level, long lines, ushort flags, int levWidth, int endWidth,
+        const char* chars) noexcept;
 
     int foc;
 

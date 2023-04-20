@@ -70,8 +70,7 @@ Win32ConsoleStrategy& Win32ConsoleStrategy::create() noexcept
             // "A monospace bitmap font has all of these low-order bits clear".
             return !(family & (TMPF_FIXED_PITCH | TMPF_VECTOR | TMPF_TRUETYPE | TMPF_DEVICE));
         };
-        if (GetCurrentConsoleFontEx(io.out(), FALSE, &fontInfo)
-            && isBitmap(fontInfo.FontFamily)) {
+        if (GetCurrentConsoleFontEx(io.out(), FALSE, &fontInfo) && isBitmap(fontInfo.FontFamily)) {
             // Compute the new font height based on the bitmap font size.
             short fontY = 2 * min(fontInfo.dwFontSize.X, fontInfo.dwFontSize.Y);
             for (auto* name : { L"Consolas", L"Lucida Console" }) {
@@ -90,8 +89,7 @@ Win32ConsoleStrategy& Win32ConsoleStrategy::create() noexcept
         }
     }
     WinWidth::reset();
-    auto& display = supportsVT ? *new AnsiDisplay<Win32Display>(io)
-                               : *new Win32Display(io);
+    auto& display = supportsVT ? *new AnsiDisplay<Win32Display>(io) : *new Win32Display(io);
     auto& input = *new Win32Input(io);
     return *new Win32ConsoleStrategy(io, cpInput, cpOutput, display, input);
 }
@@ -128,7 +126,10 @@ bool Win32ConsoleStrategy::setClipboardText(TStringView text) noexcept
         HGLOBAL hData = NULL;
         wchar_t* pData;
         int dataLen;
-        if (EmptyClipboard() && !(result = text.empty()) && (dataLen = MultiByteToWideChar(CP_UTF8, 0, text.data(), text.size(), nullptr, 0)) && (hData = GlobalAlloc(GMEM_MOVEABLE, (dataLen + 1) * sizeof(wchar_t))) && (pData = (wchar_t*)GlobalLock(hData))) {
+        if (EmptyClipboard() && !(result = text.empty())
+            && (dataLen = MultiByteToWideChar(CP_UTF8, 0, text.data(), text.size(), nullptr, 0))
+            && (hData = GlobalAlloc(GMEM_MOVEABLE, (dataLen + 1) * sizeof(wchar_t)))
+            && (pData = (wchar_t*)GlobalLock(hData))) {
             MultiByteToWideChar(CP_UTF8, 0, text.data(), text.size(), pData, dataLen);
             pData[dataLen] = L'\0';
             GlobalUnlock(hData);
@@ -147,9 +148,11 @@ bool Win32ConsoleStrategy::requestClipboardText(void (&accept)(TStringView)) noe
     if (openClipboard()) {
         HGLOBAL hData;
         wchar_t* pData;
-        if ((hData = GetClipboardData(CF_UNICODETEXT)) && (result = (pData = (wchar_t*)GlobalLock(hData)))) {
+        if ((hData = GetClipboardData(CF_UNICODETEXT))
+            && (result = (pData = (wchar_t*)GlobalLock(hData)))) {
             size_t dataLen = wcslen(pData);
-            int textLen = WideCharToMultiByte(CP_UTF8, 0, pData, dataLen, nullptr, 0, nullptr, nullptr);
+            int textLen
+                = WideCharToMultiByte(CP_UTF8, 0, pData, dataLen, nullptr, 0, nullptr, nullptr);
             char* text = new char[textLen];
             WideCharToMultiByte(CP_UTF8, 0, pData, dataLen, text, textLen, nullptr, nullptr);
             GlobalUnlock(hData);
@@ -259,10 +262,7 @@ bool Win32Display::screenChanged() noexcept
     return changed;
 }
 
-TPoint Win32Display::getScreenSize() noexcept
-{
-    return size;
-}
+TPoint Win32Display::getScreenSize() noexcept { return size; }
 
 int Win32Display::getCaretSize() noexcept
 {
@@ -336,7 +336,8 @@ void Win32Display::lowlevelFlush() noexcept
 /////////////////////////////////////////////////////////////////////////
 // Global functions
 
-static bool getWin32KeyText(const KEY_EVENT_RECORD& KeyEvent, TEvent& ev, InputState& state) noexcept
+static bool getWin32KeyText(
+    const KEY_EVENT_RECORD& KeyEvent, TEvent& ev, InputState& state) noexcept
 // Returns true unless the event contains a UTF-16 surrogate (Windows only),
 // in which case we need the next event.
 {
@@ -360,11 +361,8 @@ static bool getWin32KeyText(const KEY_EVENT_RECORD& KeyEvent, TEvent& ev, InputS
             state.surrogate = 0;
         }
 
-        ev.keyDown.textLength = WideCharToMultiByte(
-            CP_UTF8, 0,
-            utf16, utf16[1] ? 2 : 1,
-            ev.keyDown.text, sizeof(ev.keyDown.text),
-            nullptr, nullptr);
+        ev.keyDown.textLength = WideCharToMultiByte(CP_UTF8, 0, utf16, utf16[1] ? 2 : 1,
+            ev.keyDown.text, sizeof(ev.keyDown.text), nullptr, nullptr);
 #else
         (void)state;
 
@@ -383,7 +381,9 @@ bool getWin32Key(const KEY_EVENT_RECORD& KeyEvent, TEvent& ev, InputState& state
     ev.what = evKeyDown;
     ev.keyDown.charScan.scanCode = KeyEvent.wVirtualScanCode;
     ev.keyDown.charScan.charCode = KeyEvent.uChar.AsciiChar;
-    ev.keyDown.controlKeyState = KeyEvent.dwControlKeyState & (kbShift | kbCtrlShift | kbAltShift | kbScrollState | kbNumState | kbCapsState | kbEnhanced);
+    ev.keyDown.controlKeyState = KeyEvent.dwControlKeyState
+        & (kbShift | kbCtrlShift | kbAltShift | kbScrollState | kbNumState | kbCapsState
+            | kbEnhanced);
 
     if (ev.keyDown.textLength) {
         ev.keyDown.charScan.charCode = CpTranslator::fromUtf8(ev.keyDown.getText());
@@ -398,10 +398,12 @@ bool getWin32Key(const KEY_EVENT_RECORD& KeyEvent, TEvent& ev, InputState& state
             ev.keyDown.keyCode = kbNoKey;
     }
 
-    if (ev.keyDown.keyCode == 0x2A00 || ev.keyDown.keyCode == 0x1D00 || ev.keyDown.keyCode == 0x3600 || ev.keyDown.keyCode == 0x3800 || ev.keyDown.keyCode == 0x3A00)
+    if (ev.keyDown.keyCode == 0x2A00 || ev.keyDown.keyCode == 0x1D00 || ev.keyDown.keyCode == 0x3600
+        || ev.keyDown.keyCode == 0x3800 || ev.keyDown.keyCode == 0x3A00)
         // Discard standalone Shift, Ctrl, Alt, Caps Lock keys.
         ev.keyDown.keyCode = kbNoKey;
-    else if ((ev.keyDown.controlKeyState & kbCtrlShift) && (ev.keyDown.controlKeyState & kbAltShift)) // Ctrl+Alt is AltGr.
+    else if ((ev.keyDown.controlKeyState & kbCtrlShift)
+        && (ev.keyDown.controlKeyState & kbAltShift)) // Ctrl+Alt is AltGr.
     {
         // When AltGr+Key does not produce a character, a
         // keyCode with unwanted effects may be read instead.
@@ -417,7 +419,8 @@ bool getWin32Key(const KEY_EVENT_RECORD& KeyEvent, TEvent& ev, InputState& state
             keyCode = THardwareInfo::CtrlCvt[index];
         else if ((ev.keyDown.controlKeyState & kbShift) && THardwareInfo::ShiftCvt[index])
             keyCode = THardwareInfo::ShiftCvt[index];
-        else if (!(ev.keyDown.controlKeyState & (kbShift | kbCtrlShift | kbAltShift)) && THardwareInfo::NormalCvt[index])
+        else if (!(ev.keyDown.controlKeyState & (kbShift | kbCtrlShift | kbAltShift))
+            && THardwareInfo::NormalCvt[index])
             keyCode = THardwareInfo::NormalCvt[index];
 
         if (keyCode != 0) {
@@ -441,7 +444,9 @@ void getWin32Mouse(const MOUSE_EVENT_RECORD& MouseEvent, TEvent& ev, InputState&
     ev.mouse.where.y = MouseEvent.dwMousePosition.Y;
     ev.mouse.buttons = state.buttons = MouseEvent.dwButtonState;
     ev.mouse.eventFlags = MouseEvent.dwEventFlags;
-    ev.mouse.controlKeyState = MouseEvent.dwControlKeyState & (kbShift | kbCtrlShift | kbAltShift | kbScrollState | kbNumState | kbCapsState | kbEnhanced);
+    ev.mouse.controlKeyState = MouseEvent.dwControlKeyState
+        & (kbShift | kbCtrlShift | kbAltShift | kbScrollState | kbNumState | kbCapsState
+            | kbEnhanced);
 
     // Rotation sense is represented by the sign of dwButtonState's high word
     bool positive = !(MouseEvent.dwButtonState & 0x80000000);

@@ -11,26 +11,13 @@ const char* MsgBoxText::errorText = "Error";
 const char* MsgBoxText::informationText = "Information";
 const char* MsgBoxText::confirmText = "Confirm";
 
-static const char* buttonName[] = {
-    MsgBoxText::yesText,
-    MsgBoxText::noText,
-    MsgBoxText::okText,
-    MsgBoxText::cancelText
-};
+static const char* buttonName[]
+    = { MsgBoxText::yesText, MsgBoxText::noText, MsgBoxText::okText, MsgBoxText::cancelText };
 
-static ushort commands[] = {
-    cmYes,
-    cmNo,
-    cmOK,
-    cmCancel
-};
+static ushort commands[] = { cmYes, cmNo, cmOK, cmCancel };
 
-static const char* Titles[] = {
-    MsgBoxText::warningText,
-    MsgBoxText::errorText,
-    MsgBoxText::informationText,
-    MsgBoxText::confirmText
-};
+static const char* Titles[] = { MsgBoxText::warningText, MsgBoxText::errorText,
+    MsgBoxText::informationText, MsgBoxText::confirmText };
 
 ushort messageBoxRect(const TRect& r, TStringView msg, ushort aOptions) noexcept
 {
@@ -41,13 +28,12 @@ ushort messageBoxRect(const TRect& r, TStringView msg, ushort aOptions) noexcept
 
     dialog = new TDialog(r, Titles[aOptions & 0x3]);
 
-    dialog->insert(
-        new TStaticText(TRect(3, 2, dialog->size.x - 2, dialog->size.y - 3),
-            msg));
+    dialog->insert(new TStaticText(TRect(3, 2, dialog->size.x - 2, dialog->size.y - 3), msg));
 
     for (i = 0, x = -2, buttonCount = 0; i < 4; i++) {
         if ((aOptions & (0x0100 << i)) != 0) {
-            buttonList[buttonCount] = new TButton(TRect(0, 0, 10, 2), buttonName[i], commands[i], TButton::Flags::bfNormal);
+            buttonList[buttonCount] = new TButton(
+                TRect(0, 0, 10, 2), buttonName[i], commands[i], TButton::Flags::bfNormal);
             x += buttonList[buttonCount++]->size.x + 2;
         }
     }
@@ -69,10 +55,7 @@ ushort messageBoxRect(const TRect& r, TStringView msg, ushort aOptions) noexcept
     return ccode;
 }
 
-ushort messageBoxRect(const TRect& r,
-    ushort aOptions,
-    const char* fmt,
-    ...) noexcept
+ushort messageBoxRect(const TRect& r, ushort aOptions, const char* fmt, ...) noexcept
 {
     va_list argptr;
     va_start(argptr, fmt);
@@ -97,8 +80,7 @@ static TRect makeRect(TStringView text)
     while (width > (r.b.x - 7) * (r.b.y - 6))
         ++r.b.y;
 
-    r.move((TProgram::deskTop->size.x - r.b.x) / 2,
-        (TProgram::deskTop->size.y - r.b.y) / 2);
+    r.move((TProgram::deskTop->size.x - r.b.x) / 2, (TProgram::deskTop->size.y - r.b.y) / 2);
     return r;
 }
 
@@ -127,16 +109,12 @@ ushort messageBox(unsigned aOptions, const char* fmt, ...) noexcept
 ushort inputBox(TStringView Title, TStringView aLabel, char* s, uchar limit) noexcept
 {
     TRect r(0, 0, 60, 8);
-    r.move((TProgram::deskTop->size.x - r.b.x) / 2,
-        (TProgram::deskTop->size.y - r.b.y) / 2);
+    r.move((TProgram::deskTop->size.x - r.b.x) / 2, (TProgram::deskTop->size.y - r.b.y) / 2);
     return inputBoxRect(r, Title, aLabel, s, limit);
 }
 
-ushort inputBoxRect(const TRect& bounds,
-    TStringView Title,
-    TStringView aLabel,
-    char* s,
-    uchar limit) noexcept
+ushort inputBoxRect(
+    const TRect& bounds, TStringView Title, TStringView aLabel, char* s, uchar limit) noexcept
 {
     TDialog* dialog;
     TView* control;
@@ -152,8 +130,7 @@ ushort inputBoxRect(const TRect& bounds,
     r = TRect(2, 2, 3 + aLabel.size(), 3);
     dialog->insert(new TLabel(r, aLabel, control));
 
-    r = TRect(dialog->size.x - 24, dialog->size.y - 4,
-        dialog->size.x - 14, dialog->size.y - 2);
+    r = TRect(dialog->size.x - 24, dialog->size.y - 4, dialog->size.x - 14, dialog->size.y - 2);
     dialog->insert(new TButton(r, MsgBoxText::okText, cmOK, TButton::Flags::bfDefault));
 
     r.a.x += 12;

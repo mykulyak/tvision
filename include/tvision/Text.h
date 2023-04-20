@@ -48,8 +48,8 @@ public:
     // 'includeIncomplete' determines whether the double-width character must
     // be included in the result.
     static size_t scroll(TStringView text, int count, bool includeIncomplete) noexcept;
-    static void scroll(TStringView text, int count, bool includeIncomplete,
-        size_t& length, size_t& width) noexcept;
+    static void scroll(TStringView text, int count, bool includeIncomplete, size_t& length,
+        size_t& width) noexcept;
 
     // Fills 'cells' with the character 'c'.
     // (variant 2): also sets the color attribute to 'attr'.
@@ -63,10 +63,9 @@ public:
     // (variants 3, 4): uses 'indent = 0' and 'textIndent = 0'.
     // When column 'textIndent' of 'text' is in the middle of a double-width
     // character, a whitespace is copied in its place.
-    static size_t drawStr(TSpan<TScreenCell> cells, size_t indent,
-        TStringView text, int textIndent) noexcept;
-    static size_t drawStr(TSpan<TScreenCell> cells, size_t indent,
-        TStringView text, int textIndent,
+    static size_t drawStr(
+        TSpan<TScreenCell> cells, size_t indent, TStringView text, int textIndent) noexcept;
+    static size_t drawStr(TSpan<TScreenCell> cells, size_t indent, TStringView text, int textIndent,
         TColorAttr attr) noexcept;
     static size_t drawStr(TSpan<TScreenCell> cells, TStringView text) noexcept;
     static size_t drawStr(TSpan<TScreenCell> cells, TStringView text, TColorAttr attr) noexcept;
@@ -88,11 +87,9 @@ public:
     // When a zero-width character is found in 'text', it is combined with the
     // previous cell, i.e. cells[i - 1], if 'i > 0'. In this case, 'i' is not
     // increased and the color attribute is not set.
-    static bool drawOne(TSpan<TScreenCell> cells, size_t& i,
-        TStringView text, size_t& j) noexcept;
-    static bool drawOne(TSpan<TScreenCell> cells, size_t& i,
-        TStringView text, size_t& j,
-        TColorAttr attr) noexcept;
+    static bool drawOne(TSpan<TScreenCell> cells, size_t& i, TStringView text, size_t& j) noexcept;
+    static bool drawOne(
+        TSpan<TScreenCell> cells, size_t& i, TStringView text, size_t& j, TColorAttr attr) noexcept;
 
 #ifndef __BORLANDC__
     // Variants of the functions above which use a '(TColorAttr &) -> void'
@@ -101,27 +98,23 @@ public:
     template <class Func>
     static void drawCharEx(TSpan<TScreenCell> cells, char c, Func&& transformAttr) noexcept;
     template <class Func>
-    static size_t drawStrEx(TSpan<TScreenCell> cells, size_t indent,
-        TStringView text, int textIndent,
-        Func&& transformAttr) noexcept;
+    static size_t drawStrEx(TSpan<TScreenCell> cells, size_t indent, TStringView text,
+        int textIndent, Func&& transformAttr) noexcept;
 
     // UTF-32 variants of some of the functions above.
     static bool next(TSpan<const uint32_t> text, size_t& index, size_t& width) noexcept;
     static void scroll(TSpan<const uint32_t> text, int count, bool includeIncomplete,
         size_t& length, size_t& width) noexcept;
-    static size_t drawStr(TSpan<TScreenCell> cells, size_t indent,
-        TSpan<const uint32_t> text, int textIndent) noexcept;
-    static size_t drawStr(TSpan<TScreenCell> cells, size_t indent,
-        TSpan<const uint32_t> text, int textIndent,
-        TColorAttr attr) noexcept;
+    static size_t drawStr(TSpan<TScreenCell> cells, size_t indent, TSpan<const uint32_t> text,
+        int textIndent) noexcept;
+    static size_t drawStr(TSpan<TScreenCell> cells, size_t indent, TSpan<const uint32_t> text,
+        int textIndent, TColorAttr attr) noexcept;
     template <class Func>
-    static size_t drawStrEx(TSpan<TScreenCell> cells, size_t indent,
-        TSpan<const uint32_t> text, int textIndent,
-        Func&& transformAttr) noexcept;
-    static bool drawOne(TSpan<TScreenCell> cells, size_t& i,
-        TSpan<const uint32_t> text, size_t& j) noexcept;
-    static bool drawOne(TSpan<TScreenCell> cells, size_t& i,
-        TSpan<const uint32_t> text, size_t& j,
+    static size_t drawStrEx(TSpan<TScreenCell> cells, size_t indent, TSpan<const uint32_t> text,
+        int textIndent, Func&& transformAttr) noexcept;
+    static bool drawOne(
+        TSpan<TScreenCell> cells, size_t& i, TSpan<const uint32_t> text, size_t& j) noexcept;
+    static bool drawOne(TSpan<TScreenCell> cells, size_t& i, TSpan<const uint32_t> text, size_t& j,
         TColorAttr) noexcept;
 
 private:
@@ -135,8 +128,7 @@ private:
     static Lw drawOneImpl(TSpan<TScreenCell>, size_t, TStringView, size_t) noexcept;
     static Lw drawOneImpl(TSpan<TScreenCell>, size_t, TSpan<const uint32_t>, size_t) noexcept;
 
-    template <class Text>
-    static Lw scrollImplT(Text text, int, bool) noexcept;
+    template <class Text> static Lw scrollImplT(Text text, int, bool) noexcept;
     template <class Text, class Func>
     static size_t drawStrExT(TSpan<TScreenCell>, size_t, Text, int, Func&&) noexcept;
     template <class Text, class Func>
@@ -146,10 +138,7 @@ private:
 
 #ifdef __BORLANDC__
 
-inline size_t TText::width(TStringView text)
-{
-    return text.size();
-}
+inline size_t TText::width(TStringView text) { return text.size(); }
 
 #pragma warn - inl
 
@@ -161,10 +150,7 @@ inline TTextMetrics TText::measure(TStringView text)
 
 #pragma warn.inl
 
-inline size_t TText::next(TStringView text)
-{
-    return text.size() ? 1 : 0;
-}
+inline size_t TText::next(TStringView text) { return text.size() ? 1 : 0; }
 
 inline bool TText::next(TStringView text, size_t& index)
 {
@@ -197,8 +183,7 @@ inline size_t TText::scroll(TStringView text, int count, bool)
     return count > 0 ? min(count, text.size()) : 0;
 }
 
-inline void TText::scroll(TStringView text, int count, bool,
-    size_t& length, size_t& width)
+inline void TText::scroll(TStringView text, int count, bool, size_t& length, size_t& width)
 {
     length = width = (size_t)scroll(text, count, false);
 }
@@ -219,8 +204,8 @@ inline void TText::drawChar(TSpan<TScreenCell> cells, char c, TColorAttr attr)
     }
 }
 
-inline size_t TText::drawStr(TSpan<TScreenCell> cells, size_t indent,
-    TStringView text, int textIndent)
+inline size_t TText::drawStr(
+    TSpan<TScreenCell> cells, size_t indent, TStringView text, int textIndent)
 {
     if (indent < cells.size() && textIndent < text.size()) {
         cells = cells.subspan(indent);
@@ -233,9 +218,8 @@ inline size_t TText::drawStr(TSpan<TScreenCell> cells, size_t indent,
     return 0;
 }
 
-inline size_t TText::drawStr(TSpan<TScreenCell> cells, size_t indent,
-    TStringView text, int textIndent,
-    TColorAttr attr)
+inline size_t TText::drawStr(
+    TSpan<TScreenCell> cells, size_t indent, TStringView text, int textIndent, TColorAttr attr)
 {
     if (indent < cells.size() && textIndent < text.size()) {
         cells = cells.subspan(indent);
@@ -255,14 +239,12 @@ inline size_t TText::drawStr(TSpan<TScreenCell> cells, TStringView text)
     return drawStr(cells, 0, text, 0);
 }
 
-inline size_t TText::drawStr(TSpan<TScreenCell> cells, TStringView text,
-    TColorAttr attr)
+inline size_t TText::drawStr(TSpan<TScreenCell> cells, TStringView text, TColorAttr attr)
 {
     return drawStr(cells, 0, text, 0, attr);
 }
 
-inline bool TText::drawOne(TSpan<TScreenCell> cells, size_t& i,
-    TStringView text, size_t& j)
+inline bool TText::drawOne(TSpan<TScreenCell> cells, size_t& i, TStringView text, size_t& j)
 {
     if (i < cells.size() && j < text.size()) {
         ::setChar(cells[i++], text[j++]);
@@ -271,9 +253,8 @@ inline bool TText::drawOne(TSpan<TScreenCell> cells, size_t& i,
     return false;
 }
 
-inline bool TText::drawOne(TSpan<TScreenCell> cells, size_t& i,
-    TStringView text, size_t& j,
-    TColorAttr attr)
+inline bool TText::drawOne(
+    TSpan<TScreenCell> cells, size_t& i, TStringView text, size_t& j, TColorAttr attr)
 {
     if (i < cells.size() && j < text.size()) {
         ::setCell(cells[i++], text[j++], attr);
@@ -315,8 +296,8 @@ inline size_t TText::scroll(TStringView text, int count, bool includeIncomplete)
     return length;
 }
 
-inline void TText::scroll(TStringView text, int count, bool includeIncomplete,
-    size_t& length, size_t& width) noexcept
+inline void TText::scroll(
+    TStringView text, int count, bool includeIncomplete, size_t& length, size_t& width) noexcept
 
 {
     auto result = scrollImpl(text, count, includeIncomplete);
@@ -360,91 +341,75 @@ inline size_t TText::drawStr(TSpan<TScreenCell> cells, TStringView text) noexcep
     return drawStr(cells, 0, text, 0);
 }
 
-inline size_t TText::drawStr(TSpan<TScreenCell> cells, TStringView text,
-    TColorAttr attr) noexcept
+inline size_t TText::drawStr(TSpan<TScreenCell> cells, TStringView text, TColorAttr attr) noexcept
 {
     return drawStr(cells, 0, text, 0, attr);
 }
 
-inline size_t TText::drawStr(TSpan<TScreenCell> cells, size_t indent,
-    TStringView text, int textIndent) noexcept
+inline size_t TText::drawStr(
+    TSpan<TScreenCell> cells, size_t indent, TStringView text, int textIndent) noexcept
 {
     return drawStrEx(cells, indent, text, textIndent, [](auto&) {});
 }
 
-inline size_t TText::drawStr(TSpan<TScreenCell> cells, size_t indent,
-    TSpan<const uint32_t> text, int textIndent) noexcept
+inline size_t TText::drawStr(
+    TSpan<TScreenCell> cells, size_t indent, TSpan<const uint32_t> text, int textIndent) noexcept
 {
     return drawStrEx(cells, indent, text, textIndent, [](auto&) {});
 }
 
-inline size_t TText::drawStr(TSpan<TScreenCell> cells, size_t indent,
-    TStringView text, int textIndent,
-    TColorAttr aAttr) noexcept
+inline size_t TText::drawStr(TSpan<TScreenCell> cells, size_t indent, TStringView text,
+    int textIndent, TColorAttr aAttr) noexcept
 {
-    return drawStrEx(cells, indent, text, textIndent, [&](auto& attr) {
-        attr = aAttr;
-    });
+    return drawStrEx(cells, indent, text, textIndent, [&](auto& attr) { attr = aAttr; });
 }
 
-inline size_t TText::drawStr(TSpan<TScreenCell> cells, size_t indent,
-    TSpan<const uint32_t> text, int textIndent,
-    TColorAttr aAttr) noexcept
+inline size_t TText::drawStr(TSpan<TScreenCell> cells, size_t indent, TSpan<const uint32_t> text,
+    int textIndent, TColorAttr aAttr) noexcept
 {
-    return drawStrEx(cells, indent, text, textIndent, [&](auto& attr) {
-        attr = aAttr;
-    });
+    return drawStrEx(cells, indent, text, textIndent, [&](auto& attr) { attr = aAttr; });
 }
 
 template <class Func>
-inline size_t TText::drawStrEx(TSpan<TScreenCell> cells, size_t indent,
-    TStringView text, int textIndent,
-    Func&& transformAttr) noexcept
+inline size_t TText::drawStrEx(TSpan<TScreenCell> cells, size_t indent, TStringView text,
+    int textIndent, Func&& transformAttr) noexcept
 {
     return drawStrExT(cells, indent, text, textIndent, (Func &&) transformAttr);
 }
 
 template <class Func>
-inline size_t TText::drawStrEx(TSpan<TScreenCell> cells, size_t indent,
-    TSpan<const uint32_t> text, int textIndent,
-    Func&& transformAttr) noexcept
+inline size_t TText::drawStrEx(TSpan<TScreenCell> cells, size_t indent, TSpan<const uint32_t> text,
+    int textIndent, Func&& transformAttr) noexcept
 {
     return drawStrExT(cells, indent, text, textIndent, (Func &&) transformAttr);
 }
 
-inline bool TText::drawOne(TSpan<TScreenCell> cells, size_t& i,
-    TStringView text, size_t& j) noexcept
+inline bool TText::drawOne(
+    TSpan<TScreenCell> cells, size_t& i, TStringView text, size_t& j) noexcept
 {
     return drawOneT(cells, i, text, j, [](auto&) {});
 }
 
-inline bool TText::drawOne(TSpan<TScreenCell> cells, size_t& i,
-    TSpan<const uint32_t> text, size_t& j) noexcept
+inline bool TText::drawOne(
+    TSpan<TScreenCell> cells, size_t& i, TSpan<const uint32_t> text, size_t& j) noexcept
 {
     return drawOneT(cells, i, text, j, [](auto&) {});
 }
 
-inline bool TText::drawOne(TSpan<TScreenCell> cells, size_t& i,
-    TStringView text, size_t& j,
-    TColorAttr aAttr) noexcept
+inline bool TText::drawOne(
+    TSpan<TScreenCell> cells, size_t& i, TStringView text, size_t& j, TColorAttr aAttr) noexcept
 {
-    return drawOneT(cells, i, text, j, [&](auto& attr) {
-        attr = aAttr;
-    });
+    return drawOneT(cells, i, text, j, [&](auto& attr) { attr = aAttr; });
 }
 
-inline bool TText::drawOne(TSpan<TScreenCell> cells, size_t& i,
-    TSpan<const uint32_t> text, size_t& j,
-    TColorAttr aAttr) noexcept
+inline bool TText::drawOne(TSpan<TScreenCell> cells, size_t& i, TSpan<const uint32_t> text,
+    size_t& j, TColorAttr aAttr) noexcept
 {
-    return drawOneT(cells, i, text, j, [&](auto& attr) {
-        attr = aAttr;
-    });
+    return drawOneT(cells, i, text, j, [&](auto& attr) { attr = aAttr; });
 }
 
 template <class Text, class Func>
-inline size_t TText::drawStrExT(TSpan<TScreenCell> cells, size_t indent,
-    Text text, int textIndent,
+inline size_t TText::drawStrExT(TSpan<TScreenCell> cells, size_t indent, Text text, int textIndent,
     Func&& transformAttr) noexcept
 {
     size_t i = indent, j = 0;
@@ -462,8 +427,8 @@ inline size_t TText::drawStrExT(TSpan<TScreenCell> cells, size_t indent,
 }
 
 template <class Text, class Func>
-inline bool TText::drawOneT(TSpan<TScreenCell> cells, size_t& i,
-    Text text, size_t& j, Func&& transformAttr) noexcept
+inline bool TText::drawOneT(
+    TSpan<TScreenCell> cells, size_t& i, Text text, size_t& j, Func&& transformAttr) noexcept
 {
     auto result = drawOneImpl(cells, i, text, j);
     if (result.width)

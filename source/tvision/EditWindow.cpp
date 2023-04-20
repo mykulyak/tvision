@@ -6,18 +6,14 @@ const char* const TEditWindow::name = "TEditWindow";
 
 __link(RWindow);
 
-TStreamableClass REditWindow(TEditWindow::name,
-    TEditWindow::build,
-    __DELTA(TEditWindow));
+TStreamableClass REditWindow(TEditWindow::name, TEditWindow::build, __DELTA(TEditWindow));
 
 const char* TEditWindow::clipboardTitle = "Clipboard";
 const char* TEditWindow::untitled = "Untitled";
 
 const TPoint minEditWinSize = { 24, 6 };
 
-TEditWindow::TEditWindow(const TRect& bounds,
-    TStringView fileName,
-    int aNumber) noexcept
+TEditWindow::TEditWindow(const TRect& bounds, TStringView fileName, int aNumber) noexcept
     : TWindowInit(&TEditWindow::initFrame)
     , TWindow(bounds, 0, aNumber)
 {
@@ -90,10 +86,7 @@ void* TEditWindow::read(ipstream& is)
     return this;
 }
 
-TStreamable* TEditWindow::build()
-{
-    return new TEditWindow(streamableInit);
-}
+TStreamable* TEditWindow::build() { return new TEditWindow(streamableInit); }
 
 TEditWindow::TEditWindow(StreamableInit) noexcept
     : TWindowInit(0)

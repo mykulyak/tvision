@@ -21,10 +21,7 @@ TNSCollection::TNSCollection() noexcept
 {
 }
 
-TNSCollection::~TNSCollection()
-{
-    ::free(items);
-}
+TNSCollection::~TNSCollection() { ::free(items); }
 
 void TNSCollection::shutDown()
 {
@@ -80,20 +77,11 @@ void TNSCollection::atPut(ccIndex index, void* item)
     items[index] = item;
 }
 
-void TNSCollection::remove(void* item)
-{
-    atRemove(indexOf(item));
-}
+void TNSCollection::remove(void* item) { atRemove(indexOf(item)); }
 
-void TNSCollection::removeAll()
-{
-    count = 0;
-}
+void TNSCollection::removeAll() { count = 0; }
 
-void TNSCollection::error(ccIndex code, ccIndex)
-{
-    exit(212 - code);
-}
+void TNSCollection::error(ccIndex code, ccIndex) { exit(212 - code); }
 
 void* TNSCollection::firstThat(ccTestFunc Test, void* arg)
 {

@@ -14,13 +14,9 @@ __link(RWindow);
 // TTable functions
 //
 
-const char* const TTable::name
-    = "TTable";
+const char* const TTable::name = "TTable";
 
-void TTable::write(opstream& os)
-{
-    TView::write(os);
-}
+void TTable::write(opstream& os) { TView::write(os); }
 
 void* TTable::read(ipstream& is)
 {
@@ -28,14 +24,9 @@ void* TTable::read(ipstream& is)
     return this;
 }
 
-TStreamable* TTable::build()
-{
-    return new TTable(streamableInit);
-}
+TStreamable* TTable::build() { return new TTable(streamableInit); }
 
-TStreamableClass RTable(TTable::name,
-    TTable::build,
-    __DELTA(TTable));
+TStreamableClass RTable(TTable::name, TTable::build, __DELTA(TTable));
 
 TTable::TTable(TRect& r)
     : TView(r)
@@ -108,8 +99,8 @@ void TTable::handleEvent(TEvent& event)
                     setCursor(cursor.x + 1, cursor.y);
                 break;
             default:
-                setCursor(event.keyDown.charScan.charCode % 32,
-                    event.keyDown.charScan.charCode / 32);
+                setCursor(
+                    event.keyDown.charScan.charCode % 32, event.keyDown.charScan.charCode / 32);
                 break;
             }
             charFocused();
@@ -137,14 +128,9 @@ void* TReport::read(ipstream& is)
     return this;
 }
 
-TStreamable* TReport::build()
-{
-    return new TReport(streamableInit);
-}
+TStreamable* TReport::build() { return new TReport(streamableInit); }
 
-TStreamableClass RReport(TReport::name,
-    TReport::build,
-    __DELTA(TReport));
+TStreamableClass RReport(TReport::name, TReport::build, __DELTA(TReport));
 
 TReport::TReport(TRect& r)
     : TView(r)
@@ -159,11 +145,10 @@ void TReport::draw()
     char str[80];
     std::ostrstream statusStr(str, sizeof str);
 
-    statusStr
-        << "  Char: " << (char)((asciiChar == 0) ? 0x20 : asciiChar)
-        << " Decimal: " << std::setw(3) << (int)asciiChar
-        << " Hex " << std::hex << std::setiosflags(std::ios::uppercase)
-        << std::setw(2) << (int)asciiChar << "     " << std::ends;
+    statusStr << "  Char: " << (char)((asciiChar == 0) ? 0x20 : asciiChar)
+              << " Decimal: " << std::setw(3) << (int)asciiChar << " Hex " << std::hex
+              << std::setiosflags(std::ios::uppercase) << std::setw(2) << (int)asciiChar << "     "
+              << std::ends;
 
     buf.moveStr(0, str, color);
     writeLine(0, 0, 32, 1, buf);
@@ -186,10 +171,7 @@ void TReport::handleEvent(TEvent& event)
 
 const char* const TAsciiChart::name = "TAsciiChart";
 
-void TAsciiChart::write(opstream& os)
-{
-    TWindow::write(os);
-}
+void TAsciiChart::write(opstream& os) { TWindow::write(os); }
 
 void* TAsciiChart::read(ipstream& is)
 {
@@ -197,14 +179,9 @@ void* TAsciiChart::read(ipstream& is)
     return this;
 }
 
-TStreamable* TAsciiChart::build()
-{
-    return new TAsciiChart(streamableInit);
-}
+TStreamable* TAsciiChart::build() { return new TAsciiChart(streamableInit); }
 
-TStreamableClass RAsciiChart(TAsciiChart::name,
-    TAsciiChart::build,
-    __DELTA(TAsciiChart));
+TStreamableClass RAsciiChart(TAsciiChart::name, TAsciiChart::build, __DELTA(TAsciiChart));
 
 TAsciiChart::TAsciiChart()
     : TWindowInit(&TAsciiChart::initFrame)
@@ -235,7 +212,4 @@ TAsciiChart::TAsciiChart()
     control->select();
 }
 
-void TAsciiChart::handleEvent(TEvent& event)
-{
-    TWindow::handleEvent(event);
-}
+void TAsciiChart::handleEvent(TEvent& event) { TWindow::handleEvent(event); }

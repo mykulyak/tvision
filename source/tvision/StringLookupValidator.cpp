@@ -7,9 +7,8 @@ const char* TStringLookupValidator::errorMsg = "Input is not in list of valid st
 
 __link(RLookupValidator);
 
-TStreamableClass RStringLookupValidator(TStringLookupValidator::name,
-    TStringLookupValidator::build,
-    __DELTA(TStringLookupValidator));
+TStreamableClass RStringLookupValidator(
+    TStringLookupValidator::name, TStringLookupValidator::build, __DELTA(TStringLookupValidator));
 
 TStringLookupValidator::TStringLookupValidator(TStringCollection* aStrings) noexcept
 {
@@ -39,15 +38,9 @@ TStringLookupValidator::TStringLookupValidator(StreamableInit s) noexcept
 
 #endif
 
-TStringLookupValidator::~TStringLookupValidator()
-{
-    newStringList(0);
-}
+TStringLookupValidator::~TStringLookupValidator() { newStringList(0); }
 
-void TStringLookupValidator::error()
-{
-    messageBox(mfError | mfOKButton, errorMsg);
-}
+void TStringLookupValidator::error() { messageBox(mfError | mfOKButton, errorMsg); }
 
 static bool stringMatch(void* a1, void* a2)
 {
@@ -69,9 +62,6 @@ void TStringLookupValidator::newStringList(TStringCollection* aStrings)
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TStringLookupValidator::build()
-{
-    return new TStringLookupValidator(streamableInit);
-}
+TStreamable* TStringLookupValidator::build() { return new TStringLookupValidator(streamableInit); }
 
 #endif

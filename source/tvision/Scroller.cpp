@@ -8,13 +8,9 @@ const char* const TScroller::name = "TScroller";
 __link(RView);
 __link(RScrollBar);
 
-TStreamableClass RScroller(TScroller::name,
-    TScroller::build,
-    __DELTA(TScroller));
+TStreamableClass RScroller(TScroller::name, TScroller::build, __DELTA(TScroller));
 
-TScroller::TScroller(const TRect& bounds,
-    TScrollBar* aHScrollBar,
-    TScrollBar* aVScrollBar) noexcept
+TScroller::TScroller(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar) noexcept
     : TView(bounds)
     , drawLock(0)
     , drawFlag(false)
@@ -61,7 +57,8 @@ void TScroller::handleEvent(TEvent& event)
 {
     TView::handleEvent(event);
 
-    if (event.what == evBroadcast && event.message.command == cmScrollBarChanged && (event.message.infoPtr == hScrollBar || event.message.infoPtr == vScrollBar))
+    if (event.what == evBroadcast && event.message.command == cmScrollBarChanged
+        && (event.message.infoPtr == hScrollBar || event.message.infoPtr == vScrollBar))
         scrollDraw();
 }
 
@@ -106,17 +103,9 @@ void TScroller::setLimit(int x, int y) noexcept
     limit.y = y;
     drawLock++;
     if (hScrollBar != 0)
-        hScrollBar->setParams(hScrollBar->value,
-            0,
-            x - size.x,
-            size.x - 1,
-            hScrollBar->arStep);
+        hScrollBar->setParams(hScrollBar->value, 0, x - size.x, size.x - 1, hScrollBar->arStep);
     if (vScrollBar != 0)
-        vScrollBar->setParams(vScrollBar->value,
-            0,
-            y - size.y,
-            size.y - 1,
-            vScrollBar->arStep);
+        vScrollBar->setParams(vScrollBar->value, 0, y - size.y, size.y - 1, vScrollBar->arStep);
     drawLock--;
     checkDraw();
 }
@@ -157,10 +146,7 @@ void* TScroller::read(ipstream& is)
     return this;
 }
 
-TStreamable* TScroller::build()
-{
-    return new TScroller(streamableInit);
-}
+TStreamable* TScroller::build() { return new TScroller(streamableInit); }
 
 TScroller::TScroller(StreamableInit) noexcept
     : TView(streamableInit)

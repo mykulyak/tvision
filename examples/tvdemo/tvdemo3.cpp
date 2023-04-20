@@ -36,8 +36,7 @@ void TVDemo::openFile(const char* fileSpec)
 
 void TVDemo::outOfMemory()
 {
-    messageBox("Not enough memory available to complete operation.",
-        mfError | mfOKButton);
+    messageBox("Not enough memory available to complete operation.", mfError | mfOKButton);
 }
 
 //
@@ -47,9 +46,9 @@ void TVDemo::outOfMemory()
 TPalette& TVDemo::getPalette() const
 {
     static TPalette newcolor ( cpAppColor cHelpColor, sizeof( cpAppColor cHelpColor )-1 );
-    static TPalette newblackwhite( cpAppBlackWhite cHelpBlackWhite, sizeof( cpAppBlackWhite cHelpBlackWhite)-1 );
-    static TPalette newmonochrome( cpAppMonochrome cHelpMonochrome, sizeof( cpAppMonochrome cHelpMonochrome)-1 );
-    static TPalette *palettes[] =
+    static TPalette newblackwhite( cpAppBlackWhite cHelpBlackWhite, sizeof( cpAppBlackWhite
+cHelpBlackWhite)-1 ); static TPalette newmonochrome( cpAppMonochrome cHelpMonochrome, sizeof(
+cpAppMonochrome cHelpMonochrome)-1 ); static TPalette *palettes[] =
         {
         &newcolor,
         &newblackwhite,
@@ -94,10 +93,7 @@ void TVDemo::idle()
 // closeView() function
 //
 
-static void closeView(TView* p, void* p1)
-{
-    message(p, evCommand, cmClose, p1);
-}
+static void closeView(TView* p, void* p1) { message(p, evCommand, cmClose, p1); }
 
 //
 // loadDesktop() function
@@ -122,13 +118,36 @@ void TVDemo::loadDesktop(fpstream& s)
 
 TMenuBar* TVDemo::initMenuBar(TRect r)
 {
-    TSubMenu& sub1 = *new TSubMenu("~\360~", 0, hcSystem) + *new TMenuItem("~V~ideo mode", cmVideoMode, kbNoKey, hcNoContext, "") + newLine() + *new TMenuItem("~A~bout...", cmAboutCmd, kbNoKey, hcSAbout) + newLine() + *new TMenuItem("~P~uzzle", cmPuzzleCmd, kbNoKey, hcSPuzzle) + *new TMenuItem("Ca~l~endar", cmCalendarCmd, kbNoKey, hcSCalendar) + *new TMenuItem("Ascii ~T~able", cmAsciiCmd, kbNoKey, hcSAsciiTable) + *new TMenuItem("~C~alculator", cmCalcCmd, kbNoKey, hcCalculator) + *new TMenuItem("~E~vent Viewer", cmEventViewCmd, kbAlt0, hcNoContext, "Alt-0");
+    TSubMenu& sub1 = *new TSubMenu("~\360~", 0, hcSystem)
+        + *new TMenuItem("~V~ideo mode", cmVideoMode, kbNoKey, hcNoContext, "") + newLine()
+        + *new TMenuItem("~A~bout...", cmAboutCmd, kbNoKey, hcSAbout) + newLine()
+        + *new TMenuItem("~P~uzzle", cmPuzzleCmd, kbNoKey, hcSPuzzle)
+        + *new TMenuItem("Ca~l~endar", cmCalendarCmd, kbNoKey, hcSCalendar)
+        + *new TMenuItem("Ascii ~T~able", cmAsciiCmd, kbNoKey, hcSAsciiTable)
+        + *new TMenuItem("~C~alculator", cmCalcCmd, kbNoKey, hcCalculator)
+        + *new TMenuItem("~E~vent Viewer", cmEventViewCmd, kbAlt0, hcNoContext, "Alt-0");
 
-    TSubMenu& sub2 = *new TSubMenu("~F~ile", 0, hcFile) + *new TMenuItem("~O~pen...", cmOpenCmd, kbF3, hcFOpen, "F3") + *new TMenuItem("~C~hange Dir...", cmChDirCmd, kbNoKey, hcFChangeDir) + newLine() + *new TMenuItem("~D~OS Shell", cmDosShell, kbNoKey, hcFDosShell) + *new TMenuItem("E~x~it", cmQuit, kbAltX, hcFExit, "Alt-X");
+    TSubMenu& sub2 = *new TSubMenu("~F~ile", 0, hcFile)
+        + *new TMenuItem("~O~pen...", cmOpenCmd, kbF3, hcFOpen, "F3")
+        + *new TMenuItem("~C~hange Dir...", cmChDirCmd, kbNoKey, hcFChangeDir) + newLine()
+        + *new TMenuItem("~D~OS Shell", cmDosShell, kbNoKey, hcFDosShell)
+        + *new TMenuItem("E~x~it", cmQuit, kbAltX, hcFExit, "Alt-X");
 
-    TSubMenu& sub3 = *new TSubMenu("~W~indows", 0, hcWindows) + *new TMenuItem("~R~esize/move", cmResize, kbCtrlF5, hcWSizeMove, "Ctrl-F5") + *new TMenuItem("~Z~oom", cmZoom, kbF5, hcWZoom, "F5") + *new TMenuItem("~N~ext", cmNext, kbF6, hcWNext, "F6") + *new TMenuItem("~C~lose", cmClose, kbAltF3, hcWClose, "Alt-F3") + *new TMenuItem("~T~ile", cmTile, kbNoKey, hcWTile) + *new TMenuItem("C~a~scade", cmCascade, kbNoKey, hcWCascade);
+    TSubMenu& sub3 = *new TSubMenu("~W~indows", 0, hcWindows)
+        + *new TMenuItem("~R~esize/move", cmResize, kbCtrlF5, hcWSizeMove, "Ctrl-F5")
+        + *new TMenuItem("~Z~oom", cmZoom, kbF5, hcWZoom, "F5")
+        + *new TMenuItem("~N~ext", cmNext, kbF6, hcWNext, "F6")
+        + *new TMenuItem("~C~lose", cmClose, kbAltF3, hcWClose, "Alt-F3")
+        + *new TMenuItem("~T~ile", cmTile, kbNoKey, hcWTile)
+        + *new TMenuItem("C~a~scade", cmCascade, kbNoKey, hcWCascade);
 
-    TSubMenu& sub4 = *new TSubMenu("~O~ptions", 0, hcOptions) + *new TMenuItem("~M~ouse...", cmMouseCmd, kbNoKey, hcOMouse) + *new TMenuItem("~C~olors...", cmColorCmd, kbNoKey, hcOColors) + *new TMenuItem("~B~ackground...", cmChBackground, kbNoKey) + (TMenuItem&)(*new TSubMenu("~D~esktop", 0) + *new TMenuItem("~S~ave desktop", cmSaveCmd, kbNoKey, hcOSaveDesktop) + *new TMenuItem("~R~etrieve desktop", cmRestoreCmd, kbNoKey, hcORestoreDesktop));
+    TSubMenu& sub4 = *new TSubMenu("~O~ptions", 0, hcOptions)
+        + *new TMenuItem("~M~ouse...", cmMouseCmd, kbNoKey, hcOMouse)
+        + *new TMenuItem("~C~olors...", cmColorCmd, kbNoKey, hcOColors)
+        + *new TMenuItem("~B~ackground...", cmChBackground, kbNoKey)
+        + (TMenuItem&)(*new TSubMenu("~D~esktop", 0)
+            + *new TMenuItem("~S~ave desktop", cmSaveCmd, kbNoKey, hcOSaveDesktop)
+            + *new TMenuItem("~R~etrieve desktop", cmRestoreCmd, kbNoKey, hcORestoreDesktop));
 
     r.b.y = r.a.y + 1;
     return (new TMenuBar(r, sub1 + sub2 + sub3 + sub4));
