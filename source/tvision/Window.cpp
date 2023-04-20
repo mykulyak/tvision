@@ -22,7 +22,7 @@ TWindow::TWindow(const TRect& bounds, TStringView aTitle, short aNumber) noexcep
     , zoomRect(getBounds())
     , number(aNumber)
     , palette(wpBlueWindow)
-    , title(newStr(aTitle))
+    , title(aTitle.begin(), aTitle.end())
 {
     state |= sfShadow;
     options |= ofSelectable | ofTopSelect;
@@ -32,7 +32,7 @@ TWindow::TWindow(const TRect& bounds, TStringView aTitle, short aNumber) noexcep
         insert(frame);
 }
 
-TWindow::~TWindow() { delete[] (char*)title; }
+TWindow::~TWindow() { }
 
 void TWindow::close()
 {
@@ -57,7 +57,7 @@ TPalette& TWindow::getPalette() const
     return *(palettes[palette]);
 }
 
-const char* TWindow::getTitle(short) { return title; }
+const char* TWindow::getTitle(short) { return title.c_str(); }
 
 void TWindow::handleEvent(TEvent& event)
 {
@@ -189,7 +189,7 @@ void* TWindow::read(ipstream& is)
     TGroup::read(is);
     is >> flags >> zoomRect >> number >> palette;
     is >> frame;
-    title = is.readString();
+    title = is.readStlString();
     return this;
 }
 

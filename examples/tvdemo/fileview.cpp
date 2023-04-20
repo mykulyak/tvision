@@ -78,15 +78,14 @@ bool TFileViewer::valid(ushort) { return isValid; }
 void* TFileViewer::read(ipstream& is)
 {
     TScroller::read(is);
-    std::unique_ptr<char[]> fName(is.readString());
-    readFile(fName.get());
+    readFile(is.readStlString());
     return this;
 }
 
 void TFileViewer::write(opstream& os)
 {
     TScroller::write(os);
-    os.writeString(fileName.c_str());
+    os.writeString(fileName);
 }
 
 TStreamable* TFileViewer::build() { return new TFileViewer(streamableInit); }

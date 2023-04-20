@@ -284,7 +284,7 @@ void TColorGroupList::writeItems(opstream& os, TColorItem* items)
     os << count;
 
     for (cur = items; cur != 0; cur = cur->next) {
-        os.writeString(cur->name.c_str());
+        os.writeString(cur->name);
         os << cur->index;
     }
 }
@@ -300,7 +300,7 @@ void TColorGroupList::writeGroups(opstream& os, TColorGroup* groups)
     os << count;
 
     for (cur = groups; cur != 0; cur = cur->next) {
-        os.writeString(cur->name.c_str());
+        os.writeString(cur->name);
         writeItems(os, cur->items);
     }
 }

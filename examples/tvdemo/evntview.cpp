@@ -17,7 +17,7 @@ void TEventViewer::write(opstream& os)
 {
     // TTerminal does not override the TStreamable methods, so do not
     // store it in the stream.
-    title = 0;
+    title.clear();
     remove(scrollBar);
     remove(interior);
     TWindow::write(os);
@@ -47,8 +47,9 @@ void TEventViewer::toggle()
 {
     stopped = bool(!stopped);
     title = titles[stopped];
-    if (frame)
+    if (frame) {
         frame->drawView();
+    }
 }
 
 void TEventViewer::print(const TEvent& ev)
@@ -91,10 +92,7 @@ void TEventViewer::shutDown()
     TWindow::shutDown();
 }
 
-TEventViewer::~TEventViewer()
-{
-    title = 0; // So that TWindow doesn't delete it.
-}
+TEventViewer::~TEventViewer() { }
 
 void TEventViewer::handleEvent(TEvent& ev)
 {

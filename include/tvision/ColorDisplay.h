@@ -1,6 +1,7 @@
 #ifndef TVision_TColorDisplay_h
 #define TVision_TColorDisplay_h
 
+#include <string>
 #include <tvision/StringView.h>
 #include <tvision/View.h>
 
@@ -14,7 +15,7 @@ public:
 
 protected:
     TColorAttr* color;
-    const char* text;
+    std::string text;
 
 private:
     virtual const char* streamableName() const { return name; }

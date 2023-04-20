@@ -10,22 +10,22 @@ TStreamableClass RColorDisplay(TColorDisplay::name, TColorDisplay::build, __DELT
 TColorDisplay::TColorDisplay(const TRect& bounds, TStringView aText) noexcept
     : TView(bounds)
     , color(0)
-    , text(newStr(aText))
+    , text(aText.begin(), aText.end())
 {
     eventMask |= evBroadcast;
 }
 
-TColorDisplay::~TColorDisplay() { delete[] (char*)text; }
+TColorDisplay::~TColorDisplay() { }
 
 void TColorDisplay::draw()
 {
     uchar c = *color;
     if (c == 0)
         c = errorAttr;
-    const int len = strlen(text);
+    const int len = text.size();
     TDrawBuffer b;
     for (int i = 0; i <= size.x / len; i++)
-        b.moveStr(i * len, text, c);
+        b.moveStr(i * len, text.c_str(), c);
     writeLine(0, 0, size.x, size.y, b);
 }
 

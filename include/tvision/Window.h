@@ -1,6 +1,7 @@
 #ifndef TVision_TWindow_h
 #define TVision_TWindow_h
 
+#include <string>
 #include <tvision/Group.h>
 #include <tvision/Palette.h>
 
@@ -63,7 +64,7 @@ public:
     short number;
     short palette;
     TFrame* frame;
-    const char* title;
+    std::string title;
 
 private:
     virtual const char* streamableName() const { return name; }

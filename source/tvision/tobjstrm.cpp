@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sys/stat.h>
 #include <tvision/tobjstrm.h>
+#include <vector>
 
 typedef std::ios::openmode openmode;
 typedef std::ios::seekdir seekdir;
@@ -262,6 +263,18 @@ char* ipstream::readString(char* buf, unsigned maxLen)
     return buf;
 }
 
+std::string ipstream::readStlString()
+{
+    std::string result;
+    uchar len = readByte();
+    if (len != nullStringLen) {
+        std::vector<char> buf(len + 1);
+        readBytes(buf.data(), len);
+        result.assign(buf.data(), len);
+    }
+    return result;
+}
+
 ipstream& operator>>(ipstream& ps, char& ch)
 {
     ch = ps.readByte();
@@ -478,6 +491,12 @@ void opstream::writeString(const char* str)
 }
 
 void opstream::writeString(TStringView str)
+{
+    writeByte((uchar)str.size());
+    writeBytes(str.data(), str.size());
+}
+
+void opstream::writeString(const std::string& str)
 {
     writeByte((uchar)str.size());
     writeBytes(str.data(), str.size());

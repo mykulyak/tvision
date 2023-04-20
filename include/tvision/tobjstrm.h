@@ -1,6 +1,8 @@
 #ifndef TVision_TObjectStream_h
 #define TVision_TObjectStream_h
 
+#include <string>
+
 typedef unsigned P_id_type;
 
 /* ------------------------------------------------------------------------*/
@@ -319,6 +321,8 @@ public:
     char* readString();
     char* readString(char*, unsigned);
 
+    std::string readStlString();
+
     friend ipstream& operator>>(ipstream&, TStreamable&);
     friend ipstream& operator>>(ipstream&, void*&);
 
@@ -367,6 +371,7 @@ public:
     void writeWord(ushort);
     void writeString(const char*);
     void writeString(TStringView);
+    void writeString(const std::string&);
 
     friend opstream& operator<<(opstream&, TStreamable&);
     friend opstream& operator<<(opstream&, TStreamable*);

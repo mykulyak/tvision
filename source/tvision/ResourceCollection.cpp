@@ -26,7 +26,6 @@ TStreamable* TResourceCollection::build() { return new TResourceCollection(strea
 
 void TResourceCollection::writeItem(void* obj, opstream& os)
 {
-
     os << ((TResourceItem*)obj)->pos;
     os << ((TResourceItem*)obj)->size;
     os.writeString(((TResourceItem*)obj)->key);

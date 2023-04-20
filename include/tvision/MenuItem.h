@@ -1,6 +1,7 @@
 #ifndef TVision_TMenuItem_h
 #define TVision_TMenuItem_h
 
+#include <string>
 #include <tvision/CommandCodes.h>
 #include <tvision/Keys.h>
 #include <tvision/StringView.h>
@@ -19,7 +20,7 @@ public:
     void append(TMenuItem* aNext) noexcept;
 
     TMenuItem* next;
-    const char* name;
+    std::string name;
     ushort command;
     bool disabled;
     TKey keyCode;

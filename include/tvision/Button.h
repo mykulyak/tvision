@@ -1,6 +1,7 @@
 #ifndef TVision_TButton_h
 #define TVision_TButton_h
 
+#include <string>
 #include <tvision/StringView.h>
 #include <tvision/View.h>
 
@@ -43,7 +44,7 @@ public:
     virtual void press();
     virtual void setState(ushort aState, bool enable);
 
-    const char* title;
+    std::string title;
 
 protected:
     ushort command;

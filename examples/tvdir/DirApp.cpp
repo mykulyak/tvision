@@ -281,13 +281,13 @@ public:
         if ((event.what == evCommand) && (event.message.command == cmNewDirFocused)) {
             ol->getCurrentPath(buffer, 128);
             fp->newDir(buffer);
-            delete[] (char*)title;
-            title = newStr(buffer);
+            title = buffer;
             clearEvent(event);
             ((TView*)frame)->drawView();
         }
         TWindow::handleEvent(event);
     }
+
     virtual void sizeLimits(TPoint& min, TPoint& max)
     {
         min.x = 40;
@@ -341,7 +341,6 @@ void TDirApp::handleEvent(TEvent& event)
 TMenuBar* TDirApp::initMenuBar(TRect r)
 {
     r.b.y = r.a.y + 1;
-
     return new TMenuBar(r,
         *new TSubMenu("~\xF0~", kbAltSpace) + *new TMenuItem("~A~bout...", cmAbout, kbAltA)
             + *new TSubMenu("~F~ile", kbAltF) + *new TMenuItem("~N~ew Window...", cmDirTree, kbAltN)
@@ -364,9 +363,7 @@ void TDirApp::aboutBox(void)
         "\003Outline Viewer Demo\n\n" // These strings will be
         "\003Copyright (c) 1994\n\n" // The \003 centers the line.
         "\003Borland International"));
-
     aboutBox->insert(new TButton(TRect(14, 8, 25, 10), " OK", cmOK, TButton::Flags::bfDefault));
-
     aboutBox->options |= ofCentered;
 
     executeDialog(aboutBox);

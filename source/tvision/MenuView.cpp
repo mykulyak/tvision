@@ -14,9 +14,9 @@ TStreamableClass RMenuView(TMenuView::name, TMenuView::build, __DELTA(TMenuView)
 TMenuItem::TMenuItem(TStringView aName, ushort aCommand, TKey aKey, ushort aHelpCtx, TStringView p,
     TMenuItem* aNext) noexcept
 {
-    name = newStr(aName);
+    name.assign(aName.begin(), aName.end());
     command = aCommand;
-    disabled = bool(!TView::commandEnabled(command));
+    disabled = !TView::commandEnabled(command);
     keyCode = aKey;
     helpCtx = aHelpCtx;
     if (p.empty())
@@ -29,9 +29,9 @@ TMenuItem::TMenuItem(TStringView aName, ushort aCommand, TKey aKey, ushort aHelp
 TMenuItem::TMenuItem(
     TStringView aName, TKey aKey, TMenu* aSubMenu, ushort aHelpCtx, TMenuItem* aNext) noexcept
 {
-    name = newStr(aName);
+    name.assign(aName.begin(), aName.end());
     command = 0;
-    disabled = bool(!TView::commandEnabled(command));
+    disabled = !TView::commandEnabled(command);
     keyCode = aKey;
     helpCtx = aHelpCtx;
     subMenu = aSubMenu;
@@ -40,7 +40,6 @@ TMenuItem::TMenuItem(
 
 TMenuItem::~TMenuItem()
 {
-    delete[] (char*)name;
     if (command == 0)
         delete subMenu;
     else
@@ -96,7 +95,7 @@ void TMenuView::trackKey(bool findNext)
             nextItem();
         else
             prevItem();
-    } while (current->name == 0);
+    } while (current->name.size() == 0);
 }
 
 bool TMenuView::mouseInOwner(TEvent& e)
@@ -177,7 +176,7 @@ ushort TMenuView::execute()
             if (mouseInOwner(e))
                 current = menu->deflt;
             else if (current != 0) {
-                if (current->name != 0) {
+                if (current->name.size() != 0) {
                     if (current != lastTargetItem)
                         action = doSelect;
                     else if (!parentMenu)
@@ -299,7 +298,7 @@ ushort TMenuView::execute()
         }
 
         if ((action == doSelect || (action == doNothing && autoSelect)) && current != 0
-            && current->name != 0) {
+            && current->name.size() != 0) {
             if (current->command == 0 && !current->disabled) {
                 if ((e.what & (evMouseDown | evMouseMove)) != 0)
                     putEvent(e);
@@ -342,8 +341,8 @@ TMenuItem* TMenuView::findItem(char ch)
     ch = toupper(ch);
     TMenuItem* p = menu->items;
     while (p != 0) {
-        if (p->name != 0 && !p->disabled) {
-            char* loc = strchr((char*)p->name, '~');
+        if (p->name.size() != 0 && !p->disabled) {
+            const char* loc = strchr(p->name.c_str(), '~');
             if (loc != 0 && (uchar)ch == toupper(loc[1]))
                 return p;
         }
@@ -358,8 +357,8 @@ ushort TMenuView::getHelpCtx()
 {
     TMenuView* c = this;
 
-    while (
-        c != 0 && (c->current == 0 || c->current->helpCtx == hcNoContext || c->current->name == 0))
+    while (c != 0
+        && (c->current == 0 || c->current->helpCtx == hcNoContext || c->current->name.size() == 0))
         c = c->parentMenu;
 
     if (c != 0)
@@ -379,7 +378,7 @@ bool TMenuView::updateMenu(TMenu* menu)
     bool res = false;
     if (menu != 0) {
         for (TMenuItem* p = menu->items; p != 0; p = p->next) {
-            if (p->name != 0) {
+            if (p->name.size() != 0) {
                 if (p->command == 0) {
                     if (updateMenu(p->subMenu) == true)
                         res = true;
@@ -446,7 +445,7 @@ TMenuItem* TMenuView::findHotKey(TMenuItem* p, TKey key)
 {
 
     while (p != 0) {
-        if (p->name != 0) {
+        if (p->name.size() != 0) {
             if (p->command == 0) {
                 TMenuItem* T;
                 if ((T = findHotKey(p->subMenu->items, key)) != 0)
@@ -478,7 +477,7 @@ void TMenuView::writeMenu(opstream& os, TMenu* menu)
         os << tok;
         os.writeString(item->name);
         os << item->command << (int)(item->disabled) << item->keyCode << item->helpCtx;
-        if (item->name != 0) {
+        if (item->name.size() != 0) {
             if (item->command == 0)
                 writeMenu(os, item->subMenu);
             else
@@ -514,7 +513,7 @@ TMenu* TMenuView::readMenu(ipstream& is)
         int temp;
         is >> item->command >> temp >> item->keyCode >> item->helpCtx;
         item->disabled = bool(temp);
-        if (item->name != 0) {
+        if (item->name.size() != 0) {
             if (item->command == 0)
                 item->subMenu = readMenu(is);
             else

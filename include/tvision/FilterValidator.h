@@ -1,6 +1,7 @@
 #ifndef TVision_TFilterValidator_h
 #define TVision_TFilterValidator_h
 
+#include <string>
 #include <tvision/Validator.h>
 
 // TFilterValidator
@@ -21,7 +22,7 @@ protected:
     virtual void write(opstream& os);
     virtual void* read(ipstream& is);
 
-    char* validChars;
+    std::string validChars;
 
 private:
     virtual const char* streamableName() const { return name; };

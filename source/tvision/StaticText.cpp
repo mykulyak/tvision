@@ -88,14 +88,13 @@ void TStaticText::getText(char* s)
 void TStaticText::write(opstream& os)
 {
     TView::write(os);
-    os.writeString(text.c_str());
+    os.writeString(text);
 }
 
 void* TStaticText::read(ipstream& is)
 {
     TView::read(is);
-    std::unique_ptr<char[]> buf(is.readString());
-    text.assign(buf.get());
+    text = is.readStlString();
     return this;
 }
 

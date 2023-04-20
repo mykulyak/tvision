@@ -59,7 +59,7 @@ void TStatusLine::drawSelect(TStatusItem* selected)
 
     while (T != 0) {
         if (T->text.size() != 0) {
-            ushort l = T->text.size();
+            ushort l = cstrlen(T->text.c_str());
             if (i + l < size.x) {
                 if (commandEnabled(T->command))
                     if (T == selected)
@@ -114,7 +114,7 @@ TStatusItem* TStatusLine::itemMouseIsIn(TPoint mouse)
 
     for (i = 0, T = items; T != 0; T = T->next) {
         if (T->text.size() != 0) {
-            ushort k = i + T->text.size() + 2;
+            ushort k = i + cstrlen(T->text.c_str()) + 2;
             if (mouse.x >= i && mouse.x < k)
                 return T;
             i = k;
@@ -188,7 +188,7 @@ void TStatusLine::writeItems(opstream& os, TStatusItem* ts)
         count++;
     os << count;
     for (; ts != 0; ts = ts->next) {
-        os.writeString(ts->text.c_str());
+        os.writeString(ts->text);
         os << ts->keyCode << ts->command;
     }
 }

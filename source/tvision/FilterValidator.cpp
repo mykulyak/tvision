@@ -11,9 +11,12 @@ TStreamableClass RFilterValidator(
     TFilterValidator::name, TFilterValidator::build, __DELTA(TFilterValidator));
 
 TFilterValidator::TFilterValidator(TStringView aValidChars) noexcept
+    : TValidator()
+    , validChars(aValidChars.begin(), aValidChars.end())
 {
-    validChars = newStr(aValidChars);
 }
+
+TFilterValidator::~TFilterValidator() { }
 
 #ifndef NO_STREAMABLE
 
@@ -21,12 +24,6 @@ TFilterValidator::TFilterValidator(StreamableInit s) noexcept
     : TValidator(s)
 {
 }
-
-#endif
-
-TFilterValidator::~TFilterValidator() { delete[] validChars; }
-
-#ifndef NO_STREAMABLE
 
 void TFilterValidator::write(opstream& os)
 {
@@ -45,11 +42,14 @@ TStreamable* TFilterValidator::build() { return new TFilterValidator(streamableI
 
 #endif
 
-bool TFilterValidator::isValid(const char* s) { return bool(strspn(s, validChars) == strlen(s)); }
+bool TFilterValidator::isValid(const char* s)
+{
+    return bool(strspn(s, validChars.c_str()) == strlen(s));
+}
 
 bool TFilterValidator::isValidInput(char* s, bool suppressFill)
 {
-    return bool(strspn(s, validChars) == strlen(s));
+    return bool(strspn(s, validChars.c_str()) == strlen(s));
 }
 
 void TFilterValidator::error() { messageBox(mfError | mfOKButton, errorMsg); }

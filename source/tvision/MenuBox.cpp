@@ -14,8 +14,8 @@ static TRect getRect(const TRect& bounds, TMenu* aMenu)
     short h = 2;
     if (aMenu != 0) {
         for (TMenuItem* p = aMenu->items; p != 0; p = p->next) {
-            if (p->name != 0) {
-                short l = cstrlen(p->name) + 6;
+            if (p->name.size() != 0) {
+                short l = cstrlen(p->name.c_str()) + 6;
                 if (p->command == 0)
                     l += 3;
                 else if (p->param != 0)
@@ -72,7 +72,7 @@ void TMenuBox::draw()
     if (menu != 0) {
         for (TMenuItem* p = menu->items; p != 0; p = p->next) {
             color = cNormal;
-            if (p->name == 0)
+            if (p->name.size() == 0)
                 frameLine(b, 15);
             else {
                 if (p->disabled)
@@ -83,7 +83,7 @@ void TMenuBox::draw()
                 else if (p == current)
                     color = cSelect;
                 frameLine(b, 10);
-                b.moveCStr(3, p->name, color);
+                b.moveCStr(3, p->name.c_str(), color);
                 if (p->command == 0)
                     b.putChar(size.x - 4, 16);
                 else if (p->param != 0)
