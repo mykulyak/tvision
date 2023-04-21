@@ -1,5 +1,5 @@
-#ifndef __MOUSEDLG_H
-#define __MOUSEDLG_H
+#ifndef TVision_TVDemo_MouseDialog_h
+#define TVision_TVDemo_MouseDialog_h
 
 class TClickTester : public TStaticText {
 
@@ -24,4 +24,4 @@ private:
     short oldDelay;
 };
 
-#endif // __MOUSEDLG_H
+#endif // TVision_TVDemo_MouseDialog_h

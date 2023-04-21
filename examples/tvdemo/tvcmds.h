@@ -1,5 +1,5 @@
-#ifndef __TVCMDS_H
-#define __TVCMDS_H
+#ifndef TVision_TVDemo_CommandConsts_h
+#define TVision_TVDemo_CommandConsts_h
 
 const int cmAboutCmd = 100;
 const int cmPuzzleCmd = 101;
@@ -17,4 +17,4 @@ const int cmChBackground = 113;
 const int cmFndEventView = 114;
 const int cmVideoMode = 2002;
 
-#endif // __TVCMDS_H
+#endif // TVision_TVDemo_CommandConsts_h

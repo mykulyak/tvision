@@ -12,10 +12,6 @@ __link(RView);
 __link(RDialog);
 __link(RButton);
 
-//
-// TCalcDisplay functions
-//
-
 const char* const TCalcDisplay::name = "TCalcDisplay";
 
 void TCalcDisplay::write(opstream& os)
@@ -245,10 +241,6 @@ void TCalcDisplay::calcKey(unsigned char key)
 
 static const char* keyChar[20] = { "C", "\x1B", "%", "\xF1", // 0x1B is escape, 0xF1 is +/- char.
     "7", "8", "9", "/", "4", "5", "6", "*", "1", "2", "3", "-", "0", ".", "=", "+" };
-
-//
-// TCalculator functions
-//
 
 const char* const TCalculator::name = "TCalculator";
 

@@ -1,5 +1,5 @@
-#ifndef EVNTVIEW_H
-#define EVNTVIEW_H
+#ifndef TVision_TVDemo_EventView_h
+#define TVision_TVDemo_EventView_h
 
 #include <tvision/tv.h>
 
@@ -49,4 +49,4 @@ private:
     virtual void* read(ipstream&);
 };
 
-#endif
+#endif // TVision_TVDemo_EventView_h

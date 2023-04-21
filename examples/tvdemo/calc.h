@@ -1,5 +1,5 @@
-#ifndef __CALC_H
-#define __CALC_H
+#ifndef TVision_TVDemo_Calc_h
+#define TVision_TVDemo_Calc_h
 
 #include <cmath>
 
@@ -78,4 +78,4 @@ inline ipstream& operator>>(ipstream& is, TCalculator*& cl) { return is >> (void
 inline opstream& operator<<(opstream& os, TCalculator& cl) { return os << (TStreamable&)cl; }
 inline opstream& operator<<(opstream& os, TCalculator* cl) { return os << (TStreamable*)cl; }
 
-#endif // __CALC_H
+#endif // TVision_TVDemo_Calc_h

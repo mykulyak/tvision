@@ -15,10 +15,6 @@ static const char* monthNames[] = { "", "January", "February", "March", "April",
 
 static unsigned char daysInMonth[] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-//
-// TCalendarView functions
-//
-
 const char* const TCalendarView::name = "TCalendarView";
 
 void TCalendarView::write(opstream& os)

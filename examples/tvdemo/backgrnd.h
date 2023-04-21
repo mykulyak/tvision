@@ -1,5 +1,5 @@
-#ifndef BACKGRND_H
-#define BACKGRND_H
+#ifndef TVision_TVDemo_Background_h
+#define TVision_TVDemo_Background_h
 
 #include <tvision/tv.h>
 
@@ -14,4 +14,4 @@ private:
     TInputLine* input;
 };
 
-#endif
+#endif // TVision_TVDemo_Background_h

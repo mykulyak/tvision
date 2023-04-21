@@ -1,5 +1,7 @@
-#ifndef __TVDEMO_H
-#define __TVDEMO_H
+#ifndef TVision_TVDemo_Application_h
+#define TVision_TVDemo_Application_h
+
+#include <tvision/Application.h>
 
 class TStatusLine;
 class TMenuBar;
@@ -41,4 +43,4 @@ private:
     void saveDesktop(); //  in a resource file
 };
 
-#endif // __TVDEMO_H
+#endif // TVision_TVDemo_Application_h

@@ -1,5 +1,5 @@
-#ifndef __DEMOHELP_H
-#define __DEMOHELP_H
+#ifndef TVision_TVDemo_HelpConsts_h
+#define TVision_TVDemo_HelpConsts_h
 
 const int hcAsciiTable = 6, hcCalculator = 4, hcCalendar = 5, hcCancelBtn = 35, hcFCChDirDBox = 37,
           hcFChangeDir = 15, hcFDosShell = 16, hcFExit = 17, hcFOFileOpenDBox = 31, hcFOFiles = 33,
@@ -10,4 +10,4 @@ const int hcAsciiTable = 6, hcCalculator = 4, hcCalendar = 5, hcCancelBtn = 35, 
           hcSystem = 7, hcViewer = 2, hcWCascade = 22, hcWClose = 25, hcWNext = 23,
           hcWPrevious = 24, hcWSizeMove = 19, hcWTile = 21, hcWZoom = 20, hcWindows = 18;
 
-#endif // __DEMOHELP_H
+#endif // TVision_TVDemo_HelpConsts_h

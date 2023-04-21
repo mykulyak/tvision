@@ -1,5 +1,5 @@
-#ifndef __ASCII_H
-#define __ASCII_H
+#ifndef TVision_TVDemo_Ascii_h
+#define TVision_TVDemo_Ascii_h
 
 const int cmAsciiTableCmdBase = 910;
 const int cmCharFocused = 0;
@@ -88,4 +88,4 @@ inline ipstream& operator>>(ipstream& is, TAsciiChart*& cl) { return is >> (void
 inline opstream& operator<<(opstream& os, TAsciiChart& cl) { return os << (TStreamable&)cl; }
 inline opstream& operator<<(opstream& os, TAsciiChart* cl) { return os << (TStreamable*)cl; }
 
-#endif // __ASCII_H
+#endif // TVision_TVDemo_Ascii_h

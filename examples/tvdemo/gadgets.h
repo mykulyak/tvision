@@ -1,5 +1,5 @@
-#ifndef __GADGETS_H
-#define __GADGETS_H
+#ifndef TVision_TVDemo_Gadgets_h
+#define TVision_TVDemo_Gadgets_h
 
 #include <tvision/tv.h>
 
@@ -26,4 +26,4 @@ private:
     char curTime[9];
 };
 
-#endif // __GADGETS_H
+#endif // TVision_TVDemo_Gadgets_h

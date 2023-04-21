@@ -10,10 +10,6 @@
 __link(RView);
 __link(RWindow);
 
-//
-// TTable functions
-//
-
 const char* const TTable::name = "TTable";
 
 void TTable::write(opstream& os) { TView::write(os); }
@@ -109,10 +105,6 @@ void TTable::handleEvent(TEvent& event)
     }
 }
 
-//
-// TReport functions
-//
-
 const char* const TReport::name = "TReport";
 
 void TReport::write(opstream& os)
@@ -164,10 +156,6 @@ void TReport::handleEvent(TEvent& event)
         }
     }
 }
-
-//
-// TAsciiChart functions
-//
 
 const char* const TAsciiChart::name = "TAsciiChart";
 

@@ -1,5 +1,5 @@
-#ifndef __PUZZLE_H
-#define __PUZZLE_H
+#ifndef TVision_TVDemo_Puzzle_h
+#define TVision_TVDemo_Puzzle_h
 
 class TPuzzleView : public TView {
 public:
@@ -62,4 +62,4 @@ inline ipstream& operator>>(ipstream& is, TPuzzleWindow*& cl) { return is >> (vo
 inline opstream& operator<<(opstream& os, TPuzzleWindow& cl) { return os << (TStreamable&)cl; }
 inline opstream& operator<<(opstream& os, TPuzzleWindow* cl) { return os << (TStreamable*)cl; }
 
-#endif // __PUZZLE_H
+#endif // TVision_TVDemo_Puzzle_h

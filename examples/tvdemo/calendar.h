@@ -1,5 +1,5 @@
-#ifndef __CALENDAR_H
-#define __CALENDAR_H
+#ifndef TVision_TVDemo_Calendar_h
+#define TVision_TVDemo_Calendar_h
 
 class TCalendarView : public TView {
 public:
@@ -56,4 +56,4 @@ inline ipstream& operator>>(ipstream& is, TCalendarWindow*& cl) { return is >> (
 inline opstream& operator<<(opstream& os, TCalendarWindow& cl) { return os << (TStreamable&)cl; }
 inline opstream& operator<<(opstream& os, TCalendarWindow* cl) { return os << (TStreamable*)cl; }
 
-#endif // __CALENDAR_H
+#endif // TVision_TVDemo_Calendar_h
