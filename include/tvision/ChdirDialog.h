@@ -12,7 +12,6 @@ class TDirListBox;
 class TButton;
 
 class TChDirDialog : public TDialog {
-
 public:
     friend class TDirListBox;
 

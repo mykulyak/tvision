@@ -32,7 +32,7 @@ TDirListBox::~TDirListBox()
 
 void TDirListBox::getText(char* text, short item, short maxChars)
 {
-    strncpy(text, list()->at(item)->text(), maxChars);
+    strncpy(text, list()->at(item)->text().c_str(), maxChars);
     text[maxChars] = '\0';
 }
 
@@ -149,16 +149,19 @@ void TDirListBox::showDirs(TDirCollection* dirs)
         res = findnext(&ff);
     }
 
-    char* p = dirs->at(dirs->getCount() - 1)->text();
-    char* i = strchr(p, graphics[0]);
-    if (i == 0) {
-        i = strchr(p, graphics[1]);
-        if (i != 0)
-            *i = graphics[0];
+    TDirEntry* entry = dirs->at(dirs->getCount() - 1);
+    std::string text = entry->text();
+    std::string::size_type i = text.find(graphics[0]);
+    if (i == std::string::npos) {
+        i = text.find(graphics[1]);
+        if (i != std::string::npos) {
+            text[i] = graphics[0];
+        }
     } else {
-        *(i + 1) = graphics[2];
-        *(i + 2) = graphics[2];
+        text[i + 1] = graphics[2];
+        text[i + 2] = graphics[2];
     }
+    entry->setText(text);
 }
 
 void TDirListBox::newDirectory(TStringView str)

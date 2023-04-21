@@ -1,28 +1,27 @@
 #ifndef TVision_TDirEntry_h
 #define TVision_TDirEntry_h
 
+#include <string>
 #include <tvision/StringView.h>
 
 class TDirEntry {
 public:
     TDirEntry(TStringView txt, TStringView dir) noexcept
-        : displayText(newStr(txt))
-        , directory(newStr(dir))
+        : displayText(txt.begin(), txt.end())
+        , directory(dir.begin(), dir.end())
     {
     }
 
-    ~TDirEntry()
-    {
-        delete[] displayText;
-        delete[] directory;
-    }
+    ~TDirEntry() { }
 
-    char* dir() const { return directory; }
-    char* text() const { return displayText; }
+    const std::string& dir() const { return directory; }
+
+    const std::string& text() const { return displayText; }
+    void setText(const std::string& value) { displayText = value; }
 
 private:
-    char* displayText;
-    char* directory;
+    std::string displayText;
+    std::string directory;
 };
 
 #endif // TVision_TDirEntry_h

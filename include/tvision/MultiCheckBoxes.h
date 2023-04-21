@@ -1,6 +1,7 @@
 #ifndef TVision_TMultiCheckBoxes_h
 #define TVision_TMultiCheckBoxes_h
 
+#include <string>
 #include <tvision/Cluster.h>
 
 const unsigned short cfOneBit = 0x0101, cfTwoBits = 0x0203, cfFourBits = 0x040F,
@@ -32,7 +33,7 @@ public:
 private:
     uchar selRange;
     ushort flags;
-    char* states;
+    std::string states;
 
     virtual const char* streamableName() const { return name; }
 

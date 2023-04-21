@@ -100,7 +100,7 @@ void TChDirDialog::handleEvent(TEvent& event)
             break;
         case cmChangeDir: {
             TDirEntry* p = dirList->list()->at(dirList->focused);
-            strcpy(curDir, p->dir());
+            strcpy(curDir, p->dir().c_str());
             if (strcmp(curDir, drivesText) == 0)
                 break;
             else if (driveValid(curDir[0])) {

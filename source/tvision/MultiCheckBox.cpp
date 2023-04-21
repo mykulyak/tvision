@@ -12,7 +12,7 @@ TMultiCheckBoxes::TMultiCheckBoxes(
 {
     selRange = aSelRange;
     flags = aFlags;
-    states = newStr(aStates);
+    states = aStates;
 }
 
 #ifndef NO_STREAMABLE
@@ -26,7 +26,7 @@ void* TMultiCheckBoxes::read(ipstream& is)
 {
     TCluster::read(is);
     is >> selRange >> flags;
-    states = is.readString();
+    states = is.readStlString();
 
     return this;
 }
@@ -42,9 +42,9 @@ TStreamable* TMultiCheckBoxes::build() { return new TMultiCheckBoxes(streamableI
 
 #endif
 
-TMultiCheckBoxes::~TMultiCheckBoxes() { delete states; }
+TMultiCheckBoxes::~TMultiCheckBoxes() { }
 
-void TMultiCheckBoxes::draw() { drawMultiBox(" [ ] ", states); }
+void TMultiCheckBoxes::draw() { drawMultiBox(" [ ] ", states.c_str()); }
 
 ushort TMultiCheckBoxes::dataSize() { return sizeof(int32_t); }
 
