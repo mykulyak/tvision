@@ -103,8 +103,6 @@
 #include <tvision/View.h>
 #include <tvision/Window.h>
 
-#include <tvision/VirtualMemoryManager.h>
-
 #include <tvision/Button.h>
 #include <tvision/CheckBoxes.h>
 #include <tvision/History.h>

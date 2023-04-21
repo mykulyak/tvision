@@ -84,21 +84,7 @@ struct DirSearchRec : public TSearchRec {
         size = f->ff_fsize;
         memcpy(name, f->ff_name, sizeof(f->ff_name));
     }
-
-    void* operator new(size_t);
 };
-
-void* DirSearchRec::operator new(size_t sz)
-{
-    void* temp = ::operator new(sz);
-#ifdef __BORLANDC__ // Would work anyway, but it's unnecessary.
-    if (TVMemMgr::safetyPoolExhausted()) {
-        delete temp;
-        temp = 0;
-    }
-#endif
-    return temp;
-}
 
 void TFileList::readDirectory(TStringView aWildCard)
 {

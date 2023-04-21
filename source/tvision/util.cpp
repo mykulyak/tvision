@@ -311,8 +311,6 @@ int cstrlen(TStringView text) noexcept
 
 int strwidth(TStringView text) noexcept { return TText::width(text); }
 
-bool lowMemory() noexcept { return bool(TVMemMgr::safetyPoolExhausted()); }
-
 size_t strnzcpy(char* dest, TStringView src, size_t size) noexcept
 {
     // Same as strlcpy. 'size' is the size of the 'dest' buffer,

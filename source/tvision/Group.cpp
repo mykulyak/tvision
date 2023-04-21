@@ -15,7 +15,7 @@ TGroup::TGroup(const TRect& bounds) noexcept
     , current(0)
     , last(0)
     , phase(phFocused)
-    , buffer(0)
+    , buffer(nullptr)
     , lockFlag(0)
     , endState(0)
 {
@@ -314,26 +314,22 @@ TView* TGroup::firstMatch(ushort aState, ushort aOptions) noexcept
 void TGroup::freeBuffer() noexcept
 {
     if ((options & ofBuffered) != 0 && buffer != 0) {
-        TVMemMgr::freeDiscardable(buffer);
+        delete[] buffer;
         buffer = 0;
     }
 }
 
 void TGroup::getBuffer() noexcept
 {
-    if ((state & sfExposed) != 0)
+    if ((state & sfExposed) != 0) {
         if ((options & ofBuffered) != 0) {
-            int sz = max(size.x * size.y * sizeof(TScreenCell), 0);
-            TVMemMgr::reallocateDiscardable((void*&)buffer, sz);
-#ifndef __BORLANDC__
-            // An uninitialized screen buffer is harmless in MS-DOS, since the worst
-            // you will see are random characters and colors. But in non-Borland mode,
-            // it may result in control characters being printed to screen, which will
-            // severely mess up the display. Do not allow this to happen.
-            if (buffer != 0)
-                memset(buffer, 0, sz);
-#endif
+            int sz = max(size.x * size.y, 0);
+            if (buffer) {
+                delete[] buffer;
+            }
+            buffer = new TScreenCell[sz];
         }
+    }
 }
 
 void TGroup::getData(void* rec)

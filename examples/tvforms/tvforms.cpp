@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <filesystem>
-#include <memory>
+#include <sstream>
 #include <string>
 #include <tvision/tv.h>
 
@@ -66,24 +66,24 @@ TFormApp::TFormApp()
 
 void TFormApp::changeDir()
 {
-    TView* d = validView(new TChDirDialog(0, hlChangeDir));
-
-    if (d != 0) {
-        deskTop->execView(d);
-        destroy(d);
+    TChDirDialog dialog(0, hlChangeDir);
+    if (dialog.valid(cmValid)) {
+        deskTop->execView(&dialog);
+        dialog.shutDown();
     }
 }
 
 void TFormApp::openListDialog()
 {
-    std::unique_ptr<TFileDialog> dialog(std::make_unique<TFileDialog>(
-        FORM_WILDCARD, "Open File", "~N~ame", fdOpenButton, hlOpenListDlg));
+    TFileDialog dialog(FORM_WILDCARD, "Open File", "~N~ame", fdOpenButton, hlOpenListDlg);
 
-    if (validView(dialog.get()) != NULL) {
-        if (deskTop->execView(dialog.get()) != cmCancel) {
-            std::filesystem::path path = dialog->getFilePath();
+    if (dialog.valid(cmValid)) {
+        if (deskTop->execView(&dialog) != cmCancel) {
+            std::filesystem::path path = dialog.getFilePath();
             if (!std::filesystem::exists(path)) {
-                messageBox(std::string("Cannot find file ") + path.c_str(), mfError | mfOKButton);
+                std::ostringstream os;
+                os << "Cannot find file " << path << std::ends;
+                messageBox(os.str().c_str(), mfError | mfOKButton);
             } else {
                 // If listEditor exists, select it; otherwise, open new one
                 TDialog* listEditor = (TDialog*)message(deskTop, evBroadcast, cmEditingFile, 0);
@@ -94,7 +94,7 @@ void TFormApp::openListDialog()
                     listEditor->select();
             }
         }
-        dialog->shutDown();
+        dialog.shutDown();
     }
 }
 

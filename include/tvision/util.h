@@ -37,8 +37,6 @@ class TMenu;
 class TMenuItem;
 ushort popupMenu(TPoint where, TMenuItem& aMenu, TGroup* = 0);
 
-bool lowMemory() noexcept;
-
 char* newStr(TStringView) noexcept;
 
 bool driveValid(char drive) noexcept;

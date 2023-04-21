@@ -251,11 +251,6 @@ TView* TProgram::validView(TView* p) noexcept
 {
     if (p == 0)
         return 0;
-    if (lowMemory()) {
-        destroy(p);
-        outOfMemory();
-        return 0;
-    }
     if (!p->valid(cmValid)) {
         destroy(p);
         return 0;
