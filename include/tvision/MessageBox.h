@@ -5,42 +5,53 @@
 
 class TRect;
 
-ushort messageBox(TStringView msg, ushort aOptions) noexcept;
-ushort messageBox(unsigned aOptions, const char* msg, ...) noexcept;
-
-ushort messageBoxRect(const TRect& r, TStringView msg, ushort aOptions) noexcept;
-ushort messageBoxRect(const TRect& r, ushort aOptions, const char* msg, ...) noexcept;
-
-ushort inputBox(TStringView Title, TStringView aLabel, char* s, uchar limit) noexcept;
-
-ushort inputBoxRect(
-    const TRect& bounds, TStringView title, TStringView aLabel, char* s, uchar limit) noexcept;
-
-const int
-
-    //  Message box classes
-
-    mfWarning
-    = 0x0000, // Display a Warning box
-    mfError = 0x0001, // Dispaly a Error box
-    mfInformation = 0x0002, // Display an Information Box
-    mfConfirmation = 0x0003, // Display a Confirmation Box
-
-    // Message box button flags
-
-    mfYesButton = 0x0100, // Put a Yes button into the dialog
-    mfNoButton = 0x0200, // Put a No button into the dialog
-    mfOKButton = 0x0400, // Put an OK button into the dialog
-    mfCancelButton = 0x0800, // Put a Cancel button into the dialog
-
-    mfYesNoCancel = mfYesButton | mfNoButton | mfCancelButton,
-    // Standard Yes, No, Cancel dialog
-    mfOKCancel = mfOKButton | mfCancelButton;
-// Standard OK, Cancel dialog
-
-class MsgBoxText {
-
+class MessageBox {
 public:
+    enum Flags {
+        mfWarning = 0x0000, // Display a Warning box
+        mfError = 0x0001, // Dispaly a Error box
+        mfInformation = 0x0002, // Display an Information Box
+        mfConfirmation = 0x0003, // Display a Confirmation Box
+
+        mfYesButton = 0x0100, // Put a Yes button into the dialog
+        mfNoButton = 0x0200, // Put a No button into the dialog
+        mfOKButton = 0x0400, // Put an OK button into the dialog
+        mfCancelButton = 0x0800, // Put a Cancel button into the dialog
+
+        // Standard Yes, No, Cancel dialog
+        mfYesNoCancel = mfYesButton | mfNoButton | mfCancelButton,
+        // Standard OK, Cancel dialog
+        mfOKCancel = mfOKButton | mfCancelButton,
+    };
+
+    static ushort error(const char* message) noexcept;
+    static ushort error(const std::string& message) noexcept { return error(message.c_str()); }
+
+    static ushort warning(const char* message) noexcept;
+    static ushort warning(const std::string& message) noexcept { return warning(message.c_str()); }
+
+    static ushort info(const char* message) noexcept;
+    static ushort info(const std::string& message) noexcept { return info(message.c_str()); }
+
+    static ushort confirm(const TRect& r, const char* message) noexcept;
+    static ushort confirm(const TRect& r, const std::string& message) noexcept
+    {
+        return confirm(r, message.c_str());
+    }
+
+    static ushort confirm(const char* message) noexcept;
+    static ushort confirm(const std::string& message) noexcept { return confirm(message.c_str()); }
+
+protected:
+    static ushort messageBox(TStringView msg, ushort aOptions) noexcept;
+    static ushort messageBox(unsigned aOptions, const char* fmt, ...) noexcept;
+    static ushort messageBoxRect(const TRect& r, ushort aOptions, const char* fmt, ...) noexcept;
+    static ushort messageBoxRect(const TRect& r, TStringView msg, ushort aOptions) noexcept;
+    static ushort inputBox(TStringView Title, TStringView aLabel, char* s, uchar limit) noexcept;
+    static ushort inputBoxRect(
+        const TRect& bounds, TStringView title, TStringView aLabel, char* s, uchar limit) noexcept;
+
+private:
     static const char* yesText;
     static const char* noText;
     static const char* okText;
@@ -49,6 +60,9 @@ public:
     static const char* errorText;
     static const char* informationText;
     static const char* confirmText;
+
+    static const char* buttonName[];
+    static const char* Titles[];
 };
 
 #endif // TVision_MsgBox_h

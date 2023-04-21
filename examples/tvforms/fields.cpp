@@ -28,7 +28,7 @@ bool TKeyInputLine::valid(ushort command)
     if ((command != cmCancel) && (command != cmValid))
         if (strlen(data) == 0) {
             select();
-            messageBox("This field cannot be empty.", mfError | mfOKButton);
+            MessageBox::error("This field cannot be empty.");
             ok = false;
         }
     if (ok)
@@ -92,7 +92,7 @@ bool TNumInputLine::valid(ushort command)
         if ((value == 0) || (value < min) || (value > max)) {
             select();
             os << "Number must be from " << min << " to " << max << "." << std::ends;
-            messageBox(os.str(), mfError + mfOKButton);
+            MessageBox::error(os.str());
             selectAll(true);
             ok = false;
         }

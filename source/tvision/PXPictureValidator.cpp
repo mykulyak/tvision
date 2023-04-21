@@ -91,7 +91,7 @@ TStreamable* TPXPictureValidator::build() { return new TPXPictureValidator(strea
 
 TPXPictureValidator::~TPXPictureValidator() { }
 
-void TPXPictureValidator::error() { messageBox(mfError | mfOKButton, errorMsg, pic.c_str()); }
+void TPXPictureValidator::error() { MessageBox::error(pic); }
 
 bool TPXPictureValidator::isValidInput(char* s, bool suppressFill)
 {

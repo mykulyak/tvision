@@ -40,7 +40,7 @@ TStringLookupValidator::TStringLookupValidator(StreamableInit s) noexcept
 
 TStringLookupValidator::~TStringLookupValidator() { newStringList(0); }
 
-void TStringLookupValidator::error() { messageBox(mfError | mfOKButton, errorMsg); }
+void TStringLookupValidator::error() { MessageBox::error(errorMsg); }
 
 static bool stringMatch(void* a1, void* a2)
 {

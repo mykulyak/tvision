@@ -83,13 +83,12 @@ void TFormApp::openListDialog()
             if (!std::filesystem::exists(path)) {
                 std::ostringstream os;
                 os << "Cannot find file " << path << std::ends;
-                messageBox(os.str().c_str(), mfError | mfOKButton);
+                MessageBox::error(os.str());
             } else {
                 // If listEditor exists, select it; otherwise, open new one
                 TDialog* listEditor = (TDialog*)message(deskTop, evBroadcast, cmEditingFile, 0);
                 if (listEditor == NULL)
-                    deskTop->insert(
-                        validView(new TListDialog(path.c_str(), path.filename().c_str())));
+                    deskTop->insert(validView(new TListDialog(path, path.filename())));
                 else
                     listEditor->select();
             }
@@ -101,7 +100,6 @@ void TFormApp::openListDialog()
 void TFormApp::handleEvent(TEvent& event)
 {
     int newMode;
-    char aboutMsg[80];
 
     TApplication::handleEvent(event);
     if (event.what == evCommand) {
@@ -113,8 +111,7 @@ void TFormApp::handleEvent(TEvent& event)
             changeDir();
             break;
         case cmAboutBox:
-            strcpy(aboutMsg, "\x3Turbo Vision C++ 2.0\n\n\x3Turbo Vision Forms Demo");
-            messageBox(aboutMsg, mfInformation | mfOKButton);
+            MessageBox::info("\x3Turbo Vision C++ 2.0\n\n\x3Turbo Vision Forms Demo");
             break;
         case cmVideoMode:
             newMode = TScreen::screenMode ^ TDisplay::smFont8x8;

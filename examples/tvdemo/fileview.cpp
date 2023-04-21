@@ -49,7 +49,7 @@ void TFileViewer::readFile(const std::filesystem::path& fName)
     if (!fileToView) {
         std::ostringstream os;
         os << "Failed to open file '" << fName << "'." << std::ends;
-        messageBox(os.str(), mfError | mfOKButton);
+        MessageBox::error(os.str());
         isValid = false;
     } else {
         std::string line;

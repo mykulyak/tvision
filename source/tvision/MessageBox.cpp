@@ -1,25 +1,26 @@
 #include <tvision/Desktop.h>
 #include <tvision/Label.h>
+#include <tvision/MessageBox.h>
 #include <tvision/StaticText.h>
 
-const char* MsgBoxText::yesText = "~Y~es";
-const char* MsgBoxText::noText = "~N~o";
-const char* MsgBoxText::okText = "O~K~";
-const char* MsgBoxText::cancelText = "~C~ancel";
-const char* MsgBoxText::warningText = "Warning";
-const char* MsgBoxText::errorText = "Error";
-const char* MsgBoxText::informationText = "Information";
-const char* MsgBoxText::confirmText = "Confirm";
+const char* MessageBox::yesText = "~Y~es";
+const char* MessageBox::noText = "~N~o";
+const char* MessageBox::okText = "O~K~";
+const char* MessageBox::cancelText = "~C~ancel";
+const char* MessageBox::warningText = "Warning";
+const char* MessageBox::errorText = "Error";
+const char* MessageBox::informationText = "Information";
+const char* MessageBox::confirmText = "Confirm";
 
-static const char* buttonName[]
-    = { MsgBoxText::yesText, MsgBoxText::noText, MsgBoxText::okText, MsgBoxText::cancelText };
+const char* MessageBox::buttonName[]
+    = { MessageBox::yesText, MessageBox::noText, MessageBox::okText, MessageBox::cancelText };
 
 static ushort commands[] = { cmYes, cmNo, cmOK, cmCancel };
 
-static const char* Titles[] = { MsgBoxText::warningText, MsgBoxText::errorText,
-    MsgBoxText::informationText, MsgBoxText::confirmText };
+const char* MessageBox::Titles[] = { MessageBox::warningText, MessageBox::errorText,
+    MessageBox::informationText, MessageBox::confirmText };
 
-ushort messageBoxRect(const TRect& r, TStringView msg, ushort aOptions) noexcept
+ushort MessageBox::messageBoxRect(const TRect& r, TStringView msg, ushort aOptions) noexcept
 {
     TDialog* dialog;
     short i, x, buttonCount;
@@ -55,7 +56,7 @@ ushort messageBoxRect(const TRect& r, TStringView msg, ushort aOptions) noexcept
     return ccode;
 }
 
-ushort messageBoxRect(const TRect& r, ushort aOptions, const char* fmt, ...) noexcept
+ushort MessageBox::messageBoxRect(const TRect& r, ushort aOptions, const char* fmt, ...) noexcept
 {
     va_list argptr;
     va_start(argptr, fmt);
@@ -69,7 +70,7 @@ ushort messageBoxRect(const TRect& r, ushort aOptions, const char* fmt, ...) noe
 
     va_end(argptr);
 
-    return messageBoxRect(r, msg, aOptions);
+    return MessageBox::messageBoxRect(r, msg, aOptions);
 }
 
 static TRect makeRect(TStringView text)
@@ -84,12 +85,12 @@ static TRect makeRect(TStringView text)
     return r;
 }
 
-ushort messageBox(TStringView msg, ushort aOptions) noexcept
+ushort MessageBox::messageBox(TStringView msg, ushort aOptions) noexcept
 {
     return messageBoxRect(makeRect(msg), msg, aOptions);
 }
 
-ushort messageBox(unsigned aOptions, const char* fmt, ...) noexcept
+ushort MessageBox::messageBox(unsigned aOptions, const char* fmt, ...) noexcept
 {
     va_list argptr;
     va_start(argptr, fmt);
@@ -106,14 +107,14 @@ ushort messageBox(unsigned aOptions, const char* fmt, ...) noexcept
     return messageBoxRect(makeRect(msg), msg, aOptions);
 }
 
-ushort inputBox(TStringView Title, TStringView aLabel, char* s, uchar limit) noexcept
+ushort MessageBox::inputBox(TStringView Title, TStringView aLabel, char* s, uchar limit) noexcept
 {
     TRect r(0, 0, 60, 8);
     r.move((TProgram::deskTop->size.x - r.b.x) / 2, (TProgram::deskTop->size.y - r.b.y) / 2);
     return inputBoxRect(r, Title, aLabel, s, limit);
 }
 
-ushort inputBoxRect(
+ushort MessageBox::inputBoxRect(
     const TRect& bounds, TStringView Title, TStringView aLabel, char* s, uchar limit) noexcept
 {
     TDialog* dialog;
@@ -131,11 +132,11 @@ ushort inputBoxRect(
     dialog->insert(new TLabel(r, aLabel, control));
 
     r = TRect(dialog->size.x - 24, dialog->size.y - 4, dialog->size.x - 14, dialog->size.y - 2);
-    dialog->insert(new TButton(r, MsgBoxText::okText, cmOK, TButton::Flags::bfDefault));
+    dialog->insert(new TButton(r, MessageBox::okText, cmOK, TButton::Flags::bfDefault));
 
     r.a.x += 12;
     r.b.x += 12;
-    dialog->insert(new TButton(r, MsgBoxText::cancelText, cmCancel, TButton::Flags::bfNormal));
+    dialog->insert(new TButton(r, MessageBox::cancelText, cmCancel, TButton::Flags::bfNormal));
 
     r.a.x += 12;
     r.b.x += 12;
@@ -146,4 +147,29 @@ ushort inputBoxRect(
         dialog->getData(s);
     TObject::destroy(dialog);
     return c;
+}
+
+ushort MessageBox::error(const char* message) noexcept
+{
+    return messageBox(message, mfError | mfOKButton);
+}
+
+ushort MessageBox::warning(const char* message) noexcept
+{
+    return messageBox(message, mfWarning | mfOKButton);
+}
+
+ushort MessageBox::info(const char* message) noexcept
+{
+    return messageBox(message, mfInformation | mfOKButton);
+}
+
+ushort MessageBox::confirm(const TRect& r, const char* message) noexcept
+{
+    return messageBoxRect(r, message, mfConfirmation | mfYesNoCancel);
+}
+
+ushort MessageBox::confirm(const char* message) noexcept
+{
+    return messageBox(message, mfConfirmation | mfYesNoCancel);
 }

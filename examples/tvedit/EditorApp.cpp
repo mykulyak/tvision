@@ -78,33 +78,33 @@ ushort doEditDialog(int dialog, ...)
     std::ostringstream os;
     switch (dialog) {
     case edOutOfMemory:
-        return messageBox("Not enough memory for this operation", mfError | mfOKButton);
+        return MessageBox::error("Not enough memory for this operation");
     case edReadError: {
         va_start(arg, dialog);
         os << "Error reading file " << va_arg(arg, _charPtr) << "." << std::ends;
         va_end(arg);
-        return messageBox(os.str().c_str(), mfError | mfOKButton);
+        return MessageBox::error(os.str());
     }
     case edWriteError: {
         va_start(arg, dialog);
         os << "Error writing file " << va_arg(arg, _charPtr) << "." << std::ends;
         va_end(arg);
-        return messageBox(os.str().c_str(), mfError | mfOKButton);
+        return MessageBox::error(os.str());
     }
     case edCreateError: {
         va_start(arg, dialog);
         os << "Error creating file " << va_arg(arg, _charPtr) << "." << std::ends;
         va_end(arg);
-        return messageBox(os.str().c_str(), mfError | mfOKButton);
+        return MessageBox::error(os.str());
     }
     case edSaveModify: {
         va_start(arg, dialog);
         os << va_arg(arg, _charPtr) << " has been modified. Save?" << std::ends;
         va_end(arg);
-        return messageBox(os.str().c_str(), mfInformation | mfYesNoCancel);
+        return MessageBox::confirm(os.str());
     }
     case edSaveUntitled:
-        return messageBox("Save untitled file?", mfInformation | mfYesNoCancel);
+        return MessageBox::confirm("Save untitled file?");
     case edSaveAs: {
         va_start(arg, dialog);
         return execDialog(new TFileDialog("*.*", "Save file as", "~N~ame", fdOKButton, 101),
@@ -117,7 +117,8 @@ ushort doEditDialog(int dialog, ...)
     }
 
     case edSearchFailed:
-        return messageBox("Search string not found.", mfError | mfOKButton);
+        return MessageBox::error("Search string not found.");
+
     case edReplace: {
         va_start(arg, dialog);
         return execDialog(createReplaceDialog(), va_arg(arg, _charPtr));
@@ -134,7 +135,7 @@ ushort doEditDialog(int dialog, ...)
         if (pt->y <= t.y)
             r.move(0, TProgram::deskTop->size.y - r.b.y - 2);
         va_end(arg);
-        return messageBoxRect(r, "Replace this occurence?", mfYesNoCancel | mfInformation);
+        return MessageBox::confirm(r, "Replace this occurence?");
     }
     return cmCancel;
 }
@@ -236,10 +237,7 @@ TStatusLine* EditorApp::initStatusLine(TRect r)
             + *new TStatusItem(0, kbCtrlF5, cmResize));
 }
 
-void EditorApp::outOfMemory()
-{
-    messageBox("Not enough memory for this operation.", mfError | mfOKButton);
-}
+void EditorApp::outOfMemory() { MessageBox::error("Not enough memory for this operation."); }
 
 TEditWindow* EditorApp::openEditor(const std::string& fileName, bool visible)
 {

@@ -1,3 +1,4 @@
+#include <sstream>
 #include <tvision/RangeValidator.h>
 #include <tvision/tobjstrm.h>
 
@@ -45,7 +46,12 @@ void* TRangeValidator::read(ipstream& is)
 
 #endif
 
-void TRangeValidator::error() { messageBox(mfError | mfOKButton, errorMsg, min, max); }
+void TRangeValidator::error()
+{
+    std::ostringstream os;
+    os << "Value not in the range " << min << " to " << max;
+    MessageBox::error(os.str());
+}
 
 bool TRangeValidator::isValid(const char* s)
 {

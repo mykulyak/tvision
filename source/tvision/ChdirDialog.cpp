@@ -165,7 +165,7 @@ bool TChDirDialog::valid(ushort command)
         std::ostrstream os(buf, sizeof(buf) - 1);
         os << invalidText << ": '" << path << "'." << std::ends;
         buf[sizeof(buf) - 1] = '\0';
-        messageBox(buf, mfError | mfOKButton);
+        MessageBox::error(buf);
         return false;
     }
     return true;

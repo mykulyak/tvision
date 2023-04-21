@@ -96,7 +96,7 @@ void TVDemo::getEvent(TEvent& event)
             helpStrm = new fpstream(HELP_FILENAME, std::ios::in | std::ios::binary);
             hFile = new THelpFile(*helpStrm);
             if (!helpStrm) {
-                messageBox("Could not open help file", mfError | mfOKButton);
+                MessageBox::error("Could not open help file");
                 delete hFile;
             } else {
                 w = new THelpWindow(hFile, getHelpCtx());
@@ -158,15 +158,15 @@ void TVDemo::puzzle()
 void TVDemo::retrieveDesktop()
 {
     if (!std::ifstream("TVDEMO.DST").good()) {
-        messageBox("Could not find desktop file", mfOKButton | mfError);
+        MessageBox::error("Could not find desktop file");
     } else {
         fpstream f("TVDEMO.DST", std::ios::in | std::ios::binary);
         if (!f) {
-            messageBox("Could not open desktop file", mfOKButton | mfError);
+            MessageBox::error("Could not open desktop file");
         } else {
             TVDemo::loadDesktop(f);
             if (!f) {
-                messageBox("Error reading desktop file", mfOKButton | mfError);
+                MessageBox::error("Error reading desktop file");
             }
         }
     }
@@ -177,7 +177,7 @@ void TVDemo::saveDesktop()
     fpstream f("TVDEMO.DST", std::ios::out | std::ios::binary);
     TVDemo::storeDesktop(f);
     if (!f) {
-        messageBox("Could not create TVDEMO.DST.", mfOKButton | mfError);
+        MessageBox::error("Could not create TVDEMO.DST.");
         ::remove("TVDEMO.DST");
     }
 }
@@ -478,7 +478,7 @@ void TVDemo::openFile(const char* fileSpec)
 
 void TVDemo::outOfMemory()
 {
-    messageBox("Not enough memory available to complete operation.", mfError | mfOKButton);
+    MessageBox::error("Not enough memory available to complete operation.");
 }
 
 //

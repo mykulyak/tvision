@@ -1,6 +1,7 @@
 #ifndef TVision_TObjectStream_h
 #define TVision_TObjectStream_h
 
+#include <filesystem>
 #include <string>
 
 typedef unsigned P_id_type;
@@ -507,10 +508,17 @@ public:
 #define __fpstream
 
 class fpstream : public fpbase, public iopstream {
-
 public:
     fpstream() noexcept;
     fpstream(const char*, pstream::openmode);
+    fpstream(const std::string& name, pstream::openmode mode)
+        : fpstream(name.c_str(), mode)
+    {
+    }
+    fpstream(const std::filesystem::path& path, pstream::openmode mode)
+        : fpstream(path.c_str(), mode)
+    {
+    }
     ~fpstream();
 
     std::filebuf* rdbuf() noexcept;

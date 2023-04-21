@@ -249,7 +249,7 @@ bool TFileDialog::checkDirectory(const char* str)
     else {
         std::ostringstream os;
         os << invalidDriveText << ": '" << str << "'" << std::ends;
-        messageBox(os.str().c_str(), mfError | mfOKButton);
+        MessageBox::error(os.str());
         fileName->select();
         return false;
     }
@@ -298,7 +298,7 @@ bool TFileDialog::valid(ushort command)
             else {
                 std::ostringstream os;
                 os << invalidFileText << ": '" << fName << "'" << std::ends;
-                messageBox(os.str().c_str(), mfError | mfOKButton);
+                MessageBox::error(os.str());
                 return false;
             }
         } else

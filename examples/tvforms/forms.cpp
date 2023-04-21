@@ -130,7 +130,7 @@ bool TForm::valid(ushort command)
     if (command == cmClose) {
         if (changed()) {
             select();
-            action = messageBox("Form data has been modified. Save? ", mfYesNoCancel);
+            action = MessageBox::confirm("Form data has been modified. Save? ");
             switch (action) {
             case cmYes:
                 // Try to save changes. Cancel if save fails

@@ -52,4 +52,4 @@ bool TFilterValidator::isValidInput(char* s, bool suppressFill)
     return bool(strspn(s, validChars.c_str()) == strlen(s));
 }
 
-void TFilterValidator::error() { messageBox(mfError | mfOKButton, errorMsg); }
+void TFilterValidator::error() { MessageBox::error(errorMsg); }

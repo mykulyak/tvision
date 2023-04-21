@@ -146,12 +146,13 @@ void TFileList::readDirectory(TStringView aWildCard)
         }
     }
 
-    if (p == 0)
-        messageBox(tooManyFiles, mfOKButton | mfWarning);
+    if (p == 0) {
+        MessageBox::warning(tooManyFiles);
+    }
     newList(fileList);
-    if (list()->getCount() > 0)
+    if (list()->getCount() > 0) {
         message(owner, evBroadcast, cmFileFocused, list()->at(0));
-    else {
+    } else {
         static DirSearchRec noFile;
         message(owner, evBroadcast, cmFileFocused, &noFile);
     }

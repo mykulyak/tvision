@@ -3,6 +3,7 @@
 
 #include "datacoll.h"
 #include "forms.h"
+#include <filesystem>
 #include <tvision/tv.h>
 
 typedef char* (*ExpandFunc)(char*);
@@ -21,26 +22,28 @@ public:
 
 class TListDialog : public TDialog {
 public:
-    TListDialog(const char*, const char*);
-    ~TListDialog(void);
+    TListDialog(const std::filesystem::path& rezName, const std::string& title);
+    ~TListDialog();
 
     virtual void close();
     void deleteSelection();
     TForm* editingForm();
     void formOpen(bool);
     virtual void handleEvent(TEvent&);
-    bool openDataFile(char*, TResourceFile*&, pstream::openmode);
     bool saveList();
     bool saveForm(TDialog*);
     void stackOnPrev(TDialog*);
     virtual bool valid(ushort);
 
+private:
     TDataCollection* dataCollection;
-    char* fileName;
+    std::filesystem::path fileName;
     TResourceFile* formDataFile;
     bool isValid;
     TListKeyBox* list;
     bool modified;
+
+    bool openDataFile(const std::filesystem::path&, TResourceFile*&, pstream::openmode);
 };
 
 #endif // __LISTDLG_H

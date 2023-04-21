@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <dir.h>
-#include <filesystem>
+#include <sstream>
 #include <tvision/tv.h>
 
 __link(RResourceCollection);
@@ -38,11 +38,11 @@ void TListKeyBox::getText(char* dest, short item, short maxLen)
     }
 }
 
-TListDialog::TListDialog(const char* rezName, const char* title)
+TListDialog::TListDialog(const std::filesystem::path& rezName, const std::string& title)
     : TWindowInit(&TListDialog::initFrame)
-    , TDialog(TRect(2, 2, 32, 15), title)
+    , TDialog(TRect(2, 2, 32, 15), title.c_str())
     , dataCollection(0)
-    , fileName(newStr(rezName))
+    , fileName(rezName)
     , isValid(false)
     , modified(false)
 {
@@ -58,8 +58,8 @@ TListDialog::TListDialog(const char* rezName, const char* title)
     if (openDataFile(fileName, formDataFile, std::ios::in) == true) {
         // Get horizontal size of key field
         f = (TForm*)formDataFile->get("FormDialog");
-        if (f == NULL) {
-            messageBox("Error accessing file data.", mfError | mfOKButton);
+        if (f == nullptr) {
+            MessageBox::error("Error accessing file data.");
             return;
         }
 
@@ -126,8 +126,6 @@ TListDialog::~TListDialog(void)
         destroy(dataCollection);
     if (formDataFile != NULL)
         destroy(formDataFile);
-    if (fileName != NULL)
-        delete[] fileName;
 }
 
 void TListDialog::close(void)
@@ -168,8 +166,8 @@ void TListDialog::formOpen(bool newForm)
 
     // Selection is not being edited: open new form from the resource file
     f = (TForm*)formDataFile->get("FormDialog");
-    if (f == NULL)
-        messageBox("Error opening form.", mfError | mfOKButton);
+    if (f == nullptr)
+        MessageBox::error("Error opening form.");
     else {
         f->listDialog = this; // Form points back to List
         if (newForm)
@@ -198,14 +196,12 @@ void TListDialog::deleteSelection()
     f = editingForm();
     if (f != NULL) {
         f->select();
-        messageBox(
-            "Data is already being edited. Close form before deleting.", mfWarning | mfOKButton);
+        MessageBox::warning("Data is already being edited. Close form before deleting.");
         return;
     }
 
     // Confirm delete
-    if (messageBox("Are you sure you want to delete this item?", mfWarning | mfYesNoCancel)
-        == cmYes) {
+    if (MessageBox::confirm("Are you sure you want to delete this item?") == cmYes) {
         dataCollection->atFree(list->focused);
         list->setRange(dataCollection->getCount());
         list->drawView();
@@ -262,8 +258,9 @@ void TListDialog::handleEvent(TEvent& event)
 
         // Keep file from being edited simultaneously by 2 lists
         case cmEditingFile:
-            if (strcmp(fileName, (char*)event.message.infoPtr) == 0)
+            if (fileName == (char*)event.message.infoPtr) {
                 clearEvent(event);
+            }
             break;
 
         // Respond to search for topmost list dialog
@@ -275,15 +272,14 @@ void TListDialog::handleEvent(TEvent& event)
     }
 }
 
-bool TListDialog::openDataFile(char* name, TResourceFile*& dataFile, pstream::openmode mode)
+bool TListDialog::openDataFile(
+    const std::filesystem::path& path, TResourceFile*& dataFile, pstream::openmode mode)
 {
-    fpstream* s;
-
-    s = new fpstream(name, mode);
+    fpstream* s = new fpstream(path, mode);
     dataFile = new TResourceFile(s);
     if (!s->good()) {
         destroy(dataFile);
-        dataFile = NULL;
+        dataFile = nullptr;
         return false;
     } else
         return true;
@@ -293,11 +289,6 @@ bool TListDialog::saveList()
 {
     TResourceFile* newDataFile;
     TForm* form;
-    char drive[MAXDRIVE];
-    char d[MAXDIR];
-    char n[MAXFILE];
-    char e[MAXEXT];
-    char bufStr[MAXPATH];
     short ccode;
 
     // Empty collection? Unedited?
@@ -308,15 +299,16 @@ bool TListDialog::saveList()
     // saveList =  false;
     //  Read form definition out of original form file
     form = (TForm*)formDataFile->get("FormDialog");
-    if (form == NULL)
-        messageBox("Cannot find original file. Data not saved.", mfError | mfOKButton);
+    if (form == nullptr)
+        MessageBox::error("Cannot find original file. Data not saved.");
     else {
         // Create new data file
-        fnsplit(fileName, drive, d, n, e);
-        fnmerge(bufStr, drive, d, n, ".$$$");
-        if (openDataFile(bufStr, newDataFile, std::ios::out) == false)
-            messageBox("Cannot create file. Data not saved.", mfError | mfOKButton);
-        else {
+        std::filesystem::path backupPath = fileName;
+        backupPath.replace_extension(".$$$");
+
+        if (!openDataFile(backupPath, newDataFile, std::ios::out)) {
+            MessageBox::error("Cannot create file. Data not saved.");
+        } else {
             // Create new from form and collection in memory
             newDataFile->put(form, "FormDialog");
             newDataFile->put(dataCollection, "FormData");
@@ -325,25 +317,27 @@ bool TListDialog::saveList()
 
             // Close original file, rename to .BAK
             destroy(formDataFile);
-            formDataFile = NULL;
-            fnmerge(bufStr, drive, d, n, ".bak");
-            if (std::filesystem::exists(std::filesystem::path(bufStr))) {
-                ::remove(bufStr);
+            formDataFile = nullptr;
+            backupPath.replace_extension(".bak");
+            if (std::filesystem::exists(backupPath)) {
+                ::remove(backupPath.c_str());
             }
-            ccode = rename(fileName, bufStr);
+
+            ccode = rename(fileName.c_str(), backupPath.c_str());
             // Error trying to erase old .BAK or rename original to .BAK?
             if (ccode) {
-                messageBox("Cannot create .BAK file. Data not saved.", mfError | mfOKButton);
+                MessageBox::error("Cannot create .BAK file. Data not saved.");
 
                 // Try to re-open original. New data will still be in memory
                 if (openDataFile(fileName, formDataFile, std::ios::in) == false) {
-                    messageBox("Cannot re-open original file.", mfError | mfOKButton);
+                    MessageBox::error("Cannot re-open original file.");
                     destroy(this); // Cannot proceed. Free data and close window }
                 }
             } else {
                 // Rename temp file to original file and re-open
-                fnmerge(bufStr, drive, d, n, ".$$$");
-                rename(bufStr, fileName);
+                backupPath.replace_extension(".$$$");
+
+                rename(backupPath.c_str(), fileName.c_str());
                 openDataFile(fileName, formDataFile, std::ios::in);
 
                 modified = false;
@@ -378,9 +372,8 @@ bool TListDialog::saveForm(TDialog* f)
     if ((!(dataCollection->duplicates) && dataCollection->search(dataCollection->keyOf(p), i)))
         if ((((TForm*)f)->prevData == NULL) || (((TForm*)f)->prevData != dataCollection->at(i))) {
             delete[] (char*)p;
-            messageBox("Duplicate keys are not allowed in this database. "
-                       "Delete duplicate record before saving this form.",
-                mfError | mfOKButton);
+            MessageBox::error("Duplicate keys are not allowed in this database. "
+                              "Delete duplicate record before saving this form.");
             return false;
         }
 
@@ -444,8 +437,11 @@ bool TListDialog::valid(ushort command)
     switch (command) {
     case cmValid:
         ok = isValid;
-        if (!ok)
-            messageBox(mfError | mfOKButton, "Error opening file (%s).", fileName);
+        if (!ok) {
+            std::ostringstream os;
+            os << "Error opening file (" << fileName << ").";
+            MessageBox::error(os.str());
+        }
         break;
 
     case cmQuit:
@@ -460,7 +456,7 @@ bool TListDialog::valid(ushort command)
         // Any data modified?
         if (ok && modified) {
             select();
-            reply = messageBox("Database has been modified. Save? ", mfYesNoCancel);
+            reply = MessageBox::confirm("Database has been modified. Save?");
             switch (reply) {
             case cmYes:
                 ok = saveList();
