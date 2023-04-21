@@ -167,8 +167,6 @@
 #include <tvision/EventQueue.h>
 #include <tvision/SItem.h>
 
-#include <tvision/ResourceFile.h>
-
 #if defined(_MSC_VER)
 #pragma warning(pop)
 #endif

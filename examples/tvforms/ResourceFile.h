@@ -1,5 +1,5 @@
-#ifndef TVision_TResourceFile_h
-#define TVision_TResourceFile_h
+#ifndef TVision_TVForms_TResourceFile_h
+#define TVision_TVForms_TResourceFile_h
 
 #include <tvision/Object.h>
 
@@ -26,4 +26,4 @@ protected:
     TResourceCollection* index;
 };
 
-#endif // TVision_TResourceFile_h
+#endif // TVision_TVForms_TResourceFile_h

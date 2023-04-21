@@ -1,4 +1,5 @@
 #include "listdlg.h"
+#include "ResourceFile.h"
 #include "datacoll.h"
 #include "formcmds.h"
 #include "forms.h"

@@ -1,3 +1,4 @@
+#include "ResourceFile.h"
 #include "forms.h"
 #include <cstdlib>
 #include <tvision/tv.h>
