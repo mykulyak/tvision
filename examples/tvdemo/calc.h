@@ -2,6 +2,7 @@
 #define TVision_TVDemo_Calc_h
 
 #include <cmath>
+#include <string>
 
 #define DISPLAYLEN 25 // Length (width) of calculator display
 
@@ -22,7 +23,7 @@ public:
 
 private:
     TCalcState status;
-    char* number;
+    std::string number;
     char sign;
     char operate; // since 'operator' is a reserved word.
     double operand;
@@ -32,7 +33,7 @@ private:
     void setDisplay(double r);
     void clear();
     void error();
-    inline double getDisplay() { return (atof(number)); };
+    inline double getDisplay() { return (atof(number.c_str())); };
 
     virtual const char* streamableName() const { return name; }
 

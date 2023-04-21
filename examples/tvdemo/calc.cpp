@@ -1,9 +1,6 @@
 #include "calc.h"
-#include <cctype>
-#include <cstdlib>
-#include <cstring>
 #include <iomanip>
-#include <strstream>
+#include <sstream>
 #include <tvision/tv.h>
 
 #define cpCalcPalette "\x13"
@@ -27,9 +24,8 @@ void TCalcDisplay::write(opstream& os)
 void* TCalcDisplay::read(ipstream& is)
 {
     TView::read(is);
-    number = new char[DISPLAYLEN];
     is.readBytes(&status, sizeof(status));
-    is.readString(number, DISPLAYLEN);
+    number = is.readStlString();
     sign = is.readByte();
     operate = is.readByte();
     is.readBytes(&operand, sizeof(operand));
@@ -45,11 +41,10 @@ TCalcDisplay::TCalcDisplay(TRect& r)
 {
     options |= ofSelectable;
     eventMask = (evKeyboard | evBroadcast);
-    number = new char[DISPLAYLEN];
     clear();
 }
 
-TCalcDisplay::~TCalcDisplay() { delete[] number; }
+TCalcDisplay::~TCalcDisplay() { }
 
 TPalette& TCalcDisplay::getPalette() const
 {
@@ -81,24 +76,24 @@ void TCalcDisplay::draw()
     short i;
     TDrawBuffer buf;
 
-    i = (short)(size.x - strlen(number) - 2);
+    i = (short)(size.x - number.size() - 2);
     buf.moveChar(0, ' ', color, (short)size.x);
     buf.moveChar(i, sign, color, (short)1);
-    buf.moveStr((short)(i + 1), number, color);
+    buf.moveStr((short)(i + 1), number.c_str(), color);
     writeLine(0, 0, (short)size.x, 1, buf);
 }
 
 void TCalcDisplay::error()
 {
     status = csError;
-    strcpy(number, "Error");
+    number = "Error";
     sign = ' ';
 }
 
 void TCalcDisplay::clear()
 {
     status = csFirst;
-    strcpy(number, "0");
+    number = "0";
     sign = ' ';
     operate = '=';
     operand = 0;
@@ -106,9 +101,7 @@ void TCalcDisplay::clear()
 
 void TCalcDisplay::setDisplay(double r)
 {
-    int len;
-    char str[64];
-    std::ostrstream displayStr(str, sizeof str);
+    std::ostringstream displayStr;
 
     if (r < 0.0) {
         sign = '-';
@@ -118,19 +111,18 @@ void TCalcDisplay::setDisplay(double r)
         sign = ' ';
     }
 
-    len = strlen(str) - 1; // Minus one so we can use as an index.
-
-    if (len > DISPLAYLEN)
+    if (displayStr.str().size() > DISPLAYLEN) {
         error();
-    else
-        strcpy(number, str);
+    } else {
+        number = displayStr.str();
+    }
 }
 
 void TCalcDisplay::checkFirst()
 {
     if (status == csFirst) {
         status = csValid;
-        strcpy(number, "0");
+        number = "0";
         sign = ' ';
     }
 }
@@ -156,31 +148,29 @@ void TCalcDisplay::calcKey(unsigned char key)
     case '8':
     case '9':
         checkFirst();
-        if (strlen(number) < 15) { // 15 is max visible display length
-            if (strcmp(number, "0") == 0)
-                number[0] = '\0';
+        if (number.size() < 15) { // 15 is max visible display length
+            if (number == "0") {
+                number = "";
+            }
             stub[0] = key;
-            strcat(number, stub);
+            number += stub;
         }
         break;
 
     case '.':
         checkFirst();
-        if (strchr(number, '.') == NULL) {
+        if (number.find('.') == std::string::npos) {
             stub[0] = '.';
-            strcat(number, stub);
+            number += stub;
         }
         break;
 
     case 8:
     case 27:
-        int len;
-
         checkFirst();
-        if ((len = strlen(number)) == 1)
-            strcpy(number, "0");
-        else
-            number[len - 1] = '\0';
+        if (number.size() == 1) {
+            number = "0";
+        }
         break;
 
     case '_': // underscore (keyboard version of +/-)

@@ -4,7 +4,7 @@
 #include <cstring>
 #include <iomanip>
 #include <iostream>
-#include <strstream>
+#include <sstream>
 #include <tvision/tv.h>
 
 __link(RView);
@@ -134,15 +134,13 @@ void TReport::draw()
 {
     TDrawBuffer buf;
     TColorAttr color = getColor(6);
-    char str[80];
-    std::ostrstream statusStr(str, sizeof str);
+    std::ostringstream os;
 
-    statusStr << "  Char: " << (char)((asciiChar == 0) ? 0x20 : asciiChar)
-              << " Decimal: " << std::setw(3) << (int)asciiChar << " Hex " << std::hex
-              << std::setiosflags(std::ios::uppercase) << std::setw(2) << (int)asciiChar << "     "
-              << std::ends;
+    os << "  Char: " << (char)((asciiChar == 0) ? 0x20 : asciiChar) << " Decimal: " << std::setw(3)
+       << (int)asciiChar << " Hex " << std::hex << std::setiosflags(std::ios::uppercase)
+       << std::setw(2) << (int)asciiChar << "     " << std::ends;
 
-    buf.moveStr(0, str, color);
+    buf.moveStr(0, os.str().c_str(), color);
     writeLine(0, 0, 32, 1, buf);
 }
 
