@@ -2,33 +2,14 @@
 #define TVision_TVDemo_FileView_h
 
 #include <filesystem>
-#include <memory>
+#include <string>
 #include <tvision/Collection.h>
 #include <tvision/Scroller.h>
 #include <tvision/Window.h>
-
-const int hlChangeDir = cmChangeDir;
-
-class TLineCollection : public TCollection {
-public:
-    TLineCollection(short lim, short delta)
-        : TCollection(lim, delta)
-    {
-    }
-    ~TLineCollection() { shutDown(); }
-    virtual void freeItem(void* p) { delete[] (char*)p; }
-
-private:
-    virtual void* readItem(ipstream&) { return 0; }
-    virtual void writeItem(void*, opstream&) { }
-};
+#include <vector>
 
 class TFileViewer : public TScroller {
 public:
-    std::filesystem::path fileName;
-    std::unique_ptr<TLineCollection> fileLines;
-    bool isValid;
-
     TFileViewer(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,
         const std::filesystem::path& aFileName);
     TFileViewer(StreamableInit)
@@ -40,6 +21,10 @@ public:
     bool valid(ushort command);
 
 private:
+    std::filesystem::path fileName;
+    std::vector<std::string> fileLines;
+    bool isValid;
+
     virtual const char* streamableName() const { return name; }
 
 protected:

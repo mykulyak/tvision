@@ -1,6 +1,7 @@
 #ifndef TVision_TPXPictureValidator_h
 #define TVision_TPXPictureValidator_h
 
+#include <string>
 #include <tvision/Validator.h>
 
 enum TPicResult {
@@ -14,7 +15,6 @@ enum TPicResult {
 };
 
 class TPXPictureValidator : public TValidator {
-
     static const char* errorMsg;
 
 public:
@@ -30,7 +30,7 @@ protected:
     virtual void write(opstream& os);
     virtual void* read(ipstream& is);
 
-    char* pic;
+    std::string pic;
 
 private:
     void consume(char ch, char* input);

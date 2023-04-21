@@ -34,14 +34,11 @@ uchar numChar(char ch, const char* s)
     return n;
 }
 
-bool isComplete(TPicResult result)
-{
-    return bool((result == prComplete) || (result == prAmbiguous));
-}
+bool isComplete(TPicResult result) { return (result == prComplete) || (result == prAmbiguous); }
 
 bool isIncomplete(TPicResult result)
 {
-    return bool((result == prIncomplete) || (result == prIncompNoFill));
+    return (result == prIncomplete) || (result == prIncompNoFill);
 }
 
 const char* const TPXPictureValidator::name = "TPXPictureValidator";
@@ -55,10 +52,11 @@ TStreamableClass RPXPictureValidator(
 
 TPXPictureValidator::TPXPictureValidator(TStringView aPic, bool autoFill)
     : TValidator()
+    , pic(aPic.begin(), aPic.end())
 {
-    pic = newStr(aPic);
-    if (autoFill)
+    if (autoFill) {
         options |= voFill;
+    }
 
     char s[] = "";
     if (picture(s, false) != prEmpty)
@@ -91,23 +89,21 @@ TStreamable* TPXPictureValidator::build() { return new TPXPictureValidator(strea
 
 #endif
 
-TPXPictureValidator::~TPXPictureValidator() { delete[] pic; }
+TPXPictureValidator::~TPXPictureValidator() { }
 
-void TPXPictureValidator::error() { messageBox(mfError | mfOKButton, errorMsg, pic); }
+void TPXPictureValidator::error() { messageBox(mfError | mfOKButton, errorMsg, pic.c_str()); }
 
 bool TPXPictureValidator::isValidInput(char* s, bool suppressFill)
 {
     bool doFill = bool(((options & voFill) != 0) && !suppressFill);
-
-    return bool((pic == 0) || (picture((char*)s, doFill) != prError));
+    return pic.empty() || (picture((char*)s, doFill) != prError);
 }
 
 bool TPXPictureValidator::isValid(const char* s)
 {
     char str[256];
-
     strcpy(str, s);
-    return bool((pic == 0) || (picture(str, false) == prComplete));
+    return pic.empty() || (picture(str, false) == prComplete);
 }
 
 // Consume input
@@ -410,21 +406,18 @@ TPicResult TPXPictureValidator::process(char* input, int termCh)
 
 bool TPXPictureValidator::syntaxCheck()
 {
-
     int i, len;
     int brkLevel, brcLevel;
 
-    if (!pic || (strlen(pic) == 0))
+    if (pic.empty() || *pic.rbegin() == ';') {
         return false;
-
-    if (pic[strlen(pic) - 1] == ';')
-        return false;
+    }
 
     i = 0;
     brkLevel = 0;
     brcLevel = 0;
 
-    len = strlen(pic);
+    len = pic.size();
     while (i < len) {
         switch (pic[i]) {
         case '[':
@@ -446,12 +439,11 @@ bool TPXPictureValidator::syntaxCheck()
         i++;
     }
 
-    return bool((brkLevel == 0) && (brcLevel == 0));
+    return (brkLevel == 0) && (brcLevel == 0);
 }
 
 TPicResult TPXPictureValidator::picture(char* input, bool autoFill)
 {
-
     bool reprocess;
     TPicResult rslt;
 
@@ -464,7 +456,7 @@ TPicResult TPXPictureValidator::picture(char* input, bool autoFill)
     jndex = 0;
     index = 0;
 
-    rslt = process(input, strlen(pic));
+    rslt = process(input, pic.size());
 
     if ((rslt != prError) && (jndex < (int)strlen(input)))
         rslt = prError;
@@ -472,7 +464,7 @@ TPicResult TPXPictureValidator::picture(char* input, bool autoFill)
     if ((rslt == prIncomplete) && autoFill) {
         reprocess = false;
 
-        while ((index < (int)strlen(pic)) && !isSpecial(pic[index], "#?&!@*{}[],")) {
+        while ((index < (int)pic.size()) && !isSpecial(pic[index], "#?&!@*{}[],")) {
             if (pic[index] == ';')
                 index++;
             int end = strlen(input);
@@ -485,7 +477,7 @@ TPicResult TPXPictureValidator::picture(char* input, bool autoFill)
         jndex = 0;
         index = 0;
         if (reprocess)
-            rslt = process(input, strlen(pic));
+            rslt = process(input, pic.size());
     }
 
     if (rslt == prAmbiguous)

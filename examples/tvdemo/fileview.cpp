@@ -13,7 +13,7 @@ TFileViewer::TFileViewer(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBa
     const std::filesystem::path& aFileName)
     : TScroller(bounds, aHScrollBar, aVScrollBar)
     , fileName(aFileName)
-    , fileLines(std::make_unique<TLineCollection>(5, 5))
+    , fileLines()
     , isValid(true)
 {
     growMode = gfGrowHiX | gfGrowHiY;
@@ -22,17 +22,13 @@ TFileViewer::TFileViewer(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBa
 
 void TFileViewer::draw()
 {
-    char* p;
-
     TColorAttr c = getColor(1);
     for (short i = 0; i < size.y; i++) {
         TDrawBuffer b;
         b.moveChar(0, ' ', c, (short)size.x);
 
-        if (delta.y + i < fileLines->getCount()) {
-            p = (char*)(fileLines->at(delta.y + i));
-            if (p)
-                b.moveStr(0, p, c, (short)size.x, (short)delta.x);
+        if (delta.y + i < fileLines.size()) {
+            b.moveStr(0, fileLines[delta.y + i].c_str(), c, (short)size.x, (short)delta.x);
         }
         writeBuf(0, i, (short)size.x, 1, b);
     }
@@ -48,7 +44,7 @@ void TFileViewer::readFile(const std::filesystem::path& fName)
 {
     limit.x = 0;
     fileName = fName;
-    fileLines = std::make_unique<TLineCollection>(5, 5);
+    fileLines.clear();
     std::ifstream fileToView(fName);
     if (!fileToView) {
         std::ostringstream os;
@@ -58,11 +54,11 @@ void TFileViewer::readFile(const std::filesystem::path& fName)
     } else {
         std::string line;
         while (std::getline(fileToView, line)) {
-            fileLines->insert(newStr(line));
+            fileLines.push_back(line);
         }
         isValid = true;
     }
-    limit.y = fileLines->getCount();
+    limit.y = fileLines.size();
 }
 
 void TFileViewer::setState(ushort aState, bool enable)
