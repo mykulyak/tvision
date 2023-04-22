@@ -1,17 +1,16 @@
+#include <string_view>
 #include <tvision/tv.h>
-
 #include <internal/far2l.h>
-
 #include <test.h>
 
 namespace tvision {
 
 class StrInputGetter : public InputGetter {
-    TStringView str;
+    std::string_view str;
     size_t i { 0 };
 
 public:
-    StrInputGetter(TStringView aStr) noexcept
+    StrInputGetter(std::string_view aStr) noexcept
         : str(aStr)
     {
     }
@@ -71,7 +70,7 @@ static std::ostream& operator<<(std::ostream& os, const ParseResultEvent& p)
     return os;
 }
 
-constexpr static TEvent keyDownEv(ushort keyCode, ushort controlKeyState, TStringView text)
+constexpr static TEvent keyDownEv(ushort keyCode, ushort controlKeyState, std::string_view text)
 {
     TEvent ev {};
     ev.what = evKeyDown;
@@ -90,7 +89,7 @@ const ushort kbS = 0x1f73, kb9 = 0x0a39;
 TEST(Far2l, ShouldReadFar2lKeys)
 {
     static constexpr char longString[1024 * 1024] = { 0 };
-    static const TestCase<TStringView, ParseResultEvent> testCases[] = {
+    static const TestCase<std::string_view, ParseResultEvent> testCases[] = {
         { "", { Ignored } }, { "\x07", { Ignored } }, { "çśdfç32rç€v\x07", { Ignored } },
         { { longString, sizeof(longString) }, { Ignored } },
         { "AQBTAAAAAAAAAHMAAAB=", { Ignored } }, { "AQBTAAAAAAAAAHMAAABLaa==", { Ignored } },

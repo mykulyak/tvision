@@ -1,20 +1,10 @@
-/*-----------------------------------------------------*/
-/*                                                     */
-/*   Turbo Vision TVHC header file                     */
-/*                                                     */
-/*-----------------------------------------------------*/
-
-/* $Copyright: 1994 */
-
 #ifndef __TVHC_H
 #define __TVHC_H
 
+#include <string>
 #include <tvision/HelpFile.h>
 #include <tvision/tv.h>
-
-#ifndef __DIR_H
 #include <dir.h>
-#endif // __DIR_H
 
 const int MAXSTRSIZE = 256;
 const int MAXHELPTOPICID = 16379;
@@ -26,29 +16,24 @@ class TProtectedStream : public std::fstream {
 public:
     typedef std::ios::openmode openmode;
 
-    TProtectedStream(const char* aFileName, openmode aMode);
+    TProtectedStream(const std::string& aFileName, openmode aMode);
 
-private:
-    char fileName[MAXPATH];
+protected:
+    std::string fileName;
     openmode mode;
 };
 
-// Topic Reference
-
 struct TFixUp {
-
     std::streampos pos;
     TFixUp* next;
 };
 
 union Content {
-
     uint value;
     TFixUp* fixUpList;
 };
 
 struct TReference {
-
     char* topic;
     bool resolved;
     Content val;
