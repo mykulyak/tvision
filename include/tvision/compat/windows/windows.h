@@ -1,19 +1,14 @@
-/*
- *      C/C++ Run Time Library - Version 6.0
- *
- *      Copyright (c) 1987, 1993 by Borland International
- *      All Rights Reserved.
- *
- */
-
 #ifndef TVISION_COMPAT_WINDOWS_H
 #define TVISION_COMPAT_WINDOWS_H
 
-#if defined(__BORLANDC__) || defined(_WIN32)
+#ifdef _WIN32
+
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif
+
 #include <windows.h>
+
 #else
 
 #include <cstdint>
@@ -305,7 +300,7 @@ ULONGLONG GetTickCount64(void) noexcept;
 
 } // extern "C"
 
-#endif // __BORLANDC__ || _WIN32
+#endif // _WIN32
 
 // Flags that are often missing from outdated headers.
 

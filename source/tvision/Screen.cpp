@@ -17,29 +17,7 @@ TScreenCell* TScreen::screenBuffer;
 ushort TScreen::cursorLines = 0;
 bool TScreen::clearOnSuspend = true;
 
-static unsigned getCodePage() noexcept
-{
-#if defined(__BORLANDC__)
-#ifndef __FLAT__
-    //  get version number, in the form of a normal number
-    unsigned ver = (_version >> 8) | (_version << 8);
-    if (ver < 0x30C)
-        return 437; // United States code page, for all versions before 3.3
-
-#if defined(__FLAT__)
-    Regs r;
-    r.rDS.w.wl = r.rES.w.wl = -1;
-#endif
-
-    _AX = 0x6601; // get code page
-    _genInt(0x21);
-
-#endif
-    return _BX;
-#else
-    return 437;
-#endif
-}
+static unsigned getCodePage() noexcept { return 437; }
 
 void TDisplay::updateIntlChars() noexcept
 {
@@ -271,23 +249,7 @@ void TScreen::suspend() noexcept
 
 #pragma argsused
 
-ushort TScreen::fixCrtMode(ushort mode) noexcept
-{
-#ifdef __BORLANDC__
-#if defined(__FLAT__)
-    if (THardwareInfo::getPlatform() != THardwareInfo::plDPMI32) {
-        mode = (mode & smFont8x8) ? smCO80 | smFont8x8 : smCO80;
-        return mode;
-    }
-#endif
-    if ((mode & 0xFF) == smMono) // Strip smFont8x8 if necessary.
-        return smMono;
-
-    if ((mode & 0xFF) != smCO80 && (mode & 0xFF) != smBW80)
-        mode = (mode & 0xFF00) | smCO80;
-#endif
-    return mode;
-}
+ushort TScreen::fixCrtMode(ushort mode) noexcept { return mode; }
 
 void TScreen::setCrtData() noexcept
 {

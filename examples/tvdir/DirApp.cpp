@@ -5,12 +5,7 @@ const int cmDirTree = 100;
 const int cmAbout = 101;
 const int cmNewDirFocused = 102;
 
-#ifdef __BORLANDC__
-// This is merely for aesthetic purposes.
-#define sep "\\"
-#else
 #define sep "/"
-#endif
 
 class QuickMessage : public TWindow {
 private:

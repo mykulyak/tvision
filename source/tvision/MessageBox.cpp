@@ -62,11 +62,7 @@ ushort MessageBox::messageBoxRect(const TRect& r, ushort aOptions, const char* f
     va_start(argptr, fmt);
 
     char msg[256];
-#ifdef __BORLANDC__
-    vsprintf(msg, fmt, argptr);
-#else
     vsnprintf(msg, 256, fmt, argptr);
-#endif
 
     va_end(argptr);
 
@@ -96,11 +92,7 @@ ushort MessageBox::messageBox(unsigned aOptions, const char* fmt, ...) noexcept
     va_start(argptr, fmt);
 
     char msg[256];
-#ifdef __BORLANDC__
-    vsprintf(msg, fmt, argptr);
-#else
     vsnprintf(msg, 256, fmt, argptr);
-#endif
 
     va_end(argptr);
 

@@ -93,7 +93,6 @@ public:
     static bool drawOne(
         TSpan<TScreenCell> cells, size_t& i, TStringView text, size_t& j, TColorAttr attr) noexcept;
 
-#ifndef __BORLANDC__
     // Variants of the functions above which use a '(TColorAttr &) -> void'
     // callback  to change the color attribute of each cell (rather than
     // setting it to a fixed value).
@@ -135,137 +134,7 @@ private:
     static size_t drawStrExT(TSpan<TScreenCell>, size_t, Text, int, Func&&) noexcept;
     template <class Text, class Func>
     static bool drawOneT(TSpan<TScreenCell>, size_t& i, Text, size_t&, Func&&) noexcept;
-#endif // __BORLANDC__
 };
-
-#ifdef __BORLANDC__
-
-inline size_t TText::width(TStringView text) { return text.size(); }
-
-#pragma warn - inl
-
-inline TTextMetrics TText::measure(TStringView text)
-{
-    TTextMetrics metrics = { text.size(), text.size(), text.size() };
-    return metrics;
-}
-
-#pragma warn.inl
-
-inline size_t TText::next(TStringView text) { return text.size() ? 1 : 0; }
-
-inline bool TText::next(TStringView text, size_t& index)
-{
-    if (index < text.size())
-        return ++index, true;
-    return false;
-}
-
-inline bool TText::next(TStringView text, size_t& index, size_t& width)
-{
-    if (index < text.size())
-        return ++index, ++width, true;
-    return false;
-}
-
-inline size_t TText::prev(TStringView text, size_t index)
-{
-    return 0 < index && index <= text.size();
-}
-
-inline char TText::toCodePage(TStringView text)
-{
-    if (text.empty())
-        return '\0';
-    return text[0];
-}
-
-inline size_t TText::scroll(TStringView text, int count, bool)
-{
-    return count > 0 ? min(count, text.size()) : 0;
-}
-
-inline void TText::scroll(TStringView text, int count, bool, size_t& length, size_t& width)
-{
-    length = width = (size_t)scroll(text, count, false);
-}
-
-#pragma warn - inl
-
-inline void TText::drawChar(TSpan<TScreenCell> cells, char c)
-{
-    for (size_t i = 0; i < cells.size(); ++i)
-        ::setChar(cells[i], c);
-}
-
-inline void TText::drawChar(TSpan<TScreenCell> cells, char c, TColorAttr attr)
-{
-    for (size_t i = 0; i < cells.size(); ++i) {
-        ::setChar(cells[i], c);
-        ::setAttr(cells[i], attr);
-    }
-}
-
-inline size_t TText::drawStr(
-    TSpan<TScreenCell> cells, size_t indent, TStringView text, int textIndent)
-{
-    if (indent < cells.size() && textIndent < text.size()) {
-        cells = cells.subspan(indent);
-        text = text.substr(textIndent);
-        size_t count = min(cells.size(), text.size());
-        for (size_t i = 0; i < count; ++i)
-            ::setChar(cells[i], text[i]);
-        return count;
-    }
-    return 0;
-}
-
-inline size_t TText::drawStr(
-    TSpan<TScreenCell> cells, size_t indent, TStringView text, int textIndent, TColorAttr attr)
-{
-    if (indent < cells.size() && textIndent < text.size()) {
-        cells = cells.subspan(indent);
-        text = text.substr(textIndent);
-        size_t count = min(cells.size(), text.size());
-        for (size_t i = 0; i < count; ++i)
-            ::setCell(cells[i], text[i], attr);
-        return count;
-    }
-    return 0;
-}
-
-#pragma warn.inl
-
-inline size_t TText::drawStr(TSpan<TScreenCell> cells, TStringView text)
-{
-    return drawStr(cells, 0, text, 0);
-}
-
-inline size_t TText::drawStr(TSpan<TScreenCell> cells, TStringView text, TColorAttr attr)
-{
-    return drawStr(cells, 0, text, 0, attr);
-}
-
-inline bool TText::drawOne(TSpan<TScreenCell> cells, size_t& i, TStringView text, size_t& j)
-{
-    if (i < cells.size() && j < text.size()) {
-        ::setChar(cells[i++], text[j++]);
-        return true;
-    }
-    return false;
-}
-
-inline bool TText::drawOne(
-    TSpan<TScreenCell> cells, size_t& i, TStringView text, size_t& j, TColorAttr attr)
-{
-    if (i < cells.size() && j < text.size()) {
-        ::setCell(cells[i++], text[j++], attr);
-        return true;
-    }
-    return false;
-}
-
-#else
 
 inline bool TText::next(TStringView text, size_t& index) noexcept
 {
@@ -441,7 +310,5 @@ inline bool TText::drawOneT(
     j += result.length;
     return result.length != 0;
 }
-
-#endif // __BORLANDC__
 
 #endif // TVision_TText_h

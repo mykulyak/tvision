@@ -23,13 +23,8 @@ const char commandChar[] = ".";
 enum State { undefined, wrapping, notWrapping };
 
 class TProtectedStream : public std::fstream {
-
 public:
-#ifdef __BORLANDC__
-    typedef std::ios::open_mode openmode;
-#else
     typedef std::ios::openmode openmode;
-#endif
 
     TProtectedStream(const char* aFileName, openmode aMode);
 

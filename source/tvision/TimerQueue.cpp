@@ -5,8 +5,6 @@ static TTimePoint systemTimeMs()
 {
 #ifndef __FLAT__
     return THardwareInfo::getTickCount() * 55;
-#elif defined(__BORLANDC__)
-    return GetTickCount();
 #else
     return GetTickCount64();
 #endif

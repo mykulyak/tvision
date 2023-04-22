@@ -3,11 +3,7 @@
 
 #include <tvision/ttypes.h>
 
-#ifdef __BORLANDC__
-typedef uint32_t TTimePoint;
-#else
 typedef uint64_t TTimePoint;
-#endif
 
 struct TTimer;
 

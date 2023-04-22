@@ -2,10 +2,6 @@
 #include <tvision/FileList.h>
 #include <tvision/tobjstrm.h>
 
-#if defined(__FLAT__) && defined(__BORLANDC__)
-extern "C" char* _CType FUNC strupr(char* __s);
-#endif
-
 const char* const TFileList::name = "TFileList";
 
 const char* TFileList::tooManyFiles = "Too many files.";
@@ -246,7 +242,7 @@ bool getHomeDir(char* drive, char* dir) noexcept
             strnzcpy(dir, homepath, MAXDIR);
         return true;
     }
-#elif !defined(__BORLANDC__)
+#else
     const char* home = getenv("HOME");
     if (home) {
         if (dir)

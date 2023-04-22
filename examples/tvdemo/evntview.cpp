@@ -65,7 +65,7 @@ void TEventViewer::print(const TEvent& ev)
 
 TEventViewer::TEventViewer(const TRect& bounds, ushort aBufSize) noexcept
     : TWindowInit(&initFrame)
-    , TWindow(bounds, 0, wnNoNumber)
+    , TWindow(bounds, "", wnNoNumber)
 {
     eventMask |= evBroadcast;
     init(aBufSize);

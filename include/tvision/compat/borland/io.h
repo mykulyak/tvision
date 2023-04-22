@@ -1,10 +1,6 @@
 #ifndef TVision_IO_h
 #define TVision_IO_h
 
-#ifdef __BORLANDC__
-#include <io.h>
-#else
-
 #ifdef TVISION_COMPAT_IO_INCNEXT
 #undef TVISION_COMPAT_IO_INCNEXT
 #include_next <io.h>
@@ -36,7 +32,5 @@ struct ftime {
 #endif // !_MSC_VER && !__MINGW32__ && !_WIN32
 
 #endif // TVISION_COMPAT_IO_H
-
-#endif // __BORLANDC__
 
 #endif // TVision_IO_h

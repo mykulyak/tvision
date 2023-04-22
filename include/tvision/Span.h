@@ -27,7 +27,6 @@ public:
     {
     }
 
-#ifndef __BORLANDC__
     constexpr TSpan(decltype(nullptr))
         : TSpan()
     {
@@ -38,7 +37,6 @@ public:
         : TSpan(array, N)
     {
     }
-#endif
 
     constexpr operator TSpan<const T>() const { return TSpan<const T>(ptr, len); }
 

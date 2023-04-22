@@ -65,7 +65,7 @@ void printMouseButtonState(std::ostream&, ushort buttonState);
 void printMouseWheelState(std::ostream&, ushort wheelState);
 void printMouseEventFlags(std::ostream&, ushort eventFlags);
 
-#if !defined(__BORLANDC__) && !defined(_WIN32)
+#ifndef _WIN32
 
 int stricmp(const char* s1, const char* s2) noexcept;
 int strnicmp(const char* s1, const char* s2, size_t maxlen) noexcept;

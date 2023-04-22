@@ -2,21 +2,9 @@
 
     Defines structs, unions, macros, and functions for dealing
     with MSDOS and the Intel iAPX86 microprocessor family.
-
 */
-/*
- *      C/C++ Run Time Library - Version 6.0
- *
- *      Copyright (c) 1987, 1993 by Borland International
- *      All Rights Reserved.
- *
- */
 #ifndef TVision_Dos_h
 #define TVision_Dos_h
-
-#ifdef __BORLANDC__
-#include <dos.h>
-#else
 
 #ifdef TVISION_COMPAT_DOS_INCNEXT
 #undef TVISION_COMPAT_DOS_INCNEXT
@@ -83,7 +71,5 @@ unsigned _dos_findfirst(const char* __path, unsigned __attrib, struct find_t* __
 unsigned _dos_findnext(struct find_t* __finfo) noexcept;
 
 #endif // TVISION_COMPAT_DOS_H
-
-#endif // __BORLANDC__
 
 #endif // TVision_Dos_h

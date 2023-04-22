@@ -3,41 +3,19 @@
 
 /*   provides miscellaneous types used throughout Turbo Vision             */
 
-#ifdef __BORLANDC__
-#define I asm
-#endif
-
 typedef unsigned short ushort;
 typedef unsigned char uchar;
 typedef unsigned int uint;
 typedef unsigned long ulong;
 
 #include <cstddef>
-
-#ifndef __BORLANDC__
 #include <cstdint>
-#else
-typedef char int8_t;
-typedef short int16_t;
-typedef long int32_t;
-typedef uchar uint8_t;
-typedef ushort uint16_t;
-typedef ulong uint32_t;
-#endif
 
-#ifdef __BORLANDC__
-typedef ushort TScreenCell;
-typedef uchar TCellChar;
-typedef uchar TColorDesired;
-typedef uchar TColorAttr;
-typedef ushort TAttrPair;
-#else
 struct TScreenCell;
 struct TCellChar;
 struct TColorDesired;
 struct TColorAttr;
 struct TAttrPair;
-#endif
 
 const char EOS = '\0';
 
@@ -70,7 +48,7 @@ extern const uchar specialChars[];
 
 // Do not include unnecessary STL headers if TVISION_NO_STL is defined.
 // This speeds up compilation when building the library.
-#if !defined(__BORLANDC__) && !defined(TVISION_NO_STL)
+#if !defined(TVISION_NO_STL)
 #define TVISION_STL
 #endif
 

@@ -92,13 +92,11 @@ private:
     static CONSOLE_CURSOR_INFO crInfo;
     static CONSOLE_SCREEN_BUFFER_INFO sbInfo;
 
-#ifndef __BORLANDC__
     enum { eventQSize = 24 };
     static TEvent eventQ[eventQSize];
     static size_t eventCount;
     static BOOL getPendingEvent(TEvent& event, bool mouse) noexcept;
     static void readEvents() noexcept;
-#endif
 
 #else
 
@@ -127,68 +125,6 @@ private:
 #if defined(__FLAT__)
 
 inline THardwareInfo::PlatformType THardwareInfo::getPlatform() noexcept { return platform; }
-
-#ifdef __BORLANDC__
-// Caret functions.
-
-inline ushort THardwareInfo::getCaretSize() noexcept { return crInfo.dwSize; }
-
-inline BOOL THardwareInfo::isCaretVisible() noexcept { return crInfo.bVisible; }
-
-// Screen functions.
-
-inline ushort THardwareInfo::getScreenRows() noexcept { return sbInfo.dwSize.Y; }
-
-inline ushort THardwareInfo::getScreenCols() noexcept { return sbInfo.dwSize.X; }
-
-inline void THardwareInfo::clearScreen(ushort w, ushort h) noexcept
-{
-    COORD coord = { 0, 0 };
-    DWORD read;
-
-    FillConsoleOutputAttribute(consoleHandle[cnOutput], 0x07, w * h, coord, &read);
-    FillConsoleOutputCharacterA(consoleHandle[cnOutput], ' ', w * h, coord, &read);
-}
-
-inline void THardwareInfo::flushScreen() noexcept { }
-
-inline TScreenCell* THardwareInfo::allocateScreenBuffer() noexcept
-{
-    GetConsoleScreenBufferInfo(consoleHandle[cnOutput], &sbInfo);
-    short x = sbInfo.dwSize.X, y = sbInfo.dwSize.Y;
-
-    if (x < 80) // Make sure we allocate at least enough for
-        x = 80; //   a 80x50 screen.
-    if (y < 50)
-        y = 50;
-
-    return (TScreenCell*)VirtualAlloc(0, x * y * 4, MEM_COMMIT, PAGE_READWRITE);
-}
-
-inline void THardwareInfo::freeScreenBuffer(TScreenCell* buffer) noexcept
-{
-    VirtualFree(buffer, 0, MEM_RELEASE);
-}
-
-// Mouse functions.
-
-inline DWORD THardwareInfo::getButtonCount()
-{
-    DWORD num;
-    GetNumberOfConsoleMouseButtons(&num);
-    return num;
-}
-
-inline void THardwareInfo::cursorOn()
-{
-    SetConsoleMode(consoleHandle[cnInput], consoleMode | ENABLE_MOUSE_INPUT);
-}
-
-inline void THardwareInfo::cursorOff()
-{
-    SetConsoleMode(consoleHandle[cnInput], consoleMode & ~ENABLE_MOUSE_INPUT);
-}
-#endif // __BORLANDC__
 
 // Event functions.
 

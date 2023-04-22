@@ -53,7 +53,7 @@ void TApplication::dosShell()
 {
     suspend();
     writeShellMsg();
-#if defined(__BORLANDC__) || defined(_WIN32)
+#ifdef _WIN32
     system(getenv("COMSPEC"));
 #else
     raise(SIGTSTP);
@@ -94,7 +94,7 @@ void TApplication::tile()
 
 void TApplication::writeShellMsg()
 {
-#if defined(__BORLANDC__) || defined(_WIN32)
+#ifdef _WIN32
     std::cout << "Type EXIT to return..." << std::endl;
 #else
     std::cout << "The application has been stopped. You can return by entering 'fg'." << std::endl;

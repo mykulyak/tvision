@@ -1041,10 +1041,6 @@ struct TVWrite {
     void L30(TView*) noexcept;
     void L40(TView*) noexcept;
     void L50(TGroup*) noexcept;
-#ifdef __BORLANDC__
-    void copyShort(ushort*, const ushort*);
-    void copyShort2CharInfo(ushort*, const ushort*);
-#else
     void copyCell(TScreenCell*, const TScreenCell*) noexcept;
     void copyShort2Cell(TScreenCell*, const ushort*) noexcept;
 
@@ -1054,19 +1050,9 @@ struct TVWrite {
         : bufIsShort(b)
     {
     }
-#endif
 
     static TColorAttr applyShadow(TColorAttr attr) noexcept
     {
-#ifdef __BORLANDC__
-        // Because we can't know if the cell has already been shadowed,
-        // we compare against the shadow attributes. This may yield some false positives.
-        TColorAttr shadowAttrInv = reverseAttribute(shadowAttr);
-        if (attr == shadowAttr || attr == shadowAttrInv)
-            return attr;
-        else
-            return attr & 0xF0 ? shadowAttr : shadowAttrInv;
-#else
         // Here TColorAttr is a struct, so we can have a dedicated field
         // to determine whether the shadow has been applied.
         auto style = ::getStyle(attr);
@@ -1078,7 +1064,6 @@ struct TVWrite {
             ::setStyle(attr, style | slNoShadow);
         }
         return attr;
-#endif
     }
 };
 
@@ -1087,12 +1072,10 @@ void TView::writeView(short x, short y, short count, const void* b) noexcept
     TVWrite().L0(this, x, y, count, b);
 }
 
-#ifndef __BORLANDC__
 void TView::writeView(short x, short y, short count, const TScreenCell* b) noexcept
 {
     TVWrite(false).L0(this, x, y, count, b);
 }
-#endif
 
 void TVWrite::L0(TView* dest, short x, short y, short count, const void* b) noexcept
 {
@@ -1208,13 +1191,7 @@ void TVWrite::L40(TView* dest) noexcept
         if (owner->buffer != TScreen::screenBuffer)
             L50(owner);
         else {
-#ifdef __BORLANDC__
-            THWMouse::hide();
-#endif
             L50(owner);
-#ifdef __BORLANDC__
-            THWMouse::show();
-#endif
         }
     }
     if (owner->lockFlag == 0)
@@ -1224,15 +1201,6 @@ void TVWrite::L40(TView* dest) noexcept
 void TVWrite::L50(TGroup* owner) noexcept
 {
     TScreenCell* dst = &owner->buffer[Y * owner->size.x + X];
-#ifdef __BORLANDC__
-    const ushort* src = &((const ushort*)Buffer)[X - wOffset];
-    if (owner->buffer != TScreen::screenBuffer)
-        copyShort(dst, src);
-    else {
-        copyShort2CharInfo(dst, src);
-        THardwareInfo::screenWrite(X, Y, dst, Count - X);
-    }
-#else
     if (bufIsShort) {
         auto* src = &((const ushort*)Buffer)[X - wOffset];
         copyShort2Cell(dst, src);
@@ -1242,48 +1210,8 @@ void TVWrite::L50(TGroup* owner) noexcept
     }
     if (owner->buffer == TScreen::screenBuffer)
         THardwareInfo::screenWrite(X, Y, dst, Count - X);
-#endif // __BORLANDC__
 }
 
-#ifdef __BORLANDC__
-// On Windows and DOS, Turbo Vision stores a byte of text and a byte of
-// attributes for every cell. On Windows, all TGroup buffers follow this schema
-// except the topmost one, which interfaces with the Win32 Console API.
-
-void TVWrite::copyShort(ushort* dst, const ushort* src)
-{
-    int i;
-    if (edx == 0)
-        memcpy(dst, src, 2 * (Count - X));
-    else {
-#define loByte(w) (((uchar*)&w)[0])
-#define hiByte(w) (((uchar*)&w)[1])
-        for (i = 0; i < Count - X; ++i) {
-            loByte(dst[i]) = loByte(src[i]);
-            hiByte(dst[i]) = applyShadow(hiByte(src[i]));
-        }
-#undef loByte
-#undef hiByte
-    }
-}
-
-void TVWrite::copyShort2CharInfo(ushort* dst, const ushort* src)
-{
-    int i;
-    if (edx == 0)
-        // Expand character/attribute pair
-        for (i = 0; i < 2 * (Count - X); ++i) {
-            dst[i] = ((const uchar*)src)[i];
-        }
-    else
-        // Mix in shadow attribute
-        for (i = 0; i < 2 * (Count - X); i += 2) {
-            dst[i] = ((const uchar*)src)[i];
-            dst[i + 1] = applyShadow(((const uchar*)src)[i + 1]);
-        }
-}
-
-#else
 void TVWrite::copyCell(TScreenCell* dst, const TScreenCell* src) noexcept
 {
     int i;
@@ -1322,8 +1250,6 @@ void TView::writeBuf(short x, short y, short w, short h, const TScreenCell* b) n
     }
 }
 
-#endif // __BORLANDC__
-
 void TView::writeBuf(short x, short y, short w, short h, const void* b) noexcept
 {
     while (h-- > 0) {
@@ -1352,14 +1278,12 @@ void TView::writeLine(short x, short y, short w, short h, const void* b) noexcep
     }
 }
 
-#ifndef __BORLANDC__
 void TView::writeLine(short x, short y, short w, short h, const TScreenCell* b) noexcept
 {
     while (h-- > 0) {
         writeView(x, y++, w, b);
     }
 }
-#endif
 
 void TView::writeStr(short x, short y, const char* str, uchar color) noexcept
 {

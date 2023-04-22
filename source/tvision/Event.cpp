@@ -139,11 +139,6 @@ void TEventQueue::getMouseEvent(TEvent& ev) noexcept
 
         if (ev.mouse.wheel != 0) {
             ev.what = evMouseWheel;
-#ifdef __BORLANDC__
-            // A bug in Borland C++ causes mouse position to be trash in
-            // MOUSE_WHEELED events.
-            ev.mouse.where = lastMouse.where;
-#endif
             lastMouse = ev.mouse;
             return;
         }
@@ -374,16 +369,6 @@ keyWaiting:
 
     ev.keyDown.keyCode = _AX;
     ev.keyDown.controlKeyState = THardwareInfo::getShiftState();
-#endif
-#if defined(__BORLANDC__)
-    if (ev.what == evKeyDown) {
-        if (' ' <= ev.keyDown.charScan.charCode && ev.keyDown.charScan.charCode != 0x7F
-            && ev.keyDown.charScan.charCode != 0xFF) {
-            ev.keyDown.text[0] = (char)ev.keyDown.charScan.charCode;
-            ev.keyDown.textLength = 1;
-        } else
-            ev.keyDown.textLength = 0;
-    }
 #endif
     return bool(ev.what != evNothing);
 }

@@ -1,23 +1,6 @@
 #ifndef TVision_ScreenCell_h
 #define TVision_ScreenCell_h
 
-#ifdef __BORLANDC__
-
-inline const TColorAttr& getAttr(const TScreenCell& cell) { return ((uchar*)&cell)[1]; }
-
-inline void setAttr(TScreenCell& cell, TColorAttr attr) { ((uchar*)&cell)[1] = attr; }
-
-inline const TCellChar& getChar(const TScreenCell& cell) { return ((uchar*)&cell)[0]; }
-
-inline void setChar(TScreenCell& cell, TCellChar ch) { ((uchar*)&cell)[0] = ch; }
-
-inline void setCell(TScreenCell& cell, TCellChar ch, TColorAttr attr)
-{
-    cell = ushort((attr << 8) | ch);
-}
-
-#else
-
 #include <tvision/StringView.h>
 #include <tvision/colors.h>
 #include <tvision/ttypes.h>
@@ -223,7 +206,5 @@ inline void check_assumptions()
 }
 
 #endif // SCRNCELL_DEBUG
-
-#endif // __BORLANDC__
 
 #endif // TVision_ScreenCell_h

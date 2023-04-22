@@ -125,10 +125,8 @@ public:
     void writeLine(short x, short y, short w, short h, const TDrawBuffer& b) noexcept;
     void writeLine(short x, short y, short w, short h, const void* b) noexcept;
     void writeStr(short x, short y, const char* str, uchar color) noexcept;
-#ifndef __BORLANDC__
     void writeBuf(short x, short y, short w, short h, const TScreenCell* b) noexcept;
     void writeLine(short x, short y, short w, short h, const TScreenCell* b) noexcept;
-#endif
 
     TPoint size;
     ushort options;
@@ -155,9 +153,7 @@ private:
     void change(uchar, TPoint delta, TPoint& p, TPoint& s, ushort ctrlState) noexcept;
     static void writeView(write_args);
     void writeView(short x, short y, short count, const void* b) noexcept;
-#ifndef __BORLANDC__
     void writeView(short x, short y, short count, const TScreenCell* b) noexcept;
-#endif
 
     TPoint resizeBalance;
 

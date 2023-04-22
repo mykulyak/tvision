@@ -1,26 +1,6 @@
 #ifndef TVision_Colors_h
 #define TVision_Colors_h
 
-#ifdef __BORLANDC__
-
-inline TColorDesired getFore(const TColorAttr& attr) { return uchar(attr & 0xF); }
-
-inline TColorDesired getBack(const TColorAttr& attr) { return uchar(attr >> 4); }
-
-inline void setFore(TColorAttr& attr, TColorDesired color)
-{
-    attr = uchar(attr & 0xF0) | uchar(color & 0xF);
-}
-
-inline void setBack(TColorAttr& attr, TColorDesired color)
-{
-    attr = uchar(attr & 0xF) | uchar(color << 4);
-}
-
-inline TColorAttr reverseAttribute(TColorAttr attr) { return uchar(attr << 4) | uchar(attr >> 4); }
-
-#else // __BORLANDC__
-
 #include <cstring>
 
 // Helper class for trivial types.
@@ -611,7 +591,5 @@ inline TAttrPair TColorAttr::operator<<(int shift) const
         return { uchar(0), *this };
     return asBIOS() << shift;
 }
-
-#endif // __BORLANDC__
 
 #endif // TVision_Colors_h

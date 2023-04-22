@@ -8,14 +8,12 @@ TPalette::TPalette(const char* d, ushort len) noexcept
         data[i + 1] = d[i];
 }
 
-#ifndef __BORLANDC__
 TPalette::TPalette(const TColorAttr* d, ushort len) noexcept
     : data(new TColorAttr[len + 1])
 {
     data[0] = len;
     memcpy(data + 1, d, len * sizeof(TColorAttr));
 }
-#endif
 
 TPalette::TPalette(const TPalette& tp) noexcept
     : data(new TColorAttr[tp.data[0] + 1])

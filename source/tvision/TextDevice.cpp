@@ -7,13 +7,10 @@ TTextDevice::TTextDevice(
 {
     // Borland's streambuf::sputn is wrong and never invokes overflow().
     // So leave the device unbuffered when compiling with Borland C++.
-#ifndef __BORLANDC__
     if (aBufSize) {
         char* buffer = new char[aBufSize];
         setp(buffer, buffer + aBufSize);
-    } else
-#endif
-    {
+    } else {
         setp(0, 0);
     }
 }

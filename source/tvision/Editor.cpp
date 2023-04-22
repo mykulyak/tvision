@@ -3,10 +3,6 @@
 #include <tvision/Indicator.h>
 #include <tvision/ReplaceDialogRec.h>
 
-#ifndef __BORLANDC__
-#define register
-#endif
-
 const ushort firstKeys[] = { 41, kbCtrlA, cmSelectAll, kbCtrlC, cmPageDown, kbCtrlD, cmCharRight,
     kbCtrlE, cmLineUp, kbCtrlF, cmWordRight, kbCtrlG, cmDelChar, kbCtrlH, cmBackSpace, kbCtrlK,
     0xFF02, kbCtrlL, cmSearchAgain, kbCtrlM, cmNewLine, kbCtrlO, cmIndentMode, kbCtrlP, cmEncoding,
@@ -67,7 +63,7 @@ __3:
 __4:
     asm POP DS return _AX;
 #else
-    register ushort* kM = (ushort*)keyMap;
+    ushort* kM = (ushort*)keyMap;
     uchar codeLow = keyCode & 0xff;
     uchar codeHi = keyCode >> 8;
 

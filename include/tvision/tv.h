@@ -1,15 +1,12 @@
 #ifndef TVision_h
 #define TVision_h
 
-#ifndef __BORLANDC__
 #define __FLAT__
 
 #ifndef _WIN32
 #define __cdecl
 #define __stdcall
 #define _TV_UNIX
-#endif
-
 #endif
 
 #if defined(_MSC_VER)

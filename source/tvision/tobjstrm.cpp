@@ -120,36 +120,13 @@ int pstream::rdstate() const noexcept { return state; }
 
 int pstream::eof() const noexcept { return state & std::ios::eofbit; }
 
-int pstream::fail() const noexcept
-{
-    return state
-        & (std::ios::failbit | std::ios::badbit
-#ifdef __BORLANDC__
-            | std::ios::hardfail
-#endif
-        );
-}
+int pstream::fail() const noexcept { return state & (std::ios::failbit | std::ios::badbit); }
 
-int pstream::bad() const noexcept
-{
-    return state
-        & (std::ios::badbit
-#ifdef __BORLANDC__
-            | std::ios::hardfail
-#endif
-        );
-}
+int pstream::bad() const noexcept { return state & (std::ios::badbit); }
 
 int pstream::good() const noexcept { return state == 0; }
 
-void pstream::clear(int i) noexcept
-{
-    state = (i & 0xFF)
-#ifdef __BORLANDC__
-        | (state & std::ios::hardfail)
-#endif
-        ;
-}
+void pstream::clear(int i) noexcept { state = (i & 0xFF); }
 
 void pstream::registerType(TStreamableClass* ts) noexcept { types->registerType(ts); }
 
@@ -196,34 +173,19 @@ ipstream::~ipstream()
     objs.shutDown();
 }
 
-std::streampos ipstream::tellg()
-{
-#ifdef __BORLANDC__
-    return bp->seekoff(0, std::ios::cur, std::ios::in);
-#else
-    return bp->pubseekoff(0, std::ios::cur, std::ios::in);
-#endif
-}
+std::streampos ipstream::tellg() { return bp->pubseekoff(0, std::ios::cur, std::ios::in); }
 
 ipstream& ipstream::seekg(std::streampos pos)
 {
     objs.removeAll();
-#ifdef __BORLANDC__
-    bp->seekoff(pos, std::ios::beg);
-#else
     bp->pubseekoff(pos, std::ios::beg);
-#endif
     return *this;
 }
 
 ipstream& ipstream::seekg(std::streamoff off, pstream::seekdir dir)
 {
     objs.removeAll();
-#ifdef __BORLANDC__
-    bp->seekoff(off, ::seekdir(dir));
-#else
     bp->pubseekoff(off, ::seekdir(dir));
-#endif
     return *this;
 }
 
@@ -436,11 +398,7 @@ opstream& opstream::seekp(std::streampos pos)
 {
     objs->freeAll();
     objs->removeAll();
-#ifdef __BORLANDC__
-    bp->seekoff(pos, std::ios::beg);
-#else
     bp->pubseekoff(pos, std::ios::beg);
-#endif
     return *this;
 }
 
@@ -448,30 +406,15 @@ opstream& opstream::seekp(std::streamoff pos, pstream::seekdir dir)
 {
     objs->freeAll();
     objs->removeAll();
-#ifdef __BORLANDC__
-    bp->seekoff(pos, ::seekdir(dir));
-#else
     bp->pubseekoff(pos, ::seekdir(dir));
-#endif
     return *this;
 }
 
-std::streampos opstream::tellp()
-{
-#ifdef __BORLANDC__
-    return bp->seekoff(0, std::ios::cur, std::ios::out);
-#else
-    return bp->pubseekoff(0, std::ios::cur, std::ios::out);
-#endif
-}
+std::streampos opstream::tellp() { return bp->pubseekoff(0, std::ios::cur, std::ios::out); }
 
 opstream& opstream::flush()
 {
-#ifdef __BORLANDC__
-    bp->sync();
-#else
     bp->pubsync();
-#endif
     return *this;
 }
 

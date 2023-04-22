@@ -36,45 +36,7 @@ long THeapView::heapSize()
 {
     std::ostrstream totalStr(heapStr, sizeof heapStr);
 
-#ifdef __BORLANDC__
-    // #ifndef  __DPMI32__
-    long total = farcoreleft();
-    // #else
-    //     long total = 0;
-    // #endif
-
-#if !defined(__DPMI16__) && !defined(__DPMI32__)
-    struct farheapinfo heap;
-#endif
-
-    // #if defined( __DPMI32__ )
-    //     switch( _HEAPEMPTY )
-    // #else
-    switch (heapcheck())
-    // #endif
-    {
-    case _HEAPEMPTY:
-        strcpy(heapStr, "     No heap");
-        total = -1;
-        break;
-
-    case _HEAPCORRUPT:
-        strcpy(heapStr, "Heap corrupt");
-        total = -2;
-        break;
-
-    case _HEAPOK:
-#if !defined(__DPMI16__) && !defined(__DPMI32__)
-        heap.ptr = NULL;
-        while (farheapwalk(&heap) != _HEAPEND)
-            if (!heap.in_use)
-                total += heap.size;
-#endif
-        totalStr << std::setw(12) << total << std::ends;
-        break;
-    }
-    return (total);
-#elif defined(__GLIBC__) && !defined(__UCLIBC__) && !defined(__MUSL__)
+#if defined(__GLIBC__) && !defined(__UCLIBC__) && !defined(__MUSL__)
     // mallinfo is defined in malloc.h but only exists in Glibc.
     // It doesn't exactly measure the heap size, but it kinda does the trick.
     int allocatedBytes =
