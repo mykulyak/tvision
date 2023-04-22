@@ -1,6 +1,7 @@
 #ifndef TVision_TText_h
 #define TVision_TText_h
 
+#include <string_view>
 #include <tvision/ScreenCell.h>
 #include <tvision/StringView.h>
 #include <tvision/colors.h>
@@ -16,6 +17,7 @@ struct TTextMetrics {
 class TText {
 public:
     // Returns the width of 'text'.
+    static size_t width(std::string_view text) noexcept;
     static size_t width(TStringView text) noexcept;
 
     // Returns the width, the character count and the grapheme count of 'text'.

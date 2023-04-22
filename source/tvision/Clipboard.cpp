@@ -10,14 +10,14 @@ TClipboard::TClipboard()
 
 TClipboard::~TClipboard() { }
 
-void TClipboard::setText(TStringView text) noexcept
+void TClipboard::setText(std::string_view text) noexcept
 {
 #ifdef __FLAT__
     if (THardwareInfo::setClipboardText(text))
         return;
 #endif
 
-    instance.localText.assign(text.begin(), text.end());
+    instance.localText = text;
 }
 
 void TClipboard::requestText() noexcept
@@ -26,5 +26,5 @@ void TClipboard::requestText() noexcept
     if (THardwareInfo::requestClipboardText(TEventQueue::putPaste))
         return;
 #endif
-    TEventQueue::putPaste(TStringView(instance.localText.c_str(), instance.localText.size()));
+    TEventQueue::putPaste(instance.localText);
 }

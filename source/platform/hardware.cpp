@@ -105,12 +105,12 @@ void THardwareInfo::waitForEvent(int timeoutMs) noexcept
 
 void THardwareInfo::stopEventWait() noexcept { platf->stopEventWait(); }
 
-BOOL THardwareInfo::setClipboardText(TStringView text) noexcept
+BOOL THardwareInfo::setClipboardText(std::string_view text) noexcept
 {
     return platf->setClipboardText(text);
 }
 
-BOOL THardwareInfo::requestClipboardText(void (&accept)(TStringView)) noexcept
+BOOL THardwareInfo::requestClipboardText(void (&accept)(std::string_view)) noexcept
 {
     return platf->requestClipboardText(accept);
 }

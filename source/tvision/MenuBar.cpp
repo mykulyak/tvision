@@ -41,7 +41,7 @@ void TMenuBar::draw()
         p = menu->items;
         while (p != 0) {
             if (p->name.size() != 0) {
-                l = cstrlen(p->name.c_str());
+                l = cstrlen(p->name);
                 if (x + l < size.x) {
                     if (p->disabled)
                         if (p == current)
@@ -72,7 +72,7 @@ TRect TMenuBar::getItemRect(TMenuItem* item)
     while (true) {
         r.a.x = r.b.x;
         if (p->name.size() != 0)
-            r.b.x += cstrlen(p->name.c_str()) + 2;
+            r.b.x += cstrlen(p->name) + 2;
         if (p == item)
             return r;
         p = p->next;

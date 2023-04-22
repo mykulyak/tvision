@@ -30,8 +30,8 @@ public:
 
     ~UnixConsoleStrategy();
 
-    bool setClipboardText(TStringView) noexcept override;
-    bool requestClipboardText(void (&)(TStringView)) noexcept override;
+    bool setClipboardText(std::string_view) noexcept override;
+    bool requestClipboardText(void (&)(std::string_view)) noexcept override;
 
     static int charWidth(uint32_t) noexcept;
 };

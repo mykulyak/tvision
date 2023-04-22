@@ -1,9 +1,11 @@
 #include "backgrnd.h"
 #include <tvision/tv.h>
 
+const char* const TChBackground::dialogTitle = "Change background";
+
 TChBackground::TChBackground(TBackground* b)
     : TWindowInit(&TChBackground::initFrame)
-    , TDialog(TRect(0, 0, 29, 9), 0)
+    , TDialog(TRect(0, 0, 29, 9), dialogTitle)
     , background(b)
 {
     // Ideally, we would show an ASCII table and let the user choose from there.

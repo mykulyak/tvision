@@ -1,3 +1,4 @@
+#include <string_view>
 #include <tvision/Menu.h>
 #include <tvision/MenuPopup.h>
 #include <tvision/StringView.h>
@@ -274,16 +275,6 @@ ushort ctrlToArrow(ushort keyCode) noexcept
 
 int cstrlen(TStringView text) noexcept
 {
-#ifdef __BORLANDC__
-    const char* limit = &text[text.size()];
-    const char* s = &text[0];
-    int len = 0;
-    while (s < limit) {
-        if (*s++ != '~')
-            len++;
-    }
-    return len;
-#else
     size_t i = 0, width = 0;
     while (i < text.size()) {
         if (text[i] != '~')
@@ -292,7 +283,20 @@ int cstrlen(TStringView text) noexcept
             ++i;
     }
     return width;
-#endif
+}
+
+int cstrlen(std::string_view text_stl) noexcept
+{
+    TStringView text(text_stl.data(), text_stl.size());
+
+    size_t i = 0, width = 0;
+    while (i < text.size()) {
+        if (text[i] != '~')
+            TText::next(text, i, width);
+        else
+            ++i;
+    }
+    return width;
 }
 
 /*------------------------------------------------------------------------*/
@@ -310,6 +314,8 @@ int cstrlen(TStringView text) noexcept
 /*------------------------------------------------------------------------*/
 
 int strwidth(TStringView text) noexcept { return TText::width(text); }
+
+int strwidth(std::string_view text) noexcept { return TText::width(text); }
 
 size_t strnzcpy(char* dest, TStringView src, size_t size) noexcept
 {

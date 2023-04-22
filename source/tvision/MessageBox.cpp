@@ -20,7 +20,7 @@ static ushort commands[] = { cmYes, cmNo, cmOK, cmCancel };
 const char* MessageBox::Titles[] = { MessageBox::warningText, MessageBox::errorText,
     MessageBox::informationText, MessageBox::confirmText };
 
-ushort MessageBox::messageBoxRect(const TRect& r, TStringView msg, ushort aOptions) noexcept
+ushort MessageBox::messageBoxRect(const TRect& r, std::string_view msg, ushort aOptions) noexcept
 {
     TDialog* dialog;
     short i, x, buttonCount;
@@ -73,7 +73,7 @@ ushort MessageBox::messageBoxRect(const TRect& r, ushort aOptions, const char* f
     return MessageBox::messageBoxRect(r, msg, aOptions);
 }
 
-static TRect makeRect(TStringView text)
+static TRect makeRect(std::string_view text)
 {
     TRect r(0, 0, 40, 9);
 
@@ -85,7 +85,7 @@ static TRect makeRect(TStringView text)
     return r;
 }
 
-ushort MessageBox::messageBox(TStringView msg, ushort aOptions) noexcept
+ushort MessageBox::messageBox(std::string_view msg, ushort aOptions) noexcept
 {
     return messageBoxRect(makeRect(msg), msg, aOptions);
 }
@@ -107,15 +107,16 @@ ushort MessageBox::messageBox(unsigned aOptions, const char* fmt, ...) noexcept
     return messageBoxRect(makeRect(msg), msg, aOptions);
 }
 
-ushort MessageBox::inputBox(TStringView Title, TStringView aLabel, char* s, uchar limit) noexcept
+ushort MessageBox::inputBox(
+    std::string_view Title, std::string_view aLabel, char* s, uchar limit) noexcept
 {
     TRect r(0, 0, 60, 8);
     r.move((TProgram::deskTop->size.x - r.b.x) / 2, (TProgram::deskTop->size.y - r.b.y) / 2);
     return inputBoxRect(r, Title, aLabel, s, limit);
 }
 
-ushort MessageBox::inputBoxRect(
-    const TRect& bounds, TStringView Title, TStringView aLabel, char* s, uchar limit) noexcept
+ushort MessageBox::inputBoxRect(const TRect& bounds, std::string_view Title,
+    std::string_view aLabel, char* s, uchar limit) noexcept
 {
     TDialog* dialog;
     TView* control;

@@ -1,6 +1,8 @@
 #ifndef TVision_THardwareInfo_h
 #define TVision_THardwareInfo_h
 
+#include <string_view>
+
 #if defined(__FLAT__)
 
 #ifndef __WINDOWS_H
@@ -65,8 +67,8 @@ public:
     static void clearPendingEvent() noexcept;
     static void waitForEvent(int timeoutMs) noexcept;
     static void stopEventWait() noexcept;
-    static BOOL setClipboardText(TStringView text) noexcept;
-    static BOOL requestClipboardText(void (&accept)(TStringView)) noexcept;
+    static BOOL setClipboardText(std::string_view text) noexcept;
+    static BOOL requestClipboardText(void (&accept)(std::string_view)) noexcept;
 
     // System functions.
 

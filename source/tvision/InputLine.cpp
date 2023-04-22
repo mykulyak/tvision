@@ -74,7 +74,7 @@ bool TInputLine::canScroll(int delta)
     if (delta < 0)
         return bool(firstPos > 0);
     else if (delta > 0)
-        return bool(strwidth(data) - firstPos + 2 > size.x);
+        return strwidth(data) - firstPos + 2 > size.x;
     else
         return false;
 }
@@ -383,7 +383,7 @@ void TInputLine::handleEvent(TEvent& event)
                 TClipboard::requestText();
                 clearEvent(event);
             } else if (event.message.command == cmCut || event.message.command == cmCopy) {
-                TStringView sel(data + selStart, selEnd - selStart);
+                std::string_view sel(data + selStart, selEnd - selStart);
                 TClipboard::setText(sel);
                 if (event.message.command == cmCut) {
                     saveState();

@@ -2,13 +2,14 @@
 #define TVision_TStatusItem_h
 
 #include <string>
+#include <string_view>
 #include <tvision/StringView.h>
 
 class TStatusItem {
 public:
-    TStatusItem(TStringView aText, TKey aKey, ushort cmd, TStatusItem* aNext = 0) noexcept
+    TStatusItem(std::string_view aText, TKey aKey, ushort cmd, TStatusItem* aNext = 0) noexcept
         : next(aNext)
-        , text(aText.begin(), aText.end())
+        , text(aText)
         , keyCode(aKey)
         , command(cmd)
     {

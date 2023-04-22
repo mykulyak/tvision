@@ -2,6 +2,7 @@
 #define TVision_TStaticText_h
 
 #include <string>
+#include <string_view>
 #include <tvision/View.h>
 
 /* ---------------------------------------------------------------------- */
@@ -13,7 +14,7 @@
 
 class TStaticText : public TView {
 public:
-    TStaticText(const TRect& bounds, TStringView aText) noexcept;
+    TStaticText(const TRect& bounds, std::string_view aText) noexcept;
     ~TStaticText();
 
     virtual void draw();

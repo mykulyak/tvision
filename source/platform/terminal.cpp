@@ -322,20 +322,20 @@ static bool keyFromLetter(uint letter, uint mod, KeyDownEvent& keyDown) noexcept
 
 void TermIO::mouseOn(StdioCtl& io) noexcept
 {
-    TStringView seq = "\x1B[?1001s" // Save old highlight mouse reporting.
-                      "\x1B[?1000h" // Enable mouse reporting.
-                      "\x1B[?1002h" // Enable mouse drag reporting.
-                      "\x1B[?1006h" // Enable SGR extended mouse reporting.
+    std::string_view seq = "\x1B[?1001s" // Save old highlight mouse reporting.
+                           "\x1B[?1000h" // Enable mouse reporting.
+                           "\x1B[?1002h" // Enable mouse drag reporting.
+                           "\x1B[?1006h" // Enable SGR extended mouse reporting.
         ;
     io.write(seq.data(), seq.size());
 }
 
 void TermIO::mouseOff(StdioCtl& io) noexcept
 {
-    TStringView seq = "\x1B[?1006l" // Disable SGR extended mouse reporting.
-                      "\x1B[?1002l" // Disable mouse drag reporting.
-                      "\x1B[?1000l" // Disable mouse reporting.
-                      "\x1B[?1001r" // Restore old highlight mouse reporting.
+    std::string_view seq = "\x1B[?1006l" // Disable SGR extended mouse reporting.
+                           "\x1B[?1002l" // Disable mouse drag reporting.
+                           "\x1B[?1000l" // Disable mouse reporting.
+                           "\x1B[?1001r" // Restore old highlight mouse reporting.
         ;
     io.write(seq.data(), seq.size());
 }
@@ -344,12 +344,12 @@ void TermIO::keyModsOn(StdioCtl& io) noexcept
 {
     // https://invisible-island.net/xterm/ctlseqs/ctlseqs.html
     // https://sw.kovidgoyal.net/kitty/keyboard-protocol.html
-    TStringView seq = "\x1B[?1036s" // Save metaSendsEscape (XTerm).
-                      "\x1B[?1036h" // Enable metaSendsEscape (XTerm).
-                      "\x1B[?2004s" // Save bracketed paste.
-                      "\x1B[?2004h" // Enable bracketed paste.
-                      "\x1B[>4;1m" // Enable modifyOtherKeys (XTerm).
-                      "\x1B[>1u" // Disambiguate escape codes (Kitty).
+    std::string_view seq = "\x1B[?1036s" // Save metaSendsEscape (XTerm).
+                           "\x1B[?1036h" // Enable metaSendsEscape (XTerm).
+                           "\x1B[?2004s" // Save bracketed paste.
+                           "\x1B[?2004h" // Enable bracketed paste.
+                           "\x1B[>4;1m" // Enable modifyOtherKeys (XTerm).
+                           "\x1B[>1u" // Disambiguate escape codes (Kitty).
         far2lEnableSeq;
     io.write(seq.data(), seq.size());
     if (char* term = getenv("TERM")) {
@@ -371,7 +371,7 @@ void TermIO::keyModsOn(StdioCtl& io) noexcept
 
 void TermIO::keyModsOff(StdioCtl& io, EventSource& source, InputState& state) noexcept
 {
-    TStringView seq
+    std::string_view seq
         = far2lPingSeq far2lDisableSeq "\x1B[<u" // Restore previous keyboard mode (Kitty).
                                        "\x1B[>4m" // Reset modifyOtherKeys (XTerm).
                                        "\x1B[?2004l" // Disable bracketed paste.
@@ -824,7 +824,7 @@ ParseResult TermIO::parseOSC(GetChBuf& buf, InputState& state) noexcept
 // Pre: '\x1B]' has just been read.
 {
     if (char* s = readUntilBelOrSt(buf)) {
-        TStringView sv(s);
+        std::string_view sv(s);
         if (sv.size() > 3 && sv.substr(0, 3) == "52;") // OSC 52
         {
             if (char* begin = (char*)memchr(&sv[3], ';', sv.size() - 3)) {
@@ -832,9 +832,9 @@ ParseResult TermIO::parseOSC(GetChBuf& buf, InputState& state) noexcept
                     // We got a response to our initial request.
                     state.hasFullOsc52 = true;
                 else if (state.putPaste) {
-                    TStringView encoded = sv.substr(begin + 1 - &sv[0]);
+                    std::string_view encoded = sv.substr(begin + 1 - &sv[0]);
                     if (char* pDecoded = (char*)malloc((encoded.size() * 3) / 4 + 3)) {
-                        TStringView decoded = decodeBase64(encoded, pDecoded);
+                        std::string_view decoded = decodeBase64(encoded, pDecoded);
                         state.putPaste(decoded);
                         free(pDecoded);
                     }
@@ -848,13 +848,13 @@ ParseResult TermIO::parseOSC(GetChBuf& buf, InputState& state) noexcept
     return Ignored;
 }
 
-static bool setOsc52Clipboard(StdioCtl& io, TStringView text, InputState& state) noexcept
+static bool setOsc52Clipboard(StdioCtl& io, std::string_view text, InputState& state) noexcept
 {
-    TStringView prefix = "\x1B]52;;";
-    TStringView suffix = "\x07";
+    std::string_view prefix = "\x1B]52;;";
+    std::string_view suffix = "\x07";
     if (char* buf = (char*)malloc(prefix.size() + suffix.size() + (text.size() * 4) / 3 + 4)) {
         memcpy(buf, prefix.data(), prefix.size());
-        TStringView b64 = encodeBase64(text, buf + prefix.size());
+        std::string_view b64 = encodeBase64(text, buf + prefix.size());
         memcpy(buf + prefix.size() + b64.size(), suffix.data(), suffix.size());
         io.write(buf, prefix.size() + b64.size() + suffix.size());
         free(buf);
@@ -867,20 +867,20 @@ static bool setOsc52Clipboard(StdioCtl& io, TStringView text, InputState& state)
 static bool requestOsc52Clipboard(StdioCtl& io, InputState& state) noexcept
 {
     if (state.hasFullOsc52) {
-        TStringView seq = "\x1B]52;;?\x07";
+        std::string_view seq = "\x1B]52;;?\x07";
         io.write(seq.data(), seq.size());
         return true;
     }
     return false;
 }
 
-bool TermIO::setClipboardText(StdioCtl& io, TStringView text, InputState& state) noexcept
+bool TermIO::setClipboardText(StdioCtl& io, std::string_view text, InputState& state) noexcept
 {
     return setFar2lClipboard(io, text, state) || setOsc52Clipboard(io, text, state);
 }
 
 bool TermIO::requestClipboardText(
-    StdioCtl& io, void (&accept)(TStringView), InputState& state) noexcept
+    StdioCtl& io, void (&accept)(std::string_view), InputState& state) noexcept
 {
     state.putPaste = &accept;
     return requestFar2lClipboard(io, state) || requestOsc52Clipboard(io, state);

@@ -489,6 +489,16 @@ int Win32ConsoleStrategy::charWidth(uint32_t wc) noexcept { return WinWidth::wid
 
 } // namespace tvision
 
+size_t TText::width(std::string_view text_stl) noexcept
+{
+    TStringView text(text_stl.data(), text_stl.size());
+
+    size_t i = 0, width = 0;
+    while (TText::next(text, i, width))
+        ;
+    return width;
+}
+
 size_t TText::width(TStringView text) noexcept
 {
     size_t i = 0, width = 0;

@@ -6,7 +6,7 @@ namespace tvision {
 
 TEST(Base64, ShouldDecodeProperly)
 {
-    static const TestCase<TStringView> testCases[] = {
+    static const TestCase<std::string_view> testCases[] = {
         { "", "" },
         { "Zg==", "f" },
         { "Zm8=", "fo" },
@@ -27,7 +27,7 @@ TEST(Base64, ShouldDecodeProperly)
 
 TEST(Base64, ShouldEncodeProperly)
 {
-    static const TestCase<TStringView> testCases[] = {
+    static const TestCase<std::string_view> testCases[] = {
         { "", "" },
         { "f", "Zg==" },
         { "fo", "Zm8=" },

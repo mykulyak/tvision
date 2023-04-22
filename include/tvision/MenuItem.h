@@ -2,6 +2,7 @@
 #define TVision_TMenuItem_h
 
 #include <string>
+#include <string_view>
 #include <tvision/CommandCodes.h>
 #include <tvision/Keys.h>
 #include <tvision/StringView.h>
@@ -10,9 +11,9 @@ class TMenu;
 
 class TMenuItem {
 public:
-    TMenuItem(TStringView aName, ushort aCommand, TKey aKey, ushort aHelpCtx = hcNoContext,
+    TMenuItem(std::string_view aName, ushort aCommand, TKey aKey, ushort aHelpCtx = hcNoContext,
         TStringView p = 0, TMenuItem* aNext = 0) noexcept;
-    TMenuItem(TStringView aName, TKey aKey, TMenu* aSubMenu, ushort aHelpCtx = hcNoContext,
+    TMenuItem(std::string_view aName, TKey aKey, TMenu* aSubMenu, ushort aHelpCtx = hcNoContext,
         TMenuItem* aNext = 0) noexcept;
 
     ~TMenuItem();
@@ -35,6 +36,6 @@ TMenuItem& operator+(TMenuItem& i1, TMenuItem& i2) noexcept;
 
 inline void TMenuItem::append(TMenuItem* aNext) noexcept { next = aNext; }
 
-inline TMenuItem& newLine() noexcept { return *new TMenuItem(0, 0, 0, hcNoContext, 0, 0); }
+inline TMenuItem& newLine() noexcept { return *new TMenuItem("", 0, 0, hcNoContext, 0, 0); }
 
 #endif // TVision_TMenuItem_h

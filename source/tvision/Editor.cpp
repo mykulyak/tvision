@@ -144,36 +144,38 @@ void TEditor::changeBounds(const TRect& bounds)
     update(ufView);
 }
 
-TStringView TEditor::bufChars(uint P)
+std::string_view TEditor::bufChars(uint P)
 {
     static thread_local char buf[4];
     if (!encSingleByte) {
         int len = min(max(max(curPtr, bufLen) - P, 1), sizeof(buf));
         for (int i = 0; i < len; ++i)
             buf[i] = bufChar(P + i);
-        return TStringView(buf, len);
+        return std::string_view(buf, len);
     } else {
         buf[0] = bufChar(P);
-        return TStringView(buf, 1);
+        return std::string_view(buf, 1);
     }
 }
 
-TStringView TEditor::bufPrevChars(uint P)
+std::string_view TEditor::bufPrevChars(uint P)
 {
     static thread_local char buf[4];
     if (!encSingleByte) {
         int len = min(max(P, 1), sizeof(buf));
         for (int i = 0; i < len; ++i)
             buf[i] = bufChar(P - len + i);
-        return TStringView(buf, len);
+        return std::string_view(buf, len);
     } else {
         buf[0] = bufChar(P - 1);
-        return TStringView(buf, 1);
+        return std::string_view(buf, 1);
     }
 }
 
-void TEditor::nextChar(TStringView s, uint& p, uint& width)
+void TEditor::nextChar(std::string_view s2, uint& p, uint& width)
 {
+    TStringView s(s2.data(), s2.size());
+
     if (encSingleByte || !s.size()) {
         ++p;
         ++width;
@@ -186,8 +188,10 @@ void TEditor::nextChar(TStringView s, uint& p, uint& width)
 }
 
 bool TEditor::formatCell(
-    TSpan<TScreenCell> cells, uint& width, TStringView text, uint& p, TColorAttr color)
+    TSpan<TScreenCell> cells, uint& width, std::string_view text_stl, uint& p, TColorAttr color)
 {
+    TStringView text(text_stl.data(), text_stl.size());
+
     size_t p_ = 0, w_ = width;
     if (TText::drawOne(cells, w_, text, p_, color)) {
         p += p_;
@@ -201,7 +205,7 @@ int TEditor::charPos(uint p, uint target)
 {
     uint pos = 0;
     while (p < target) {
-        TStringView chars = bufChars(p);
+        std::string_view chars = bufChars(p);
         if (chars[0] == '\x9')
             pos |= 7;
         nextChar(chars, p, pos);
@@ -214,7 +218,7 @@ uint TEditor::charPtr(uint p, int target)
     uint pos = 0;
     uint lastP = p;
     char c;
-    TStringView chars;
+    std::string_view chars;
     while ((int)pos < target && p < bufLen && (c = (chars = bufChars(p))[0]) != '\r' && c != '\n') {
         lastP = p;
         if (c == '\x09')
@@ -233,7 +237,7 @@ bool TEditor::clipCopy()
         if (clipboard != 0)
             res = clipboard->insertFrom(this);
         else {
-            TClipboard::setText(TStringView(buffer + bufPtr(selStart), selEnd - selStart));
+            TClipboard::setText(std::string_view(buffer + bufPtr(selStart), selEnd - selStart));
             res = true;
         }
         selecting = false;
@@ -1192,7 +1196,7 @@ void TEditor::formatLine(TScreenCell* DrawBuf, uint P, int Width, TAttrPair Colo
     for (int r = 0; r < 3; ++r) {
         Color = ranges[r].color;
         while (P < ranges[r].end) {
-            TStringView chars = bufChars(P);
+            std::string_view chars = bufChars(P);
             char Char = chars[0];
             if (Char == '\r' || Char == '\n')
                 goto fill;
@@ -1245,8 +1249,10 @@ uint TEditor::nextChar(uint P)
             return P + 2;
         if (encSingleByte)
             return P + 1;
-        else
-            return P + TText::next(bufChars(P));
+        else {
+            std::string_view t = bufChars(P);
+            return P + TText::next(TStringView(t.data(), t.size()));
+        }
     }
     return bufLen;
 }
@@ -1259,8 +1265,8 @@ uint TEditor::prevChar(uint P)
         if (encSingleByte)
             return P - 1;
         else {
-            TStringView t = bufPrevChars(P);
-            return P - TText::prev(t, t.size());
+            std::string_view t = bufPrevChars(P);
+            return P - TText::prev(TStringView(t.data(), t.size()), t.size());
         }
     }
     return 0;

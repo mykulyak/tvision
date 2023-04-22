@@ -1,6 +1,7 @@
 #ifndef TVision_TFileEditor_h
 #define TVision_TFileEditor_h
 
+#include <string_view>
 #include <tvision/Editor.h>
 #include <tvision/compat/borland/dir.h>
 
@@ -11,7 +12,7 @@ class TFileEditor : public TEditor {
 
 public:
     char fileName[MAXPATH];
-    TFileEditor(const TRect&, TScrollBar*, TScrollBar*, TIndicator*, TStringView) noexcept;
+    TFileEditor(const TRect&, TScrollBar*, TScrollBar*, TIndicator*, std::string_view) noexcept;
     virtual void doneBuffer();
     virtual void handleEvent(TEvent&);
     virtual void initBuffer();

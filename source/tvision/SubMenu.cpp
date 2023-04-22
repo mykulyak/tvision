@@ -4,7 +4,7 @@
 
 #include <cstring>
 
-TSubMenu::TSubMenu(TStringView nm, TKey key, ushort helpCtx) noexcept
+TSubMenu::TSubMenu(std::string_view nm, TKey key, ushort helpCtx) noexcept
     : TMenuItem(nm, key, new TMenu, helpCtx)
 {
 }

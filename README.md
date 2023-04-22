@@ -661,7 +661,7 @@ TStatusLine *THelloApp::initStatusLine( TRect r )
     return new TStatusLine( r,
         *new TStatusDef( 0, 0xFFFF ) +
             *new TStatusItem( "~Alt-Ç~ Exit", kbAltX, cmQuit ) +
-            *new TStatusItem( 0, kbF10, cmMenu )
+            *new TStatusItem( "", kbF10, cmMenu )
             );
 }
 ```
@@ -833,9 +833,9 @@ TStatusLine *TMyApplication::initStatusLine( TRect r )
     return new TStatusLine( r,
         *new TStatusDef( 0, 0xFFFF ) +
             // ...
-            *new TStatusItem( 0, kbCtrlX, cmCut ) +
-            *new TStatusItem( 0, kbCtrlC, cmCopy ) +
-            *new TStatusItem( 0, kbCtrlV, cmPaste ) +
+            *new TStatusItem( "", kbCtrlX, cmCut ) +
+            *new TStatusItem( "", kbCtrlC, cmCopy ) +
+            *new TStatusItem( "", kbCtrlV, cmPaste ) +
             // ...
     );
 }

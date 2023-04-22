@@ -1,6 +1,7 @@
-#include <tvision/tv.h>
-
 #include <test.h>
+#include <tvision/DirEntry.h>
+#include <tvision/TimerQueue.h>
+#include <tvision/tv.h>
 
 static TTimePoint currentTime;
 static int currentTimeRequests;

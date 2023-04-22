@@ -134,10 +134,10 @@ TStatusLine* TVDemo::initStatusLine(TRect r)
     return (new TStatusLine(r,
         *new TStatusDef(0, 50) + *new TStatusItem("~F1~ Help", kbF1, cmHelp)
             + *new TStatusItem("~Alt-X~ Exit", kbAltX, cmQuit)
-            + *new TStatusItem(0, kbShiftDel, cmCut) + *new TStatusItem(0, kbCtrlIns, cmCopy)
-            + *new TStatusItem(0, kbShiftIns, cmPaste) + *new TStatusItem(0, kbAltF3, cmClose)
-            + *new TStatusItem(0, kbF10, cmMenu) + *new TStatusItem(0, kbF5, cmZoom)
-            + *new TStatusItem(0, kbCtrlF5, cmResize) + *new TStatusDef(50, 0xffff)
+            + *new TStatusItem("", kbShiftDel, cmCut) + *new TStatusItem("", kbCtrlIns, cmCopy)
+            + *new TStatusItem("", kbShiftIns, cmPaste) + *new TStatusItem("", kbAltF3, cmClose)
+            + *new TStatusItem("", kbF10, cmMenu) + *new TStatusItem("", kbF5, cmZoom)
+            + *new TStatusItem("", kbCtrlF5, cmResize) + *new TStatusDef(50, 0xffff)
             + *new TStatusItem("Howdy", kbF1, cmHelp)));
 }
 

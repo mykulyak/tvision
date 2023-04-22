@@ -279,7 +279,7 @@ void TEventQueue::getKeyEvent(TEvent& ev) noexcept
     }
 }
 
-void TEventQueue::putPaste(TStringView text) noexcept
+void TEventQueue::putPaste(std::string_view text) noexcept
 {
     delete[] pasteText;
     // Always initialize the paste event, even if it is empty, so that

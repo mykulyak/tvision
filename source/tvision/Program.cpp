@@ -201,8 +201,8 @@ TStatusLine* TProgram::initStatusLine(TRect r)
     r.a.y = r.b.y - 1;
     return new TStatusLine(r,
         *new TStatusDef(0, 0xFFFF) + *new TStatusItem(exitText, kbAltX, cmQuit)
-            + *new TStatusItem(0, kbF10, cmMenu) + *new TStatusItem(0, kbAltF3, cmClose)
-            + *new TStatusItem(0, kbF5, cmZoom) + *new TStatusItem(0, kbCtrlF5, cmResize));
+            + *new TStatusItem("", kbF10, cmMenu) + *new TStatusItem("", kbAltF3, cmClose)
+            + *new TStatusItem("", kbF5, cmZoom) + *new TStatusItem("", kbCtrlF5, cmResize));
 }
 
 TWindow* TProgram::insertWindow(TWindow* pWin)

@@ -16,7 +16,7 @@ namespace tvision {
 const char f2lNoAnswer = '\0', f2lPing = '\x04', f2lClipGetData = '\xA0';
 
 static char f2lClientIdData[32 + 1];
-static TStringView f2lClientId
+static std::string_view f2lClientId
     = (sprintf(f2lClientIdData, "%032llu", (unsigned long long)time(nullptr)), f2lClientIdData);
 
 static const const_unordered_map<uchar, ushort> virtualKeyCodeToKeyCode = {
@@ -116,7 +116,7 @@ ParseResult parseFar2lInput(GetChBuf& buf, TEvent& ev, InputState& state) noexce
         if (len < sizeof(s))
             s[len++] = c;
     char o[3 * k];
-    TStringView out = decodeBase64({ s, len }, o);
+    std::string_view out = decodeBase64({ s, len }, o);
     if (!out.empty()) {
         if (out.back() == 'K' && out.size() - 1 == 14) {
             KEY_EVENT_RECORD kev {};
@@ -157,16 +157,16 @@ ParseResult parseFar2lAnswer(GetChBuf& buf, TEvent& ev, InputState& state) noexc
 {
     ParseResult res = Ignored;
     if (char* s = TermIO::readUntilBelOrSt(buf)) {
-        TStringView encoded(s);
+        std::string_view encoded(s);
         if (encoded == "ok")
             state.far2l.enabled = true;
         else if (char* pDecoded = (char*)malloc((encoded.size() * 3) / 4 + 3)) {
-            TStringView decoded = decodeBase64(encoded, pDecoded);
+            std::string_view decoded = decodeBase64(encoded, pDecoded);
             if (decoded.size() >= 5 && decoded.back() == f2lClipGetData && state.putPaste) {
                 uint32_t dataSize;
                 memcpy(&dataSize, &decoded[decoded.size() - 5], 4);
                 if (dataSize < UINT_MAX - 5 && decoded.size() >= 5 + dataSize) {
-                    TStringView text = decoded.substr(decoded.size() - 5 - dataSize, dataSize);
+                    std::string_view text = decoded.substr(decoded.size() - 5 - dataSize, dataSize);
                     // Discard null terminator.
                     if (dataSize > 0 && text.back() == '\0')
                         text = text.substr(0, text.size() - 1);
@@ -185,7 +185,7 @@ ParseResult parseFar2lAnswer(GetChBuf& buf, TEvent& ev, InputState& state) noexc
 }
 
 template <bool write = true, class... Args>
-size_t concat(char* out, TStringView, Args... args) noexcept;
+size_t concat(char* out, std::string_view, Args... args) noexcept;
 template <bool write = true, class... Args> size_t concat(char* out, char c, Args... args) noexcept;
 template <bool write = true, class... Args>
 size_t concat(char* out, uint32_t i, Args... args) noexcept;
@@ -193,7 +193,7 @@ size_t concat(char* out, uint32_t i, Args... args) noexcept;
 template <bool write = true, class... Args> inline size_t concat(char* out) noexcept { return 0; }
 
 template <bool write, class... Args>
-inline size_t concat(char* out, TStringView s, Args... args) noexcept
+inline size_t concat(char* out, std::string_view s, Args... args) noexcept
 {
     size_t len = s.size();
     if (write)
@@ -231,15 +231,15 @@ inline void pushFar2lRequest(std::vector<char>& out, std::vector<char>& tmp, Arg
     out.resize(headLen + argsLen);
     concat(&out[headLen], args...);
     tmp.resize((argsLen * 4) / 3 + 4);
-    TStringView b64 = encodeBase64({ &out[headLen], argsLen }, &tmp[0]);
-    TStringView prefix = "\x1B_far2l:";
-    TStringView suffix = "\x1B\\";
+    std::string_view b64 = encodeBase64({ &out[headLen], argsLen }, &tmp[0]);
+    std::string_view prefix = "\x1B_far2l:";
+    std::string_view suffix = "\x1B\\";
     size_t pushLen = concatLength(prefix, b64, suffix);
     out.resize(headLen + pushLen);
     concat(&out[headLen], prefix, b64, suffix);
 }
 
-bool setFar2lClipboard(StdioCtl& io, TStringView text, InputState& state) noexcept
+bool setFar2lClipboard(StdioCtl& io, std::string_view text, InputState& state) noexcept
 {
     if (state.far2l.enabled) {
         std::vector<char> out, tmp;

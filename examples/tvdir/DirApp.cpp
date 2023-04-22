@@ -27,7 +27,7 @@ public:
 
         std::ostringstream os;
         os << "Scanning Drive '" << drive << "'\n" << std::ends;
-        insert(new TStaticText(TRect(2, 2, 48, 3), os.str().c_str()));
+        insert(new TStaticText(TRect(2, 2, 48, 3), os.str()));
         currentDir = new TParamText(TRect(2, 3, 48, 9));
         insert(currentDir);
     }
@@ -233,7 +233,7 @@ private:
 public:
     TDirWindow(const std::string& driveInit)
         : TWindowInit(TWindow::initFrame)
-        , TWindow(TRect(1, 1, 76, 21), driveInit.c_str(), 0)
+        , TWindow(TRect(1, 1, 76, 21), driveInit, 0)
         , drive(driveInit)
     {
         vsb = new TScrollBar(TRect(74, 1, 75, 15));
@@ -352,7 +352,7 @@ TStatusLine* TDirApp::initStatusLine(TRect r)
     r.a.y = r.b.y - 1;
     return new TStatusLine(r,
         *new TStatusDef(0, 0xFFFF) + *new TStatusItem("~Alt-X~ Exit", kbAltX, cmQuit)
-            + *new TStatusItem(0, kbF10, cmMenu));
+            + *new TStatusItem("", kbF10, cmMenu));
 }
 
 void TDirApp::aboutBox(void)

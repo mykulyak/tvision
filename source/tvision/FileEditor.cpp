@@ -20,7 +20,7 @@ TStreamableClass RFileEditor(TFileEditor::name, TFileEditor::build, __DELTA(TFil
 const char* TFileEditor::backupExt = ".bak";
 
 TFileEditor::TFileEditor(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,
-    TIndicator* aIndicator, TStringView aFileName) noexcept
+    TIndicator* aIndicator, std::string_view aFileName) noexcept
     : TEditor(bounds, aHScrollBar, aVScrollBar, aIndicator, 0)
 {
     TEditor::doneBuffer();
@@ -29,7 +29,7 @@ TFileEditor::TFileEditor(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBa
     if (aFileName.empty())
         fileName[0] = EOS;
     else {
-        strnzcpy(fileName, aFileName, sizeof(fileName));
+        strnzcpy(fileName, aFileName.begin(), sizeof(fileName));
         fexpand(fileName);
         if (isValid)
             isValid = loadFile();

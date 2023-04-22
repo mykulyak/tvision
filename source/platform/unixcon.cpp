@@ -172,15 +172,15 @@ UnixConsoleStrategy::~UnixConsoleStrategy()
 
 static bool executable_exists(const char* name);
 static TSpan<char> read_subprocess(const char* const cmd[], const char* const env[], int timeoutMs);
-static bool write_subprocess(const char* const cmd[], TStringView, int timeoutMs);
+static bool write_subprocess(const char* const cmd[], std::string_view, int timeoutMs);
 
 static bool commandIsAvailable(const Command& cmd)
 {
-    return (!cmd.requiredEnv || !getEnv<TStringView>(cmd.requiredEnv).empty())
+    return (!cmd.requiredEnv || !getEnv<std::string_view>(cmd.requiredEnv).empty())
         && executable_exists(cmd.argv[0]);
 }
 
-bool UnixConsoleStrategy::setClipboardText(TStringView text) noexcept
+bool UnixConsoleStrategy::setClipboardText(std::string_view text) noexcept
 {
     for (auto& cmd : copyCommands)
         if (commandIsAvailable(cmd)) {
@@ -196,13 +196,13 @@ bool UnixConsoleStrategy::setClipboardText(TStringView text) noexcept
     return false;
 }
 
-bool UnixConsoleStrategy::requestClipboardText(void (&accept)(TStringView)) noexcept
+bool UnixConsoleStrategy::requestClipboardText(void (&accept)(std::string_view)) noexcept
 {
     for (auto& cmd : pasteCommands)
         if (commandIsAvailable(cmd)) {
             TSpan<char> text = read_subprocess(cmd.argv, cmd.customEnv, clipboardTimeoutMs);
             if (text.data()) {
-                accept(text);
+                accept(std::string_view(text.data(), text.size()));
                 free(text.data());
                 return true;
             }
@@ -374,7 +374,7 @@ static TSpan<char> read_subprocess(const char* const cmd[], const char* const en
     return {};
 }
 
-static bool write_subprocess(const char* const cmd[], TStringView text, int timeoutMs)
+static bool write_subprocess(const char* const cmd[], std::string_view text, int timeoutMs)
 {
     auto process = run_subprocess(cmd, nullptr, run_subprocess_mode::write);
     if (process.pid == -1)

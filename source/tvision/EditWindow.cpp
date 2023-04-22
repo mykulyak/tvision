@@ -13,9 +13,9 @@ const char* TEditWindow::untitled = "Untitled";
 
 const TPoint minEditWinSize = { 24, 6 };
 
-TEditWindow::TEditWindow(const TRect& bounds, TStringView fileName, int aNumber) noexcept
+TEditWindow::TEditWindow(const TRect& bounds, std::string_view fileName, int aNumber) noexcept
     : TWindowInit(&TEditWindow::initFrame)
-    , TWindow(bounds, 0, aNumber)
+    , TWindow(bounds, fileName, aNumber)
 {
     options |= ofTileable;
 

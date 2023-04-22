@@ -11,10 +11,10 @@ __link(RView);
 
 TStreamableClass RMenuView(TMenuView::name, TMenuView::build, __DELTA(TMenuView));
 
-TMenuItem::TMenuItem(TStringView aName, ushort aCommand, TKey aKey, ushort aHelpCtx, TStringView p,
-    TMenuItem* aNext) noexcept
+TMenuItem::TMenuItem(std::string_view aName, ushort aCommand, TKey aKey, ushort aHelpCtx,
+    TStringView p, TMenuItem* aNext) noexcept
 {
-    name.assign(aName.begin(), aName.end());
+    name = aName;
     command = aCommand;
     disabled = !TView::commandEnabled(command);
     keyCode = aKey;
@@ -27,9 +27,9 @@ TMenuItem::TMenuItem(TStringView aName, ushort aCommand, TKey aKey, ushort aHelp
 }
 
 TMenuItem::TMenuItem(
-    TStringView aName, TKey aKey, TMenu* aSubMenu, ushort aHelpCtx, TMenuItem* aNext) noexcept
+    std::string_view aName, TKey aKey, TMenu* aSubMenu, ushort aHelpCtx, TMenuItem* aNext) noexcept
 {
-    name.assign(aName.begin(), aName.end());
+    name = aName;
     command = 0;
     disabled = !TView::commandEnabled(command);
     keyCode = aKey;

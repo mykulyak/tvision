@@ -2,6 +2,7 @@
 #define TVision_TWindow_h
 
 #include <string>
+#include <string_view>
 #include <tvision/Group.h>
 #include <tvision/Palette.h>
 
@@ -45,7 +46,7 @@ public:
         wfZoom = 0x08,
     };
 
-    TWindow(const TRect& bounds, TStringView aTitle, short aNumber) noexcept;
+    TWindow(const TRect& bounds, std::string_view aTitle, short aNumber) noexcept;
     ~TWindow();
 
     virtual void close();

@@ -30,15 +30,15 @@ __link(RFileInfoPane);
 
 TStreamableClass RFileDialog(TFileDialog::name, TFileDialog::build, __DELTA(TFileDialog));
 
-TFileDialog::TFileDialog(TStringView aWildCard, TStringView aTitle, TStringView inputName,
-    ushort aOptions, uchar histId) noexcept
+TFileDialog::TFileDialog(std::string_view aWildCard, std::string_view aTitle,
+    std::string_view inputName, ushort aOptions, uchar histId) noexcept
     : TWindowInit(&TFileDialog::initFrame)
     , TDialog(TRect(15, 1, 64, 20), aTitle)
     , directory(newStr(""))
 {
     options |= ofCentered;
     flags |= wfGrow;
-    strnzcpy(wildCard, aWildCard, sizeof(wildCard));
+    strnzcpy(wildCard, aWildCard.begin(), sizeof(wildCard));
 
     fileName = new TFileInputLine(TRect(3, 3, 31, 4), MAXPATH);
     strnzcpy(fileName->data, wildCard, MAXPATH);

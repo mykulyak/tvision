@@ -9,7 +9,7 @@ TStreamableClass RLabel(TLabel::name, TLabel::build, __DELTA(TLabel));
 
 #define cpLabel "\x07\x08\x09\x09"
 
-TLabel::TLabel(const TRect& bounds, TStringView aText, TView* aLink) noexcept
+TLabel::TLabel(const TRect& bounds, std::string_view aText, TView* aLink) noexcept
     : TStaticText(bounds, aText)
     , link(aLink)
     , light(false)

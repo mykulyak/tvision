@@ -1,6 +1,7 @@
 #ifndef TVISION_TERMINAL_H
 #define TVISION_TERMINAL_H
 
+#include <string_view>
 #include <tvision/Event.h>
 #include <tvision/compat/windows/windows.h>
 
@@ -21,7 +22,7 @@ struct InputState {
     Far2lState far2l;
     bool hasFullOsc52 { false };
     bool bracketedPaste { false };
-    void (*putPaste)(TStringView) { nullptr };
+    void (*putPaste)(std::string_view) { nullptr };
 };
 
 class InputGetter {
@@ -172,8 +173,8 @@ namespace TermIO {
 
     void normalizeKey(KeyDownEvent& keyDown) noexcept;
 
-    bool setClipboardText(StdioCtl&, TStringView, InputState&) noexcept;
-    bool requestClipboardText(StdioCtl&, void (&)(TStringView), InputState&) noexcept;
+    bool setClipboardText(StdioCtl&, std::string_view, InputState&) noexcept;
+    bool requestClipboardText(StdioCtl&, void (&)(std::string_view), InputState&) noexcept;
 
     ParseResult parseEvent(GetChBuf&, TEvent&, InputState&) noexcept;
     ParseResult parseEscapeSeq(GetChBuf&, TEvent&, InputState&) noexcept;

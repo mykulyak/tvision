@@ -2,12 +2,13 @@
 #define TVision_TColorDisplay_h
 
 #include <string>
+#include <string_view>
 #include <tvision/StringView.h>
 #include <tvision/View.h>
 
 class TColorDisplay : public TView {
 public:
-    TColorDisplay(const TRect& bounds, TStringView aText) noexcept;
+    TColorDisplay(const TRect& bounds, std::string_view aText) noexcept;
     virtual ~TColorDisplay();
     virtual void draw();
     virtual void handleEvent(TEvent& event);

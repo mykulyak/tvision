@@ -9,9 +9,9 @@ __link(RView);
 
 TStreamableClass RStaticText(TStaticText::name, TStaticText::build, __DELTA(TStaticText));
 
-TStaticText::TStaticText(const TRect& bounds, TStringView aText) noexcept
+TStaticText::TStaticText(const TRect& bounds, std::string_view aText) noexcept
     : TView(bounds)
-    , text(aText.begin(), aText.end())
+    , text(aText)
 {
     growMode |= gfFixed;
 }

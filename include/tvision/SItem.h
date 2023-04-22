@@ -2,13 +2,14 @@
 #define TVision_TSItem_h
 
 #include <string>
+#include <string_view>
 #include <tvision/StringView.h>
 #include <tvision/util.h>
 
 class TSItem {
 public:
-    TSItem(TStringView aValue, TSItem* aNext) noexcept
-        : value(aValue.cbegin(), aValue.cend())
+    TSItem(std::string_view aValue, TSItem* aNext) noexcept
+        : value(aValue)
         , next(aNext)
     {
     }

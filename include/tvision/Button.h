@@ -2,6 +2,7 @@
 #define TVision_TButton_h
 
 #include <string>
+#include <string_view>
 #include <tvision/StringView.h>
 #include <tvision/View.h>
 
@@ -33,7 +34,7 @@ public:
         bfGrabFocus = 0x08,
     };
 
-    TButton(const TRect& bounds, TStringView aTitle, ushort aCommand, ushort aFlags) noexcept;
+    TButton(const TRect& bounds, std::string_view aTitle, ushort aCommand, ushort aFlags) noexcept;
     ~TButton();
 
     virtual void draw();

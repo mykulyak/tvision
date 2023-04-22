@@ -21,7 +21,7 @@ static constexpr uint8_t b64d[256] = { 128, 128, 128, 128, 128, 128, 128, 128, 1
     128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128,
     128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128 };
 
-TStringView encodeBase64(TStringView input, char* output) noexcept
+std::string_view encodeBase64(std::string_view input, char* output) noexcept
 {
     auto* p = (const uint8_t*)input.data();
     size_t iLen = input.size();
@@ -54,7 +54,7 @@ TStringView encodeBase64(TStringView input, char* output) noexcept
     return { output, j };
 }
 
-TStringView decodeBase64(TStringView input, char* aOutput) noexcept
+std::string_view decodeBase64(std::string_view input, char* aOutput) noexcept
 {
     auto* p = (const uint8_t*)input.data();
     size_t iLen = input.size();

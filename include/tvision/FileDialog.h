@@ -25,8 +25,8 @@ class TFileList;
 class TFileDialog : public TDialog {
 
 public:
-    TFileDialog(TStringView aWildCard, TStringView aTitle, TStringView inputName, ushort aOptions,
-        uchar histId) noexcept;
+    TFileDialog(std::string_view aWildCard, std::string_view aTitle, std::string_view inputName,
+        ushort aOptions, uchar histId) noexcept;
     ~TFileDialog();
 
     virtual void getData(void* rec);

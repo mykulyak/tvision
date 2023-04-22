@@ -15,7 +15,7 @@
 
 class TLabel : public TStaticText {
 public:
-    TLabel(const TRect& bounds, TStringView aText, TView* aLink) noexcept;
+    TLabel(const TRect& bounds, std::string_view aText, TView* aLink) noexcept;
 
     virtual void draw();
     virtual TPalette& getPalette() const;

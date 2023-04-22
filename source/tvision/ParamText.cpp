@@ -9,7 +9,7 @@ __link(RStaticText);
 TStreamableClass RParamText(TParamText::name, TParamText::build, __DELTA(TParamText));
 
 TParamText::TParamText(const TRect& bounds) noexcept
-    : TStaticText(bounds, 0)
+    : TStaticText(bounds, "")
     , str(new char[256])
 {
     str[0] = EOS;

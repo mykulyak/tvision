@@ -23,7 +23,7 @@ static std::ostream& operator<<(std::ostream& os, TSpan<const char32_t> span)
 
 TEST(TText, ShouldConvertUtf8ControlCharacters)
 {
-    static const TestCase<TStringView> testCases[] = {
+    static const TestCase<std::string_view> testCases[] = {
         { { "\0", 1 }, " " },
         { "\x01", "☺" },
         { "\x1F", "▼" },
@@ -41,14 +41,14 @@ TEST(TText, ShouldConvertUtf8ControlCharacters)
         size_t i = 0, j = 0;
         while (TText::drawOne(cells, i, testCase.input, j))
             ;
-        TStringView actual = cells[0]._ch.getText();
+        std::string_view actual = cells[0]._ch.getText();
         expectResultMatches(actual, testCase);
     }
 }
 
 TEST(TText, ShouldConvertUtf32ControlCharacters)
 {
-    static const TestCase<TSpan<const char32_t>, TStringView> testCases[] = {
+    static const TestCase<TSpan<const char32_t>, std::string_view> testCases[] = {
         { { U"\0", 1 }, " " },
         { { U"\x01", 1 }, "�" },
         { { U"\x1F", 1 }, "�" },
@@ -68,7 +68,7 @@ TEST(TText, ShouldConvertUtf32ControlCharacters)
         size_t i = 0, j = 0;
         while (TText::drawOne(cells, i, input, j))
             ;
-        TStringView actual = cells[0]._ch.getText();
+        std::string_view actual = cells[0]._ch.getText();
         expectResultMatches(actual, testCase);
     }
 }

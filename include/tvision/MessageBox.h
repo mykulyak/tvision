@@ -1,7 +1,7 @@
 #ifndef TVision_MsgBox_h
 #define TVision_MsgBox_h
 
-#include <tvision/StringView.h>
+#include <string_view>
 
 class TRect;
 
@@ -43,13 +43,14 @@ public:
     static ushort confirm(const std::string& message) noexcept { return confirm(message.c_str()); }
 
 protected:
-    static ushort messageBox(TStringView msg, ushort aOptions) noexcept;
+    static ushort messageBox(std::string_view msg, ushort aOptions) noexcept;
     static ushort messageBox(unsigned aOptions, const char* fmt, ...) noexcept;
     static ushort messageBoxRect(const TRect& r, ushort aOptions, const char* fmt, ...) noexcept;
-    static ushort messageBoxRect(const TRect& r, TStringView msg, ushort aOptions) noexcept;
-    static ushort inputBox(TStringView Title, TStringView aLabel, char* s, uchar limit) noexcept;
-    static ushort inputBoxRect(
-        const TRect& bounds, TStringView title, TStringView aLabel, char* s, uchar limit) noexcept;
+    static ushort messageBoxRect(const TRect& r, std::string_view msg, ushort aOptions) noexcept;
+    static ushort inputBox(
+        std::string_view Title, std::string_view aLabel, char* s, uchar limit) noexcept;
+    static ushort inputBoxRect(const TRect& bounds, std::string_view title, std::string_view aLabel,
+        char* s, uchar limit) noexcept;
 
 private:
     static const char* yesText;

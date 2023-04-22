@@ -2,6 +2,7 @@
 #define TVision_Util_h
 
 #include <cstddef>
+#include <string_view>
 
 inline constexpr int min(int a, int b) { return a < b ? a : b; }
 
@@ -29,7 +30,14 @@ const char* historyStr(uchar id, int index) noexcept;
 void historyAdd(uchar id, TStringView) noexcept;
 
 int cstrlen(TStringView) noexcept;
+int cstrlen(std::string_view) noexcept;
+
+inline int cstrlen(const char* text) noexcept { return cstrlen(std::string_view(text)); }
+
 int strwidth(TStringView) noexcept;
+int strwidth(std::string_view) noexcept;
+
+inline int strwidth(const char* text) noexcept { return strwidth(std::string_view(text)); }
 
 class TPoint;
 class TGroup;

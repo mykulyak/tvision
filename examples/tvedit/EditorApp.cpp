@@ -226,15 +226,15 @@ TStatusLine* EditorApp::initStatusLine(TRect r)
 {
     r.a.y = r.b.y - 1;
     return new TStatusLine(r,
-        *new TStatusDef(0, 0xFFFF) + *new TStatusItem(0, kbAltX, cmQuit)
+        *new TStatusDef(0, 0xFFFF) + *new TStatusItem("", kbAltX, cmQuit)
             + *new TStatusItem("~F2~ Save", kbF2, cmSave)
             + *new TStatusItem("~F3~ Open", kbF3, cmOpen)
             + *new TStatusItem("~Ctrl-W~ Close", kbAltF3, cmClose)
             + *new TStatusItem("~F5~ Zoom", kbF5, cmZoom)
             + *new TStatusItem("~F6~ Next", kbF6, cmNext)
-            + *new TStatusItem("~F10~ Menu", kbF10, cmMenu) + *new TStatusItem(0, kbShiftDel, cmCut)
-            + *new TStatusItem(0, kbCtrlIns, cmCopy) + *new TStatusItem(0, kbShiftIns, cmPaste)
-            + *new TStatusItem(0, kbCtrlF5, cmResize));
+            + *new TStatusItem("~F10~ Menu", kbF10, cmMenu)
+            + *new TStatusItem("", kbShiftDel, cmCut) + *new TStatusItem("", kbCtrlIns, cmCopy)
+            + *new TStatusItem("", kbShiftIns, cmPaste) + *new TStatusItem("", kbCtrlF5, cmResize));
 }
 
 void EditorApp::outOfMemory() { MessageBox::error("Not enough memory for this operation."); }
@@ -242,7 +242,7 @@ void EditorApp::outOfMemory() { MessageBox::error("Not enough memory for this op
 TEditWindow* EditorApp::openEditor(const std::string& fileName, bool visible)
 {
     TRect r = deskTop->getExtent();
-    TView* p = validView(new TEditWindow(r, fileName.c_str(), wnNoNumber));
+    TView* p = validView(new TEditWindow(r, fileName, wnNoNumber));
     if (!visible)
         p->hide();
     deskTop->insert(p);

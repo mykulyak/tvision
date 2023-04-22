@@ -18,9 +18,10 @@ TStreamableClass RButton(TButton::name, TButton::build, __DELTA(TButton));
 
 #define cpButton "\x0A\x0B\x0C\x0D\x0E\x0E\x0E\x0F"
 
-TButton::TButton(const TRect& bounds, TStringView aTitle, ushort aCommand, ushort aFlags) noexcept
+TButton::TButton(
+    const TRect& bounds, std::string_view aTitle, ushort aCommand, ushort aFlags) noexcept
     : TView(bounds)
-    , title(aTitle.begin(), aTitle.end())
+    , title(aTitle)
     , command(aCommand)
     , flags(aFlags)
     , amDefault(bool((aFlags & bfDefault) != 0))
@@ -42,7 +43,7 @@ void TButton::drawTitle(TDrawBuffer& b, int s, int i, TAttrPair cButton, bool do
     if ((flags & bfLeftJust) != 0)
         l = 1;
     else {
-        l = (s - cstrlen(title.c_str()) - 1) / 2;
+        l = (s - cstrlen(title) - 1) / 2;
         if (l < 1)
             l = 1;
     }

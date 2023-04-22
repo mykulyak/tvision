@@ -1,6 +1,7 @@
 #ifndef TVision_TEventQueue_h
 #define TVision_TEventQueue_h
 
+#include <string_view>
 #include <tvision/Event.h>
 #include <tvision/config.h>
 
@@ -22,7 +23,7 @@ public:
     static ushort doubleDelay;
     static bool mouseReverse;
 
-    static void putPaste(TStringView) noexcept;
+    static void putPaste(std::string_view) noexcept;
 
 private:
     static TMouse* mouse;

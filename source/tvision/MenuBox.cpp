@@ -15,7 +15,7 @@ static TRect getRect(const TRect& bounds, TMenu* aMenu)
     if (aMenu != 0) {
         for (TMenuItem* p = aMenu->items; p != 0; p = p->next) {
             if (p->name.size() != 0) {
-                short l = cstrlen(p->name.c_str()) + 6;
+                short l = cstrlen(p->name) + 6;
                 if (p->command == 0)
                     l += 3;
                 else if (p->param != 0)

@@ -5,6 +5,7 @@
 #include <internal/dispbuff.h>
 #include <internal/events.h>
 #include <internal/stdioctl.h>
+#include <string_view>
 #include <vector>
 
 struct TEvent;
@@ -58,8 +59,8 @@ struct ConsoleStrategy {
     virtual ~ConsoleStrategy() { }
 
     virtual bool isAlive() noexcept { return true; }
-    virtual bool setClipboardText(TStringView) noexcept { return false; }
-    virtual bool requestClipboardText(void (&)(TStringView)) noexcept { return false; }
+    virtual bool setClipboardText(std::string_view) noexcept { return false; }
+    virtual bool requestClipboardText(void (&)(std::string_view)) noexcept { return false; }
 };
 
 using ThreadId = const void*;
@@ -204,11 +205,11 @@ public:
         return console.lock([&](auto* c) { return displayBuf.reloadScreenInfo(c->display); });
     }
 
-    bool setClipboardText(TStringView text) noexcept
+    bool setClipboardText(std::string_view text) noexcept
     {
         return console.lock([&](auto* c) { return c->setClipboardText(text); });
     }
-    bool requestClipboardText(void (&accept)(TStringView)) noexcept
+    bool requestClipboardText(void (&accept)(std::string_view)) noexcept
     {
         return console.lock([&](auto* c) { return c->requestClipboardText(accept); });
     }

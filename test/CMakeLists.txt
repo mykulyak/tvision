@@ -3,7 +3,7 @@ if (TV_BUILD_TESTS)
 
     add_executable(${PROJECT_NAME}-test ${TEST_SRC})
 
-    target_compile_features(${PROJECT_NAME}-test PRIVATE cxx_std_14)
+    target_compile_features(${PROJECT_NAME}-test PRIVATE cxx_std_17)
     target_include_directories(${PROJECT_NAME}-test PRIVATE "${CMAKE_CURRENT_LIST_DIR}")
 
     tv_add_private_includes(${PROJECT_NAME}-test)
@@ -13,6 +13,8 @@ if (TV_BUILD_TESTS)
     tv_message(STATUS "Found 'gtest': ${GTEST}")
     find_library(GTEST_MAIN gtest_main REQUIRED)
     tv_message(STATUS "Found 'gtest_main': ${GTEST_MAIN}")
+
+    target_include_directories(${PROJECT_NAME}-test PUBLIC "/opt/homebrew/include")
     target_link_libraries(${PROJECT_NAME}-test PRIVATE
         ${PROJECT_NAME}
         ${GTEST}

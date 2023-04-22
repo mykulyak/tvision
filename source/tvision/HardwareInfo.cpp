@@ -316,7 +316,7 @@ void THardwareInfo::waitForEvent(int timeoutMs)
 
 void THardwareInfo::stopEventWait() { }
 
-BOOL THardwareInfo::setClipboardText(TStringView text)
+BOOL THardwareInfo::setClipboardText(std::string_view text)
 {
     BOOL result = false;
     if (pOpenClipboard && pOpenClipboard(0)) {
@@ -337,7 +337,7 @@ BOOL THardwareInfo::setClipboardText(TStringView text)
     return result;
 }
 
-BOOL THardwareInfo::requestClipboardText(void (&accept)(TStringView))
+BOOL THardwareInfo::requestClipboardText(void (&accept)(std::string_view))
 {
     BOOL result = false;
     if (pOpenClipboard && pOpenClipboard(0)) {

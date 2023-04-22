@@ -15,14 +15,14 @@ TWindowInit::TWindowInit(TFrame* (*cFrame)(TRect)) noexcept
 {
 }
 
-TWindow::TWindow(const TRect& bounds, TStringView aTitle, short aNumber) noexcept
+TWindow::TWindow(const TRect& bounds, std::string_view aTitle, short aNumber) noexcept
     : TWindowInit(&TWindow::initFrame)
     , TGroup(bounds)
     , flags(Flags::wfMove | Flags::wfGrow | Flags::wfClose | Flags::wfZoom)
     , zoomRect(getBounds())
     , number(aNumber)
     , palette(wpBlueWindow)
-    , title(aTitle.begin(), aTitle.end())
+    , title(aTitle)
 {
     state |= sfShadow;
     options |= ofSelectable | ofTopSelect;

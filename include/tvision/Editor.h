@@ -1,6 +1,7 @@
 #ifndef TVision_TEditor_h
 #define TVision_TEditor_h
 
+#include <string_view>
 #include <tvision/View.h>
 
 class TScrollBar;
@@ -113,10 +114,10 @@ public:
     enum EOLTypes { eolCRLF, eolLF, eolCR } eolType;
 
     bool encSingleByte;
-    void nextChar(TStringView, uint& P, uint& width);
-    bool formatCell(TSpan<TScreenCell>, uint&, TStringView, uint&, TColorAttr);
-    TStringView bufChars(uint);
-    TStringView bufPrevChars(uint);
+    void nextChar(std::string_view, uint& P, uint& width);
+    bool formatCell(TSpan<TScreenCell>, uint&, std::string_view, uint&, TColorAttr);
+    std::string_view bufChars(uint);
+    std::string_view bufPrevChars(uint);
 
     static TEditorDialog editorDialog;
     static ushort editorFlags;

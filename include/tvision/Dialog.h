@@ -60,7 +60,7 @@ const int dpBlueDialog = 0, dpCyanDialog = 1, dpGrayDialog = 2;
 class TDialog : public TWindow {
 
 public:
-    TDialog(const TRect& bounds, TStringView aTitle) noexcept;
+    TDialog(const TRect& bounds, std::string_view aTitle) noexcept;
 
     virtual TPalette& getPalette() const;
     virtual void handleEvent(TEvent& event);

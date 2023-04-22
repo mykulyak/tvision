@@ -12,6 +12,8 @@ public:
 private:
     TBackground* background;
     TInputLine* input;
+
+    static const char* const dialogTitle;
 };
 
 #endif // TVision_TVDemo_Background_h
