@@ -1,8 +1,6 @@
 #ifndef TVision_h
 #define TVision_h
 
-#define __FLAT__
-
 #ifndef _WIN32
 #define __cdecl
 #define __stdcall
@@ -16,12 +14,6 @@
 #if defined(__clang__)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Woverloaded-virtual"
-#endif
-
-#ifndef __FLAT__
-#ifndef __LARGE__
-#error TV needs the large memory model
-#endif
 #endif
 
 #if defined(_RTLDLL)

@@ -34,35 +34,6 @@ TEditor* TEditor::clipboard = 0;
 
 ushort scanKeyMap(const void* keyMap, ushort keyCode)
 {
-#ifndef __FLAT__
-    asm {
-    PUSH DS
-    LDS SI,keyMap
-    MOV DX,keyCode
-    CLD
-    LODSW
-    MOV CX,AX
-    }
-__1:
-    asm {
-    LODSW
-    MOV BX,AX
-    LODSW
-    CMP BL,DL
-    JNE __3
-    OR  BH,BH
-    JE  __4
-    CMP BH,DH
-    JE  __4
-    }
-__3:
-    asm {
-    LOOP    __1
-    XOR AX,AX
-    }
-__4:
-    asm POP DS return _AX;
-#else
     ushort* kM = (ushort*)keyMap;
     uchar codeLow = keyCode & 0xff;
     uchar codeHi = keyCode >> 8;
@@ -79,7 +50,6 @@ __4:
             return command;
     };
     return 0;
-#endif
 }
 
 #pragma warn.asc
@@ -363,11 +333,7 @@ void TEditor::draw()
 void TEditor::drawLines(int y, int count, uint linePtr)
 {
     TAttrPair color = getColor(0x0201);
-#ifndef __FLAT__
-    TScreenCell b[maxLineLength];
-#else
     TScreenCell* b = (TScreenCell*)alloca(sizeof(TScreenCell) * (delta.x + size.x));
-#endif
     while (count-- > 0) {
         formatLine(b, linePtr, delta.x + size.x, color);
         writeBuf(0, y, size.x, 1, &b[delta.x]);

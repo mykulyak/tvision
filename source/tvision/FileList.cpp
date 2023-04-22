@@ -48,9 +48,6 @@ void* TFileList::getKey(const char* s)
     else
         sR.attr = 0;
     strcpy(sR.name, s);
-#ifndef __FLAT__
-    strupr(sR.name);
-#endif
     return &sR;
 }
 
@@ -318,9 +315,6 @@ void fexpand(char* rpath, const char* relativeTo) noexcept
         *p = '\\';
     squeeze(dir);
     fnmerge(path, drive, dir, file, ext);
-#ifndef __FLAT__
-    strupr(path);
-#endif
     strnzcpy(rpath, path, MAXPATH);
 }
 

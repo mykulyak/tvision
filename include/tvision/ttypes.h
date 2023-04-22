@@ -35,17 +35,6 @@ const int ccNotFound = -1;
 
 extern const uchar specialChars[];
 
-#ifndef __FLAT__
-#define _genInt(i) __int__(i)
-#endif
-
-// Reserve future keywords
-#if __cplusplus < 201103L
-#define constexpr
-#define noexcept
-#define thread_local
-#endif
-
 // Do not include unnecessary STL headers if TVISION_NO_STL is defined.
 // This speeds up compilation when building the library.
 #if !defined(TVISION_NO_STL)

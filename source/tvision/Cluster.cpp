@@ -325,36 +325,6 @@ int TCluster::row(int item) { return item % size.y; }
 
 bool TCluster::buttonState(int item)
 {
-    // #ifndef __FLAT__
-    //     ushort maskLo = enableMask & 0xffff;
-    //     ushort maskHi = enableMask >> 16;
-
-    //     asm {
-    //         XOR     AL,AL
-    //         MOV     CX,item
-    //         CMP     CX,31
-    //         JA      __3
-    //         MOV     AX,1
-    //         XOR     DX,DX
-    //         JCXZ    __2
-    //     }
-    // __1:
-    //     asm {
-    //         SHL     AX,1
-    //         RCL     DX,1
-    //         LOOP    __1
-    //     }
-    // __2:
-    //     asm {
-    //         AND     AX,maskLo
-    //         AND     DX,maskHi
-    //         OR      AX,DX
-    //         JZ      __3
-    //         MOV     AL,1
-    //     }
-    // __3:
-    //     return bool(_AL);
-    // #else
     if (item < 32) {
         uint32_t mask = 1;
 
@@ -367,7 +337,6 @@ bool TCluster::buttonState(int item)
             return false;
     } else
         return false;
-    // #endif
 }
 
 #ifndef NO_STREAMABLE

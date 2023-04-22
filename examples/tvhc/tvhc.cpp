@@ -106,13 +106,8 @@ char line[MAXSTRSIZE] = "";
 bool lineInBuffer = false;
 int lineCount = 0;
 
-#ifdef __FLAT__
 #define HELPFILE_EXT ".h32"
 #define TARGET "(32 bit)"
-#else
-#define HELPFILE_EXT ".h16"
-#define TARGET "(16 bit)"
-#endif
 
 //======================= File Management ===============================//
 

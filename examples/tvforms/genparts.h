@@ -10,11 +10,7 @@
 #include "forms.h"
 #include <tvision/tv.h>
 
-#if defined(__FLAT__)
 #define FORM_EXTENSION "f32"
-#else
-#define FORM_EXTENSION "f16"
-#endif
 
 const char rezFileName[] = "parts." FORM_EXTENSION;
 

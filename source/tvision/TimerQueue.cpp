@@ -1,14 +1,7 @@
 #include <chrono>
 #include <tvision/TimerQueue.h>
 
-static TTimePoint systemTimeMs()
-{
-#ifndef __FLAT__
-    return THardwareInfo::getTickCount() * 55;
-#else
-    return GetTickCount64();
-#endif
-}
+static TTimePoint systemTimeMs() { return GetTickCount64(); }
 
 struct TTimer {
     void* collectId;

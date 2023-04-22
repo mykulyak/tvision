@@ -29,10 +29,6 @@ protected:
     static void getEvent(MouseEventType&) noexcept;
     static bool present() noexcept;
 
-#ifndef __FLAT__
-    static void registerHandler(unsigned, void (*)());
-#endif
-
     static void suspend() noexcept;
     static void resume() noexcept;
     static void inhibit() noexcept;
@@ -62,10 +58,6 @@ public:
     static void getEvent(MouseEventType&) noexcept;
     static bool present() noexcept;
 
-#ifndef __FLAT__
-    static void registerHandler(unsigned, void (*)());
-#endif
-
     static void suspend() noexcept { THWMouse::suspend(); }
     static void resume() noexcept { THWMouse::resume(); }
 };
@@ -79,13 +71,6 @@ inline void TMouse::setRange(ushort rx, ushort ry) noexcept { THWMouse::setRange
 inline void TMouse::getEvent(MouseEventType& me) noexcept { THWMouse::getEvent(me); }
 
 inline bool TMouse::present() noexcept { return THWMouse::present(); }
-
-#ifndef __FLAT__
-inline void TMouse::registerHandler(unsigned mask, void (*func)())
-{
-    THWMouse::registerHandler(mask, func);
-}
-#endif
 
 struct CharScanType {
     uchar charCode;

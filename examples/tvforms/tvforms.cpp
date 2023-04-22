@@ -7,11 +7,7 @@
 #include <string>
 #include <tvision/tv.h>
 
-#if defined(__FLAT__)
 #define FORM_WILDCARD "*.f32"
-#else
-#define FORM_WILDCARD "*.f16"
-#endif
 
 /*---------------------------------------------------------------------*/
 /* This Turbo Vision application uses forms to enter and edit data     */

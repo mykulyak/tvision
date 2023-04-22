@@ -28,20 +28,12 @@ public:
     static void setCrtMode(ushort) noexcept;
     static ushort getCrtMode() noexcept;
 
-#ifndef __FLAT__
-    static int isEGAorVGA();
-#endif
-
 protected:
     TDisplay() noexcept { updateIntlChars(); };
     TDisplay(const TDisplay&) noexcept { updateIntlChars(); };
     ~TDisplay() {};
 
 private:
-#ifndef __FLAT__
-    static void videoInt();
-#endif
-
     static void updateIntlChars() noexcept;
 };
 

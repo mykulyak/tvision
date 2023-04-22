@@ -34,16 +34,11 @@ const int mwRight = 0x08;
 
 /* Mouse event flags */
 
-#ifndef __FLAT__
-const int meMouseMoved = 0x01;
-const int meDoubleClick = 0x02;
-#else
-#ifndef __WINDOWS_H
 #include <tvision/compat/windows/windows.h>
-#endif
+
 const int meMouseMoved = MOUSE_MOVED; // NT values from WINDOWS.H
 const int meDoubleClick = DOUBLE_CLICK;
-#endif
+
 // 0x04 and 0x08 are reserved by NT (MOUSE_WHEELED, MOUSE_HWHEELED).
 const int meTripleClick = 0x10;
 

@@ -132,11 +132,7 @@ void deleteString() noexcept
 {
     size_t len = curRec->len;
     HistRec* n = next(curRec);
-#ifndef __FLAT__
-    memmove(n, curRec, size_t((char*)lastRec - (char*)n));
-#else
     memcpy(curRec, n, size_t((char*)lastRec - (char*)n));
-#endif
     lastRec = backup(lastRec, len);
 }
 
@@ -147,11 +143,7 @@ void insertString(uchar id, TStringView str) noexcept
         ushort firstLen = historyBlock->len;
         HistRec* dst = historyBlock;
         HistRec* src = next(historyBlock);
-#ifndef __FLAT__
-        memmove(src, dst, size_t((char*)lastRec - (char*)src));
-#else
         memcpy(dst, src, size_t((char*)lastRec - (char*)src));
-#endif
         lastRec = backup(lastRec, firstLen);
     }
     new (lastRec) HistRec(id, str);
@@ -596,25 +588,16 @@ static const TConstant keyCodes[] = {
 };
 
 static const TConstant controlKeyStateFlags[] = {
-#ifndef __FLAT__
-    NM(kbLeftShift),
-    NM(kbRightShift),
-    NM(kbCtrlShift),
-    NM(kbAltShift),
-#else
     NM(kbShift),
     NM(kbScrollState),
     NM(kbLeftCtrl),
     NM(kbRightCtrl),
     NM(kbLeftAlt),
     NM(kbRightAlt),
-#endif
     NM(kbNumState),
     NM(kbCapsState),
     NM(kbInsState),
-#if defined(__FLAT__)
     NM(kbEnhanced),
-#endif
     NM(kbPaste),
     NMEND(),
 };

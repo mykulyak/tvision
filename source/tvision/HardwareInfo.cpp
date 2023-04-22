@@ -1,8 +1,6 @@
 #include <iostream>
 #include <tvision/HardwareInfo.h>
 
-#if defined(__FLAT__)
-
 BOOL THardwareInfo::insertState = true;
 THardwareInfo::PlatformType THardwareInfo::platform = THardwareInfo::plDPMI32;
 HANDLE THardwareInfo::consoleHandle[3];
@@ -39,17 +37,6 @@ const ushort THardwareInfo::AltCvt[89] = { 0, 0x0100, 0x7800, 0x7900, 0x7A00, 0x
     0x6D00, 0x6E00, 0x6F00, 0x7000, 0x7100, 0, 0, 0x9700, 0x9800, 0x9900, 0x8200, 0x9B00, 0, 0x9D00,
     0, 0x9F00, 0xA000, 0xA100, 0xA200, 0xA300, 0, 0, 0, 0x8B00, 0x8C00 };
 
-#else
-
-bool THardwareInfo::dpmiFlag;
-ushort THardwareInfo::colorSel;
-ushort THardwareInfo::monoSel;
-ushort THardwareInfo::biosSel;
-
-#endif
-
-#if defined(__FLAT__)
-
 uint32_t THardwareInfo::getTickCount() noexcept
 {
     // To change units from ms to clock ticks.
@@ -65,5 +52,3 @@ BOOL __stdcall THardwareInfo::ctrlBreakHandler(DWORD dwCtrlType) noexcept
     } else
         return FALSE; // Don't handle 'CLOSE', 'LOGOFF' or 'SHUTDOWN' events.
 }
-
-#endif // __FLAT__

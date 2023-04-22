@@ -2,20 +2,7 @@
 #define TVision_THardwareInfo_h
 
 #include <string_view>
-
-#if defined(__FLAT__)
-
-#ifndef __WINDOWS_H
 #include <tvision/compat/windows/windows.h>
-#endif
-
-#else
-
-#ifndef MAKELONG
-#define MAKELONG(h, l) ((long)(((unsigned)(l)) | (((long)((unsigned)(h))) << 16)))
-#endif
-
-#endif
 
 struct MouseEventType;
 
@@ -25,8 +12,6 @@ public:
     ~THardwareInfo();
 
     static uint32_t getTickCount() noexcept;
-
-#if defined(__FLAT__)
 
     enum ConsoleType { cnInput = 0, cnOutput = 1, cnStartup = 2 };
     enum PlatformType { plDPMI32 = 1, plWinNT = 2, plOS2 = 4 };
@@ -97,32 +82,7 @@ private:
     static size_t eventCount;
     static BOOL getPendingEvent(TEvent& event, bool mouse) noexcept;
     static void readEvents() noexcept;
-
-#else
-
-    static ushort* getColorAddr(ushort offset = 0);
-    static ushort* getMonoAddr(ushort offset = 0);
-    static uchar getShiftState();
-    static uchar getBiosScreenRows();
-    static uchar getBiosVideoInfo();
-    static void setBiosVideoInfo(uchar info);
-    static ushort getBiosEquipmentFlag();
-    static ushort getBiosEquipmentFlag(int); // Non-inline version.
-    static void setBiosEquipmentFlag(ushort flag);
-    static bool getDPMIFlag();
-
-private:
-    static ushort getBiosSelector(); // For SYSINT.ASM.
-
-    static bool dpmiFlag;
-    static ushort colorSel;
-    static ushort monoSel;
-    static ushort biosSel;
-
-#endif
 };
-
-#if defined(__FLAT__)
 
 inline THardwareInfo::PlatformType THardwareInfo::getPlatform() noexcept { return platform; }
 
@@ -151,38 +111,5 @@ inline BOOL THardwareInfo::setCritErrorHandler(BOOL install) noexcept
 {
     return TRUE; // Handled by NT or DPMI32..
 }
-
-#else
-
-inline ushort* THardwareInfo::getColorAddr(ushort offset)
-{
-    return (ushort*)MAKELONG(colorSel, offset);
-}
-
-inline ushort* THardwareInfo::getMonoAddr(ushort offset)
-{
-    return (ushort*)MAKELONG(monoSel, offset);
-}
-
-inline uint32_t THardwareInfo::getTickCount() { return *(uint32_t*)MAKELONG(biosSel, 0x6C); }
-
-inline uchar THardwareInfo::getShiftState() { return *(uchar*)MAKELONG(biosSel, 0x17); }
-
-inline uchar THardwareInfo::getBiosScreenRows() { return *(uchar*)MAKELONG(biosSel, 0x84); }
-
-inline uchar THardwareInfo::getBiosVideoInfo() { return *(uchar*)MAKELONG(biosSel, 0x87); }
-
-inline void THardwareInfo::setBiosVideoInfo(uchar info) { *(uchar*)MAKELONG(biosSel, 0x87) = info; }
-
-inline ushort THardwareInfo::getBiosEquipmentFlag() { return *(ushort*)MAKELONG(biosSel, 0x10); }
-
-inline void THardwareInfo::setBiosEquipmentFlag(ushort flag)
-{
-    *(ushort*)MAKELONG(biosSel, 0x10) = flag;
-}
-
-inline bool THardwareInfo::getDPMIFlag() { return dpmiFlag; }
-
-#endif
 
 #endif // TVision_THardwareInfo_h

@@ -38,8 +38,6 @@ bool TTerminal::canInsert(ushort amount)
     return bool(queBack > T);
 }
 
-#ifdef __FLAT__
-
 #define DRAW_DYNAMIC_STR 1
 #define resizeStr(_len)                                                                            \
     slen = _len;                                                                                   \
@@ -52,13 +50,6 @@ bool TTerminal::canInsert(ushort amount)
             return;                                                                                \
         }                                                                                          \
     }
-
-#else
-
-#define DRAW_DYNAMIC_STR 0
-#define resizeStr(_len) slen = _len;
-
-#endif // __FLAT__
 
 void TTerminal::draw()
 {

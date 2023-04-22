@@ -21,46 +21,8 @@
 /*------------------------------------------------------------------------*/
 
 void TDrawBuffer::moveBuf(ushort indent, const void* source, TColorAttr attr, ushort count) noexcept
-
 {
-#ifndef __FLAT__
-
-    I MOV CX,
-        count I JCXZ __5 I PUSH DS
-
-            _ES
-        = FP_SEG(&data[indent]);
-    _DI = FP_OFF(&data[indent]);
-
-    //    _DS = FP_SEG( source );
-    //    _SI = FP_OFF( source );
-    I LDS SI,
-        source
-
-            I MOV AH,
-        [BYTE PTR attr] I CLD I OR AH,
-        AH I JE __3
-
-            __1 :
-
-        I LODSB I STOSW I LOOP __1 I JMP __4
-
-            __2 :
-
-        I INC DI
-
-            __3 :
-
-        I MOVSB I LOOP __2
-
-            __4 :
-
-        I POP DS
-
-            __5:;
-#else
     moveStr(indent, TStringView((const char*)source, count), attr);
-#endif
 }
 
 /*------------------------------------------------------------------------*/
@@ -90,33 +52,6 @@ void TDrawBuffer::moveBuf(ushort indent, const void* source, TColorAttr attr, us
 
 void TDrawBuffer::moveChar(ushort indent, char c, TColorAttr attr, ushort count) noexcept
 {
-#ifndef __FLAT__
-    I MOV CX,
-        count I JCXZ __4
-
-            _ES
-        = FP_SEG(&data[indent]);
-    _DI = FP_OFF(&data[indent]);
-
-    I MOV AL, c I MOV AH, [BYTE PTR attr] I CLD I OR AL, AL I JE __1 I OR AH,
-        AH I JE __3 I REP STOSW I JMP __4
-
-            __1 :
-
-        I MOV AL,
-        AH
-
-            __2 :
-
-        I INC DI
-
-            __3 :
-
-        I STOSB I LOOP __2
-
-            __4:;
-
-#else
     TScreenCell* dest = &data[indent];
     count = min(count, max(length() - indent, 0));
 
@@ -132,7 +67,6 @@ void TDrawBuffer::moveChar(ushort indent, char c, TColorAttr attr, ushort count)
     else
         while (count--)
             ::setChar(*dest++, (uchar)c);
-#endif
 }
 
 /*------------------------------------------------------------------------*/
@@ -287,7 +221,6 @@ ushort TDrawBuffer::moveStr(
         return TText::drawStr(data.subspan(0, indent + width), indent, str, begin);
 }
 
-#ifdef __FLAT__
 TSpan<TScreenCell> TDrawBuffer::allocData() noexcept
 {
     size_t len = max(max(TScreen::screenWidth, TScreen::screenHeight), 80);
@@ -305,6 +238,5 @@ TDrawBuffer::TDrawBuffer() noexcept
 }
 
 TDrawBuffer::~TDrawBuffer() { delete[] data.data(); }
-#endif
 
 #pragma warn.asc

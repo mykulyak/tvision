@@ -25,19 +25,13 @@ public:
     void putChar(ushort indent, uchar c) noexcept;
     size_t length() const noexcept;
 
-#ifdef __FLAT__
     TDrawBuffer() noexcept;
     ~TDrawBuffer();
-#endif
 
 protected:
-#ifdef __FLAT__
     static TSpan<TScreenCell> allocData() noexcept;
 
     const TSpan<TScreenCell> data;
-#else
-    TScreenCell data[maxViewWidth];
-#endif
 };
 
 #define loByte(w) (((uchar*)&w)[0])
@@ -55,13 +49,6 @@ inline void TDrawBuffer::putChar(ushort indent, uchar c) noexcept
         ::setChar(data[indent], c);
 }
 
-inline size_t TDrawBuffer::length() const noexcept
-{
-#ifdef __FLAT__
-    return data.size();
-#else
-    return maxViewWidth;
-#endif
-}
+inline size_t TDrawBuffer::length() const noexcept { return data.size(); }
 
 #endif // TVision_TDrawBuffer_h

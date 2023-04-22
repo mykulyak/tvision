@@ -3,9 +3,7 @@
 
 /*   defines constants for all control key combinations                    */
 
-#if defined(__FLAT__) && !defined(__WINDOWS_H)
 #include <tvision/compat/windows/windows.h>
-#endif
 
 //// Key codes
 //
@@ -75,25 +73,18 @@ const ushort
     kbAltRight = 0x9d00, kbAltEnd = 0x9f00, kbAltDown = 0xa000, kbAltPgDn = 0xa100,
     kbAltIns = 0xa200, kbAltDel = 0xa300, kbAltTab = 0xa500, kbAltEnter = 0xa600,
 
-//// Keyboard state and shift masks
-//
-// The following constants can be used when examining the 'controlKeyState'
-// field of an 'evKeyDown' event record.
-//
-// Distinguishing between the left and right Shift keys is only supported in
-// 16-bit mode, while distinguishing between the left and right Ctrl and Alt
-// keys is only supported in 32-bit DPMI and on Windows.
-//
-// The kbScrollState, kbNumState, kbCapsState and kbEnhanced flags are only
-// reported on DOS and Windows.
+    //// Keyboard state and shift masks
+    //
+    // The following constants can be used when examining the 'controlKeyState'
+    // field of an 'evKeyDown' event record.
+    //
+    // Distinguishing between the left and right Shift keys is only supported in
+    // 16-bit mode, while distinguishing between the left and right Ctrl and Alt
+    // keys is only supported in 32-bit DPMI and on Windows.
+    //
+    // The kbScrollState, kbNumState, kbCapsState and kbEnhanced flags are only
+    // reported on DOS and Windows.
 
-#ifndef __FLAT__
-    kbLeftShift = 0x0001, kbRightShift = 0x0002, kbShift = kbLeftShift | kbRightShift,
-    kbLeftCtrl = 0x0004, kbRightCtrl = 0x0004, kbCtrlShift = kbLeftCtrl | kbRightCtrl,
-    kbLeftAlt = 0x0008, kbRightAlt = 0x0008, kbAltShift = kbLeftAlt | kbRightAlt,
-    kbScrollState = 0x0010, kbNumState = 0x0020, kbCapsState = 0x0040, kbInsState = 0x0080,
-    kbPaste = 0x0100;
-#else
     kbLeftShift = SHIFT_PRESSED, kbRightShift = SHIFT_PRESSED, kbShift = kbLeftShift | kbRightShift,
     kbLeftCtrl = LEFT_CTRL_PRESSED, kbRightCtrl = RIGHT_CTRL_PRESSED,
     kbCtrlShift = kbLeftCtrl | kbRightCtrl, kbLeftAlt = LEFT_ALT_PRESSED,
@@ -102,7 +93,6 @@ const ushort
     kbEnhanced = ENHANCED_KEY,
     kbInsState = 0x200, // Ensure this doesn't overlap above values
     kbPaste = 0x400;
-#endif
 
 #endif // TVision_TKeys_h
 

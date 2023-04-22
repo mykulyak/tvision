@@ -2,8 +2,7 @@
 #define TVision_TDirCollection_h
 
 #include <tvision/Collection.h>
-
-class TDirEntry;
+#include <tvision/DirEntry.h>
 
 class TDirCollection : public TCollection {
 

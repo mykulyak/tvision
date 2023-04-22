@@ -173,7 +173,6 @@ static const TKeyCodeLookupEntry extKeyLookup[] = {
     /* 0x8200 */ { '-', kbAltShift },
     /* 0x8300 */ { '=', kbAltShift },
     /* 0x8400 */ { kbPgUp, kbCtrlShift },
-#if defined(__FLAT__)
     /* 0x8500 */ { kbF11, 0 },
     /* 0x8600 */ { kbF12, 0 },
     /* 0x8700 */ { kbF11, kbShift },
@@ -208,7 +207,6 @@ static const TKeyCodeLookupEntry extKeyLookup[] = {
     /* 0xA400 */ { 0, 0 },
     /* 0xA500 */ { kbTab, kbAltShift },
     /* 0xA600 */ { kbEnter, kbAltShift },
-#endif
 };
 
 enum { extKeyLookupSize = sizeof(extKeyLookup) / sizeof(extKeyLookup[0]) };

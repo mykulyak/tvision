@@ -4,22 +4,6 @@
 
 #include <tvision/EventQueue.h>
 
-#ifndef __FLAT__
-
-#ifndef __BIOS_H
-#include <bios.h>
-#endif // __BIOS_H
-
-#endif
-
-#ifndef __FLAT__
-TEvent TEventQueue::eventQueue[eventQSize] = { { 0 } };
-TEvent* TEventQueue::eventQHead = TEventQueue::eventQueue;
-TEvent* TEventQueue::eventQTail = TEventQueue::eventQueue;
-bool TEventQueue::mouseIntFlag = false;
-ushort TEventQueue::eventCount = 0;
-#endif
-
 ushort TEventQueue::downTicks = 0;
 
 bool TEventQueue::mouseEvents = false;
@@ -62,11 +46,7 @@ void TEventQueue::resume() noexcept
     mouse->getEvent(curMouse);
     lastMouse = curMouse;
 
-#if defined(__FLAT__)
     THardwareInfo::clearPendingEvent();
-#else
-    mouse->registerHandler(0xFFFF, (void (*)())mouseInt);
-#endif
 
     mouseEvents = true;
     TMouse::setRange(TScreen::screenWidth - 1, TScreen::screenHeight - 1);
@@ -164,7 +144,6 @@ void TEventQueue::getMouseEvent(TEvent& ev) noexcept
 
 bool TEventQueue::getMouseState(TEvent& ev) noexcept
 {
-#if defined(__FLAT__)
     ev.what = evNothing;
 
     if (!THardwareInfo::getMouseEvent(curMouse))
@@ -176,70 +155,7 @@ bool TEventQueue::getMouseState(TEvent& ev) noexcept
     ev.what = THardwareInfo::getTickCount(); // Temporarily save tick count when event was read.
     ev.mouse = curMouse;
     return true;
-#else
-    disable();
-
-    if (eventCount == 0) {
-        ev.what = THardwareInfo::getTickCount();
-        ev.mouse = curMouse;
-        // 'wheel' represents an event, not a state. So, in order not to process
-        // a mouse wheel event more than once, this field must be set back to zero.
-        curMouse.wheel = 0;
-    } else {
-        ev = *eventQHead;
-        if (++eventQHead >= eventQueue + eventQSize)
-            eventQHead = eventQueue;
-        eventCount--;
-    }
-    enable();
-
-    if (mouseReverse && ev.mouse.buttons != 0 && ev.mouse.buttons != 3)
-        ev.mouse.buttons ^= 3;
-
-    return true;
-#endif
 }
-
-#ifndef __FLAT__
-#pragma saveregs
-void __MOUSEHUGE TEventQueue::mouseInt()
-{
-#if defined(__DPMI16__)
-    I PUSH DS // Cannot use huge anymore, because someone might compile
-        I PUSH AX //  this module with -WX and that generates Smart Callback
-            I MOV AX,
-        DGROUP //  style prolog code.  This is an asynchronous callback!
-            I MOV DS,
-        AX I POP AX
-#endif
-
-        unsigned flag
-        = _AX;
-    MouseEventType tempMouse;
-
-    tempMouse.buttons = _BL;
-    tempMouse.wheel = _BH == 0 ? 0 : char(_BH) > 0 ? mwDown : mwUp; // CuteMouse
-    tempMouse.eventFlags = 0;
-    tempMouse.where.x = _CX >> 3;
-    tempMouse.where.y = _DX >> 3;
-    tempMouse.controlKeyState = THardwareInfo::getShiftState();
-
-    if ((flag & 0x1e) != 0 && eventCount < eventQSize) {
-        eventQTail->what = THardwareInfo::getTickCount();
-        eventQTail->mouse = curMouse;
-        if (++eventQTail >= eventQueue + eventQSize)
-            eventQTail = eventQueue;
-        eventCount++;
-    }
-
-    curMouse = tempMouse;
-    mouseIntFlag = true;
-
-#if defined(__DPMI16__)
-    I POP DS
-#endif
-}
-#endif
 
 void TEventQueue::getKeyEvent(TEvent& ev) noexcept
 {
@@ -348,48 +264,19 @@ void TEventQueue::getKeyOrPasteEvent(TEvent& ev) noexcept
 
 bool TEventQueue::readKeyPress(TEvent& ev) noexcept
 {
-#if defined(__FLAT__)
     if (!THardwareInfo::getKeyEvent(ev))
         ev.what = evNothing;
-#else
-
-    I MOV AH, 1;
-    I INT 16h;
-    I JNZ keyWaiting;
-
-    ev.what = evNothing;
-    return false;
-
-keyWaiting:
-
-    ev.what = evKeyDown;
-
-    I MOV AH, 0;
-    I INT 16h;
-
-    ev.keyDown.keyCode = _AX;
-    ev.keyDown.controlKeyState = THardwareInfo::getShiftState();
-#endif
     return bool(ev.what != evNothing);
 }
 
 void TEventQueue::waitForEvent(int timeoutMs) noexcept
 {
-#if defined(__FLAT__)
     if (!pasteText && keyEventCount == 0)
         THardwareInfo::waitForEvent(timeoutMs);
-#else
-    (void)timeoutMs;
-#endif
 }
 
 void TEvent::getKeyEvent() noexcept { TEventQueue::getKeyEvent(*this); }
 
 void TEvent::waitForEvent(int timeoutMs) noexcept { TEventQueue::waitForEvent(timeoutMs); }
 
-void TEvent::putNothing() noexcept
-{
-#if defined(__FLAT__)
-    THardwareInfo::stopEventWait();
-#endif
-}
+void TEvent::putNothing() noexcept { THardwareInfo::stopEventWait(); }

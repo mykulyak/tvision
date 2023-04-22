@@ -32,10 +32,6 @@ private:
     static void getKeyOrPasteEvent(TEvent&) noexcept;
     static bool readKeyPress(TEvent&) noexcept;
 
-#ifndef __FLAT__
-    static void mouseInt();
-#endif
-
     static MouseEventType lastMouse;
 
 public:
@@ -44,18 +40,6 @@ public:
 private:
     static MouseEventType downMouse;
     static ushort downTicks;
-
-#ifndef __FLAT__
-    static TEvent eventQueue[eventQSize];
-    static TEvent* eventQHead;
-    static TEvent* eventQTail;
-
-public:
-    static bool mouseIntFlag;
-
-private:
-    static ushort eventCount;
-#endif
 
     static bool mouseEvents;
     static bool pendingMouseUp;

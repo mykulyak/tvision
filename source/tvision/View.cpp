@@ -802,8 +802,6 @@ TView::TView(StreamableInit) noexcept { }
 
 #endif
 
-#ifdef __FLAT__
-
 struct TVCursor {
 
     TView* self;
@@ -866,8 +864,6 @@ int TVCursor::decideCaretSize() const
         return 100;
     return TScreen::cursorLines & 0x0F;
 }
-
-#endif
 
 struct TVExposd {
 
@@ -1019,8 +1015,6 @@ bool TVExposd::L23(TView* next) noexcept
         return L20(next);
     return false;
 }
-
-#ifdef __FLAT__
 
 #include <cstdlib>
 #include <cstring>
@@ -1299,8 +1293,6 @@ void TView::writeStr(short x, short y, const char* str, uchar color) noexcept
         }
     }
 }
-
-#endif
 
 void* message(TView* receiver, ushort what, ushort command, void* infoPtr)
 {

@@ -13,32 +13,9 @@ TStreamableClass RDirCollection(
 bool driveValid(char drive) noexcept
 {
 #ifdef _WIN32
-#ifndef __FLAT__
-    I MOV AH,
-        19H // Save the current drive in BL
-        I INT 21H I MOV BL,
-        AL I MOV DL,
-        drive // Select the given drive
-            I SUB DL,
-        'A' I MOV AH, 0EH I INT 21H I MOV AH,
-        19H // Retrieve what DOS thinks is current
-        I INT 21H I MOV CX,
-        0 // Assume false
-        I CMP AL,
-        DL // Is the current drive the given drive?
-            I JNE __1 I MOV CX,
-        1 // It is, so the drive is valid
-        I MOV DL,
-        BL // Restore the old drive
-            I MOV AH,
-        0EH I INT 21H __1 : I XCHG AX,
-                            CX // Put the return value into AX
-                            return bool(_AX);
-#else
     drive = (char)toupper(drive);
     DWORD mask = 0x01 << (drive - 'A');
     return (bool)(GetLogicalDrives() & mask);
-#endif
 #else
     // Unless otherwise necessary, we will emulate there's only one disk:
     // the one returned by getdisk(), which is C by default.
@@ -77,11 +54,7 @@ bool pathValid(const char* path) noexcept
 
 bool validFileName(const char* fileName) noexcept
 {
-#ifndef __FLAT__
-    static const char* const illegalChars = ";,=+<>|\"[] \\";
-#else
     static const char* const illegalChars = "<>|\"\\";
-#endif
 
     char path[MAXPATH];
     char dir[MAXDIR];

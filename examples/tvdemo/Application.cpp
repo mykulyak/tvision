@@ -14,11 +14,7 @@
 #include <tvision/HelpFile.h>
 #include <tvision/HelpWindow.h>
 
-#ifdef __FLAT__
 #define HELP_FILENAME "demohelp.h32"
-#else
-#define HELP_FILENAME "demohelp.h16"
-#endif
 
 //
 // main: create an application object.  Constructor takes care of all

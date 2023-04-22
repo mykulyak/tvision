@@ -158,15 +158,7 @@ void TFileDialog::sizeLimits(TPoint& min, TPoint& max)
    correctly. */
 static void trim(char* dest, const char* src) noexcept
 {
-#ifndef __FLAT__
-    while (*src != EOS && isspace(*(const unsigned char*)src))
-        src++;
-#endif
-    while (*src != EOS
-#ifndef __FLAT__
-        && !isspace(*(const unsigned char*)src)
-#endif
-    )
+    while (*src != EOS)
         *dest++ = *src++;
     *dest = EOS;
 }
