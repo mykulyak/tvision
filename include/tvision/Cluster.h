@@ -17,7 +17,6 @@
 /* ---------------------------------------------------------------------- */
 
 class TSItem;
-class TStringCollection;
 
 class TCluster : public TView {
 public:

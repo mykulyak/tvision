@@ -1,13 +1,17 @@
 #ifndef TVision_TStringLookupValidator_h
 #define TVision_TStringLookupValidator_h
 
+#include <string>
 #include <tvision/LookupValidator.h>
+#include <vector>
 
 class TStringLookupValidator : public TLookupValidator {
     static const char* errorMsg;
 
 public:
-    TStringLookupValidator(TStringCollection* aStrings) noexcept;
+    using StringVector = std::vector<std::string>;
+
+    TStringLookupValidator(const StringVector& aStrings) noexcept;
     ~TStringLookupValidator();
     virtual void error();
     virtual bool lookup(const char* s);
@@ -17,13 +21,13 @@ protected:
     virtual void write(opstream& os);
     virtual void* read(ipstream& is);
 
-    TStringCollection* strings;
+    StringVector strings;
 
 private:
     virtual const char* streamableName() const { return name; };
 
 public:
-    void newStringList(TStringCollection* aStrings);
+    void newStringList(const StringVector& aStrings);
     static TStreamable* build();
     static const char* const name;
 };

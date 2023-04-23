@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <tvision/StringLookupValidator.h>
 #include <tvision/tobjstrm.h>
 
@@ -10,55 +11,54 @@ __link(RLookupValidator);
 TStreamableClass RStringLookupValidator(
     TStringLookupValidator::name, TStringLookupValidator::build, __DELTA(TStringLookupValidator));
 
-TStringLookupValidator::TStringLookupValidator(TStringCollection* aStrings) noexcept
+TStringLookupValidator::TStringLookupValidator(const StringVector& aStrings) noexcept
+    : TLookupValidator()
+    , strings(aStrings)
 {
-    strings = aStrings;
+}
+
+TStringLookupValidator::~TStringLookupValidator() { }
+
+void TStringLookupValidator::error() { MessageBox::error(errorMsg); }
+
+bool TStringLookupValidator::lookup(const char* s)
+{
+    std::string str(s);
+    return std::find(strings.cbegin(), strings.cend(), str) != strings.cend();
 }
 
 #ifndef NO_STREAMABLE
-
-void TStringLookupValidator::write(opstream& os)
-{
-    TLookupValidator::write(os);
-    os << strings;
-}
-
-void* TStringLookupValidator::read(ipstream& is)
-{
-    TLookupValidator::read(is);
-    is >> strings;
-
-    return this;
-}
 
 TStringLookupValidator::TStringLookupValidator(StreamableInit s) noexcept
     : TLookupValidator(s)
 {
 }
 
+void TStringLookupValidator::write(opstream& os)
+{
+    TLookupValidator::write(os);
+    os << strings.size();
+    for (auto& item : strings) {
+        os.writeString(item);
+    }
+}
+
+void* TStringLookupValidator::read(ipstream& is)
+{
+    TLookupValidator::read(is);
+
+    StringVector::size_type size = 0;
+    is >> size;
+    for (StringVector::size_type i = 0; i < size; ++i) {
+        strings.push_back(is.readStlString());
+    }
+
+    return this;
+}
+
 #endif
 
-TStringLookupValidator::~TStringLookupValidator() { newStringList(0); }
-
-void TStringLookupValidator::error() { MessageBox::error(errorMsg); }
-
-static bool stringMatch(void* a1, void* a2)
-{
-    return bool(strcmp((const char*)a1, (const char*)a2) == 0);
-}
-
-bool TStringLookupValidator::lookup(const char* s)
-{
-    return bool(strings->firstThat(stringMatch, (void*)s) != 0);
-}
-
-void TStringLookupValidator::newStringList(TStringCollection* aStrings)
-{
-    if (strings)
-        destroy(strings);
-
-    strings = aStrings;
-}
+void TStringLookupValidator::newStringList(const StringVector& aStrings) { strings = aStrings; }
 
 #ifndef NO_STREAMABLE
 
