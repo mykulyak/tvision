@@ -26,11 +26,9 @@ TCluster::TCluster(const TRect& bounds, TSItem* aStrings) noexcept
     for (p = aStrings; p != 0; p = p->next)
         i++;
 
-    strings = new TStringCollection(i, 0);
-
     while (aStrings != 0) {
         p = aStrings;
-        strings->atInsert(strings->getCount(), newStr(aStrings->value.c_str()));
+        strings.push_back(aStrings->value);
         aStrings = aStrings->next;
         delete p;
     }
@@ -40,7 +38,7 @@ TCluster::TCluster(const TRect& bounds, TSItem* aStrings) noexcept
     enableMask = 0xFFFFFFFFL;
 }
 
-TCluster::~TCluster() { destroy((TCollection*)strings); }
+TCluster::~TCluster() { }
 
 ushort TCluster::dataSize()
 {
@@ -70,13 +68,12 @@ void TCluster::drawMultiBox(const char* icon, const char* marker)
     TAttrPair cDis = getColor(0x0505);
     for (i = 0; i <= size.y; i++) {
         b.moveChar(0, ' ', cNorm, size.x);
-        for (j = 0; j <= (strings->getCount() - 1) / size.y + 1; j++) {
+        for (j = 0; j <= (strings.size() - 1) / size.y + 1; j++) {
             cur = j * size.y + i;
-            if (cur < strings->getCount()) {
+            if (cur < strings.size()) {
                 int col = column(cur);
 
-                if (((col + cstrlen((const char*)strings->at(cur)) + 5) < (int)b.length())
-                    && (col < size.x)) {
+                if (((col + cstrlen(strings[cur]) + 5) < (int)b.length()) && (col < size.x)) {
                     if (!buttonState(cur))
                         color = cDis;
                     else if ((cur == sel) && (state & sfSelected) != 0)
@@ -87,7 +84,7 @@ void TCluster::drawMultiBox(const char* icon, const char* marker)
                     b.moveCStr(col, icon, color);
 
                     b.putChar(col + 2, marker[multiMark(cur)]);
-                    b.moveCStr(col + 5, (char*)(strings->at(cur)), color);
+                    b.moveCStr(col + 5, strings[cur], color);
                     if (showMarkers && ((state & sfSelected) != 0) && cur == sel) {
                         b.putChar(col, specialChars[0]);
                         b.putChar(column(cur + size.y) - 1, specialChars[1]);
@@ -122,7 +119,7 @@ TPalette& TCluster::getPalette() const
 
 void TCluster::moveSel(int i, int s)
 {
-    if (i <= strings->getCount()) {
+    if (i <= strings.size()) {
         sel = s;
         movedTo(sel);
         drawView();
@@ -163,9 +160,10 @@ void TCluster::handleEvent(TEvent& event)
                 do {
                     i++;
                     s--;
-                    if (s < 0)
-                        s = strings->getCount() - 1;
-                } while (!(buttonState(s) || (i > strings->getCount())));
+                    if (s < 0) {
+                        s = strings.size() - 1;
+                    }
+                } while (!(buttonState(s) || (i > strings.size())));
                 moveSel(i, s);
                 clearEvent(event);
             }
@@ -176,9 +174,10 @@ void TCluster::handleEvent(TEvent& event)
                 do {
                     i++;
                     s++;
-                    if (s >= strings->getCount())
+                    if (s >= strings.size()) {
                         s = 0;
-                } while (!(buttonState(s) || (i > strings->getCount())));
+                    }
+                } while (!(buttonState(s) || (i > strings.size())));
                 moveSel(i, s);
                 clearEvent(event);
             }
@@ -189,9 +188,9 @@ void TCluster::handleEvent(TEvent& event)
                 do {
                     i++;
                     s += size.y;
-                    if (s >= strings->getCount())
+                    if (s >= strings.size())
                         s = 0;
-                } while (!(buttonState(s) || (i > strings->getCount())));
+                } while (!(buttonState(s) || (i > strings.size())));
                 moveSel(i, s);
                 clearEvent(event);
             }
@@ -204,20 +203,22 @@ void TCluster::handleEvent(TEvent& event)
                     if (s > 0) {
                         s -= size.y;
                         if (s < 0) {
-                            s = ((strings->getCount() + size.y - 1) / size.y) * size.y + s - 1;
-                            if (s >= strings->getCount())
-                                s = strings->getCount() - 1;
+                            s = ((strings.size() + size.y - 1) / size.y) * size.y + s - 1;
+                            if (s >= strings.size()) {
+                                s = strings.size() - 1;
+                            }
                         }
-                    } else
-                        s = strings->getCount() - 1;
-                } while (!(buttonState(s) || (i > strings->getCount())));
+                    } else {
+                        s = strings.size() - 1;
+                    }
+                } while (!(buttonState(s) || (i > strings.size())));
                 moveSel(i, s);
                 clearEvent(event);
             }
             break;
         default:
-            for (int i = 0; i < strings->getCount(); i++) {
-                char c = hotKey((char*)(strings->at(i)));
+            for (int i = 0; i < strings.size(); i++) {
+                char c = hotKey(strings[i].c_str());
                 if (event.keyDown.keyCode != 0
                     && (getAltCode(c) == event.keyDown.keyCode
                         || ((owner->phase == phPostProcess || (state & sfFocused) != 0) && c != 0
@@ -250,7 +251,7 @@ void TCluster::setButtonState(uint32_t aMask, bool enable)
     else
         enableMask |= aMask;
 
-    int n = strings->getCount();
+    int n = strings.size();
     if (n < 32) {
         uint32_t testMask = (1 << n) - 1;
         if ((enableMask & testMask) != 0)
@@ -295,10 +296,12 @@ int TCluster::column(int item)
                 width = 0;
             }
 
-            if (i < strings->getCount())
-                l = cstrlen((char*)(strings->at(i)));
-            if (l > width)
+            if (i < strings.size()) {
+                l = cstrlen(strings[i]);
+            }
+            if (l > width) {
                 width = l;
+            }
         }
         return col;
     }
@@ -314,10 +317,11 @@ int TCluster::findSel(TPoint p)
         while (p.x >= column(i + size.y))
             i += size.y;
         int s = i + p.y;
-        if (s >= strings->getCount())
+        if (s >= strings.size()) {
             return -1;
-        else
+        } else {
             return s;
+        }
     }
 }
 
@@ -344,13 +348,23 @@ bool TCluster::buttonState(int item)
 void TCluster::write(opstream& os)
 {
     TView::write(os);
-    os << value << sel << enableMask << strings;
+    os << value << sel << enableMask << strings.size();
+    for (auto item : strings) {
+        os.writeString(item);
+    }
 }
 
 void* TCluster::read(ipstream& is)
 {
     TView::read(is);
-    is >> value >> sel >> enableMask >> strings;
+
+    StringVector::size_type size = 0;
+    is >> value >> sel >> enableMask >> size;
+
+    strings.clear();
+    for (size_t i = 0; i < size; i++) {
+        strings.push_back(is.readStlString());
+    }
 
     setCursor(2, 0);
     showCursor();

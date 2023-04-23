@@ -1,7 +1,9 @@
 #ifndef TVision_TCluster_h
 #define TVision_TCluster_h
 
+#include <string>
 #include <tvision/View.h>
+#include <vector>
 
 /* ---------------------------------------------------------------------- */
 /*      class TCluster                                                    */
@@ -39,10 +41,12 @@ public:
     virtual void setButtonState(uint32_t aMask, bool enable);
 
 protected:
+    using StringVector = std::vector<std::string>;
+
     uint32_t value;
     uint32_t enableMask;
     int sel;
-    TStringCollection* strings;
+    StringVector strings;
 
 private:
     int column(int item);
