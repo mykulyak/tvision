@@ -112,9 +112,9 @@ int lineCount = 0;
 //======================= File Management ===============================//
 
 TProtectedStream::TProtectedStream(const std::string& aFileName, openmode aMode)
-    : std::fstream(aFileName, aMode),
-        fileName(aFileName),
-        mode(aMode)
+    : std::fstream(aFileName, aMode)
+    , fileName(aFileName)
+    , mode(aMode)
 {
 }
 

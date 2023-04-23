@@ -4,6 +4,7 @@
 /*   defines constants for all control key combinations                    */
 
 #include <tvision/compat/windows/windows.h>
+#include <tvision/ttypes.h>
 
 //// Key codes
 //

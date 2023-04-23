@@ -65,10 +65,11 @@ public:
     // character, a whitespace is copied in its place.
     static size_t drawStr(
         TSpan<TScreenCell> cells, size_t indent, std::string_view text, int textIndent) noexcept;
-    static size_t drawStr(TSpan<TScreenCell> cells, size_t indent, std::string_view text, int textIndent,
-        TColorAttr attr) noexcept;
+    static size_t drawStr(TSpan<TScreenCell> cells, size_t indent, std::string_view text,
+        int textIndent, TColorAttr attr) noexcept;
     static size_t drawStr(TSpan<TScreenCell> cells, std::string_view text) noexcept;
-    static size_t drawStr(TSpan<TScreenCell> cells, std::string_view text, TColorAttr attr) noexcept;
+    static size_t drawStr(
+        TSpan<TScreenCell> cells, std::string_view text, TColorAttr attr) noexcept;
 
     // Reads a single character from a multibyte-encoded string, and writes it into
     // a screen cell.
@@ -87,9 +88,10 @@ public:
     // When a zero-width character is found in 'text', it is combined with the
     // previous cell, i.e. cells[i - 1], if 'i > 0'. In this case, 'i' is not
     // increased and the color attribute is not set.
-    static bool drawOne(TSpan<TScreenCell> cells, size_t& i, std::string_view text, size_t& j) noexcept;
     static bool drawOne(
-        TSpan<TScreenCell> cells, size_t& i, std::string_view text, size_t& j, TColorAttr attr) noexcept;
+        TSpan<TScreenCell> cells, size_t& i, std::string_view text, size_t& j) noexcept;
+    static bool drawOne(TSpan<TScreenCell> cells, size_t& i, std::string_view text, size_t& j,
+        TColorAttr attr) noexcept;
 
     // Variants of the functions above which use a '(TColorAttr &) -> void'
     // callback  to change the color attribute of each cell (rather than
@@ -165,8 +167,8 @@ inline size_t TText::scroll(std::string_view text, int count, bool includeIncomp
     return length;
 }
 
-inline void TText::scroll(
-    std::string_view text, int count, bool includeIncomplete, size_t& length, size_t& width) noexcept
+inline void TText::scroll(std::string_view text, int count, bool includeIncomplete, size_t& length,
+    size_t& width) noexcept
 
 {
     auto result = scrollImpl(text, count, includeIncomplete);
@@ -210,7 +212,8 @@ inline size_t TText::drawStr(TSpan<TScreenCell> cells, std::string_view text) no
     return drawStr(cells, 0, text, 0);
 }
 
-inline size_t TText::drawStr(TSpan<TScreenCell> cells, std::string_view text, TColorAttr attr) noexcept
+inline size_t TText::drawStr(
+    TSpan<TScreenCell> cells, std::string_view text, TColorAttr attr) noexcept
 {
     return drawStr(cells, 0, text, 0, attr);
 }
@@ -265,8 +268,8 @@ inline bool TText::drawOne(
     return drawOneT(cells, i, text, j, [](auto&) {});
 }
 
-inline bool TText::drawOne(
-    TSpan<TScreenCell> cells, size_t& i, std::string_view text, size_t& j, TColorAttr aAttr) noexcept
+inline bool TText::drawOne(TSpan<TScreenCell> cells, size_t& i, std::string_view text, size_t& j,
+    TColorAttr aAttr) noexcept
 {
     return drawOneT(cells, i, text, j, [&](auto& attr) { attr = aAttr; });
 }

@@ -1,7 +1,7 @@
-#include <string_view>
-#include <tvision/tv.h>
 #include <internal/far2l.h>
+#include <string_view>
 #include <test.h>
+#include <tvision/tv.h>
 
 namespace tvision {
 

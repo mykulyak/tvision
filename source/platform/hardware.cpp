@@ -44,9 +44,7 @@ DWORD THardwareInfo::getButtonCount() noexcept { return platf->getButtonCount();
 void THardwareInfo::cursorOn() noexcept { platf->cursorOn(); }
 void THardwareInfo::cursorOff() noexcept { platf->cursorOff(); }
 void THardwareInfo::flushScreen() noexcept { platf->flushScreen(); }
-void THardwareInfo::setUpConsole() noexcept {
-    platf->setUpConsole();
-}
+void THardwareInfo::setUpConsole() noexcept { platf->setUpConsole(); }
 void THardwareInfo::restoreConsole() noexcept { platf->restoreConsole(); }
 
 BOOL THardwareInfo::getPendingEvent(TEvent& event, bool mouse) noexcept

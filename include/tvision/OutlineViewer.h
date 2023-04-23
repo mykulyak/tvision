@@ -11,7 +11,8 @@ const int cmOutlineItemSelected = 301;
 class TNode {
 public:
     TNode(std::string_view aText) noexcept;
-    TNode(std::string_view aText, TNode* aChildren, TNode* aNext, bool initialState = true) noexcept;
+    TNode(
+        std::string_view aText, TNode* aChildren, TNode* aNext, bool initialState = true) noexcept;
     virtual ~TNode();
 
     TNode* next;
@@ -28,7 +29,8 @@ inline TNode::TNode(std::string_view aText) noexcept
 {
 }
 
-inline TNode::TNode(std::string_view aText, TNode* aChildren, TNode* aNext, bool initialState) noexcept
+inline TNode::TNode(
+    std::string_view aText, TNode* aChildren, TNode* aNext, bool initialState) noexcept
     : next(aNext)
     , text(newStr(aText))
     , childList(aChildren)

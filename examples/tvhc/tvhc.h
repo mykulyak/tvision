@@ -1,10 +1,10 @@
 #ifndef __TVHC_H
 #define __TVHC_H
 
+#include <dir.h>
 #include <string>
 #include <tvision/HelpFile.h>
 #include <tvision/tv.h>
-#include <dir.h>
 
 const int MAXSTRSIZE = 256;
 const int MAXHELPTOPICID = 16379;
