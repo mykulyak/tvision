@@ -3,7 +3,6 @@
 
 #include <string>
 #include <string_view>
-#include <tvision/StringView.h>
 
 class TClipboard {
 public:

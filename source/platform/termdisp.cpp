@@ -7,7 +7,7 @@ namespace tvision {
 TermCap TerminalDisplay::getCapabilities() noexcept
 {
     TermCap termcap {};
-    auto colorterm = getEnv<TStringView>("COLORTERM");
+    auto colorterm = getEnv<std::string>("COLORTERM");
     if (colorterm == "truecolor" || colorterm == "24bit")
         termcap.colors = Direct;
     else {
@@ -26,7 +26,7 @@ TermCap TerminalDisplay::getCapabilities() noexcept
                 termcap.quirks |= qfBlinkIsBright | qfNoItalic | qfNoUnderline;
             else
 #endif // __linux__
-                if (getEnv<TStringView>("TERM") == "xterm")
+                if (getEnv<std::string>("TERM") == "xterm")
                     // Let's assume all terminals disguising themselves as 'xterm'
                     // support at least 16 colors.
                     termcap.colors = Indexed16;

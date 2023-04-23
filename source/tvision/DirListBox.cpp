@@ -164,7 +164,7 @@ void TDirListBox::showDirs(TDirCollection* dirs)
     entry->setText(text);
 }
 
-void TDirListBox::newDirectory(TStringView str)
+void TDirListBox::newDirectory(std::string_view str)
 {
     strnzcpy(dir, str, sizeof(dir));
     TDirCollection* dirs = new TDirCollection(5, 5);

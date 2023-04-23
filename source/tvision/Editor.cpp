@@ -140,7 +140,7 @@ std::string_view TEditor::bufPrevChars(uint P)
 
 void TEditor::nextChar(std::string_view s2, uint& p, uint& width)
 {
-    TStringView s(s2.data(), s2.size());
+    std::string_view s(s2.data(), s2.size());
 
     if (encSingleByte || !s.size()) {
         ++p;
@@ -156,7 +156,7 @@ void TEditor::nextChar(std::string_view s2, uint& p, uint& width)
 bool TEditor::formatCell(
     TSpan<TScreenCell> cells, uint& width, std::string_view text_stl, uint& p, TColorAttr color)
 {
-    TStringView text(text_stl.data(), text_stl.size());
+    std::string_view text(text_stl.data(), text_stl.size());
 
     size_t p_ = 0, w_ = width;
     if (TText::drawOne(cells, w_, text, p_, color)) {
@@ -1213,7 +1213,7 @@ uint TEditor::nextChar(uint P)
             return P + 1;
         else {
             std::string_view t = bufChars(P);
-            return P + TText::next(TStringView(t.data(), t.size()));
+            return P + TText::next(std::string_view(t.data(), t.size()));
         }
     }
     return bufLen;
@@ -1228,7 +1228,7 @@ uint TEditor::prevChar(uint P)
             return P - 1;
         else {
             std::string_view t = bufPrevChars(P);
-            return P - TText::prev(TStringView(t.data(), t.size()), t.size());
+            return P - TText::prev(std::string_view(t.data(), t.size()), t.size());
         }
     }
     return 0;

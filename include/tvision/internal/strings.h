@@ -3,7 +3,7 @@
 
 namespace tvision {
 
-template <class Int> inline constexpr Int string_as_int(TStringView s) noexcept
+template <class Int> inline constexpr Int string_as_int(std::string_view s) noexcept
 {
     Int res = 0;
     for (size_t i = 0; i < min(s.size(), sizeof(res)); ++i)

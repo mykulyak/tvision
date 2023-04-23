@@ -15,7 +15,7 @@ namespace tvision {
 
 StdioCtl::StdioCtl() noexcept
 {
-    if (getEnv<TStringView>("TVISION_USE_STDIO").empty()) {
+    if (getEnv<std::string>("TVISION_USE_STDIO").empty()) {
         for (int fd : { 0, 1, 2 })
             if (auto* name = ::ttyname(fd))
                 if ((ttyfd = ::open(name, O_RDWR)) != -1)

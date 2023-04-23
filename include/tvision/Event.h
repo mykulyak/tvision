@@ -3,7 +3,6 @@
 
 #include <tvision/Keys.h>
 #include <tvision/Point.h>
-#include <tvision/StringView.h>
 
 struct MouseEventType {
     TPoint where;
@@ -86,11 +85,11 @@ struct KeyDownEvent {
     char text[4]; // NOT null-terminated.
     uchar textLength;
 
-    TStringView getText() const;
+    std::string_view getText() const;
     operator TKey() const;
 };
 
-inline TStringView KeyDownEvent::getText() const { return TStringView(text, textLength); }
+inline std::string_view KeyDownEvent::getText() const { return std::string_view(text, textLength); }
 
 inline KeyDownEvent::operator TKey() const { return TKey(keyCode, controlKeyState); }
 

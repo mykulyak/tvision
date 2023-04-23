@@ -115,7 +115,7 @@ AVSValue TermColor::Create(AVSValue args, void*, IScriptEnvironment* env)
         env->ThrowError("TermColor: input clip must be RGB24 or RGB32.");
 
     TermColors mode = TermColorCount;
-    TStringView modeName = args[1].AsString();
+    std::string_view modeName = args[1].AsString();
     for (auto m : quantizeModes)
         if (m.name == modeName) {
             mode = m.value;

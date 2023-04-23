@@ -34,7 +34,6 @@
 
 #include <tvision/Background.h>
 #include <tvision/Span.h>
-#include <tvision/StringView.h>
 
 #include <tvision/colors.h>
 
@@ -142,7 +141,6 @@
 #include <tvision/RadioButtons.h>
 
 #include <tvision/StringList.h>
-#include <tvision/StringView.h>
 
 #include <tvision/FileCommands.h>
 

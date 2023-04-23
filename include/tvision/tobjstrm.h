@@ -371,7 +371,7 @@ public:
     void writeBytes(const void*, size_t);
     void writeWord(ushort);
     void writeString(const char*);
-    void writeString(TStringView);
+    void writeString(std::string_view);
     void writeString(const std::string&);
 
     friend opstream& operator<<(opstream&, TStreamable&);

@@ -1,7 +1,8 @@
 #ifndef TVision_TOutlineViewer_h
 #define TVision_TOutlineViewer_h
 
-#include <tvision/StringView.h>
+#include <string_view>
+#include <tvision/Scroller.h>
 
 const int ovExpanded = 0x01, ovChildren = 0x02, ovLast = 0x04;
 
@@ -9,8 +10,8 @@ const int cmOutlineItemSelected = 301;
 
 class TNode {
 public:
-    TNode(TStringView aText) noexcept;
-    TNode(TStringView aText, TNode* aChildren, TNode* aNext, bool initialState = true) noexcept;
+    TNode(std::string_view aText) noexcept;
+    TNode(std::string_view aText, TNode* aChildren, TNode* aNext, bool initialState = true) noexcept;
     virtual ~TNode();
 
     TNode* next;
@@ -19,7 +20,7 @@ public:
     bool expanded;
 };
 
-inline TNode::TNode(TStringView aText) noexcept
+inline TNode::TNode(std::string_view aText) noexcept
     : next(0)
     , text(newStr(aText))
     , childList(0)
@@ -27,7 +28,7 @@ inline TNode::TNode(TStringView aText) noexcept
 {
 }
 
-inline TNode::TNode(TStringView aText, TNode* aChildren, TNode* aNext, bool initialState) noexcept
+inline TNode::TNode(std::string_view aText, TNode* aChildren, TNode* aNext, bool initialState) noexcept
     : next(aNext)
     , text(newStr(aText))
     , childList(aChildren)

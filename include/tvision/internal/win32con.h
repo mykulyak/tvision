@@ -32,8 +32,8 @@ class Win32ConsoleStrategy final : public ConsoleStrategy {
     ~Win32ConsoleStrategy();
 
     bool isAlive() noexcept override;
-    bool setClipboardText(TStringView) noexcept override;
-    bool requestClipboardText(void (&)(TStringView)) noexcept override;
+    bool setClipboardText(std::string_view) noexcept override;
+    bool requestClipboardText(void (&)(std::string_view)) noexcept override;
 
 public:
     static Win32ConsoleStrategy& create() noexcept;
@@ -83,7 +83,7 @@ public:
     bool screenChanged() noexcept override;
 
 protected:
-    void lowlevelWriteChars(TStringView chars, TColorAttr attr) noexcept override;
+    void lowlevelWriteChars(std::string_view chars, TColorAttr attr) noexcept override;
     void lowlevelMoveCursor(uint x, uint y) noexcept override;
     void lowlevelCursorSize(int size) noexcept override;
     void lowlevelFlush() noexcept override;

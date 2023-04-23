@@ -31,7 +31,7 @@ static int prevWord(const char* s, int pos) noexcept
     return 0;
 };
 
-static int nextWord(TStringView s, int pos) noexcept
+static int nextWord(std::string_view s, int pos) noexcept
 {
     for (int i = pos; i < int(s.size()) - 1; ++i) {
         if (s[i] == ' ' && s[i + 1] != ' ')
@@ -147,11 +147,11 @@ int TInputLine::mousePos(TEvent& event)
     mouse.x = max(mouse.x, 1);
     int pos = mouse.x + firstPos - 1;
     pos = max(pos, 0);
-    TStringView text = data;
+    std::string_view text = data;
     return TText::scroll(text, pos, false);
 }
 
-int TInputLine::displayedPos(int pos) { return strwidth(TStringView(data, pos)); }
+int TInputLine::displayedPos(int pos) { return strwidth(std::string_view(data, pos)); }
 
 void TInputLine::deleteSelect()
 {
@@ -165,7 +165,7 @@ void TInputLine::deleteSelect()
 
 void TInputLine::deleteCurrent()
 {
-    TStringView text = data;
+    std::string_view text = data;
     if (curPos < (int)text.size()) {
         selStart = curPos;
         selEnd = curPos + TText::next(text.substr(curPos));

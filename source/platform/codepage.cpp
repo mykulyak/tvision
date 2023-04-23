@@ -5,7 +5,7 @@
 
 namespace tvision {
 
-static const TStringView cp437toUtf8[256] = { "\0", "☺", "☻", "♥", "♦", "♣", "♠", "•", "◘", "○",
+static const std::string_view cp437toUtf8[256] = { "\0", "☺", "☻", "♥", "♦", "♣", "♠", "•", "◘", "○",
     "◙", "♂", "♀", "♪", "♫", "☼", "►", "◄", "↕", "‼", "¶", "§", "▬", "↨", "↑", "↓", "→", "←", "∟",
     "↔", "▲", "▼", " ", "!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/",
     "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ":", ";", "<", "=", ">", "?", "@", "A", "B",
@@ -22,7 +22,7 @@ static const TStringView cp437toUtf8[256] = { "\0", "☺", "☻", "♥", "♦", 
 
 static const std::array<uint32_t, 256> cp437toUtf8Int = make_utf8int<256>(cp437toUtf8);
 
-static const TStringView cp850toUtf8[256] = {
+static const std::string_view cp850toUtf8[256] = {
     "\0", "☺", "☻", "♥", "♦", "♣", "♠", "•", "◘", "○", "◙", "♂", "♀", "♪", "♫", "☼", "►", "◄", "↕",
     "‼", "¶", "§", "▬", "↨", "↑", "↓", "→", "←", "∟", "↔", "▲", "▼", " ", "!", "\"", "#", "$", "%",
     "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "0", "1", "2", "3", "4", "5", "6", "7", "8",
@@ -43,7 +43,7 @@ static const TStringView cp850toUtf8[256] = {
 
 static const std::array<uint32_t, 256> cp850toUtf8Int = make_utf8int<256>(cp850toUtf8);
 
-static std::unordered_map<uint32_t, char> initMap(const TStringView toUtf8[256]) noexcept
+static std::unordered_map<uint32_t, char> initMap(const std::string_view toUtf8[256]) noexcept
 {
     std::unordered_map<uint32_t, char> map;
     for (size_t i = 0; i < 256; ++i)
@@ -51,7 +51,7 @@ static std::unordered_map<uint32_t, char> initMap(const TStringView toUtf8[256])
     return map;
 }
 
-CpTranslator::CpTable::CpTable(TStringView cp, const TStringView toUtf8[256],
+CpTranslator::CpTable::CpTable(std::string_view cp, const std::string_view toUtf8[256],
     const std::array<uint32_t, 256>& toUtf8Int) noexcept
     : cp(cp)
     , toUtf8Int(toUtf8Int.data())
@@ -68,10 +68,10 @@ CpTranslator CpTranslator::instance;
 CpTranslator::CpTranslator() noexcept
 {
     // Set the active codepage. 437 is the default.
-    use(getEnv<TStringView>("TVISION_CODEPAGE", "437"));
+    use(getEnv<std::string>("TVISION_CODEPAGE", "437"));
 }
 
-char CpTranslator::fromUtf8(TStringView s) noexcept
+char CpTranslator::fromUtf8(std::string_view s) noexcept
 {
     auto it = activeTable->fromUtf8.find(string_as_int<uint32_t>(s));
     if (it != activeTable->fromUtf8.end())

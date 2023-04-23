@@ -176,7 +176,7 @@ static bool write_subprocess(const char* const cmd[], std::string_view, int time
 
 static bool commandIsAvailable(const Command& cmd)
 {
-    return (!cmd.requiredEnv || !getEnv<std::string_view>(cmd.requiredEnv).empty())
+    return (!cmd.requiredEnv || !getEnv<std::string>(cmd.requiredEnv).empty())
         && executable_exists(cmd.argv[0]);
 }
 

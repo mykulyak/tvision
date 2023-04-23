@@ -65,7 +65,7 @@ TPalette& TTestView::getPalette() const
 
 TTestWindow::TTestWindow()
     : TWindowInit(initFrame)
-    , TWindow(TRect(0, 0, TEST_WIDTH, TEST_HEIGHT), 0, wnNoNumber)
+    , TWindow(TRect(0, 0, TEST_WIDTH, TEST_HEIGHT), "", wnNoNumber)
 {
     TRect r = getExtent();
     r.grow(-2, -2);

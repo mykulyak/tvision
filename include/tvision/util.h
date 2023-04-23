@@ -27,14 +27,12 @@ ushort getCtrlCode(uchar) noexcept;
 
 ushort historyCount(uchar id) noexcept;
 const char* historyStr(uchar id, int index) noexcept;
-void historyAdd(uchar id, TStringView) noexcept;
+void historyAdd(uchar id, std::string_view) noexcept;
 
-int cstrlen(TStringView) noexcept;
 int cstrlen(std::string_view) noexcept;
 
 inline int cstrlen(const char* text) noexcept { return cstrlen(std::string_view(text)); }
 
-int strwidth(TStringView) noexcept;
 int strwidth(std::string_view) noexcept;
 
 inline int strwidth(const char* text) noexcept { return strwidth(std::string_view(text)); }
@@ -45,7 +43,7 @@ class TMenu;
 class TMenuItem;
 ushort popupMenu(TPoint where, TMenuItem& aMenu, TGroup* = 0);
 
-char* newStr(TStringView) noexcept;
+char* newStr(std::string_view) noexcept;
 
 bool driveValid(char drive) noexcept;
 bool isDir(const char* str) noexcept;
@@ -55,8 +53,8 @@ void getCurDir(char* dir, char drive = -1) noexcept;
 bool getHomeDir(char* drive, char* dir) noexcept;
 bool isWild(const char* f) noexcept;
 
-size_t strnzcpy(char* dest, TStringView src, size_t n) noexcept;
-size_t strnzcat(char* dest, TStringView src, size_t n) noexcept;
+size_t strnzcpy(char* dest, std::string_view src, size_t n) noexcept;
+size_t strnzcat(char* dest, std::string_view src, size_t n) noexcept;
 
 void printKeyCode(std::ostream&, ushort keyCode);
 void printControlKeyState(std::ostream&, ushort controlKeyState);

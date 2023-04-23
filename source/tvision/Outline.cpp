@@ -57,14 +57,14 @@ bool drawTree(
             color = beingDrawn->getColor(0x0401);
         dBuf.moveChar(0, ' ', color, beingDrawn->size.x);
         {
-            TStringView graph = beingDrawn->getGraph(level, lines, flags);
+            std::string_view graph = beingDrawn->getGraph(level, lines, flags);
             x = strwidth(graph) - beingDrawn->delta.x;
             if (x > 0)
                 dBuf.moveStr(0, graph, color, (ushort)-1U, beingDrawn->delta.x);
             delete[] (char*)graph.data();
         }
         {
-            TStringView text = beingDrawn->getText(cur);
+            std::string_view text = beingDrawn->getText(cur);
             TColorAttr c = (flags & ovExpanded) ? color : (color >> 8);
             dBuf.moveStr(max(0, x), text, c, (ushort)-1U, max(0, -x));
         }

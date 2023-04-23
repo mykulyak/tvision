@@ -51,7 +51,7 @@ public:
     void reject() noexcept;
     bool getNum(uint&) noexcept;
     bool getInt(int&) noexcept;
-    bool readStr(TStringView) noexcept;
+    bool readStr(std::string_view) noexcept;
 };
 
 inline int GetChBuf::getUnbuffered() noexcept { return in.get(); }
@@ -121,7 +121,7 @@ inline bool GetChBuf::getInt(int& result) noexcept
     return false;
 }
 
-inline bool GetChBuf::readStr(TStringView str) noexcept
+inline bool GetChBuf::readStr(std::string_view str) noexcept
 {
     size_t origSize = size;
     size_t i = 0;

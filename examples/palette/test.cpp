@@ -30,8 +30,8 @@ TMenuBar* TTestApp::initMenuBar(TRect bounds)
 {
     bounds.b.y = bounds.a.y + 1;
     TMenuBar* mainMenu = new TMenuBar(bounds,
-        new TMenu(*new TMenuItem("~A~bout...", cmAbout, kbAltA, hcNoContext, 0,
-            new TMenuItem("~P~alette", cmPaletteView, kbAltP, hcNoContext, 0,
+        new TMenu(*new TMenuItem("~A~bout...", cmAbout, kbAltA, hcNoContext, "",
+            new TMenuItem("~P~alette", cmPaletteView, kbAltP, hcNoContext, "",
                 new TMenuItem("E~x~it", cmQuit, kbAltX)))));
     return (mainMenu);
 }

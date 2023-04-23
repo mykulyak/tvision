@@ -116,7 +116,7 @@ void NcursesDisplay::lowlevelCursorSize(int size) noexcept
  * terminals with limited color support. For instance, the example linked above
  * doesn't work on the linux console because it doesn't take this approach. */
 
-void NcursesDisplay::lowlevelWriteChars(TStringView chars, TColorAttr attr) noexcept
+void NcursesDisplay::lowlevelWriteChars(std::string_view chars, TColorAttr attr) noexcept
 {
     usesNcursesDraw = true;
     // Translate and apply text attributes.

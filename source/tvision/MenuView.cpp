@@ -12,7 +12,7 @@ __link(RView);
 TStreamableClass RMenuView(TMenuView::name, TMenuView::build, __DELTA(TMenuView));
 
 TMenuItem::TMenuItem(std::string_view aName, ushort aCommand, TKey aKey, ushort aHelpCtx,
-    TStringView p, TMenuItem* aNext) noexcept
+    std::string_view p, TMenuItem* aNext) noexcept
 {
     name = aName;
     command = aCommand;

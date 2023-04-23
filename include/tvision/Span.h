@@ -3,7 +3,7 @@
 
 template <class T> class TSpan {
 
-    // This is actually a generalization of TStringView for any kind of element
+    // This is actually a generalization of std::string_view for any kind of element
     // type (and without enforcing the 'const' qualifier).
     // It exists for compatibility with Borland C++ and because std::span (C++ 20)
     // may not be widely available yet.

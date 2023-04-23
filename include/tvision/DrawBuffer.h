@@ -2,6 +2,7 @@
 #define TVision_TDrawBuffer_h
 
 #include <tvision/ScreenCell.h>
+#include <tvision/Span.h>
 
 /**
  * This class provides the high-level interface to the Screen Manager.
@@ -13,12 +14,12 @@ class TDrawBuffer {
 
 public:
     void moveChar(ushort indent, char c, TColorAttr attr, ushort count) noexcept;
-    ushort moveStr(ushort indent, TStringView str, TColorAttr attr) noexcept;
+    ushort moveStr(ushort indent, std::string_view str, TColorAttr attr) noexcept;
     ushort moveStr(
-        ushort indent, TStringView str, TColorAttr attr, ushort width, ushort begin = 0) noexcept;
-    ushort moveCStr(ushort indent, TStringView str, TAttrPair attrs) noexcept;
+        ushort indent, std::string_view str, TColorAttr attr, ushort width, ushort begin = 0) noexcept;
+    ushort moveCStr(ushort indent, std::string_view str, TAttrPair attrs) noexcept;
     ushort moveCStr(
-        ushort indent, TStringView str, TAttrPair attrs, ushort width, ushort begin = 0) noexcept;
+        ushort indent, std::string_view str, TAttrPair attrs, ushort width, ushort begin = 0) noexcept;
     void moveBuf(ushort indent, const void* source, TColorAttr attr, ushort count) noexcept;
 
     void putAttribute(ushort indent, TColorAttr attr) noexcept;

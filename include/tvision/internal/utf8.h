@@ -18,7 +18,7 @@ inline constexpr uint Utf8BytesLeft(char first_byte) noexcept
                                                    : 0;
 }
 
-template <size_t N> inline std::array<uint32_t, N> make_utf8int(const TStringView utf8[N]) noexcept
+template <size_t N> inline std::array<uint32_t, N> make_utf8int(const std::string_view utf8[N]) noexcept
 {
     std::array<uint32_t, N> result {};
     for (size_t i = 0; i < N; ++i)
@@ -26,7 +26,7 @@ template <size_t N> inline std::array<uint32_t, N> make_utf8int(const TStringVie
     return result;
 }
 
-inline constexpr uint32_t utf8To32(TStringView s) noexcept
+inline constexpr uint32_t utf8To32(std::string_view s) noexcept
 {
     // Precondition: s is a valid UTF-8 sequence.
     switch (s.size()) {

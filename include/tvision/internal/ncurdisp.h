@@ -36,7 +36,7 @@ public:
     void clearScreen() noexcept override;
 
 protected:
-    void lowlevelWriteChars(TStringView chars, TColorAttr attr) noexcept override;
+    void lowlevelWriteChars(std::string_view chars, TColorAttr attr) noexcept override;
     void lowlevelMoveCursor(uint x, uint y) noexcept override;
     void lowlevelCursorSize(int size) noexcept override;
     void lowlevelFlush() noexcept override;

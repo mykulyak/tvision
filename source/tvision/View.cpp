@@ -714,10 +714,10 @@ void TView::sizeLimits(TPoint& min, TPoint& max)
 static bool getEventText(TEvent& event, TSpan<char> dest, size_t& length)
 {
     if (event.what == evKeyDown) {
-        TStringView text = event.keyDown.textLength ? event.keyDown.getText()
-            : event.keyDown.keyCode == kbEnter      ? TStringView("\n")
-            : event.keyDown.keyCode == kbTab        ? TStringView("\t")
-                                                    : TStringView();
+        std::string_view text = event.keyDown.textLength ? event.keyDown.getText()
+            : event.keyDown.keyCode == kbEnter      ? std::string_view("\n")
+            : event.keyDown.keyCode == kbTab        ? std::string_view("\t")
+                                                    : std::string_view();
         TSpan<char> dst = dest.subspan(length);
         if (!text.empty() && text.size() <= dst.size()) {
             memcpy(dst.data(), text.data(), text.size());

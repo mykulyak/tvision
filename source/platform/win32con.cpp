@@ -119,7 +119,7 @@ static bool openClipboard() noexcept
     return false;
 }
 
-bool Win32ConsoleStrategy::setClipboardText(TStringView text) noexcept
+bool Win32ConsoleStrategy::setClipboardText(std::string_view text) noexcept
 {
     bool result = false;
     if (openClipboard()) {
@@ -142,7 +142,7 @@ bool Win32ConsoleStrategy::setClipboardText(TStringView text) noexcept
     return result;
 }
 
-bool Win32ConsoleStrategy::requestClipboardText(void (&accept)(TStringView)) noexcept
+bool Win32ConsoleStrategy::requestClipboardText(void (&accept)(std::string_view)) noexcept
 {
     bool result = false;
     if (openClipboard()) {
@@ -308,7 +308,7 @@ void Win32Display::clearScreen() noexcept
 
 // Fallback display support with rudimentary buffering.
 
-void Win32Display::lowlevelWriteChars(TStringView chars, TColorAttr attr) noexcept
+void Win32Display::lowlevelWriteChars(std::string_view chars, TColorAttr attr) noexcept
 {
     uchar bios = attr.toBIOS();
     if (bios != lastAttr) {

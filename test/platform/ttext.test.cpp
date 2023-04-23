@@ -72,3 +72,12 @@ TEST(TText, ShouldConvertUtf32ControlCharacters)
         expectResultMatches(actual, testCase);
     }
 }
+
+TEST(TText, WidthCalculates)
+{
+    std::string_view input { "Hello, world!" };
+    EXPECT_EQ(TText::width(input), 13u);
+
+    std::string_view input2 { "ヴィジョン" };
+    EXPECT_EQ(TText::width(input2), 10u);
+}

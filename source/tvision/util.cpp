@@ -1,7 +1,6 @@
 #include <string_view>
 #include <tvision/Menu.h>
 #include <tvision/MenuPopup.h>
-#include <tvision/StringView.h>
 
 /*------------------------------------------------------------------------*/
 /*                                                                        */
@@ -78,7 +77,7 @@ static void autoPlacePopup(TMenuPopup* m, TPoint p)
 class HistRec {
 
 public:
-    HistRec(uchar nId, TStringView nStr) noexcept;
+    HistRec(uchar nId, std::string_view nStr) noexcept;
 
     void* operator new(size_t) noexcept;
     void* operator new(size_t, HistRec*) noexcept;
@@ -96,7 +95,7 @@ void* HistRec::operator new(size_t) noexcept
     return 0;
 }
 
-inline HistRec::HistRec(uchar nId, TStringView nStr) noexcept
+inline HistRec::HistRec(uchar nId, std::string_view nStr) noexcept
     : id(nId)
     , len(nStr.size() + 3)
 {
@@ -136,7 +135,7 @@ void deleteString() noexcept
     lastRec = backup(lastRec, len);
 }
 
-void insertString(uchar id, TStringView str) noexcept
+void insertString(uchar id, std::string_view str) noexcept
 {
     ushort len = str.size() + 3;
     while (len > historySize - ((char*)lastRec - (char*)historyBlock)) {
@@ -168,7 +167,7 @@ ushort historyCount(uchar id) noexcept
     return count;
 }
 
-void historyAdd(uchar id, TStringView str) noexcept
+void historyAdd(uchar id, std::string_view str) noexcept
 {
     if (str.empty())
         return;
@@ -207,7 +206,7 @@ void initHistory() noexcept
 
 void doneHistory() noexcept { ::free(historyBlock); }
 
-char* newStr(TStringView s) noexcept
+char* newStr(std::string_view s) noexcept
 {
     if (s.data() == 0)
         return 0;
@@ -265,22 +264,8 @@ ushort ctrlToArrow(ushort keyCode) noexcept
 /*                                                                        */
 /*------------------------------------------------------------------------*/
 
-int cstrlen(TStringView text) noexcept
+int cstrlen(std::string_view text) noexcept
 {
-    size_t i = 0, width = 0;
-    while (i < text.size()) {
-        if (text[i] != '~')
-            TText::next(text, i, width);
-        else
-            ++i;
-    }
-    return width;
-}
-
-int cstrlen(std::string_view text_stl) noexcept
-{
-    TStringView text(text_stl.data(), text_stl.size());
-
     size_t i = 0, width = 0;
     while (i < text.size()) {
         if (text[i] != '~')
@@ -305,11 +290,9 @@ int cstrlen(std::string_view text_stl) noexcept
 /*                                                                        */
 /*------------------------------------------------------------------------*/
 
-int strwidth(TStringView text) noexcept { return TText::width(text); }
-
 int strwidth(std::string_view text) noexcept { return TText::width(text); }
 
-size_t strnzcpy(char* dest, TStringView src, size_t size) noexcept
+size_t strnzcpy(char* dest, std::string_view src, size_t size) noexcept
 {
     // Same as strlcpy. 'size' is the size of the 'dest' buffer,
     // which is always made null-terminated unless 'size' is zero.
@@ -326,7 +309,7 @@ size_t strnzcpy(char* dest, TStringView src, size_t size) noexcept
     return 0;
 }
 
-size_t strnzcat(char* dest, TStringView src, size_t size) noexcept
+size_t strnzcat(char* dest, std::string_view src, size_t size) noexcept
 {
     // Similar to strlcpy, except that 'dest' is always left null-terminated,
     // and the return value is the length of 'dest'.

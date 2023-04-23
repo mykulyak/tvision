@@ -41,7 +41,7 @@ public:
     void addCrossRef(TCrossRef ref) noexcept;
     void addParagraph(TParagraph* p) noexcept;
     void getCrossRef(int i, TPoint& loc, uchar& length, int& ref) noexcept;
-    TStringView getLine(int line) noexcept;
+    std::string_view getLine(int line) noexcept;
     int getNumCrossRefs() noexcept;
     int numLines() noexcept;
     void setCrossRef(int i, TCrossRef& ref) noexcept;
@@ -54,7 +54,7 @@ public:
     TCrossRef* crossRefs;
 
 private:
-    TStringView wrapText(char* text, int size, int& offset, bool wrap) noexcept;
+    std::string_view wrapText(char* text, int size, int& offset, bool wrap) noexcept;
     void readParagraphs(ipstream& s);
     void readCrossRefs(ipstream& s);
     void writeParagraphs(opstream& s);

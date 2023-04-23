@@ -430,10 +430,10 @@ void opstream::writeString(const char* str)
         writeByte(nullStringLen);
         return;
     }
-    writeString(TStringView(str));
+    writeString(std::string_view(str));
 }
 
-void opstream::writeString(TStringView str)
+void opstream::writeString(std::string_view str)
 {
     writeByte((uchar)str.size());
     writeBytes(str.data(), str.size());

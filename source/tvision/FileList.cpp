@@ -61,7 +61,7 @@ void TFileList::getText(char* dest, short item, short maxChars)
         strcat(dest, "\\");
 }
 
-void TFileList::readDirectory(TStringView dir, TStringView wildCard)
+void TFileList::readDirectory(std::string_view dir, std::string_view wildCard)
 {
     char path[MAXPATH];
     size_t n = strnzcpy(path, dir, MAXPATH);
@@ -79,7 +79,7 @@ struct DirSearchRec : public TSearchRec {
     }
 };
 
-void TFileList::readDirectory(TStringView aWildCard)
+void TFileList::readDirectory(std::string_view aWildCard)
 {
     ffblk s;
     char path[MAXPATH];

@@ -56,7 +56,7 @@ void THelpViewer::draw()
     }
     for (i = 1; i <= size.y; ++i) {
         b.moveChar(0, ' ', normal, size.x);
-        TStringView line = topic->getLine(i + delta.y);
+        std::string_view line = topic->getLine(i + delta.y);
         if (strwidth(line) > delta.x)
             b.moveStr(0, line, normal, size.x, delta.x);
         else

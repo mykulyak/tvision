@@ -15,8 +15,8 @@ public:
     virtual void selectItem(short item);
     virtual void getText(char* dest, short item, short maxLen);
     void newList(TFileCollection* aList);
-    void readDirectory(TStringView dir, TStringView wildCard);
-    void readDirectory(TStringView wildCard);
+    void readDirectory(std::string_view dir, std::string_view wildCard);
+    void readDirectory(std::string_view wildCard);
 
     virtual ushort dataSize();
     virtual void getData(void* rec);

@@ -15,7 +15,7 @@ inline size_t AnsiDisplayBase::Buffer::size() const noexcept { return tail - hea
 
 inline void AnsiDisplayBase::Buffer::clear() noexcept { tail = head; }
 
-inline void AnsiDisplayBase::Buffer::push(TStringView s) noexcept
+inline void AnsiDisplayBase::Buffer::push(std::string_view s) noexcept
 {
     memcpy(tail, s.data(), s.size());
     tail += s.size();
@@ -76,7 +76,7 @@ void AnsiDisplayBase::clearScreen() noexcept
 static char* convertAttributes(const TColorAttr&, TermAttr&, const TermCap&, char*) noexcept;
 
 void AnsiDisplayBase::lowlevelWriteChars(
-    TStringView chars, TColorAttr attr, const TermCap& termcap) noexcept
+    std::string_view chars, TColorAttr attr, const TermCap& termcap) noexcept
 {
     buf.reserve(256);
     buf.tail = convertAttributes(attr, lastAttr, termcap, buf.tail);
@@ -174,7 +174,7 @@ static inline void convertColor(TColorDesired c, TermColor& resultColor,
     resultStyle |= cnv.extraStyle;
 }
 
-static inline void push(char*& p, TStringView text) noexcept
+static inline void push(char*& p, std::string_view text) noexcept
 {
     memcpy(p, text.data(), text.size());
     p += text.size();

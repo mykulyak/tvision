@@ -588,7 +588,7 @@ void addToBuffer(const char* line, bool wrapping)
     ofs = nOfs;
 }
 
-void addXRef(TStringView xRef, int offset, uchar length, TCrossRefNode*& xRefs)
+void addXRef(std::string_view xRef, int offset, uchar length, TCrossRefNode*& xRefs)
 {
     TCrossRefNode *p, *pp, *prev;
 
@@ -663,12 +663,12 @@ void scanForCrossRefs(char* line, int& offset, TCrossRefNode*& xRefs)
                 char* aliasPtr = strfnd(begPtr, &endPtr, aliasCh);
                 if ((aliasPtr == 0) || (aliasPtr > endPtr)) // No alias.
                 {
-                    TStringView xRef(begPtr, endPtr - begPtr);
+                    std::string_view xRef(begPtr, endPtr - begPtr);
                     uchar len = uchar(xRef.size()); // Highlight length matches reference length.
                     addXRef(xRef, (offset + ofs + i), len, xRefs);
                 } else // *aliasPtr == ':'.
                 {
-                    TStringView xRef(aliasPtr + 1, endPtr - (aliasPtr + 1));
+                    std::string_view xRef(aliasPtr + 1, endPtr - (aliasPtr + 1));
                     uchar len = uchar(aliasPtr - begPtr);
                     addXRef(xRef, (offset + ofs + i), len, xRefs);
                     strdel(line, aliasPtr - line, endPtr - aliasPtr); // Remove ':'.

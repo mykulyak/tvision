@@ -403,7 +403,7 @@ static inline uint32_t decode_utf8(uint32_t* state, uint8_t byte) noexcept
     return *state;
 }
 
-static int mbtowc(uint32_t& wc, TStringView text) noexcept
+static int mbtowc(uint32_t& wc, std::string_view text) noexcept
 // Pre: text.size() > 0.
 // Returns n >= 1 if 'text' begins with a UTF-8 multibyte character that's
 // 'n' bytes long, -1 otherwise.
@@ -422,7 +422,7 @@ static int mbtowc(uint32_t& wc, TStringView text) noexcept
     return -1;
 }
 
-static int mblen(TStringView text) noexcept
+static int mblen(std::string_view text) noexcept
 // Pre: text.size() > 0.
 // Returns n >= 1 if 'text' begins with a UTF-8 multibyte character that's
 // 'n' bytes long, -1 otherwise.
@@ -445,7 +445,7 @@ struct mbstat_r {
     int width;
 };
 
-static mbstat_r mbstat(TStringView text) noexcept
+static mbstat_r mbstat(std::string_view text) noexcept
 // Pre: 'text.size() > 0'.
 {
     using namespace tvision;
@@ -489,17 +489,7 @@ int Win32ConsoleStrategy::charWidth(uint32_t wc) noexcept { return WinWidth::wid
 
 } // namespace tvision
 
-size_t TText::width(std::string_view text_stl) noexcept
-{
-    TStringView text(text_stl.data(), text_stl.size());
-
-    size_t i = 0, width = 0;
-    while (TText::next(text, i, width))
-        ;
-    return width;
-}
-
-size_t TText::width(TStringView text) noexcept
+size_t TText::width(std::string_view text) noexcept
 {
     size_t i = 0, width = 0;
     while (TText::next(text, i, width))
@@ -507,7 +497,7 @@ size_t TText::width(TStringView text) noexcept
     return width;
 }
 
-TTextMetrics TText::measure(TStringView text) noexcept
+TTextMetrics TText::measure(std::string_view text) noexcept
 {
     TTextMetrics metrics {};
     size_t i = 0;
@@ -522,14 +512,14 @@ TTextMetrics TText::measure(TStringView text) noexcept
     return metrics;
 }
 
-size_t TText::next(TStringView text) noexcept
+size_t TText::next(std::string_view text) noexcept
 {
     if (text.size())
         return max(ttext::mblen(text), 1);
     return 0;
 }
 
-TText::Lw TText::nextImpl(TStringView text) noexcept
+TText::Lw TText::nextImpl(std::string_view text) noexcept
 {
     if (text.size()) {
         auto mb = ttext::mbstat(text);
@@ -553,7 +543,7 @@ TText::Lw TText::nextImpl(TSpan<const uint32_t> text) noexcept
     return { 0, 0 };
 }
 
-size_t TText::prev(TStringView text, size_t index) noexcept
+size_t TText::prev(std::string_view text, size_t index) noexcept
 {
     if (index) {
         // Try reading backwards character by character, until a valid
@@ -569,7 +559,7 @@ size_t TText::prev(TStringView text, size_t index) noexcept
     return 0;
 }
 
-char TText::toCodePage(TStringView text) noexcept
+char TText::toCodePage(std::string_view text) noexcept
 {
     using namespace tvision;
     size_t length = TText::next(text);
@@ -600,7 +590,7 @@ inline TText::Lw TText::scrollImplT(Text text, int count, bool includeIncomplete
     return { 0, 0 };
 }
 
-TText::Lw TText::scrollImpl(TStringView text, int count, bool includeIncomplete) noexcept
+TText::Lw TText::scrollImpl(std::string_view text, int count, bool includeIncomplete) noexcept
 
 {
     return scrollImplT(text, count, includeIncomplete);
@@ -614,7 +604,7 @@ TText::Lw TText::scrollImpl(TSpan<const uint32_t> text, int count, bool includeI
 
 namespace ttext {
 
-static inline bool isZWJ(TStringView mbc)
+static inline bool isZWJ(std::string_view mbc)
 // We want to avoid printing certain characters which are usually represented
 // differently by different terminal applications or which can combine different
 // characters together, changing the width of a whole string.
@@ -625,7 +615,7 @@ static inline bool isZWJ(TStringView mbc)
 } // namespace ttext
 
 TText::Lw TText::drawOneImpl(
-    TSpan<TScreenCell> cells, size_t i, TStringView text, size_t j) noexcept
+    TSpan<TScreenCell> cells, size_t i, std::string_view text, size_t j) noexcept
 {
     using namespace tvision;
     using namespace ttext;
@@ -650,7 +640,7 @@ TText::Lw TText::drawOneImpl(
                     return { (size_t)mb.length, 1 };
                 }
             } else if (mb.width == 0) {
-                TStringView zwc { &text[j], (size_t)mb.length };
+                std::string_view zwc { &text[j], (size_t)mb.length };
                 // Append to the previous cell, if present.
                 if (i > 0 && !isZWJ(zwc)) {
                     size_t k = i;
@@ -682,7 +672,7 @@ TText::Lw TText::drawOneImpl(
     if (j < textU32.size()) {
         char utf8[4] = {};
         size_t length = utf32To8(textU32[j], utf8);
-        TStringView textU8(utf8, length);
+        std::string_view textU8(utf8, length);
         int width = Platform::charWidth(textU32[j]);
         if (width < 0) {
             if (i < cells.size()) {

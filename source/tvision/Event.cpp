@@ -206,7 +206,7 @@ bool TEventQueue::getPasteEvent(TEvent& ev) noexcept
 {
     if (pasteText) {
         TSpan<char> text(pasteText + pasteTextIndex, pasteTextLength - pasteTextIndex);
-        size_t length = TText::next(text);
+        size_t length = TText::next(std::string_view(text.data(), text.size()));
         if (length > 0) {
             KeyDownEvent keyDown = { { 0x0000 }, kbPaste, { 0 }, (uchar)length };
             ev.what = evKeyDown;

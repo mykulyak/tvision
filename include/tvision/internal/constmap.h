@@ -64,12 +64,12 @@ class const_unordered_map<uint64_t, Value> : public const_unordered_map_base<uin
 
         using super::super;
 
-        constexpr StringAsIntPair(TStringView s, const Value& v) noexcept
+        constexpr StringAsIntPair(std::string_view s, const Value& v) noexcept
             : super(string_as_int<uint64_t>(s), v)
         {
         }
 
-        constexpr StringAsIntPair(TStringView s, Value&& v) noexcept
+        constexpr StringAsIntPair(std::string_view s, Value&& v) noexcept
             : super(string_as_int<uint64_t>(s), std::move(v))
         {
         }
@@ -85,7 +85,7 @@ public:
             static_cast<const typename super::value_type*>(init.end()));
     }
 
-    Value operator[](TStringView key) const noexcept
+    Value operator[](std::string_view key) const noexcept
     {
         return super::operator[](string_as_int<uint64_t>(key));
     }

@@ -16,7 +16,7 @@ public:
     //    virtual void handleEvent( TEvent& );
     virtual bool isSelected(short);
     virtual void selectItem(short item);
-    void newDirectory(TStringView);
+    void newDirectory(std::string_view);
     virtual void setState(ushort aState, bool enable);
 
     TDirCollection* list();

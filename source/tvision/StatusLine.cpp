@@ -80,7 +80,7 @@ void TStatusLine::drawSelect(TStatusItem* selected)
         T = T->next;
     }
     if (i < size.x - 2) {
-        TStringView hintText = hint(helpCtx);
+        std::string_view hintText = hint(helpCtx);
         if (hintText.size()) {
             b.moveStr(i, hintSeparator, cNormal);
             i += 2;

@@ -40,13 +40,13 @@ void TStaticText::draw()
                 ++p;
             }
             i = p;
-            int last = i + TText::scroll(TStringView(&s[i], l - i), size.x, false);
+            int last = i + TText::scroll(std::string_view(&s[i], l - i), size.x, false);
             do {
                 j = p;
                 while ((p < l) && (s[p] == ' '))
                     ++p;
                 while ((p < l) && (s[p] != ' ') && (s[p] != '\n'))
-                    p += TText::next(TStringView(&s[p], l - p));
+                    p += TText::next(std::string_view(&s[p], l - p));
             } while ((p < l) && (p < last) && (s[p] != '\n'));
             if (p > last) {
                 if (j > i)
@@ -54,12 +54,12 @@ void TStaticText::draw()
                 else
                     p = last;
             }
-            int width = strwidth(TStringView(&s[i], p - i));
+            int width = strwidth(std::string_view(&s[i], p - i));
             if (center == true)
                 j = (size.x - width) / 2;
             else
                 j = 0;
-            b.moveStr(j, TStringView(&s[i], l - i), color, (ushort)width);
+            b.moveStr(j, std::string_view(&s[i], l - i), color, (ushort)width);
             while ((p < l) && (s[p] == ' '))
                 p++;
             if ((p < l) && (s[p] == '\n')) {

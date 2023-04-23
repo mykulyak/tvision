@@ -74,7 +74,7 @@ class AnsiDisplayBase {
         char* data() noexcept;
         size_t size() const noexcept;
         void clear() noexcept;
-        void push(TStringView) noexcept;
+        void push(std::string_view) noexcept;
         void push(char) noexcept;
         void reserve(size_t) noexcept;
     };
@@ -97,7 +97,7 @@ protected:
     void clearAttributes() noexcept;
     void clearScreen() noexcept;
 
-    void lowlevelWriteChars(TStringView chars, TColorAttr attr, const TermCap&) noexcept;
+    void lowlevelWriteChars(std::string_view chars, TColorAttr attr, const TermCap&) noexcept;
     void lowlevelMoveCursor(uint x, uint y) noexcept;
     void lowlevelMoveCursorX(uint x, uint y) noexcept;
     void lowlevelFlush() noexcept;
@@ -115,7 +115,7 @@ public:
             "The base class of AnsiDisplay must be a derived of TerminalDisplay.");
     }
 
-    void lowlevelWriteChars(TStringView chars, TColorAttr attr) noexcept override
+    void lowlevelWriteChars(std::string_view chars, TColorAttr attr) noexcept override
     {
         AnsiDisplayBase::lowlevelWriteChars(chars, attr, TerminalDisplay::termcap);
     }

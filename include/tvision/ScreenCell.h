@@ -1,7 +1,6 @@
 #ifndef TVision_ScreenCell_h
 #define TVision_ScreenCell_h
 
-#include <tvision/StringView.h>
 #include <tvision/colors.h>
 #include <tvision/ttypes.h>
 
@@ -27,13 +26,13 @@ struct TCellChar {
     TCellChar() = default;
     inline void moveChar(char ch);
     inline void moveInt(uint32_t mbc, bool wide = false);
-    inline void moveStr(TStringView mbc, bool wide = false);
+    inline void moveStr(std::string_view mbc, bool wide = false);
     inline void moveWideCharTrail();
 
     constexpr inline bool isWide() const;
     constexpr inline bool isWideCharTrail() const;
-    constexpr inline void appendZeroWidth(TStringView mbc);
-    constexpr inline TStringView getText() const;
+    constexpr inline void appendZeroWidth(std::string_view mbc);
+    constexpr inline std::string_view getText() const;
     constexpr inline size_t size() const;
 
     constexpr inline char& operator[](size_t i);
@@ -50,7 +49,7 @@ inline void TCellChar::moveInt(uint32_t mbc, bool wide)
     _flags = -int(wide) & fWide;
 }
 
-inline void TCellChar::moveStr(TStringView mbc, bool wide)
+inline void TCellChar::moveStr(std::string_view mbc, bool wide)
 {
     static_assert(sizeof(_text) >= 4, "");
     if (mbc.size() <= 4) {
@@ -79,7 +78,7 @@ constexpr inline bool TCellChar::isWide() const { return _flags & fWide; }
 
 constexpr inline bool TCellChar::isWideCharTrail() const { return _flags & fTrail; }
 
-constexpr inline void TCellChar::appendZeroWidth(TStringView mbc)
+constexpr inline void TCellChar::appendZeroWidth(std::string_view mbc)
 // Pre: !isWideCharTrail();
 {
     size_t sz = size();
@@ -99,7 +98,7 @@ constexpr inline void TCellChar::appendZeroWidth(TStringView mbc)
     }
 }
 
-constexpr inline TStringView TCellChar::getText() const { return { _text, size() }; }
+constexpr inline std::string_view TCellChar::getText() const { return { _text, size() }; }
 
 constexpr inline size_t TCellChar::size() const
 {

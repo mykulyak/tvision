@@ -24,7 +24,7 @@ ConsoleStrategy& Platform::createConsole() noexcept
     ScreenLifetime& scrl = *new ScreenLifetime;
     InputState& inputState = *new InputState;
     NcursesDisplay* display;
-    if (getEnv<TStringView>("TVISION_DISPLAY") == "ncurses")
+    if (getEnv<std::string>("TVISION_DISPLAY") == "ncurses")
         display = new NcursesDisplay(io);
     else
         display = new AnsiDisplay<NcursesDisplay>(io);

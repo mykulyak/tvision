@@ -160,8 +160,8 @@ void THelpTopic::getCrossRef(int i, TPoint& loc, uchar& length, int& ref) noexce
         ++line;
         if (offset <= paraOffset + curOffset) {
             int refOffset = offset - (paraOffset + lineOffset) - 1;
-            TStringView textBefore(&p->text[lineOffset], refOffset);
-            TStringView refText(&p->text[lineOffset + refOffset], crossRefPtr->length);
+            std::string_view textBefore(&p->text[lineOffset], refOffset);
+            std::string_view refText(&p->text[lineOffset + refOffset], crossRefPtr->length);
             loc.x = strwidth(textBefore);
             loc.y = line;
             length = strwidth(refText);
@@ -176,7 +176,7 @@ void THelpTopic::getCrossRef(int i, TPoint& loc, uchar& length, int& ref) noexce
     } while (true);
 }
 
-TStringView THelpTopic::getLine(int line) noexcept
+std::string_view THelpTopic::getLine(int line) noexcept
 {
     int offset, i;
     TParagraph* p;
@@ -195,7 +195,7 @@ TStringView THelpTopic::getLine(int line) noexcept
     while (p != 0) {
         while (offset < p->size) {
             --line;
-            TStringView lineText = wrapText(p->text, p->size, offset, p->wrap);
+            std::string_view lineText = wrapText(p->text, p->size, offset, p->wrap);
             if (line == 0) {
                 lastOffset = offset;
                 lastParagraph = p;
@@ -205,7 +205,7 @@ TStringView THelpTopic::getLine(int line) noexcept
         p = p->next;
         offset = 0;
     }
-    return TStringView();
+    return std::string_view();
 }
 
 int THelpTopic::getNumCrossRefs() noexcept { return numRefs; }
@@ -322,14 +322,14 @@ static int scan(char* p, int offset, int size, char c) noexcept
     }
 }
 
-TStringView THelpTopic::wrapText(char* text, int size, int& offset, bool wrap) noexcept
+std::string_view THelpTopic::wrapText(char* text, int size, int& offset, bool wrap) noexcept
 {
     int i = scan(text, offset, size, '\n');
     if (i + offset > size)
         i = size - offset;
     if (wrap) {
         size_t l, w;
-        TText::scroll(TStringView(&text[offset], i), width, false, l, w);
+        TText::scroll(std::string_view(&text[offset], i), width, false, l, w);
         if (int(l) < i) {
             int j = l + offset;
             int k = j;
@@ -342,7 +342,7 @@ TStringView THelpTopic::wrapText(char* text, int size, int& offset, bool wrap) n
             i = k - offset;
         }
     }
-    TStringView str(&text[offset], i);
+    std::string_view str(&text[offset], i);
     if (str.size() && str.back() == '\n')
         str = str.substr(0, str.size() - 1);
     offset += i;

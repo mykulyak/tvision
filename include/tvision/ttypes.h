@@ -22,9 +22,6 @@ const char EOS = '\0';
 #include <iosfwd>
 #include <tvision/tobjstrmfwd.h>
 
-class TStringView;
-std::ostream& operator<<(std::ostream&, TStringView);
-
 typedef void* TTimerId;
 
 typedef int ccIndex;

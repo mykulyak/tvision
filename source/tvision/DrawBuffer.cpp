@@ -22,7 +22,7 @@
 
 void TDrawBuffer::moveBuf(ushort indent, const void* source, TColorAttr attr, ushort count) noexcept
 {
-    moveStr(indent, TStringView((const char*)source, count), attr);
+    moveStr(indent, std::string_view((const char*)source, count), attr);
 }
 
 /*------------------------------------------------------------------------*/
@@ -91,7 +91,7 @@ void TDrawBuffer::moveChar(ushort indent, char c, TColorAttr attr, ushort count)
 /*                                                                        */
 /*------------------------------------------------------------------------*/
 
-ushort TDrawBuffer::moveCStr(ushort indent, TStringView str, TAttrPair attrs) noexcept
+ushort TDrawBuffer::moveCStr(ushort indent, std::string_view str, TAttrPair attrs) noexcept
 {
     size_t i = indent, j = 0;
     int toggle = 1;
@@ -134,7 +134,7 @@ ushort TDrawBuffer::moveCStr(ushort indent, TStringView str, TAttrPair attrs) no
 /*------------------------------------------------------------------------*/
 
 ushort TDrawBuffer::moveCStr(
-    ushort indent, TStringView str, TAttrPair attrs, ushort width, ushort begin) noexcept
+    ushort indent, std::string_view str, TAttrPair attrs, ushort width, ushort begin) noexcept
 {
     size_t i = indent, j = 0, w = 0;
     int toggle = 1;
@@ -180,7 +180,7 @@ ushort TDrawBuffer::moveCStr(
 /*                                                                        */
 /*------------------------------------------------------------------------*/
 
-ushort TDrawBuffer::moveStr(ushort indent, TStringView str, TColorAttr attr) noexcept
+ushort TDrawBuffer::moveStr(ushort indent, std::string_view str, TColorAttr attr) noexcept
 {
     if (attr != 0)
         return TText::drawStr(data, indent, str, 0, attr);
@@ -213,7 +213,7 @@ ushort TDrawBuffer::moveStr(ushort indent, TStringView str, TColorAttr attr) noe
 /*------------------------------------------------------------------------*/
 
 ushort TDrawBuffer::moveStr(
-    ushort indent, TStringView str, TColorAttr attr, ushort width, ushort begin) noexcept
+    ushort indent, std::string_view str, TColorAttr attr, ushort width, ushort begin) noexcept
 {
     if (attr != 0)
         return TText::drawStr(data.subspan(0, indent + width), indent, str, begin, attr);
