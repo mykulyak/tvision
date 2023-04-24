@@ -5,7 +5,6 @@
 #include <gpm.h>
 #include <internal/gpminput.h>
 #include <internal/linuxcon.h>
-#include <memory>
 
 namespace tvision {
 
@@ -23,12 +22,14 @@ GpmInput* GpmInput::create() noexcept
     // TERM variable during Gpm_Open so that GPM won't assume it is being
     // ran under xterm (e.g. if TERM=xterm), and 'gpm_fd' won't be -2.
     {
-        std::unique_ptr<char[]> term { newStr(getenv("TERM")) };
-        if (term)
+        std::string term(getenv("TERM"));
+        if (term.size()) {
             unsetenv("TERM");
+        }
         Gpm_Open(&conn, 0);
-        if (term)
-            setenv("TERM", term.get(), 1);
+        if (term.size()) {
+            setenv("TERM", term.c_str(), 1);
+        }
     }
     if (gpm_fd != -1)
         return new GpmInput;

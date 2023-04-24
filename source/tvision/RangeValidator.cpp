@@ -18,10 +18,8 @@ TRangeValidator::TRangeValidator(int32_t aMin, int32_t aMax) noexcept
     , min(aMin)
     , max(aMax)
 {
-    if (aMin >= 0)
-        validChars = newStr(TRangeValidator::validUnsignedChars);
-    else
-        validChars = newStr(TRangeValidator::validSignedChars);
+    validChars
+        = aMin >= 0 ? TRangeValidator::validUnsignedChars : TRangeValidator::validSignedChars;
 }
 
 #ifndef NO_STREAMABLE

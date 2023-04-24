@@ -19,10 +19,8 @@ TMenuItem::TMenuItem(std::string_view aName, ushort aCommand, TKey aKey, ushort 
     disabled = !TView::commandEnabled(command);
     keyCode = aKey;
     helpCtx = aHelpCtx;
-    if (p.empty())
-        param = 0;
-    else
-        param = newStr(p);
+    param = p;
+    subMenu = nullptr;
     next = aNext;
 }
 
@@ -40,10 +38,9 @@ TMenuItem::TMenuItem(
 
 TMenuItem::~TMenuItem()
 {
-    if (command == 0)
+    if (subMenu) {
         delete subMenu;
-    else
-        delete[] (char*)param;
+    }
 }
 
 TMenu::~TMenu()
@@ -517,7 +514,7 @@ TMenu* TMenuView::readMenu(ipstream& is)
             if (item->command == 0)
                 item->subMenu = readMenu(is);
             else
-                item->param = is.readString();
+                item->param = is.readStlString();
         }
         is >> tok;
     }

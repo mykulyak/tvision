@@ -5,6 +5,7 @@
 #include <string_view>
 #include <tvision/CommandCodes.h>
 #include <tvision/Keys.h>
+#include <variant>
 
 class TMenu;
 
@@ -25,10 +26,10 @@ public:
     bool disabled;
     TKey keyCode;
     ushort helpCtx;
-    union {
-        const char* param;
-        TMenu* subMenu;
-    };
+
+    // either of these will be set
+    std::string param;
+    TMenu* subMenu;
 };
 
 TMenuItem& operator+(TMenuItem& i1, TMenuItem& i2) noexcept;
