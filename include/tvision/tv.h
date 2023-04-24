@@ -121,7 +121,6 @@
 #include <tvision/Program.h>
 
 #include <tvision/FileCollection.h>
-#include <tvision/ResourceCollection.h>
 #include <tvision/StringCollection.h>
 
 #include <tvision/FileInfoPane.h>

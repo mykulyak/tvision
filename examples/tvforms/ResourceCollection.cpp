@@ -1,5 +1,5 @@
-#include <tvision/ResourceCollection.h>
-#include <tvision/ResourceItem.h>
+#include "ResourceCollection.h"
+#include "ResourceItem.h"
 #include <tvision/tobjstrm.h>
 
 const char* const TResourceCollection::name = "TResourceCollection";

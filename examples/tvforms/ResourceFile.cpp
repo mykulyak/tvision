@@ -1,5 +1,5 @@
 #include "ResourceFile.h"
-#include <tvision/ResourceItem.h>
+#include "ResourceItem.h"
 
 const int32_t rStreamMagic = 0x52504246uL; // 'FBPR'
 
