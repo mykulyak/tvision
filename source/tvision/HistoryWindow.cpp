@@ -11,7 +11,7 @@ THistInit::THistInit(TListViewer* (*cListViewer)(TRect, TWindow*, ushort)) noexc
 THistoryWindow::THistoryWindow(const TRect& bounds, ushort historyId) noexcept
     : TWindowInit(&THistoryWindow::initFrame)
     , THistInit(&THistoryWindow::initViewer)
-    , TWindow(bounds, 0, wnNoNumber)
+    , TWindow(bounds, "", wnNoNumber)
 {
     flags = wfClose;
     if (createListViewer != 0 && (viewer = createListViewer(getExtent(), this, historyId)) != 0)
