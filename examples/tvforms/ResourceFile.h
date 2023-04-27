@@ -2,24 +2,24 @@
 #define TVision_TVForms_TResourceFile_h
 
 #include <tvision/Object.h>
+#include <tvision/tobjstrm.h>
 
 class TResourceCollection;
-class fpstream;
 
 class TResourceFile : public TObject {
 public:
-    TResourceFile(fpstream* aStream);
+    TResourceFile(const std::string& fileName, pstream::openmode mode);
     ~TResourceFile();
+    bool good() const;
     short count();
     void remove(const char* key);
     void flush();
     void* get(const char* key);
     const char* keyAt(short i);
     void put(TStreamable* item, const char* key);
-    fpstream* switchTo(fpstream* aStream, bool pack);
 
 protected:
-    fpstream* stream;
+    fpstream stream;
     bool modified;
     int32_t basePos;
     int32_t indexPos;

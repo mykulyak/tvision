@@ -10,7 +10,7 @@ class TDataCollection : public TStringCollection {
 public:
     TDataCollection(short, short, int, KeyTypes);
     virtual int compare(void*, void*);
-    virtual void error(int code);
+    virtual void error(int code, ccIndex);
     virtual void freeItem(void*);
     virtual void setLimit(int);
 

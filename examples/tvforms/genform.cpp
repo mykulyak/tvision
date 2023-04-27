@@ -1,6 +1,7 @@
 #include "ResourceFile.h"
 #include "forms.h"
 #include <cstdlib>
+#include <memory>
 #include <tvision/tv.h>
 
 #if defined(PHONENUM)
@@ -17,22 +18,19 @@ int main(void)
 {
     TSortedCollection* collection;
     int i;
-    TForm* f;
     void* p;
-    fpstream* s;
-    TResourceFile* r;
 
     TScreen::clearOnSuspend = false;
 
     std::cout << "Creating  " << rezFileName << "\n";
 
     // Construct stream and resource
-    s = new fpstream(rezFileName, std::ios::out | std::ios::binary);
-    r = new TResourceFile(s);
+    std::unique_ptr<TResourceFile> resFile
+        = std::make_unique<TResourceFile>(rezFileName, std::ios::out | std::ios::binary);
 
     // Form
-    f = makeForm();
-    r->put(f, "FormDialog");
+    std::unique_ptr<TForm> form(makeForm());
+    resFile->put(form.get(), "FormDialog");
 
     // Data
     collection = new TDataCollection((dataCount + 10), 5, sizeof(TDataRec), dataKeyType);
@@ -40,15 +38,14 @@ int main(void)
     for (i = 0; i < dataCount; ++i) {
         p = new TDataRec;
         memset(p, 0, sizeof(TDataRec)); // keep padding bytes initialized
-        f->setData((void*)&data[i]); // move into object
-        f->getData(p); // move onto heap
+        form->setData((void*)&data[i]); // move into object
+        form->getData(p); // move onto heap
         collection->insert(p); // insert in sorted order
     }
-    r->put(collection, "FormData");
+    resFile->put(collection, "FormData");
 
     // Done
-    TObject::destroy(f);
+    form->shutDown();
     TObject::destroy((TCollection*)collection);
-    TObject::destroy(r);
     return 0;
 }

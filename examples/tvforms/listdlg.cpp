@@ -259,7 +259,7 @@ void TListDialog::handleEvent(TEvent& event)
 
         // Keep file from being edited simultaneously by 2 lists
         case cmEditingFile:
-            if (fileName == (char*)event.message.infoPtr) {
+            if (event.message.infoPtr && fileName == (char*)event.message.infoPtr) {
                 clearEvent(event);
             }
             break;
@@ -276,19 +276,19 @@ void TListDialog::handleEvent(TEvent& event)
 bool TListDialog::openDataFile(
     const std::filesystem::path& path, TResourceFile*& dataFile, pstream::openmode mode)
 {
-    fpstream* s = new fpstream(path, mode);
-    dataFile = new TResourceFile(s);
-    if (!s->good()) {
-        destroy(dataFile);
+    std::unique_ptr<TResourceFile> file = std::make_unique<TResourceFile>(path, mode);
+    if (file->good()) {
+        dataFile = file.release();
+        return true;
+    } else {
         dataFile = nullptr;
         return false;
-    } else
-        return true;
+    }
 }
 
 bool TListDialog::saveList()
 {
-    TResourceFile* newDataFile;
+    TResourceFile* newDataFile = 0;
     TForm* form;
     short ccode;
 

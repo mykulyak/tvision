@@ -63,7 +63,7 @@ int TDataCollection::compare(void* key1, void* key2)
     }
 }
 
-void TDataCollection::error(int code)
+void TDataCollection::error(int code, ccIndex)
 // Save error status instead of giving a runtime error
 {
     status = code;

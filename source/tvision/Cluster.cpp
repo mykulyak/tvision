@@ -21,10 +21,11 @@ TCluster::TCluster(const TRect& bounds, TSItem* aStrings) noexcept
     , sel(0)
 {
     options |= ofSelectable | ofFirstClick | ofPreProcess | ofPostProcess;
-    short i = 0;
-    TSItem* p;
-    for (p = aStrings; p != 0; p = p->next)
-        i++;
+
+    TSItem* p = aStrings;
+    while (p) {
+        p = p->next;
+    }
 
     while (aStrings != 0) {
         p = aStrings;
