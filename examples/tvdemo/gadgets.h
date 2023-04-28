@@ -1,6 +1,7 @@
 #ifndef TVision_TVDemo_Gadgets_h
 #define TVision_TVDemo_Gadgets_h
 
+#include <string>
 #include <tvision/tv.h>
 
 class THeapView : public TView {
@@ -11,8 +12,9 @@ public:
     virtual long heapSize();
 
 private:
-    long oldMem, newMem;
-    char heapStr[16];
+    long oldMem;
+    long newMem;
+    std::string heapStr;
 };
 
 class TClockView : public TView {
@@ -22,8 +24,8 @@ public:
     virtual void update();
 
 private:
-    char lastTime[9];
-    char curTime[9];
+    std::string lastTime;
+    std::string curTime;
 };
 
 #endif // TVision_TVDemo_Gadgets_h

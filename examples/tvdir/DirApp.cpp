@@ -66,26 +66,27 @@ bool TDirOutline::isParent(TOutlineViewer*, TNode* cur, int, int, long, ushort, 
 
 void TDirOutline::getCurrentPath(char* buffer, short bufferSize)
 {
-    char temp1[128], temp2[128];
-    TNode* current = getNode(foc);
-    TNode* root = getRoot();
+    std::string temp1;
 
-    temp1[0] = 0;
-    temp1[sizeof(temp1) - 1] = 0;
-    temp2[sizeof(temp2) - 1] = 0;
-    buffer[bufferSize - 1] = 0;
+    TNode* root = getRoot();
+    TNode* current = getNode(foc);
     while (current != root) {
-        strncpy(temp2, temp1, sizeof(temp2) - 1);
-        strncpy(temp1, current->text, sizeof(temp1) - 1);
-        strncat(temp1, sep, sizeof(temp1) - 1);
-        strncat(temp1, temp2, sizeof(temp1) - 1);
+        std::string temp2 = temp1;
+        temp1 = current->text;
+        temp1 += sep;
+        temp1 += temp2;
         current = getParent(current);
     }
-    strncpy(buffer, root->text, bufferSize - 1);
-    char last = buffer[strlen(buffer) - 1];
-    if (last != '/' && last != '\\')
-        strncat(buffer, sep, bufferSize - 1);
-    strncat(buffer, temp1, bufferSize - 1);
+
+    std::string temp3 = root->text;
+    std::string::size_type n = temp3.size();
+    if (temp3[n] != '/' && temp3[n] != '\\') {
+        temp3 += sep;
+    }
+    temp3 += temp1;
+
+    buffer[bufferSize - 1] = 0;
+    strncpy(buffer, temp3.c_str(), bufferSize - 1);
 }
 
 TNode* getDirList(const char* path, QuickMessage* qm = 0)

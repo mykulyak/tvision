@@ -1,6 +1,7 @@
 #ifndef TVision_TOutlineViewer_h
 #define TVision_TOutlineViewer_h
 
+#include <string>
 #include <string_view>
 #include <tvision/Scroller.h>
 
@@ -10,35 +11,29 @@ const int cmOutlineItemSelected = 301;
 
 class TNode {
 public:
-    TNode(std::string_view aText) noexcept;
-    TNode(
-        std::string_view aText, TNode* aChildren, TNode* aNext, bool initialState = true) noexcept;
-    virtual ~TNode();
+    TNode(std::string_view aText) noexcept
+        : next(0)
+        , text(aText)
+        , childList(0)
+        , expanded(true)
+    {
+    }
+
+    TNode(std::string_view aText, TNode* aChildren, TNode* aNext, bool initialState = true) noexcept
+        : next(aNext)
+        , text(aText)
+        , childList(aChildren)
+        , expanded(initialState)
+    {
+    }
+
+    virtual ~TNode() { }
 
     TNode* next;
-    const char* text;
+    std::string text;
     TNode* childList;
     bool expanded;
 };
-
-inline TNode::TNode(std::string_view aText) noexcept
-    : next(0)
-    , text(newStr(aText))
-    , childList(0)
-    , expanded(true)
-{
-}
-
-inline TNode::TNode(
-    std::string_view aText, TNode* aChildren, TNode* aNext, bool initialState) noexcept
-    : next(aNext)
-    , text(newStr(aText))
-    , childList(aChildren)
-    , expanded(initialState)
-{
-}
-
-inline TNode::~TNode() { delete[] (char*)text; }
 
 /* ------------------------------------------------------------------------*/
 /*      class TOutlineViewer                                               */
@@ -54,7 +49,6 @@ class TScrollBar;
 class TOutlineViewer;
 
 // Callback types for TOutlineViewer's traverse functions.
-
 typedef bool (*TOutlineVisitor)(TOutlineViewer*, TNode*, int, int, long, ushort, void*);
 typedef bool (*TOutlineVisitorNoArg)(TOutlineViewer*, TNode*, int, int, long, ushort);
 

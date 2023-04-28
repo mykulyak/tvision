@@ -13,8 +13,6 @@
 /*        4 = Not expanded color                                           */
 /* ------------------------------------------------------------------------*/
 
-class TScrollBar;
-
 class TOutline : public TOutlineViewer {
 public:
     TOutline(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,

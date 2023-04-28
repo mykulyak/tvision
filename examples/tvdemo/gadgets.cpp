@@ -4,14 +4,14 @@
 #include <cstring>
 #include <ctime>
 #include <iomanip>
-#include <strstream>
+#include <sstream>
 #include <tvision/tv.h>
 
 THeapView::THeapView(TRect& r)
     : TView(r)
+    , oldMem(0)
+    , newMem(heapSize())
 {
-    oldMem = 0;
-    newMem = heapSize();
 }
 
 void THeapView::draw()
@@ -34,9 +34,9 @@ void THeapView::update()
 
 long THeapView::heapSize()
 {
-    std::ostrstream totalStr(heapStr, sizeof heapStr);
-
 #if defined(__GLIBC__) && !defined(__UCLIBC__) && !defined(__MUSL__)
+    std::ostringstream totalStr;
+
     // mallinfo is defined in malloc.h but only exists in Glibc.
     // It doesn't exactly measure the heap size, but it kinda does the trick.
     int allocatedBytes =
@@ -49,7 +49,6 @@ long THeapView::heapSize()
     totalStr << std::setw(12) << allocatedBytes << std::ends;
     return allocatedBytes;
 #else
-    totalStr << std::ends;
     return 0;
 #endif
 }
@@ -60,9 +59,9 @@ long THeapView::heapSize()
 
 TClockView::TClockView(TRect& r)
     : TView(r)
+    , lastTime("        ")
+    , curTime("        ")
 {
-    strcpy(lastTime, "        ");
-    strcpy(curTime, "        ");
 }
 
 void TClockView::draw()
@@ -78,13 +77,12 @@ void TClockView::draw()
 void TClockView::update()
 {
     time_t t = time(0);
+
     char* date = ctime(&t);
+    curTime = &date[11]; /* Extract time. */
 
-    date[19] = '\0';
-    strcpy(curTime, &date[11]); /* Extract time. */
-
-    if (strcmp(lastTime, curTime)) {
+    if (lastTime != curTime) {
         drawView();
-        strcpy(lastTime, curTime);
+        lastTime = curTime;
     }
 }
