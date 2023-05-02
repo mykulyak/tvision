@@ -18,6 +18,7 @@ public:
     void makeSelectVisible(int, TPoint&, uchar&, int&);
     void switchToTopic(int);
 
+protected:
     THelpFile* hFile;
     THelpTopic* topic;
     int selected;

@@ -3,7 +3,6 @@
 #include <cstdlib>
 #include <cstring>
 #include <iomanip>
-#include <strstream>
 #include <tvision/tv.h>
 
 #define cpMousePalette "\x07\x08"

@@ -3,13 +3,7 @@
 
 const int32_t magicHeader = 0x46484246L; //"FBHF"
 
-#define cHelpViewer "\x06\x07\x08"
-#define cHelpWindow "\x80\x81\x82\x83\x84\x85\x86\x87"
-
-// TParagraph
-
 class TParagraph {
-
 public:
     TParagraph() noexcept { }
     TParagraph* next;
@@ -18,10 +12,7 @@ public:
     char* text;
 };
 
-// TCrossRef
-
 class TCrossRef {
-
 public:
     TCrossRef() noexcept { }
     int ref;
@@ -32,7 +23,6 @@ public:
 typedef void (*TCrossRefHandler)(opstream&, int);
 
 class THelpTopic : public TObject, public TStreamable {
-
 public:
     THelpTopic() noexcept;
     THelpTopic(StreamableInit) noexcept {};
@@ -116,7 +106,6 @@ inline opstream& operator<<(opstream& os, THelpIndex* cl) { return os << (TStrea
 // THelpFile
 
 class THelpFile : public TObject {
-
     static const char* invalidContext;
 
 public:

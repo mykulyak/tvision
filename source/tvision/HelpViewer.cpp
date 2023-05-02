@@ -2,7 +2,7 @@
 
 #pragma warn - dsz
 
-// THelpViewer
+#define cHelpViewer "\x06\x07\x08"
 
 THelpViewer::THelpViewer(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,
     THelpFile* aHelpFile, ushort context) noexcept

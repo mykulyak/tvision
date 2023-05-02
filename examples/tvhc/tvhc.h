@@ -1,27 +1,10 @@
 #ifndef __TVHC_H
 #define __TVHC_H
 
-#include <dir.h>
 #include <string>
+#include <string_view>
 #include <tvision/HelpFile.h>
 #include <tvision/tv.h>
-
-const int MAXSTRSIZE = 256;
-const int MAXHELPTOPICID = 16379;
-const char commandChar[] = ".";
-
-enum State { undefined, wrapping, notWrapping };
-
-class TProtectedStream : public std::fstream {
-public:
-    typedef std::ios::openmode openmode;
-
-    TProtectedStream(const std::string& aFileName, openmode aMode);
-
-protected:
-    std::string fileName;
-    openmode mode;
-};
 
 struct TFixUp {
     std::streampos pos;
@@ -34,13 +17,12 @@ union Content {
 };
 
 struct TReference {
-    char* topic;
+    std::string topic;
     bool resolved;
     Content val;
 };
 
 class TRefTable : public TSortedCollection {
-
 public:
     TRefTable(ccIndex aLimit, ccIndex aDelta);
 
@@ -55,19 +37,18 @@ private:
 };
 
 struct TCrossRefNode {
-    char* topic;
+    std::string topic;
     int offset;
     uchar length;
     TCrossRefNode* next;
 };
 
 class TTopicDefinition : public TObject {
-
 public:
-    TTopicDefinition(const char* aTopic, uint aValue);
-    ~TTopicDefinition(void);
+    TTopicDefinition(std::string_view aTopic, uint aValue);
+    ~TTopicDefinition();
 
-    char* topic;
+    std::string topic;
     uint value;
     TTopicDefinition* next;
 };

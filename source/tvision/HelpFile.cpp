@@ -476,16 +476,13 @@ THelpFile::~THelpFile(void)
         *stream << size;
         *stream << indexPos;
     }
-    delete stream;
     delete index;
 }
 
 THelpTopic* THelpFile::getTopic(int i)
 {
-    int32_t pos;
-    THelpTopic* topic = 0;
-
-    pos = index->position(i);
+    THelpTopic* topic = nullptr;
+    int32_t pos = index->position(i);
     if (pos > 0) {
         stream->seekg(pos);
         *stream >> topic;
@@ -496,15 +493,12 @@ THelpTopic* THelpFile::getTopic(int i)
 
 THelpTopic* THelpFile::invalidTopic()
 {
-    THelpTopic* topic;
-    TParagraph* para;
-
-    topic = new THelpTopic;
-    para = new TParagraph;
+    THelpTopic* topic = new THelpTopic;
+    TParagraph* para = new TParagraph;
     para->text = newStr(invalidContext);
     para->size = strlen(invalidContext);
     para->wrap = false;
-    para->next = 0;
+    para->next = nullptr;
     topic->addParagraph(para);
     return topic;
 }

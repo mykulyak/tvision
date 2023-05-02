@@ -88,17 +88,27 @@
 /*                                                                       */
 /*    Lines starting with ';' are skipped.                               */
 /*=======================================================================*/
-#include <strstream>
+#include <filesystem>
+#include <sstream>
 #include <tvision/tv.h>
 
 #include "tvhc.h"
+
+namespace fs = std::filesystem;
+
+const int MAXSTRSIZE = 256;
+const int MAXHELPTOPICID = 16379;
+const char commandChar[] = ".";
+
+enum State { undefined, wrapping, notWrapping };
 
 /*
  * Help compiler global variables.
  */
 int ofs;
 int bufferSize = 0;
-char textName[MAXPATH];
+fs::path textName;
+// char textName[MAXPATH];
 uchar* buffer = 0;
 TCrossRefNode* xRefs;
 TRefTable* refTable = 0;
@@ -109,67 +119,35 @@ int lineCount = 0;
 #define HELPFILE_EXT ".h32"
 #define TARGET "(32 bit)"
 
-//======================= File Management ===============================//
+//========================= Error routines ==============================//
 
-TProtectedStream::TProtectedStream(const std::string& aFileName, openmode aMode)
-    : std::fstream(aFileName, aMode)
-    , fileName(aFileName)
-    , mode(aMode)
-{
-}
-
-void error(const char* text);
-void warning(const char* text);
-
-//----- copyPath(dest, src, size) ---------------------------------------//
-//  Safely copies a path or terminates on error.                         //
+//----- prntMsg(text) ---------------------------------------------------//
+//  Used by Error and Warning to print the message.                      //
 //-----------------------------------------------------------------------//
 
-void copyPath(char* dest, const char* src, size_t size)
+void prntMsg(std::string_view pref, std::string_view text)
 {
-    if (strnzcpy(dest, src, size) < strlen(src)) {
-        std::cerr << "Path too long (" << strlen(src) << " > " << size << "): \"" << src << "\""
-                  << std::endl;
-        exit(1);
-    }
-}
-
-//----- replaceExt(fileName, nExt, force) -------------------------------//
-//  Replace the extension of the given file with the given extension.    //
-//  If an extension already exists Force indicates if it should be       //
-//  replaced anyway.                                                     //
-//-----------------------------------------------------------------------//
-
-const char* replaceExt(const char* fileName, const char* nExt, bool force)
-{
-    char dir[MAXPATH];
-    char name[MAXFILE];
-    char ext[MAXEXT];
-    char drive[MAXDRIVE];
-    static char buffer[MAXPATH] = { 0 };
-    std::ostrstream os(buffer, MAXPATH - 1);
-
-    fnsplit(fileName, drive, dir, name, ext);
-    if (force || (strlen(ext) == 0)) {
-        os << dir << name << nExt << std::ends;
-        return os.str();
-    } else
-        return fileName;
-}
-
-//----- fExist(fileName) ------------------------------------------------/
-//  Returns true if the file exists false otherwise.                     /
-//-----------------------------------------------------------------------/
-
-bool fExists(const char* fileName)
-{
-    struct ffblk ffblk;
-
-    if (findfirst(fileName, &ffblk, 0))
-        return (false);
+    if (lineCount > 0)
+        std::cerr << pref << ": " << textName << "(" << lineCount << "): " << text << "\n";
     else
-        return (true);
+        std::cerr << pref << ": " << textName << " " << text << "\n";
 }
+
+//----- error(text) -----------------------------------------------------//
+//  Used to indicate an error.  Terminates the program                   //
+//-----------------------------------------------------------------------//
+
+void error(std::string_view text)
+{
+    prntMsg("Error", text);
+    exit(1);
+}
+
+//----- warning(text) ---------------------------------------------------//
+//  Used to indicate an warning.                                         //
+//-----------------------------------------------------------------------//
+
+void warning(std::string_view text) { prntMsg("Warning", text); }
 
 //----- isComment(line) -------------------------------------------------//
 //  Checks if line contains a comment.                                   //
@@ -200,10 +178,10 @@ char* getLine(std::fstream& s)
             // Detect truncation.
             if ((s.rdstate() & (std::ios::failbit | std::ios::eofbit)) == std::ios::failbit) {
                 if (!isComment(line)) {
-                    char buf[MAXSTRSIZE] = { 0 };
-                    std::ostrstream os(buf, sizeof(buf) - 1);
+                    std::ostringstream os;
                     os << "Line longer than " << (sizeof(line) - 1) << " characters.";
-                    warning(os.str());
+                    std::string s = os.str();
+                    warning(s);
                 }
                 // Read the rest of the line.
                 do {
@@ -230,36 +208,6 @@ void unGetLine(const char* s)
     lineInBuffer = true;
     --lineCount;
 }
-
-//========================= Error routines ==============================//
-
-//----- prntMsg(text) ---------------------------------------------------//
-//  Used by Error and Warning to print the message.                      //
-//-----------------------------------------------------------------------//
-
-void prntMsg(const char* pref, const char* text)
-{
-    if (lineCount > 0)
-        std::cerr << pref << ": " << textName << "(" << lineCount << "): " << text << "\n";
-    else
-        std::cerr << pref << ": " << textName << " " << text << "\n";
-}
-
-//----- error(text) -----------------------------------------------------//
-//  Used to indicate an error.  Terminates the program                   //
-//-----------------------------------------------------------------------//
-
-void error(const char* text)
-{
-    prntMsg("Error", text);
-    exit(1);
-}
-
-//----- warning(text) ---------------------------------------------------//
-//  Used to indicate an warning.                                         //
-//-----------------------------------------------------------------------//
-
-void warning(const char* text) { prntMsg("Warning", text); }
 
 //====================== Topic Reference Management =====================//
 
@@ -307,7 +255,6 @@ void TRefTable::freeItem(void* item)
     ref = (TReference*)item;
     if (ref->resolved == false)
         disposeFixUps(ref->val.fixUpList);
-    delete ref->topic;
     delete ref;
 }
 
@@ -320,7 +267,7 @@ TReference* TRefTable::getReference(const char* topic)
         ref = (TReference*)at(i);
     else {
         ref = new TReference;
-        ref->topic = newStr(topic);
+        ref->topic = topic;
         ref->resolved = false;
         ref->val.fixUpList = 0;
         insert(ref);
@@ -328,7 +275,7 @@ TReference* TRefTable::getReference(const char* topic)
     return (ref);
 }
 
-void* TRefTable::keyOf(void* item) { return (((TReference*)item)->topic); }
+void* TRefTable::keyOf(void* item) { return (((TReference*)item)->topic).data(); }
 
 //----- initRefTable ---------------------------------------------------//
 //  Make sure the reference table is initialized.                       //
@@ -388,9 +335,8 @@ void resolveReference(const char* topic, uint value, iopstream& s)
     initRefTable();
     ref = refTable->getReference(topic);
     if (ref->resolved) {
-        char bufStr[MAXSTRSIZE] = "Redefinition of ";
-        strncat(bufStr, ref->topic, MAXSTRSIZE - 1);
-        error(bufStr);
+        std::string bufStr("Redefinition of " + ref->topic);
+        error(bufStr.c_str());
     } else {
         doFixUps(ref->val.fixUpList, value, s);
         disposeFixUps(ref->val.fixUpList);
@@ -451,62 +397,54 @@ const char* getWord(const char* line, int& i)
 //  Extracts the next topic definition from the given line at i.        //
 //----------------------------------------------------------------------//
 
-TTopicDefinition::TTopicDefinition(const char* aTopic, uint aValue)
+TTopicDefinition::TTopicDefinition(std::string_view aTopic, uint aValue)
+    : topic(aTopic)
+    , value(aValue)
+    , next(nullptr)
 {
-    topic = newStr(aTopic);
-    value = aValue;
-    next = 0;
 }
 
 TTopicDefinition::~TTopicDefinition()
 {
-    delete[] topic;
-    if (next != 0)
+    if (next != 0) {
         delete next;
-}
-
-int is_numeric(const char* str)
-{
-    int len = strlen(str);
-
-    for (int i = 0; i < len; ++i)
-        if (!isdigit(str[i]))
-            return 0;
-    return 1;
+    }
 }
 
 TTopicDefinition* topicDefinition(const char* line, int& i)
 {
     int j;
-    char topic[MAXSTRSIZE], w[MAXSTRSIZE], *endptr;
+    std::string topic;
+    std::string w;
+    char* endptr;
     static unsigned helpCounter = 2; // 1 is hcDragging
 
-    strnzcpy(topic, getWord(line, i), sizeof(topic));
-    if (strlen(topic) == 0) {
+    topic += getWord(line, i);
+    if (!topic.size()) {
         error("Expected topic definition");
-        return (0);
+        return nullptr;
     } else {
         j = i;
-        strnzcpy(w, getWord(line, j), sizeof(w));
-        if (strcmp(w, "=") == 0) {
+        w += getWord(line, j);
+
+        if (w == "=") {
             i = j;
-            strnzcpy(w, getWord(line, i), sizeof(w));
-            if (!is_numeric(w))
+            w += getWord(line, i);
+            if (std::find_if(w.cbegin(), w.cend(), [](auto el) { return isdigit(el); }) == w.cend())
                 error("Expected numeric");
             else
-                helpCounter = (int)strtol(w, &endptr, 10);
+                helpCounter = (int)strtol(w.c_str(), &endptr, 10);
         } else
             ++helpCounter;
 
         if (helpCounter > MAXHELPTOPICID) {
-            char buf[MAXSTRSIZE] = { 0 };
-            std::ostrstream os(buf, sizeof(buf) - 1);
+            std::ostringstream os;
 
             os << "Topic id for topic '" << topic << "' exceeds limit of " << MAXHELPTOPICID
                << std::ends;
 
-            error(buf);
-            return 0;
+            error(os.str());
+            return nullptr;
         }
 
         return (new TTopicDefinition(topic, helpCounter));
@@ -593,7 +531,7 @@ void addXRef(std::string_view xRef, int offset, uchar length, TCrossRefNode*& xR
     TCrossRefNode *p, *pp, *prev;
 
     p = new TCrossRefNode;
-    p->topic = newStr(xRef);
+    p->topic = xRef;
     p->offset = offset;
     p->length = length;
     p->next = 0;
@@ -724,7 +662,7 @@ TParagraph* readParagraph(std::fstream& textFile, int& offset, TCrossRefNode*& x
 
     if (isEndParagraph(state) == true) {
         unGetLine(line);
-        return (0);
+        return nullptr;
     }
     while (isEndParagraph(state) == false) {
         if (state == undefined) {
@@ -758,7 +696,7 @@ void handleCrossRefs(opstream& s, int xRefValue)
             p = p->next;
     }
     if (p != 0)
-        recordReference(p->topic, s);
+        recordReference(p->topic.c_str(), s);
 }
 
 void skipBlankLines(std::fstream& s)
@@ -789,7 +727,6 @@ void disposeXRefs(TCrossRefNode* p)
     while (p != 0) {
         q = p;
         p = p->next;
-        delete[] q->topic;
         delete q;
     }
 }
@@ -797,7 +734,7 @@ void disposeXRefs(TCrossRefNode* p)
 void recordTopicDefinitions(TTopicDefinition* p, THelpFile& helpFile)
 {
     while (p != 0) {
-        resolveReference(p->topic, p->value, *(helpFile.stream));
+        resolveReference(p->topic.c_str(), p->value, *(helpFile.stream));
         helpFile.recordPositionInIndex(p->value);
         p = p->next;
     }
@@ -809,10 +746,7 @@ void recordTopicDefinitions(TTopicDefinition* p, THelpFile& helpFile)
 
 void readTopic(std::fstream& textFile, THelpFile& helpFile)
 {
-    TParagraph* p;
-    THelpTopic* topic;
-    TTopicDefinition* topicDef;
-    int i, j, offset;
+    int i, j;
     TCrossRef ref;
     TCrossRefNode* refNode;
 
@@ -820,15 +754,14 @@ void readTopic(std::fstream& textFile, THelpFile& helpFile)
     skipBlankLines(textFile);
     strnzcpy(line, getLine(textFile), sizeof(line));
 
-    topicDef = topicHeader(line);
-
-    topic = new THelpTopic;
+    TTopicDefinition* topicDef = topicHeader(line);
+    THelpTopic* topic = new THelpTopic;
 
     // read paragraphs
-    xRefs = 0;
-    offset = 0;
-    p = readParagraph(textFile, offset, xRefs);
-    while (p != 0) {
+    xRefs = nullptr;
+    int offset = 0;
+    TParagraph* p = readParagraph(textFile, offset, xRefs);
+    while (p != nullptr) {
         topic->addParagraph(p);
         p = readParagraph(textFile, offset, xRefs);
     }
@@ -858,79 +791,54 @@ void readTopic(std::fstream& textFile, THelpFile& helpFile)
     skipBlankLines(textFile);
 }
 
-void doWriteSymbol(void* p, void* p1)
+void writeSymbolFile(const fs::path& path)
 {
-    int numBlanks, i;
-    std::ostrstream os(line, sizeof(line) - 1);
+    std::fstream symbFile(path, std::ios::out);
 
-    TProtectedStream* symbFile = (TProtectedStream*)p1;
-    if (((TReference*)p)->resolved) {
-        os << "\n  hc" << (char*)((TReference*)p)->topic;
-        numBlanks = 20 - strlen((char*)((TReference*)p)->topic);
-        for (i = 0; i < numBlanks; ++i)
-            os << ' ';
-        os << " = " << ((TReference*)p)->val.value << "," << std::ends;
-        *symbFile << os.str();
-    } else {
-        os << "Unresolved forward reference \"" << ((TReference*)p)->topic << "\"" << std::ends;
-        warning(os.str());
+    symbFile << "const int";
+    bool firstItem = true;
+    for (int i = 0; i < refTable->getCount(); ++i) {
+        const TReference* ref = reinterpret_cast<const TReference*>(refTable->at(i));
+        if (ref->resolved) {
+            if (firstItem) {
+                firstItem = false;
+            } else {
+                symbFile << ",";
+            }
+            symbFile << "\n  hc" << ref->topic << " = " << ref->val.value;
+        } else {
+            std::ostringstream os;
+            os << "Unresolved forward reference \"" << ref->topic << "\"" << std::ends;
+            warning(os.str());
+        }
     }
+    symbFile.seekp(-1L, std::ios::end);
+    symbFile << ";\n";
 }
 
-//---- writeSymbFile ---------------------------------------------------//
-// Write the .H file containing all screen titles as constants.         //
-//----------------------------------------------------------------------//
-
-void writeSymbFile(TProtectedStream* symbFile)
+fs::path makePath(const fs::path& path, const char* ext, bool force)
 {
-    char header1[] = "const int";
-
-    *symbFile << header1;
-    refTable->forEach(doWriteSymbol, symbFile);
-    symbFile->seekp(-1L, std::ios::end);
-    *symbFile << ";\n";
+    fs::path fName = path;
+    if (force || fName.extension().empty() || fName.extension() == ".") {
+        fName.replace_extension(ext);
+    }
+    return fName;
 }
 
-//---- processtext -----------------------------------------------------//
-// Compile the given stream, and output a help file.                    //
-//----------------------------------------------------------------------//
-
-void processText(TProtectedStream& textFile, iopstream& helpFile, TProtectedStream& symbFile)
+void checkOverwrite(const fs::path& path)
 {
-    THelpFile* helpRez;
-
-    helpRez = new THelpFile(helpFile);
-
-    while (!textFile.eof())
-        readTopic(textFile, *helpRez);
-    writeSymbFile(&symbFile);
-    delete helpRez;
-}
-
-//---- checkOverwrite --------------------------------------------------//
-// Check whether the output file name exists.  If it does, ask whether  //
-// it's ok to overwrite it.                                             //
-//----------------------------------------------------------------------//
-
-void checkOverwrite(const char* fName)
-{
-    if (fExists(fName)) {
-        std::cerr << "File already exists: " << fName << ".  Overwrite? (y/n) ";
+    if (fs::exists(path)) {
+        std::cerr << "File already exists: " << path << ".  Overwrite? (y/n) ";
         char ch;
-        if (scanf(" %c", &ch) != 1 || toupper(ch) != 'Y')
+        std::cin >> ch;
+        if (ch != 'y' && ch != 'Y') {
             exit(1);
+        }
     }
 }
-
-//========================== Program Block ==========================//
 
 int main(int argc, char** argv)
 {
-    char helpName[MAXPATH];
-    char symbName[MAXPATH];
-    fpstream* helpStrm;
-
-    // Banner messages
     char initialText[] = "Help Compiler " TARGET "  Version 2.0  Copyright (c) 1994"
                          " Borland International.\n";
     char helpText[]
@@ -946,31 +854,27 @@ int main(int argc, char** argv)
         exit(1);
     }
 
-    //  Calculate file names
-    copyPath(textName, replaceExt(argv[1], ".txt", false), sizeof(textName));
-    if (!fExists(textName)) {
+    textName = makePath(argv[1], ".txt", false);
+    if (!fs::exists(textName)) {
         std::cerr << "Error: File '" << textName << "' not found." << std::endl;
         exit(1);
     }
 
-    if (argc >= 3)
-        copyPath(helpName, replaceExt(argv[2], HELPFILE_EXT, false), sizeof(helpName));
-    else
-        copyPath(helpName, replaceExt(textName, HELPFILE_EXT, true), sizeof(helpName));
-
+    fs::path helpName = makePath(argc >= 3 ? argv[2] : textName, HELPFILE_EXT, argc < 3);
     checkOverwrite(helpName);
 
-    if (argc >= 4)
-        copyPath(symbName, replaceExt(argv[3], ".h", false), sizeof(symbName));
-    else
-        copyPath(symbName, replaceExt(helpName, ".h", true), sizeof(symbName));
-
+    fs::path symbName = makePath(argc >= 4 ? argv[3] : textName, ".h", argc < 4);
     checkOverwrite(symbName);
 
-    TProtectedStream textStrm(textName, std::ios::in);
-    TProtectedStream symbStrm(symbName, std::ios::out);
+    fpstream helpStrm(helpName, std::ios::out | std::ios::binary);
+    THelpFile helpRez(helpStrm);
 
-    helpStrm = new fpstream(helpName, std::ios::out | std::ios::binary);
-    processText(textStrm, *helpStrm, symbStrm);
+    std::fstream textStrm(textName, std::ios::in);
+    while (!textStrm.eof()) {
+        readTopic(textStrm, helpRez);
+    }
+
+    writeSymbolFile(symbName);
+
     return 0;
 }

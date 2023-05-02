@@ -2,8 +2,7 @@
 #include "tvcmds.h"
 #include <iomanip>
 #include <iostream>
-#include <strstream>
-#include <tvision/tv.h>
+#include <sstream>
 
 __link(RWindow);
 
@@ -104,12 +103,13 @@ void TEventViewer::handleEvent(TEvent& ev)
 static void printConstants(std::ostream& out, ushort value, void (&doPrint)(std::ostream&, ushort))
 {
     out << std::hex << std::setfill('0') << "0x" << std::setw(4) << value;
-    char buf[256];
-    std::ostrstream os(buf, sizeof(buf));
+    std::ostringstream os;
     doPrint(os, value);
     os << std::ends;
-    if (buf[0] != '0')
+    std::string buf = os.str();
+    if (buf[0] != '0') {
         out << " (" << buf << ")";
+    }
     out << std::dec;
 }
 

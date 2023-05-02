@@ -1,6 +1,8 @@
 #include <tvision/HelpViewer.h>
 #include <tvision/HelpWindow.h>
 
+#define cHelpWindow "\x80\x81\x82\x83\x84\x85\x86\x87"
+
 const char* THelpWindow::helpWinTitle = "Help";
 
 THelpWindow::THelpWindow(THelpFile* hFile, ushort context) noexcept

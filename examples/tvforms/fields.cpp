@@ -1,7 +1,7 @@
 #include "fields.h"
 #include <cstdlib>
 #include <cstring>
-#include <strstream>
+#include <sstream>
 #include <tvision/tv.h>
 
 __link(RInputLine);
@@ -81,8 +81,7 @@ bool TNumInputLine::valid(ushort command)
 {
     int32_t value;
     bool ok;
-    char msg[80];
-    std::ostrstream os(msg, 80);
+    std::ostringstream os;
 
     ok = true;
     if ((command != cmCancel) && (command != cmValid)) {

@@ -4,7 +4,6 @@
 #include <cstring>
 #include <ctime>
 #include <iomanip>
-#include <strstream>
 #include <tvision/tv.h>
 
 __link(RView);
