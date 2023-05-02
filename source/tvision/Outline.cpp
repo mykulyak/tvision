@@ -1,6 +1,16 @@
 #include <tvision/Outline.h>
 #include <tvision/tobjstrm.h>
 
+/* ------------------------------------------------------------------------*/
+/*      class TOutline                                                     */
+/*                                                                         */
+/*      Palette layout                                                     */
+/*        1 = Normal color                                                 */
+/*        2 = Focus color                                                  */
+/*        3 = Select color                                                 */
+/*        4 = Not expanded color                                           */
+/* ------------------------------------------------------------------------*/
+
 #define cpOutlineViewer "\x6\x7\x3\x8"
 
 const char* const TOutline::name = "TOutline";

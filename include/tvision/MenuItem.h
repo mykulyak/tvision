@@ -18,7 +18,7 @@ public:
 
     ~TMenuItem();
 
-    void append(TMenuItem* aNext) noexcept;
+    inline void append(TMenuItem* aNext) noexcept { next = aNext; }
 
     TMenuItem* next;
     std::string name;
@@ -33,8 +33,6 @@ public:
 };
 
 TMenuItem& operator+(TMenuItem& i1, TMenuItem& i2) noexcept;
-
-inline void TMenuItem::append(TMenuItem* aNext) noexcept { next = aNext; }
 
 inline TMenuItem& newLine() noexcept { return *new TMenuItem("", 0, 0, hcNoContext, "", 0); }
 

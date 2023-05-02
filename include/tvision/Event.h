@@ -13,7 +13,6 @@ struct MouseEventType {
 };
 
 class THWMouse {
-
 protected:
     THWMouse() noexcept;
     THWMouse(const THWMouse&) noexcept {};
@@ -26,11 +25,13 @@ public:
 protected:
     static void setRange(ushort, ushort) noexcept;
     static void getEvent(MouseEventType&) noexcept;
-    static bool present() noexcept;
+
+    static bool present() noexcept { return bool(buttonCount != 0); }
 
     static void suspend() noexcept;
     static void resume() noexcept;
-    static void inhibit() noexcept;
+
+    static void inhibit() noexcept { noMouse = true; }
 
 protected:
     static uchar buttonCount;
@@ -40,36 +41,21 @@ private:
     static bool noMouse;
 };
 
-inline bool THWMouse::present() noexcept { return bool(buttonCount != 0); }
-
-inline void THWMouse::inhibit() noexcept { noMouse = true; }
-
 class TMouse : public THWMouse {
-
 public:
     TMouse() noexcept;
     ~TMouse();
 
-    static void show() noexcept;
-    static void hide() noexcept;
+    static void show() noexcept { THWMouse::show(); }
+    static void hide() noexcept { THWMouse::hide(); }
 
-    static void setRange(ushort, ushort) noexcept;
-    static void getEvent(MouseEventType&) noexcept;
-    static bool present() noexcept;
+    static void setRange(ushort rx, ushort ry) noexcept { THWMouse::setRange(rx, ry); }
+    static void getEvent(MouseEventType& me) noexcept { THWMouse::getEvent(me); }
+    static bool present() noexcept { return THWMouse::present(); }
 
     static void suspend() noexcept { THWMouse::suspend(); }
     static void resume() noexcept { THWMouse::resume(); }
 };
-
-inline void TMouse::show() noexcept { THWMouse::show(); }
-
-inline void TMouse::hide() noexcept { THWMouse::hide(); }
-
-inline void TMouse::setRange(ushort rx, ushort ry) noexcept { THWMouse::setRange(rx, ry); }
-
-inline void TMouse::getEvent(MouseEventType& me) noexcept { THWMouse::getEvent(me); }
-
-inline bool TMouse::present() noexcept { return THWMouse::present(); }
 
 struct CharScanType {
     uchar charCode;
@@ -85,13 +71,10 @@ struct KeyDownEvent {
     char text[4]; // NOT null-terminated.
     uchar textLength;
 
-    std::string_view getText() const;
-    operator TKey() const;
+    std::string_view getText() const { return std::string_view(text, textLength); }
+
+    operator TKey() const { return TKey(keyCode, controlKeyState); }
 };
-
-inline std::string_view KeyDownEvent::getText() const { return std::string_view(text, textLength); }
-
-inline KeyDownEvent::operator TKey() const { return TKey(keyCode, controlKeyState); }
 
 struct MessageEvent {
     ushort command;

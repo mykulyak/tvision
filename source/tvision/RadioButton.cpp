@@ -1,6 +1,16 @@
 #include <tvision/RadioButtons.h>
 #include <tvision/tobjstrm.h>
 
+/* ---------------------------------------------------------------------- */
+/*      class TRadioButtons                                               */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*        1 = Normal text                                                 */
+/*        2 = Selected text                                               */
+/*        3 = Normal shortcut                                             */
+/*        4 = Selected shortcut                                           */
+/* ---------------------------------------------------------------------- */
+
 const char* const TRadioButtons::name = "TRadioButtons";
 
 const char* TRadioButtons::button = " ( ) ";

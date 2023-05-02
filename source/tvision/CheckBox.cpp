@@ -1,6 +1,16 @@
 #include <tvision/CheckBoxes.h>
 #include <tvision/tobjstrm.h>
 
+/* ---------------------------------------------------------------------- */
+/*      TCheckBoxes                                                       */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*        1 = Normal text                                                 */
+/*        2 = Selected text                                               */
+/*        3 = Normal shortcut                                             */
+/*        4 = Selected shortcut                                           */
+/* ---------------------------------------------------------------------- */
+
 const char* const TCheckBoxes::name = "TCheckBoxes";
 
 const char* TCheckBoxes::button = " [ ] ";

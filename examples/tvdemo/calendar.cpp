@@ -1,6 +1,9 @@
 #include "calendar.h"
 #include <sstream>
 
+#define loByte(w) (((uchar*)&w)[0])
+#define hiByte(w) (((uchar*)&w)[1])
+
 __link(RView);
 __link(RWindow);
 

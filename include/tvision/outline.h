@@ -3,16 +3,6 @@
 
 #include <tvision/OutlineViewer.h>
 
-/* ------------------------------------------------------------------------*/
-/*      class TOutline                                                     */
-/*                                                                         */
-/*      Palette layout                                                     */
-/*        1 = Normal color                                                 */
-/*        2 = Focus color                                                  */
-/*        3 = Select color                                                 */
-/*        4 = Not expanded color                                           */
-/* ------------------------------------------------------------------------*/
-
 class TOutline : public TOutlineViewer {
 public:
     TOutline(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,
@@ -35,7 +25,11 @@ protected:
     virtual void* read(ipstream&);
     virtual void writeNode(TNode*, opstream&);
     virtual TNode* readNode(ipstream&);
-    TOutline(StreamableInit) noexcept;
+
+    TOutline(StreamableInit s) noexcept
+        : TOutlineViewer(s)
+    {
+    }
 
 public:
     static TStreamable* build();
@@ -44,11 +38,6 @@ public:
 private:
     virtual const char* streamableName() const { return name; }
 };
-
-inline TOutline::TOutline(StreamableInit s) noexcept
-    : TOutlineViewer(s)
-{
-}
 
 inline ipstream& operator>>(ipstream& is, TOutline& o) { return is >> (TStreamable&)o; }
 inline ipstream& operator>>(ipstream& is, TOutline*& o) { return is >> (void*&)o; }

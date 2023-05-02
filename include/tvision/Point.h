@@ -5,8 +5,20 @@
 
 class TPoint {
 public:
-    TPoint& operator+=(const TPoint& adder) noexcept;
-    TPoint& operator-=(const TPoint& subber) noexcept;
+    TPoint& operator+=(const TPoint& adder) noexcept
+    {
+        x += adder.x;
+        y += adder.y;
+        return *this;
+    }
+
+    TPoint& operator-=(const TPoint& subber) noexcept
+    {
+        x -= subber.x;
+        y -= subber.y;
+        return *this;
+    }
+
     friend TPoint operator-(const TPoint& one, const TPoint& two) noexcept;
     friend TPoint operator+(const TPoint& one, const TPoint& two) noexcept;
     friend int operator==(const TPoint& one, const TPoint& two) noexcept;
@@ -14,20 +26,6 @@ public:
 
     int x, y;
 };
-
-inline TPoint& TPoint::operator+=(const TPoint& adder) noexcept
-{
-    x += adder.x;
-    y += adder.y;
-    return *this;
-}
-
-inline TPoint& TPoint::operator-=(const TPoint& subber) noexcept
-{
-    x -= subber.x;
-    y -= subber.y;
-    return *this;
-}
 
 inline TPoint operator-(const TPoint& one, const TPoint& two) noexcept
 {

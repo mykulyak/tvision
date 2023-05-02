@@ -18,8 +18,25 @@
 
 class TMenuView : public TView {
 public:
-    TMenuView(const TRect& bounds, TMenu* aMenu, TMenuView* aParent = 0) noexcept;
-    TMenuView(const TRect& bounds) noexcept;
+    TMenuView(const TRect& bounds, TMenu* aMenu, TMenuView* aParent) noexcept
+        : TView(bounds)
+        , parentMenu(aParent)
+        , menu(aMenu)
+        , current(0)
+        , putClickEventOnExit(true)
+    {
+        eventMask |= evBroadcast;
+    }
+
+    TMenuView(const TRect& bounds) noexcept
+        : TView(bounds)
+        , parentMenu(0)
+        , menu(0)
+        , current(0)
+        , putClickEventOnExit(true)
+    {
+        eventMask |= evBroadcast;
+    }
 
     virtual ushort execute();
     TMenuItem* findItem(char ch);
@@ -69,25 +86,5 @@ inline ipstream& operator>>(ipstream& is, TMenuView*& cl) { return is >> (void*&
 
 inline opstream& operator<<(opstream& os, TMenuView& cl) { return os << (TStreamable&)cl; }
 inline opstream& operator<<(opstream& os, TMenuView* cl) { return os << (TStreamable*)cl; }
-
-inline TMenuView::TMenuView(const TRect& bounds, TMenu* aMenu, TMenuView* aParent) noexcept
-    : TView(bounds)
-    , parentMenu(aParent)
-    , menu(aMenu)
-    , current(0)
-    , putClickEventOnExit(true)
-{
-    eventMask |= evBroadcast;
-}
-
-inline TMenuView::TMenuView(const TRect& bounds) noexcept
-    : TView(bounds)
-    , parentMenu(0)
-    , menu(0)
-    , current(0)
-    , putClickEventOnExit(true)
-{
-    eventMask |= evBroadcast;
-}
 
 #endif // TVision_TMenuView_h

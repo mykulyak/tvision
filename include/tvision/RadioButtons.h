@@ -1,21 +1,14 @@
 #ifndef TVision_TRadioButtons_h
 #define TVision_TRadioButtons_h
 
-/* ---------------------------------------------------------------------- */
-/*      class TRadioButtons                                               */
-/*                                                                        */
-/*      Palette layout                                                    */
-/*        1 = Normal text                                                 */
-/*        2 = Selected text                                               */
-/*        3 = Normal shortcut                                             */
-/*        4 = Selected shortcut                                           */
-/* ---------------------------------------------------------------------- */
-
 #include <tvision/Cluster.h>
 
 class TRadioButtons : public TCluster {
 public:
-    TRadioButtons(const TRect& bounds, TSItem* aStrings) noexcept;
+    TRadioButtons(const TRect& bounds, TSItem* aStrings) noexcept
+        : TCluster(bounds, aStrings)
+    {
+    }
 
     virtual void draw();
     virtual bool mark(int item);
@@ -40,10 +33,5 @@ inline ipstream& operator>>(ipstream& is, TRadioButtons*& cl) { return is >> (vo
 
 inline opstream& operator<<(opstream& os, TRadioButtons& cl) { return os << (TStreamable&)cl; }
 inline opstream& operator<<(opstream& os, TRadioButtons* cl) { return os << (TStreamable*)cl; }
-
-inline TRadioButtons::TRadioButtons(const TRect& bounds, TSItem* aStrings) noexcept
-    : TCluster(bounds, aStrings)
-{
-}
 
 #endif // TVision_TRadioButtons_h

@@ -24,12 +24,15 @@ struct TCellChar {
     uint8_t _flags;
 
     TCellChar() = default;
-    inline void moveChar(char ch);
+
+    void moveChar(char ch) { moveInt((uchar)ch); }
+
     inline void moveInt(uint32_t mbc, bool wide = false);
     inline void moveStr(std::string_view mbc, bool wide = false);
     inline void moveWideCharTrail();
 
-    constexpr inline bool isWide() const;
+    constexpr bool isWide() const { return _flags & fWide; }
+
     constexpr inline bool isWideCharTrail() const;
     constexpr inline void appendZeroWidth(std::string_view mbc);
     constexpr inline std::string_view getText() const;
@@ -39,7 +42,6 @@ struct TCellChar {
     constexpr inline const char& operator[](size_t i) const;
 };
 
-inline void TCellChar::moveChar(char ch) { moveInt((uchar)ch); }
 
 inline void TCellChar::moveInt(uint32_t mbc, bool wide)
 {
@@ -73,8 +75,6 @@ inline void TCellChar::moveWideCharTrail()
     memset(this, 0, sizeof(*this));
     _flags = fTrail;
 }
-
-constexpr inline bool TCellChar::isWide() const { return _flags & fWide; }
 
 constexpr inline bool TCellChar::isWideCharTrail() const { return _flags & fTrail; }
 

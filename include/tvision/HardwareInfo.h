@@ -16,7 +16,7 @@ public:
     enum ConsoleType { cnInput = 0, cnOutput = 1, cnStartup = 2 };
     enum PlatformType { plDPMI32 = 1, plWinNT = 2, plOS2 = 4 };
 
-    static PlatformType getPlatform() noexcept;
+    static PlatformType getPlatform() noexcept { return platform; }
 
     // Caret functions.
 
@@ -49,7 +49,7 @@ public:
 
     static BOOL getMouseEvent(MouseEventType& event) noexcept;
     static BOOL getKeyEvent(TEvent& event) noexcept;
-    static void clearPendingEvent() noexcept;
+    static void clearPendingEvent() noexcept { pendingEvent = 0; }
     static void waitForEvent(int timeoutMs) noexcept;
     static void stopEventWait() noexcept;
     static BOOL setClipboardText(std::string_view text) noexcept;
@@ -57,8 +57,25 @@ public:
 
     // System functions.
 
-    static BOOL setCtrlBrkHandler(BOOL install) noexcept;
-    static BOOL setCritErrorHandler(BOOL install) noexcept;
+    static BOOL __stdcall setCtrlBrkHandler(BOOL install) noexcept
+    {
+#ifdef _WIN32
+        return SetConsoleCtrlHandler(&THardwareInfo::ctrlBreakHandler, install);
+#else
+        /* Sets THardwareInfo::ctrlBreakHandle as the handler of control signals
+         * CTRL_C_EVENT and CTRL_BREAK_EVENT. When the signal is received, the
+         * handler sets the attribute TSystemError::ctrlBreakHit to true.
+         * https://docs.microsoft.com/en-us/windows/console/handlerroutine
+         */
+        // Stub
+        return TRUE;
+#endif
+    }
+
+    static BOOL setCritErrorHandler(BOOL install) noexcept
+    {
+        return TRUE; // Handled by NT or DPMI32..
+    }
 
     static const ushort NormalCvt[89];
     static const ushort ShiftCvt[89];
@@ -83,33 +100,5 @@ private:
     static BOOL getPendingEvent(TEvent& event, bool mouse) noexcept;
     static void readEvents() noexcept;
 };
-
-inline THardwareInfo::PlatformType THardwareInfo::getPlatform() noexcept { return platform; }
-
-// Event functions.
-
-inline void THardwareInfo::clearPendingEvent() noexcept { pendingEvent = 0; }
-
-// System functions.
-
-inline BOOL THardwareInfo::setCtrlBrkHandler(BOOL install) noexcept
-{
-#ifdef _WIN32
-    return SetConsoleCtrlHandler(&THardwareInfo::ctrlBreakHandler, install);
-#else
-    /* Sets THardwareInfo::ctrlBreakHandle as the handler of control signals
-     * CTRL_C_EVENT and CTRL_BREAK_EVENT. When the signal is received, the
-     * handler sets the attribute TSystemError::ctrlBreakHit to true.
-     * https://docs.microsoft.com/en-us/windows/console/handlerroutine
-     */
-    // Stub
-    return TRUE;
-#endif
-}
-
-inline BOOL THardwareInfo::setCritErrorHandler(BOOL install) noexcept
-{
-    return TRUE; // Handled by NT or DPMI32..
-}
 
 #endif // TVision_THardwareInfo_h

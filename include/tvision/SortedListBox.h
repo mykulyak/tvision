@@ -12,7 +12,7 @@ public:
     virtual void handleEvent(TEvent& event);
     void newList(TSortedCollection* aList);
 
-    TSortedCollection* list();
+    TSortedCollection* list() { return (TSortedCollection*)TListBox::list(); }
 
 protected:
     uchar shiftState;
@@ -41,7 +41,5 @@ inline ipstream& operator>>(ipstream& is, TSortedListBox*& cl) { return is >> (v
 
 inline opstream& operator<<(opstream& os, TSortedListBox& cl) { return os << (TStreamable&)cl; }
 inline opstream& operator<<(opstream& os, TSortedListBox* cl) { return os << (TStreamable*)cl; }
-
-inline TSortedCollection* TSortedListBox::list() { return (TSortedCollection*)TListBox::list(); }
 
 #endif // TVision_TSortedListBox_h

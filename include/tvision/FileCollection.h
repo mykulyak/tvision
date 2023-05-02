@@ -20,8 +20,15 @@ public:
     void atPut(ccIndex index, TSearchRec* item) { TSortedCollection::atPut(index, item); }
     virtual ccIndex insert(TSearchRec* item) { return TSortedCollection::insert(item); }
 
-    TSearchRec* firstThat(ccTestFunc Test, void* arg);
-    TSearchRec* lastThat(ccTestFunc Test, void* arg);
+    TSearchRec* firstThat(ccTestFunc func, void* arg)
+    {
+        return (TSearchRec*)TSortedCollection::firstThat(ccTestFunc(func), arg);
+    }
+
+    TSearchRec* lastThat(ccTestFunc func, void* arg)
+    {
+        return (TSearchRec*)TSortedCollection::lastThat(ccTestFunc(func), arg);
+    }
 
 private:
     virtual void freeItem(void* item) { delete (TSearchRec*)item; }
@@ -49,15 +56,5 @@ inline ipstream& operator>>(ipstream& is, TFileCollection*& cl) { return is >> (
 
 inline opstream& operator<<(opstream& os, TFileCollection& cl) { return os << (TStreamable&)cl; }
 inline opstream& operator<<(opstream& os, TFileCollection* cl) { return os << (TStreamable*)cl; }
-
-inline TSearchRec* TFileCollection::firstThat(ccTestFunc func, void* arg)
-{
-    return (TSearchRec*)TSortedCollection::firstThat(ccTestFunc(func), arg);
-}
-
-inline TSearchRec* TFileCollection::lastThat(ccTestFunc func, void* arg)
-{
-    return (TSearchRec*)TSortedCollection::lastThat(ccTestFunc(func), arg);
-}
 
 #endif // TVision_TFileCollection_h

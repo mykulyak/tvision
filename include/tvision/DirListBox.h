@@ -19,7 +19,7 @@ public:
     void newDirectory(std::string_view);
     virtual void setState(ushort aState, bool enable);
 
-    TDirCollection* list();
+    TDirCollection* list() { return (TDirCollection*)TListBox::list(); }
 
 private:
     void showDrives(TDirCollection*);
@@ -53,7 +53,5 @@ inline ipstream& operator>>(ipstream& is, TDirListBox*& cl) { return is >> (void
 
 inline opstream& operator<<(opstream& os, TDirListBox& cl) { return os << (TStreamable&)cl; }
 inline opstream& operator<<(opstream& os, TDirListBox* cl) { return os << (TStreamable*)cl; }
-
-inline TDirCollection* TDirListBox::list() { return (TDirCollection*)TListBox::list(); }
 
 #endif // TVision_TDirListBox_h

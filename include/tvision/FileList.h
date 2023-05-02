@@ -14,7 +14,9 @@ public:
     virtual void focusItem(short item);
     virtual void selectItem(short item);
     virtual void getText(char* dest, short item, short maxLen);
-    void newList(TFileCollection* aList);
+
+    void newList(TFileCollection* f) { TSortedListBox::newList(f); }
+
     void readDirectory(std::string_view dir, std::string_view wildCard);
     void readDirectory(std::string_view wildCard);
 
@@ -22,7 +24,7 @@ public:
     virtual void getData(void* rec);
     virtual void setData(void* rec);
 
-    TFileCollection* list();
+    TFileCollection* list() { return (TFileCollection*)TSortedListBox::list(); }
 
 private:
     virtual void* getKey(const char* s);
@@ -47,9 +49,5 @@ inline ipstream& operator>>(ipstream& is, TFileList*& cl) { return is >> (void*&
 
 inline opstream& operator<<(opstream& os, TFileList& cl) { return os << (TStreamable&)cl; }
 inline opstream& operator<<(opstream& os, TFileList* cl) { return os << (TStreamable*)cl; }
-
-inline void TFileList::newList(TFileCollection* f) { TSortedListBox::newList(f); }
-
-inline TFileCollection* TFileList::list() { return (TFileCollection*)TSortedListBox::list(); }
 
 #endif // TVision_TFileList_h

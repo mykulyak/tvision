@@ -22,7 +22,7 @@ public:
     virtual void newList(TCollection* aList);
     virtual void setData(void* rec);
 
-    TCollection* list();
+    TCollection* list() { return items; }
 
 private:
     virtual const char* streamableName() const { return name; }
@@ -44,7 +44,5 @@ inline ipstream& operator>>(ipstream& is, TListBox*& cl) { return is >> (void*&)
 
 inline opstream& operator<<(opstream& os, TListBox& cl) { return os << (TStreamable&)cl; }
 inline opstream& operator<<(opstream& os, TListBox* cl) { return os << (TStreamable*)cl; }
-
-inline TCollection* TListBox::list() { return items; }
 
 #endif // TVision_TListBox_h

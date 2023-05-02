@@ -20,18 +20,14 @@ public:
     ~TDrawSurface();
 
     void resize(TPoint aSize);
-    void grow(TPoint aDelta);
+
+    void grow(TPoint aDelta) { resize(size + aDelta); }
+
     void clear();
 
     // Warning: no bounds checking.
-    TScreenCell& at(int y, int x);
-    const TScreenCell& at(int y, int x) const;
+    TScreenCell& at(int y, int x) { return data[y * size.x + x]; }
+    const TScreenCell& at(int y, int x) const { return data[y * size.x + x]; }
 };
-
-inline void TDrawSurface::grow(TPoint aDelta) { resize(size + aDelta); }
-
-inline TScreenCell& TDrawSurface::at(int y, int x) { return data[y * size.x + x]; }
-
-inline const TScreenCell& TDrawSurface::at(int y, int x) const { return data[y * size.x + x]; }
 
 #endif // TVision_TDrawSurface_h

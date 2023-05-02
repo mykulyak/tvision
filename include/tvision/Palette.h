@@ -18,11 +18,9 @@ public:
 
     TPalette& operator=(const TPalette&) noexcept;
 
-    TColorAttr& operator[](int) const noexcept;
+    TColorAttr& operator[](int index) const noexcept { return data[index]; }
 
     TColorAttr* data;
 };
-
-inline TColorAttr& TPalette::operator[](int index) const noexcept { return data[index]; }
 
 #endif // TVision_TPalette_h

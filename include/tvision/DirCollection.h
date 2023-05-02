@@ -21,8 +21,15 @@ public:
     void atPut(ccIndex index, TDirEntry* item) { TCollection::atPut(index, item); }
     virtual ccIndex insert(TDirEntry* item) { return TCollection::insert(item); }
 
-    TDirEntry* firstThat(ccTestFunc Test, void* arg);
-    TDirEntry* lastThat(ccTestFunc Test, void* arg);
+    TDirEntry* firstThat(ccTestFunc func, void* arg)
+    {
+        return (TDirEntry*)TCollection::firstThat(ccTestFunc(func), arg);
+    }
+
+    TDirEntry* lastThat(ccTestFunc func, void* arg)
+    {
+        return (TDirEntry*)TCollection::lastThat(ccTestFunc(func), arg);
+    }
 
 private:
     virtual void freeItem(void* item) { delete (TDirEntry*)item; }
@@ -47,15 +54,5 @@ inline ipstream& operator>>(ipstream& is, TDirCollection*& cl) { return is >> (v
 
 inline opstream& operator<<(opstream& os, TDirCollection& cl) { return os << (TStreamable&)cl; }
 inline opstream& operator<<(opstream& os, TDirCollection* cl) { return os << (TStreamable*)cl; }
-
-inline TDirEntry* TDirCollection::firstThat(ccTestFunc func, void* arg)
-{
-    return (TDirEntry*)TCollection::firstThat(ccTestFunc(func), arg);
-}
-
-inline TDirEntry* TDirCollection::lastThat(ccTestFunc func, void* arg)
-{
-    return (TDirEntry*)TCollection::lastThat(ccTestFunc(func), arg);
-}
 
 #endif // TVision_TDirCollection_h

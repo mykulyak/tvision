@@ -55,7 +55,12 @@ typedef bool (*TOutlineVisitorNoArg)(TOutlineViewer*, TNode*, int, int, long, us
 class TOutlineViewer : public TScroller {
 public:
     TOutlineViewer(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar) noexcept;
-    TOutlineViewer(StreamableInit s) noexcept;
+
+    TOutlineViewer(StreamableInit s) noexcept
+        : TScroller(s)
+    {
+    }
+
     virtual void adjust(TNode* node, bool expand) = 0;
     virtual void draw();
     virtual void focused(int i);
@@ -101,10 +106,5 @@ private:
     void adjustFocus(int newFocus) noexcept;
     TNode* iterate(TOutlineVisitor action, void* arg, bool checkResult) noexcept;
 };
-
-inline TOutlineViewer::TOutlineViewer(StreamableInit s) noexcept
-    : TScroller(s)
-{
-}
 
 #endif // TVision_TOutlineViewer_h
