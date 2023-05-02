@@ -3,16 +3,18 @@
 
 #include <tvision/Dialog.h>
 
-const int cdNormal = 0x0000, // Option to use dialog immediately
-    cdNoLoadDir = 0x0001, // Option to init the dialog to store on a stream
-    cdHelpButton = 0x0002; // Put a help button in the dialog
-
 class TInputLine;
 class TDirListBox;
 class TButton;
 
 class TChDirDialog : public TDialog {
 public:
+    enum Flags {
+        cdNormal = 0x0000, // Option to use dialog immediately
+        cdNoLoadDir = 0x0001, // Option to init the dialog to store on a stream
+        cdHelpButton = 0x0002, // Put a help button in the dialog
+    };
+
     friend class TDirListBox;
 
     TChDirDialog(ushort aOptions, ushort histId) noexcept;

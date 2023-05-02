@@ -1,11 +1,5 @@
 #include "calendar.h"
-#include <cctype>
-#include <cstdlib>
-#include <cstring>
-#include <ctime>
-#include <iomanip>
-#include <strstream>
-#include <tvision/tv.h>
+#include <sstream>
 
 __link(RView);
 __link(RWindow);
@@ -75,43 +69,38 @@ int dayOfWeek(int day, int month, int year)
 
 void TCalendarView::draw()
 {
-    char str[23];
     char current = (char)(1 - dayOfWeek(1, month, year));
     char days = (char)(daysInMonth[month] + ((year % 4 == 0 && month == 2) ? 1 : 0));
-    TColorAttr color, boldColor;
-    short i, j;
     TDrawBuffer buf;
 
-    color = getColor(6);
-    boldColor = getColor(7);
+    TColorAttr color = getColor(6);
+    TColorAttr boldColor = getColor(7);
 
     buf.moveChar(0, ' ', color, 22);
     {
-        std::ostrstream os(str, sizeof str);
+        std::ostringstream os;
         os << std::setw(9) << monthNames[month] << " " << std::setw(4) << year << " " << (char)30
            << "  " << (char)31 << " " << std::ends;
+        buf.moveStr(0, os.str(), color);
     }
-    buf.moveStr(0, str, color);
     writeLine(0, 0, 22, 1, buf);
 
     buf.moveChar(0, ' ', color, 22);
     buf.moveStr(0, "Su Mo Tu We Th Fr Sa", color);
     writeLine(0, 1, 22, 1, buf);
 
-    for (i = 1; i <= 6; i++) {
+    for (int i = 1; i <= 6; i++) {
         buf.moveChar(0, ' ', color, 22);
-        for (j = 0; j <= 6; j++) {
+        for (int j = 0; j <= 6; j++) {
             if (current < 1 || current > days)
                 buf.moveStr((short)(j * 3), "   ", color);
             else {
-                {
-                    std::ostrstream os(str, sizeof str);
-                    os << std::setw(2) << (int)current << std::ends;
-                }
+                std::ostringstream os;
+                os << std::setw(2) << (int)current << std::ends;
                 if (year == curYear && month == curMonth && (uint)current == curDay)
-                    buf.moveStr((short)(j * 3), str, boldColor);
+                    buf.moveStr((short)(j * 3), os.str(), boldColor);
                 else
-                    buf.moveStr((short)(j * 3), str, color);
+                    buf.moveStr((short)(j * 3), os.str(), color);
             }
             current++;
         }

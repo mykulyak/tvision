@@ -1,6 +1,8 @@
 #ifndef TVision_TVDemo_Calendar_h
 #define TVision_TVDemo_Calendar_h
 
+#include <tvision/Window.h>
+
 class TCalendarView : public TView {
 public:
     TCalendarView(TRect& r);
@@ -31,7 +33,6 @@ inline opstream& operator<<(opstream& os, TCalendarView& cl) { return os << (TSt
 inline opstream& operator<<(opstream& os, TCalendarView* cl) { return os << (TStreamable*)cl; }
 
 class TCalendarWindow : public TWindow {
-
 public:
     TCalendarWindow();
     TCalendarWindow(StreamableInit)

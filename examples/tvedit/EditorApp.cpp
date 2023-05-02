@@ -267,7 +267,7 @@ void EditorApp::fileNew()
     openEditor(fname, true);
 }
 
-void EditorApp::changeDir() { execDialog(new TChDirDialog(cdNormal, 0), 0); }
+void EditorApp::changeDir() { execDialog(new TChDirDialog(TChDirDialog::Flags::cdNormal, 0), 0); }
 
 int main(int argc, char** argv)
 {

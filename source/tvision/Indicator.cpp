@@ -1,4 +1,4 @@
-#include <strstream>
+#include <sstream>
 #include <tvision/Indicator.h>
 
 #define cpIndicator "\x02\x03"
@@ -24,8 +24,6 @@ void TIndicator::draw()
 {
     TColorAttr color;
     char frame;
-    TDrawBuffer b;
-    char s[15];
 
     if ((state & sfDragging) == 0) {
         color = getColor(1);
@@ -35,14 +33,17 @@ void TIndicator::draw()
         frame = normalFrame;
     }
 
-    b.moveChar(0, frame, color, size.x);
-    if (modified)
-        b.putChar(0, 15);
-    std::ostrstream os(s, 15);
-
+    std::ostringstream os;
     os << ' ' << (location.y + 1) << ':' << (location.x + 1) << ' ' << std::ends;
+    std::string s = os.str();
 
-    b.moveStr(8 - int(strchr(s, ':') - s), s, color);
+    TDrawBuffer b;
+    b.moveChar(0, frame, color, size.x);
+    if (modified) {
+        b.putChar(0, 15);
+    }
+
+    b.moveStr(8 - s.find(':'), s, color);
     writeBuf(0, 0, size.x, 1, b);
 }
 

@@ -1,4 +1,4 @@
-#include <strstream>
+#include <sstream>
 #include <tvision/Button.h>
 #include <tvision/ChdirDialog.h>
 #include <tvision/CommandCodes.h>
@@ -161,11 +161,9 @@ bool TChDirDialog::valid(ushort command)
     trimEndSeparator(path);
 
     if (changeDir(path) != 0) {
-        char buf[256];
-        std::ostrstream os(buf, sizeof(buf) - 1);
-        os << invalidText << ": '" << path << "'." << std::ends;
-        buf[sizeof(buf) - 1] = '\0';
-        MessageBox::error(buf);
+        std::ostringstream os;
+        os << invalidText << ": '" << path << "'.";
+        MessageBox::error(os.str());
         return false;
     }
     return true;
