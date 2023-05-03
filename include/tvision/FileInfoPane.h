@@ -5,7 +5,6 @@
 #include <tvision/View.h>
 
 class TFileInfoPane : public TView {
-
 public:
     TFileInfoPane(const TRect& bounds) noexcept;
 

@@ -2,37 +2,37 @@
 #define TVision_TFileDialog_h
 
 #include <filesystem>
+#include <string>
 #include <tvision/Dialog.h>
-
-const int fdOKButton = 0x0001, // Put an OK button in the dialog
-    fdOpenButton = 0x0002, // Put an Open button in the dialog
-    fdReplaceButton = 0x0004, // Put a Replace button in the dialog
-    fdClearButton = 0x0008, // Put a Clear button in the dialog
-    fdHelpButton = 0x0010, // Put a Help button in the dialog
-    fdNoLoadDir = 0x0100; // Do not load the current directory
-                          // contents into the dialog at Init.
-                          // This means you intend to change the
-                          // WildCard by using SetData or store
-                          // the dialog on a stream.
-
-#ifndef __DIR_H
-#include <tvision/compat/borland/dir.h>
-#endif // __DIR_H
 
 class TFileInputLine;
 class TFileList;
 
 class TFileDialog : public TDialog {
-
 public:
+    enum Flags {
+        fdOKButton = 0x0001, // Put an OK button in the dialog
+        fdOpenButton = 0x0002, // Put an Open button in the dialog
+        fdReplaceButton = 0x0004, // Put a Replace button in the dialog
+        fdClearButton = 0x0008, // Put a Clear button in the dialog
+        fdHelpButton = 0x0010, // Put a Help button in the dialog
+        fdNoLoadDir = 0x0100, // Do not load the current directory
+                              // contents into the dialog at Init.
+                              // This means you intend to change the
+                              // WildCard by using SetData or store
+                              // the dialog on a stream.
+    };
+
     TFileDialog(std::string_view aWildCard, std::string_view aTitle, std::string_view inputName,
         ushort aOptions, uchar histId) noexcept;
     ~TFileDialog();
 
     virtual void getData(void* rec);
 
-    // void getFileName(char* s) noexcept;
     std::filesystem::path getFilePath() noexcept;
+    std::string getDirectoryWithWildCard() const noexcept;
+
+    const std::string& WildCard() const noexcept { return wildCard; }
 
     virtual void handleEvent(TEvent& event);
     virtual void setData(void* rec);
@@ -40,15 +40,15 @@ public:
     virtual void shutDown();
     virtual void sizeLimits(TPoint& min, TPoint& max);
 
+private:
     TFileInputLine* fileName;
     TFileList* fileList;
-    char wildCard[MAXPATH];
-    const char* directory;
+    std::string wildCard;
+    std::string directory;
 
-private:
     void readDirectory();
 
-    bool checkDirectory(const char*);
+    bool checkDirectory(const std::filesystem::path& dir);
 
     static const char* filesText;
     static const char* openText;

@@ -61,11 +61,10 @@ void TFileList::getText(char* dest, short item, short maxChars)
         strcat(dest, "\\");
 }
 
-void TFileList::readDirectory(std::string_view dir, std::string_view wildCard)
+void TFileList::readDirectory(const std::filesystem::path& dir, std::string_view wildCard)
 {
-    char path[MAXPATH];
-    size_t n = strnzcpy(path, dir, MAXPATH);
-    strnzcpy(&path[n], wildCard, MAXPATH - n);
+    std::filesystem::path path(dir);
+    path /= wildCard;
     readDirectory(path);
 }
 
@@ -79,7 +78,7 @@ struct DirSearchRec : public TSearchRec {
     }
 };
 
-void TFileList::readDirectory(std::string_view aWildCard)
+void TFileList::readDirectory(const std::filesystem::path& aDir)
 {
     ffblk s;
     char path[MAXPATH];
@@ -89,7 +88,7 @@ void TFileList::readDirectory(std::string_view aWildCard)
     char ext[MAXEXT];
     const unsigned findAttr = FA_RDONLY | FA_ARCH;
     memset(&s, 0, sizeof(s));
-    strnzcpy(path, aWildCard, MAXPATH);
+    strnzcpy(path, aDir.c_str(), MAXPATH);
 
     TFileCollection* fileList = new TFileCollection(5, 5);
 
@@ -316,6 +315,16 @@ void fexpand(char* rpath, const char* relativeTo) noexcept
     squeeze(dir);
     fnmerge(path, drive, dir, file, ext);
     strnzcpy(rpath, path, MAXPATH);
+}
+
+std::filesystem::path expandPath(std::filesystem::path path)
+{
+    return path.is_absolute() ? path : std::filesystem::absolute(path).lexically_normal();
+}
+
+std::filesystem::path expandPath(std::filesystem::path path, std::filesystem::path base)
+{
+    return path.is_absolute() ? path : std::filesystem::absolute(base / path).lexically_normal();
 }
 
 #ifndef NO_STREAMABLE

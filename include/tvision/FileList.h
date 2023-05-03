@@ -1,6 +1,7 @@
 #ifndef TVision_TFileList_h
 #define TVision_TFileList_h
 
+#include <filesystem>
 #include <tvision/FileCollection.h>
 #include <tvision/SortedListBox.h>
 
@@ -17,8 +18,8 @@ public:
 
     void newList(TFileCollection* f) { TSortedListBox::newList(f); }
 
-    void readDirectory(std::string_view dir, std::string_view wildCard);
-    void readDirectory(std::string_view wildCard);
+    void readDirectory(const std::filesystem::path& dir, std::string_view wildCard);
+    void readDirectory(const std::filesystem::path& dir);
 
     virtual ushort dataSize();
     virtual void getData(void* rec);

@@ -70,7 +70,8 @@ void TFormApp::changeDir()
 
 void TFormApp::openListDialog()
 {
-    TFileDialog dialog(FORM_WILDCARD, "Open File", "~N~ame", fdOpenButton, hlOpenListDlg);
+    TFileDialog dialog(
+        FORM_WILDCARD, "Open File", "~N~ame", TFileDialog::Flags::fdOpenButton, hlOpenListDlg);
 
     if (dialog.valid(cmValid)) {
         if (deskTop->execView(&dialog) != cmCancel) {

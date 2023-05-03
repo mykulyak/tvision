@@ -107,7 +107,8 @@ ushort doEditDialog(int dialog, ...)
         return MessageBox::confirm("Save untitled file?");
     case edSaveAs: {
         va_start(arg, dialog);
-        return execDialog(new TFileDialog("*.*", "Save file as", "~N~ame", fdOKButton, 101),
+        return execDialog(
+            new TFileDialog("*.*", "Save file as", "~N~ame", TFileDialog::Flags::fdOKButton, 101),
             va_arg(arg, _charPtr));
     }
 
@@ -254,7 +255,9 @@ void EditorApp::fileOpen()
     char fileName[MAXPATH];
     strcpy(fileName, "*.*");
 
-    if (execDialog(new TFileDialog("*.*", "Open file", "~N~ame", fdOpenButton, 100), fileName)
+    if (execDialog(
+            new TFileDialog("*.*", "Open file", "~N~ame", TFileDialog::Flags::fdOpenButton, 100),
+            fileName)
         != cmCancel) {
         std::string fname(fileName);
         openEditor(fname, true);

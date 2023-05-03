@@ -2,6 +2,7 @@
 #define TVision_Util_h
 
 #include <cstddef>
+#include <filesystem>
 #include <string_view>
 
 inline constexpr int min(int a, int b) { return a < b ? a : b; }
@@ -17,6 +18,9 @@ template <class T> inline constexpr const T& max(const T& a, const T& b) { retur
 
 void fexpand(char* rpath) noexcept;
 void fexpand(char* rpath, const char* relativeTo) noexcept;
+
+std::filesystem::path expandPath(std::filesystem::path path);
+std::filesystem::path expandPath(std::filesystem::path path, std::filesystem::path base);
 
 char hotKey(const char* s) noexcept;
 ushort ctrlToArrow(ushort) noexcept;

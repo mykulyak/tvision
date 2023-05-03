@@ -34,14 +34,13 @@ TFileDialog::TFileDialog(std::string_view aWildCard, std::string_view aTitle,
     std::string_view inputName, ushort aOptions, uchar histId) noexcept
     : TWindowInit(&TFileDialog::initFrame)
     , TDialog(TRect(15, 1, 64, 20), aTitle)
-    , directory(newStr(""))
+    , wildCard(aWildCard)
+    , directory()
 {
     options |= ofCentered;
     flags |= wfGrow;
-    strnzcpy(wildCard, aWildCard.begin(), sizeof(wildCard));
 
-    fileName = new TFileInputLine(TRect(3, 3, 31, 4), MAXPATH);
-    strnzcpy(fileName->data, wildCard, MAXPATH);
+    fileName = new TFileInputLine(TRect(3, 3, 31, 4), MAXPATH, wildCard);
     insert(fileName);
     first()->growMode = gfGrowHiX;
 
@@ -62,45 +61,39 @@ TFileDialog::TFileDialog(std::string_view aWildCard, std::string_view aTitle,
         insert(new TButton(r, openText, cmFileOpen, opt));
         first()->growMode = gfGrowLoX | gfGrowHiX;
         opt = TButton::Flags::bfNormal;
-        r.a.y += 3;
-        r.b.y += 3;
+        r.move(0, 3);
     }
 
     if ((aOptions & fdOKButton) != 0) {
         insert(new TButton(r, okText, cmFileOpen, opt));
         first()->growMode = gfGrowLoX | gfGrowHiX;
         opt = TButton::Flags::bfNormal;
-        r.a.y += 3;
-        r.b.y += 3;
+        r.move(0, 3);
     }
 
     if ((aOptions & fdReplaceButton) != 0) {
         insert(new TButton(r, replaceText, cmFileReplace, opt));
         first()->growMode = gfGrowLoX | gfGrowHiX;
         opt = TButton::Flags::bfNormal;
-        r.a.y += 3;
-        r.b.y += 3;
+        r.move(0, 3);
     }
 
     if ((aOptions & fdClearButton) != 0) {
         insert(new TButton(r, clearText, cmFileClear, opt));
         first()->growMode = gfGrowLoX | gfGrowHiX;
         opt = TButton::Flags::bfNormal;
-        r.a.y += 3;
-        r.b.y += 3;
+        r.move(0, 3);
     }
 
     insert(new TButton(r, cancelText, cmCancel, TButton::Flags::bfNormal));
     first()->growMode = gfGrowLoX | gfGrowHiX;
-    r.a.y += 3;
-    r.b.y += 3;
+    r.move(0, 3);
 
     if ((aOptions & fdHelpButton) != 0) {
         insert(new TButton(r, helpText, cmHelp, TButton::Flags::bfNormal));
         first()->growMode = gfGrowLoX | gfGrowHiX;
         opt = TButton::Flags::bfNormal;
-        r.a.y += 3;
-        r.b.y += 3;
+        r.move(0, 3);
     }
 
     insert(new TFileInfoPane(TRect(1, 16, 48, 18)));
@@ -138,7 +131,7 @@ TFileDialog::TFileDialog(std::string_view aWildCard, std::string_view aTitle,
         readDirectory();
 }
 
-TFileDialog::~TFileDialog() { delete[] (char*)directory; }
+TFileDialog::~TFileDialog() { }
 
 void TFileDialog::shutDown()
 {
@@ -154,41 +147,16 @@ void TFileDialog::sizeLimits(TPoint& min, TPoint& max)
     min.y = 19;
 }
 
-/* 'src' is cast to unsigned char * so that isspace sign extends it
-   correctly. */
-static void trim(char* dest, const char* src) noexcept
-{
-    while (*src != EOS)
-        *dest++ = *src++;
-    *dest = EOS;
-}
-
-// void TFileDialog::getFileName(char* s) noexcept
-// {
-//     char buf[2 * MAXPATH];
-//     char drive[MAXDRIVE];
-//     char path[MAXDIR];
-//     char name[MAXFILE];
-//     char ext[MAXEXT];
-//     char TName[MAXFILE];
-//     char TExt[MAXEXT];
-
-//     trim(buf, fileName->data);
-//     fexpand(buf, directory);
-//     fnsplit(buf, drive, path, name, ext);
-//     if (name[0] == EOS && ext[0] == EOS) {
-//         fnsplit(wildCard, 0, 0, TName, TExt);
-//         fnmerge(buf, drive, path, TName, TExt);
-//     }
-//     strcpy(s, buf);
-// }
-
 std::filesystem::path TFileDialog::getFilePath() noexcept
 {
-    char buf[2 * MAXPATH];
-    trim(buf, fileName->data);
-    fexpand(buf, directory);
-    return std::filesystem::path(buf);
+    return expandPath(fileName->data, directory);
+}
+
+std::string TFileDialog::getDirectoryWithWildCard() const noexcept
+{
+    std::filesystem::path path = directory;
+    path /= wildCard;
+    return expandPath(path);
 }
 
 void TFileDialog::handleEvent(TEvent& event)
@@ -215,11 +183,7 @@ void TFileDialog::handleEvent(TEvent& event)
 
 void TFileDialog::readDirectory()
 {
-    char curDir[MAXPATH];
-    getCurDir(curDir);
-    if (directory)
-        delete[] (char*)directory;
-    directory = newStr(curDir);
+    directory = std::filesystem::current_path();
     fileList->readDirectory(wildCard);
 }
 
@@ -234,62 +198,57 @@ void TFileDialog::setData(void* rec)
 
 void TFileDialog::getData(void* rec) { strcpy((char*)rec, getFilePath().c_str()); }
 
-bool TFileDialog::checkDirectory(const char* str)
+bool TFileDialog::checkDirectory(const std::filesystem::path& dir)
 {
-    if (pathValid(str))
+    if (pathValid(dir.c_str()))
         return true;
     else {
         std::ostringstream os;
-        os << invalidDriveText << ": '" << str << "'" << std::ends;
+        os << invalidDriveText << ": '" << dir << "'" << std::ends;
         MessageBox::error(os.str());
         fileName->select();
         return false;
     }
 }
 
+bool hasWildCards(const std::filesystem::path& p)
+{
+    return p.string().find_first_of("?*") != std::string::npos;
+}
+
 bool TFileDialog::valid(ushort command)
 {
-    char fName[MAXPATH];
-    char drive[MAXDRIVE];
-    char dir[MAXDIR];
-    char name[MAXFILE];
-    char ext[MAXEXT];
-
     if (command == 0)
         return true;
 
     if (TDialog::valid(command)) {
         if (command != cmCancel && command != cmFileClear) {
-            strcpy(fName, getFilePath().c_str());
+            std::filesystem::path p = getFilePath();
 
-            if (isWild(fName)) {
-                fnsplit(fName, drive, dir, name, ext);
-                char path[MAXPATH];
-                strcpy(path, drive);
-                strcat(path, dir);
-                if (checkDirectory(path)) {
-                    delete[] (char*)directory;
-                    directory = newStr(path);
-                    strcpy(wildCard, name);
-                    strcat(wildCard, ext);
+            if (hasWildCards(p)) {
+                std::filesystem::path p2 = p.parent_path();
+
+                if (checkDirectory(p2)) {
+                    directory = p2;
+                    wildCard = p.stem();
+                    wildCard += p.extension();
                     if (command != cmFileInit)
                         fileList->select();
                     fileList->readDirectory(directory, wildCard);
                 }
-            } else if (isDir(fName)) {
-                if (checkDirectory(fName)) {
-                    delete[] (char*)directory;
-                    strcat(fName, "\\");
-                    directory = newStr(fName);
+            } else if (std::filesystem::is_directory(p)) {
+                if (checkDirectory(p)) {
+                    directory = p;
+                    directory += "\\";
                     if (command != cmFileInit)
                         fileList->select();
                     fileList->readDirectory(directory, wildCard);
                 }
-            } else if (validFileName(fName))
+            } else if (validFileName(p.c_str()))
                 return true;
             else {
                 std::ostringstream os;
-                os << invalidFileText << ": '" << fName << "'" << std::ends;
+                os << invalidFileText << ": '" << p << "'" << std::ends;
                 MessageBox::error(os.str());
                 return false;
             }
@@ -311,7 +270,7 @@ void TFileDialog::write(opstream& os)
 void* TFileDialog::read(ipstream& is)
 {
     TDialog::read(is);
-    is.readString(wildCard, sizeof(wildCard));
+    wildCard = is.readStlString();
     is >> fileName >> fileList;
     readDirectory();
     return this;

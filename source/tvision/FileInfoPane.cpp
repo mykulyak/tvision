@@ -28,11 +28,9 @@ void TFileInfoPane::draw()
     TDrawBuffer b;
     TColorAttr color;
     struct ftime* time; // mingw has same name as a function name
-    char path[MAXPATH];
 
-    size_t n = strnzcpy(path, ((TFileDialog*)owner)->directory, MAXPATH);
-    strnzcpy(&path[n], ((TFileDialog*)owner)->wildCard, MAXPATH - n);
-    fexpand(path);
+    const TFileDialog* parent = dynamic_cast<const TFileDialog*>(owner);
+    std::string path = expandPath(parent->getDirectoryWithWildCard());
 
     color = getColor(0x01);
     b.moveChar(0, ' ', color, (ushort)size.x);

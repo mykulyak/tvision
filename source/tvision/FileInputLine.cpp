@@ -20,16 +20,26 @@ TFileInputLine::TFileInputLine(const TRect& bounds, short aMaxLen) noexcept
     eventMask |= evBroadcast;
 }
 
+TFileInputLine::TFileInputLine(
+    const TRect& bounds, short aMaxLen, const std::string& aValue) noexcept
+    : TInputLine(bounds, aMaxLen)
+{
+    eventMask |= evBroadcast;
+    strnzcpy(data, aValue.c_str(), aMaxLen);
+}
+
 void TFileInputLine::handleEvent(TEvent& event)
 {
     TInputLine::handleEvent(event);
     if (event.what == evBroadcast && event.message.command == cmFileFocused
         && !(state & sfSelected)) {
-        strcpy(data, ((TSearchRec*)event.message.infoPtr)->name);
-        if ((((TSearchRec*)event.message.infoPtr)->attr & FA_DIREC) != 0) {
-            strcat(data, "\\");
-            strcat(data, ((TFileDialog*)owner)->wildCard);
+        const TSearchRec* rec = reinterpret_cast<const TSearchRec*>(event.message.infoPtr);
+        std::string newData = rec->name;
+        if ((rec->attr & FA_DIREC) != 0) {
+            newData += std::filesystem::path::preferred_separator;
+            newData += dynamic_cast<const TFileDialog*>(owner)->WildCard();
         }
+        strnzcpy(data, newData.c_str(), maxLen);
         selectAll(false);
         drawView();
     }

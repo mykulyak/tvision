@@ -1,12 +1,13 @@
 #ifndef TVision_TFileInputLine_h
 #define TVision_TFileInputLine_h
 
+#include <string>
 #include <tvision/InputLine.h>
 
 class TFileInputLine : public TInputLine {
-
 public:
     TFileInputLine(const TRect& bounds, short aMaxLen) noexcept;
+    TFileInputLine(const TRect& bounds, short aMaxLen, const std::string& aValue) noexcept;
 
     virtual void handleEvent(TEvent& event);
 

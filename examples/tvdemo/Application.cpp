@@ -460,7 +460,7 @@ void TVDemo::mouse()
 void TVDemo::openFile(const char* fileSpec)
 {
     TFileDialog* d = (TFileDialog*)validView(
-        new TFileDialog(fileSpec, "Open a File", "~N~ame", fdOpenButton, 100));
+        new TFileDialog(fileSpec, "Open a File", "~N~ame", TFileDialog::Flags::fdOpenButton, 100));
 
     if (d != 0 && deskTop->execView(d) != cmCancel) {
         d->helpCtx = hcFOFileOpenDBox;
