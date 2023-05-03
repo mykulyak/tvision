@@ -42,7 +42,6 @@ struct TCellChar {
     constexpr inline const char& operator[](size_t i) const;
 };
 
-
 inline void TCellChar::moveInt(uint32_t mbc, bool wide)
 {
     memset(this, 0, sizeof(*this));

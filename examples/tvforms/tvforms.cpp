@@ -25,7 +25,6 @@
 extern TPoint shadowSize;
 const int MAXSIZE = 150;
 
-__link(RResourceCollection);
 __link(RButton);
 __link(RCheckBoxes);
 __link(RInputLine);

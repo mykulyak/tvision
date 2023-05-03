@@ -10,7 +10,6 @@
 #include <sstream>
 #include <tvision/tv.h>
 
-__link(RResourceCollection);
 __link(RDialog);
 __link(RScrollBar);
 

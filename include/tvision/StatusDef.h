@@ -5,8 +5,8 @@
 
 class TStatusDef {
 public:
-    TStatusDef(
-        ushort aMin, ushort aMax, TStatusItem* someItems = nullptr, TStatusDef* aNext = nullptr) noexcept
+    TStatusDef(ushort aMin, ushort aMax, TStatusItem* someItems = nullptr,
+        TStatusDef* aNext = nullptr) noexcept
         : next(aNext)
         , min(aMin)
         , max(aMax)

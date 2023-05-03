@@ -1,5 +1,5 @@
 #include "ResourceFile.h"
-#include "ResourceItem.h"
+#include <algorithm>
 
 const int32_t rStreamMagic = 0x52504246uL; // 'FBPR'
 
@@ -49,29 +49,25 @@ TResourceFile::TResourceFile(const std::string& fileName, pstream::openmode mode
         stream.seekg(basePos + sizeof(int32_t) * 2, std::ios::beg);
         stream >> indexPos;
         stream.seekg(basePos + indexPos, std::ios::beg);
-        stream >> index;
+        readIndex();
     } else {
         indexPos = sizeof(int32_t) * 3;
-        index = new TResourceCollection(0, 8);
     }
 }
 
-TResourceFile::~TResourceFile()
-{
-    flush();
-    destroy((TCollection*)index);
-}
+TResourceFile::~TResourceFile() { flush(); }
 
 bool TResourceFile::good() const { return stream.good(); }
 
-short TResourceFile::count() { return index->getCount(); }
+short TResourceFile::count() { return index.size(); }
 
 void TResourceFile::remove(const char* key)
 {
-    int i;
-
-    if (index->search((char*)key, i)) {
-        index->free(index->at(i));
+    auto iend = index.end();
+    auto it = std::remove_if(
+        index.begin(), iend, [key](const TResourceItem& item) { return item.key == key; });
+    if (it != iend) {
+        index.erase(it, iend);
         modified = true;
     }
 }
@@ -82,7 +78,7 @@ void TResourceFile::flush()
 
     if (modified == true) {
         stream.seekp(basePos + indexPos, std::ios::beg);
-        stream << index;
+        writeIndex();
         lenRez = stream.tellp() - (std::streamoff)basePos - (std::streamoff)sizeof(int32_t) * 2;
         stream.seekp(basePos, std::ios::beg);
         stream << rStreamMagic;
@@ -95,30 +91,36 @@ void TResourceFile::flush()
 
 void* TResourceFile::get(const char* key)
 {
-    int i;
-    void* p;
+    void* p = nullptr;
 
-    if (!index->search((char*)key, i))
-        return 0;
-    stream.seekg(basePos + ((TResourceItem*)(index->at(i)))->pos, std::ios::beg);
-    stream >> p;
+    auto it = std::find_if(
+        index.begin(), index.end(), [key](const TResourceItem& item) { return item.key == key; });
+    if (it != index.end()) {
+        stream.seekg(basePos + it->pos, std::ios::beg);
+        stream >> p;
+    }
+
     return p;
 }
 
-const char* TResourceFile::keyAt(short i) { return ((TResourceItem*)(index->at(i)))->key; }
+const char* TResourceFile::keyAt(short i) { return index[i].key.c_str(); }
 
 void TResourceFile::put(TStreamable* item, const char* key)
 {
-    int i;
-    TResourceItem* p;
+    auto iend = index.end();
+    auto it = std::find_if(
+        index.begin(), iend, [key](const TResourceItem& item) { return item.key == key; });
 
-    if (index->search((char*)key, i))
-        p = (TResourceItem*)(index->at(i));
-    else {
-        p = new TResourceItem;
-        p->key = newStr(key);
-        index->atInsert(i, p);
+    TResourceItem* p = nullptr;
+    if (it != iend) {
+        p = &(*it);
+    } else {
+        TResourceItem indexItem;
+        indexItem.key = key;
+        index.push_back(indexItem);
+        p = &index.back();
     }
+
     p->pos = indexPos;
     stream.seekp(basePos + indexPos, std::ios::beg);
     stream << item;
@@ -126,4 +128,27 @@ void TResourceFile::put(TStreamable* item, const char* key)
     p->size = indexPos - p->pos;
 
     modified = true;
+}
+
+void TResourceFile::readIndex()
+{
+    size_t count;
+    stream >> count;
+    for (size_t i = 0; i < count; ++i) {
+        TResourceItem item;
+        stream >> item.pos;
+        stream >> item.size;
+        item.key = stream.readStlString();
+        index.push_back(item);
+    }
+}
+
+void TResourceFile::writeIndex()
+{
+    stream << index.size();
+    for (auto& item : index) {
+        stream << item.pos;
+        stream << item.size;
+        stream.writeString(item.key);
+    }
 }

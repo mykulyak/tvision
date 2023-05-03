@@ -3,8 +3,7 @@
 
 #include <tvision/Object.h>
 #include <tvision/tobjstrm.h>
-
-class TResourceCollection;
+#include <vector>
 
 class TResourceFile : public TObject {
 public:
@@ -19,11 +18,20 @@ public:
     void put(TStreamable* item, const char* key);
 
 protected:
+    struct TResourceItem {
+        int32_t pos;
+        int32_t size;
+        std::string key;
+    };
+
     fpstream stream;
     bool modified;
     int32_t basePos;
     int32_t indexPos;
-    TResourceCollection* index;
+    std::vector<TResourceItem> index;
+
+    void readIndex();
+    void writeIndex();
 };
 
 #endif // TVision_TVForms_TResourceFile_h
