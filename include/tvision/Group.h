@@ -4,10 +4,7 @@
 #include <tvision/View.h>
 
 class TGroup : public TView {
-
 public:
-    friend void genRefs();
-
     TGroup(const TRect& bounds) noexcept;
     ~TGroup();
 
@@ -78,6 +75,8 @@ private:
     TView* findNext(bool forwards) noexcept;
 
     virtual const char* streamableName() const { return name; }
+
+    friend void genRefs();
 
 protected:
     TGroup(StreamableInit) noexcept;

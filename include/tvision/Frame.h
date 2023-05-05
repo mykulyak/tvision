@@ -4,17 +4,6 @@
 #include <tvision/Palette.h>
 #include <tvision/View.h>
 
-/* ---------------------------------------------------------------------- */
-/*      class TFrame                                                      */
-/*                                                                        */
-/*      Palette layout                                                    */
-/*        1 = Passive frame                                               */
-/*        2 = Passive title                                               */
-/*        3 = Active frame                                                */
-/*        4 = Active title                                                */
-/*        5 = Icons                                                       */
-/* ---------------------------------------------------------------------- */
-
 class TDrawBuffer;
 
 class TFrame : public TView {

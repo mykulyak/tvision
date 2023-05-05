@@ -3,13 +3,6 @@
 
 #include <tvision/StaticText.h>
 
-/* ---------------------------------------------------------------------- */
-/*      class TParamText                                                  */
-/*                                                                        */
-/*      Palette layout                                                    */
-/*        1 = Text                                                        */
-/* ---------------------------------------------------------------------- */
-
 class TParamText : public TStaticText {
 public:
     TParamText(const TRect& bounds) noexcept;

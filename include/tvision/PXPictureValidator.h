@@ -2,7 +2,6 @@
 #define TVision_TPXPictureValidator_h
 
 #include <string>
-#include <string_view>
 #include <tvision/Validator.h>
 
 enum TPicResult {
@@ -16,10 +15,8 @@ enum TPicResult {
 };
 
 class TPXPictureValidator : public TValidator {
-    static const char* errorMsg;
-
 public:
-    TPXPictureValidator(std::string_view aPic, bool autoFill);
+    TPXPictureValidator(const std::string& aPic, bool autoFill);
     ~TPXPictureValidator();
     virtual void error();
     virtual bool isValidInput(char* s, bool suppressFill);
@@ -47,6 +44,8 @@ private:
     virtual const char* streamableName() const { return name; };
 
     int index, jndex;
+
+    static const char* errorMsg;
 
 public:
     static TStreamable* build();

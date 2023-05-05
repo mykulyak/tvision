@@ -3,22 +3,11 @@
 
 #include <tvision/View.h>
 
-/* ---------------------------------------------------------------------- */
-/*      class TInputLine                                                  */
-/*                                                                        */
-/*      Palette layout                                                    */
-/*        1 = Passive                                                     */
-/*        2 = Active                                                      */
-/*        3 = Selected                                                    */
-/*        4 = Arrows                                                      */
-/* ---------------------------------------------------------------------- */
-
 const ushort ilMaxBytes = 0, ilMaxWidth = 1, ilMaxChars = 2;
 
 class TValidator;
 
 class TInputLine : public TView {
-
 public:
     TInputLine(const TRect& bounds, uint limit, TValidator* aValid = 0,
         ushort limitMode = ilMaxBytes) noexcept;

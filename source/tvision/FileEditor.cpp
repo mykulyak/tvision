@@ -1,16 +1,5 @@
 #include <tvision/FileEditor.h>
 
-#include <climits>
-#include <cstring>
-#include <fstream>
-
-#ifndef __IO_H
-#include <io.h>
-#endif // __IO_H
-
-#include <cstdio>
-#include <cstdlib>
-
 const char* const TFileEditor::name = "TFileEditor";
 
 __link(REditor);
@@ -20,19 +9,19 @@ TStreamableClass RFileEditor(TFileEditor::name, TFileEditor::build, __DELTA(TFil
 const char* TFileEditor::backupExt = ".bak";
 
 TFileEditor::TFileEditor(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,
-    TIndicator* aIndicator, std::string_view aFileName) noexcept
+    TIndicator* aIndicator, const std::string& aFileName) noexcept
     : TEditor(bounds, aHScrollBar, aVScrollBar, aIndicator, 0)
 {
     TEditor::doneBuffer();
     initBuffer();
 
-    if (aFileName.empty())
-        fileName[0] = EOS;
-    else {
-        strnzcpy(fileName, aFileName.begin(), sizeof(fileName));
-        fexpand(fileName);
-        if (isValid)
+    if (aFileName.empty()) {
+        fileName = aFileName;
+    } else {
+        fileName = expandPath(aFileName).string();
+        if (isValid) {
             isValid = loadFile();
+        }
     }
 }
 
@@ -83,7 +72,7 @@ bool TFileEditor::loadFile() noexcept
             } else
                 f.read(&buffer[bufSize - uint(fSize)], uint(fSize));
             if (!f) {
-                editorDialog(edReadError, fileName);
+                editorDialog(edReadError, fileName.c_str());
                 return false;
             } else {
                 setBufLen(uint(fSize));
@@ -93,23 +82,18 @@ bool TFileEditor::loadFile() noexcept
     }
 }
 
-bool TFileEditor::save() noexcept
-{
-    if (*fileName == EOS)
-        return saveAs();
-    else
-        return saveFile();
-}
+bool TFileEditor::save() noexcept { return fileName.empty() ? saveAs() : saveFile(); }
 
 bool TFileEditor::saveAs() noexcept
 {
     bool res = false;
-    if (editorDialog(edSaveAs, fileName) != cmCancel) {
-        fexpand(fileName);
+    if (editorDialog(edSaveAs, fileName.c_str()) != cmCancel) {
+        fileName = expandPath(fileName);
         message(owner, evBroadcast, cmUpdateTitle, 0);
         res = saveFile();
-        if (isClipboard() == true)
-            *fileName = EOS;
+        if (isClipboard() == true) {
+            fileName.clear();
+        }
     }
     return res;
 }
@@ -131,24 +115,24 @@ bool TFileEditor::saveFile() noexcept
     char file[MAXFILE];
     char ext[MAXEXT];
     if ((editorFlags & efBackupFiles) != 0) {
-        fnsplit(fileName, drive, dir, file, ext);
+        fnsplit(fileName.c_str(), drive, dir, file, ext);
         char backupName[MAXPATH];
         fnmerge(backupName, drive, dir, file, backupExt);
         unlink(backupName);
-        rename(fileName, backupName);
+        rename(fileName.c_str(), backupName);
     }
 
     std::ofstream f(fileName, std::ios::out | std::ios::binary);
 
     if (!f) {
-        editorDialog(edCreateError, fileName);
+        editorDialog(edCreateError, fileName.c_str());
         return false;
     } else {
         writeBlock(f, buffer, curPtr);
         writeBlock(f, buffer + curPtr + gapLen, bufLen - curPtr);
 
         if (!f) {
-            editorDialog(edWriteError, fileName);
+            editorDialog(edWriteError, fileName.c_str());
             return false;
         } else {
             modified = false;
@@ -205,13 +189,8 @@ bool TFileEditor::valid(ushort command)
         return isValid;
     else {
         if (modified == true) {
-            int d;
-            if (*fileName == EOS)
-                d = edSaveUntitled;
-            else
-                d = edSaveModify;
-
-            switch (editorDialog(d, fileName)) {
+            int d = fileName.empty() ? edSaveUntitled : edSaveModify;
+            switch (editorDialog(d, fileName.c_str())) {
             case cmYes:
                 return save();
             case cmNo:
@@ -238,7 +217,7 @@ void* TFileEditor::read(ipstream& is)
 {
     TEditor::read(is);
     bufSize = 0;
-    is.readString(fileName, sizeof(fileName));
+    fileName = is.readStlString();
     if (isValid) {
         isValid = loadFile();
         uint sStart, sEnd, curs;

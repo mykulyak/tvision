@@ -3,19 +3,9 @@
 
 #include <tvision/StaticText.h>
 
-/* ---------------------------------------------------------------------- */
-/*      class TLabel                                                      */
-/*                                                                        */
-/*      Palette layout                                                    */
-/*        1 = Normal text                                                 */
-/*        2 = Selected text                                               */
-/*        3 = Normal shortcut                                             */
-/*        4 = Selected shortcut                                           */
-/* ---------------------------------------------------------------------- */
-
 class TLabel : public TStaticText {
 public:
-    TLabel(const TRect& bounds, std::string_view aText, TView* aLink) noexcept;
+    TLabel(const TRect& bounds, const std::string& aText, TView* aLink) noexcept;
 
     virtual void draw();
     virtual TPalette& getPalette() const;

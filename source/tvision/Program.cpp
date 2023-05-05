@@ -6,6 +6,18 @@
 #include <tvision/StatusItem.h>
 #include <tvision/TimerQueue.h>
 
+/* ---------------------------------------------------------------------- */
+/*      class TProgram                                                    */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*          1 = TBackground                                               */
+/*       2- 7 = TMenuView and TStatusLine                                 */
+/*       8-15 = TWindow(Blue)                                             */
+/*      16-23 = TWindow(Cyan)                                             */
+/*      24-31 = TWindow(Gray)                                             */
+/*      32-63 = TDialog                                                   */
+/* ---------------------------------------------------------------------- */
+
 TStatusLine* TProgram::statusLine = 0;
 TMenuBar* TProgram::menuBar = 0;
 TDeskTop* TProgram::deskTop = 0;

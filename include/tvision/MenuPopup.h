@@ -3,18 +3,6 @@
 
 #include <tvision/MenuBox.h>
 
-/* ---------------------------------------------------------------------- */
-/*      class TMenuPopup                                                  */
-/*                                                                        */
-/*      Palette layout                                                    */
-/*        1 = Normal text                                                 */
-/*        2 = Disabled text                                               */
-/*        3 = Shortcut text                                               */
-/*        4 = Normal selection                                            */
-/*        5 = Disabled selection                                          */
-/*        6 = Shortcut selection                                          */
-/* ---------------------------------------------------------------------- */
-
 class TMenuPopup : public TMenuBox {
 public:
     TMenuPopup(const TRect& bounds, TMenu* aMenu, TMenuView* aParent = 0) noexcept;

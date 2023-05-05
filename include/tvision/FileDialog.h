@@ -23,8 +23,8 @@ public:
                               // the dialog on a stream.
     };
 
-    TFileDialog(std::string_view aWildCard, std::string_view aTitle, std::string_view inputName,
-        ushort aOptions, uchar histId) noexcept;
+    TFileDialog(const std::string& aWildCard, const std::string& aTitle,
+        const std::string& inputName, ushort aOptions, uchar histId) noexcept;
     ~TFileDialog();
 
     virtual void getData(void* rec);

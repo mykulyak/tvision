@@ -1,6 +1,15 @@
 #include <tvision/ScrollBar.h>
 #include <tvision/tobjstrm.h>
 
+/* ---------------------------------------------------------------------- */
+/*      class TScrollBar                                                  */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*        1 = Page areas                                                  */
+/*        2 = Arrows                                                      */
+/*        3 = Indicator                                                   */
+/* ---------------------------------------------------------------------- */
+
 #define cpScrollBar "\x04\x05\x05"
 
 const char* const TScrollBar::name = "TScrollBar";

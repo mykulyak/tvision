@@ -13,7 +13,7 @@ const char* TEditWindow::untitled = "Untitled";
 
 const TPoint minEditWinSize = { 24, 6 };
 
-TEditWindow::TEditWindow(const TRect& bounds, std::string_view fileName, int aNumber) noexcept
+TEditWindow::TEditWindow(const TRect& bounds, const std::string& fileName, int aNumber) noexcept
     : TWindowInit(&TEditWindow::initFrame)
     , TWindow(bounds, fileName, aNumber)
 {
@@ -49,10 +49,10 @@ const char* TEditWindow::getTitle(short)
 {
     if (editor->isClipboard() == true)
         return clipboardTitle;
-    else if (*(editor->fileName) == EOS)
+    else if (editor->getFileName().empty())
         return untitled;
     else
-        return editor->fileName;
+        return editor->getFileName().c_str();
 }
 
 void TEditWindow::handleEvent(TEvent& event)

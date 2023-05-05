@@ -2,14 +2,11 @@
 #define TVision_TFilterValidator_h
 
 #include <string>
-#include <string_view>
 #include <tvision/Validator.h>
 
 class TFilterValidator : public TValidator {
-    static const char* errorMsg;
-
 public:
-    TFilterValidator(std::string_view aValidChars) noexcept;
+    TFilterValidator(const std::string& aValidChars) noexcept;
     ~TFilterValidator();
     virtual void error();
     virtual bool isValidInput(char* s, bool suppressFill);
@@ -23,6 +20,8 @@ protected:
     std::string validChars;
 
 private:
+    static const char* errorMsg;
+
     virtual const char* streamableName() const { return name; };
 
 public:

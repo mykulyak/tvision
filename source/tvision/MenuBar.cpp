@@ -2,6 +2,18 @@
 #include <tvision/MenuBar.h>
 #include <tvision/tobjstrm.h>
 
+/* ---------------------------------------------------------------------- */
+/*      class TMenuBar                                                    */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*        1 = Normal text                                                 */
+/*        2 = Disabled text                                               */
+/*        3 = Shortcut text                                               */
+/*        4 = Normal selection                                            */
+/*        5 = Disabled selection                                          */
+/*        6 = Shortcut selection                                          */
+/* ---------------------------------------------------------------------- */
+
 const char* const TMenuBar::name = "TMenuBar";
 
 TStreamableClass RMenuBar(TMenuBar::name, TMenuBar::build, __DELTA(TMenuBar));

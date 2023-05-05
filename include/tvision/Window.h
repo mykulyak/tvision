@@ -23,20 +23,6 @@ protected:
     TFrame* (*createFrame)(TRect);
 };
 
-/* ---------------------------------------------------------------------- */
-/*      class TWindow                                                     */
-/*                                                                        */
-/*      Palette layout                                                    */
-/*        1 = Frame passive                                               */
-/*        2 = Frame active                                                */
-/*        3 = Frame icon                                                  */
-/*        4 = ScrollBar page area                                         */
-/*        5 = ScrollBar controls                                          */
-/*        6 = Scroller normal text                                        */
-/*        7 = Scroller selected text                                      */
-/*        8 = Reserved                                                    */
-/* ---------------------------------------------------------------------- */
-
 class TWindow : public TGroup, public virtual TWindowInit {
 public:
     enum Flags {
@@ -46,7 +32,7 @@ public:
         wfZoom = 0x08,
     };
 
-    TWindow(const TRect& bounds, std::string_view aTitle, short aNumber) noexcept;
+    TWindow(const TRect& bounds, const std::string& aTitle, short aNumber) noexcept;
     ~TWindow();
 
     virtual void close();

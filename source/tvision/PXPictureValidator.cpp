@@ -50,7 +50,7 @@ __link(RValidator);
 TStreamableClass RPXPictureValidator(
     TPXPictureValidator::name, TPXPictureValidator::build, __DELTA(TPXPictureValidator));
 
-TPXPictureValidator::TPXPictureValidator(std::string_view aPic, bool autoFill)
+TPXPictureValidator::TPXPictureValidator(const std::string& aPic, bool autoFill)
     : TValidator()
     , pic(aPic)
 {

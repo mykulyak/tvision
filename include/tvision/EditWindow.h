@@ -8,7 +8,7 @@ class TFileEditor;
 class TEditWindow : public TWindow {
 
 public:
-    TEditWindow(const TRect& bounds, std::string_view fileName, int aNumber) noexcept;
+    TEditWindow(const TRect& bounds, const std::string& fileName, int aNumber) noexcept;
     virtual void close();
     virtual const char* getTitle(short);
     virtual void handleEvent(TEvent&);

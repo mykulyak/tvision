@@ -82,18 +82,6 @@ protected:
     TDeskTop* (*createDeskTop)(TRect);
 };
 
-/* ---------------------------------------------------------------------- */
-/*      class TProgram                                                    */
-/*                                                                        */
-/*      Palette layout                                                    */
-/*          1 = TBackground                                               */
-/*       2- 7 = TMenuView and TStatusLine                                 */
-/*       8-15 = TWindow(Blue)                                             */
-/*      16-23 = TWindow(Cyan)                                             */
-/*      24-31 = TWindow(Gray)                                             */
-/*      32-63 = TDialog                                                   */
-/* ---------------------------------------------------------------------- */
-
 const int
 
     //  TApplication palette entries

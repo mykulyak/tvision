@@ -65,7 +65,7 @@ TStreamableClass RDialog(TDialog::name, TDialog::build, __DELTA(TDialog));
 //   hibyte = number of bits
 //   lobyte = bit mask
 
-TDialog::TDialog(const TRect& bounds, std::string_view aTitle) noexcept
+TDialog::TDialog(const TRect& bounds, const std::string& aTitle) noexcept
     : TWindowInit(&TDialog::initFrame)
     , TWindow(bounds, aTitle, wnNoNumber)
 {

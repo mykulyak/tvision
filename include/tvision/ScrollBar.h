@@ -1,15 +1,6 @@
 #ifndef TVision_TScrollBar_h
 #define TVision_TScrollBar_h
 
-/* ---------------------------------------------------------------------- */
-/*      class TScrollBar                                                  */
-/*                                                                        */
-/*      Palette layout                                                    */
-/*        1 = Page areas                                                  */
-/*        2 = Arrows                                                      */
-/*        3 = Indicator                                                   */
-/* ---------------------------------------------------------------------- */
-
 #include <tvision/Palette.h>
 #include <tvision/View.h>
 

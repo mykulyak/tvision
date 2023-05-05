@@ -1,6 +1,19 @@
 #include <tvision/HistoryViewer.h>
 #include <tvision/HistoryWindow.h>
 
+/* ---------------------------------------------------------------------- */
+/*      THistoryWindow                                                    */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*        1 = Frame passive                                               */
+/*        2 = Frame active                                                */
+/*        3 = Frame icon                                                  */
+/*        4 = ScrollBar page area                                         */
+/*        5 = ScrollBar controls                                          */
+/*        6 = HistoryViewer normal text                                   */
+/*        7 = HistoryViewer selected text                                 */
+/* ---------------------------------------------------------------------- */
+
 THistInit::THistInit(TListViewer* (*cListViewer)(TRect, TWindow*, ushort)) noexcept
     : createListViewer(cListViewer)
 {

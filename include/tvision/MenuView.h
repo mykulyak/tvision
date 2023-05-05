@@ -1,18 +1,6 @@
 #ifndef TVision_TMenuView_h
 #define TVision_TMenuView_h
 
-/* ---------------------------------------------------------------------- */
-/*      class TMenuView                                                   */
-/*                                                                        */
-/*      Palette layout                                                    */
-/*        1 = Normal text                                                 */
-/*        2 = Disabled text                                               */
-/*        3 = Shortcut text                                               */
-/*        4 = Normal selection                                            */
-/*        5 = Disabled selection                                          */
-/*        6 = Shortcut selection                                          */
-/* ---------------------------------------------------------------------- */
-
 #include <tvision/MenuItem.h>
 #include <tvision/View.h>
 

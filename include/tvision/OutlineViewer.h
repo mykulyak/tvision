@@ -36,16 +36,6 @@ public:
     bool expanded;
 };
 
-/* ------------------------------------------------------------------------*/
-/*      class TOutlineViewer                                               */
-/*                                                                         */
-/*      Palette layout                                                     */
-/*        1 = Normal color                                                 */
-/*        2 = Focus color                                                  */
-/*        3 = Select color                                                 */
-/*        4 = Not expanded color                                           */
-/* ------------------------------------------------------------------------*/
-
 class TScrollBar;
 class TOutlineViewer;
 

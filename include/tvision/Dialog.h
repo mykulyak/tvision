@@ -5,7 +5,7 @@
 
 class TDialog : public TWindow {
 public:
-    TDialog(const TRect& bounds, std::string_view aTitle) noexcept;
+    TDialog(const TRect& bounds, const std::string& aTitle) noexcept;
 
     virtual TPalette& getPalette() const;
     virtual void handleEvent(TEvent& event);

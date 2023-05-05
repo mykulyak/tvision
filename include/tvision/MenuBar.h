@@ -1,18 +1,6 @@
 #ifndef TVision_TMenuBar_h
 #define TVision_TMenuBar_h
 
-/* ---------------------------------------------------------------------- */
-/*      class TMenuBar                                                    */
-/*                                                                        */
-/*      Palette layout                                                    */
-/*        1 = Normal text                                                 */
-/*        2 = Disabled text                                               */
-/*        3 = Shortcut text                                               */
-/*        4 = Normal selection                                            */
-/*        5 = Disabled selection                                          */
-/*        6 = Shortcut selection                                          */
-/* ---------------------------------------------------------------------- */
-
 #include <tvision/MenuItem.h>
 #include <tvision/MenuView.h>
 #include <tvision/SubMenu.h>

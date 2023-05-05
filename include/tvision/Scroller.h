@@ -1,14 +1,6 @@
 #ifndef TVision_TScroller_h
 #define TVision_TScroller_h
 
-/* ---------------------------------------------------------------------- */
-/*      class TScroller                                                   */
-/*                                                                        */
-/*      Palette layout                                                    */
-/*      1 = Normal text                                                   */
-/*      2 = Selected text                                                 */
-/* ---------------------------------------------------------------------- */
-
 class TScrollBar;
 
 class TScroller : public TView {

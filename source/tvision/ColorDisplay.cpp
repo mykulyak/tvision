@@ -7,7 +7,7 @@ __link(RView);
 
 TStreamableClass RColorDisplay(TColorDisplay::name, TColorDisplay::build, __DELTA(TColorDisplay));
 
-TColorDisplay::TColorDisplay(const TRect& bounds, std::string_view aText) noexcept
+TColorDisplay::TColorDisplay(const TRect& bounds, const std::string& aText) noexcept
     : TView(bounds)
     , color(0)
     , text(aText)

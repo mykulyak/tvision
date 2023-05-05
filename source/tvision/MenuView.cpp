@@ -3,6 +3,18 @@
 #include <tvision/MenuView.h>
 #include <tvision/tobjstrm.h>
 
+/* ---------------------------------------------------------------------- */
+/*      class TMenuView                                                   */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*        1 = Normal text                                                 */
+/*        2 = Disabled text                                               */
+/*        3 = Shortcut text                                               */
+/*        4 = Normal selection                                            */
+/*        5 = Disabled selection                                          */
+/*        6 = Shortcut selection                                          */
+/* ---------------------------------------------------------------------- */
+
 #define cpMenuView "\x02\x03\x04\x05\x06\x07"
 
 const char* const TMenuView::name = "TMenuView";
@@ -11,8 +23,8 @@ __link(RView);
 
 TStreamableClass RMenuView(TMenuView::name, TMenuView::build, __DELTA(TMenuView));
 
-TMenuItem::TMenuItem(std::string_view aName, ushort aCommand, TKey aKey, ushort aHelpCtx,
-    std::string_view p, TMenuItem* aNext) noexcept
+TMenuItem::TMenuItem(const std::string& aName, ushort aCommand, TKey aKey, ushort aHelpCtx,
+    const std::string& p, TMenuItem* aNext) noexcept
 {
     name = aName;
     command = aCommand;
@@ -24,8 +36,8 @@ TMenuItem::TMenuItem(std::string_view aName, ushort aCommand, TKey aKey, ushort 
     next = aNext;
 }
 
-TMenuItem::TMenuItem(
-    std::string_view aName, TKey aKey, TMenu* aSubMenu, ushort aHelpCtx, TMenuItem* aNext) noexcept
+TMenuItem::TMenuItem(const std::string& aName, TKey aKey, TMenu* aSubMenu, ushort aHelpCtx,
+    TMenuItem* aNext) noexcept
 {
     name = aName;
     command = 0;

@@ -1,6 +1,14 @@
 #include <tvision/Scroller.h>
 #include <tvision/tobjstrm.h>
 
+/* ---------------------------------------------------------------------- */
+/*      class TScroller                                                   */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*      1 = Normal text                                                   */
+/*      2 = Selected text                                                 */
+/* ---------------------------------------------------------------------- */
+
 #define cpScroller "\x06\x07"
 
 const char* const TScroller::name = "TScroller";

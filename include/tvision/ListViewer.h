@@ -7,9 +7,6 @@
 class TScrollBar;
 
 class TListViewer : public TView {
-
-    static const char* emptyText;
-
 public:
     TListViewer(const TRect& bounds, ushort aNumCols, TScrollBar* aHScrollBar,
         TScrollBar* aVScrollBar) noexcept;
@@ -37,6 +34,8 @@ public:
 
 private:
     virtual const char* streamableName() const { return name; }
+
+    static const char* emptyText;
 
 protected:
     TListViewer(StreamableInit) noexcept;

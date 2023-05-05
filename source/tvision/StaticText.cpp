@@ -1,6 +1,13 @@
 #include <tvision/StaticText.h>
 #include <tvision/tobjstrm.h>
 
+/* ---------------------------------------------------------------------- */
+/*      class TStaticText                                                 */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*        1 = Text                                                        */
+/* ---------------------------------------------------------------------- */
+
 #define cpStaticText "\x06"
 
 const char* const TStaticText::name = "TStaticText";
@@ -9,7 +16,7 @@ __link(RView);
 
 TStreamableClass RStaticText(TStaticText::name, TStaticText::build, __DELTA(TStaticText));
 
-TStaticText::TStaticText(const TRect& bounds, std::string_view aText) noexcept
+TStaticText::TStaticText(const TRect& bounds, const std::string& aText) noexcept
     : TView(bounds)
     , text(aText)
 {

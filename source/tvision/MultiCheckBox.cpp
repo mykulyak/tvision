@@ -1,6 +1,16 @@
 #include <tvision/MultiCheckBoxes.h>
 #include <tvision/tobjstrm.h>
 
+/* ---------------------------------------------------------------------- */
+/*      TMultiCheckBoxes                                                  */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*        1 = Normal text                                                 */
+/*        2 = Selected text                                               */
+/*        3 = Normal shortcut                                             */
+/*        4 = Selected shortcut                                           */
+/* ---------------------------------------------------------------------- */
+
 const char* const TMultiCheckBoxes::name = "TMultiCheckBoxes";
 
 TStreamableClass RMultiCheckBoxes(

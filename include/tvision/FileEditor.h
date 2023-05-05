@@ -1,18 +1,16 @@
 #ifndef TVision_TFileEditor_h
 #define TVision_TFileEditor_h
 
-#include <string_view>
+#include <string>
 #include <tvision/Editor.h>
-#include <tvision/compat/borland/dir.h>
 
 class TScrollBar;
 class TIndicator;
 
 class TFileEditor : public TEditor {
-
 public:
-    char fileName[MAXPATH];
-    TFileEditor(const TRect&, TScrollBar*, TScrollBar*, TIndicator*, std::string_view) noexcept;
+    TFileEditor(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,
+        TIndicator* aIndicator, const std::string& aFileName) noexcept;
     virtual void doneBuffer();
     virtual void handleEvent(TEvent&);
     virtual void initBuffer();
@@ -25,12 +23,16 @@ public:
     virtual void updateCommands();
     virtual bool valid(ushort);
 
+    const std::string& getFileName() const { return fileName; }
+
 private:
     static const char* backupExt;
 
     virtual const char* streamableName() const { return name; }
 
 protected:
+    std::string fileName;
+
     TFileEditor(StreamableInit) noexcept;
     virtual void write(opstream&);
     virtual void* read(ipstream&);

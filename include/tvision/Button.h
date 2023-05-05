@@ -2,24 +2,9 @@
 #define TVision_TButton_h
 
 #include <string>
-#include <string_view>
 #include <tvision/View.h>
 
 const int cmRecordHistory = 60;
-
-/* ---------------------------------------------------------------------- */
-/*      TButton object                                                    */
-/*                                                                        */
-/*      Palette layout                                                    */
-/*        1 = Normal text                                                 */
-/*        2 = Default text                                                */
-/*        3 = Selected text                                               */
-/*        4 = Disabled text                                               */
-/*        5 = Normal shortcut                                             */
-/*        6 = Default shortcut                                            */
-/*        7 = Selected shortcut                                           */
-/*        8 = Shadow                                                      */
-/* ---------------------------------------------------------------------- */
 
 class TDrawBuffer;
 
@@ -33,7 +18,8 @@ public:
         bfGrabFocus = 0x08,
     };
 
-    TButton(const TRect& bounds, std::string_view aTitle, ushort aCommand, ushort aFlags) noexcept;
+    TButton(
+        const TRect& bounds, const std::string& aTitle, ushort aCommand, ushort aFlags) noexcept;
     ~TButton();
 
     virtual void draw();
@@ -44,9 +30,10 @@ public:
     virtual void press();
     virtual void setState(ushort aState, bool enable);
 
-    std::string title;
+    const std::string& getTitle() const { return title; }
 
 protected:
+    std::string title;
     ushort command;
     uchar flags;
     bool amDefault;

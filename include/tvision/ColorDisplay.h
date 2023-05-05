@@ -7,7 +7,7 @@
 
 class TColorDisplay : public TView {
 public:
-    TColorDisplay(const TRect& bounds, std::string_view aText) noexcept;
+    TColorDisplay(const TRect& bounds, const std::string& aText) noexcept;
     virtual ~TColorDisplay();
     virtual void draw();
     virtual void handleEvent(TEvent& event);

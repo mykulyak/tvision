@@ -6,6 +6,17 @@
 #include <tvision/StringCollection.h>
 #include <tvision/tobjstrm.h>
 
+/* ---------------------------------------------------------------------- */
+/*      class TCluster                                                    */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*        1 = Normal text                                                 */
+/*        2 = Selected text                                               */
+/*        3 = Normal shortcut                                             */
+/*        4 = Selected shortcut                                           */
+/*        5 = Disabled text                                               */
+/* ---------------------------------------------------------------------- */
+
 const char* const TCluster::name = "TCluster";
 
 __link(RView);

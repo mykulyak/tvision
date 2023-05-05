@@ -6,13 +6,6 @@
 
 class TDrawSurface;
 
-/* ---------------------------------------------------------------------- */
-/*      class TSurfaceView                                                */
-/*                                                                        */
-/*      Palette layout                                                    */
-/*        1 = Empty area                                                  */
-/* ---------------------------------------------------------------------- */
-
 // A TSurfaceView displays a region of a TDrawSurface between 'delta' and
 // '{delta.x + size.x, delta.y + size.y}'.
 // Out-of-bounds areas (or the whole view if 'surface' is null) are

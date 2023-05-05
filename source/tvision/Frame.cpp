@@ -1,6 +1,17 @@
 #include <tvision/Frame.h>
 #include <tvision/tobjstrm.h>
 
+/* ---------------------------------------------------------------------- */
+/*      class TFrame                                                      */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*        1 = Passive frame                                               */
+/*        2 = Passive title                                               */
+/*        3 = Active frame                                                */
+/*        4 = Active title                                                */
+/*        5 = Icons                                                       */
+/* ---------------------------------------------------------------------- */
+
 #define cpFrame "\x01\x01\x02\x02\x03"
 
 const char* const TFrame::name = "TFrame";

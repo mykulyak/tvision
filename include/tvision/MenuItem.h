@@ -11,9 +11,9 @@ class TMenu;
 
 class TMenuItem {
 public:
-    TMenuItem(std::string_view aName, ushort aCommand, TKey aKey, ushort aHelpCtx = hcNoContext,
-        std::string_view p = "", TMenuItem* aNext = 0) noexcept;
-    TMenuItem(std::string_view aName, TKey aKey, TMenu* aSubMenu, ushort aHelpCtx = hcNoContext,
+    TMenuItem(const std::string& aName, ushort aCommand, TKey aKey, ushort aHelpCtx = hcNoContext,
+        const std::string& p = "", TMenuItem* aNext = 0) noexcept;
+    TMenuItem(const std::string& aName, TKey aKey, TMenu* aSubMenu, ushort aHelpCtx = hcNoContext,
         TMenuItem* aNext = 0) noexcept;
 
     ~TMenuItem();

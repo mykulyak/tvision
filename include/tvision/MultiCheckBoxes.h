@@ -7,16 +7,6 @@
 const unsigned short cfOneBit = 0x0101, cfTwoBits = 0x0203, cfFourBits = 0x040F,
                      cfEightBits = 0x08FF;
 
-/* ---------------------------------------------------------------------- */
-/*      TMultiCheckBoxes                                                  */
-/*                                                                        */
-/*      Palette layout                                                    */
-/*        1 = Normal text                                                 */
-/*        2 = Selected text                                               */
-/*        3 = Normal shortcut                                             */
-/*        4 = Selected shortcut                                           */
-/* ---------------------------------------------------------------------- */
-
 class TSItem;
 
 class TMultiCheckBoxes : public TCluster {

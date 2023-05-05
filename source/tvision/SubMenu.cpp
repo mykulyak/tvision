@@ -4,8 +4,8 @@
 
 #include <cstring>
 
-TSubMenu::TSubMenu(std::string_view nm, TKey key, ushort helpCtx) noexcept
-    : TMenuItem(nm, key, new TMenu, helpCtx)
+TSubMenu::TSubMenu(const std::string& aName, TKey key, ushort helpCtx) noexcept
+    : TMenuItem(aName, key, new TMenu, helpCtx)
 {
 }
 

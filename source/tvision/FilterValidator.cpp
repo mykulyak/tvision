@@ -10,7 +10,7 @@ __link(RValidator);
 TStreamableClass RFilterValidator(
     TFilterValidator::name, TFilterValidator::build, __DELTA(TFilterValidator));
 
-TFilterValidator::TFilterValidator(std::string_view aValidChars) noexcept
+TFilterValidator::TFilterValidator(const std::string& aValidChars) noexcept
     : TValidator()
     , validChars(aValidChars)
 {

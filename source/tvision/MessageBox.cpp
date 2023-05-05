@@ -29,7 +29,8 @@ ushort MessageBox::messageBoxRect(const TRect& r, std::string_view msg, ushort a
 
     dialog = new TDialog(r, Titles[aOptions & 0x3]);
 
-    dialog->insert(new TStaticText(TRect(3, 2, dialog->size.x - 2, dialog->size.y - 3), msg));
+    std::string msgStr(msg);
+    dialog->insert(new TStaticText(TRect(3, 2, dialog->size.x - 2, dialog->size.y - 3), msgStr));
 
     for (i = 0, x = -2, buttonCount = 0; i < 4; i++) {
         if ((aOptions & (0x0100 << i)) != 0) {
@@ -100,22 +101,22 @@ ushort MessageBox::messageBox(unsigned aOptions, const char* fmt, ...) noexcept
 }
 
 ushort MessageBox::inputBox(
-    std::string_view Title, std::string_view aLabel, char* s, uchar limit) noexcept
+    const std::string& aTitle, const std::string& aLabel, char* s, uchar limit) noexcept
 {
     TRect r(0, 0, 60, 8);
     r.move((TProgram::deskTop->size.x - r.b.x) / 2, (TProgram::deskTop->size.y - r.b.y) / 2);
-    return inputBoxRect(r, Title, aLabel, s, limit);
+    return inputBoxRect(r, aTitle, aLabel, s, limit);
 }
 
-ushort MessageBox::inputBoxRect(const TRect& bounds, std::string_view Title,
-    std::string_view aLabel, char* s, uchar limit) noexcept
+ushort MessageBox::inputBoxRect(const TRect& bounds, const std::string& aTitle,
+    const std::string& aLabel, char* s, uchar limit) noexcept
 {
     TDialog* dialog;
     TView* control;
     TRect r;
     ushort c;
 
-    dialog = new TDialog(bounds, Title);
+    dialog = new TDialog(bounds, aTitle);
 
     r = TRect(4 + aLabel.size(), 2, dialog->size.x - 3, 3);
     control = new TInputLine(r, limit);

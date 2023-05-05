@@ -1,6 +1,20 @@
 #include <tvision/Window.h>
 #include <tvision/tobjstrm.h>
 
+/* ---------------------------------------------------------------------- */
+/*      class TWindow                                                     */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*        1 = Frame passive                                               */
+/*        2 = Frame active                                                */
+/*        3 = Frame icon                                                  */
+/*        4 = ScrollBar page area                                         */
+/*        5 = ScrollBar controls                                          */
+/*        6 = Scroller normal text                                        */
+/*        7 = Scroller selected text                                      */
+/*        8 = Reserved                                                    */
+/* ---------------------------------------------------------------------- */
+
 const TPoint minWinSize = { 16, 6 };
 
 const char* const TWindow::name = "TWindow";
@@ -15,7 +29,7 @@ TWindowInit::TWindowInit(TFrame* (*cFrame)(TRect)) noexcept
 {
 }
 
-TWindow::TWindow(const TRect& bounds, std::string_view aTitle, short aNumber) noexcept
+TWindow::TWindow(const TRect& bounds, const std::string& aTitle, short aNumber) noexcept
     : TWindowInit(&TWindow::initFrame)
     , TGroup(bounds)
     , flags(Flags::wfMove | Flags::wfGrow | Flags::wfClose | Flags::wfZoom)

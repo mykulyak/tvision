@@ -1,6 +1,16 @@
 #include <tvision/Label.h>
 #include <tvision/tobjstrm.h>
 
+/* ---------------------------------------------------------------------- */
+/*      class TLabel                                                      */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*        1 = Normal text                                                 */
+/*        2 = Selected text                                               */
+/*        3 = Normal shortcut                                             */
+/*        4 = Selected shortcut                                           */
+/* ---------------------------------------------------------------------- */
+
 const char* const TLabel::name = "TLabel";
 
 __link(RStaticText);
@@ -9,7 +19,7 @@ TStreamableClass RLabel(TLabel::name, TLabel::build, __DELTA(TLabel));
 
 #define cpLabel "\x07\x08\x09\x09"
 
-TLabel::TLabel(const TRect& bounds, std::string_view aText, TView* aLink) noexcept
+TLabel::TLabel(const TRect& bounds, const std::string& aText, TView* aLink) noexcept
     : TStaticText(bounds, aText)
     , link(aLink)
     , light(false)

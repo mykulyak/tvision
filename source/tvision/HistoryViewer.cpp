@@ -1,5 +1,16 @@
 #include <tvision/HistoryViewer.h>
 
+/* ---------------------------------------------------------------------- */
+/*      class THistoryViewer                                              */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*        1 = Active                                                      */
+/*        2 = Inactive                                                    */
+/*        3 = Focused                                                     */
+/*        4 = Selected                                                    */
+/*        5 = Divider                                                     */
+/* ---------------------------------------------------------------------- */
+
 #define cpHistoryViewer "\x06\x06\x07\x06\x06"
 
 THistoryViewer::THistoryViewer(const TRect& bounds, TScrollBar* aHScrollBar,

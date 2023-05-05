@@ -63,7 +63,7 @@ void TCalcDisplay::handleEvent(TEvent& event)
         break;
     case evBroadcast:
         if (event.message.command == cmCalcButton) {
-            calcKey(((TButton*)event.message.infoPtr)->title[0]);
+            calcKey(reinterpret_cast<TButton*>(event.message.infoPtr)->getTitle()[0]);
             clearEvent(event);
         }
         break;

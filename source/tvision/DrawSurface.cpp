@@ -1,5 +1,12 @@
 #include <tvision/DrawSurface.h>
 
+/* ---------------------------------------------------------------------- */
+/*      class TSurfaceView                                                */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*        1 = Empty area                                                  */
+/* ---------------------------------------------------------------------- */
+
 #define cpSurfaceView "\x01"
 
 TDrawSurface::TDrawSurface() noexcept

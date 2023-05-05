@@ -2,11 +2,10 @@
 #define TVision_TStatusItem_h
 
 #include <string>
-#include <string_view>
 
 class TStatusItem {
 public:
-    TStatusItem(std::string_view aText, TKey aKey, ushort cmd, TStatusItem* aNext = 0) noexcept
+    TStatusItem(const std::string& aText, TKey aKey, ushort cmd, TStatusItem* aNext = 0) noexcept
         : next(aNext)
         , text(aText)
         , keyCode(aKey)

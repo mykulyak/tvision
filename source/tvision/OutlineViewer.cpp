@@ -1,6 +1,16 @@
 #include <tvision/OutlineViewer.h>
 #include <tvision/tobjstrm.h>
 
+/* ------------------------------------------------------------------------*/
+/*      class TOutlineViewer                                               */
+/*                                                                         */
+/*      Palette layout                                                     */
+/*        1 = Normal color                                                 */
+/*        2 = Focus color                                                  */
+/*        3 = Select color                                                 */
+/*        4 = Not expanded color                                           */
+/* ------------------------------------------------------------------------*/
+
 #define cpOutlineViewer "\x6\x7\x3\x8"
 
 TOutlineViewer::TOutlineViewer(

@@ -2,6 +2,18 @@
 #include <tvision/MenuPopup.h>
 #include <tvision/tobjstrm.h>
 
+/* ---------------------------------------------------------------------- */
+/*      class TMenuPopup                                                  */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*        1 = Normal text                                                 */
+/*        2 = Disabled text                                               */
+/*        3 = Shortcut text                                               */
+/*        4 = Normal selection                                            */
+/*        5 = Disabled selection                                          */
+/*        6 = Shortcut selection                                          */
+/* ---------------------------------------------------------------------- */
+
 const char* const TMenuPopup::name = "TMenuPopup";
 
 TStreamableClass RMenuPopup(TMenuPopup::name, TMenuPopup::build, __DELTA(TMenuPopup));

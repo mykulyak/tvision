@@ -1,6 +1,13 @@
 #include <tvision/ParamText.h>
 #include <tvision/tobjstrm.h>
 
+/* ---------------------------------------------------------------------- */
+/*      class TParamText                                                  */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*        1 = Text                                                        */
+/* ---------------------------------------------------------------------- */
+
 const char* const TParamText::name = "TParamText";
 
 __link(RView);

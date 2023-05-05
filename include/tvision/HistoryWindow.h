@@ -15,19 +15,6 @@ protected:
     TListViewer* (*createListViewer)(TRect, TWindow*, ushort);
 };
 
-/* ---------------------------------------------------------------------- */
-/*      THistoryWindow                                                    */
-/*                                                                        */
-/*      Palette layout                                                    */
-/*        1 = Frame passive                                               */
-/*        2 = Frame active                                                */
-/*        3 = Frame icon                                                  */
-/*        4 = ScrollBar page area                                         */
-/*        5 = ScrollBar controls                                          */
-/*        6 = HistoryViewer normal text                                   */
-/*        7 = HistoryViewer selected text                                 */
-/* ---------------------------------------------------------------------- */
-
 class THistoryWindow : public TWindow, public virtual THistInit {
 public:
     THistoryWindow(const TRect& bounds, ushort historyId) noexcept;

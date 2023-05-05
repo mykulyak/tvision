@@ -3,6 +3,18 @@
 #include <tvision/StatusLine.h>
 #include <tvision/tobjstrm.h>
 
+/* ---------------------------------------------------------------------- */
+/*      class TStatusLine                                                 */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*        1 = Normal text                                                 */
+/*        2 = Disabled text                                               */
+/*        3 = Shortcut text                                               */
+/*        4 = Normal selection                                            */
+/*        5 = Disabled selection                                          */
+/*        6 = Shortcut selection                                          */
+/* ---------------------------------------------------------------------- */
+
 #define cpStatusLine "\x02\x03\x04\x05\x06\x07"
 
 const char* const TStatusLine::name = "TStatusLine";

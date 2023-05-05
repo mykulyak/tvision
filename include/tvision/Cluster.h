@@ -5,17 +5,6 @@
 #include <tvision/View.h>
 #include <vector>
 
-/* ---------------------------------------------------------------------- */
-/*      class TCluster                                                    */
-/*                                                                        */
-/*      Palette layout                                                    */
-/*        1 = Normal text                                                 */
-/*        2 = Selected text                                               */
-/*        3 = Normal shortcut                                             */
-/*        4 = Selected shortcut                                           */
-/*        5 = Disabled text                                               */
-/* ---------------------------------------------------------------------- */
-
 class TSItem;
 
 class TCluster : public TView {

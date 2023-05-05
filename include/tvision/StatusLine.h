@@ -6,18 +6,6 @@
 class TStatusDef;
 class TStatusItem;
 
-/* ---------------------------------------------------------------------- */
-/*      class TStatusLine                                                 */
-/*                                                                        */
-/*      Palette layout                                                    */
-/*        1 = Normal text                                                 */
-/*        2 = Disabled text                                               */
-/*        3 = Shortcut text                                               */
-/*        4 = Normal selection                                            */
-/*        5 = Disabled selection                                          */
-/*        6 = Shortcut selection                                          */
-/* ---------------------------------------------------------------------- */
-
 class TStatusLine : public TView {
 public:
     TStatusLine(const TRect& bounds, TStatusDef& aDefs) noexcept;

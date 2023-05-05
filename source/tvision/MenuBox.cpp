@@ -2,6 +2,18 @@
 #include <tvision/MenuBox.h>
 #include <tvision/tobjstrm.h>
 
+/* ---------------------------------------------------------------------- */
+/*      class TMenuBox                                                    */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*        1 = Normal text                                                 */
+/*        2 = Disabled text                                               */
+/*        3 = Shortcut text                                               */
+/*        4 = Normal selection                                            */
+/*        5 = Disabled selection                                          */
+/*        6 = Shortcut selection                                          */
+/* ---------------------------------------------------------------------- */
+
 const char* const TMenuBox::name = "TMenuBox";
 
 const char* TMenuBox::frameChars = " \332\304\277  \300\304\331  \263 \263  \303\304\264 ";

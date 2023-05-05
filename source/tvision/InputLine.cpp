@@ -1,6 +1,16 @@
 #include <tvision/InputLine.h>
 #include <tvision/tobjstrm.h>
 
+/* ---------------------------------------------------------------------- */
+/*      class TInputLine                                                  */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*        1 = Passive                                                     */
+/*        2 = Active                                                      */
+/*        3 = Selected                                                    */
+/*        4 = Arrows                                                      */
+/* ---------------------------------------------------------------------- */
+
 const char* const TInputLine::name = "TInputLine";
 
 const char TInputLine::rightArrow = '\x10';

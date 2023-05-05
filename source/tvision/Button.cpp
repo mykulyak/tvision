@@ -1,6 +1,20 @@
 #include <tvision/Button.h>
 #include <tvision/tobjstrm.h>
 
+/* ---------------------------------------------------------------------- */
+/*      TButton object                                                    */
+/*                                                                        */
+/*      Palette layout                                                    */
+/*        1 = Normal text                                                 */
+/*        2 = Default text                                                */
+/*        3 = Selected text                                               */
+/*        4 = Disabled text                                               */
+/*        5 = Normal shortcut                                             */
+/*        6 = Default shortcut                                            */
+/*        7 = Selected shortcut                                           */
+/*        8 = Shadow                                                      */
+/* ---------------------------------------------------------------------- */
+
 const int
 
     cmGrabDefault
@@ -19,7 +33,7 @@ TStreamableClass RButton(TButton::name, TButton::build, __DELTA(TButton));
 #define cpButton "\x0A\x0B\x0C\x0D\x0E\x0E\x0E\x0F"
 
 TButton::TButton(
-    const TRect& bounds, std::string_view aTitle, ushort aCommand, ushort aFlags) noexcept
+    const TRect& bounds, const std::string& aTitle, ushort aCommand, ushort aFlags) noexcept
     : TView(bounds)
     , title(aTitle)
     , command(aCommand)
