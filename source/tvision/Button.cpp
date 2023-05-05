@@ -35,7 +35,7 @@ TStreamableClass RButton(TButton::name, TButton::build, __DELTA(TButton));
 TButton::TButton(
     const TRect& bounds, const std::string& aTitle, ushort aCommand, ushort aFlags) noexcept
     : TView(bounds)
-    , title(aTitle)
+    , title_(aTitle)
     , command(aCommand)
     , flags(aFlags)
     , amDefault(bool((aFlags & bfDefault) != 0))
@@ -57,11 +57,11 @@ void TButton::drawTitle(TDrawBuffer& b, int s, int i, TAttrPair cButton, bool do
     if ((flags & bfLeftJust) != 0)
         l = 1;
     else {
-        l = (s - cstrlen(title) - 1) / 2;
+        l = (s - cstrlen(title_) - 1) / 2;
         if (l < 1)
             l = 1;
     }
-    b.moveCStr(i + l, title.c_str(), cButton);
+    b.moveCStr(i + l, title_.c_str(), cButton);
 
     if (showMarkers == true && !down) {
         if ((state & sfSelected) != 0)
@@ -117,7 +117,7 @@ void TButton::drawState(bool down)
             i = 1;
         }
 
-        if (y == T && !title.empty())
+        if (y == T && !title_.empty())
             drawTitle(b, s, i, cButton, down);
 
         if (showMarkers && !down) {
@@ -155,7 +155,7 @@ void TButton::handleEvent(TEvent& event)
     if (flags & bfGrabFocus)
         TView::handleEvent(event);
 
-    char c = hotKey(title.c_str());
+    char c = hotKey(title_.c_str());
     switch (event.what) {
     case evMouseDown:
         if ((state & sfDisabled) == 0) {
@@ -262,14 +262,14 @@ void TButton::press()
 void TButton::write(opstream& os)
 {
     TView::write(os);
-    os.writeString(title);
+    os.writeString(title_);
     os << command << flags << (int)amDefault;
 }
 
 void* TButton::read(ipstream& is)
 {
     TView::read(is);
-    title = is.readStlString();
+    title_ = is.readStlString();
     int temp;
     is >> command >> flags >> temp;
     amDefault = bool(temp);

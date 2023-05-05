@@ -437,7 +437,7 @@ void TVDemo::colors()
         c->helpCtx = hcOCColorsDBox; // set context help constant
         c->setData(&getPalette());
         if (deskTop->execView(c) != cmCancel) {
-            getPalette() = *(c->pal);
+            getPalette() = c->pal();
             setScreenMode(TScreen::screenMode);
         }
         destroy(c);

@@ -10,9 +10,12 @@ public:
     virtual void draw();
     virtual TPalette& getPalette() const;
 
-    char pattern;
+    char pattern() const noexcept { return pattern_; }
+    void setPattern(char aPattern) noexcept { pattern_ = aPattern; }
 
 private:
+    char pattern_;
+
     virtual const char* streamableName() const { return name; }
 
 protected:

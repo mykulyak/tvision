@@ -13,7 +13,6 @@ class TMonoSelector;
 class TPalette;
 
 class TColorDialog : public TDialog {
-
 public:
     TColorDialog(TPalette* aPalette, TColorGroup* aGroups) noexcept;
     ~TColorDialog();
@@ -22,7 +21,7 @@ public:
     virtual void handleEvent(TEvent& event);
     virtual void setData(void* rec);
 
-    TPalette* pal;
+    const TPalette& pal() const { return *pal_; }
 
 protected:
     TColorDisplay* display;
@@ -34,6 +33,7 @@ protected:
     TLabel* monoLabel;
     TMonoSelector* monoSel;
     uchar groupIndex;
+    TPalette* pal_;
 
 private:
     static const char* colors;

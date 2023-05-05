@@ -30,10 +30,10 @@ public:
     virtual void press();
     virtual void setState(ushort aState, bool enable);
 
-    const std::string& getTitle() const { return title; }
+    const std::string& title() const { return title_; }
 
 protected:
-    std::string title;
+    std::string title_;
     ushort command;
     uchar flags;
     bool amDefault;

@@ -20,10 +20,7 @@ TParamText::TParamText(const TRect& bounds) noexcept
 {
 }
 
-void TParamText::getText(char* s)
-{
-    strcpy(s, text.c_str());
-}
+void TParamText::getText(char* s) { strcpy(s, text.c_str()); }
 
 int TParamText::getTextLen() { return text.size(); }
 

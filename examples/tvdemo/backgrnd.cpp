@@ -26,7 +26,7 @@ bool TChBackground::valid(ushort command)
         if (background && command == cmOK) {
             char pattern = TText::toCodePage(input->data);
             if (pattern != '\0') {
-                background->pattern = pattern;
+                background->setPattern(pattern);
                 background->drawView();
             }
             return false; // Keep dialog open.

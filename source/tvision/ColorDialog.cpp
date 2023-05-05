@@ -24,10 +24,10 @@ TColorDialog::TColorDialog(TPalette* aPalette, TColorGroup* aGroups) noexcept
 {
     options |= ofCentered;
     if (aPalette != 0) {
-        pal = new TPalette("", 0);
-        *pal = *aPalette;
+        pal_ = new TPalette("", 0);
+        *pal_ = *aPalette;
     } else
-        pal = 0;
+        pal_ = nullptr;
 
     TScrollBar* sb = new TScrollBar(TRect(18, 3, 19, 14));
     insert(sb);
@@ -67,11 +67,11 @@ TColorDialog::TColorDialog(TPalette* aPalette, TColorGroup* aGroups) noexcept
     insert(new TButton(TRect(48, 15, 58, 17), cancelText, cmCancel, TButton::Flags::bfNormal));
     selectNext(false);
 
-    if (pal != 0)
-        setData(pal);
+    if (pal_ != nullptr)
+        setData(pal_);
 }
 
-TColorDialog::~TColorDialog() { delete pal; }
+TColorDialog::~TColorDialog() { delete pal_; }
 
 void TColorDialog::handleEvent(TEvent& event)
 {
@@ -79,25 +79,25 @@ void TColorDialog::handleEvent(TEvent& event)
         groupIndex = groups->focused;
     TDialog::handleEvent(event);
     if (event.what == evBroadcast && event.message.command == cmNewColorIndex)
-        display->setColor(&pal->data[event.message.infoByte]);
+        display->setColor(&pal_->data[event.message.infoByte]);
 }
 
-ushort TColorDialog::dataSize() { return *pal->data + 1; }
+ushort TColorDialog::dataSize() { return *pal_->data + 1; }
 
 void TColorDialog::getData(void* rec)
 {
     getIndexes(colorIndexes);
-    *(TPalette*)rec = *pal;
+    *(TPalette*)rec = *pal_;
 }
 
 void TColorDialog::setData(void* rec)
 {
-    if (!pal)
-        pal = new TPalette("", 0);
-    *pal = *(TPalette*)rec;
+    if (!pal_)
+        pal_ = new TPalette("", 0);
+    *pal_ = *(TPalette*)rec;
 
     setIndexes(colorIndexes);
-    display->setColor(&pal->data[groups->getGroupIndex(groupIndex)]);
+    display->setColor(&pal_->data[groups->getGroupIndex(groupIndex)]);
     groups->focusItem(groupIndex);
     if (showMarkers) {
         forLabel->hide();
@@ -156,7 +156,7 @@ void* TColorDialog::read(ipstream& is)
 {
     TDialog::read(is);
     is >> display >> groups >> forLabel >> forSel >> bakLabel >> bakSel >> monoLabel >> monoSel;
-    pal = 0;
+    pal_ = nullptr;
     return this;
 }
 

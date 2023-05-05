@@ -10,7 +10,7 @@ TStreamableClass RBackground(TBackground::name, TBackground::build, __DELTA(TBac
 
 TBackground::TBackground(const TRect& bounds, char aPattern) noexcept
     : TView(bounds)
-    , pattern(aPattern)
+    , pattern_(aPattern)
 {
     growMode = gfGrowHiX | gfGrowHiY;
 }
@@ -19,7 +19,7 @@ void TBackground::draw()
 {
     TDrawBuffer b;
 
-    b.moveChar(0, pattern, getColor(0x01), size.x);
+    b.moveChar(0, pattern_, getColor(0x01), size.x);
     writeLine(0, 0, size.x, size.y, b);
 }
 
@@ -39,13 +39,13 @@ TBackground::TBackground(StreamableInit) noexcept
 void TBackground::write(opstream& os)
 {
     TView::write(os);
-    os << pattern;
+    os << pattern_;
 }
 
 void* TBackground::read(ipstream& is)
 {
     TView::read(is);
-    is >> pattern;
+    is >> pattern_;
     return this;
 }
 
