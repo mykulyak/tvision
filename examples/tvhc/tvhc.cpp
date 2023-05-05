@@ -678,10 +678,8 @@ TParagraph* readParagraph(std::fstream& textFile, int& offset, TCrossRefNode*& x
     }
     unGetLine(line);
     p = new TParagraph;
-    p->size = ofs;
     p->wrap = (state == wrapping) ? true : false;
-    p->text = new char[ofs];
-    memmove(p->text, buffer, ofs);
+    p->text.assign((char*)buffer, ofs);
     p->next = 0;
     offset += ofs;
     return (p);

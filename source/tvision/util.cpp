@@ -206,16 +206,6 @@ void initHistory() noexcept
 
 void doneHistory() noexcept { ::free(historyBlock); }
 
-char* newStr(std::string_view s) noexcept
-{
-    if (s.data() == 0)
-        return 0;
-    char* temp = new char[s.size() + 1];
-    memcpy(temp, s.data(), s.size());
-    temp[s.size()] = EOS;
-    return temp;
-}
-
 /*------------------------------------------------------------------------*/
 /*                                                                        */
 /*  ctrlToArrow                                                           */

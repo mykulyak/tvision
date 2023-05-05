@@ -6,10 +6,10 @@ const int32_t magicHeader = 0x46484246L; //"FBHF"
 class TParagraph {
 public:
     TParagraph() noexcept { }
+
     TParagraph* next;
     bool wrap;
-    ushort size;
-    char* text;
+    std::string text;
 };
 
 class TCrossRef {
@@ -44,7 +44,7 @@ public:
     TCrossRef* crossRefs;
 
 private:
-    std::string_view wrapText(char* text, int size, int& offset, bool wrap) noexcept;
+    std::string_view wrapText(std::string& text, int& offset, bool wrap) noexcept;
     void readParagraphs(ipstream& s);
     void readCrossRefs(ipstream& s);
     void writeParagraphs(opstream& s);

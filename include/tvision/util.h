@@ -47,8 +47,6 @@ class TMenu;
 class TMenuItem;
 ushort popupMenu(TPoint where, TMenuItem& aMenu, TGroup* = 0);
 
-char* newStr(std::string_view) noexcept;
-
 bool driveValid(char drive) noexcept;
 bool isDir(const char* str) noexcept;
 bool pathValid(const char* path) noexcept;

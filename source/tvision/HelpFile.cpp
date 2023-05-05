@@ -6,8 +6,6 @@
 #include <tvision/HelpFile.h>
 #include <tvision/util.h>
 
-#pragma warn - dsz
-
 TCrossRefHandler crossRefHandler = notAssigned;
 
 // THelpTopic
@@ -55,14 +53,10 @@ void THelpTopic::readParagraphs(ipstream& s)
     s >> i;
     pp = &paragraphs;
     while (i > 0) {
-        s >> size;
         *pp = new TParagraph;
-        (*pp)->text = new char[size + 1];
-        (*pp)->size = (ushort)size;
-        s >> temp;
+        s >> size >> temp;
         (*pp)->wrap = bool(temp);
-        s.readBytes((*pp)->text, (*pp)->size);
-        (*pp)->text[(*pp)->size] = '\0';
+        (*pp)->text = s.readStlString();
         pp = &((*pp)->next);
         --i;
     }
@@ -84,13 +78,10 @@ void THelpTopic::readCrossRefs(ipstream& s)
 
 void THelpTopic::disposeParagraphs() noexcept
 {
-    TParagraph *p, *t;
-
-    p = paragraphs;
+    TParagraph* p = paragraphs;
     while (p != 0) {
-        t = p;
+        TParagraph* t = p;
         p = p->next;
-        delete[] t->text;
         delete t;
     }
 }
@@ -156,20 +147,20 @@ void THelpTopic::getCrossRef(int i, TPoint& loc, uchar& length, int& ref) noexce
     p = paragraphs;
     do {
         int lineOffset = curOffset;
-        wrapText(p->text, p->size, curOffset, p->wrap);
+        wrapText(p->text, curOffset, p->wrap);
         ++line;
         if (offset <= paraOffset + curOffset) {
             int refOffset = offset - (paraOffset + lineOffset) - 1;
-            std::string_view textBefore(&p->text[lineOffset], refOffset);
-            std::string_view refText(&p->text[lineOffset + refOffset], crossRefPtr->length);
+            std::string_view textBefore(p->text.c_str() + lineOffset, refOffset);
+            std::string_view refText(p->text.c_str() + lineOffset + refOffset, crossRefPtr->length);
             loc.x = strwidth(textBefore);
             loc.y = line;
             length = strwidth(refText);
             ref = crossRefPtr->ref;
             return;
         }
-        if (curOffset >= p->size) {
-            paraOffset += p->size;
+        if (curOffset >= p->text.size()) {
+            paraOffset += p->text.size();
             p = p->next;
             curOffset = 0;
         }
@@ -193,9 +184,9 @@ std::string_view THelpTopic::getLine(int line) noexcept
         lastLine = line;
     }
     while (p != 0) {
-        while (offset < p->size) {
+        while (offset < p->text.size()) {
             --line;
-            std::string_view lineText = wrapText(p->text, p->size, offset, p->wrap);
+            std::string_view lineText = wrapText(p->text, offset, p->wrap);
             if (line == 0) {
                 lastOffset = offset;
                 lastParagraph = p;
@@ -205,7 +196,7 @@ std::string_view THelpTopic::getLine(int line) noexcept
         p = p->next;
         offset = 0;
     }
-    return std::string_view();
+    return std::string_view("");
 }
 
 int THelpTopic::getNumCrossRefs() noexcept { return numRefs; }
@@ -220,9 +211,9 @@ int THelpTopic::numLines() noexcept
     p = paragraphs;
     while (p != 0) {
         offset = 0;
-        while (offset < p->size) {
+        while (offset < p->text.size()) {
             ++lines;
-            wrapText(p->text, p->size, offset, p->wrap);
+            wrapText(p->text, offset, p->wrap);
         }
         p = p->next;
     }
@@ -263,55 +254,45 @@ void THelpTopic::setWidth(int aWidth) noexcept { width = aWidth; }
 
 void THelpTopic::writeParagraphs(opstream& s)
 {
-    int i;
-    TParagraph* p;
-    int temp;
-
-    p = paragraphs;
-    for (i = 0; p != 0; ++i)
+    int count = 0;
+    TParagraph* p = paragraphs;
+    while (p != 0) {
         p = p->next;
-    s << i;
+        ++count;
+    }
+    s << count;
     for (p = paragraphs; p != 0; p = p->next) {
-        s << p->size;
-        temp = int(p->wrap);
+        s << p->text.size();
+        int temp = int(p->wrap);
         s << temp;
-        s.writeBytes(p->text, p->size);
+        s.writeString(p->text);
     }
 }
 
 void THelpTopic::writeCrossRefs(opstream& s)
 {
-    int i;
     TCrossRef* crossRefPtr;
 
     s << numRefs;
     if (crossRefHandler == notAssigned) {
-        for (i = 0; i < numRefs; ++i) {
+        for (int i = 0; i < numRefs; ++i) {
             crossRefPtr = crossRefs + i;
             s << crossRefPtr->ref << crossRefPtr->offset << crossRefPtr->length;
         }
     } else
-        for (i = 0; i < numRefs; ++i) {
+        for (int i = 0; i < numRefs; ++i) {
             crossRefPtr = crossRefs + i;
             (*crossRefHandler)(s, crossRefPtr->ref);
             s << crossRefPtr->offset << crossRefPtr->length;
         }
 }
 
-bool isBlank(char ch) noexcept
-{
-    if (isspace((uchar)ch))
-        return true;
-    else
-        return false;
-}
+bool isBlank(char ch) noexcept { return !!isspace((uchar)ch); }
 
-static int scan(char* p, int offset, int size, char c) noexcept
+static int scan(const char* p, int offset, int size, char c) noexcept
 {
-    char *temp1, *temp2;
-
-    temp1 = p + offset;
-    temp2 = (char*)memchr(temp1, c, strlen(temp1));
+    const char* temp1 = p + offset;
+    const char* temp2 = (const char*)memchr(temp1, c, strlen(temp1));
     if (temp2 == 0)
         return size;
     else {
@@ -322,14 +303,15 @@ static int scan(char* p, int offset, int size, char c) noexcept
     }
 }
 
-std::string_view THelpTopic::wrapText(char* text, int size, int& offset, bool wrap) noexcept
+std::string_view THelpTopic::wrapText(std::string& text, int& offset, bool wrap) noexcept
 {
-    int i = scan(text, offset, size, '\n');
+    int size = text.size();
+    int i = scan(text.c_str(), offset, size, '\n');
     if (i + offset > size)
         i = size - offset;
     if (wrap) {
         size_t l, w;
-        TText::scroll(std::string_view(&text[offset], i), width, false, l, w);
+        TText::scroll(std::string_view(text.c_str() + offset, i), width, false, l, w);
         if (int(l) < i) {
             int j = l + offset;
             int k = j;
@@ -342,7 +324,7 @@ std::string_view THelpTopic::wrapText(char* text, int size, int& offset, bool wr
             i = k - offset;
         }
     }
-    std::string_view str(&text[offset], i);
+    std::string_view str(text.c_str() + offset, i);
     if (str.size() && str.back() == '\n')
         str = str.substr(0, str.size() - 1);
     offset += i;
@@ -495,8 +477,7 @@ THelpTopic* THelpFile::invalidTopic()
 {
     THelpTopic* topic = new THelpTopic;
     TParagraph* para = new TParagraph;
-    para->text = newStr(invalidContext);
-    para->size = strlen(invalidContext);
+    para->text = invalidContext;
     para->wrap = false;
     para->next = nullptr;
     topic->addParagraph(para);
