@@ -1,0 +1,19 @@
+#ifndef TVDir_FilePane_H
+#define TVDir_FilePane_H
+
+#include <tvision/Scroller.h>
+#include <vector>
+
+class TFilePane : public TScroller {
+public:
+    TFilePane(const TRect& bounds, TScrollBar* hsb, TScrollBar* vsb);
+    void newDir(const std::filesystem::path& path);
+    virtual void draw();
+
+private:
+    std::vector<std::string> files;
+
+    static std::string formatFileRow(const find_t& searchRec);
+};
+
+#endif // TVDir_FilePane_H
