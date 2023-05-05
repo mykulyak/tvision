@@ -17,49 +17,32 @@ TStreamableClass RParamText(TParamText::name, TParamText::build, __DELTA(TParamT
 
 TParamText::TParamText(const TRect& bounds) noexcept
     : TStaticText(bounds, "")
-    , str(new char[256])
 {
-    str[0] = EOS;
 }
-
-TParamText::~TParamText() { delete[] (char*)str; }
 
 void TParamText::getText(char* s)
 {
-    if (str != 0)
-        strcpy(s, str);
-    else
-        *s = EOS;
+    strcpy(s, text.c_str());
 }
 
-int TParamText::getTextLen() { return (str != 0) ? strlen(str) : 0; }
+int TParamText::getTextLen() { return text.size(); }
 
 void TParamText::setText(const char* fmt, ...)
 {
+    std::vector<char> str(256);
+
     va_list ap;
 
     va_start(ap, fmt);
-    vsnprintf(str, 256, fmt, ap);
+    vsnprintf(str.data(), 256, fmt, ap);
     va_end(ap);
+
+    text.assign(str.begin(), str.end());
 
     drawView();
 }
 
 #ifndef NO_STREAMABLE
-
-void TParamText::write(opstream& os)
-{
-    TStaticText::write(os);
-    os.writeString(str);
-}
-
-void* TParamText::read(ipstream& is)
-{
-    TStaticText::read(is);
-    str = new char[256];
-    is.readString(str, 256);
-    return this;
-}
 
 TStreamable* TParamText::build() { return new TParamText(streamableInit); }
 

@@ -6,22 +6,16 @@
 class TParamText : public TStaticText {
 public:
     TParamText(const TRect& bounds) noexcept;
-    ~TParamText();
 
     virtual void getText(char* str);
     virtual void setText(const char* fmt, ...);
     virtual int getTextLen();
-
-protected:
-    char* str;
 
 private:
     virtual const char* streamableName() const { return name; }
 
 protected:
     TParamText(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
 
 public:
     static const char* const name;

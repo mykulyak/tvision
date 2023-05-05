@@ -10,7 +10,7 @@ QuickMessage::QuickMessage(const std::string& drive)
     palette = wpGrayWindow;
 
     std::string text = "Scanning Drive '" + drive + "'\n";
-    insert(new TStaticText(TRect(2, 2, 48, 3), text.c_str()));
+    insert(new TStaticText(TRect(2, 2, 48, 3), text));
     currentDir = new TParamText(TRect(2, 3, 48, 9));
     insert(currentDir);
 }
