@@ -11,15 +11,16 @@ const int cmOutlineItemSelected = 301;
 
 class TNode {
 public:
-    TNode(std::string_view aText) noexcept
-        : next(0)
+    TNode(const std::string& aText) noexcept
+        : next(nullptr)
         , text(aText)
-        , childList(0)
+        , childList(nullptr)
         , expanded(true)
     {
     }
 
-    TNode(std::string_view aText, TNode* aChildren, TNode* aNext, bool initialState = true) noexcept
+    TNode(
+        const std::string& aText, TNode* aChildren, TNode* aNext, bool initialState = true) noexcept
         : next(aNext)
         , text(aText)
         , childList(aChildren)

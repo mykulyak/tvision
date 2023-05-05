@@ -1,3 +1,4 @@
+#include <filesystem>
 #include <sstream>
 #include <tvision/tv.h>
 
@@ -5,52 +6,59 @@ const int cmDirTree = 100;
 const int cmAbout = 101;
 const int cmNewDirFocused = 102;
 
-#define sep "/"
-
 class QuickMessage : public TWindow {
+public:
+    QuickMessage(const std::string& drive);
+    void setCurrentDir(const std::filesystem::path& newDir);
+
 private:
     TParamText* currentDir;
-
-public:
-    QuickMessage(const std::string& drive)
-        : TWindowInit(TWindow::initFrame)
-        , TWindow(TRect(15, 8, 65, 19), "Please Wait...", 0)
-    {
-        flags = 0; // no move, close, grow or zoom
-        options |= ofCentered;
-        palette = wpGrayWindow;
-
-        std::ostringstream os;
-        os << "Scanning Drive '" << drive << "'\n" << std::ends;
-        insert(new TStaticText(TRect(2, 2, 48, 3), os.str()));
-        currentDir = new TParamText(TRect(2, 3, 48, 9));
-        insert(currentDir);
-    }
-
-    virtual void handleEvent(TEvent& event) { TWindow::handleEvent(event); }
-
-    void setCurrentDir(char* newDir)
-    {
-        currentDir->setText(newDir);
-        TScreen::flushScreen();
-    }
 };
+
+QuickMessage::QuickMessage(const std::string& drive)
+    : TWindowInit(TWindow::initFrame)
+    , TWindow(TRect(15, 8, 65, 19), "Please Wait...", 0)
+{
+    flags = 0; // no move, close, grow or zoom
+    options |= ofCentered;
+    palette = wpGrayWindow;
+
+    std::string text = "Scanning Drive '" + drive + "'\n";
+    insert(new TStaticText(TRect(2, 2, 48, 3), text.c_str()));
+    currentDir = new TParamText(TRect(2, 3, 48, 9));
+    insert(currentDir);
+}
+
+void QuickMessage::setCurrentDir(const std::filesystem::path& newDir)
+{
+    currentDir->setText(newDir.c_str());
+    TScreen::flushScreen();
+}
 
 class TDirOutline : public TOutline {
 public:
-    TDirOutline(const TRect& bounds, TScrollBar* hsb, TScrollBar* vsb, TNode* root)
-        : TOutline(bounds, hsb, vsb, root)
-    {
-    }
-    virtual void focused(int i)
-    {
-        foc = i;
-        message(owner, evCommand, cmNewDirFocused, 0);
-    }
-    static bool isParent(TOutlineViewer*, TNode* cur, int, int, long, ushort, void*);
+    TDirOutline(const TRect& bounds, TScrollBar* hsb, TScrollBar* vsb, TNode* root);
+
+    virtual void focused(int i);
+
     TNode* getParent(TNode* child) { return firstThat(isParent, child); }
-    void getCurrentPath(char* buffer, short bufferSize);
+
+    std::filesystem::path getCurrentPath();
+
+private:
+    static bool isParent(TOutlineViewer*, TNode* cur, int, int, long, ushort, void*);
 };
+
+TDirOutline::TDirOutline(const TRect& bounds, TScrollBar* hsb, TScrollBar* vsb, TNode* root)
+    : TOutline(bounds, hsb, vsb, root)
+{
+}
+
+void TDirOutline::focused(int i)
+{
+    foc = i;
+    message(owner, evCommand, cmNewDirFocused, 0);
+}
 
 bool TDirOutline::isParent(TOutlineViewer*, TNode* cur, int, int, long, ushort, void* arg)
 {
@@ -64,256 +72,235 @@ bool TDirOutline::isParent(TOutlineViewer*, TNode* cur, int, int, long, ushort, 
     return false;
 }
 
-void TDirOutline::getCurrentPath(char* buffer, short bufferSize)
+std::filesystem::path TDirOutline::getCurrentPath()
 {
-    std::string temp1;
+    std::string result;
 
     TNode* root = getRoot();
     TNode* current = getNode(foc);
     while (current != root) {
-        std::string temp2 = temp1;
-        temp1 = current->text;
-        temp1 += sep;
-        temp1 += temp2;
+        result.insert(0, 1, std::filesystem::path::preferred_separator);
+        result.insert(0, current->text);
         current = getParent(current);
     }
-
-    std::string temp3 = root->text;
-    std::string::size_type n = temp3.size();
-    if (temp3[n] != '/' && temp3[n] != '\\') {
-        temp3 += sep;
+    if (root->text.back() != std::filesystem::path::preferred_separator) {
+        result.insert(0, 1, std::filesystem::path::preferred_separator);
     }
-    temp3 += temp1;
+    result.insert(0, root->text);
 
-    buffer[bufferSize - 1] = 0;
-    strncpy(buffer, temp3.c_str(), bufferSize - 1);
-}
-
-TNode* getDirList(const char* path, QuickMessage* qm = 0)
-{
-    TNode *dirList = 0, *current = 0;
-    char searchPath[128] = { 0 };
-    find_t searchRec;
-    int result;
-    TNode* temp;
-
-    std::ostringstream os;
-    os << path << sep "*.*" << std::ends;
-    strcpy(searchPath, os.str().c_str());
-
-    result = _dos_findfirst(searchPath, 0xff, &searchRec);
-
-    while (result == 0) {
-        if (searchRec.name[0] != '.') {
-            if (searchRec.attrib & FA_DIREC) {
-                os.seekp(0);
-                os << path << *sep << searchRec.name << std::ends;
-                // Strings may become equal when searchPath is full.
-                if (strcmp(path, searchPath) == 0)
-                    break;
-                qm->setCurrentDir(searchPath);
-                temp = new TNode(searchRec.name, getDirList(searchPath, qm), 0, false);
-                if (current) {
-                    current->next = temp;
-                    current = current->next;
-                } else
-                    current = dirList = temp;
-            }
-        }
-        result = _dos_findnext(&searchRec);
-    }
-    return dirList;
+    return result;
 }
 
 class TFilePane : public TScroller {
-    char** files;
-    short fileCount;
-
 public:
-    TFilePane(const TRect& bounds, TScrollBar* hsb, TScrollBar* vsb)
-        : TScroller(bounds, hsb, vsb)
-    {
-        fileCount = 0;
-        files = 0;
-    }
-    ~TFilePane() { deleteFiles(); }
-    void newDir(const char* path);
+    TFilePane(const TRect& bounds, TScrollBar* hsb, TScrollBar* vsb);
+    void newDir(const std::filesystem::path& path);
     virtual void draw();
-    void deleteFiles();
+
+private:
+    std::vector<std::string> files;
+
+    static std::string formatFileRow(const find_t& searchRec);
 };
+
+TFilePane::TFilePane(const TRect& bounds, TScrollBar* hsb, TScrollBar* vsb)
+    : TScroller(bounds, hsb, vsb)
+    , files()
+{
+}
+
+void TFilePane::newDir(const std::filesystem::path& path)
+{
+    char searchPath[128] = { 0 };
+
+    std::ostringstream os;
+    os << path.c_str() << "*.*" << std::ends;
+    strcpy(searchPath, os.str().c_str());
+
+    files.clear();
+
+    find_t searchRec;
+    int result = _dos_findfirst(searchPath, 0xff, &searchRec);
+    while (result == 0) {
+        if (!(searchRec.attrib & FA_DIREC)) {
+            files.push_back(formatFileRow(searchRec));
+        }
+        result = _dos_findnext(&searchRec);
+    }
+    if (files.size() == 0)
+        setLimit(1, 1);
+    else
+        setLimit(strwidth(files[0]) + 2, files.size());
+    drawView();
+}
 
 void TFilePane::draw()
 {
     TDrawBuffer dBuf;
-    short i;
-    for (i = 0; i < size.y; i++) {
+    for (short i = 0; i < size.y; i++) {
         dBuf.moveChar(0, ' ', getColor(0x0101), (short)size.x);
-        if ((fileCount == 0) && (i == 0))
+        if ((files.size() == 0) && (i == 0))
             dBuf.moveStr(2, "<no files>", getColor(0x0101));
-        if ((i + delta.y) < fileCount)
+        if ((i + delta.y) < files.size())
             dBuf.moveStr(2, files[i + delta.y], getColor(0x0101), (short)size.x, (short)delta.x);
         writeLine(0, i, (short)size.x, 1, dBuf);
     }
 }
 
-static char* formatFileRow(char buf[128], const find_t& searchRec)
+std::string TFilePane::formatFileRow(const find_t& searchRec)
 {
-    sprintf(buf, "  %8ld %2d-%02d-%02d  %2d:%02d  %c%c%c%c", (long)searchRec.size,
-        ((searchRec.wr_date & 0x01E0) >> 5), (searchRec.wr_date & 0x001F),
-        ((searchRec.wr_date >> 9) + 1980) % 100, ((searchRec.wr_time & 0xF800) >> 11) % 13,
-        ((searchRec.wr_time & 0x07E0) >> 5), searchRec.attrib & FA_ARCH ? 'a' : '\xFA',
-        searchRec.attrib & FA_RDONLY ? 'r' : '\xFA', searchRec.attrib & FA_SYSTEM ? 's' : '\xFA',
-        searchRec.attrib & FA_HIDDEN ? 'h' : '\xFA');
-    size_t bufLen = strlen(buf) + 1;
-    size_t nameLen, nameWidth;
-    TText::scroll(searchRec.name, 18, false, nameLen, nameWidth);
-    size_t namePad = 18 - nameWidth;
-    char* row = new char[nameLen + namePad + bufLen];
-    memcpy(row, searchRec.name, nameLen);
-    memset(row + nameLen, ' ', namePad);
-    memcpy(row + nameLen + namePad, buf, bufLen);
-    return row;
-}
-
-void TFilePane::newDir(const char* path)
-{
-    char searchPath[128] = { 0 };
-    find_t searchRec;
-    int result;
-    short i;
-
-    deleteFiles();
-
     std::ostringstream os;
-    os << path << "*.*" << std::ends;
-    strcpy(searchPath, os.str().c_str());
 
-    result = _dos_findfirst(searchPath, 0xff, &searchRec);
-    while (result == 0) {
-        if (!(searchRec.attrib & FA_DIREC))
-            fileCount++;
-        result = _dos_findnext(&searchRec);
-    }
-    files = new char*[fileCount];
-    result = _dos_findfirst(searchPath, 0xff, &searchRec);
-    i = 0;
-    while (result == 0) {
-        if (!(searchRec.attrib & FA_DIREC))
-            files[i++] = formatFileRow(searchPath, searchRec);
-        result = _dos_findnext(&searchRec);
-    }
-    if (fileCount == 0)
-        setLimit(1, 1);
-    else
-        setLimit(strwidth(files[0]) + 2, fileCount);
-    drawView();
-}
+    size_t nameLen, nameWidth;
+    TText::scroll(searchRec.name, 30, false, nameLen, nameWidth);
+    size_t namePad = 30 - nameWidth;
 
-void TFilePane::deleteFiles()
-{
-    short i;
-    for (i = 0; i < fileCount; i++)
-        delete[] files[i];
-    delete[] files;
-    fileCount = 0;
+    for (size_t i = 0; i < nameLen; ++i) {
+        os << searchRec.name[i];
+    }
+    for (size_t i = 0; i < namePad; ++i) {
+        os << ' ';
+    }
+
+    os << "  ";
+    os << std::setw(10) << std::setfill(' ') << searchRec.size;
+    os << "  ";
+    os << std::setw(2) << std::setfill('0') << ((searchRec.wr_date & 0x01E0) >> 5);
+    os << "-";
+    os << std::setw(2) << std::setfill('0') << (searchRec.wr_date & 0x001F);
+    os << "-";
+    os << std::setw(2) << std::setfill('0') << ((searchRec.wr_date >> 9) + 1980) % 100;
+    os << "  ";
+    os << std::setw(2) << std::setfill('0') << ((searchRec.wr_time & 0xF800) >> 11) % 13;
+    os << ":";
+    os << std::setw(2) << std::setfill('0') << ((searchRec.wr_time & 0x07E0) >> 5);
+    os << "  ";
+    os << (searchRec.attrib & FA_ARCH ? 'a' : '\xFA');
+    os << (searchRec.attrib & FA_RDONLY ? 'r' : '\xFA');
+    os << (searchRec.attrib & FA_SYSTEM ? 's' : '\xFA');
+    os << (searchRec.attrib & FA_HIDDEN ? 'h' : '\xFA');
+
+    return os.str();
 }
 
 class TDirWindow : public TWindow {
+public:
+    TDirWindow(const std::filesystem::path& driveInit);
+    virtual void handleEvent(TEvent& event);
+    virtual void sizeLimits(TPoint& min, TPoint& max);
+
 private:
-    std::string drive;
+    std::filesystem::path drive;
     TNode* dirTree;
     TDirOutline* ol;
     TFilePane* fp;
-    TScrollBar *hsb, *vsb;
+    TScrollBar* hsb;
+    TScrollBar* vsb;
 
-public:
-    TDirWindow(const std::string& driveInit)
-        : TWindowInit(TWindow::initFrame)
-        , TWindow(TRect(1, 1, 76, 21), driveInit, 0)
-        , drive(driveInit)
-    {
-        vsb = new TScrollBar(TRect(74, 1, 75, 15));
-        hsb = new TScrollBar(TRect(22, 15, 73, 16));
-
-        fp = new TFilePane(TRect(21, 1, 74, 15), hsb, vsb);
-        fp->options |= ofFramed;
-        fp->growMode = gfGrowHiY | gfGrowHiX | gfFixed;
-
-        insert(hsb);
-        insert(vsb);
-        insert(fp);
-
-        vsb = new TScrollBar(TRect(20, 1, 21, 19));
-        hsb = new TScrollBar(TRect(2, 19, 19, 20));
-
-        QuickMessage* qm = new QuickMessage(drive);
-        TProgram::deskTop->insert(qm);
-
-        dirTree = new TNode(drive, getDirList(drive.c_str(), qm), 0, true);
-
-        TProgram::deskTop->remove(qm);
-        destroy(qm);
-
-        ol = new TDirOutline(TRect(1, 1, 20, 19), hsb, vsb, dirTree);
-        ol->options |= ofFramed;
-        ol->growMode = gfGrowHiY | gfFixed;
-        vsb->growMode = gfGrowHiY;
-        hsb->growMode = gfGrowHiY | gfGrowLoY;
-
-        insert(hsb);
-        insert(vsb);
-        insert(ol);
-
-        char path[128];
-        ol->getCurrentPath(path, 128);
-        fp->newDir(path);
-    }
-
-    ~TDirWindow() { }
-
-    virtual void handleEvent(TEvent& event)
-    {
-        char buffer[128];
-        if ((event.what == evCommand) && (event.message.command == cmNewDirFocused)) {
-            ol->getCurrentPath(buffer, 128);
-            fp->newDir(buffer);
-            title = buffer;
-            clearEvent(event);
-            ((TView*)frame)->drawView();
-        }
-        TWindow::handleEvent(event);
-    }
-
-    virtual void sizeLimits(TPoint& min, TPoint& max)
-    {
-        min.x = 40;
-        min.y = 10;
-        max = owner->size;
-    }
+    static TNode* getDirList(const std::filesystem::path& path, QuickMessage& qm);
 };
 
-class TDirApp : public TApplication {
-private:
-    std::string drive;
+TDirWindow::TDirWindow(const std::filesystem::path& driveInit)
+    : TWindowInit(TWindow::initFrame)
+    , TWindow(TRect(1, 1, 76, 21), driveInit.string(), 0)
+    , drive(driveInit)
+{
+    vsb = new TScrollBar(TRect(74, 1, 75, 15));
+    hsb = new TScrollBar(TRect(32, 15, 73, 16));
 
+    fp = new TFilePane(TRect(31, 1, 74, 15), hsb, vsb);
+    fp->options |= ofFramed;
+    fp->growMode = gfGrowHiY | gfGrowHiX | gfFixed;
+
+    insert(hsb);
+    insert(vsb);
+    insert(fp);
+
+    vsb = new TScrollBar(TRect(30, 1, 31, 19));
+    hsb = new TScrollBar(TRect(2, 19, 29, 20));
+
+    QuickMessage* qm = new QuickMessage(drive);
+    TProgram::deskTop->insert(qm);
+
+    dirTree = new TNode(drive, getDirList(drive, *qm), nullptr, true);
+
+    TProgram::deskTop->remove(qm);
+    destroy(qm);
+
+    ol = new TDirOutline(TRect(1, 1, 30, 19), hsb, vsb, dirTree);
+    ol->options |= ofFramed;
+    ol->growMode = gfGrowHiY | gfFixed;
+    vsb->growMode = gfGrowHiY;
+    hsb->growMode = gfGrowHiY | gfGrowLoY;
+
+    insert(hsb);
+    insert(vsb);
+    insert(ol);
+
+    std::filesystem::path p = ol->getCurrentPath();
+    fp->newDir(p);
+}
+
+void TDirWindow::handleEvent(TEvent& event)
+{
+    if ((event.what == evCommand) && (event.message.command == cmNewDirFocused)) {
+        std::filesystem::path p = ol->getCurrentPath();
+        fp->newDir(p);
+        title = p;
+        clearEvent(event);
+        ((TView*)frame)->drawView();
+    }
+    TWindow::handleEvent(event);
+}
+
+void TDirWindow::sizeLimits(TPoint& min, TPoint& max)
+{
+    min.x = 40;
+    min.y = 10;
+    max = owner->size;
+}
+
+TNode* TDirWindow::getDirList(const std::filesystem::path& path, QuickMessage& qm)
+{
+    TNode* dirList = nullptr;
+    TNode* current = nullptr;
+
+    for (auto& entry : std::filesystem::directory_iterator(path)) {
+        if (std::filesystem::is_directory(entry)) {
+            qm.setCurrentDir(path);
+            std::filesystem::path p = entry.path();
+            TNode* temp = new TNode(p.filename().string(), getDirList(p, qm), nullptr, false);
+            if (current) {
+                current->next = temp;
+                current = current->next;
+            } else {
+                current = dirList = temp;
+            }
+        }
+    }
+
+    return dirList;
+}
+
+class TDirApp : public TApplication {
 public:
-    TDirApp(const std::string& driveInit);
-    ~TDirApp();
+    TDirApp(const std::filesystem::path& driveInit);
 
     virtual void handleEvent(TEvent& event);
     static TMenuBar* initMenuBar(TRect);
     static TStatusLine* initStatusLine(TRect);
     void aboutBox(void);
+
+private:
+    std::filesystem::path drive;
 };
 
-TDirApp::TDirApp(const std::string& driveInit)
+TDirApp::TDirApp(const std::filesystem::path& driveInit)
     : TProgInit(&TDirApp::initStatusLine, &TDirApp::initMenuBar, &TDirApp::initDeskTop)
     , drive(driveInit)
 {
     insertWindow(new TDirWindow(driveInit));
 }
-
-TDirApp::~TDirApp() { }
 
 void TDirApp::handleEvent(TEvent& event)
 {
@@ -367,9 +354,7 @@ void TDirApp::aboutBox(void)
 
 int main(int argc, char* argv[])
 {
-    const std::string drive(argc == 2 ? argv[1] : ".");
-
-    TDirApp dirApp(drive);
+    TDirApp dirApp(argc == 2 ? std::filesystem::path(argv[1]) : std::filesystem::current_path());
     dirApp.run();
     dirApp.shutDown();
     return 0;
