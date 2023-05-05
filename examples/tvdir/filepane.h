@@ -4,6 +4,13 @@
 #include <tvision/Scroller.h>
 #include <vector>
 
+namespace std {
+namespace filesystem {
+    class directory_entry;
+    class path;
+}
+}
+
 class TFilePane : public TScroller {
 public:
     TFilePane(const TRect& bounds, TScrollBar* hsb, TScrollBar* vsb);
@@ -13,7 +20,7 @@ public:
 private:
     std::vector<std::string> files;
 
-    static std::string formatFileRow(const find_t& searchRec);
+    static std::string formatFileRow(const std::filesystem::directory_entry& entry);
 };
 
 #endif // TVDir_FilePane_H

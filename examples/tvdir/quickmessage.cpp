@@ -1,4 +1,5 @@
 #include "quickmessage.h"
+#include <filesystem>
 
 QuickMessage::QuickMessage(const std::string& drive)
     : TWindowInit(TWindow::initFrame)

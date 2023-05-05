@@ -1,8 +1,13 @@
 #ifndef TVDir_QuickMessage_H
 #define TVDir_QuickMessage_H
 
-#include <filesystem>
 #include <tvision/Window.h>
+
+namespace std {
+namespace filesystem {
+    class path;
+}
+}
 
 class TParamText;
 
