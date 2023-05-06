@@ -19,17 +19,11 @@ bool driveValid(char drive) noexcept
 #else
     // Unless otherwise necessary, we will emulate there's only one disk:
     // the one returned by getdisk(), which is C by default.
-    return bool(drive - 'A' == getdisk());
+    return drive - 'A' == getdisk();
 #endif
 }
 
 #pragma warn.asc
-
-bool isDir(const char* str) noexcept
-{
-    std::filesystem::path p(str);
-    return std::filesystem::is_directory(p);
-}
 
 #define isSeparator(c) (c == '\\' || c == '/')
 
@@ -49,7 +43,7 @@ bool pathValid(const char* path) noexcept
     if (isSeparator(expPath[len - 1]))
         expPath[len - 1] = EOS;
 
-    return isDir(expPath);
+    return std::filesystem::is_directory(std::filesystem::path(expPath));
 }
 
 bool validFileName(const char* fileName) noexcept

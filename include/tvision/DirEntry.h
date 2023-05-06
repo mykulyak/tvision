@@ -2,17 +2,14 @@
 #define TVision_TDirEntry_h
 
 #include <string>
-#include <string_view>
 
 class TDirEntry {
 public:
-    TDirEntry(std::string_view txt, std::string_view dir) noexcept
+    TDirEntry(const std::string& txt, const std::string& dir) noexcept
         : displayText(txt)
         , directory(dir)
     {
     }
-
-    ~TDirEntry() { }
 
     const std::string& dir() const { return directory; }
 

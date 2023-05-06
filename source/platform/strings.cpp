@@ -105,14 +105,4 @@ char* ltoa(long value, char* buffer, int radix) noexcept
     return buffer;
 }
 
-char* ultoa(unsigned long value, char* buffer, int radix) noexcept
-{
-    if (radix == 10) {
-        char format[] = "%lu";
-        sprintf(buffer, format, value);
-        return buffer;
-    }
-    return ltoa(value, buffer, radix);
-}
-
 #endif // _MSC_VER

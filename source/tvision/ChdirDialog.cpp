@@ -1,4 +1,3 @@
-#include <sstream>
 #include <tvision/Button.h>
 #include <tvision/ChdirDialog.h>
 #include <tvision/CommandCodes.h>
@@ -79,44 +78,36 @@ void TChDirDialog::shutDown()
 
 void TChDirDialog::getData(void*) { }
 
-#define isSeparator(c) (c == '\\' || c == '/')
-
-static void trimEndSeparator(char* path)
-{
-    int len = strlen(path);
-    if (len > 3 && isSeparator(path[len - 1]))
-        path[len - 1] = EOS;
-}
+bool driveValid(const std::filesystem::path&) { return true; }
 
 void TChDirDialog::handleEvent(TEvent& event)
 {
     TDialog::handleEvent(event);
     switch (event.what) {
     case evCommand: {
-        char curDir[MAXPATH];
+        std::filesystem::path curDir;
         switch (event.message.command) {
         case cmRevert:
-            getCurDir(curDir);
+            curDir = std::filesystem::current_path();
             break;
         case cmChangeDir: {
-            TDirEntry* p = dirList->list()->at(dirList->focused);
-            strcpy(curDir, p->dir().c_str());
-            if (strcmp(curDir, drivesText) == 0)
+            curDir = dirList->list()->at(dirList->focused)->dir();
+            if (curDir.string() == drivesText) {
                 break;
-            else if (driveValid(curDir[0])) {
-                int len = strlen(curDir);
-                if (!isSeparator(curDir[len - 1]))
-                    strcat(curDir, "\\");
-            } else
+            } else if (driveValid(curDir)) {
+                // int len = strlen(curDir);
+                // if (!isSeparator(curDir[len - 1]))
+                //     strcat(curDir, "\\");
+            } else {
                 return;
+            }
             break;
         }
         default:
             return;
         }
-        dirList->newDirectory(curDir);
-        trimEndSeparator(curDir);
-        strcpy(dirInput->data, curDir);
+        dirList->setDirectory(curDir);
+        strcpy(dirInput->data, curDir.c_str());
         dirInput->drawView();
         dirList->select();
         clearEvent(event);
@@ -130,41 +121,30 @@ void TChDirDialog::setData(void*) { }
 
 void TChDirDialog::setUpDialog()
 {
-    if (dirList != 0) {
-        char curDir[MAXPATH];
-        getCurDir(curDir);
-        dirList->newDirectory(curDir);
-        if (dirInput != 0) {
-            trimEndSeparator(curDir);
-            strcpy(dirInput->data, curDir);
+    if (dirList != nullptr) {
+        std::filesystem::path curDir = std::filesystem::current_path();
+        dirList->setDirectory(curDir);
+        if (dirInput != nullptr) {
+            strcpy(dirInput->data, curDir.c_str());
             dirInput->drawView();
         }
     }
 }
 
-static int changeDir(const char* path)
-{
-    if (path[1] == ':')
-        setdisk(toupper(path[0]) - 'A');
-    return chdir(path);
-}
-
 bool TChDirDialog::valid(ushort command)
 {
-    if (command != cmOK)
-        return true;
-
-    char path[MAXPATH];
-    strcpy(path, dirInput->data);
-    fexpand(path);
-
-    trimEndSeparator(path);
-
-    if (changeDir(path) != 0) {
-        std::ostringstream os;
-        os << invalidText << ": '" << path << "'.";
-        MessageBox::error(os.str());
-        return false;
+    if (command == cmOK) {
+        std::filesystem::path path = expandPath(dirInput->data);
+        try {
+            std::filesystem::current_path(path);
+        } catch (std::filesystem::filesystem_error&) {
+            std::string msg = invalidText;
+            msg += ": ";
+            msg += path;
+            msg += "'.";
+            MessageBox::error(msg);
+            return false;
+        }
     }
     return true;
 }

@@ -48,7 +48,6 @@ class TMenuItem;
 ushort popupMenu(TPoint where, TMenuItem& aMenu, TGroup* = 0);
 
 bool driveValid(char drive) noexcept;
-bool isDir(const char* str) noexcept;
 bool pathValid(const char* path) noexcept;
 bool validFileName(const char* fileName) noexcept;
 void getCurDir(char* dir, char drive = -1) noexcept;
@@ -72,7 +71,6 @@ int strnicmp(const char* s1, const char* s2, size_t maxlen) noexcept;
 char* strupr(char* s) noexcept;
 char* itoa(int value, char* buffer, int radix) noexcept;
 char* ltoa(long value, char* buffer, int radix) noexcept;
-char* ultoa(ulong value, char* buffer, int radix) noexcept;
 
 #endif
 

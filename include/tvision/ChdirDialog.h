@@ -15,8 +15,6 @@ public:
         cdHelpButton = 0x0002, // Put a help button in the dialog
     };
 
-    friend class TDirListBox;
-
     TChDirDialog(ushort aOptions, ushort histId) noexcept;
     virtual ushort dataSize();
     virtual void getData(void* rec);
@@ -44,6 +42,8 @@ private:
     static const char* invalidText;
 
     virtual const char* streamableName() const { return name; }
+
+    friend class TDirListBox;
 
 protected:
     TChDirDialog(StreamableInit) noexcept

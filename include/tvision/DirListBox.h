@@ -2,7 +2,6 @@
 #define TVision_TDirListBox_h
 
 #include <tvision/ListBox.h>
-#include <tvision/compat/borland/dir.h>
 
 class TScrollBar;
 class TDirCollection;
@@ -13,10 +12,9 @@ public:
     ~TDirListBox();
 
     virtual void getText(char*, short, short);
-    //    virtual void handleEvent( TEvent& );
     virtual bool isSelected(short);
     virtual void selectItem(short item);
-    void newDirectory(std::string_view);
+    void setDirectory(const std::filesystem::path& path);
     virtual void setState(ushort aState, bool enable);
 
     TDirCollection* list() { return (TDirCollection*)TListBox::list(); }
@@ -25,7 +23,7 @@ private:
     void showDrives(TDirCollection*);
     void showDirs(TDirCollection*);
 
-    char dir[MAXPATH];
+    std::filesystem::path dir;
     ushort cur;
 
     static const char* pathDir;
