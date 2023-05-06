@@ -2,7 +2,7 @@
 #define TVDir_App_H
 
 #include <filesystem>
-#include <tvision/Application.h>
+#include <tvision/application.h>
 
 class TDirApp : public TApplication {
 public:

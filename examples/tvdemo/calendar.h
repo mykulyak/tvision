@@ -1,7 +1,7 @@
 #ifndef TVision_TVDemo_Calendar_h
 #define TVision_TVDemo_Calendar_h
 
-#include <tvision/Window.h>
+#include <tvision/window.h>
 
 class TCalendarView : public TView {
 public:

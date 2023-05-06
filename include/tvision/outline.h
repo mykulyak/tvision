@@ -1,7 +1,7 @@
 #ifndef TVision_TOutline_h
 #define TVision_TOutline_h
 
-#include <tvision/OutlineViewer.h>
+#include <tvision/outlineviewer.h>
 
 class TOutline : public TOutlineViewer {
 public:

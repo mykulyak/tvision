@@ -2,7 +2,7 @@
 #define TVDir_DirOutline_H
 
 #include <filesystem>
-#include <tvision/Outline.h>
+#include <tvision/outline.h>
 
 class TDirOutline : public TOutline {
 public:

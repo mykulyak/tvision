@@ -1,7 +1,7 @@
 #ifndef TVDir_FilePane_H
 #define TVDir_FilePane_H
 
-#include <tvision/Scroller.h>
+#include <tvision/scroller.h>
 #include <vector>
 
 namespace std {

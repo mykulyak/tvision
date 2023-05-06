@@ -5,7 +5,7 @@
 #include <memory>
 #include <vector>
 
-#include <tvision/Event.h>
+#include <tvision/event.h>
 
 #ifdef _TV_UNIX
 #include <poll.h>

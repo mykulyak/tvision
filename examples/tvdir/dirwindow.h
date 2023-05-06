@@ -2,7 +2,7 @@
 #define TVDir_DirWindow_H
 
 #include <filesystem>
-#include <tvision/Window.h>
+#include <tvision/window.h>
 
 class TNode;
 class TDirOutline;

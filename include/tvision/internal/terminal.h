@@ -2,8 +2,8 @@
 #define TVISION_TERMINAL_H
 
 #include <string_view>
-#include <tvision/Event.h>
 #include <tvision/compat/windows/windows.h>
+#include <tvision/event.h>
 
 namespace tvision {
 

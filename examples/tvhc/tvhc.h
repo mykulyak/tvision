@@ -3,8 +3,7 @@
 
 #include <string>
 #include <string_view>
-#include <tvision/HelpFile.h>
-#include <tvision/tv.h>
+#include <tvision/helpfile.h>
 
 struct TFixUp {
     std::streampos pos;

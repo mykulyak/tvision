@@ -1,7 +1,7 @@
 #ifndef __FORMS_H
 #define __FORMS_H
 
-#include <tvision/tv.h>
+#include <tvision/dialog.h>
 
 class TForm : public TDialog {
 public:

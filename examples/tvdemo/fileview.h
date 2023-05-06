@@ -3,9 +3,9 @@
 
 #include <filesystem>
 #include <string>
-#include <tvision/Collection.h>
-#include <tvision/Scroller.h>
-#include <tvision/Window.h>
+#include <tvision/collection.h>
+#include <tvision/scroller.h>
+#include <tvision/window.h>
 #include <vector>
 
 class TFileViewer : public TScroller {

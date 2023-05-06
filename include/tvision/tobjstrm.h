@@ -116,7 +116,7 @@ private:
 #ifndef __TStreamableTypes
 #define __TStreamableTypes
 
-#include <tvision/NSSortedCollection.h>
+#include <tvision/nssortedcollection.h>
 
 class TStreamableTypes : private TNSSortedCollection {
 

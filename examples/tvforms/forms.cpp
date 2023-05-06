@@ -2,7 +2,6 @@
 #include "formcmds.h"
 #include "listdlg.h"
 #include <cstring>
-#include <tvision/tv.h>
 
 __link(RDialog);
 __link(RView);

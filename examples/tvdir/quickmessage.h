@@ -1,7 +1,7 @@
 #ifndef TVDir_QuickMessage_H
 #define TVDir_QuickMessage_H
 
-#include <tvision/Window.h>
+#include <tvision/window.h>
 
 namespace std {
 namespace filesystem {

@@ -1,6 +1,6 @@
 #include <string_view>
-#include <tvision/Menu.h>
-#include <tvision/MenuPopup.h>
+#include <tvision/menu.h>
+#include <tvision/menupopup.h>
 
 /*------------------------------------------------------------------------*/
 /*                                                                        */

@@ -22,136 +22,136 @@
 
 #define _TV_VERSION 0x0200
 
-#include <tvision/Point.h>
 #include <tvision/config.h>
+#include <tvision/point.h>
 #include <tvision/ttypes.h>
 #include <tvision/util.h>
 
-#include <tvision/Event.h>
-#include <tvision/Object.h>
+#include <tvision/event.h>
+#include <tvision/object.h>
 
-#include <tvision/Clipboard.h>
+#include <tvision/clipboard.h>
 
-#include <tvision/Background.h>
-#include <tvision/Span.h>
+#include <tvision/background.h>
+#include <tvision/span.h>
 
 #include <tvision/colors.h>
 
-#include <tvision/ScreenCell.h>
+#include <tvision/screencell.h>
 
-#include <tvision/HardwareInfo.h>
+#include <tvision/hardwareinfo.h>
 
-#include <tvision/Keys.h>
+#include <tvision/keys.h>
 
-#include <tvision/Text.h>
+#include <tvision/text.h>
 
-#include <tvision/Button.h>
+#include <tvision/button.h>
 
-#include <tvision/NSCollection.h>
-#include <tvision/NSSortedCollection.h>
+#include <tvision/nscollection.h>
+#include <tvision/nssortedcollection.h>
 
 #include <tvision/tobjstrm.h>
 
-#include <tvision/DrawBuffer.h>
+#include <tvision/drawbuffer.h>
 
-#include <tvision/ColorItem.h>
+#include <tvision/coloritem.h>
 
-#include <tvision/EventCodes.h>
-#include <tvision/Screen.h>
-#include <tvision/SystemError.h>
+#include <tvision/eventcodes.h>
+#include <tvision/screen.h>
+#include <tvision/systemerror.h>
 
-#include <tvision/MessageBox.h>
+#include <tvision/messagebox.h>
 
-#include <tvision/ColorDialog.h>
-#include <tvision/ColorDisplay.h>
-#include <tvision/ColorGroupList.h>
-#include <tvision/ColorItemList.h>
-#include <tvision/ColorSelector.h>
-#include <tvision/Desktop.h>
-#include <tvision/MonoSelector.h>
+#include <tvision/colordialog.h>
+#include <tvision/colordisplay.h>
+#include <tvision/colorgrouplist.h>
+#include <tvision/coloritemlist.h>
+#include <tvision/colorselector.h>
+#include <tvision/desktop.h>
+#include <tvision/monoselector.h>
 
-#include <tvision/DirCollection.h>
-#include <tvision/DirEntry.h>
-#include <tvision/DirListBox.h>
+#include <tvision/dircollection.h>
+#include <tvision/direntry.h>
+#include <tvision/dirlistbox.h>
 
-#include <tvision/EditWindow.h>
-#include <tvision/Editor.h>
-#include <tvision/FileEditor.h>
-#include <tvision/Indicator.h>
-#include <tvision/Memo.h>
+#include <tvision/editor.h>
+#include <tvision/editwindow.h>
+#include <tvision/fileeditor.h>
+#include <tvision/indicator.h>
+#include <tvision/memo.h>
 
-#include <tvision/CommandCodes.h>
-#include <tvision/CommandSet.h>
-#include <tvision/Frame.h>
-#include <tvision/Group.h>
-#include <tvision/ListViewer.h>
-#include <tvision/Palette.h>
-#include <tvision/ScrollBar.h>
-#include <tvision/Scroller.h>
-#include <tvision/View.h>
-#include <tvision/Window.h>
+#include <tvision/commandcodes.h>
+#include <tvision/commandset.h>
+#include <tvision/frame.h>
+#include <tvision/group.h>
+#include <tvision/listviewer.h>
+#include <tvision/palette.h>
+#include <tvision/scrollbar.h>
+#include <tvision/scroller.h>
+#include <tvision/view.h>
+#include <tvision/window.h>
 
-#include <tvision/Button.h>
-#include <tvision/CheckBoxes.h>
-#include <tvision/History.h>
-#include <tvision/InputLine.h>
+#include <tvision/button.h>
+#include <tvision/checkboxes.h>
+#include <tvision/history.h>
+#include <tvision/inputline.h>
 
-#include <tvision/FilterValidator.h>
-#include <tvision/PXPictureValidator.h>
-#include <tvision/RangeValidator.h>
-#include <tvision/Validator.h>
+#include <tvision/filtervalidator.h>
+#include <tvision/pxpicturevalidator.h>
+#include <tvision/rangevalidator.h>
+#include <tvision/validator.h>
 
-#include <tvision/FileDialog.h>
+#include <tvision/filedialog.h>
 
-#include <tvision/StatusLine.h>
+#include <tvision/statusline.h>
 
-#include <tvision/Terminal.h>
-#include <tvision/TextDevice.h>
+#include <tvision/terminal.h>
+#include <tvision/textdevice.h>
 
-#include <tvision/EditCommands.h>
+#include <tvision/editcommands.h>
 
-#include <tvision/Outline.h>
-#include <tvision/OutlineViewer.h>
-#include <tvision/RadioButtons.h>
+#include <tvision/outline.h>
+#include <tvision/outlineviewer.h>
+#include <tvision/radiobuttons.h>
 
-#include <tvision/DrawSurface.h>
-#include <tvision/SurfaceView.h>
+#include <tvision/drawsurface.h>
+#include <tvision/surfaceview.h>
 
-#include <tvision/Application.h>
-#include <tvision/Program.h>
+#include <tvision/application.h>
+#include <tvision/program.h>
 
-#include <tvision/FileCollection.h>
-#include <tvision/StringCollection.h>
+#include <tvision/filecollection.h>
+#include <tvision/stringcollection.h>
 
-#include <tvision/FileInfoPane.h>
-#include <tvision/FileInputLine.h>
-#include <tvision/FileList.h>
-#include <tvision/SortedListBox.h>
+#include <tvision/fileinfopane.h>
+#include <tvision/fileinputline.h>
+#include <tvision/filelist.h>
+#include <tvision/sortedlistbox.h>
 
-#include <tvision/Label.h>
-#include <tvision/Menu.h>
-#include <tvision/MenuBar.h>
-#include <tvision/MenuPopup.h>
-#include <tvision/MenuView.h>
+#include <tvision/label.h>
+#include <tvision/menu.h>
+#include <tvision/menubar.h>
+#include <tvision/menupopup.h>
+#include <tvision/menuview.h>
 
-#include <tvision/MultiCheckBoxes.h>
-#include <tvision/Outline.h>
-#include <tvision/ParamText.h>
-#include <tvision/RadioButtons.h>
+#include <tvision/multicheckboxes.h>
+#include <tvision/outline.h>
+#include <tvision/paramtext.h>
+#include <tvision/radiobuttons.h>
 
-#include <tvision/StringList.h>
+#include <tvision/stringlist.h>
 
-#include <tvision/FileCommands.h>
+#include <tvision/filecommands.h>
 
-#include <tvision/LookupValidator.h>
-#include <tvision/StringLookupValidator.h>
+#include <tvision/lookupvalidator.h>
+#include <tvision/stringlookupvalidator.h>
 
-#include <tvision/ChdirDialog.h>
-#include <tvision/StatusDef.h>
-#include <tvision/StatusItem.h>
+#include <tvision/chdirdialog.h>
+#include <tvision/statusdef.h>
+#include <tvision/statusitem.h>
 
-#include <tvision/EventQueue.h>
-#include <tvision/SItem.h>
+#include <tvision/eventqueue.h>
+#include <tvision/sitem.h>
 
 #if defined(_MSC_VER)
 #pragma warning(pop)

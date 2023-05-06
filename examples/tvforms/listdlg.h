@@ -4,7 +4,9 @@
 #include "datacoll.h"
 #include "forms.h"
 #include <filesystem>
-#include <tvision/tv.h>
+#include <tvision/sortedlistbox.h>
+
+class TResourceFile;
 
 typedef char* (*ExpandFunc)(char*);
 
