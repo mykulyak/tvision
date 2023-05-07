@@ -1,7 +1,6 @@
 #include <tvision/button.h>
 #include <tvision/chdirdialog.h>
 #include <tvision/commandcodes.h>
-#include <tvision/dircollection.h>
 #include <tvision/direntry.h>
 #include <tvision/dirlistbox.h>
 #include <tvision/event.h>
@@ -22,7 +21,7 @@ const char* TChDirDialog::okText = "O~K~";
 const char* TChDirDialog::chdirText = "~C~hdir";
 const char* TChDirDialog::revertText = "~R~evert";
 const char* TChDirDialog::helpText = "Help";
-const char* TChDirDialog::drivesText = "Drives";
+const char* TChDirDialog::drivesText = "Root";
 const char* TChDirDialog::invalidText = "Invalid directory";
 
 __link(RDialog);
@@ -124,10 +123,8 @@ void TChDirDialog::setUpDialog()
     if (dirList != nullptr) {
         std::filesystem::path curDir = std::filesystem::current_path();
         dirList->setDirectory(curDir);
-        if (dirInput != nullptr) {
-            strcpy(dirInput->data, curDir.c_str());
-            dirInput->drawView();
-        }
+        strcpy(dirInput->data, curDir.c_str());
+        dirInput->drawView();
     }
 }
 

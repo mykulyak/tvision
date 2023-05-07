@@ -8,7 +8,7 @@ const char* TDirListBox::pathDir = "\xC0\xC4\xC2";
 const char* TDirListBox::firstDir = "\xC0\xC2\xC4";
 const char* TDirListBox::middleDir = " \xC3\xC4";
 const char* TDirListBox::lastDir = " \xC0\xC4";
-const char* TDirListBox::drives = "Drives";
+const char* TDirListBox::drives = "Root";
 const char* TDirListBox::graphics = "\xC0\xC3\xC4";
 
 __link(RListBox);
@@ -40,33 +40,10 @@ void TDirListBox::selectItem(short item)
 
 bool TDirListBox::isSelected(short item) { return item == cur; }
 
-void TDirListBox::showDrives(TDirCollection* dirs)
-{
-    bool isFirst = true;
-    std::string oldc("0:\\");
-    for (char c = 'A'; c <= 'Z'; c++) {
-        if (c < 'C' || driveValid(c)) {
-            if (oldc[0] != '0') {
-                std::string s(isFirst ? firstDir : middleDir);
-                s += oldc[0];
-                if (isFirst) {
-                    isFirst = false;
-                }
-                dirs->insert(new TDirEntry(s, oldc));
-            }
-            if (c == getdisk() + 'A') {
-                cur = dirs->getCount();
-            }
-            oldc[0] = c;
-        }
-    }
-    if (oldc[0] != '0') {
-        dirs->insert(new TDirEntry(std::string(lastDir) + oldc[0], oldc));
-    }
-}
-
 void TDirListBox::showDirs(TDirCollection* dirs)
 {
+    dirs->insert(new TDirEntry(drives, "/"));
+
     const int insertIndex = dirs->getCount();
     std::filesystem::path d = dir;
     while (d.parent_path() != d) {
@@ -80,6 +57,7 @@ void TDirListBox::showDirs(TDirCollection* dirs)
             dirs->insert(new TDirEntry(p.path().filename().string(), p.path().string()));
         }
     }
+    cur = currentItemIndex;
 
     for (int i = 1; i < dirs->getCount(); ++i) {
         std::string name = dirs->at(i)->text();
@@ -110,11 +88,7 @@ void TDirListBox::setDirectory(const std::filesystem::path& path)
 {
     dir = path;
     TDirCollection* dirs = new TDirCollection(5, 5);
-    dirs->insert(new TDirEntry(drives, drives));
-    if (path == drives)
-        showDrives(dirs);
-    else
-        showDirs(dirs);
+    showDirs(dirs);
     newList(dirs);
     focusItem(cur);
 }

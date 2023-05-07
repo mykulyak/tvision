@@ -20,7 +20,6 @@ public:
     TDirCollection* list() { return (TDirCollection*)TListBox::list(); }
 
 private:
-    void showDrives(TDirCollection*);
     void showDirs(TDirCollection*);
 
     std::filesystem::path dir;
