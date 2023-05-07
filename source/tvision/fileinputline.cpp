@@ -35,7 +35,7 @@ void TFileInputLine::handleEvent(TEvent& event)
         && !(state & sfSelected)) {
         const TSearchRec* rec = reinterpret_cast<const TSearchRec*>(event.message.infoPtr);
         std::string newData = rec->name;
-        if ((rec->attr & FA_DIREC) != 0) {
+        if (rec->isDirectory()) {
             newData += std::filesystem::path::preferred_separator;
             newData += dynamic_cast<const TFileDialog*>(owner)->WildCard();
         }

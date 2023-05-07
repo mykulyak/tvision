@@ -79,7 +79,6 @@ protected:
 
 #include <climits>
 #include <cstddef>
-#include <tvision/compat/borland/dos.h>
 
 const P_id_type P_id_notFound = UINT_MAX;
 

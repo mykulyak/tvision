@@ -3,7 +3,6 @@
 
 #include <tvision/listbox.h>
 
-class TScrollBar;
 class TDirCollection;
 
 class TDirListBox : public TListBox {

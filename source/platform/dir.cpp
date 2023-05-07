@@ -1,40 +1,9 @@
-// Replacements for functions in Borland's C/C++ Run Time Library.
-// The code below, although inspired by RTL version 1.5 from BC++ 4.52,
-// has been written from scratch.
-
-#include <dir.h>
-#include <internal/findfrst.h>
-#include <internal/pathconv.h>
+#include <tvision/compat/borland/dir.h>
+#include <tvision/internal/pathconv.h>
 
 #ifdef _WIN32
 #include <bitset>
 #endif
-
-unsigned _dos_findfirst(const char* pathname, unsigned attrib, struct find_t* fileinfo) noexcept
-{
-    using namespace tvision;
-    // The original findfirst sets errno on failure. We don't do this for now.
-    FindFirstRec* r;
-    if ((r = FindFirstRec::allocate(fileinfo, attrib, pathname)))
-        return r->next() ? 0 : -1;
-    return -1;
-}
-
-unsigned _dos_findnext(struct find_t* fileinfo) noexcept
-{
-    using namespace tvision;
-    FindFirstRec* r;
-    if ((r = FindFirstRec::get(fileinfo)) && r->next())
-        return 0;
-    return -1;
-}
-
-int findfirst(const char* pathname, struct ffblk* ffblk, int attrib) noexcept
-{
-    return _dos_findfirst(pathname, attrib, (struct find_t*)ffblk);
-}
-
-int findnext(struct ffblk* ffblk) noexcept { return _dos_findnext((struct find_t*)ffblk); }
 
 void fnmerge(
     char* pathP, const char* driveP, const char* dirP, const char* nameP, const char* extP) noexcept

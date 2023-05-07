@@ -43,22 +43,20 @@ void* TFileList::getKey(const char* s)
 {
     static thread_local TSearchRec sR;
 
-    if ((shiftState & kbShift) != 0 || *s == '.')
-        sR.attr = FA_DIREC;
-    else
-        sR.attr = 0;
+    sR.setIsDirectory((shiftState & kbShift) != 0 || *s == '.');
     strcpy(sR.name, s);
     return &sR;
 }
 
 void TFileList::getText(char* dest, short item, short maxChars)
 {
-    TSearchRec* f = (TSearchRec*)(list()->at(item));
+    TSearchRec* f = reinterpret_cast<TSearchRec*>(list()->at(item));
 
     strncpy(dest, f->name, maxChars);
     dest[maxChars] = '\0';
-    if (f->attr & FA_DIREC)
+    if (f->isDirectory()) {
         strcat(dest, "\\");
+    }
 }
 
 void TFileList::readDirectory(const std::filesystem::path& dir, std::string_view wildCard)
@@ -69,74 +67,45 @@ void TFileList::readDirectory(const std::filesystem::path& dir, std::string_view
 }
 
 struct DirSearchRec : public TSearchRec {
-    void readFf_blk(ffblk* f)
+    void readEntry(const std::filesystem::directory_entry& entry)
     {
-        attr = (char)f->ff_attrib;
-        time = (((long)(unsigned)f->ff_fdate) << 16) | f->ff_ftime;
-        size = f->ff_fsize;
-        memcpy(name, f->ff_name, sizeof(f->ff_name));
+        if (entry.is_directory()) {
+            setIsDirectory(true);
+            size = 0;
+        } else if (entry.is_regular_file() || entry.is_symlink()) {
+            size = entry.file_size();
+        } else {
+            size = 0;
+        }
+        std::string filename = entry.path().filename().string();
+        memcpy(name, filename.c_str(), filename.size());
     }
 };
 
 void TFileList::readDirectory(const std::filesystem::path& aDir)
 {
-    ffblk s;
-    char path[MAXPATH];
-    char drive[MAXDRIVE];
-    char dir[MAXDIR];
-    char file[MAXFILE];
-    char ext[MAXEXT];
-    const unsigned findAttr = FA_RDONLY | FA_ARCH;
-    memset(&s, 0, sizeof(s));
-    strnzcpy(path, aDir.c_str(), MAXPATH);
+    std::filesystem::path path(aDir);
+    if (isWild(path.filename().c_str())) {
+        if (path.filename() != "*.*") {
+            MessageBox::warning("Wildcards are not fully implemented");
+            return;
+        } else {
+            path = std::filesystem::current_path();
+        }
+    }
 
     TFileCollection* fileList = new TFileCollection(5, 5);
 
-    int res = findfirst(path, &s, findAttr);
-    DirSearchRec* p = (DirSearchRec*)&p;
-    while (p != 0 && res == 0) {
-        if ((s.ff_attrib & FA_DIREC) == 0) {
-            p = new DirSearchRec;
-            if (p != 0) {
-                p->readFf_blk(&s);
-                fileList->insert(p);
-            }
-        }
-        res = findnext(&s);
+    for (auto& entry : std::filesystem::directory_iterator(path)) {
+        DirSearchRec* p = new DirSearchRec();
+        p->readEntry(entry);
+        fileList->insert(p);
     }
-
-    fexpand(path);
-    fnsplit(path, drive, dir, file, ext);
-    fnmerge(path, drive, dir, "*", ".*");
-
-    res = findfirst(path, &s, FA_DIREC);
-    while (p != 0 && res == 0) {
-        if ((s.ff_attrib & FA_DIREC) != 0 && s.ff_name[0] != '.') {
-            p = new DirSearchRec;
-            if (p != 0) {
-                p->readFf_blk(&s);
-                fileList->insert(p);
-            }
-        }
-        res = findnext(&s);
-    }
-
-    if (strlen(dir) > 1) {
-        p = new DirSearchRec;
-        if (p != 0) {
-            fnmerge(path, drive, dir, "..", 0);
-            if (findfirst(path, &s, FA_DIREC) == 0) {
-                strcpy(s.ff_name, ".."); // findfirst returns the actual
-                p->readFf_blk(&s); // directory name.
-            } else {
-                strcpy(p->name, "..");
-                p->size = 0;
-                p->time = 0x210000uL;
-                p->attr = FA_DIREC;
-            }
-            fileList->insert(p);
-        }
-    }
+    DirSearchRec* p = new DirSearchRec();
+    p->setIsDirectory(true);
+    p->size = 0;
+    strcpy(p->name, "..");
+    fileList->insert(p);
 
     if (p == 0) {
         MessageBox::warning(tooManyFiles);

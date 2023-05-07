@@ -14,20 +14,24 @@ inline int attr(void* k) { return ((TSearchRec*)k)->attr; }
 
 int TFileCollection::compare(void* key1, void* key2)
 {
-    if (strcmp(getName(key1), getName(key2)) == 0)
+    TSearchRec* rec1 = reinterpret_cast<TSearchRec*>(key1);
+    TSearchRec* rec2 = reinterpret_cast<TSearchRec*>(key2);
+
+    if (strcmp(rec1->name, rec2->name) == 0) {
         return 0;
+    }
 
-    if (strcmp(getName(key1), "..") == 0)
+    if (strcmp(rec1->name, "..") == 0)
         return 1;
-    if (strcmp(getName(key2), "..") == 0)
+    if (strcmp(rec2->name, "..") == 0)
         return -1;
 
-    if ((attr(key1) & FA_DIREC) != 0 && (attr(key2) & FA_DIREC) == 0)
+    if (rec1->isDirectory() && !rec2->isDirectory())
         return 1;
-    if ((attr(key2) & FA_DIREC) != 0 && (attr(key1) & FA_DIREC) == 0)
+    if (rec2->isDirectory() && !rec1->isDirectory())
         return -1;
 
-    return strcmp(getName(key1), getName(key2));
+    return strcmp(rec1->name, rec2->name);
 }
 
 TStreamable* TFileCollection::build() { return new TFileCollection(streamableInit); }

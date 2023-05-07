@@ -77,8 +77,6 @@ void TChDirDialog::shutDown()
 
 void TChDirDialog::getData(void*) { }
 
-bool driveValid(const std::filesystem::path&) { return true; }
-
 void TChDirDialog::handleEvent(TEvent& event)
 {
     TDialog::handleEvent(event);
@@ -91,15 +89,6 @@ void TChDirDialog::handleEvent(TEvent& event)
             break;
         case cmChangeDir: {
             curDir = dirList->list()->at(dirList->focused)->dir();
-            if (curDir.string() == drivesText) {
-                break;
-            } else if (driveValid(curDir)) {
-                // int len = strlen(curDir);
-                // if (!isSeparator(curDir[len - 1]))
-                //     strcat(curDir, "\\");
-            } else {
-                return;
-            }
             break;
         }
         default:

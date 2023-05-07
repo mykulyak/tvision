@@ -3,8 +3,6 @@
 
 #include <tvision/listbox.h>
 
-class TScrollBar;
-
 class TSortedListBox : public TListBox {
 public:
     TSortedListBox(const TRect& bounds, ushort aNumCols, TScrollBar* aScrollBar) noexcept;

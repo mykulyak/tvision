@@ -5,8 +5,6 @@
 #include <tvision/filecollection.h>
 #include <tvision/sortedlistbox.h>
 
-class TScrollBar;
-
 class TFileList : public TSortedListBox {
 public:
     TFileList(const TRect& bounds, TScrollBar* aScrollBar) noexcept;
