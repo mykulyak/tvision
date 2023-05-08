@@ -245,7 +245,7 @@ size_t strnzcat(char* dest, std::string_view src, size_t size) noexcept
     return 0;
 }
 
-bool driveValid(char drive) noexcept
+static bool driveValid(char drive) noexcept
 {
 #ifdef _WIN32
     drive = (char)toupper(drive);
@@ -300,7 +300,7 @@ bool validFileName(const char* fileName) noexcept
     return true;
 }
 
-void getCurDir(char* dir, char drive) noexcept
+static void getCurDir(char* dir, char drive) noexcept
 {
     dir[0] = (char)((0 <= drive && drive <= 'Z' - 'A' ? drive : getdisk()) + 'A');
     dir[1] = ':';
@@ -326,13 +326,19 @@ bool isWild(const char* f) noexcept { return bool(strpbrk(f, "?*") != 0); }
 
 */
 
+// TODO Wildcards / globs should be separate from paths.
+bool hasWildCards(const std::filesystem::path& path)
+{
+    return path.string().find_first_of("?*") != std::string::npos;
+}
+
 inline static void skip(char*& src, char k)
 {
     while (*src == k)
         src++;
 }
 
-void squeeze(char* path) noexcept
+static void squeeze(char* path) noexcept
 {
     char* dest = path;
     char* src = path;
@@ -385,7 +391,7 @@ static int getPathDrive(const char* path)
     return -1;
 }
 
-bool getHomeDir(char* drive, char* dir) noexcept
+static bool getHomeDir(char* drive, char* dir) noexcept
 {
 #ifdef _WIN32
     const char* homedrive = getenv("HOMEDRIVE");

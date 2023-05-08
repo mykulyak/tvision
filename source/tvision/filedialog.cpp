@@ -211,11 +211,6 @@ bool TFileDialog::checkDirectory(const std::filesystem::path& dir)
     }
 }
 
-bool hasWildCards(const std::filesystem::path& p)
-{
-    return p.string().find_first_of("?*") != std::string::npos;
-}
-
 bool TFileDialog::valid(ushort command)
 {
     if (command == 0)

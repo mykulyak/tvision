@@ -21,6 +21,7 @@ void fexpand(char* rpath, const char* relativeTo) noexcept;
 
 std::filesystem::path expandPath(std::filesystem::path path);
 std::filesystem::path expandPath(std::filesystem::path path, std::filesystem::path base);
+bool hasWildCards(const std::filesystem::path& path);
 
 char hotKey(const char* s) noexcept;
 ushort ctrlToArrow(ushort) noexcept;
@@ -41,11 +42,8 @@ int strwidth(std::string_view) noexcept;
 
 inline int strwidth(const char* text) noexcept { return strwidth(std::string_view(text)); }
 
-bool driveValid(char drive) noexcept;
 bool pathValid(const char* path) noexcept;
 bool validFileName(const char* fileName) noexcept;
-void getCurDir(char* dir, char drive = -1) noexcept;
-bool getHomeDir(char* drive, char* dir) noexcept;
 bool isWild(const char* f) noexcept;
 
 size_t strnzcpy(char* dest, std::string_view src, size_t n) noexcept;
