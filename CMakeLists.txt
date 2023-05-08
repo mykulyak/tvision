@@ -176,3 +176,7 @@ add_subdirectory(examples)
 # Test
 
 add_subdirectory(test)
+
+# Tools
+
+add_subdirectory(tools)

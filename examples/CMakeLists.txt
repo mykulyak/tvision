@@ -36,8 +36,8 @@ if (TV_BUILD_EXAMPLES)
         tv_app_common(${app})
     endfunction()
 
-    list(APPEND TVAPPS tvedit tvdemo tvdir tvforms tvhc mmenu palette)
-    list(APPEND TVINSTALLAPPS tvedit tvdemo tvhc)
+    list(APPEND TVAPPS tvedit tvdemo tvdir tvforms mmenu palette)
+    list(APPEND TVINSTALLAPPS tvedit tvdemo)
 
     add_executable(hello "${PROJECT_SOURCE_DIR}/hello.cpp")
     target_link_libraries(hello PUBLIC ${PROJECT_NAME})
