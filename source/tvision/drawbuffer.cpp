@@ -1,7 +1,5 @@
 #include <tvision/drawbuffer.h>
 
-#pragma warn - asc
-
 /*------------------------------------------------------------------------*/
 /*                                                                        */
 /*  TDrawBuffer::moveBuf                                                  */
@@ -238,5 +236,3 @@ TDrawBuffer::TDrawBuffer() noexcept
 }
 
 TDrawBuffer::~TDrawBuffer() { delete[] data.data(); }
-
-#pragma warn.asc

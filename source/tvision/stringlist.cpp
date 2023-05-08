@@ -1,6 +1,5 @@
 #include <tvision/strindexrec.h>
 #include <tvision/stringlist.h>
-#include <tvision/strlistmaker.h>
 #include <tvision/tobjstrm.h>
 
 const char* const TStringList::name = "TStringList";
@@ -14,11 +13,7 @@ TStringList::TStringList(StreamableInit) noexcept
 {
 }
 
-#pragma warn - dsz
-
 TStringList::~TStringList() { delete[] index; }
-
-#pragma warn.dsz
 
 void TStringList::get(char* dest, ushort key)
 {

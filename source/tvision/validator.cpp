@@ -13,8 +13,7 @@ TValidator::TValidator() noexcept
 
 #ifndef NO_STREAMABLE
 
-#pragma argsused
-TValidator::TValidator(StreamableInit s) noexcept { }
+TValidator::TValidator(StreamableInit) noexcept { }
 
 void* TValidator::read(ipstream& is)
 {
@@ -28,10 +27,8 @@ void* TValidator::read(ipstream& is)
 
 void TValidator::error() { }
 
-#pragma warn - par
 bool TValidator::isValidInput(char* s, bool suppressFill) { return true; }
 
-#pragma warn - par
 bool TValidator::isValid(const char* s) { return true; }
 
 #ifndef NO_STREAMABLE
@@ -40,8 +37,7 @@ void TValidator::write(opstream& os) { os << options; }
 
 #endif
 
-#pragma warn - par
-ushort TValidator::transfer(char* s, void* buffer, TVTransfer flag) { return 0; }
+ushort TValidator::transfer(char*, void*, TVTransfer) { return 0; }
 
 bool TValidator::validate(const char* s)
 {

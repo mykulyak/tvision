@@ -334,7 +334,6 @@ char* TOutlineViewer::getGraph(int level, long lines, ushort flags)
     return createGraph(level, lines, flags, levelWidth, endWidth, graphChars);
 }
 
-#pragma warn - par
 static bool isNode(
     TOutlineViewer* outLine, TNode* node, int level, int position, long lines, ushort flags)
 {
@@ -361,7 +360,6 @@ static thread_local long focLines;
 static thread_local ushort focFlags;
 static thread_local int focLevel;
 
-#pragma warn - par
 static bool isFocused(
     TOutlineViewer* focusCheck, TNode* cur, int level, int position, long lines, ushort flags)
 {
@@ -492,7 +490,6 @@ void TOutlineViewer::handleEvent(TEvent& event)
   Called whenever Node is selected by the user either via keyboard
   control or by the mouse. }
 */
-#pragma warn - par
 void TOutlineViewer::selected(int i) { }
 
 // Redraws the outline if the outliner sfFocus state changes
@@ -507,7 +504,6 @@ void TOutlineViewer::setState(ushort aState, bool enable)
 static thread_local int updateCount;
 static thread_local int updateMaxX;
 
-#pragma warn - par
 static bool countNode(
     TOutlineViewer* beingCounted, TNode* p, int level, int position, long lines, ushort flags)
 {

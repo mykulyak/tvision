@@ -33,7 +33,6 @@ ushort TDisplay::getCols() noexcept { return THardwareInfo::getScreenCols(); }
 
 ushort TDisplay::getCrtMode() noexcept { return THardwareInfo::getScreenMode(); }
 
-#pragma argsused
 void TDisplay::setCrtMode(ushort mode) noexcept { THardwareInfo::setScreenMode(mode); }
 
 TScreen::TScreen() noexcept
@@ -70,8 +69,6 @@ void TScreen::suspend() noexcept
     setCursorType(startupCursor);
     THardwareInfo::restoreConsole();
 }
-
-#pragma argsused
 
 ushort TScreen::fixCrtMode(ushort mode) noexcept { return mode; }
 

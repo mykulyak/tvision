@@ -30,8 +30,6 @@ char TEditor::findStr[maxFindStrLen] = "";
 char TEditor::replaceStr[maxReplaceStrLen] = "";
 TEditor* TEditor::clipboard = 0;
 
-#pragma warn - asc
-
 ushort scanKeyMap(const void* keyMap, ushort keyCode)
 {
     ushort* kM = (ushort*)keyMap;
@@ -51,8 +49,6 @@ ushort scanKeyMap(const void* keyMap, ushort keyCode)
     };
     return 0;
 }
-
-#pragma warn.asc
 
 #define cpEditor "\x06\x07"
 
@@ -660,10 +656,6 @@ static inline int isWordChar(int ch)
 {
     return strchr(" !\"#$%&'()*+,-./:;<=>?@[\\]^`{|}~\0", ch) == 0;
 }
-
-#pragma warn - asc
-
-#pragma warn.asc
 
 void TEditor::detectEOL()
 {

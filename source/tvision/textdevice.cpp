@@ -1,6 +1,5 @@
 #include <tvision/textdevice.h>
 
-#pragma argsused
 TTextDevice::TTextDevice(
     const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar, ushort aBufSize) noexcept
     : TScroller(bounds, aHScrollBar, aVScrollBar)

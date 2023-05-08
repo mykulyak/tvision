@@ -19,15 +19,10 @@ void THWMouse::suspend() noexcept
     buttonCount = 0;
 }
 
-#pragma warn - asc
-
 void THWMouse::show() noexcept { THardwareInfo::cursorOn(); }
 
 void THWMouse::hide() noexcept { THardwareInfo::cursorOff(); }
 
-#pragma warn.asc
-
-#pragma argsused
 void THWMouse::setRange(ushort rx, ushort ry) noexcept { }
 
 void THWMouse::getEvent(MouseEventType& me) noexcept

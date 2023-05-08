@@ -1,7 +1,5 @@
 #include <tvision/helpviewer.h>
 
-#pragma warn - dsz
-
 #define cHelpViewer "\x06\x07\x08"
 
 THelpViewer::THelpViewer(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,

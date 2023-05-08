@@ -1,7 +1,3 @@
-#if defined(__DPMI16__)
-#pragma inline
-#endif
-
 #include <tvision/eventqueue.h>
 
 ushort TEventQueue::downTicks = 0;
