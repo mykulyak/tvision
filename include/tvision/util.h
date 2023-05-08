@@ -41,12 +41,6 @@ int strwidth(std::string_view) noexcept;
 
 inline int strwidth(const char* text) noexcept { return strwidth(std::string_view(text)); }
 
-class TPoint;
-class TGroup;
-class TMenu;
-class TMenuItem;
-ushort popupMenu(TPoint where, TMenuItem& aMenu, TGroup* = 0);
-
 bool driveValid(char drive) noexcept;
 bool pathValid(const char* path) noexcept;
 bool validFileName(const char* fileName) noexcept;

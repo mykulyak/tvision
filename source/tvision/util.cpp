@@ -2,78 +2,6 @@
 #include <tvision/menu.h>
 #include <tvision/menupopup.h>
 
-/*------------------------------------------------------------------------*/
-/*                                                                        */
-/*  popupMenu                                                             */
-/*                                                                        */
-/*  Spawns and executes a TMenuPopup on the desktop.                      */
-/*                                                                        */
-/*  arguments:                                                            */
-/*                                                                        */
-/*      where   - Reference position, in absolute coordinates.            */
-/*                The top left corner of the popup will be placed         */
-/*                at (where.x, where.y+1).                                */
-/*                                                                        */
-/*      aMenu   - Chain of menu items. This function takes ownership      */
-/*                over the items and the reference becomes dangling       */
-/*                after the invocation.                                   */
-/*                                                                        */
-/*      receiver- If not null, an evCommand event is generated with       */
-/*                the selected command in the menu and put into it        */
-/*                with putEvent.                                          */
-/*                                                                        */
-/*  returns:                                                              */
-/*                                                                        */
-/*      The selected command, if any.                                     */
-/*                                                                        */
-/*------------------------------------------------------------------------*/
-
-static void autoPlacePopup(TMenuPopup*, TPoint);
-
-ushort popupMenu(TPoint where, TMenuItem& aMenu, TGroup* receiver)
-{
-    ushort res = 0;
-    TGroup* app = TProgram::application;
-    if (app) {
-        {
-            TPoint p = app->makeLocal(where);
-            TMenu* mnu = new TMenu(aMenu);
-            TMenuPopup* mpop = new TMenuPopup(TRect(p, p), mnu);
-            autoPlacePopup(mpop, p);
-            // Execute and dispose the menu.
-            res = app->execView(mpop);
-            TObject::destroy(mpop);
-            delete mnu;
-        }
-        // Generate an event.
-        if (res && receiver) {
-            TEvent event = {};
-            event.what = evCommand;
-            event.message.command = res;
-            receiver->putEvent(event);
-        }
-    }
-    return res;
-}
-
-static void autoPlacePopup(TMenuPopup* m, TPoint p)
-// Pre: TMenuPopup was constructed with bounds=TRect(p, p).
-{
-    TGroup* app = TProgram::application;
-    // Initially, the menu is placed above 'p'. So we need to move it.
-    TRect r = m->getBounds();
-    // But we must ensure that the popup does not go beyond the desktop's
-    // bottom right corner, for usability.
-    {
-        TPoint d = app->size - p;
-        r.move(min(m->size.x, d.x), min(m->size.y + 1, d.y));
-    }
-    // If the popup then contains 'p', try to move it to a better place.
-    if (r.contains(p) && r.b.y - r.a.y < p.y)
-        r.move(0, -(r.b.y - p.y));
-    m->setBounds(r);
-}
-
 class HistRec {
 
 public:
@@ -315,6 +243,247 @@ size_t strnzcat(char* dest, std::string_view src, size_t size) noexcept
         return dstLen + copy_bytes;
     }
     return 0;
+}
+
+bool driveValid(char drive) noexcept
+{
+#ifdef _WIN32
+    drive = (char)toupper(drive);
+    DWORD mask = 0x01 << (drive - 'A');
+    return (bool)(GetLogicalDrives() & mask);
+#else
+    // Unless otherwise necessary, we will emulate there's only one disk:
+    // the one returned by getdisk(), which is C by default.
+    return drive - 'A' == getdisk();
+#endif
+}
+
+#pragma warn.asc
+
+#define isSeparator(c) (c == '\\' || c == '/')
+
+bool pathValid(const char* path) noexcept
+{
+    char expPath[MAXPATH];
+    strnzcpy(expPath, path, MAXPATH);
+    fexpand(expPath);
+    int len = strlen(expPath);
+#ifdef _TV_UNIX
+    if (len == 1 && isSeparator(expPath[0]))
+        return true; // Root directory is always valid.
+#else
+    if (len <= 3)
+        return driveValid(expPath[0]);
+#endif
+    if (isSeparator(expPath[len - 1]))
+        expPath[len - 1] = EOS;
+
+    return std::filesystem::is_directory(std::filesystem::path(expPath));
+}
+
+bool validFileName(const char* fileName) noexcept
+{
+    static const char* const illegalChars = "<>|\"\\";
+
+    char path[MAXPATH];
+    char dir[MAXDIR];
+    char name[MAXFILE];
+    char ext[MAXEXT];
+
+    fnsplit(fileName, path, dir, name, ext);
+    strcat(path, dir);
+    if (*dir != EOS && !pathValid(path))
+        return false;
+    if (strpbrk(name, illegalChars) != 0 || strpbrk(ext + 1, illegalChars) != 0
+        || strchr(ext + 1, '.') != 0)
+        return false;
+    return true;
+}
+
+void getCurDir(char* dir, char drive) noexcept
+{
+    dir[0] = (char)((0 <= drive && drive <= 'Z' - 'A' ? drive : getdisk()) + 'A');
+    dir[1] = ':';
+    dir[2] = '\\';
+    dir[3] = '\0';
+    getcurdir(dir[0] - 'A' + 1, dir + 3);
+    if (strlen(dir) > 3)
+        strnzcat(dir, "\\", MAXPATH);
+}
+
+bool isWild(const char* f) noexcept { return bool(strpbrk(f, "?*") != 0); }
+
+/*
+    fexpand:    reimplementation of pascal's FExpand routine.  Takes a
+                relative DOS path and makes an absolute path of the form
+
+                    drive:\[subdir\ ...]filename.ext
+
+                works with '/' or '\' as the subdir separator on input;
+                changes all to '\' on output.
+
+                expands '~/' into the home directory on non-DOS.
+
+*/
+
+inline static void skip(char*& src, char k)
+{
+    while (*src == k)
+        src++;
+}
+
+void squeeze(char* path) noexcept
+{
+    char* dest = path;
+    char* src = path;
+    char last = '\0';
+    while (*src != 0) {
+        if (last == '\\')
+            skip(src, '\\'); // skip repeated '\'
+        if ((!last || last == '\\') && *src == '.') {
+            src++;
+            if (!*src || *src == '\\') // have a '.' or '.\'
+                skip(src, '\\');
+            else if (*src == '.' && (!src[1] || src[1] == '\\')) { // have a '..' or '..\'
+                src++; // skip the following '.'
+                skip(src, '\\');
+                dest--; // back up to the previous '\'
+                while (dest > path && *--dest != '\\') // back up to the previous '\'
+                    ;
+                dest++; // move to the next position
+            } else
+                last = *dest++ = src[-1]; // copy the '.' we just skipped
+        } else
+            last = *dest++ = *src++; // just copy it...
+    }
+    *dest = EOS; // zero terminator
+}
+
+static inline int isSep(char c) { return c == '\\' || c == '/'; }
+
+static inline int isHomeExpand(const char* path) { return path[0] == '~' && isSep(path[1]); }
+
+static inline int isAbsolute(const char* path)
+{
+    return isSep(path[0]) || (path[0] && path[1] == ':' && isSep(path[2]));
+}
+
+static void addFinalSep(char* path, size_t size)
+{
+    size_t len = strlen(path);
+    if (!(len && isSep(path[len - 1])))
+        strnzcat(path, "\\", size);
+}
+
+static int getPathDrive(const char* path)
+{
+    if (path[0] && path[1] == ':') {
+        int drive = toupper(path[0]) - 'A';
+        if (0 <= drive && drive <= 'Z' - 'A')
+            return drive;
+    }
+    return -1;
+}
+
+bool getHomeDir(char* drive, char* dir) noexcept
+{
+#ifdef _WIN32
+    const char* homedrive = getenv("HOMEDRIVE");
+    const char* homepath = getenv("HOMEPATH");
+    if (homedrive && homepath) {
+        if (drive)
+            strnzcpy(drive, homedrive, MAXDRIVE);
+        if (dir)
+            strnzcpy(dir, homepath, MAXDIR);
+        return true;
+    }
+#else
+    const char* home = getenv("HOME");
+    if (home) {
+        if (dir)
+            strnzcpy(dir, home, MAXDIR);
+        return true;
+    }
+#endif
+    (void)drive;
+    (void)dir;
+    return false;
+}
+
+void fexpand(char* rpath) noexcept
+{
+    char curpath[MAXPATH];
+    getCurDir(curpath, getPathDrive(rpath));
+    fexpand(rpath, curpath);
+}
+
+void fexpand(char* rpath, const char* relativeTo) noexcept
+{
+    char path[MAXPATH];
+    char drive[MAXDRIVE];
+    char dir[MAXDIR];
+    char file[MAXFILE];
+    char ext[MAXEXT];
+
+    int drv;
+    // Prioritize drive letter in 'rpath'.
+    if ((drv = getPathDrive(rpath)) == -1 && (drv = getPathDrive(relativeTo)) == -1)
+        drv = getdisk();
+    drive[0] = drv + 'A';
+    drive[1] = ':';
+    drive[2] = '\0';
+
+    int flags = fnsplit(rpath, 0, dir, file, ext);
+    if ((flags & DIRECTORY) == 0 || !isSep(dir[0])) {
+        char rbase[MAXPATH];
+        if (isHomeExpand(dir)
+            && getHomeDir(drive, rbase)) // Home expansion. Overwrite drive if necessary.
+            strnzcat(rbase, dir + 1,
+                MAXDIR); // 'dir' begins with "~/" or "~\", so we can reuse the separator.
+        else {
+            // If 'rpath' is relative but contains a drive letter, just swap drives.
+            if (getPathDrive(rpath) != -1) {
+                if (getcurdir(drv + 1, rbase) != 0)
+                    rbase[0] = '\0';
+            } else {
+                // Expand 'relativeTo'.
+                strnzcpy(rbase, relativeTo, MAXPATH);
+                if (!isAbsolute(rbase)) {
+                    char curpath[MAXPATH];
+                    getCurDir(curpath, drv);
+                    fexpand(rbase, curpath);
+                }
+                // Skip drive letter in 'rbase'.
+                if (getPathDrive(rbase) != -1)
+                    memmove(rbase, rbase + 2, strlen(rbase + 2) + 1);
+            }
+            // Ensure 'rbase' ends with a separator.
+            addFinalSep(rbase, MAXPATH);
+            strnzcat(rbase, dir, MAXDIR);
+        }
+        if (!isSep(rbase[0])) {
+            dir[0] = '\\';
+            strnzcpy(dir + 1, rbase, MAXDIR - 1);
+        } else
+            strnzcpy(dir, rbase, MAXDIR);
+    }
+
+    char* p = dir;
+    while ((p = strchr(p, '/')) != 0)
+        *p = '\\';
+    squeeze(dir);
+    fnmerge(path, drive, dir, file, ext);
+    strnzcpy(rpath, path, MAXPATH);
+}
+
+std::filesystem::path expandPath(std::filesystem::path path)
+{
+    return path.is_absolute() ? path : std::filesystem::absolute(path).lexically_normal();
+}
+
+std::filesystem::path expandPath(std::filesystem::path path, std::filesystem::path base)
+{
+    return path.is_absolute() ? path : std::filesystem::absolute(base / path).lexically_normal();
 }
 
 static const char altCodes1[] = "QWERTYUIOP\0\0\0\0ASDFGHJKL\0\0\0\0\0ZXCVBNM";

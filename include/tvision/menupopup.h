@@ -17,4 +17,6 @@ public:
     static TStreamable* build();
 };
 
+ushort popupMenu(TPoint where, TMenuItem& aMenu, TGroup* = 0);
+
 #endif // TVision_TMenuPopup_h
