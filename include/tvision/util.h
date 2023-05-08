@@ -1,7 +1,6 @@
 #ifndef TVision_Util_h
 #define TVision_Util_h
 
-#include <cstddef>
 #include <filesystem>
 #include <string_view>
 
@@ -15,9 +14,6 @@ template <class T> inline constexpr const T& min(const T& a, const T& b) { retur
 
 template <class T> inline constexpr const T& max(const T& a, const T& b) { return a > b ? a : b; }
 #endif // __MINMAX_DEFINED
-
-void fexpand(char* rpath) noexcept;
-void fexpand(char* rpath, const char* relativeTo) noexcept;
 
 std::filesystem::path expandPath(std::filesystem::path path);
 std::filesystem::path expandPath(std::filesystem::path path, std::filesystem::path base);
@@ -47,7 +43,6 @@ bool validFileName(const char* fileName) noexcept;
 bool isWild(const char* f) noexcept;
 
 size_t strnzcpy(char* dest, std::string_view src, size_t n) noexcept;
-size_t strnzcat(char* dest, std::string_view src, size_t n) noexcept;
 
 void printKeyCode(std::ostream&, ushort keyCode);
 void printControlKeyState(std::ostream&, ushort controlKeyState);

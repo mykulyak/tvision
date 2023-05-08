@@ -1,6 +1,4 @@
-#include <string_view>
-#include <tvision/menu.h>
-#include <tvision/menupopup.h>
+#include <tvision/util.h>
 
 class HistRec {
 
@@ -227,7 +225,7 @@ size_t strnzcpy(char* dest, std::string_view src, size_t size) noexcept
     return 0;
 }
 
-size_t strnzcat(char* dest, std::string_view src, size_t size) noexcept
+static size_t strnzcat(char* dest, std::string_view src, size_t size) noexcept
 {
     // Similar to strlcpy, except that 'dest' is always left null-terminated,
     // and the return value is the length of 'dest'.
@@ -245,6 +243,7 @@ size_t strnzcat(char* dest, std::string_view src, size_t size) noexcept
     return 0;
 }
 
+#ifndef _TV_UNIX
 static bool driveValid(char drive) noexcept
 {
 #ifdef _WIN32
@@ -257,29 +256,9 @@ static bool driveValid(char drive) noexcept
     return drive - 'A' == getdisk();
 #endif
 }
-
-#pragma warn.asc
+#endif
 
 #define isSeparator(c) (c == '\\' || c == '/')
-
-bool pathValid(const char* path) noexcept
-{
-    char expPath[MAXPATH];
-    strnzcpy(expPath, path, MAXPATH);
-    fexpand(expPath);
-    int len = strlen(expPath);
-#ifdef _TV_UNIX
-    if (len == 1 && isSeparator(expPath[0]))
-        return true; // Root directory is always valid.
-#else
-    if (len <= 3)
-        return driveValid(expPath[0]);
-#endif
-    if (isSeparator(expPath[len - 1]))
-        expPath[len - 1] = EOS;
-
-    return std::filesystem::is_directory(std::filesystem::path(expPath));
-}
 
 bool validFileName(const char* fileName) noexcept
 {
@@ -416,14 +395,7 @@ static bool getHomeDir(char* drive, char* dir) noexcept
     return false;
 }
 
-void fexpand(char* rpath) noexcept
-{
-    char curpath[MAXPATH];
-    getCurDir(curpath, getPathDrive(rpath));
-    fexpand(rpath, curpath);
-}
-
-void fexpand(char* rpath, const char* relativeTo) noexcept
+static void fexpand(char* rpath, const char* relativeTo) noexcept
 {
     char path[MAXPATH];
     char drive[MAXDRIVE];
@@ -482,6 +454,32 @@ void fexpand(char* rpath, const char* relativeTo) noexcept
     strnzcpy(rpath, path, MAXPATH);
 }
 
+static void fexpand(char* rpath) noexcept
+{
+    char curpath[MAXPATH];
+    getCurDir(curpath, getPathDrive(rpath));
+    fexpand(rpath, curpath);
+}
+
+bool pathValid(const char* path) noexcept
+{
+    char expPath[MAXPATH];
+    strnzcpy(expPath, path, MAXPATH);
+    fexpand(expPath);
+    int len = strlen(expPath);
+#ifdef _TV_UNIX
+    if (len == 1 && isSeparator(expPath[0]))
+        return true; // Root directory is always valid.
+#else
+    if (len <= 3)
+        return driveValid(expPath[0]);
+#endif
+    if (isSeparator(expPath[len - 1]))
+        expPath[len - 1] = EOS;
+
+    return std::filesystem::is_directory(std::filesystem::path(expPath));
+}
+
 std::filesystem::path expandPath(std::filesystem::path path)
 {
     return path.is_absolute() ? path : std::filesystem::absolute(path).lexically_normal();
@@ -494,8 +492,6 @@ std::filesystem::path expandPath(std::filesystem::path path, std::filesystem::pa
 
 static const char altCodes1[] = "QWERTYUIOP\0\0\0\0ASDFGHJKL\0\0\0\0\0ZXCVBNM";
 static const char altCodes2[] = "1234567890-=";
-
-#pragma warn - rng
 
 char getAltChar(ushort keyCode) noexcept
 {
@@ -551,8 +547,6 @@ ushort getCtrlCode(uchar ch) noexcept
 {
     return getAltCode(ch) | (((('a' <= ch) && (ch <= 'z')) ? (ch & ~0x20) : ch) - 'A' + 1);
 }
-
-#pragma warn.rng
 
 typedef std::ios::fmtflags fmtflags;
 
