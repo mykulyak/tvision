@@ -151,7 +151,6 @@
 #include <tvision/statusitem.h>
 
 #include <tvision/eventqueue.h>
-#include <tvision/sitem.h>
 
 #if defined(_MSC_VER)
 #pragma warning(pop)

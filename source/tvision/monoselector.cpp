@@ -16,8 +16,7 @@ const char* TMonoSelector::inverse = "Inverse";
 const uchar monoColors[] = { 0x07, 0x0F, 0x01, 0x70, 0x09 };
 
 TMonoSelector::TMonoSelector(const TRect& bounds) noexcept
-    : TCluster(bounds,
-        new TSItem(normal, new TSItem(highlight, new TSItem(underline, new TSItem(inverse, 0)))))
+    : TCluster(bounds, {normal, highlight, underline, inverse})
 {
     eventMask |= evBroadcast;
 }

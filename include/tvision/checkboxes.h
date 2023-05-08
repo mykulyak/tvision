@@ -3,11 +3,9 @@
 
 #include <tvision/cluster.h>
 
-class TSItem;
-
 class TCheckBoxes : public TCluster {
 public:
-    TCheckBoxes(const TRect& bounds, TSItem* aStrings) noexcept
+    TCheckBoxes(const TRect& bounds, const std::vector<const char*>& aStrings) noexcept
         : TCluster(bounds, aStrings)
     {
     }

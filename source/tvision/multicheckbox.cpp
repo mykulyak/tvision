@@ -17,7 +17,7 @@ TStreamableClass RMultiCheckBoxes(
     TMultiCheckBoxes::name, TMultiCheckBoxes::build, __DELTA(TMultiCheckBoxes));
 
 TMultiCheckBoxes::TMultiCheckBoxes(
-    TRect& bounds, TSItem* aStrings, uchar aSelRange, ushort aFlags, const char* aStates) noexcept
+    TRect& bounds, const std::vector<const char*>& aStrings, uchar aSelRange, ushort aFlags, const char* aStates) noexcept
     : TCluster(bounds, aStrings)
 {
     selRange = aSelRange;

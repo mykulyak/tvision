@@ -101,7 +101,7 @@ TForm* makeForm()
     x = inputCol;
     y += 3;
     r = TRect(inputCol, y, inputCol + strlen("Business") + 6, y + 2);
-    control = new TCheckBoxes(r, new TSItem("Business", new TSItem("Personal", NULL)));
+    control = new TCheckBoxes(r, {"Business", "Personal"});
     f->insert(control);
     r = TRect(x, y - 1, x + labelWid, y);
     f->insert(new TLabel(r, "~T~ype", control));
@@ -110,7 +110,7 @@ TForm* makeForm()
     x += 15;
     r = TRect(x, y, x + strlen("Female") + 6, y + 2);
 
-    control = new TRadioButtons(r, new TSItem("Male", new TSItem("Female", NULL)));
+    control = new TRadioButtons(r, {"Male", "Female"});
     f->insert(control);
     r = TRect(x, y - 1, x + labelWid, y);
     f->insert(new TLabel(r, "~G~ender", control));

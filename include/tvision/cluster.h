@@ -5,11 +5,9 @@
 #include <tvision/view.h>
 #include <vector>
 
-class TSItem;
-
 class TCluster : public TView {
 public:
-    TCluster(const TRect& bounds, TSItem* aStrings) noexcept;
+    TCluster(const TRect& bounds, const std::vector<const char*>& aStrings) noexcept;
     ~TCluster();
 
     virtual ushort dataSize();

@@ -7,11 +7,9 @@
 const unsigned short cfOneBit = 0x0101, cfTwoBits = 0x0203, cfFourBits = 0x040F,
                      cfEightBits = 0x08FF;
 
-class TSItem;
-
 class TMultiCheckBoxes : public TCluster {
 public:
-    TMultiCheckBoxes(TRect&, TSItem*, uchar, ushort, const char*) noexcept;
+    TMultiCheckBoxes(TRect&, const std::vector<const char*>&, uchar, ushort, const char*) noexcept;
     ~TMultiCheckBoxes();
     virtual ushort dataSize();
     virtual void draw();

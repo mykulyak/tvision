@@ -5,7 +5,7 @@
 
 class TRadioButtons : public TCluster {
 public:
-    TRadioButtons(const TRect& bounds, TSItem* aStrings) noexcept
+    TRadioButtons(const TRect& bounds, const std::vector<const char*>& aStrings) noexcept
         : TCluster(bounds, aStrings)
     {
     }
