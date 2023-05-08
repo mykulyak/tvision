@@ -29,7 +29,7 @@ TDialog* createFindDialog()
     d->insert(new TLabel(TRect(2, 2, 15, 3), "~T~ext to find", control));
     d->insert(new THistory(TRect(32, 3, 35, 4), control, 10));
 
-    d->insert(new TCheckBoxes(TRect(3, 5, 35, 7), {"~C~ase sensitive", "~W~hole words only"}));
+    d->insert(new TCheckBoxes(TRect(3, 5, 35, 7), { "~C~ase sensitive", "~W~hole words only" }));
 
     d->insert(new TButton(TRect(14, 9, 24, 11), "O~K~", cmOK, TButton::Flags::bfDefault));
     d->insert(new TButton(TRect(26, 9, 36, 11), "Cancel", cmCancel, TButton::Flags::bfNormal));
@@ -54,7 +54,8 @@ TDialog* createReplaceDialog()
     d->insert(new TLabel(TRect(2, 5, 12, 6), "~N~ew text", control));
     d->insert(new THistory(TRect(34, 6, 37, 7), control, 11));
 
-    d->insert(new TCheckBoxes(TRect(3, 8, 37, 12), {"~C~ase sensitive", "~W~hole words only", "~P~rompt on replace", "~R~eplace all"}));
+    d->insert(new TCheckBoxes(TRect(3, 8, 37, 12),
+        { "~C~ase sensitive", "~W~hole words only", "~P~rompt on replace", "~R~eplace all" }));
     d->insert(new TButton(TRect(17, 13, 27, 15), "O~K~", cmOK, TButton::Flags::bfDefault));
     d->insert(new TButton(TRect(28, 13, 38, 15), "Cancel", cmCancel, TButton::Flags::bfNormal));
 
