@@ -30,7 +30,6 @@ void fnmerge(char* __path, const char* __drive, const char* __dir, const char* _
 int fnsplit(const char* __path, char* __drive, char* __dir, char* __name, char* __ext) noexcept;
 int getcurdir(int __drive, char* __directory) noexcept;
 int getdisk(void) noexcept;
-int setdisk(int __drive) noexcept;
 
 #endif // TVISION_COMPAT_DIR_H
 

@@ -121,16 +121,6 @@ int getdisk() noexcept
 #endif
 }
 
-int setdisk(int drive) noexcept
-{
-#ifdef _WIN32
-    _chdrive(drive - 1);
-    return std::bitset<8 * sizeof(ulong)>(_getdrives()).count();
-#else
-    return drive == getdisk() ? 0 : -1;
-#endif
-}
-
 int getcurdir(int drive, char* direc) noexcept
 {
     // direc is an array of length MAXDIR where the null-terminated directory
