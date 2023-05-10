@@ -51,8 +51,6 @@ private:
     static const char rightArrow;
     static const char leftArrow;
 
-    virtual const char* streamableName() const { return name; }
-
     TValidator* validator;
 
     int anchor;
@@ -62,20 +60,9 @@ private:
     int oldSelStart;
     int oldSelEnd;
 
-protected:
-    TInputLine(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TInputLine);
 };
 
-inline ipstream& operator>>(ipstream& is, TInputLine& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TInputLine*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TInputLine& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TInputLine* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TInputLine);
 
 #endif // TVision_TInputLine_h

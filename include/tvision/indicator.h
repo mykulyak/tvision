@@ -30,10 +30,6 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TIndicator& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TIndicator*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TIndicator& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TIndicator* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TIndicator);
 
 #endif // TVision_TIndicator_h

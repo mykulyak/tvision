@@ -2,14 +2,7 @@
 #include <tvision/stringlookupvalidator.h>
 #include <tvision/tobjstrm.h>
 
-const char* const TStringLookupValidator::name = "TStringLookupValidator";
-
 const char* TStringLookupValidator::errorMsg = "Input is not in list of valid strings";
-
-__link(RLookupValidator);
-
-TStreamableClass RStringLookupValidator(
-    TStringLookupValidator::name, TStringLookupValidator::build, __DELTA(TStringLookupValidator));
 
 TStringLookupValidator::TStringLookupValidator(const StringVector& aStrings) noexcept
     : TLookupValidator()
@@ -27,7 +20,13 @@ bool TStringLookupValidator::lookup(const char* s)
     return std::find(strings.cbegin(), strings.cend(), str) != strings.cend();
 }
 
+void TStringLookupValidator::newStringList(const StringVector& aStrings) { strings = aStrings; }
+
 #ifndef NO_STREAMABLE
+
+__link(RLookupValidator);
+
+STREAMABLE_CLASS_IMPLEMENT(TStringLookupValidator);
 
 TStringLookupValidator::TStringLookupValidator(StreamableInit s) noexcept
     : TLookupValidator(s)
@@ -56,12 +55,4 @@ void* TStringLookupValidator::read(ipstream& is)
     return this;
 }
 
-#endif
-
-void TStringLookupValidator::newStringList(const StringVector& aStrings) { strings = aStrings; }
-
-#ifndef NO_STREAMABLE
-
-TStreamable* TStringLookupValidator::build() { return new TStringLookupValidator(streamableInit); }
-
-#endif
+#endif // NO_STREAMABLE

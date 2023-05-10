@@ -1,19 +1,5 @@
 #include <tvision/fileinputline.h>
 
-const char* const TFileInputLine::name = "TFileInputLine";
-
-__link(RInputLine)
-
-    TFileInputLine::TFileInputLine(StreamableInit) noexcept
-    : TInputLine(streamableInit)
-{
-}
-
-TStreamable* TFileInputLine::build() { return new TFileInputLine(streamableInit); }
-
-TStreamableClass RFileInputLine(
-    TFileInputLine::name, TFileInputLine::build, __DELTA(TFileInputLine));
-
 TFileInputLine::TFileInputLine(const TRect& bounds, short aMaxLen) noexcept
     : TInputLine(bounds, aMaxLen)
 {
@@ -44,3 +30,16 @@ void TFileInputLine::handleEvent(TEvent& event)
         drawView();
     }
 }
+
+#ifndef NO_STREAMABLE
+
+__link(RTInputLine);
+
+STREAMABLE_CLASS_IMPLEMENT(TFileInputLine);
+
+TFileInputLine::TFileInputLine(StreamableInit) noexcept
+    : TInputLine(streamableInit)
+{
+}
+
+#endif // NO_STREAMABLE

@@ -13,7 +13,7 @@
 
 const char* const TLabel::name = "TLabel";
 
-__link(RStaticText);
+__link(RTStaticText);
 
 TStreamableClass RLabel(TLabel::name, TLabel::build, __DELTA(TLabel));
 

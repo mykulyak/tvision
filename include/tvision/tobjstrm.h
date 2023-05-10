@@ -3,6 +3,7 @@
 
 #include <filesystem>
 #include <string>
+#include <tvision/tobjstrmfwd.h>
 
 typedef unsigned P_id_type;
 
@@ -49,20 +50,6 @@ struct fLink {
 
 #ifndef __TStreamable
 #define __TStreamable
-
-class TStreamable {
-
-    friend class pstream;
-    friend class opstream;
-    friend class ipstream;
-
-private:
-    virtual const char* streamableName() const = 0;
-
-protected:
-    virtual void* read(ipstream&) = 0;
-    virtual void write(opstream&) = 0;
-};
 
 #endif // __TStreamable
 

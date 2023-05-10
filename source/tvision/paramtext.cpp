@@ -8,13 +8,6 @@
 /*        1 = Text                                                        */
 /* ---------------------------------------------------------------------- */
 
-const char* const TParamText::name = "TParamText";
-
-__link(RView);
-__link(RStaticText);
-
-TStreamableClass RParamText(TParamText::name, TParamText::build, __DELTA(TParamText));
-
 TParamText::TParamText(const TRect& bounds) noexcept
     : TStaticText(bounds, "")
 {
@@ -41,7 +34,10 @@ void TParamText::setText(const char* fmt, ...)
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TParamText::build() { return new TParamText(streamableInit); }
+__link(RTView);
+__link(RTStaticText);
+
+STREAMABLE_CLASS_IMPLEMENT(TParamText);
 
 TParamText::TParamText(StreamableInit) noexcept
     : TStaticText(streamableInit)

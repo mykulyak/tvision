@@ -1,13 +1,5 @@
 #include <tvision/dircollection.h>
-#include <tvision/direntry.h>
 #include <tvision/tobjstrm.h>
-
-const char* const TDirCollection::name = "TDirCollection";
-
-TStreamableClass RDirCollection(
-    TDirCollection::name, TDirCollection::build, __DELTA(TDirCollection));
-
-TStreamable* TDirCollection::build() { return new TDirCollection(streamableInit); }
 
 void TDirCollection::writeItem(void* obj, opstream& os)
 {
@@ -23,3 +15,9 @@ void* TDirCollection::readItem(ipstream& is)
     TDirEntry* entry = new TDirEntry(txt.get(), dir.get());
     return entry;
 }
+
+#ifndef NO_STREAMABLE
+
+STREAMABLE_CLASS_IMPLEMENT(TDirCollection);
+
+#endif // NO_STREAMABLE

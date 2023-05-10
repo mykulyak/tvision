@@ -46,24 +46,13 @@ private:
     static const char* okText;
     static const char* cancelText;
 
-    virtual const char* streamableName() const { return name; }
-
-protected:
-    TColorDialog(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
 public:
     void getIndexes(TColorIndex*&);
     void setIndexes(TColorIndex*&);
-    static const char* const name;
-    static TStreamable* build();
+
+    STREAMABLE_DECLARE(TColorDialog);
 };
 
-inline ipstream& operator>>(ipstream& is, TColorDialog& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TColorDialog*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TColorDialog& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TColorDialog* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TColorDialog);
 
 #endif // TVision_TColorDialog_h

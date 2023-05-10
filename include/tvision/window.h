@@ -15,7 +15,6 @@ class TFrame;
 class TScrollBar;
 
 class TWindowInit {
-
 public:
     TWindowInit(TFrame* (*cFrame)(TRect)) noexcept;
 
@@ -53,23 +52,9 @@ public:
     TFrame* frame;
     std::string title;
 
-private:
-    virtual const char* streamableName() const { return name; }
-
-protected:
-    TWindow(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TWindow);
 };
 
-inline ipstream& operator>>(ipstream& is, TWindow& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TWindow*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TWindow& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TWindow* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TWindow);
 
 #endif // TVision_TWindow_h

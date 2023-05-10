@@ -24,25 +24,12 @@ public:
 
     TCollection* list() { return items; }
 
-private:
-    virtual const char* streamableName() const { return name; }
-
 protected:
     TCollection* items;
 
-    TListBox(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TListBox);
 };
 
-inline ipstream& operator>>(ipstream& is, TListBox& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TListBox*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TListBox& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TListBox* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TListBox);
 
 #endif // TVision_TListBox_h

@@ -6,8 +6,8 @@
 
 const char* const TFileViewer::name = "TFileViewer";
 
-__link(RScroller);
-__link(RScrollBar);
+__link(RTScroller);
+__link(RTScrollBar);
 
 TFileViewer::TFileViewer(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,
     const std::filesystem::path& aFileName)

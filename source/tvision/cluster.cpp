@@ -16,13 +16,6 @@
 /*        5 = Disabled text                                               */
 /* ---------------------------------------------------------------------- */
 
-const char* const TCluster::name = "TCluster";
-
-__link(RView);
-__link(RStringCollection);
-
-TStreamableClass RCluster(TCluster::name, TCluster::build, __DELTA(TCluster));
-
 #define cpCluster "\x10\x11\x12\x12\x1f"
 
 TCluster::TCluster(const TRect& bounds, const std::vector<const char*>& aStrings) noexcept
@@ -349,6 +342,16 @@ bool TCluster::buttonState(int item)
 
 #ifndef NO_STREAMABLE
 
+__link(RTView);
+__link(RTStringCollection);
+
+STREAMABLE_CLASS_IMPLEMENT(TCluster);
+
+TCluster::TCluster(StreamableInit) noexcept
+    : TView(streamableInit)
+{
+}
+
 void TCluster::write(opstream& os)
 {
     TView::write(os);
@@ -374,13 +377,6 @@ void* TCluster::read(ipstream& is)
     showCursor();
     setButtonState(0, true);
     return this;
-}
-
-TStreamable* TCluster::build() { return new TCluster(streamableInit); }
-
-TCluster::TCluster(StreamableInit) noexcept
-    : TView(streamableInit)
-{
 }
 
 #endif

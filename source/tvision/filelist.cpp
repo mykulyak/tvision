@@ -2,14 +2,7 @@
 #include <tvision/filelist.h>
 #include <tvision/tobjstrm.h>
 
-const char* const TFileList::name = "TFileList";
-
 const char* TFileList::tooManyFiles = "Too many files.";
-
-__link(RSortedListBox); // In case the object below is moved
-                        //   to another file.
-
-TStreamableClass RFileList(TFileList::name, TFileList::build, __DELTA(TFileList));
 
 TFileList::TFileList(const TRect& bounds, TScrollBar* aScrollBar) noexcept
     : TSortedListBox(bounds, 2, aScrollBar)
@@ -121,6 +114,8 @@ void TFileList::readDirectory(const std::filesystem::path& aDir)
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TFileList::build() { return new TFileList(streamableInit); }
+__link(RSortedListBox);
 
-#endif
+STREAMABLE_CLASS_IMPLEMENT(TFileList);
+
+#endif // NO_STREAMABLE

@@ -12,14 +12,8 @@
 
 #define cpScrollBar "\x04\x05\x05"
 
-const char* const TScrollBar::name = "TScrollBar";
-
 TScrollChars TScrollBar::vChars = { '\x1E', '\x1F', '\xB1', '\xFE', '\xB2' };
 TScrollChars TScrollBar::hChars = { '\x11', '\x10', '\xB1', '\xFE', '\xB2' };
-
-__link(RView);
-
-TStreamableClass RScrollBar(TScrollBar::name, TScrollBar::build, __DELTA(TScrollBar));
 
 TScrollBar::TScrollBar(const TRect& bounds) noexcept
     : TView(bounds)
@@ -304,6 +298,15 @@ void TScrollBar::setValue(int aValue) noexcept
 
 #ifndef NO_STREAMABLE
 
+__link(RTView);
+
+STREAMABLE_CLASS_IMPLEMENT(TScrollBar);
+
+TScrollBar::TScrollBar(StreamableInit) noexcept
+    : TView(streamableInit)
+{
+}
+
 void TScrollBar::write(opstream& os)
 {
     TView::write(os);
@@ -319,11 +322,4 @@ void* TScrollBar::read(ipstream& is)
     return this;
 }
 
-TStreamable* TScrollBar::build() { return new TScrollBar(streamableInit); }
-
-TScrollBar::TScrollBar(StreamableInit) noexcept
-    : TView(streamableInit)
-{
-}
-
-#endif
+#endif // NO_STREAMABLE

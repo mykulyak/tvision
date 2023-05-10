@@ -14,10 +14,6 @@
 /*        6 = Shortcut selection                                          */
 /* ---------------------------------------------------------------------- */
 
-const char* const TMenuBar::name = "TMenuBar";
-
-TStreamableClass RMenuBar(TMenuBar::name, TMenuBar::build, __DELTA(TMenuBar));
-
 TMenuBar::TMenuBar(const TRect& bounds, TMenu* aMenu) noexcept
     : TMenuView(bounds)
 {
@@ -93,11 +89,19 @@ TRect TMenuBar::getItemRect(TMenuItem* item)
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TMenuBar::build() { return new TMenuBar(streamableInit); }
+STREAMABLE_CLASS_IMPLEMENT(TMenuBar);
 
 TMenuBar::TMenuBar(StreamableInit) noexcept
     : TMenuView(streamableInit)
 {
+}
+
+void TMenuBar::write(opstream& s) { TMenuView::write(s); }
+
+void* TMenuBar::read(ipstream& s)
+{
+    TMenuView::read(s);
+    return this;
 }
 
 #endif

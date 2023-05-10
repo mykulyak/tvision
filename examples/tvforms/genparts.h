@@ -14,10 +14,10 @@
 
 const char rezFileName[] = "parts." FORM_EXTENSION;
 
-__link(RScrollBar);
+__link(RTScrollBar);
 __link(RLabel);
-__link(RMemo);
-__link(RButton);
+__link(RTMemo);
+__link(RTButton);
 
 const int partNumWidth = 6, descrWidth = 30, qtyWidth = 6,
           descrLen = 512; // Length of text array

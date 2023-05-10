@@ -13,26 +13,13 @@ public:
     virtual bool isValid(const char* s);
 
 protected:
-    TFilterValidator(StreamableInit) noexcept;
-    virtual void write(opstream& os);
-    virtual void* read(ipstream& is);
-
     std::string validChars;
 
-private:
     static const char* errorMsg;
 
-    virtual const char* streamableName() const { return name; };
-
-public:
-    static TStreamable* build();
-    static const char* const name;
+    STREAMABLE_DECLARE(TFilterValidator);
 };
 
-inline ipstream& operator>>(ipstream& is, TFilterValidator& v) { return is >> (TStreamable&)v; }
-inline ipstream& operator>>(ipstream& is, TFilterValidator*& v) { return is >> (void*&)v; }
-
-inline opstream& operator<<(opstream& os, TFilterValidator& v) { return os << (TStreamable&)v; }
-inline opstream& operator<<(opstream& os, TFilterValidator* v) { return os << (TStreamable*)v; }
+STREAMABLE_IMPLEMENT(TFilterValidator);
 
 #endif // TVision_TFilterValidator_h

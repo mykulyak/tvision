@@ -55,24 +55,12 @@ private:
     TMenuItem* findHotKey(TMenuItem* p, TKey key);
 
 private:
-    virtual const char* streamableName() const { return name; }
     static void writeMenu(opstream&, TMenu*);
     static TMenu* readMenu(ipstream&);
 
-protected:
-    TMenuView(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TMenuView);
 };
 
-inline ipstream& operator>>(ipstream& is, TMenuView& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TMenuView*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TMenuView& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TMenuView* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TMenuView);
 
 #endif // TVision_TMenuView_h

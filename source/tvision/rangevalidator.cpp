@@ -8,7 +8,7 @@ const char* TRangeValidator::errorMsg = "Value not in the range %ld to %ld";
 const char* TRangeValidator::validUnsignedChars = "+0123456789";
 const char* TRangeValidator::validSignedChars = "+-0123456789";
 
-__link(RFilterValidator);
+__link(RTFilterValidator);
 
 TStreamableClass RRangeValidator(
     TRangeValidator::name, TRangeValidator::build, __DELTA(TRangeValidator));

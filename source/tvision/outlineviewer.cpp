@@ -563,4 +563,4 @@ void TOutlineViewer::write(opstream& op)
     op << foc;
 }
 
-#endif
+#endif // NO_STREAMABLE

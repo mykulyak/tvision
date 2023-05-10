@@ -5,9 +5,9 @@
 
 const char* const TColorSelector::name = "TColorSelector";
 
-__link(RView);
-__link(RButton);
-__link(RListViewer);
+__link(RTView);
+__link(RTButton);
+__link(RTListViewer);
 
 TStreamableClass RColorSelector(
     TColorSelector::name, TColorSelector::build, __DELTA(TColorSelector));

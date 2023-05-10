@@ -17,12 +17,6 @@
 
 #define cpMenuView "\x02\x03\x04\x05\x06\x07"
 
-const char* const TMenuView::name = "TMenuView";
-
-__link(RView);
-
-TStreamableClass RMenuView(TMenuView::name, TMenuView::build, __DELTA(TMenuView));
-
 TMenuItem::TMenuItem(const std::string& aName, ushort aCommand, TKey aKey, ushort aHelpCtx,
     const std::string& p, TMenuItem* aNext) noexcept
 {
@@ -476,6 +470,15 @@ TMenuView* TMenuView::newSubView(const TRect& bounds, TMenu* aMenu, TMenuView* a
 
 #ifndef NO_STREAMABLE
 
+__link(RTView);
+
+STREAMABLE_CLASS_IMPLEMENT(TMenuView);
+
+TMenuView::TMenuView(StreamableInit) noexcept
+    : TView(streamableInit)
+{
+}
+
 void TMenuView::writeMenu(opstream& os, TMenu* menu)
 {
     uchar tok = 0xFF;
@@ -544,11 +547,4 @@ void* TMenuView::read(ipstream& is)
     return this;
 }
 
-TStreamable* TMenuView::build() { return new TMenuView(streamableInit); }
-
-TMenuView::TMenuView(StreamableInit) noexcept
-    : TView(streamableInit)
-{
-}
-
-#endif
+#endif // NO_STREAMABLE

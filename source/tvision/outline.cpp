@@ -13,12 +13,6 @@
 
 #define cpOutlineViewer "\x6\x7\x3\x8"
 
-const char* const TOutline::name = "TOutline";
-
-__link(RScroller);
-
-TStreamableClass ROutline(TOutline::name, TOutline::build, __DELTA(TOutline));
-
 TOutline::TOutline(
     const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar, TNode* aRoot) noexcept
     : TOutlineViewer(bounds, aHScrollBar, aVScrollBar)
@@ -68,6 +62,10 @@ bool TOutline::isExpanded(TNode* node) { return node->expanded; }
 bool TOutline::hasChildren(TNode* node) { return bool(node->childList != 0); }
 
 #ifndef NO_STREAMABLE
+
+__link(RTScroller);
+
+STREAMABLE_CLASS_IMPLEMENT(TOutline);
 
 TNode* TOutline::readNode(ipstream& ip)
 {
@@ -128,7 +126,5 @@ void TOutline::write(opstream& op)
 
     writeNode(root, op);
 }
-
-TStreamable* TOutline::build() { return new TOutline(streamableInit); }
 
 #endif

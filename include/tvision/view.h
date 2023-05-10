@@ -7,7 +7,7 @@
 #include <tvision/palette.h>
 #include <tvision/rect.h>
 #include <tvision/span.h>
-#include <tvision/tobjstrm.h>
+#include <tvision/tobjstrmfwd.h>
 
 struct write_args {
     void* self;
@@ -120,13 +120,21 @@ public:
     TView* TopView() noexcept;
 
     void writeBuf(short x, short y, short w, short h, const void* b) noexcept;
-    void writeBuf(short x, short y, short w, short h, const TDrawBuffer& b) noexcept;
     void writeChar(short x, short y, char c, uchar color, short count) noexcept;
-    void writeLine(short x, short y, short w, short h, const TDrawBuffer& b) noexcept;
     void writeLine(short x, short y, short w, short h, const void* b) noexcept;
     void writeStr(short x, short y, const char* str, uchar color) noexcept;
     void writeBuf(short x, short y, short w, short h, const TScreenCell* b) noexcept;
     void writeLine(short x, short y, short w, short h, const TScreenCell* b) noexcept;
+
+    void writeBuf(short x, short y, short w, short h, const TDrawBuffer& b) noexcept
+    {
+        writeBuf(x, y, min(w, short(b.length() - x)), h, &b.data[0]);
+    }
+
+    void writeLine(short x, short y, short w, short h, const TDrawBuffer& b) noexcept
+    {
+        writeLine(x, y, min(w, short(b.length() - x)), h, &b.data[0]);
+    }
 
     TPoint size;
     ushort options;
@@ -157,36 +165,11 @@ private:
 
     TPoint resizeBalance;
 
-    virtual const char* streamableName() const { return name; }
-
-protected:
-    TView(StreamableInit) noexcept;
-
-public:
-    static const char* const name;
-    static TStreamable* build();
-
-protected:
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
+    STREAMABLE_DECLARE(TView);
 };
 
 void* message(TView* receiver, ushort what, ushort command, void* infoPtr);
 
-inline ipstream& operator>>(ipstream& is, TView& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TView*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TView& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TView* cl) { return os << (TStreamable*)cl; }
-
-inline void TView::writeBuf(short x, short y, short w, short h, const TDrawBuffer& b) noexcept
-{
-    writeBuf(x, y, min(w, short(b.length() - x)), h, &b.data[0]);
-}
-
-inline void TView::writeLine(short x, short y, short w, short h, const TDrawBuffer& b) noexcept
-{
-    writeLine(x, y, min(w, short(b.length() - x)), h, &b.data[0]);
-}
+STREAMABLE_IMPLEMENT(TView);
 
 #endif // TVision_TView_h

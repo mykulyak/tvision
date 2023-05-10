@@ -19,14 +19,14 @@ const char* TFileDialog::helpText = "~H~elp";
 const char* TFileDialog::invalidDriveText = "Invalid drive or directory";
 const char* TFileDialog::invalidFileText = "Invalid file name";
 
-__link(RDialog);
-__link(RFileInputLine);
-__link(RFileList);
+__link(RTDialog);
+__link(RTFileInputLine);
+__link(RTFileList);
 __link(RLabel);
-__link(RHistory);
-__link(RScrollBar);
-__link(RButton);
-__link(RFileInfoPane);
+__link(RTHistory);
+__link(RTScrollBar);
+__link(RTButton);
+__link(RTFileInfoPane);
 
 TStreamableClass RFileDialog(TFileDialog::name, TFileDialog::build, __DELTA(TFileDialog));
 
@@ -254,6 +254,12 @@ bool TFileDialog::valid(ushort command)
 }
 
 #ifndef NO_STREAMABLE
+
+TFileDialog::TFileDialog(StreamableInit) noexcept
+    : TWindowInit(TFileDialog::initFrame)
+    , TDialog(streamableInit)
+{
+}
 
 void TFileDialog::write(opstream& os)
 {

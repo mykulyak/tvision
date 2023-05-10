@@ -12,8 +12,6 @@
 #include <tvision/tobjstrm.h>
 #include <tvision/util.h>
 
-const char* const TChDirDialog::name = "TChDirDialog";
-
 const char* TChDirDialog::changeDirTitle = "Change Directory";
 const char* TChDirDialog::dirNameText = "Directory ~n~ame";
 const char* TChDirDialog::dirTreeText = "Directory ~t~ree";
@@ -23,16 +21,6 @@ const char* TChDirDialog::revertText = "~R~evert";
 const char* TChDirDialog::helpText = "Help";
 const char* TChDirDialog::drivesText = "Root";
 const char* TChDirDialog::invalidText = "Invalid directory";
-
-__link(RDialog);
-__link(RButton);
-__link(RDirListBox);
-__link(RInputLine);
-__link(RHistory);
-__link(RLabel);
-__link(RScrollBar);
-
-TStreamableClass RChDirDialog(TChDirDialog::name, TChDirDialog::build, __DELTA(TChDirDialog));
 
 TChDirDialog::TChDirDialog(ushort opts, ushort histId) noexcept
     : TWindowInit(&TChDirDialog::initFrame)
@@ -137,6 +125,22 @@ bool TChDirDialog::valid(ushort command)
 
 #ifndef NO_STREAMABLE
 
+__link(RTDialog);
+__link(RTButton);
+__link(RTDirListBox);
+__link(RTInputLine);
+__link(RTHistory);
+__link(RLabel);
+__link(RTScrollBar);
+
+STREAMABLE_CLASS_IMPLEMENT(TChDirDialog);
+
+TChDirDialog::TChDirDialog(StreamableInit) noexcept
+    : TWindowInit(TChDirDialog::initFrame)
+    , TDialog(streamableInit)
+{
+}
+
 void TChDirDialog::write(opstream& os)
 {
     TDialog::write(os);
@@ -151,6 +155,4 @@ void* TChDirDialog::read(ipstream& is)
     return this;
 }
 
-TStreamable* TChDirDialog::build() { return new TChDirDialog(streamableInit); }
-
-#endif
+#endif // NO_STREAMABLE

@@ -22,10 +22,6 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TDialog& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TDialog*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TDialog& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TDialog* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TDialog);
 
 #endif // TVision_TDialog_h

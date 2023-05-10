@@ -33,24 +33,11 @@ public:
     short range;
 
 private:
-    virtual const char* streamableName() const { return name; }
-
     static const char* emptyText;
 
-protected:
-    TListViewer(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TListViewer);
 };
 
-inline ipstream& operator>>(ipstream& is, TListViewer& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TListViewer*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TListViewer& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TListViewer* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TListViewer);
 
 #endif // TVision_TListViewer_h

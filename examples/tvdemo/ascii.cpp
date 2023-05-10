@@ -7,7 +7,7 @@
 #include <sstream>
 #include <tvision/tv.h>
 
-__link(RView);
+__link(RTView);
 __link(RWindow);
 
 const char* const TTable::name = "TTable";

@@ -24,10 +24,6 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TStringCollection& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TStringCollection*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TStringCollection& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TStringCollection* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TStringCollection);
 
 #endif // TVision_TStringCollection_h

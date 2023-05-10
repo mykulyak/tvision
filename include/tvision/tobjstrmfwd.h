@@ -5,7 +5,20 @@ enum StreamableInit { streamableInit };
 
 class ipstream;
 class opstream;
-class TStreamable;
+
+class TStreamable {
+    friend class pstream;
+    friend class opstream;
+    friend class ipstream;
+
+private:
+    virtual const char* streamableName() const = 0;
+
+protected:
+    virtual void* read(ipstream&) = 0;
+    virtual void write(opstream&) = 0;
+};
+
 class TStreamableTypes;
 
 ipstream& operator>>(ipstream&, char&);
@@ -37,5 +50,56 @@ opstream& operator<<(opstream&, double);
 opstream& operator<<(opstream&, long double);
 opstream& operator<<(opstream&, TStreamable&);
 opstream& operator<<(opstream&, TStreamable*);
+
+#ifndef NO_STREAMABLE
+
+#define STREAMABLE_DECLARE(className)                                                              \
+private:                                                                                           \
+    virtual const char* streamableName() const                                                     \
+    {                                                                                              \
+        return name;                                                                               \
+    }                                                                                              \
+                                                                                                   \
+protected:                                                                                         \
+    className(StreamableInit) noexcept;                                                            \
+    virtual void write(opstream&);                                                                 \
+    virtual void* read(ipstream&);                                                                 \
+                                                                                                   \
+public:                                                                                            \
+    static const char* const name;                                                                 \
+    static TStreamable* build();
+
+#define STREAMABLE_CLASS_IMPLEMENT(className)                                                      \
+    const char* const className::name = #className;                                                \
+    TStreamableClass R##className(className::name, className::build, __DELTA(className));          \
+    TStreamable* className::build()                                                                \
+    {                                                                                              \
+        return new className(streamableInit);                                                      \
+    }
+
+#define STREAMABLE_IMPLEMENT(className)                                                            \
+    inline ipstream& operator>>(ipstream& is, className& o)                                        \
+    {                                                                                              \
+        return is >> (TStreamable&)o;                                                              \
+    }                                                                                              \
+    inline ipstream& operator>>(ipstream& is, className*& o)                                       \
+    {                                                                                              \
+        return is >> (void*&)o;                                                                    \
+    }                                                                                              \
+    inline opstream& operator<<(opstream& os, className& o)                                        \
+    {                                                                                              \
+        return os << (TStreamable&)o;                                                              \
+    }                                                                                              \
+    inline opstream& operator<<(opstream& os, className* o)                                        \
+    {                                                                                              \
+        return os << (TStreamable*)o;                                                              \
+    }
+
+#else
+
+#define STREAMABLE_DECLARE(className)
+#define STREAMABLE_IMPLEMENT(className)
+
+#endif
 
 #endif // TVision_ObjectStreamFwd_h

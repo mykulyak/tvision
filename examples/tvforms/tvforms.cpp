@@ -25,15 +25,15 @@
 extern TPoint shadowSize;
 const int MAXSIZE = 150;
 
-__link(RButton);
-__link(RCheckBoxes);
-__link(RInputLine);
+__link(RTButton);
+__link(RTCheckBoxes);
+__link(RTInputLine);
 __link(RLabel);
-__link(RMenuBar);
+__link(RTMenuBar);
 __link(RRadioButtons);
-__link(RFrame);
+__link(RTFrame);
 __link(REditor);
-__link(RMemo);
+__link(RTMemo);
 
 class TFormApp : public TApplication {
 public:

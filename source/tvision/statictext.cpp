@@ -10,12 +10,6 @@
 
 #define cpStaticText "\x06"
 
-const char* const TStaticText::name = "TStaticText";
-
-__link(RView);
-
-TStreamableClass RStaticText(TStaticText::name, TStaticText::build, __DELTA(TStaticText));
-
 TStaticText::TStaticText(const TRect& bounds, const std::string& aText) noexcept
     : TView(bounds)
     , text(aText)
@@ -92,6 +86,15 @@ void TStaticText::getText(char* s)
 
 #ifndef NO_STREAMABLE
 
+__link(RTView);
+
+STREAMABLE_CLASS_IMPLEMENT(TStaticText);
+
+TStaticText::TStaticText(StreamableInit) noexcept
+    : TView(streamableInit)
+{
+}
+
 void TStaticText::write(opstream& os)
 {
     TView::write(os);
@@ -105,11 +108,4 @@ void* TStaticText::read(ipstream& is)
     return this;
 }
 
-TStreamable* TStaticText::build() { return new TStaticText(streamableInit); }
-
-TStaticText::TStaticText(StreamableInit) noexcept
-    : TView(streamableInit)
-{
-}
-
-#endif
+#endif // NO_STREAMABLE

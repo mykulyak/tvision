@@ -7,7 +7,6 @@ class TInputLine;
 class THistoryWindow;
 
 class THistory : public TView {
-
 public:
     THistory(const TRect& bounds, TInputLine* aLink, ushort aHistoryId) noexcept;
 
@@ -25,22 +24,9 @@ protected:
 private:
     static const char* icon;
 
-    virtual const char* streamableName() const { return name; }
-
-protected:
-    THistory(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(THistory);
 };
 
-inline ipstream& operator>>(ipstream& is, THistory& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, THistory*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, THistory& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, THistory* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(THistory);
 
 #endif // TVision_THistory_h

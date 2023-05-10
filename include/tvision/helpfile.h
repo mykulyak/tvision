@@ -1,6 +1,8 @@
 #ifndef TVision_HelpFile_h
 #define TVision_HelpFile_h
 
+#include <tvision/tobjstrmfwd.h>
+
 const int32_t magicHeader = 0x46484246L; //"FBHF"
 
 class TParagraph {
@@ -25,7 +27,6 @@ typedef void (*TCrossRefHandler)(opstream&, int);
 class THelpTopic : public TObject, public TStreamable {
 public:
     THelpTopic() noexcept;
-    THelpTopic(StreamableInit) noexcept {};
     virtual ~THelpTopic();
 
     void addCrossRef(TCrossRef ref) noexcept;
@@ -50,33 +51,21 @@ private:
     void writeParagraphs(opstream& s);
     void writeCrossRefs(opstream& s);
     void disposeParagraphs() noexcept;
-    virtual const char* streamableName() const { return name; }
     int width;
     int lastOffset;
     int lastLine;
     TParagraph* lastParagraph;
 
-protected:
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(THelpTopic);
 };
 
-inline ipstream& operator>>(ipstream& is, THelpTopic& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, THelpTopic*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, THelpTopic& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, THelpTopic* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(THelpTopic);
 
 // THelpIndex
 
 class THelpIndex : public TObject, public TStreamable {
 public:
     THelpIndex() noexcept;
-    THelpIndex(StreamableInit) noexcept {};
     virtual ~THelpIndex();
 
     int32_t position(int) noexcept;
@@ -85,23 +74,10 @@ public:
     ushort size;
     int32_t* index;
 
-private:
-    virtual const char* streamableName() const { return name; }
-
-protected:
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(THelpIndex);
 };
 
-inline ipstream& operator>>(ipstream& is, THelpIndex& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, THelpIndex*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, THelpIndex& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, THelpIndex* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(THelpIndex);
 
 // THelpFile
 

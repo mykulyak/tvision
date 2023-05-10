@@ -2,12 +2,6 @@
 
 #define cpBackground "\x01" // background palette
 
-const char* const TBackground::name = "TBackground";
-
-__link(RView);
-
-TStreamableClass RBackground(TBackground::name, TBackground::build, __DELTA(TBackground));
-
 TBackground::TBackground(const TRect& bounds, char aPattern) noexcept
     : TView(bounds)
     , pattern_(aPattern)
@@ -31,6 +25,10 @@ TPalette& TBackground::getPalette() const
 
 #ifndef NO_STREAMABLE
 
+__link(RTView);
+
+STREAMABLE_CLASS_IMPLEMENT(TBackground);
+
 TBackground::TBackground(StreamableInit) noexcept
     : TView(streamableInit)
 {
@@ -48,7 +46,5 @@ void* TBackground::read(ipstream& is)
     is >> pattern_;
     return this;
 }
-
-TStreamable* TBackground::build() { return new TBackground(streamableInit); }
 
 #endif

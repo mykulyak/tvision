@@ -44,10 +44,6 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TDirListBox& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TDirListBox*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TDirListBox& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TDirListBox* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TDirListBox);
 
 #endif // TVision_TDirListBox_h

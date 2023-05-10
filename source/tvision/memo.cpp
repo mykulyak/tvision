@@ -3,12 +3,6 @@
 
 #define cpMemo "\x1A\x1B"
 
-const char* const TMemo::name = "TMemo";
-
-__link(REditor);
-
-TStreamableClass RMemo(TMemo::name, TMemo::build, __DELTA(TMemo));
-
 TMemo::TMemo(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,
     TIndicator* aIndicator, ushort aBufSize) noexcept
     : TEditor(bounds, aHScrollBar, aVScrollBar, aIndicator, aBufSize)
@@ -44,11 +38,21 @@ TPalette& TMemo::getPalette() const
 
 void TMemo::handleEvent(TEvent& event)
 {
-    if (event.what != evKeyDown || event.keyDown.keyCode != kbTab)
+    if (event.what != evKeyDown || event.keyDown.keyCode != kbTab) {
         TEditor::handleEvent(event);
+    }
 }
 
 #ifndef NO_STREAMABLE
+
+__link(REditor);
+
+STREAMABLE_CLASS_IMPLEMENT(TMemo);
+
+TMemo::TMemo(StreamableInit) noexcept
+    : TEditor(streamableInit)
+{
+}
 
 void TMemo::write(opstream& os)
 {
@@ -71,11 +75,4 @@ void* TMemo::read(ipstream& is)
     return this;
 }
 
-TStreamable* TMemo::build() { return new TMemo(streamableInit); }
-
-TMemo::TMemo(StreamableInit) noexcept
-    : TEditor(streamableInit)
-{
-}
-
-#endif
+#endif // NO_STREAMABLE

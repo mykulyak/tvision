@@ -26,10 +26,6 @@ public:
     static const char* const name;
 };
 
-inline ipstream& operator>>(ipstream& is, TSortedCollection& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TSortedCollection*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TSortedCollection& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TSortedCollection* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TSortedCollection);
 
 #endif // TVision_TSortedCollection_h

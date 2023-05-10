@@ -12,10 +12,7 @@ typedef ushort (*TEditorDialog)(int, ...);
 ushort defEditorDialog(int dialog, ...);
 
 class TEditor : public TView {
-
 public:
-    friend void genRefs();
-
     TEditor(const TRect&, TScrollBar*, TScrollBar*, TIndicator*, uint) noexcept;
     virtual ~TEditor();
 
@@ -128,23 +125,11 @@ public:
     uchar updateFlags;
     int keyState;
 
-private:
-    virtual const char* streamableName() const { return name; }
+    friend void genRefs();
 
-protected:
-    TEditor(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TEditor);
 };
 
-inline ipstream& operator>>(ipstream& is, TEditor& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TEditor*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TEditor& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TEditor* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TEditor);
 
 #endif // TVision_TEditor_h

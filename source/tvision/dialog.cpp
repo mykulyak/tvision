@@ -55,12 +55,6 @@
 
 const int dpBlueDialog = 0, dpCyanDialog = 1, dpGrayDialog = 2;
 
-const char* const TDialog::name = "TDialog";
-
-__link(RWindow);
-
-TStreamableClass RDialog(TDialog::name, TDialog::build, __DELTA(TDialog));
-
 // TMultiCheckboxes flags
 //   hibyte = number of bits
 //   lobyte = bit mask
@@ -140,7 +134,9 @@ bool TDialog::valid(ushort command)
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TDialog::build() { return new TDialog(streamableInit); }
+__link(RWindow);
+
+STREAMABLE_CLASS_IMPLEMENT(TDialog);
 
 TDialog::TDialog(StreamableInit) noexcept
     : TWindowInit(0)

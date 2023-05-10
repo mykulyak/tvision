@@ -3,12 +3,6 @@
 
 #define cpIndicator "\x02\x03"
 
-const char* const TIndicator::name = "TIndicator";
-
-__link(RView);
-
-TStreamableClass RIndicator(TIndicator::name, TIndicator::build, __DELTA(TIndicator));
-
 const char TIndicator::dragFrame = '\xCD';
 const char TIndicator::normalFrame = '\xC4';
 
@@ -71,7 +65,9 @@ void TIndicator::setValue(const TPoint& aLocation, bool aModified)
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TIndicator::build() { return new TIndicator(streamableInit); }
+__link(RTView);
+
+STREAMABLE_CLASS_IMPLEMENT(TIndicator);
 
 TIndicator::TIndicator(StreamableInit) noexcept
     : TView(streamableInit)

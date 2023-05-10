@@ -74,24 +74,11 @@ private:
     void selectView(TView* p, bool enable);
     TView* findNext(bool forwards) noexcept;
 
-    virtual const char* streamableName() const { return name; }
-
     friend void genRefs();
 
-protected:
-    TGroup(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TGroup);
 };
 
-inline ipstream& operator>>(ipstream& is, TGroup& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TGroup*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TGroup& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TGroup* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TGroup);
 
 #endif // TVision_TGroup_h

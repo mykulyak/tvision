@@ -21,14 +21,8 @@ const int
     = 61,
     cmReleaseDefault = 62;
 
-const char* const TButton::name = "TButton";
-
 const char* TButton::shadows = "\xDC\xDB\xDF";
 const char* TButton::markers = "[]";
-
-__link(RView);
-
-TStreamableClass RButton(TButton::name, TButton::build, __DELTA(TButton));
 
 #define cpButton "\x0A\x0B\x0C\x0D\x0E\x0E\x0E\x0F"
 
@@ -259,6 +253,15 @@ void TButton::press()
 
 #ifndef NO_STREAMABLE
 
+__link(RTView);
+
+STREAMABLE_CLASS_IMPLEMENT(TButton);
+
+TButton::TButton(StreamableInit) noexcept
+    : TView(streamableInit)
+{
+}
+
 void TButton::write(opstream& os)
 {
     TView::write(os);
@@ -280,6 +283,4 @@ void* TButton::read(ipstream& is)
     return this;
 }
 
-TStreamable* TButton::build() { return new TButton(streamableInit); }
-
-#endif
+#endif // NO_STREAMABLE

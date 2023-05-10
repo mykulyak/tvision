@@ -3,7 +3,7 @@
 
 const char* const TSortedListBox::name = "TSortedListBox";
 
-__link(RListBox);
+__link(RTListBox);
 
 TStreamableClass RSortedListBox(
     TSortedListBox::name, TSortedListBox::build, __DELTA(TSortedListBox));

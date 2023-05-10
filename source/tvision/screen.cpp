@@ -17,8 +17,9 @@ static unsigned getCodePage() noexcept { return 437; }
 
 void TDisplay::updateIntlChars() noexcept
 {
-    if (getCodePage() != 437)
+    if (getCodePage() != 437) {
         TFrame::frameChars[30] = '\xCD';
+    }
 }
 
 ushort TDisplay::getCursorType() noexcept { return THardwareInfo::getCaretSize(); }

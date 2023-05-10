@@ -14,10 +14,6 @@
 /*        6 = Shortcut selection                                          */
 /* ---------------------------------------------------------------------- */
 
-const char* const TMenuPopup::name = "TMenuPopup";
-
-TStreamableClass RMenuPopup(TMenuPopup::name, TMenuPopup::build, __DELTA(TMenuPopup));
-
 TMenuPopup::TMenuPopup(const TRect& bounds, TMenu* aMenu, TMenuView* aParentMenu) noexcept
     : TMenuBox(bounds, aMenu, aParentMenu)
 {
@@ -50,17 +46,6 @@ void TMenuPopup::handleEvent(TEvent& event)
     }
     TMenuBox::handleEvent(event);
 }
-
-#ifndef NO_STREAMABLE
-
-TStreamable* TMenuPopup::build() { return new TMenuPopup(streamableInit); }
-
-TMenuPopup::TMenuPopup(StreamableInit) noexcept
-    : TMenuBox(streamableInit)
-{
-}
-
-#endif
 
 static void autoPlacePopup(TMenuPopup* m, TPoint p)
 // Pre: TMenuPopup was constructed with bounds=TRect(p, p).
@@ -130,3 +115,14 @@ ushort popupMenu(TPoint where, TMenuItem& aMenu, TGroup* receiver)
     }
     return res;
 }
+
+#ifndef NO_STREAMABLE
+
+STREAMABLE_CLASS_IMPLEMENT(TMenuPopup);
+
+TMenuPopup::TMenuPopup(StreamableInit) noexcept
+    : TMenuBox(streamableInit)
+{
+}
+
+#endif

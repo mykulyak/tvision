@@ -5,9 +5,9 @@
 
 #define cpCalcPalette "\x13"
 
-__link(RView);
-__link(RDialog);
-__link(RButton);
+__link(RTView);
+__link(RTDialog);
+__link(RTButton);
 
 const char* const TCalcDisplay::name = "TCalcDisplay";
 

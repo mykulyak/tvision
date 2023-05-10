@@ -4,7 +4,6 @@
 #include <tvision/ttypes.h>
 
 class TCollection : public virtual TNSCollection, public TStreamable {
-
 public:
     TCollection(ccIndex aLimit, ccIndex aDelta) noexcept
     {
@@ -12,6 +11,7 @@ public:
         setLimit(aLimit);
     }
 
+#ifndef NO_STREAMABLE
 private:
     virtual const char* streamableName() const { return name; }
 
@@ -25,12 +25,9 @@ protected:
 
 public:
     static const char* const name;
+#endif // NO_STREAMABLE
 };
 
-inline ipstream& operator>>(ipstream& is, TCollection& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TCollection*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TCollection& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TCollection* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TCollection);
 
 #endif // TVision_TCollection_h

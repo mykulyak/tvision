@@ -15,13 +15,13 @@
 
 const char rezFileName[] = "phonenum." FORM_EXTENSION;
 
-__link(RButton);
-__link(RCheckBoxes);
-__link(RInputLine);
+__link(RTButton);
+__link(RTCheckBoxes);
+__link(RTInputLine);
 __link(RLabel);
-__link(RMenuBar);
+__link(RTMenuBar);
 __link(RRadioButtons);
-__link(RFrame);
+__link(RTFrame);
 
 const int nameWidth = 25, companyWidth = 23, remarksWidth = 22, phoneWidth = 20;
 

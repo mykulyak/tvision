@@ -3,8 +3,8 @@
 #include "listdlg.h"
 #include <cstring>
 
-__link(RDialog);
-__link(RView);
+__link(RTDialog);
+__link(RTView);
 
 // Compares two buffers and returns true if contents are equal
 

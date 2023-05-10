@@ -20,30 +20,20 @@ protected:
     TColorGroup* groups;
 
 private:
-    virtual const char* streamableName() const { return name; }
     static void writeItems(opstream&, TColorItem*);
     static void writeGroups(opstream&, TColorGroup*);
     static TColorItem* readItems(ipstream&);
     static TColorGroup* readGroups(ipstream&);
-
-protected:
-    TColorGroupList(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
 
 public:
     void setGroupIndex(uchar groupNum, uchar itemNum);
     TColorGroup* getGroup(uchar groupNum);
     uchar getGroupIndex(uchar groupNum);
     uchar getNumGroups();
-    static const char* const name;
-    static TStreamable* build();
+
+    STREAMABLE_DECLARE(TColorGroupList);
 };
 
-inline ipstream& operator>>(ipstream& is, TColorGroupList& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TColorGroupList*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TColorGroupList& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TColorGroupList* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TColorGroupList);
 
 #endif // TVision_TColorGroupList_h

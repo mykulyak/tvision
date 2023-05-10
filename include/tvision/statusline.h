@@ -29,27 +29,14 @@ private:
 
     static const char* hintSeparator;
 
-    virtual const char* streamableName() const { return name; }
-
     static void writeItems(opstream&, TStatusItem*);
     static void writeDefs(opstream&, TStatusDef*);
     static TStatusItem* readItems(ipstream&);
     static TStatusDef* readDefs(ipstream&);
 
-protected:
-    TStatusLine(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TStatusLine);
 };
 
-inline ipstream& operator>>(ipstream& is, TStatusLine& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TStatusLine*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TStatusLine& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TStatusLine* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TStatusLine);
 
 #endif // TVision_TStatusLine_h

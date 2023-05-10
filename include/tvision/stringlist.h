@@ -29,10 +29,6 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TStringList& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TStringList*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TStringList& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TStringList* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TStringList);
 
 #endif // TVision_TStringList_h

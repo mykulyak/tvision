@@ -98,4 +98,6 @@ private:
     TNode* iterate(TOutlineVisitor action, void* arg, bool checkResult) noexcept;
 };
 
+STREAMABLE_IMPLEMENT(TOutlineViewer);
+
 #endif // TVision_TOutlineViewer_h

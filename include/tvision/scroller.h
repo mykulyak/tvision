@@ -30,22 +30,9 @@ protected:
 private:
     void showSBar(TScrollBar* sBar);
 
-    virtual const char* streamableName() const { return name; }
-
-protected:
-    TScroller(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TScroller);
 };
 
-inline ipstream& operator>>(ipstream& is, TScroller& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TScroller*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TScroller& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TScroller* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TScroller);
 
 #endif // TVision_TScroller_h

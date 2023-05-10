@@ -6,7 +6,7 @@
 #include <iomanip>
 #include <tvision/tv.h>
 
-__link(RView);
+__link(RTView);
 __link(RWindow);
 
 #define cpPuzzlePalette "\x06\x07"

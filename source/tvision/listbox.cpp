@@ -3,9 +3,9 @@
 
 const char* const TListBox::name = "TListBox";
 
-__link(RListViewer);
+__link(RTListViewer);
 
-TStreamableClass RListBox(TListBox::name, TListBox::build, __DELTA(TListBox));
+TStreamableClass RTListBox(TListBox::name, TListBox::build, __DELTA(TListBox));
 
 TListBox::TListBox(const TRect& bounds, ushort aNumCols, TScrollBar* aScrollBar) noexcept
     : TListViewer(bounds, aNumCols, 0, aScrollBar)

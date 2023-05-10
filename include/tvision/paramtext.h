@@ -22,10 +22,6 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TParamText& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TParamText*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TParamText& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TParamText* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TParamText);
 
 #endif // TVision_TParamText_h

@@ -11,13 +11,6 @@
 
 #define cpScroller "\x06\x07"
 
-const char* const TScroller::name = "TScroller";
-
-__link(RView);
-__link(RScrollBar);
-
-TStreamableClass RScroller(TScroller::name, TScroller::build, __DELTA(TScroller));
-
 TScroller::TScroller(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar) noexcept
     : TView(bounds)
     , drawLock(0)
@@ -139,6 +132,16 @@ void TScroller::setState(ushort aState, bool enable)
 
 #ifndef NO_STREAMABLE
 
+__link(RTView);
+__link(RTScrollBar);
+
+STREAMABLE_CLASS_IMPLEMENT(TScroller);
+
+TScroller::TScroller(StreamableInit) noexcept
+    : TView(streamableInit)
+{
+}
+
 void TScroller::write(opstream& os)
 {
     TView::write(os);
@@ -154,11 +157,4 @@ void* TScroller::read(ipstream& is)
     return this;
 }
 
-TStreamable* TScroller::build() { return new TScroller(streamableInit); }
-
-TScroller::TScroller(StreamableInit) noexcept
-    : TView(streamableInit)
-{
-}
-
-#endif
+#endif // NO_STREAMABLE

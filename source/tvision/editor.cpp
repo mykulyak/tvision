@@ -54,8 +54,8 @@ ushort scanKeyMap(const void* keyMap, ushort keyCode)
 
 const char* const TEditor::name = "TEditor";
 
-__link(RView);
-__link(RScrollBar);
+__link(RTView);
+__link(RTScrollBar);
 
 TStreamableClass REditor(TEditor::name, TEditor::build, __DELTA(TEditor));
 

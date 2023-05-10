@@ -44,10 +44,6 @@ public:
     static const char* const name;
 };
 
-inline ipstream& operator>>(ipstream& is, TValidator& v) { return is >> (TStreamable&)v; }
-inline ipstream& operator>>(ipstream& is, TValidator*& v) { return is >> (void*&)v; }
-
-inline opstream& operator<<(opstream& os, TValidator& v) { return os << (TStreamable&)v; }
-inline opstream& operator<<(opstream& os, TValidator* v) { return os << (TStreamable*)v; }
+STREAMABLE_IMPLEMENT(TValidator);
 
 #endif // TVision_TValidator_h

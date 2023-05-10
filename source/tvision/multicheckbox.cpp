@@ -11,11 +11,6 @@
 /*        4 = Selected shortcut                                           */
 /* ---------------------------------------------------------------------- */
 
-const char* const TMultiCheckBoxes::name = "TMultiCheckBoxes";
-
-TStreamableClass RMultiCheckBoxes(
-    TMultiCheckBoxes::name, TMultiCheckBoxes::build, __DELTA(TMultiCheckBoxes));
-
 TMultiCheckBoxes::TMultiCheckBoxes(TRect& bounds, const std::vector<const char*>& aStrings,
     uchar aSelRange, ushort aFlags, const char* aStates) noexcept
     : TCluster(bounds, aStrings)
@@ -24,33 +19,6 @@ TMultiCheckBoxes::TMultiCheckBoxes(TRect& bounds, const std::vector<const char*>
     flags = aFlags;
     states = aStates;
 }
-
-#ifndef NO_STREAMABLE
-
-TMultiCheckBoxes::TMultiCheckBoxes(StreamableInit) noexcept
-    : TCluster(streamableInit)
-{
-}
-
-void* TMultiCheckBoxes::read(ipstream& is)
-{
-    TCluster::read(is);
-    is >> selRange >> flags;
-    states = is.readStlString();
-
-    return this;
-}
-
-void TMultiCheckBoxes::write(opstream& os)
-{
-    TCluster::write(os);
-    os << selRange << flags;
-    os.writeString(states);
-}
-
-TStreamable* TMultiCheckBoxes::build() { return new TMultiCheckBoxes(streamableInit); }
-
-#endif
 
 TMultiCheckBoxes::~TMultiCheckBoxes() { }
 
@@ -93,3 +61,32 @@ void TMultiCheckBoxes::setData(void* p)
     value = *(uint32_t*)p;
     drawView();
 }
+
+#ifndef NO_STREAMABLE
+
+__link(RTCluster);
+
+STREAMABLE_CLASS_IMPLEMENT(TMultiCheckBoxes);
+
+TMultiCheckBoxes::TMultiCheckBoxes(StreamableInit) noexcept
+    : TCluster(streamableInit)
+{
+}
+
+void* TMultiCheckBoxes::read(ipstream& is)
+{
+    TCluster::read(is);
+    is >> selRange >> flags;
+    states = is.readStlString();
+
+    return this;
+}
+
+void TMultiCheckBoxes::write(opstream& os)
+{
+    TCluster::write(os);
+    os << selRange << flags;
+    os.writeString(states);
+}
+
+#endif // NO_STREAMABLE

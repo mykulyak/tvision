@@ -17,13 +17,7 @@
 
 #define cpStatusLine "\x02\x03\x04\x05\x06\x07"
 
-const char* const TStatusLine::name = "TStatusLine";
-
 const char* TStatusLine::hintSeparator = "\xB3 ";
-
-__link(RView);
-
-TStreamableClass RStatusLine(TStatusLine::name, TStatusLine::build, __DELTA(TStatusLine));
 
 TStatusLine::TStatusLine(const TRect& bounds, TStatusDef& aDefs) noexcept
     : TView(bounds)
@@ -193,11 +187,21 @@ void TStatusLine::update()
 
 #ifndef NO_STREAMABLE
 
+__link(RTView);
+
+STREAMABLE_CLASS_IMPLEMENT(TStatusLine);
+
+TStatusLine::TStatusLine(StreamableInit) noexcept
+    : TView(streamableInit)
+{
+}
+
 void TStatusLine::writeItems(opstream& os, TStatusItem* ts)
 {
     int count = 0;
-    for (TStatusItem* t = ts; t != 0; t = t->next)
+    for (TStatusItem* t = ts; t != 0; t = t->next) {
         count++;
+    }
     os << count;
     for (; ts != 0; ts = ts->next) {
         os.writeString(ts->text);
@@ -208,8 +212,9 @@ void TStatusLine::writeItems(opstream& os, TStatusItem* ts)
 void TStatusLine::writeDefs(opstream& os, TStatusDef* td)
 {
     int count = 0;
-    for (TStatusDef* t = td; t != 0; t = t->next)
+    for (TStatusDef* t = td; t != 0; t = t->next) {
         count++;
+    }
     os << count;
     for (; td != 0; td = td->next) {
         os << td->min << td->max;
@@ -269,11 +274,4 @@ void* TStatusLine::read(ipstream& is)
     return this;
 }
 
-TStreamable* TStatusLine::build() { return new TStatusLine(streamableInit); }
-
-TStatusLine::TStatusLine(StreamableInit) noexcept
-    : TView(streamableInit)
-{
-}
-
-#endif
+#endif // NO_STREAMABLE

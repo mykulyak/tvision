@@ -2,14 +2,7 @@
 #include <tvision/historywindow.h>
 #include <tvision/tobjstrm.h>
 
-const char* const THistory::name = "THistory";
-
 const char* THistory::icon = "\xDE~\x19~\xDD";
-
-__link(RView);
-__link(RInputLine);
-
-TStreamableClass RHistory(THistory::name, THistory::build, __DELTA(THistory));
 
 #define cpHistory "\x16\x17"
 
@@ -96,6 +89,16 @@ void THistory::recordHistory(const char* s) { historyAdd(historyId, s); }
 
 #ifndef NO_STREAMABLE
 
+__link(RTView);
+__link(RTInputLine);
+
+STREAMABLE_CLASS_IMPLEMENT(THistory);
+
+THistory::THistory(StreamableInit) noexcept
+    : TView(streamableInit)
+{
+}
+
 void THistory::write(opstream& os)
 {
     TView::write(os);
@@ -107,13 +110,6 @@ void* THistory::read(ipstream& is)
     TView::read(is);
     is >> link >> historyId;
     return this;
-}
-
-TStreamable* THistory::build() { return new THistory(streamableInit); }
-
-THistory::THistory(StreamableInit) noexcept
-    : TView(streamableInit)
-{
 }
 
 #endif

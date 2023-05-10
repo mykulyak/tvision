@@ -19,8 +19,8 @@ const TPoint minWinSize = { 16, 6 };
 
 const char* const TWindow::name = "TWindow";
 
-__link(RGroup);
-__link(RFrame);
+__link(RTGroup);
+__link(RTFrame);
 
 TStreamableClass RWindow(TWindow::name, TWindow::build, __DELTA(TWindow));
 

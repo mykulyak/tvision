@@ -10,8 +10,8 @@
 #include <sstream>
 #include <tvision/tv.h>
 
-__link(RDialog);
-__link(RScrollBar);
+__link(RTDialog);
+__link(RTScrollBar);
 
 TListKeyBox::TListKeyBox(const TRect& bounds, ushort aNumCols, TScrollBar* aScrollBar)
     : TSortedListBox(bounds, aNumCols, aScrollBar)

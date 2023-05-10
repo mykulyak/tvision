@@ -23,23 +23,10 @@ private:
 
     static const char icon;
 
-    virtual const char* streamableName() const { return name; }
-
-protected:
-    TColorSelector(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TColorSelector);
 };
 
-inline ipstream& operator>>(ipstream& is, TColorSelector& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TColorSelector*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TColorSelector& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TColorSelector* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TColorSelector);
 
 extern TColorIndex* colorIndexes;
 

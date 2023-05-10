@@ -2,17 +2,6 @@
 #include <tvision/stringlist.h>
 #include <tvision/tobjstrm.h>
 
-const char* const TStringList::name = "TStringList";
-
-TStreamableClass RStringList(TStringList::name, TStringList::build, __DELTA(TStringList));
-
-TStringList::TStringList(StreamableInit) noexcept
-    : basePos(0)
-    , indexSize(0)
-    , index(0)
-{
-}
-
 TStringList::~TStringList() { delete[] index; }
 
 void TStringList::get(char* dest, ushort key)
@@ -40,6 +29,15 @@ void TStringList::get(char* dest, ushort key)
 
 #ifndef NO_STREAMABLE
 
+STREAMABLE_CLASS_IMPLEMENT(TStringList);
+
+TStringList::TStringList(StreamableInit) noexcept
+    : basePos(0)
+    , indexSize(0)
+    , index(0)
+{
+}
+
 void* TStringList::read(ipstream& is)
 {
     ip = &is;
@@ -55,6 +53,4 @@ void* TStringList::read(ipstream& is)
     return this;
 }
 
-TStreamable* TStringList::build() { return new TStringList(streamableInit); }
-
-#endif
+#endif // NO_STREAMABLE

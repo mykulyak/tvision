@@ -1,14 +1,7 @@
 #include <tvision/filtervalidator.h>
 #include <tvision/tobjstrm.h>
 
-const char* const TFilterValidator::name = "TFilterValidator";
-
 const char* TFilterValidator::errorMsg = "Invalid character in input";
-
-__link(RValidator);
-
-TStreamableClass RFilterValidator(
-    TFilterValidator::name, TFilterValidator::build, __DELTA(TFilterValidator));
 
 TFilterValidator::TFilterValidator(const std::string& aValidChars) noexcept
     : TValidator()
@@ -18,7 +11,23 @@ TFilterValidator::TFilterValidator(const std::string& aValidChars) noexcept
 
 TFilterValidator::~TFilterValidator() { }
 
+bool TFilterValidator::isValid(const char* s)
+{
+    return bool(strspn(s, validChars.c_str()) == strlen(s));
+}
+
+bool TFilterValidator::isValidInput(const char* s, bool suppressFill)
+{
+    return bool(strspn(s, validChars.c_str()) == strlen(s));
+}
+
+void TFilterValidator::error() { MessageBox::error(errorMsg); }
+
 #ifndef NO_STREAMABLE
+
+__link(RValidator);
+
+STREAMABLE_CLASS_IMPLEMENT(TFilterValidator);
 
 TFilterValidator::TFilterValidator(StreamableInit s) noexcept
     : TValidator(s)
@@ -38,18 +47,4 @@ void* TFilterValidator::read(ipstream& is)
     return this;
 }
 
-TStreamable* TFilterValidator::build() { return new TFilterValidator(streamableInit); }
-
-#endif
-
-bool TFilterValidator::isValid(const char* s)
-{
-    return bool(strspn(s, validChars.c_str()) == strlen(s));
-}
-
-bool TFilterValidator::isValidInput(const char* s, bool suppressFill)
-{
-    return bool(strspn(s, validChars.c_str()) == strlen(s));
-}
-
-void TFilterValidator::error() { MessageBox::error(errorMsg); }
+#endif // NO_STREAMABLE

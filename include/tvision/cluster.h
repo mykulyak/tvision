@@ -24,6 +24,8 @@ public:
     virtual void movedTo(int item);
     virtual void setData(void* rec);
     virtual void setState(ushort aState, bool enable);
+
+    bool buttonState(int);
     virtual void setButtonState(uint32_t aMask, bool enable);
 
 protected:
@@ -40,24 +42,9 @@ private:
     int row(int item);
     void moveSel(int, int);
 
-    virtual const char* streamableName() const { return name; }
-
-protected:
-    TCluster(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    bool buttonState(int);
-
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TCluster);
 };
 
-inline ipstream& operator>>(ipstream& is, TCluster& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TCluster*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TCluster& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TCluster* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TCluster);
 
 #endif // TVision_TCluster_h

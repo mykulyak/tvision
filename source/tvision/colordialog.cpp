@@ -4,7 +4,7 @@
 const char* const TColorDialog::name = "TColorDialog";
 
 __link(RLabel);
-__link(RDialog);
+__link(RTDialog);
 
 TStreamableClass RColorDialog(TColorDialog::name, TColorDialog::build, __DELTA(TColorDialog));
 

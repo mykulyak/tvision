@@ -3,7 +3,7 @@
 
 const char* const TColorDisplay::name = "TColorDisplay";
 
-__link(RView);
+__link(RTView);
 
 TStreamableClass RColorDisplay(TColorDisplay::name, TColorDisplay::build, __DELTA(TColorDisplay));
 

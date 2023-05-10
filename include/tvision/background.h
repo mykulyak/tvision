@@ -16,22 +16,9 @@ public:
 private:
     char pattern_;
 
-    virtual const char* streamableName() const { return name; }
-
-protected:
-    TBackground(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TBackground);
 };
 
-inline ipstream& operator>>(ipstream& is, TBackground& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TBackground*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TBackground& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TBackground* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TBackground);
 
 #endif // TVision_TBackground_h

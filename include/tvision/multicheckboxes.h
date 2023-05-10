@@ -23,22 +23,9 @@ private:
     ushort flags;
     std::string states;
 
-    virtual const char* streamableName() const { return name; }
-
-protected:
-    TMultiCheckBoxes(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TMultiCheckBoxes);
 };
 
-inline ipstream& operator>>(ipstream& is, TMultiCheckBoxes& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TMultiCheckBoxes*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TMultiCheckBoxes& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TMultiCheckBoxes* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TMultiCheckBoxes);
 
 #endif // TVision_TMultiCheckBoxes_h

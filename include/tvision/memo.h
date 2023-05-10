@@ -17,23 +17,9 @@ public:
     virtual TPalette& getPalette() const;
     virtual void handleEvent(TEvent&);
 
-private:
-    virtual const char* streamableName() const { return name; }
-
-protected:
-    TMemo(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TMemo);
 };
 
-inline ipstream& operator>>(ipstream& is, TMemo& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TMemo*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TMemo& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TMemo* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TMemo);
 
 #endif // TVision_TMemo_h

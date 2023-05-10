@@ -32,19 +32,6 @@ public:
     static const char* const name;
 };
 
-inline ipstream& operator>>(ipstream& is, TStringLookupValidator& v)
-{
-    return is >> (TStreamable&)v;
-}
-inline ipstream& operator>>(ipstream& is, TStringLookupValidator*& v) { return is >> (void*&)v; }
-
-inline opstream& operator<<(opstream& os, TStringLookupValidator& v)
-{
-    return os << (TStreamable&)v;
-}
-inline opstream& operator<<(opstream& os, TStringLookupValidator* v)
-{
-    return os << (TStreamable*)v;
-}
+STREAMABLE_IMPLEMENT(TStringLookupValidator);
 
 #endif // TVision_TStringLookupValidator_h

@@ -24,8 +24,6 @@ public:
     virtual void shutDown();
 
 private:
-    void setUpDialog();
-
     TInputLine* dirInput;
     TDirListBox* dirList;
     TButton* okButton;
@@ -41,28 +39,13 @@ private:
     static const char* drivesText;
     static const char* invalidText;
 
-    virtual const char* streamableName() const { return name; }
+    void setUpDialog();
 
     friend class TDirListBox;
 
-protected:
-    TChDirDialog(StreamableInit) noexcept
-        : TWindowInit(TChDirDialog::initFrame)
-        , TDialog(streamableInit)
-    {
-    }
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TChDirDialog);
 };
 
-inline ipstream& operator>>(ipstream& is, TChDirDialog& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TChDirDialog*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TChDirDialog& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TChDirDialog* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TChDirDialog);
 
 #endif // TVision_TChDirDialog_h

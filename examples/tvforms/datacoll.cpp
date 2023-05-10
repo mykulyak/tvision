@@ -2,7 +2,7 @@
 #include <cstring>
 #include <tvision/tv.h>
 
-__link(RStringCollection);
+__link(RTStringCollection);
 
 const char* const TDataCollection::name = "TDataCollection";
 

@@ -60,26 +60,9 @@ private:
     static const char* invalidDriveText;
     static const char* invalidFileText;
 
-    virtual const char* streamableName() const { return name; }
-
-protected:
-    TFileDialog(StreamableInit) noexcept
-        : TWindowInit(TFileDialog::initFrame)
-        , TDialog(streamableInit)
-    {
-    }
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TFileDialog);
 };
 
-inline ipstream& operator>>(ipstream& is, TFileDialog& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TFileDialog*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TFileDialog& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TFileDialog* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TFileDialog);
 
 #endif // TVision_TFileDialog_h

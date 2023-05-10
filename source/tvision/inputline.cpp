@@ -11,14 +11,8 @@
 /*        4 = Arrows                                                      */
 /* ---------------------------------------------------------------------- */
 
-const char* const TInputLine::name = "TInputLine";
-
 const char TInputLine::rightArrow = '\x10';
 const char TInputLine::leftArrow = '\x11';
-
-__link(RView);
-
-TStreamableClass RInputLine(TInputLine::name, TInputLine::build, __DELTA(TInputLine));
 
 const int CONTROL_Y = 25;
 
@@ -473,7 +467,30 @@ void TInputLine::updateCommands()
     setCmdState(cmPaste, true);
 }
 
+bool TInputLine::valid(ushort cmd)
+{
+    if (validator) {
+        if (cmd == cmValid)
+            return bool(validator->status == vsOk);
+        else if (cmd != cmCancel)
+            if (!validator->validate(data)) {
+                select();
+                return false;
+            }
+    }
+    return true;
+}
+
 #ifndef NO_STREAMABLE
+
+__link(RTView);
+
+STREAMABLE_CLASS_IMPLEMENT(TInputLine);
+
+TInputLine::TInputLine(StreamableInit) noexcept
+    : TView(streamableInit)
+{
+}
 
 void TInputLine::write(opstream& os)
 {
@@ -495,25 +512,4 @@ void* TInputLine::read(ipstream& is)
     return this;
 }
 
-TStreamable* TInputLine::build() { return new TInputLine(streamableInit); }
-
-TInputLine::TInputLine(StreamableInit) noexcept
-    : TView(streamableInit)
-{
-}
-
-#endif
-
-bool TInputLine::valid(ushort cmd)
-{
-    if (validator) {
-        if (cmd == cmValid)
-            return bool(validator->status == vsOk);
-        else if (cmd != cmCancel)
-            if (!validator->validate(data)) {
-                select();
-                return false;
-            }
-    }
-    return true;
-}
+#endif // NO_STREAMABLE

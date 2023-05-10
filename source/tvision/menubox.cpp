@@ -14,11 +14,7 @@
 /*        6 = Shortcut selection                                          */
 /* ---------------------------------------------------------------------- */
 
-const char* const TMenuBox::name = "TMenuBox";
-
 const char* TMenuBox::frameChars = " \332\304\277  \300\304\331  \263 \263  \303\304\264 ";
-
-TStreamableClass RMenuBox(TMenuBox::name, TMenuBox::build, __DELTA(TMenuBox));
 
 static TRect getRect(const TRect& bounds, TMenu* aMenu)
 {
@@ -123,11 +119,11 @@ TRect TMenuBox::getItemRect(TMenuItem* item)
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TMenuBox::build() { return new TMenuBox(streamableInit); }
+STREAMABLE_CLASS_IMPLEMENT(TMenuBox);
 
 TMenuBox::TMenuBox(StreamableInit) noexcept
     : TMenuView(streamableInit)
 {
 }
 
-#endif
+#endif // NO_STREAMABLE

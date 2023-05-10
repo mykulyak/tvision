@@ -4,7 +4,7 @@
 #include <sstream>
 #include <tvision/tv.h>
 
-__link(RInputLine);
+__link(RTInputLine);
 
 // TKeyInputLine
 

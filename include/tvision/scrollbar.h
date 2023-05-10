@@ -7,7 +7,6 @@
 typedef char TScrollChars[5];
 
 class TScrollBar : public TView {
-
 public:
     TScrollBar(const TRect& bounds) noexcept;
 
@@ -39,22 +38,9 @@ private:
     static TScrollChars vChars;
     static TScrollChars hChars;
 
-    virtual const char* streamableName() const { return name; }
-
-protected:
-    TScrollBar(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TScrollBar);
 };
 
-inline ipstream& operator>>(ipstream& is, TScrollBar& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TScrollBar*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TScrollBar& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TScrollBar* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TScrollBar);
 
 #endif // TVision_TScrollBar_h

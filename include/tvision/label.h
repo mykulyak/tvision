@@ -17,23 +17,11 @@ protected:
     bool light;
 
 private:
-    virtual const char* streamableName() const { return name; }
     void focusLink(TEvent&);
 
-protected:
-    TLabel(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TLabel);
 };
 
-inline ipstream& operator>>(ipstream& is, TLabel& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TLabel*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TLabel& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TLabel* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TLabel);
 
 #endif // TVision_TLabel_h

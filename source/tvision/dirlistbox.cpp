@@ -2,18 +2,12 @@
 #include <tvision/dirlistbox.h>
 #include <tvision/tobjstrm.h>
 
-const char* const TDirListBox::name = "TDirListBox";
-
 const char* TDirListBox::pathDir = "\xC0\xC4\xC2";
 const char* TDirListBox::firstDir = "\xC0\xC2\xC4";
 const char* TDirListBox::middleDir = " \xC3\xC4";
 const char* TDirListBox::lastDir = " \xC0\xC4";
 const char* TDirListBox::drives = "Root";
 const char* TDirListBox::graphics = "\xC0\xC3\xC4";
-
-__link(RListBox);
-
-TStreamableClass RDirListBox(TDirListBox::name, TDirListBox::build, __DELTA(TDirListBox));
 
 TDirListBox::TDirListBox(const TRect& bounds, TScrollBar* aScrollBar) noexcept
     : TListBox(bounds, 1, aScrollBar)
@@ -23,8 +17,9 @@ TDirListBox::TDirListBox(const TRect& bounds, TScrollBar* aScrollBar) noexcept
 
 TDirListBox::~TDirListBox()
 {
-    if (list())
+    if (list()) {
         destroy(list());
+    }
 }
 
 void TDirListBox::getText(char* text, short item, short maxChars)
@@ -96,12 +91,15 @@ void TDirListBox::setDirectory(const std::filesystem::path& path)
 void TDirListBox::setState(ushort nState, bool enable)
 {
     TListBox::setState(nState, enable);
-    if ((nState & sfFocused) != 0)
+    if ((nState & sfFocused) != 0) {
         ((TChDirDialog*)owner)->chDirButton->makeDefault(enable);
+    }
 }
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TDirListBox::build() { return new TDirListBox(streamableInit); }
+__link(RTListBox);
 
-#endif
+STREAMABLE_CLASS_IMPLEMENT(TDirListBox);
+
+#endif // NO_STREAMABLE

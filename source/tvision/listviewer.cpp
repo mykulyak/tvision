@@ -1,14 +1,7 @@
 #include <tvision/listviewer.h>
 #include <tvision/tobjstrm.h>
 
-const char* const TListViewer::name = "TListViewer";
-
 const char* TListViewer::emptyText = "<empty>";
-
-__link(RView);
-__link(RScrollBar);
-
-TStreamableClass RListViewer(TListViewer::name, TListViewer::build, __DELTA(TListViewer));
 
 #define cpListViewer "\x1A\x1A\x1B\x1C\x1D"
 
@@ -326,6 +319,16 @@ void TListViewer::shutDown()
 
 #ifndef NO_STREAMABLE
 
+__link(RTView);
+__link(RTScrollBar);
+
+STREAMABLE_CLASS_IMPLEMENT(TListViewer);
+
+TListViewer::TListViewer(StreamableInit) noexcept
+    : TView(streamableInit)
+{
+}
+
 void TListViewer::write(opstream& os)
 {
     TView::write(os);
@@ -337,13 +340,6 @@ void* TListViewer::read(ipstream& is)
     TView::read(is);
     is >> hScrollBar >> vScrollBar >> numCols >> topItem >> focused >> range;
     return this;
-}
-
-TStreamable* TListViewer::build() { return new TListViewer(streamableInit); }
-
-TListViewer::TListViewer(StreamableInit) noexcept
-    : TView(streamableInit)
-{
 }
 
 #endif

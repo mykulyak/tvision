@@ -11,13 +11,7 @@
 /*        4 = Selected shortcut                                           */
 /* ---------------------------------------------------------------------- */
 
-const char* const TCheckBoxes::name = "TCheckBoxes";
-
 const char* TCheckBoxes::button = " [ ] ";
-
-__link(RCluster);
-
-TStreamableClass RCheckBoxes(TCheckBoxes::name, TCheckBoxes::build, __DELTA(TCheckBoxes));
 
 void TCheckBoxes::draw() { drawMultiBox(button, " X"); }
 
@@ -27,7 +21,9 @@ void TCheckBoxes::press(int item) { value = value ^ (1 << item); }
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TCheckBoxes::build() { return new TCheckBoxes(streamableInit); }
+__link(RTCluster);
+
+STREAMABLE_CLASS_IMPLEMENT(TCheckBoxes);
 
 TCheckBoxes::TCheckBoxes(StreamableInit) noexcept
     : TCluster(streamableInit)

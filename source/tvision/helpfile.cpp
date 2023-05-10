@@ -10,7 +10,9 @@ TCrossRefHandler crossRefHandler = notAssigned;
 
 // THelpTopic
 
-const char* const THelpTopic::name = "THelpTopic";
+STREAMABLE_CLASS_IMPLEMENT(THelpTopic);
+
+THelpTopic::THelpTopic(StreamableInit) noexcept { }
 
 void THelpTopic::write(opstream& os)
 {
@@ -26,10 +28,6 @@ void* THelpTopic::read(ipstream& is)
     lastLine = INT_MAX;
     return this;
 }
-
-TStreamable* THelpTopic::build() { return new THelpTopic(streamableInit); }
-
-TStreamableClass RHelpTopic(THelpTopic::name, THelpTopic::build, __DELTA(THelpTopic));
 
 THelpTopic::THelpTopic() noexcept
     : TObject()
@@ -333,7 +331,9 @@ std::string_view THelpTopic::wrapText(std::string& text, int& offset, bool wrap)
 
 // THelpIndex
 
-const char* const THelpIndex::name = "THelpIndex";
+STREAMABLE_CLASS_IMPLEMENT(THelpIndex);
+
+THelpIndex::THelpIndex(StreamableInit) noexcept { }
 
 void THelpIndex::write(opstream& os)
 {
@@ -362,10 +362,6 @@ void* THelpIndex::read(ipstream& is)
     }
     return this;
 }
-
-TStreamable* THelpIndex::build() { return new THelpIndex(streamableInit); }
-
-TStreamableClass RHelpIndex(THelpIndex::name, THelpIndex::build, __DELTA(THelpIndex));
 
 THelpIndex::~THelpIndex() { delete[] index; }
 

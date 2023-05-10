@@ -1,10 +1,6 @@
 #include <tvision/tobjstrm.h>
 #include <tvision/view.h>
 
-const char* const TView::name = "TView";
-
-TStreamableClass RView(TView::name, TView::build, __DELTA(TView));
-
 TPoint shadowSize = { 2, 1 };
 uchar shadowAttr = 0x08;
 bool TView::showMarkers = false;
@@ -777,7 +773,24 @@ void TView::shutDown()
     TObject::shutDown();
 }
 
+struct TVCursor {
+
+    TView* self;
+    int x, y;
+
+    void resetCursor(TView*);
+    int computeCaretSize();
+    bool caretCovered(TView*) const;
+    int decideCaretSize() const;
+};
+
+void TView::resetCursor() { TVCursor().resetCursor(this); }
+
 #ifndef NO_STREAMABLE
+
+STREAMABLE_CLASS_IMPLEMENT(TView)
+
+TView::TView(StreamableInit) noexcept { }
 
 void TView::write(opstream& os)
 {
@@ -796,24 +809,7 @@ void* TView::read(ipstream& is)
     return this;
 }
 
-TStreamable* TView::build() { return new TView(streamableInit); }
-
-TView::TView(StreamableInit) noexcept { }
-
-#endif
-
-struct TVCursor {
-
-    TView* self;
-    int x, y;
-
-    void resetCursor(TView*);
-    int computeCaretSize();
-    bool caretCovered(TView*) const;
-    int decideCaretSize() const;
-};
-
-void TView::resetCursor() { TVCursor().resetCursor(this); }
+#endif // NO_STREAMABLE
 
 void TVCursor::resetCursor(TView* p)
 {

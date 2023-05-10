@@ -4,7 +4,7 @@
 #define loByte(w) (((uchar*)&w)[0])
 #define hiByte(w) (((uchar*)&w)[1])
 
-__link(RView);
+__link(RTView);
 __link(RWindow);
 
 static const char* monthNames[] = { "", "January", "February", "March", "April", "May", "June",

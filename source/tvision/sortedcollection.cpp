@@ -1,5 +1,7 @@
 #include <tvision/sortedcollection.h>
 
+#ifndef NO_STREAMABLE
+
 const char* const TSortedCollection::name = "TSortedCollection";
 
 void TSortedCollection::write(opstream& os)
@@ -21,3 +23,5 @@ TSortedCollection::TSortedCollection(StreamableInit) noexcept
     : TCollection(streamableInit)
 {
 }
+
+#endif // NO_STREAMABLE

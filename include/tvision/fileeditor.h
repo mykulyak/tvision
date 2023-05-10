@@ -28,24 +28,12 @@ public:
 private:
     static const char* backupExt;
 
-    virtual const char* streamableName() const { return name; }
-
 protected:
     std::string fileName;
 
-    TFileEditor(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TFileEditor);
 };
 
-inline ipstream& operator>>(ipstream& is, TFileEditor& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TFileEditor*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TFileEditor& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TFileEditor* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TFileEditor);
 
 #endif // TVision_TFileEditor_h

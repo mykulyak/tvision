@@ -14,8 +14,6 @@
 
 #define cpFrame "\x01\x01\x02\x02\x03"
 
-const char* const TFrame::name = "TFrame";
-
 const char TFrame::initFrame[19]
     = "\x06\x0A\x0C\x05\x00\x05\x03\x0A\x09\x16\x1A\x1C\x15\x00\x15\x13\x1A\x19";
 
@@ -28,8 +26,6 @@ const char* TFrame::zoomIcon = "[~\x18~]";
 const char* TFrame::unZoomIcon = "[~\x12~]";
 const char* TFrame::dragIcon = "~\xC4\xD9~";
 const char* TFrame::dragLeftIcon = "~\xC0\xC4~";
-
-TStreamableClass RFrame(TFrame::name, TFrame::build, __DELTA(TFrame));
 
 TFrame::TFrame(const TRect& bounds) noexcept
     : TView(bounds)
@@ -227,11 +223,13 @@ void TFrame::setState(ushort aState, bool enable)
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TFrame::build() { return new TFrame(streamableInit); }
+__link(RTView);
+
+STREAMABLE_CLASS_IMPLEMENT(TFrame);
 
 TFrame::TFrame(StreamableInit) noexcept
     : TView(streamableInit)
 {
 }
 
-#endif
+#endif // NO_STREAMABLE

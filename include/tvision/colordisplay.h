@@ -17,23 +17,9 @@ protected:
     TColorAttr* color;
     std::string text;
 
-private:
-    virtual const char* streamableName() const { return name; }
-
-protected:
-    TColorDisplay(StreamableInit) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TColorDisplay);
 };
 
-inline ipstream& operator>>(ipstream& is, TColorDisplay& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TColorDisplay*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TColorDisplay& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TColorDisplay* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TColorDisplay);
 
 #endif // TVision_TColorDisplay_h

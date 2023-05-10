@@ -49,23 +49,9 @@ private:
     static const char* shadows;
     static const char* markers;
 
-    virtual const char* streamableName() const { return name; }
-
-protected:
-    TButton(StreamableInit) noexcept
-        : TView(streamableInit) {};
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    STREAMABLE_DECLARE(TButton);
 };
 
-inline ipstream& operator>>(ipstream& is, TButton& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TButton*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TButton& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TButton* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TButton);
 
 #endif // TVision_TButton_h

@@ -49,10 +49,6 @@ public:
     static TStreamable* build();
 };
 
-inline ipstream& operator>>(ipstream& is, TDirCollection& cl) { return is >> (TStreamable&)cl; }
-inline ipstream& operator>>(ipstream& is, TDirCollection*& cl) { return is >> (void*&)cl; }
-
-inline opstream& operator<<(opstream& os, TDirCollection& cl) { return os << (TStreamable&)cl; }
-inline opstream& operator<<(opstream& os, TDirCollection* cl) { return os << (TStreamable*)cl; }
+STREAMABLE_IMPLEMENT(TDirCollection);
 
 #endif // TVision_TDirCollection_h

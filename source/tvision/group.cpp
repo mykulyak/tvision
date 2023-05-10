@@ -1,12 +1,6 @@
 #include <tvision/group.h>
 #include <tvision/tobjstrm.h>
 
-const char* const TGroup::name = "TGroup";
-
-__link(RView);
-
-TStreamableClass RGroup(TGroup::name, TGroup::build, __DELTA(TGroup));
-
 TView* TheTopView = 0;
 TGroup* ownerGroup = 0;
 
@@ -29,16 +23,18 @@ TGroup::~TGroup() { }
 TView* TGroup::at(short index) noexcept
 {
     TView* temp = last;
-    while (index-- > 0)
+    while (index-- > 0) {
         temp = temp->next;
+    }
     return temp;
 }
 
 TView* TGroup::firstThat(bool (*func)(TView*, void*), void* args)
 {
     TView* temp = last;
-    if (temp == 0)
+    if (temp == 0) {
         return 0;
+    }
 
     do {
         temp = temp->next;
@@ -52,8 +48,9 @@ void TGroup::forEach(void (*func)(TView*, void*), void* args)
 {
     TView* term = last;
     TView* temp = last;
-    if (temp == 0)
+    if (temp == 0) {
         return;
+    }
 
     TView* next = temp->next;
     do {
@@ -65,8 +62,9 @@ void TGroup::forEach(void (*func)(TView*, void*), void* args)
 
 short TGroup::indexOf(TView* p) noexcept
 {
-    if (last == 0)
+    if (last == 0) {
         return 0;
+    }
 
     short index = 0;
     TView* temp = last;
@@ -74,10 +72,11 @@ short TGroup::indexOf(TView* p) noexcept
         index++;
         temp = temp->next;
     } while (temp != p && temp != last);
-    if (temp != p)
+    if (temp != p) {
         return 0;
-    else
+    } else {
         return index;
+    }
 }
 
 void TGroup::removeView(TView* p) noexcept
@@ -205,8 +204,9 @@ void TGroup::endModal(ushort command)
 
 void TGroup::eventError(TEvent& event)
 {
-    if (owner != 0)
+    if (owner != 0) {
         owner->eventError(event);
+    }
 }
 
 ushort TGroup::execute()
@@ -581,6 +581,15 @@ ushort TGroup::getHelpCtx()
 
 #ifndef NO_STREAMABLE
 
+__link(RTView);
+
+STREAMABLE_CLASS_IMPLEMENT(TGroup);
+
+TGroup::TGroup(StreamableInit) noexcept
+    : TView(streamableInit)
+{
+}
+
 static void doPut(TView* p, void* osp) { *(opstream*)osp << p; }
 
 void TGroup::write(opstream& os)
@@ -631,13 +640,6 @@ void* TGroup::read(ipstream& is)
     if (ownerGroup == NULL)
         awaken();
     return this;
-}
-
-TStreamable* TGroup::build() { return new TGroup(streamableInit); }
-
-TGroup::TGroup(StreamableInit) noexcept
-    : TView(streamableInit)
-{
 }
 
 #endif // NO_STREAMABLE
