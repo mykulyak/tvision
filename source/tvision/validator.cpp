@@ -27,7 +27,7 @@ void* TValidator::read(ipstream& is)
 
 void TValidator::error() { }
 
-bool TValidator::isValidInput(char* s, bool suppressFill) { return true; }
+bool TValidator::isValidInput(const char* s, bool suppressFill) { return true; }
 
 bool TValidator::isValid(const char* s) { return true; }
 
@@ -37,7 +37,7 @@ void TValidator::write(opstream& os) { os << options; }
 
 #endif
 
-ushort TValidator::transfer(char*, void*, TVTransfer) { return 0; }
+ushort TValidator::transfer(const char*, void*, TVTransfer) { return 0; }
 
 bool TValidator::validate(const char* s)
 {

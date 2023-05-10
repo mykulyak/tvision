@@ -19,7 +19,7 @@ public:
     TPXPictureValidator(const std::string& aPic, bool autoFill);
     ~TPXPictureValidator();
     virtual void error();
-    virtual bool isValidInput(char* s, bool suppressFill);
+    virtual bool isValidInput(const char* s, bool suppressFill);
     virtual bool isValid(const char* s);
     virtual TPicResult picture(char* input, bool autoFill);
 

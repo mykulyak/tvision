@@ -93,7 +93,7 @@ TPXPictureValidator::~TPXPictureValidator() { }
 
 void TPXPictureValidator::error() { MessageBox::error(pic); }
 
-bool TPXPictureValidator::isValidInput(char* s, bool suppressFill)
+bool TPXPictureValidator::isValidInput(const char* s, bool suppressFill)
 {
     bool doFill = bool(((options & voFill) != 0) && !suppressFill);
     return pic.empty() || (picture((char*)s, doFill) != prError);

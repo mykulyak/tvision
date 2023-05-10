@@ -23,9 +23,9 @@ class TValidator : public TObject, public TStreamable {
 public:
     TValidator() noexcept;
     virtual void error();
-    virtual bool isValidInput(char* s, bool suppressFill);
+    virtual bool isValidInput(const char* s, bool suppressFill);
     virtual bool isValid(const char* s);
-    virtual ushort transfer(char* s, void* buffer, TVTransfer flag);
+    virtual ushort transfer(const char* s, void* buffer, TVTransfer flag);
     bool validate(const char* s);
 
     ushort status;

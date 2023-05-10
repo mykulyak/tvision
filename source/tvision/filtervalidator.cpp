@@ -47,7 +47,7 @@ bool TFilterValidator::isValid(const char* s)
     return bool(strspn(s, validChars.c_str()) == strlen(s));
 }
 
-bool TFilterValidator::isValidInput(char* s, bool suppressFill)
+bool TFilterValidator::isValidInput(const char* s, bool suppressFill)
 {
     return bool(strspn(s, validChars.c_str()) == strlen(s));
 }

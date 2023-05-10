@@ -9,7 +9,7 @@ public:
     TFilterValidator(const std::string& aValidChars) noexcept;
     ~TFilterValidator();
     virtual void error();
-    virtual bool isValidInput(char* s, bool suppressFill);
+    virtual bool isValidInput(const char* s, bool suppressFill);
     virtual bool isValid(const char* s);
 
 protected:
