@@ -24,9 +24,9 @@ protected:
 private:
     static const char* icon;
 
-    STREAMABLE_DECLARE(THistory);
+    DECLARE_STREAMABLE(THistory);
 };
 
-STREAMABLE_IMPLEMENT(THistory);
+IMPLEMENT_STREAMABLE_OPERATORS(THistory);
 
 #endif // TVision_THistory_h

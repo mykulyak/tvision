@@ -33,13 +33,6 @@ void TFileInputLine::handleEvent(TEvent& event)
 
 #ifndef NO_STREAMABLE
 
-__link(RTInputLine);
-
-STREAMABLE_CLASS_IMPLEMENT(TFileInputLine);
-
-TFileInputLine::TFileInputLine(StreamableInit) noexcept
-    : TInputLine(streamableInit)
-{
-}
+IMPLEMENT_STREAMABLE_1(TFileInputLine, TInputLine);
 
 #endif // NO_STREAMABLE

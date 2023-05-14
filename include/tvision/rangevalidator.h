@@ -4,7 +4,6 @@
 #include <tvision/filtervalidator.h>
 
 class TRangeValidator : public TFilterValidator {
-
     static const char* validUnsignedChars;
     static const char* validSignedChars;
     static const char* errorMsg;
@@ -19,18 +18,9 @@ protected:
     int32_t min;
     int32_t max;
 
-    TRangeValidator(StreamableInit) noexcept;
-    virtual void write(opstream& os);
-    virtual void* read(ipstream& is);
-
-private:
-    virtual const char* streamableName() const { return name; };
-
-public:
-    static TStreamable* build();
-    static const char* const name;
+    DECLARE_STREAMABLE(TRangeValidator);
 };
 
-STREAMABLE_IMPLEMENT(TRangeValidator);
+IMPLEMENT_STREAMABLE_OPERATORS(TRangeValidator);
 
 #endif // TVision_TRangeValidator_h

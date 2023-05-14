@@ -550,6 +550,17 @@ void TOutlineViewer::disposeNode(TNode* node) noexcept
 
 #ifndef NO_STREAMABLE
 
+_IMPLEMENT_STREAMABLE_RCLASS_LINK(TScroller);
+// _IMPLEMENT_STREAMABLE_RCLASS(TOutlineViewer);
+// _IMPLEMENT_STREAMABLE_CTOR_1(TOutlineViewer, TScroller);
+
+const char* const TOutlineViewer::name = "TOutlineViewer";
+
+TOutlineViewer::TOutlineViewer(StreamableInit s) noexcept
+    : TScroller(s)
+{
+}
+
 void* TOutlineViewer::read(ipstream& ip)
 {
     TScroller::read(ip);

@@ -31,19 +31,9 @@ public:
     ushort status;
     ushort options;
 
-protected:
-    TValidator(StreamableInit) noexcept;
-    virtual void write(opstream& os);
-    virtual void* read(ipstream& is);
-
-private:
-    virtual const char* streamableName() const { return name; };
-
-public:
-    static TStreamable* build();
-    static const char* const name;
+    DECLARE_STREAMABLE(TValidator);
 };
 
-STREAMABLE_IMPLEMENT(TValidator);
+IMPLEMENT_STREAMABLE_OPERATORS(TValidator);
 
 #endif // TVision_TValidator_h

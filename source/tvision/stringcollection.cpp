@@ -12,7 +12,7 @@ void TStringCollection::freeItem(void* item) { delete[] (char*)item; }
 
 #ifndef NO_STREAMABLE
 
-STREAMABLE_CLASS_IMPLEMENT(TStringCollection);
+IMPLEMENT_STREAMABLE(TStringCollection);
 
 void TStringCollection::writeItem(void* obj, opstream& os) { os.writeString((const char*)obj); }
 

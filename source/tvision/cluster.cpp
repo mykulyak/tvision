@@ -342,15 +342,9 @@ bool TCluster::buttonState(int item)
 
 #ifndef NO_STREAMABLE
 
-__link(RTView);
 __link(RTStringCollection);
 
-STREAMABLE_CLASS_IMPLEMENT(TCluster);
-
-TCluster::TCluster(StreamableInit) noexcept
-    : TView(streamableInit)
-{
-}
+IMPLEMENT_STREAMABLE_1(TCluster, TView);
 
 void TCluster::write(opstream& os)
 {
@@ -379,4 +373,4 @@ void* TCluster::read(ipstream& is)
     return this;
 }
 
-#endif
+#endif // NO_STREAMABLE

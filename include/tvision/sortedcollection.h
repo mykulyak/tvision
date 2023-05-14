@@ -26,6 +26,6 @@ public:
     static const char* const name;
 };
 
-STREAMABLE_IMPLEMENT(TSortedCollection);
+IMPLEMENT_STREAMABLE_OPERATORS(TSortedCollection);
 
 #endif // TVision_TSortedCollection_h

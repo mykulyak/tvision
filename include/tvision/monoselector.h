@@ -30,6 +30,6 @@ public:
     static TStreamable* build();
 };
 
-STREAMABLE_IMPLEMENT(TMonoSelector);
+IMPLEMENT_STREAMABLE_OPERATORS(TMonoSelector);
 
 #endif // TVision_TMonoSelector_h

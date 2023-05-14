@@ -19,9 +19,9 @@ private:
     static const char* clipboardTitle;
     static const char* untitled;
 
-    STREAMABLE_DECLARE(TEditWindow);
+    DECLARE_STREAMABLE(TEditWindow);
 };
 
-STREAMABLE_IMPLEMENT(TEditWindow);
+IMPLEMENT_STREAMABLE_OPERATORS(TEditWindow);
 
 #endif // TVision_TEditWindow_h

@@ -45,7 +45,7 @@ const char* const TPXPictureValidator::name = "TPXPictureValidator";
 
 const char* TPXPictureValidator::errorMsg = "Error in picture format.\n %s";
 
-__link(RValidator);
+__link(RTValidator);
 
 TStreamableClass RPXPictureValidator(
     TPXPictureValidator::name, TPXPictureValidator::build, __DELTA(TPXPictureValidator));

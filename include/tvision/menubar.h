@@ -16,9 +16,9 @@ public:
     virtual void draw();
     virtual TRect getItemRect(TMenuItem* item);
 
-    STREAMABLE_DECLARE(TMenuBar);
+    DECLARE_STREAMABLE(TMenuBar);
 };
 
-STREAMABLE_IMPLEMENT(TMenuBar);
+IMPLEMENT_STREAMABLE_OPERATORS(TMenuBar);
 
 #endif // TVision_TMenuBar_h

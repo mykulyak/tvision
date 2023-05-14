@@ -34,9 +34,9 @@ private:
     static TStatusItem* readItems(ipstream&);
     static TStatusDef* readDefs(ipstream&);
 
-    STREAMABLE_DECLARE(TStatusLine);
+    DECLARE_STREAMABLE(TStatusLine);
 };
 
-STREAMABLE_IMPLEMENT(TStatusLine);
+IMPLEMENT_STREAMABLE_OPERATORS(TStatusLine);
 
 #endif // TVision_TStatusLine_h

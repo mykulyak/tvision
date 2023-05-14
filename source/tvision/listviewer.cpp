@@ -319,15 +319,9 @@ void TListViewer::shutDown()
 
 #ifndef NO_STREAMABLE
 
-__link(RTView);
 __link(RTScrollBar);
 
-STREAMABLE_CLASS_IMPLEMENT(TListViewer);
-
-TListViewer::TListViewer(StreamableInit) noexcept
-    : TView(streamableInit)
-{
-}
+IMPLEMENT_STREAMABLE_1(TListViewer, TView);
 
 void TListViewer::write(opstream& os)
 {
@@ -342,4 +336,4 @@ void* TListViewer::read(ipstream& is)
     return this;
 }
 
-#endif
+#endif // NO_STREAMABLE

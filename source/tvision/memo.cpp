@@ -45,14 +45,7 @@ void TMemo::handleEvent(TEvent& event)
 
 #ifndef NO_STREAMABLE
 
-__link(REditor);
-
-STREAMABLE_CLASS_IMPLEMENT(TMemo);
-
-TMemo::TMemo(StreamableInit) noexcept
-    : TEditor(streamableInit)
-{
-}
+IMPLEMENT_STREAMABLE_1(TMemo, TEditor);
 
 void TMemo::write(opstream& os)
 {

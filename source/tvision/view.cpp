@@ -788,7 +788,7 @@ void TView::resetCursor() { TVCursor().resetCursor(this); }
 
 #ifndef NO_STREAMABLE
 
-STREAMABLE_CLASS_IMPLEMENT(TView)
+IMPLEMENT_STREAMABLE(TView)
 
 TView::TView(StreamableInit) noexcept { }
 

@@ -189,7 +189,7 @@ void TStatusLine::update()
 
 __link(RTView);
 
-STREAMABLE_CLASS_IMPLEMENT(TStatusLine);
+IMPLEMENT_STREAMABLE(TStatusLine);
 
 TStatusLine::TStatusLine(StreamableInit) noexcept
     : TView(streamableInit)

@@ -18,6 +18,6 @@ void* TDirCollection::readItem(ipstream& is)
 
 #ifndef NO_STREAMABLE
 
-STREAMABLE_CLASS_IMPLEMENT(TDirCollection);
+IMPLEMENT_STREAMABLE(TDirCollection);
 
 #endif // NO_STREAMABLE

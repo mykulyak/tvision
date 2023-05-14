@@ -118,11 +118,6 @@ ushort popupMenu(TPoint where, TMenuItem& aMenu, TGroup* receiver)
 
 #ifndef NO_STREAMABLE
 
-STREAMABLE_CLASS_IMPLEMENT(TMenuPopup);
+IMPLEMENT_STREAMABLE_1(TMenuPopup, TMenuBox);
 
-TMenuPopup::TMenuPopup(StreamableInit) noexcept
-    : TMenuBox(streamableInit)
-{
-}
-
-#endif
+#endif // NO_STREAMABLE

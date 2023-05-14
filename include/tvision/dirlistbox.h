@@ -44,6 +44,6 @@ public:
     static TStreamable* build();
 };
 
-STREAMABLE_IMPLEMENT(TDirListBox);
+IMPLEMENT_STREAMABLE_OPERATORS(TDirListBox);
 
 #endif // TVision_TDirListBox_h

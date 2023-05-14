@@ -19,9 +19,9 @@ protected:
 private:
     void focusLink(TEvent&);
 
-    STREAMABLE_DECLARE(TLabel);
+    DECLARE_STREAMABLE(TLabel);
 };
 
-STREAMABLE_IMPLEMENT(TLabel);
+IMPLEMENT_STREAMABLE_OPERATORS(TLabel);
 
 #endif // TVision_TLabel_h

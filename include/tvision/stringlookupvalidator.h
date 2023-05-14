@@ -32,6 +32,6 @@ public:
     static const char* const name;
 };
 
-STREAMABLE_IMPLEMENT(TStringLookupValidator);
+IMPLEMENT_STREAMABLE_OPERATORS(TStringLookupValidator);
 
 #endif // TVision_TStringLookupValidator_h

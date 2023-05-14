@@ -17,9 +17,9 @@ protected:
     TColorAttr* color;
     std::string text;
 
-    STREAMABLE_DECLARE(TColorDisplay);
+    DECLARE_STREAMABLE(TColorDisplay);
 };
 
-STREAMABLE_IMPLEMENT(TColorDisplay);
+IMPLEMENT_STREAMABLE_OPERATORS(TColorDisplay);
 
 #endif // TVision_TColorDisplay_h

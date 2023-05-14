@@ -7,8 +7,6 @@
 #include <tvision/label.h>
 #include <tvision/tobjstrm.h>
 
-const char* const TFileDialog::name = "TFileDialog";
-
 const char* TFileDialog::filesText = "~F~iles";
 const char* TFileDialog::openText = "~O~pen";
 const char* TFileDialog::okText = "O~K~";
@@ -18,17 +16,6 @@ const char* TFileDialog::cancelText = "Cancel";
 const char* TFileDialog::helpText = "~H~elp";
 const char* TFileDialog::invalidDriveText = "Invalid drive or directory";
 const char* TFileDialog::invalidFileText = "Invalid file name";
-
-__link(RTDialog);
-__link(RTFileInputLine);
-__link(RTFileList);
-__link(RLabel);
-__link(RTHistory);
-__link(RTScrollBar);
-__link(RTButton);
-__link(RTFileInfoPane);
-
-TStreamableClass RFileDialog(TFileDialog::name, TFileDialog::build, __DELTA(TFileDialog));
 
 TFileDialog::TFileDialog(const std::string& aWildCard, const std::string& aTitle,
     const std::string& inputName, ushort aOptions, uchar histId) noexcept
@@ -255,6 +242,17 @@ bool TFileDialog::valid(ushort command)
 
 #ifndef NO_STREAMABLE
 
+__link(RTDialog);
+__link(RTFileInputLine);
+__link(RTFileList);
+__link(RTLabel);
+__link(RTHistory);
+__link(RTScrollBar);
+__link(RTButton);
+__link(RTFileInfoPane);
+
+IMPLEMENT_STREAMABLE(TFileDialog);
+
 TFileDialog::TFileDialog(StreamableInit) noexcept
     : TWindowInit(TFileDialog::initFrame)
     , TDialog(streamableInit)
@@ -277,6 +275,4 @@ void* TFileDialog::read(ipstream& is)
     return this;
 }
 
-TStreamable* TFileDialog::build() { return new TFileDialog(streamableInit); }
-
-#endif
+#endif // NO_STREAMABLE

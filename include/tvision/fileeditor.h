@@ -31,9 +31,9 @@ private:
 protected:
     std::string fileName;
 
-    STREAMABLE_DECLARE(TFileEditor);
+    DECLARE_STREAMABLE(TFileEditor);
 };
 
-STREAMABLE_IMPLEMENT(TFileEditor);
+IMPLEMENT_STREAMABLE_OPERATORS(TFileEditor);
 
 #endif // TVision_TFileEditor_h

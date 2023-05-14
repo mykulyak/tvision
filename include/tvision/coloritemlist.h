@@ -28,6 +28,6 @@ public:
     static TStreamable* build();
 };
 
-STREAMABLE_IMPLEMENT(TColorItemList);
+IMPLEMENT_STREAMABLE_OPERATORS(TColorItemList);
 
 #endif // TVision_TColorItemList_h

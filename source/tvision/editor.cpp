@@ -52,13 +52,6 @@ ushort scanKeyMap(const void* keyMap, ushort keyCode)
 
 #define cpEditor "\x06\x07"
 
-const char* const TEditor::name = "TEditor";
-
-__link(RTView);
-__link(RTScrollBar);
-
-TStreamableClass REditor(TEditor::name, TEditor::build, __DELTA(TEditor));
-
 TEditor::TEditor(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,
     TIndicator* aIndicator, uint aBufSize) noexcept
     : TView(bounds)
@@ -1228,6 +1221,10 @@ uint TEditor::prevChar(uint P)
 
 #ifndef NO_STREAMABLE
 
+__link(RTScrollBar);
+
+IMPLEMENT_STREAMABLE_1(TEditor, TView);
+
 void TEditor::write(opstream& os)
 {
     TView::write(os);
@@ -1266,11 +1263,4 @@ void* TEditor::read(ipstream& is)
     return this;
 }
 
-TStreamable* TEditor::build() { return new TEditor(streamableInit); }
-
-TEditor::TEditor(StreamableInit) noexcept
-    : TView(streamableInit)
-{
-}
-
-#endif
+#endif // NO_STREAMABLE

@@ -1,7 +1,6 @@
 #ifndef TVision_TBackground_h
 #define TVision_TBackground_h
 
-#include <tvision/palette.h>
 #include <tvision/view.h>
 
 class TBackground : public TView {
@@ -16,9 +15,9 @@ public:
 private:
     char pattern_;
 
-    STREAMABLE_DECLARE(TBackground);
+    DECLARE_STREAMABLE(TBackground);
 };
 
-STREAMABLE_IMPLEMENT(TBackground);
+IMPLEMENT_STREAMABLE_OPERATORS(TBackground);
 
 #endif // TVision_TBackground_h

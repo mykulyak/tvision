@@ -17,9 +17,9 @@ protected:
 
     static const char* errorMsg;
 
-    STREAMABLE_DECLARE(TFilterValidator);
+    DECLARE_STREAMABLE(TFilterValidator);
 };
 
-STREAMABLE_IMPLEMENT(TFilterValidator);
+IMPLEMENT_STREAMABLE_OPERATORS(TFilterValidator);
 
 #endif // TVision_TFilterValidator_h

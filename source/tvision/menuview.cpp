@@ -472,7 +472,7 @@ TMenuView* TMenuView::newSubView(const TRect& bounds, TMenu* aMenu, TMenuView* a
 
 __link(RTView);
 
-STREAMABLE_CLASS_IMPLEMENT(TMenuView);
+IMPLEMENT_STREAMABLE(TMenuView);
 
 TMenuView::TMenuView(StreamableInit) noexcept
     : TView(streamableInit)

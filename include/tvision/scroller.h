@@ -30,9 +30,9 @@ protected:
 private:
     void showSBar(TScrollBar* sBar);
 
-    STREAMABLE_DECLARE(TScroller);
+    DECLARE_STREAMABLE(TScroller);
 };
 
-STREAMABLE_IMPLEMENT(TScroller);
+IMPLEMENT_STREAMABLE_OPERATORS(TScroller);
 
 #endif // TVision_TScroller_h

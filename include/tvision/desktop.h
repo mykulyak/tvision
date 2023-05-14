@@ -42,6 +42,6 @@ public:
     static TStreamable* build();
 };
 
-STREAMABLE_IMPLEMENT(TDeskTop);
+IMPLEMENT_STREAMABLE_OPERATORS(TDeskTop);
 
 #endif

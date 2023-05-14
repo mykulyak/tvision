@@ -1,11 +1,5 @@
 #include <tvision/fileeditor.h>
 
-const char* const TFileEditor::name = "TFileEditor";
-
-__link(REditor);
-
-TStreamableClass RFileEditor(TFileEditor::name, TFileEditor::build, __DELTA(TFileEditor));
-
 const char* TFileEditor::backupExt = ".bak";
 
 TFileEditor::TFileEditor(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar,
@@ -206,6 +200,8 @@ bool TFileEditor::valid(ushort command)
 
 #ifndef NO_STREAMABLE
 
+IMPLEMENT_STREAMABLE_1(TFileEditor, TEditor);
+
 void TFileEditor::write(opstream& os)
 {
     TEditor::write(os);
@@ -230,11 +226,4 @@ void* TFileEditor::read(ipstream& is)
     return this;
 }
 
-TStreamable* TFileEditor::build() { return new TFileEditor(streamableInit); }
-
-TFileEditor::TFileEditor(StreamableInit) noexcept
-    : TEditor(streamableInit)
-{
-}
-
-#endif
+#endif // NO_STREAMABLE

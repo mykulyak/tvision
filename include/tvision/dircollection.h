@@ -49,6 +49,6 @@ public:
     static TStreamable* build();
 };
 
-STREAMABLE_IMPLEMENT(TDirCollection);
+IMPLEMENT_STREAMABLE_OPERATORS(TDirCollection);
 
 #endif // TVision_TDirCollection_h

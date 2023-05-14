@@ -88,8 +88,9 @@ void TApplication::handleEvent(TEvent& event)
 
 void TApplication::tile()
 {
-    if (deskTop)
+    if (deskTop) {
         deskTop->tile(getTileRect());
+    }
 }
 
 void TApplication::writeShellMsg()

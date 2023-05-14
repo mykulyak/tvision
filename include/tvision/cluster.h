@@ -42,9 +42,9 @@ private:
     int row(int item);
     void moveSel(int, int);
 
-    STREAMABLE_DECLARE(TCluster);
+    DECLARE_STREAMABLE(TCluster);
 };
 
-STREAMABLE_IMPLEMENT(TCluster);
+IMPLEMENT_STREAMABLE_OPERATORS(TCluster);
 
 #endif // TVision_TCluster_h

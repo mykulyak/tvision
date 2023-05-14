@@ -38,9 +38,9 @@ private:
     static TScrollChars vChars;
     static TScrollChars hChars;
 
-    STREAMABLE_DECLARE(TScrollBar);
+    DECLARE_STREAMABLE(TScrollBar);
 };
 
-STREAMABLE_IMPLEMENT(TScrollBar);
+IMPLEMENT_STREAMABLE_OPERATORS(TScrollBar);
 
 #endif // TVision_TScrollBar_h

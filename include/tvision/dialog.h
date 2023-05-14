@@ -22,6 +22,6 @@ public:
     static TStreamable* build();
 };
 
-STREAMABLE_IMPLEMENT(TDialog);
+IMPLEMENT_STREAMABLE_OPERATORS(TDialog);
 
 #endif // TVision_TDialog_h

@@ -60,9 +60,9 @@ private:
     static const char* invalidDriveText;
     static const char* invalidFileText;
 
-    STREAMABLE_DECLARE(TFileDialog);
+    DECLARE_STREAMABLE(TFileDialog);
 };
 
-STREAMABLE_IMPLEMENT(TFileDialog);
+IMPLEMENT_STREAMABLE_OPERATORS(TFileDialog);
 
 #endif // TVision_TFileDialog_h

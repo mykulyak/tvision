@@ -116,6 +116,6 @@ void TFileList::readDirectory(const std::filesystem::path& aDir)
 
 __link(RSortedListBox);
 
-STREAMABLE_CLASS_IMPLEMENT(TFileList);
+IMPLEMENT_STREAMABLE(TFileList);
 
 #endif // NO_STREAMABLE

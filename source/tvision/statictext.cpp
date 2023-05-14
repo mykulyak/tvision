@@ -88,7 +88,7 @@ void TStaticText::getText(char* s)
 
 __link(RTView);
 
-STREAMABLE_CLASS_IMPLEMENT(TStaticText);
+IMPLEMENT_STREAMABLE(TStaticText);
 
 TStaticText::TStaticText(StreamableInit) noexcept
     : TView(streamableInit)

@@ -66,7 +66,7 @@ void TMultiCheckBoxes::setData(void* p)
 
 __link(RTCluster);
 
-STREAMABLE_CLASS_IMPLEMENT(TMultiCheckBoxes);
+IMPLEMENT_STREAMABLE(TMultiCheckBoxes);
 
 TMultiCheckBoxes::TMultiCheckBoxes(StreamableInit) noexcept
     : TCluster(streamableInit)

@@ -37,7 +37,7 @@ void TParamText::setText(const char* fmt, ...)
 __link(RTView);
 __link(RTStaticText);
 
-STREAMABLE_CLASS_IMPLEMENT(TParamText);
+IMPLEMENT_STREAMABLE(TParamText);
 
 TParamText::TParamText(StreamableInit) noexcept
     : TStaticText(streamableInit)

@@ -27,9 +27,9 @@ public:
 protected:
     TCollection* items;
 
-    STREAMABLE_DECLARE(TListBox);
+    DECLARE_STREAMABLE(TListBox);
 };
 
-STREAMABLE_IMPLEMENT(TListBox);
+IMPLEMENT_STREAMABLE_OPERATORS(TListBox);
 
 #endif // TVision_TListBox_h

@@ -18,6 +18,6 @@ private:
     virtual const char* streamableName() const { return name; };
 };
 
-STREAMABLE_IMPLEMENT(TLookupValidator);
+IMPLEMENT_STREAMABLE_OPERATORS(TLookupValidator);
 
 #endif // TVision_TLookupValidator_h

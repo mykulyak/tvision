@@ -28,6 +28,6 @@ public:
 #endif // NO_STREAMABLE
 };
 
-STREAMABLE_IMPLEMENT(TCollection);
+IMPLEMENT_STREAMABLE_OPERATORS(TCollection);
 
 #endif // TVision_TCollection_h

@@ -23,9 +23,9 @@ private:
     ushort flags;
     std::string states;
 
-    STREAMABLE_DECLARE(TMultiCheckBoxes);
+    DECLARE_STREAMABLE(TMultiCheckBoxes);
 };
 
-STREAMABLE_IMPLEMENT(TMultiCheckBoxes);
+IMPLEMENT_STREAMABLE_OPERATORS(TMultiCheckBoxes);
 
 #endif // TVision_TMultiCheckBoxes_h

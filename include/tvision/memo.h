@@ -17,9 +17,9 @@ public:
     virtual TPalette& getPalette() const;
     virtual void handleEvent(TEvent&);
 
-    STREAMABLE_DECLARE(TMemo);
+    DECLARE_STREAMABLE(TMemo);
 };
 
-STREAMABLE_IMPLEMENT(TMemo);
+IMPLEMENT_STREAMABLE_OPERATORS(TMemo);
 
 #endif // TVision_TMemo_h

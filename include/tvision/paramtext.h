@@ -22,6 +22,6 @@ public:
     static TStreamable* build();
 };
 
-STREAMABLE_IMPLEMENT(TParamText);
+IMPLEMENT_STREAMABLE_OPERATORS(TParamText);
 
 #endif // TVision_TParamText_h

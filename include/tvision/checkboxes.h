@@ -25,6 +25,6 @@ public:
     static TStreamable* build();
 };
 
-STREAMABLE_IMPLEMENT(TCheckBoxes);
+IMPLEMENT_STREAMABLE_OPERATORS(TCheckBoxes);
 
 #endif // TVision_TCheckBoxes_h

@@ -76,9 +76,9 @@ private:
 
     friend void genRefs();
 
-    STREAMABLE_DECLARE(TGroup);
+    DECLARE_STREAMABLE(TGroup);
 };
 
-STREAMABLE_IMPLEMENT(TGroup);
+IMPLEMENT_STREAMABLE_OPERATORS(TGroup);
 
 #endif // TVision_TGroup_h

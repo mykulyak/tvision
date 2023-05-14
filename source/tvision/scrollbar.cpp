@@ -300,7 +300,7 @@ void TScrollBar::setValue(int aValue) noexcept
 
 __link(RTView);
 
-STREAMABLE_CLASS_IMPLEMENT(TScrollBar);
+IMPLEMENT_STREAMABLE(TScrollBar);
 
 TScrollBar::TScrollBar(StreamableInit) noexcept
     : TView(streamableInit)

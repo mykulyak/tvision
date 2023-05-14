@@ -165,11 +165,11 @@ private:
 
     TPoint resizeBalance;
 
-    STREAMABLE_DECLARE(TView);
+    DECLARE_STREAMABLE(TView);
 };
 
 void* message(TView* receiver, ushort what, ushort command, void* infoPtr);
 
-STREAMABLE_IMPLEMENT(TView);
+IMPLEMENT_STREAMABLE_OPERATORS(TView);
 
 #endif // TVision_TView_h

@@ -51,6 +51,6 @@ public:
     static TStreamable* build();
 };
 
-STREAMABLE_IMPLEMENT(TFileCollection);
+IMPLEMENT_STREAMABLE_OPERATORS(TFileCollection);
 
 #endif // TVision_TFileCollection_h

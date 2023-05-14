@@ -89,15 +89,9 @@ void THistory::recordHistory(const char* s) { historyAdd(historyId, s); }
 
 #ifndef NO_STREAMABLE
 
-__link(RTView);
 __link(RTInputLine);
 
-STREAMABLE_CLASS_IMPLEMENT(THistory);
-
-THistory::THistory(StreamableInit) noexcept
-    : TView(streamableInit)
-{
-}
+IMPLEMENT_STREAMABLE_1(THistory, TView);
 
 void THistory::write(opstream& os)
 {
@@ -112,4 +106,4 @@ void* THistory::read(ipstream& is)
     return this;
 }
 
-#endif
+#endif // NO_STREAMABLE

@@ -18,7 +18,7 @@ const char rezFileName[] = "phonenum." FORM_EXTENSION;
 __link(RTButton);
 __link(RTCheckBoxes);
 __link(RTInputLine);
-__link(RLabel);
+__link(RTLabel);
 __link(RTMenuBar);
 __link(RRadioButtons);
 __link(RTFrame);

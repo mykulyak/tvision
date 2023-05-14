@@ -28,6 +28,6 @@ public:
     static TStreamable* build();
 };
 
-STREAMABLE_IMPLEMENT(TRadioButtons);
+IMPLEMENT_STREAMABLE_OPERATORS(TRadioButtons);
 
 #endif // TVision_TRadioButtons_h

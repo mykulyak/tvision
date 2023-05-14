@@ -1,12 +1,6 @@
 #include <tvision/listbox.h>
 #include <tvision/tobjstrm.h>
 
-const char* const TListBox::name = "TListBox";
-
-__link(RTListViewer);
-
-TStreamableClass RTListBox(TListBox::name, TListBox::build, __DELTA(TListBox));
-
 TListBox::TListBox(const TRect& bounds, ushort aNumCols, TScrollBar* aScrollBar) noexcept
     : TListViewer(bounds, aNumCols, 0, aScrollBar)
     , items(0)
@@ -57,6 +51,8 @@ void TListBox::setData(void* rec)
 
 #ifndef NO_STREAMABLE
 
+IMPLEMENT_STREAMABLE_1(TListBox, TListViewer);
+
 void TListBox::write(opstream& os)
 {
     TListViewer::write(os);
@@ -70,11 +66,4 @@ void* TListBox::read(ipstream& is)
     return this;
 }
 
-TStreamable* TListBox::build() { return new TListBox(streamableInit); }
-
-TListBox::TListBox(StreamableInit) noexcept
-    : TListViewer(streamableInit)
-{
-}
-
-#endif
+#endif // NO_STREAMABLE

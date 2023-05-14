@@ -15,7 +15,7 @@
 const char rezFileName[] = "parts." FORM_EXTENSION;
 
 __link(RTScrollBar);
-__link(RLabel);
+__link(RTLabel);
 __link(RTMemo);
 __link(RTButton);
 

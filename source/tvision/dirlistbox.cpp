@@ -100,6 +100,6 @@ void TDirListBox::setState(ushort nState, bool enable)
 
 __link(RTListBox);
 
-STREAMABLE_CLASS_IMPLEMENT(TDirListBox);
+IMPLEMENT_STREAMABLE(TDirListBox);
 
 #endif // NO_STREAMABLE

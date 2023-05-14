@@ -35,9 +35,9 @@ public:
 private:
     static const char* emptyText;
 
-    STREAMABLE_DECLARE(TListViewer);
+    DECLARE_STREAMABLE(TListViewer);
 };
 
-STREAMABLE_IMPLEMENT(TListViewer);
+IMPLEMENT_STREAMABLE_OPERATORS(TListViewer);
 
 #endif // TVision_TListViewer_h

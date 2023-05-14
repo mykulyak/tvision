@@ -34,6 +34,6 @@ public:
     static TStreamable* build();
 };
 
-STREAMABLE_IMPLEMENT(TSortedListBox);
+IMPLEMENT_STREAMABLE_OPERATORS(TSortedListBox);
 
 #endif // TVision_TSortedListBox_h

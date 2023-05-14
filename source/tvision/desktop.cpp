@@ -1,13 +1,7 @@
 #include <tvision/desktop.h>
 #include <tvision/tobjstrm.h>
 
-const char* const TDeskTop::name = "TDeskTop";
-
 const char TDeskTop::defaultBkgrnd = '\xB0';
-
-__link(RTBackground);
-
-TStreamableClass RDeskTop(TDeskTop::name, TDeskTop::build, __DELTA(TDeskTop));
 
 TDeskInit::TDeskInit(TBackground* (*cBackground)(TRect)) noexcept
     : createBackground(cBackground)
@@ -198,7 +192,9 @@ void TDeskTop::tileError() { }
 
 #ifndef NO_STREAMABLE
 
-TStreamable* TDeskTop::build() { return new TDeskTop(streamableInit); }
+__link(RTBackground);
+
+IMPLEMENT_STREAMABLE(TDeskTop);
 
 TDeskTop::TDeskTop(StreamableInit) noexcept
     : TDeskInit(0)
@@ -207,4 +203,4 @@ TDeskTop::TDeskTop(StreamableInit) noexcept
     tileColumnsFirst = false;
 }
 
-#endif
+#endif // NO_STREAMABLE

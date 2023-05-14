@@ -223,13 +223,6 @@ void TFrame::setState(ushort aState, bool enable)
 
 #ifndef NO_STREAMABLE
 
-__link(RTView);
-
-STREAMABLE_CLASS_IMPLEMENT(TFrame);
-
-TFrame::TFrame(StreamableInit) noexcept
-    : TView(streamableInit)
-{
-}
+IMPLEMENT_STREAMABLE_1(TFrame, TView);
 
 #endif // NO_STREAMABLE

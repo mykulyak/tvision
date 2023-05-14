@@ -16,9 +16,9 @@ public:
 protected:
     std::string text;
 
-    STREAMABLE_DECLARE(TStaticText);
+    DECLARE_STREAMABLE(TStaticText);
 };
 
-STREAMABLE_IMPLEMENT(TStaticText);
+IMPLEMENT_STREAMABLE_OPERATORS(TStaticText);
 
 #endif // TVision_TStaticText_h

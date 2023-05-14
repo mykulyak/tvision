@@ -136,7 +136,7 @@ bool TDialog::valid(ushort command)
 
 __link(RWindow);
 
-STREAMABLE_CLASS_IMPLEMENT(TDialog);
+IMPLEMENT_STREAMABLE(TDialog);
 
 TDialog::TDialog(StreamableInit) noexcept
     : TWindowInit(0)
@@ -144,4 +144,4 @@ TDialog::TDialog(StreamableInit) noexcept
 {
 }
 
-#endif
+#endif // NO_STREAMABLE

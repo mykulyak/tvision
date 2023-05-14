@@ -1,12 +1,6 @@
 #include <tvision/colorcommandcodes.h>
 #include <tvision/colordisplay.h>
 
-const char* const TColorDisplay::name = "TColorDisplay";
-
-__link(RTView);
-
-TStreamableClass RColorDisplay(TColorDisplay::name, TColorDisplay::build, __DELTA(TColorDisplay));
-
 TColorDisplay::TColorDisplay(const TRect& bounds, const std::string& aText) noexcept
     : TView(bounds)
     , color(0)
@@ -54,6 +48,8 @@ void TColorDisplay::setColor(TColorAttr* aColor)
 
 #ifndef NO_STREAMABLE
 
+IMPLEMENT_STREAMABLE_1(TColorDisplay, TView);
+
 void TColorDisplay::write(opstream& os)
 {
     TView::write(os);
@@ -68,11 +64,4 @@ void* TColorDisplay::read(ipstream& is)
     return this;
 }
 
-TStreamable* TColorDisplay::build() { return new TColorDisplay(streamableInit); }
-
-TColorDisplay::TColorDisplay(StreamableInit) noexcept
-    : TView(streamableInit)
-{
-}
-
-#endif
+#endif // NO_STREAMABLE

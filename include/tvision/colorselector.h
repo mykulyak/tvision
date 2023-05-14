@@ -23,10 +23,10 @@ private:
 
     static const char icon;
 
-    STREAMABLE_DECLARE(TColorSelector);
+    DECLARE_STREAMABLE(TColorSelector);
 };
 
-STREAMABLE_IMPLEMENT(TColorSelector);
+IMPLEMENT_STREAMABLE_OPERATORS(TColorSelector);
 
 extern TColorIndex* colorIndexes;
 

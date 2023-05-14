@@ -21,13 +21,6 @@ void TCheckBoxes::press(int item) { value = value ^ (1 << item); }
 
 #ifndef NO_STREAMABLE
 
-__link(RTCluster);
+IMPLEMENT_STREAMABLE_1(TCheckBoxes, TCluster);
 
-STREAMABLE_CLASS_IMPLEMENT(TCheckBoxes);
-
-TCheckBoxes::TCheckBoxes(StreamableInit) noexcept
-    : TCluster(streamableInit)
-{
-}
-
-#endif
+#endif // NO_STREAMABLE

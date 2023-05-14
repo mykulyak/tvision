@@ -60,9 +60,9 @@ private:
     int oldSelStart;
     int oldSelEnd;
 
-    STREAMABLE_DECLARE(TInputLine);
+    DECLARE_STREAMABLE(TInputLine);
 };
 
-STREAMABLE_IMPLEMENT(TInputLine);
+IMPLEMENT_STREAMABLE_OPERATORS(TInputLine);
 
 #endif // TVision_TInputLine_h

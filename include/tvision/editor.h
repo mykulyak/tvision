@@ -127,9 +127,9 @@ public:
 
     friend void genRefs();
 
-    STREAMABLE_DECLARE(TEditor);
+    DECLARE_STREAMABLE(TEditor);
 };
 
-STREAMABLE_IMPLEMENT(TEditor);
+IMPLEMENT_STREAMABLE_OPERATORS(TEditor);
 
 #endif // TVision_TEditor_h

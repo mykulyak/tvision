@@ -65,7 +65,10 @@ bool TOutline::hasChildren(TNode* node) { return bool(node->childList != 0); }
 
 __link(RTScroller);
 
-STREAMABLE_CLASS_IMPLEMENT(TOutline);
+// IMPLEMENT_STREAMABLE_1(TOutline, TOutlineViewer);
+
+IMPLEMENT_STREAMABLE(TOutline)
+_IMPLEMENT_STREAMABLE_CTOR_1(TOutline, TOutlineViewer)
 
 TNode* TOutline::readNode(ipstream& ip)
 {
@@ -114,17 +117,14 @@ void TOutline::writeNode(TNode* node, opstream& op)
 void* TOutline::read(ipstream& ip)
 {
     TOutlineViewer::read(ip);
-
     root = readNode(ip);
-
     return this;
 }
 
 void TOutline::write(opstream& op)
 {
     TOutlineViewer::write(op);
-
     writeNode(root, op);
 }
 
-#endif
+#endif // NO_STREAMABLE

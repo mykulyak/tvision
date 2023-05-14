@@ -110,6 +110,6 @@ void TFileInfoPane::handleEvent(TEvent& event)
 
 __link(RTView);
 
-STREAMABLE_CLASS_IMPLEMENT(TFileInfoPane);
+IMPLEMENT_STREAMABLE(TFileInfoPane);
 
-#endif
+#endif // NO_STREAMABLE

@@ -483,14 +483,7 @@ bool TInputLine::valid(ushort cmd)
 
 #ifndef NO_STREAMABLE
 
-__link(RTView);
-
-STREAMABLE_CLASS_IMPLEMENT(TInputLine);
-
-TInputLine::TInputLine(StreamableInit) noexcept
-    : TView(streamableInit)
-{
-}
+IMPLEMENT_STREAMABLE_1(TInputLine, TView);
 
 void TInputLine::write(opstream& os)
 {

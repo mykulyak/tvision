@@ -65,13 +65,6 @@ void TIndicator::setValue(const TPoint& aLocation, bool aModified)
 
 #ifndef NO_STREAMABLE
 
-__link(RTView);
+IMPLEMENT_STREAMABLE_1(TIndicator, TView);
 
-STREAMABLE_CLASS_IMPLEMENT(TIndicator);
-
-TIndicator::TIndicator(StreamableInit) noexcept
-    : TView(streamableInit)
-{
-}
-
-#endif
+#endif // NO_STREAMABLE

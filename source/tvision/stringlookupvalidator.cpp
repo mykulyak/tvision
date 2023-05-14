@@ -26,7 +26,7 @@ void TStringLookupValidator::newStringList(const StringVector& aStrings) { strin
 
 __link(RLookupValidator);
 
-STREAMABLE_CLASS_IMPLEMENT(TStringLookupValidator);
+IMPLEMENT_STREAMABLE(TStringLookupValidator);
 
 TStringLookupValidator::TStringLookupValidator(StreamableInit s) noexcept
     : TLookupValidator(s)

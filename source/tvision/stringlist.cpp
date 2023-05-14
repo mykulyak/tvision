@@ -29,7 +29,7 @@ void TStringList::get(char* dest, ushort key)
 
 #ifndef NO_STREAMABLE
 
-STREAMABLE_CLASS_IMPLEMENT(TStringList);
+IMPLEMENT_STREAMABLE(TStringList);
 
 TStringList::TStringList(StreamableInit) noexcept
     : basePos(0)

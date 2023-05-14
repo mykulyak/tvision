@@ -58,9 +58,9 @@ private:
     static void writeMenu(opstream&, TMenu*);
     static TMenu* readMenu(ipstream&);
 
-    STREAMABLE_DECLARE(TMenuView);
+    DECLARE_STREAMABLE(TMenuView);
 };
 
-STREAMABLE_IMPLEMENT(TMenuView);
+IMPLEMENT_STREAMABLE_OPERATORS(TMenuView);
 
 #endif // TVision_TMenuView_h

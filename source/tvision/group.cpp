@@ -581,14 +581,7 @@ ushort TGroup::getHelpCtx()
 
 #ifndef NO_STREAMABLE
 
-__link(RTView);
-
-STREAMABLE_CLASS_IMPLEMENT(TGroup);
-
-TGroup::TGroup(StreamableInit) noexcept
-    : TView(streamableInit)
-{
-}
+IMPLEMENT_STREAMABLE_1(TGroup, TView);
 
 static void doPut(TView* p, void* osp) { *(opstream*)osp << p; }
 

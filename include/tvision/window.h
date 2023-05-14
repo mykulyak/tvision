@@ -52,9 +52,9 @@ public:
     TFrame* frame;
     std::string title;
 
-    STREAMABLE_DECLARE(TWindow);
+    DECLARE_STREAMABLE(TWindow);
 };
 
-STREAMABLE_IMPLEMENT(TWindow);
+IMPLEMENT_STREAMABLE_OPERATORS(TWindow);
 
 #endif // TVision_TWindow_h

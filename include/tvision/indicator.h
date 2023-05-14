@@ -30,6 +30,6 @@ public:
     static TStreamable* build();
 };
 
-STREAMABLE_IMPLEMENT(TIndicator);
+IMPLEMENT_STREAMABLE_OPERATORS(TIndicator);
 
 #endif // TVision_TIndicator_h

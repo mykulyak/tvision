@@ -50,9 +50,9 @@ public:
     void getIndexes(TColorIndex*&);
     void setIndexes(TColorIndex*&);
 
-    STREAMABLE_DECLARE(TColorDialog);
+    DECLARE_STREAMABLE(TColorDialog);
 };
 
-STREAMABLE_IMPLEMENT(TColorDialog);
+IMPLEMENT_STREAMABLE_OPERATORS(TColorDialog);
 
 #endif // TVision_TColorDialog_h

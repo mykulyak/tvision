@@ -56,10 +56,10 @@ private:
     int lastLine;
     TParagraph* lastParagraph;
 
-    STREAMABLE_DECLARE(THelpTopic);
+    DECLARE_STREAMABLE(THelpTopic);
 };
 
-STREAMABLE_IMPLEMENT(THelpTopic);
+IMPLEMENT_STREAMABLE_OPERATORS(THelpTopic);
 
 // THelpIndex
 
@@ -74,10 +74,10 @@ public:
     ushort size;
     int32_t* index;
 
-    STREAMABLE_DECLARE(THelpIndex);
+    DECLARE_STREAMABLE(THelpIndex);
 };
 
-STREAMABLE_IMPLEMENT(THelpIndex);
+IMPLEMENT_STREAMABLE_OPERATORS(THelpIndex);
 
 // THelpFile
 

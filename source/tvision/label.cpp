@@ -11,12 +11,6 @@
 /*        4 = Selected shortcut                                           */
 /* ---------------------------------------------------------------------- */
 
-const char* const TLabel::name = "TLabel";
-
-__link(RTStaticText);
-
-TStreamableClass RLabel(TLabel::name, TLabel::build, __DELTA(TLabel));
-
 #define cpLabel "\x07\x08\x09\x09"
 
 TLabel::TLabel(const TRect& bounds, const std::string& aText, TView* aLink) noexcept
@@ -91,6 +85,8 @@ void TLabel::handleEvent(TEvent& event)
 
 #ifndef NO_STREAMABLE
 
+IMPLEMENT_STREAMABLE_1(TLabel, TStaticText);
+
 void TLabel::write(opstream& os)
 {
     TStaticText::write(os);
@@ -105,11 +101,4 @@ void* TLabel::read(ipstream& is)
     return this;
 }
 
-TStreamable* TLabel::build() { return new TLabel(streamableInit); }
-
-TLabel::TLabel(StreamableInit) noexcept
-    : TStaticText(streamableInit)
-{
-}
-
-#endif
+#endif // NO_STREAMABLE

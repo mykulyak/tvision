@@ -25,14 +25,7 @@ void TFilterValidator::error() { MessageBox::error(errorMsg); }
 
 #ifndef NO_STREAMABLE
 
-__link(RValidator);
-
-STREAMABLE_CLASS_IMPLEMENT(TFilterValidator);
-
-TFilterValidator::TFilterValidator(StreamableInit s) noexcept
-    : TValidator(s)
-{
-}
+IMPLEMENT_STREAMABLE_1(TFilterValidator, TValidator);
 
 void TFilterValidator::write(opstream& os)
 {

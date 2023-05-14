@@ -20,29 +20,15 @@ public:
 
     TNode* root;
 
+#ifndef NO_STREAMABLE
 protected:
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
     virtual void writeNode(TNode*, opstream&);
     virtual TNode* readNode(ipstream&);
+#endif // NO_STREAMABLE
 
-    TOutline(StreamableInit s) noexcept
-        : TOutlineViewer(s)
-    {
-    }
-
-public:
-    static TStreamable* build();
-    static const char* const name;
-
-private:
-    virtual const char* streamableName() const { return name; }
+    DECLARE_STREAMABLE(TOutline);
 };
 
-inline ipstream& operator>>(ipstream& is, TOutline& o) { return is >> (TStreamable&)o; }
-inline ipstream& operator>>(ipstream& is, TOutline*& o) { return is >> (void*&)o; }
-
-inline opstream& operator<<(opstream& os, TOutline& o) { return os << (TStreamable&)o; }
-inline opstream& operator<<(opstream& os, TOutline* o) { return os << (TStreamable*)o; }
+IMPLEMENT_STREAMABLE_OPERATORS(TOutline);
 
 #endif // TVision_TOutline_h

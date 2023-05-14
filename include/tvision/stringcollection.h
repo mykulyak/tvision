@@ -24,6 +24,6 @@ public:
     static TStreamable* build();
 };
 
-STREAMABLE_IMPLEMENT(TStringCollection);
+IMPLEMENT_STREAMABLE_OPERATORS(TStringCollection);
 
 #endif // TVision_TStringCollection_h

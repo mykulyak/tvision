@@ -29,6 +29,6 @@ public:
     static TStreamable* build();
 };
 
-STREAMABLE_IMPLEMENT(TMenuBox);
+IMPLEMENT_STREAMABLE_OPERATORS(TMenuBox);
 
 #endif // TVision_TMenuBox_h

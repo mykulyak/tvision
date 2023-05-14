@@ -17,18 +17,9 @@ private:
     short indexSize;
     TStrIndexRec* index;
 
-    virtual const char* streamableName() const { return name; }
-
-protected:
-    TStringList(StreamableInit) noexcept;
-    virtual void write(opstream&) { }
-    virtual void* read(ipstream&);
-
-public:
-    static const char* const name;
-    static TStreamable* build();
+    DECLARE_STREAMABLE(TStringList);
 };
 
-STREAMABLE_IMPLEMENT(TStringList);
+IMPLEMENT_STREAMABLE_OPERATORS(TStringList);
 
 #endif // TVision_TStringList_h

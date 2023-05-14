@@ -49,9 +49,9 @@ private:
     static const char* shadows;
     static const char* markers;
 
-    STREAMABLE_DECLARE(TButton);
+    DECLARE_STREAMABLE(TButton);
 };
 
-STREAMABLE_IMPLEMENT(TButton);
+IMPLEMENT_STREAMABLE_OPERATORS(TButton);
 
 #endif // TVision_TButton_h

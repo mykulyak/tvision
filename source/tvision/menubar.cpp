@@ -89,12 +89,7 @@ TRect TMenuBar::getItemRect(TMenuItem* item)
 
 #ifndef NO_STREAMABLE
 
-STREAMABLE_CLASS_IMPLEMENT(TMenuBar);
-
-TMenuBar::TMenuBar(StreamableInit) noexcept
-    : TMenuView(streamableInit)
-{
-}
+IMPLEMENT_STREAMABLE_1(TMenuBar, TMenuView);
 
 void TMenuBar::write(opstream& s) { TMenuView::write(s); }
 
@@ -104,4 +99,4 @@ void* TMenuBar::read(ipstream& s)
     return this;
 }
 
-#endif
+#endif // NO_STREAMABLE

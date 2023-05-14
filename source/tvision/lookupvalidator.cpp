@@ -7,13 +7,6 @@ bool TLookupValidator::lookup(const char* s) { return true; }
 
 #ifndef NO_STREAMABLE
 
-__link(RValidator);
-
-STREAMABLE_CLASS_IMPLEMENT(TLookupValidator);
-
-TLookupValidator::TLookupValidator(StreamableInit s) noexcept
-    : TValidator(s)
-{
-}
+IMPLEMENT_STREAMABLE_1(TLookupValidator, TValidator);
 
 #endif // NO_STREAMABLE

@@ -47,11 +47,6 @@ class TOutlineViewer : public TScroller {
 public:
     TOutlineViewer(const TRect& bounds, TScrollBar* aHScrollBar, TScrollBar* aVScrollBar) noexcept;
 
-    TOutlineViewer(StreamableInit s) noexcept
-        : TScroller(s)
-    {
-    }
-
     virtual void adjust(TNode* node, bool expand) = 0;
     virtual void draw();
     virtual void focused(int i);
@@ -86,18 +81,14 @@ public:
 
 protected:
     static void disposeNode(TNode* node) noexcept;
-    virtual void write(opstream&);
-    virtual void* read(ipstream&);
-
-public:
-    static TStreamable* build();
-    static const char* const name;
 
 private:
     void adjustFocus(int newFocus) noexcept;
     TNode* iterate(TOutlineVisitor action, void* arg, bool checkResult) noexcept;
+
+    DECLARE_STREAMABLE(TOutlineViewer);
 };
 
-STREAMABLE_IMPLEMENT(TOutlineViewer);
+IMPLEMENT_STREAMABLE_OPERATORS(TOutlineViewer);
 
 #endif // TVision_TOutlineViewer_h

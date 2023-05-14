@@ -2,16 +2,9 @@
 #include <tvision/rangevalidator.h>
 #include <tvision/tobjstrm.h>
 
-const char* const TRangeValidator::name = "TRangeValidator";
-
 const char* TRangeValidator::errorMsg = "Value not in the range %ld to %ld";
 const char* TRangeValidator::validUnsignedChars = "+0123456789";
 const char* TRangeValidator::validSignedChars = "+-0123456789";
-
-__link(RTFilterValidator);
-
-TStreamableClass RRangeValidator(
-    TRangeValidator::name, TRangeValidator::build, __DELTA(TRangeValidator));
 
 TRangeValidator::TRangeValidator(int32_t aMin, int32_t aMax) noexcept
     : TFilterValidator(0)
@@ -21,28 +14,6 @@ TRangeValidator::TRangeValidator(int32_t aMin, int32_t aMax) noexcept
     validChars
         = aMin >= 0 ? TRangeValidator::validUnsignedChars : TRangeValidator::validSignedChars;
 }
-
-#ifndef NO_STREAMABLE
-
-TRangeValidator::TRangeValidator(StreamableInit s) noexcept
-    : TFilterValidator(s)
-{
-}
-
-void TRangeValidator::write(opstream& os)
-{
-    TFilterValidator::write(os);
-    os << min << max;
-}
-
-void* TRangeValidator::read(ipstream& is)
-{
-    TFilterValidator::read(is);
-    is >> min >> max;
-    return this;
-}
-
-#endif
 
 void TRangeValidator::error()
 {
@@ -84,4 +55,21 @@ ushort TRangeValidator::transfer(char* s, void* buffer, TVTransfer flag)
         return 0;
 }
 
-TStreamable* TRangeValidator::build() { return new TRangeValidator(streamableInit); }
+#ifndef NO_STREAMABLE
+
+IMPLEMENT_STREAMABLE_1(TRangeValidator, TFilterValidator);
+
+void TRangeValidator::write(opstream& os)
+{
+    TFilterValidator::write(os);
+    os << min << max;
+}
+
+void* TRangeValidator::read(ipstream& is)
+{
+    TFilterValidator::read(is);
+    is >> min >> max;
+    return this;
+}
+
+#endif // NO_STREAMABLE

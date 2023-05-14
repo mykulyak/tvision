@@ -1,13 +1,6 @@
 #include <tvision/colorcommandcodes.h>
 #include <tvision/colordialog.h>
 
-const char* const TColorDialog::name = "TColorDialog";
-
-__link(RLabel);
-__link(RTDialog);
-
-TStreamableClass RColorDialog(TColorDialog::name, TColorDialog::build, __DELTA(TColorDialog));
-
 const char* TColorDialog::colors = "Colors";
 const char* TColorDialog::groupText = "~G~roup";
 const char* TColorDialog::itemText = "~I~tem";
@@ -26,8 +19,9 @@ TColorDialog::TColorDialog(TPalette* aPalette, TColorGroup* aGroups) noexcept
     if (aPalette != 0) {
         pal_ = new TPalette("", 0);
         *pal_ = *aPalette;
-    } else
+    } else {
         pal_ = nullptr;
+    }
 
     TScrollBar* sb = new TScrollBar(TRect(18, 3, 19, 14));
     insert(sb);
@@ -67,19 +61,22 @@ TColorDialog::TColorDialog(TPalette* aPalette, TColorGroup* aGroups) noexcept
     insert(new TButton(TRect(48, 15, 58, 17), cancelText, cmCancel, TButton::Flags::bfNormal));
     selectNext(false);
 
-    if (pal_ != nullptr)
+    if (pal_ != nullptr) {
         setData(pal_);
+    }
 }
 
 TColorDialog::~TColorDialog() { delete pal_; }
 
 void TColorDialog::handleEvent(TEvent& event)
 {
-    if (event.what == evBroadcast && event.message.command == cmNewColorItem)
+    if (event.what == evBroadcast && event.message.command == cmNewColorItem) {
         groupIndex = groups->focused;
+    }
     TDialog::handleEvent(event);
-    if (event.what == evBroadcast && event.message.command == cmNewColorIndex)
+    if (event.what == evBroadcast && event.message.command == cmNewColorIndex) {
         display->setColor(&pal_->data[event.message.infoByte]);
+    }
 }
 
 ushort TColorDialog::dataSize() { return *pal_->data + 1; }
@@ -92,8 +89,9 @@ void TColorDialog::getData(void* rec)
 
 void TColorDialog::setData(void* rec)
 {
-    if (!pal_)
+    if (!pal_) {
         pal_ = new TPalette("", 0);
+    }
     *pal_ = *(TPalette*)rec;
 
     setIndexes(colorIndexes);
@@ -125,8 +123,9 @@ void TColorDialog::setIndexes(TColorIndex*& colIdx)
         memset(colIdx->colorIndex, 0, numGroups);
         colIdx->colorSize = numGroups;
     }
-    for (index = 0; index < numGroups; index++)
+    for (index = 0; index < numGroups; index++) {
         groups->setGroupIndex(index, colIdx->colorIndex[index]);
+    }
 
     groupIndex = colIdx->groupIndex;
 }
@@ -140,11 +139,23 @@ void TColorDialog::getIndexes(TColorIndex*& colIdx)
         colIdx->colorSize = n;
     }
     colIdx->groupIndex = groupIndex;
-    for (uchar index = 0; index < n; index++)
+    for (uchar index = 0; index < n; index++) {
         colIdx->colorIndex[index] = groups->getGroupIndex(index);
+    }
 }
 
 #ifndef NO_STREAMABLE
+
+__link(RTLabel);
+__link(RTDialog);
+
+IMPLEMENT_STREAMABLE(TColorDialog);
+
+TColorDialog::TColorDialog(StreamableInit) noexcept
+    : TWindowInit(0)
+    , TDialog(streamableInit)
+{
+}
 
 void TColorDialog::write(opstream& os)
 {
@@ -160,12 +171,4 @@ void* TColorDialog::read(ipstream& is)
     return this;
 }
 
-TStreamable* TColorDialog::build() { return new TColorDialog(streamableInit); }
-
-TColorDialog::TColorDialog(StreamableInit) noexcept
-    : TWindowInit(0)
-    , TDialog(streamableInit)
-{
-}
-
-#endif
+#endif // NO_STREAMABLE

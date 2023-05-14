@@ -53,7 +53,7 @@ opstream& operator<<(opstream&, TStreamable*);
 
 #ifndef NO_STREAMABLE
 
-#define STREAMABLE_DECLARE(className)                                                              \
+#define _DECLARE_STREAMABLE_0(className)                                                           \
 private:                                                                                           \
     virtual const char* streamableName() const                                                     \
     {                                                                                              \
@@ -66,18 +66,49 @@ protected:                                                                      
     virtual void* read(ipstream&);                                                                 \
                                                                                                    \
 public:                                                                                            \
-    static const char* const name;                                                                 \
+    static const char* const name;
+
+#define DECLARE_STREAMABLE(className)                                                              \
+    _DECLARE_STREAMABLE_0(className)                                                               \
     static TStreamable* build();
 
-#define STREAMABLE_CLASS_IMPLEMENT(className)                                                      \
+#define _IMPLEMENT_STREAMABLE_RCLASS(className)                                                    \
     const char* const className::name = #className;                                                \
-    TStreamableClass R##className(className::name, className::build, __DELTA(className));          \
+    TStreamableClass R##className(className::name, className::build, __DELTA(className));
+
+#define _IMPLEMENT_STREAMABLE_RCLASS_LINK(className) __link(R##className);
+
+#define _IMPLEMENT_STREAMABLE_BUILD(className)                                                     \
     TStreamable* className::build()                                                                \
     {                                                                                              \
         return new className(streamableInit);                                                      \
     }
 
-#define STREAMABLE_IMPLEMENT(className)                                                            \
+#define _IMPLEMENT_STREAMABLE_CTOR_0(className)                                                    \
+    className::className(StreamableInit) noexcept                                                  \
+    {                                                                                              \
+    }
+
+#define _IMPLEMENT_STREAMABLE_CTOR_1(className, parentClassName)                                   \
+    className::className(StreamableInit) noexcept                                                  \
+        : parentClassName(streamableInit)                                                          \
+    {                                                                                              \
+    }
+
+#define IMPLEMENT_STREAMABLE(className)                                                            \
+    _IMPLEMENT_STREAMABLE_RCLASS(className)                                                        \
+    _IMPLEMENT_STREAMABLE_BUILD(className)
+
+#define IMPLEMENT_STREAMABLE_0(className)                                                          \
+    IMPLEMENT_STREAMABLE(className)                                                                \
+    _IMPLEMENT_STREAMABLE_CTOR_0(className)
+
+#define IMPLEMENT_STREAMABLE_1(className, parentClassName)                                         \
+    _IMPLEMENT_STREAMABLE_RCLASS_LINK(parentClassName)                                             \
+    IMPLEMENT_STREAMABLE(className)                                                                \
+    _IMPLEMENT_STREAMABLE_CTOR_1(className, parentClassName)
+
+#define IMPLEMENT_STREAMABLE_OPERATORS(className)                                                  \
     inline ipstream& operator>>(ipstream& is, className& o)                                        \
     {                                                                                              \
         return is >> (TStreamable&)o;                                                              \
@@ -97,8 +128,9 @@ public:                                                                         
 
 #else
 
-#define STREAMABLE_DECLARE(className)
-#define STREAMABLE_IMPLEMENT(className)
+#define DECLARE_STREAMABLE(className)
+#define IMPLEMENT_STREAMABLE(className)
+#define IMPLEMENT_STREAMABLE_OPERATORS(className)
 
 #endif
 

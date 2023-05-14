@@ -135,7 +135,7 @@ void TScroller::setState(ushort aState, bool enable)
 __link(RTView);
 __link(RTScrollBar);
 
-STREAMABLE_CLASS_IMPLEMENT(TScroller);
+IMPLEMENT_STREAMABLE(TScroller);
 
 TScroller::TScroller(StreamableInit) noexcept
     : TView(streamableInit)

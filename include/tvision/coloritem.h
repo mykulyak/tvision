@@ -7,7 +7,6 @@
 class TColorGroup;
 
 class TColorItem {
-
 public:
     TColorItem(const char* nm, uchar idx, TColorItem* nxt = 0) noexcept;
     virtual ~TColorItem();
@@ -16,6 +15,7 @@ public:
     uchar index;
     TColorItem* next;
 
+private:
     friend TColorGroup& operator+(TColorGroup&, TColorItem&) noexcept;
     friend TColorItem& operator+(TColorItem& i1, TColorItem& i2) noexcept;
 };

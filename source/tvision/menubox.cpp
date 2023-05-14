@@ -119,11 +119,6 @@ TRect TMenuBox::getItemRect(TMenuItem* item)
 
 #ifndef NO_STREAMABLE
 
-STREAMABLE_CLASS_IMPLEMENT(TMenuBox);
-
-TMenuBox::TMenuBox(StreamableInit) noexcept
-    : TMenuView(streamableInit)
-{
-}
+IMPLEMENT_STREAMABLE_1(TMenuBox, TMenuView);
 
 #endif // NO_STREAMABLE

@@ -25,14 +25,7 @@ TPalette& TBackground::getPalette() const
 
 #ifndef NO_STREAMABLE
 
-__link(RTView);
-
-STREAMABLE_CLASS_IMPLEMENT(TBackground);
-
-TBackground::TBackground(StreamableInit) noexcept
-    : TView(streamableInit)
-{
-}
+IMPLEMENT_STREAMABLE_1(TBackground, TView);
 
 void TBackground::write(opstream& os)
 {
@@ -47,4 +40,4 @@ void* TBackground::read(ipstream& is)
     return this;
 }
 
-#endif
+#endif // NO_STREAMABLE

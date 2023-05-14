@@ -26,9 +26,7 @@ bool TValidator::validate(const char* s)
 
 #ifndef NO_STREAMABLE
 
-STREAMABLE_CLASS_IMPLEMENT(TValidator);
-
-TValidator::TValidator(StreamableInit) noexcept { }
+IMPLEMENT_STREAMABLE_0(TValidator);
 
 void* TValidator::read(ipstream& is)
 {

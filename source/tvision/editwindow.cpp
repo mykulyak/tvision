@@ -2,12 +2,6 @@
 #include <tvision/fileeditor.h>
 #include <tvision/indicator.h>
 
-const char* const TEditWindow::name = "TEditWindow";
-
-__link(RWindow);
-
-TStreamableClass REditWindow(TEditWindow::name, TEditWindow::build, __DELTA(TEditWindow));
-
 const char* TEditWindow::clipboardTitle = "Clipboard";
 const char* TEditWindow::untitled = "Untitled";
 
@@ -73,6 +67,16 @@ void TEditWindow::sizeLimits(TPoint& min, TPoint& max)
 
 #ifndef NO_STREAMABLE
 
+__link(RWindow);
+
+IMPLEMENT_STREAMABLE(TEditWindow);
+
+TEditWindow::TEditWindow(StreamableInit) noexcept
+    : TWindowInit(0)
+    , TWindow(streamableInit)
+{
+}
+
 void TEditWindow::write(opstream& os)
 {
     TWindow::write(os);
@@ -86,12 +90,4 @@ void* TEditWindow::read(ipstream& is)
     return this;
 }
 
-TStreamable* TEditWindow::build() { return new TEditWindow(streamableInit); }
-
-TEditWindow::TEditWindow(StreamableInit) noexcept
-    : TWindowInit(0)
-    , TWindow(streamableInit)
-{
-}
-
-#endif
+#endif // NO_STREAMABLE

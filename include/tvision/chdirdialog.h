@@ -43,9 +43,9 @@ private:
 
     friend class TDirListBox;
 
-    STREAMABLE_DECLARE(TChDirDialog);
+    DECLARE_STREAMABLE(TChDirDialog);
 };
 
-STREAMABLE_IMPLEMENT(TChDirDialog);
+IMPLEMENT_STREAMABLE_OPERATORS(TChDirDialog);
 
 #endif // TVision_TChDirDialog_h

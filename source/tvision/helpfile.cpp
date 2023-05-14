@@ -10,9 +10,7 @@ TCrossRefHandler crossRefHandler = notAssigned;
 
 // THelpTopic
 
-STREAMABLE_CLASS_IMPLEMENT(THelpTopic);
-
-THelpTopic::THelpTopic(StreamableInit) noexcept { }
+IMPLEMENT_STREAMABLE_0(THelpTopic);
 
 void THelpTopic::write(opstream& os)
 {
@@ -331,9 +329,7 @@ std::string_view THelpTopic::wrapText(std::string& text, int& offset, bool wrap)
 
 // THelpIndex
 
-STREAMABLE_CLASS_IMPLEMENT(THelpIndex);
-
-THelpIndex::THelpIndex(StreamableInit) noexcept { }
+IMPLEMENT_STREAMABLE_0(THelpIndex);
 
 void THelpIndex::write(opstream& os)
 {

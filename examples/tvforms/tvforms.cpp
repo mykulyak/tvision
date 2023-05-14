@@ -28,11 +28,11 @@ const int MAXSIZE = 150;
 __link(RTButton);
 __link(RTCheckBoxes);
 __link(RTInputLine);
-__link(RLabel);
+__link(RTLabel);
 __link(RTMenuBar);
 __link(RRadioButtons);
 __link(RTFrame);
-__link(REditor);
+__link(RTEditor);
 __link(RTMemo);
 
 class TFormApp : public TApplication {

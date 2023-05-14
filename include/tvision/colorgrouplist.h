@@ -31,9 +31,9 @@ public:
     uchar getGroupIndex(uchar groupNum);
     uchar getNumGroups();
 
-    STREAMABLE_DECLARE(TColorGroupList);
+    DECLARE_STREAMABLE(TColorGroupList);
 };
 
-STREAMABLE_IMPLEMENT(TColorGroupList);
+IMPLEMENT_STREAMABLE_OPERATORS(TColorGroupList);
 
 #endif // TVision_TColorGroupList_h

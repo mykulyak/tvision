@@ -130,10 +130,10 @@ __link(RTButton);
 __link(RTDirListBox);
 __link(RTInputLine);
 __link(RTHistory);
-__link(RLabel);
+__link(RTLabel);
 __link(RTScrollBar);
 
-STREAMABLE_CLASS_IMPLEMENT(TChDirDialog);
+IMPLEMENT_STREAMABLE(TChDirDialog);
 
 TChDirDialog::TChDirDialog(StreamableInit) noexcept
     : TWindowInit(TChDirDialog::initFrame)

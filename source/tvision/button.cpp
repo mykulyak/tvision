@@ -37,8 +37,9 @@ TButton::TButton(
 {
     options |= ofSelectable | ofFirstClick | ofPreProcess | ofPostProcess;
     eventMask |= evBroadcast;
-    if (!commandEnabled(aCommand))
+    if (!commandEnabled(aCommand)) {
         state |= sfDisabled;
+    }
 }
 
 TButton::~TButton() { }
@@ -253,14 +254,7 @@ void TButton::press()
 
 #ifndef NO_STREAMABLE
 
-__link(RTView);
-
-STREAMABLE_CLASS_IMPLEMENT(TButton);
-
-TButton::TButton(StreamableInit) noexcept
-    : TView(streamableInit)
-{
-}
+IMPLEMENT_STREAMABLE_1(TButton, TView);
 
 void TButton::write(opstream& os)
 {
