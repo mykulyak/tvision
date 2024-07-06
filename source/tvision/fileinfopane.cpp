@@ -2,7 +2,7 @@
 #include <tvision/fileinputline.h>
 #include <tvision/tobjstrm.h>
 
-#include <io.h>
+#include <tvision/compat/borland/io.h>
 
 #define cpInfoPane "\x1E"
 
