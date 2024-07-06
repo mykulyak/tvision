@@ -1,10 +1,10 @@
 #include <cstdio>
 #include <cstdlib>
-#include <internal/linuxcon.h>
-#include <internal/platform.h>
-#include <internal/sighandl.h>
-#include <internal/unixcon.h>
-#include <internal/win32con.h>
+#include "linuxcon.h"
+#include "platform.h"
+#include "sighandl.h"
+#include "unixcon.h"
+#include "win32con.h"
 #include <locale.h>
 
 namespace tvision {

@@ -2,9 +2,9 @@
 #define TVISION_PLATFORM_H
 
 #include <atomic>
-#include <internal/dispbuff.h>
-#include <internal/events.h>
-#include <internal/stdioctl.h>
+#include "dispbuff.h"
+#include "events.h"
+#include "stdioctl.h"
 #include <string_view>
 #include <vector>
 

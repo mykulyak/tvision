@@ -1,7 +1,7 @@
 #ifndef TVISION_UNIXCON_H
 #define TVISION_UNIXCON_H
 
-#include <internal/platform.h>
+#include "platform.h"
 #ifdef _TV_UNIX
 
 namespace tvision {

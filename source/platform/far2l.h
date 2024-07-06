@@ -1,7 +1,7 @@
 #ifndef TVISION2L_H
 #define TVISION2L_H
 
-#include <internal/terminal.h>
+#include "terminal.h"
 
 namespace tvision {
 

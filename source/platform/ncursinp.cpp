@@ -1,13 +1,13 @@
 #ifdef HAVE_NCURSES
 
 #include <chrono>
-#include <internal/codepage.h>
-#include <internal/constmap.h>
-#include <internal/getenv.h>
-#include <internal/ncursinp.h>
-#include <internal/stdioctl.h>
-#include <internal/terminal.h>
-#include <internal/utf8.h>
+#include "codepage.h"
+#include "constmap.h"
+#include "getenv.h"
+#include "ncursinp.h"
+#include "stdioctl.h"
+#include "terminal.h"
+#include "utf8.h"
 #include <ncurses.h>
 #include <string>
 

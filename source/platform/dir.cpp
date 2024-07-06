@@ -1,5 +1,5 @@
 #include <tvision/compat/borland/dir.h>
-#include <tvision/internal/pathconv.h>
+#include "pathconv.h"
 
 #ifdef _WIN32
 #include <bitset>

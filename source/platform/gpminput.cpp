@@ -3,8 +3,8 @@
 #include <algorithm>
 #include <cstdlib>
 #include <gpm.h>
-#include <internal/gpminput.h>
-#include <internal/linuxcon.h>
+#include "gpminput.h"
+#include "linuxcon.h"
 
 namespace tvision {
 

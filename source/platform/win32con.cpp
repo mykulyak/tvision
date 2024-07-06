@@ -1,10 +1,10 @@
-#include <internal/ansidisp.h>
-#include <internal/codepage.h>
-#include <internal/stdioctl.h>
-#include <internal/terminal.h>
-#include <internal/utf8.h>
-#include <internal/win32con.h>
-#include <internal/winwidth.h>
+#include "ansidisp.h"
+#include "codepage.h"
+#include "stdioctl.h"
+#include "terminal.h"
+#include "utf8.h"
+#include "win32con.h"
+#include "winwidth.h"
 #include <locale.h>
 
 namespace tvision {

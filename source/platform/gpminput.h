@@ -1,12 +1,12 @@
 #ifndef TVISION_GPMINPUT_H
 #define TVISION_GPMINPUT_H
 
-#include <internal/platform.h>
+#include "platform.h"
 
 #ifdef HAVE_GPM
 
 #include <gpm.h>
-#include <internal/cursor.h>
+#include "cursor.h"
 
 namespace tvision {
 

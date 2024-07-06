@@ -1,6 +1,6 @@
 #ifdef _TV_UNIX
 
-#include <internal/sigwinch.h>
+#include "sigwinch.h"
 
 namespace tvision {
 

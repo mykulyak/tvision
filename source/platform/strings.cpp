@@ -1,5 +1,5 @@
-#include <internal/constarr.h>
-#include <internal/strings.h>
+#include "constarr.h"
+#include "strings.h"
 
 namespace tvision {
 

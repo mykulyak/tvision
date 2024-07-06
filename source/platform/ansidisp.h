@@ -1,7 +1,7 @@
 #ifndef TVISION_ANSIDISP_H
 #define TVISION_ANSIDISP_H
 
-#include <internal/termdisp.h>
+#include "termdisp.h"
 
 namespace tvision {
 

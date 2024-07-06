@@ -1,7 +1,7 @@
-#include <internal/codepage.h>
-#include <internal/getenv.h>
-#include <internal/strings.h>
-#include <internal/utf8.h>
+#include "codepage.h"
+#include "getenv.h"
+#include "strings.h"
+#include "utf8.h"
 
 namespace tvision {
 

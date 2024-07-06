@@ -1,9 +1,9 @@
 #include <chrono>
-#include <internal/base64.h>
-#include <internal/constmap.h>
-#include <internal/events.h>
-#include <internal/far2l.h>
-#include <internal/win32con.h>
+#include "base64.h"
+#include "constmap.h"
+#include "events.h"
+#include "far2l.h"
+#include "win32con.h"
 
 using std::chrono::milliseconds;
 using std::chrono::steady_clock;

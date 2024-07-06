@@ -1,4 +1,4 @@
-#include <internal/far2l.h>
+#include "../../source/platform/far2l.h"
 #include <string_view>
 #include <test.h>
 #include <tvision/tv.h>

@@ -1,7 +1,7 @@
 #ifndef TVISION_NCURSINP_H
 #define TVISION_NCURSINP_H
 
-#include <internal/platform.h>
+#include "platform.h"
 
 #ifdef HAVE_NCURSES
 

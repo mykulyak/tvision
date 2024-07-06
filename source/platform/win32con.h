@@ -2,9 +2,9 @@
 #define WIN32CON_H
 
 #include <compat/windows/windows.h>
-#include <internal/stdioctl.h>
-#include <internal/termdisp.h>
-#include <internal/terminal.h>
+#include "stdioctl.h"
+#include "termdisp.h"
+#include "terminal.h"
 
 namespace tvision {
 

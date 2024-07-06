@@ -1,6 +1,6 @@
-#include <internal/getenv.h>
-#include <internal/linuxcon.h>
-#include <internal/termdisp.h>
+#include "getenv.h"
+#include "linuxcon.h"
+#include "termdisp.h"
 
 namespace tvision {
 

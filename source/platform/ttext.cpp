@@ -1,10 +1,10 @@
-#include <internal/codepage.h>
-#include <internal/linuxcon.h>
-#include <internal/platform.h>
-#include <internal/unixcon.h>
-#include <internal/utf8.h>
-#include <internal/win32con.h>
-#include <internal/winwidth.h>
+#include "codepage.h"
+#include "linuxcon.h"
+#include "platform.h"
+#include "unixcon.h"
+#include "utf8.h"
+#include "win32con.h"
+#include "winwidth.h"
 #include <wchar.h>
 
 namespace ttext {

@@ -3,7 +3,7 @@
 
 #ifdef __linux__
 
-#include <internal/platform.h>
+#include "platform.h"
 
 struct TEvent;
 

@@ -1,6 +1,6 @@
 #include <chrono>
-#include <internal/getenv.h>
-#include <internal/platform.h>
+#include "getenv.h"
+#include "platform.h"
 #include <iostream>
 using std::chrono::duration_cast;
 using std::chrono::milliseconds;

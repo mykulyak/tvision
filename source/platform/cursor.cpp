@@ -1,4 +1,4 @@
-#include <internal/cursor.h>
+#include "cursor.h"
 
 namespace tvision {
 

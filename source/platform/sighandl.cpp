@@ -1,5 +1,5 @@
 #include <cstdlib>
-#include <internal/sighandl.h>
+#include "sighandl.h"
 
 #ifdef _TV_UNIX
 

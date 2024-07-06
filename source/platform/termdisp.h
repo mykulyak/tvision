@@ -1,7 +1,7 @@
 #ifndef TVISION_TERMDISP_H
 #define TVISION_TERMDISP_H
 
-#include <internal/platform.h>
+#include "platform.h"
 
 namespace tvision {
 

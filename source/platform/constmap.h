@@ -1,7 +1,7 @@
 #ifndef TVISION_CONSTMAP_H
 #define TVISION_CONSTMAP_H
 
-#include <internal/strings.h>
+#include "strings.h"
 
 #include <algorithm>
 #include <unordered_map>

@@ -1,4 +1,4 @@
-#include <internal/base64.h>
+#include "../../source/platform/base64.h"
 
 #include <test.h>
 

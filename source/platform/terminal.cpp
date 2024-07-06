@@ -1,12 +1,12 @@
-#include <internal/base64.h>
-#include <internal/codepage.h>
-#include <internal/constarr.h>
-#include <internal/constmap.h>
-#include <internal/far2l.h>
-#include <internal/getenv.h>
-#include <internal/stdioctl.h>
-#include <internal/terminal.h>
-#include <internal/utf8.h>
+#include "base64.h"
+#include "codepage.h"
+#include "constarr.h"
+#include "constmap.h"
+#include "far2l.h"
+#include "getenv.h"
+#include "stdioctl.h"
+#include "terminal.h"
+#include "utf8.h"
 
 namespace tvision {
 

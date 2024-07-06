@@ -1,6 +1,6 @@
 #include <initializer_list>
-#include <internal/getenv.h>
-#include <internal/stdioctl.h>
+#include "getenv.h"
+#include "stdioctl.h"
 
 #ifdef _TV_UNIX
 

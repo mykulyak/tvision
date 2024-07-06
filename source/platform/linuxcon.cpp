@@ -1,12 +1,12 @@
 #ifdef __linux__
 
 #include <cstring>
-#include <internal/gpminput.h>
-#include <internal/linuxcon.h>
-#include <internal/scrlife.h>
-#include <internal/sigwinch.h>
-#include <internal/stdioctl.h>
-#include <internal/terminal.h>
+#include "gpminput.h"
+#include "linuxcon.h"
+#include "scrlife.h"
+#include "sigwinch.h"
+#include "stdioctl.h"
+#include "terminal.h"
 #include <linux/keyboard.h>
 #include <linux/vt.h>
 #include <sys/ioctl.h>

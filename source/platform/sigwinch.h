@@ -2,7 +2,7 @@
 #define TVISION_SIGWINCH_H
 
 #ifdef _TV_UNIX
-#include <internal/events.h>
+#include "events.h"
 #include <signal.h>
 
 struct TEvent;

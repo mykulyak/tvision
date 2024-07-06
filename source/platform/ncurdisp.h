@@ -1,7 +1,7 @@
 #ifndef TVISION_NCURDISP_H
 #define TVISION_NCURDISP_H
 
-#include <internal/termdisp.h>
+#include "termdisp.h"
 
 #ifdef HAVE_NCURSES
 

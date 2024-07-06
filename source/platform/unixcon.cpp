@@ -1,12 +1,12 @@
-#include <internal/unixcon.h>
+#include "unixcon.h"
 
 #ifdef _TV_UNIX
 
-#include <internal/dispbuff.h>
-#include <internal/getenv.h>
-#include <internal/scrlife.h>
-#include <internal/sigwinch.h>
-#include <internal/terminal.h>
+#include "dispbuff.h"
+#include "getenv.h"
+#include "scrlife.h"
+#include "sigwinch.h"
+#include "terminal.h"
 
 #include <cerrno>
 #include <cstdlib>

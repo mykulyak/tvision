@@ -1,6 +1,6 @@
 #include <tvision/tv.h>
 
-#include <internal/terminal.h>
+#include "../../source/platform/terminal.h"
 
 #include <test.h>
 

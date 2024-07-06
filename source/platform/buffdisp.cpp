@@ -1,9 +1,9 @@
 #include <chrono>
-#include <internal/codepage.h>
-#include <internal/cursor.h>
-#include <internal/dispbuff.h>
-#include <internal/getenv.h>
-#include <internal/platform.h>
+#include "codepage.h"
+#include "cursor.h"
+#include "dispbuff.h"
+#include "getenv.h"
+#include "platform.h"
 
 using std::chrono::microseconds;
 using std::chrono::steady_clock;

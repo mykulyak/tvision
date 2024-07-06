@@ -2,8 +2,8 @@
 
 #include <cstdio>
 #include <cstdlib>
-#include <internal/ncurdisp.h>
-#include <internal/stdioctl.h>
+#include "ncurdisp.h"
+#include "stdioctl.h"
 #include <ncurses.h>
 
 namespace tvision {
