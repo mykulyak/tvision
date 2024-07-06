@@ -1,3 +1,4 @@
+#include "constants.h"
 #include "dirwindow.h"
 #include "diroutline.h"
 #include "filepane.h"

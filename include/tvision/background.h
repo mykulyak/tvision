@@ -1,5 +1,5 @@
-#ifndef TVision_TBackground_h
-#define TVision_TBackground_h
+#ifndef TVISION_TBACKGROUND_H
+#define TVISION_TBACKGROUND_H
 
 #include <tvision/view.h>
 
@@ -20,4 +20,4 @@ private:
 
 IMPLEMENT_STREAMABLE_OPERATORS(TBackground);
 
-#endif // TVision_TBackground_h
+#endif // TVISION_TBACKGROUND_H

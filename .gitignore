@@ -1,6 +1,8 @@
 *
 
 # Manually include root-level directories
+!cmake/
+!cmake/**/
 !examples/
 !examples/**/
 !include/

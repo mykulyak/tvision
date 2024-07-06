@@ -1,3 +1,4 @@
+#include <cassert>
 #include <fcntl.h>
 #include <fstream>
 #include <sys/stat.h>

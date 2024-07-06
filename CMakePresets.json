@@ -1,0 +1,285 @@
+{
+    "version": 5,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 24,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "docker-base",
+            "hidden": true,
+            "generator": "Unix Makefiles",
+            "toolchainFile": "/tmp/vcpkg/scripts/buildsystems/vcpkg.cmake",
+            "cacheVariables": {
+                "VCPKG_FORCE_SYSTEM_BINARIES": "ON"
+            }
+        },
+        {
+            "name": "docker-release",
+            "displayName": "Docker - Release",
+            "description": "Docker - Release, Unix makefiles",
+            "inherits": ["docker-base"],
+            "binaryDir": "${sourceDir}/../tvision-build/release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "codespaces-clang-base",
+            "hidden": true,
+            "generator": "Unix Makefiles",
+            "toolchainFile": "/usr/local/vcpkg/scripts/buildsystems/vcpkg.cmake"
+        },
+        {
+            "name": "codespaces-debug",
+            "displayName": "GitHub Codespaces - Debug",
+            "description": "GitHub Codespaces - Debug, Unix makefiles, Clang",
+            "inherits": ["codespaces-clang-base"],
+            "binaryDir": "${sourceDir}/../tvision-build/debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "codespaces-release",
+            "displayName": "GitHub Codespaces - Release",
+            "description": "GitHub Codespaces - Release, Unix makefiles, Clang",
+            "inherits": ["codespaces-clang-base"],
+            "binaryDir": "${sourceDir}/../tvision-build/release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+
+        {
+            "name": "ci-base",
+            "hidden": true,
+            "generator": "Unix Makefiles",
+            "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+        },
+        {
+            "name": "ci-release",
+            "displayName": "GitHub Actions - Release",
+            "description": "GitHub Action - Release, Unix makefiles, GCC",
+            "inherits": ["ci-base"],
+            "binaryDir": "${sourceDir}/../tvision-build/ci",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+
+        {
+            "name": "win-msvc-base",
+            "hidden": true,
+            "generator": "Visual Studio 16 2019",
+            "toolchainFile": "d://developer/vcpkg/scripts/buildsystems/vcpkg.cmake"
+        },
+        {
+            "name": "win-debug",
+            "displayName": "Windows Debug",
+            "description": "MacOS, Debug, MSVC 2019",
+            "inherits": ["win-msvc-base"],
+            "binaryDir": "${sourceDir}/../tvision-build/debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "WITH_CLANG_FORMAT": "OFF"
+            }
+        },
+        {
+            "name": "win-release",
+            "displayName": "Windows Release",
+            "description": "Windows, Release, MSVC 2019",
+            "inherits": ["win-msvc-base"],
+            "binaryDir": "${sourceDir}/../tvision-build/release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "WITH_CLANG_FORMAT": "OFF"
+            }
+        },
+        
+        {
+            "name": "macos-clang-base",
+            "hidden": true,
+            "generator": "Unix Makefiles",
+            "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+        },
+        {
+            "name": "macos-debug",
+            "displayName": "MacOS Debug",
+            "description": "MacOS, Debug, Unix makefiles, Clang",
+            "inherits": ["macos-clang-base"],
+            "binaryDir": "${sourceDir}/../tvision-build/debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "TV_BUILD_EXAMPLES": "ON",
+                "TV_BUILD_TESTS": "ON",
+                "TV_LIBRARY_UNITY_BUILD": "ON"
+            }
+        },
+        {
+            "name": "macos-release",
+            "displayName": "MacOS Release",
+            "description": "MacOS, Release, Unix makefiles, Clang",
+            "inherits": ["macos-clang-base"],
+            "binaryDir": "${sourceDir}/../tvision-build/release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "TV_BUILD_EXAMPLES": "ON",
+                "TV_BUILD_TESTS": "ON",
+                "TV_LIBRARY_UNITY_BUILD": "ON"
+            }
+        },
+        {
+            "name": "macos-tidy",
+            "displayName": "MacOS Release + Clang Tidy",
+            "description": "MacOS, Release, Unix makefiles, Clang Tidy",
+            "inherits": ["macos-clang-base"],
+            "binaryDir": "${sourceDir}/../tvision-build/tidy",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "TV_BUILD_EXAMPLES": "ON",
+                "TV_BUILD_TESTS": "ON",
+                "TV_CLANG_TIDY": "ON"
+            }
+        },
+        {
+            "name": "macos-sane",
+            "displayName": "MacOS Release + Clang Sanitizers",
+            "description": "MacOS, Release, Unix makefiles, Clang Sanitizers",
+            "inherits": ["macos-clang-base"],
+            "binaryDir": "${sourceDir}/../tvision-build/sane",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "TV_CLANG_ASAN": "ON",
+                "TV_BUILD_EXAMPLES": "ON",
+                "TV_BUILD_TESTS": "ON"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "win-base",
+            "hidden": true,
+            "jobs": 2
+        },
+        {
+            "name": "win-debug",
+            "displayName": "Build Windows Debug",
+            "description": "Build debug version on my Windows laptop",
+            "configurePreset": "win-debug",
+            "inherits": ["win-base"]
+        },
+        {
+            "name": "win-release",
+            "displayName": "Build Windows Release",
+            "description": "Build release version on my Windows laptop",
+            "configurePreset": "win-release",
+            "inherits": ["win-base"]
+        },
+
+        {
+            "name": "ci-base",
+            "hidden": true,
+            "jobs": 2
+        },
+        {
+            "name": "ci-release",
+            "displayName": "Build GitHub Actions Release",
+            "description": "Build release version on GitHub Actions",
+            "configurePreset": "ci-release",
+            "inherits": ["ci-base"]
+        },
+
+        {
+            "name": "codespaces-base",
+            "hidden": true,
+            "jobs": 6
+        },
+        {
+            "name": "codespaces-debug",
+            "displayName": "Build GitHub Codespaces Debug",
+            "description": "Build debug version on GitHub Codespace",
+            "configurePreset": "codespaces-debug",
+            "inherits": ["codespaces-base"]
+        },
+        {
+            "name": "codespaces-release",
+            "displayName": "Build GitHub Codespaces Release",
+            "description": "Build release version on GitHub Codespace",
+            "configurePreset": "codespaces-release",
+            "inherits": ["codespaces-base"]
+        },
+
+        {
+            "name": "dev-base",
+            "hidden": true,
+            "jobs": 3
+        },
+        {
+            "name": "macos-debug",
+            "displayName": "Build MacOS Debug",
+            "description": "Build debug version on my Mac",
+            "configurePreset": "macos-debug",
+            "inherits": ["dev-base"]
+        },
+        {
+            "name": "macos-release",
+            "displayName": "Build MacOS Release",
+            "description": "Build release version on my Mac",
+            "configurePreset": "macos-release",
+            "inherits": ["dev-base"]
+        },
+        {
+            "name": "macos-tidy",
+            "displayName": "Build MacOS Release + Clang Tidy",
+            "description": "Build release version on my Mac with Clang Tidy enabled",
+            "configurePreset": "macos-tidy",
+            "inherits": ["dev-base"]
+        },
+        {
+            "name": "macos-sane",
+            "displayName": "Build MacOS Release + Clang Sanitizers",
+            "description": "Build release version on my Mac with Clang Sanitizers enabled",
+            "configurePreset": "macos-sane",
+            "inherits": ["dev-base"]
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "win-debug",
+            "displayName": "Test Windows Debug version",
+            "configurePreset": "win-debug"
+        },
+        {
+            "name": "win-release",
+            "displayName": "Test Windows Release version",
+            "configurePreset": "win-release"
+        },
+        {
+            "name": "codespaces-debug",
+            "displayName": "Test GitHub Codespace Debug version",
+            "configurePreset": "codespaces-debug"
+        },
+        {
+            "name": "codespaces-release",
+            "displayName": "Test GitHub Codespace Release version",
+            "configurePreset": "codespaces-release"
+        },
+        {
+            "name": "macos-debug",
+            "displayName": "Test MacOS Debug version",
+            "configurePreset": "macos-debug"
+        },
+        {
+            "name": "macos-release",
+            "displayName": "Test MacOS Release version",
+            "configurePreset": "macos-release"
+        },
+        {
+            "name": "macos-sane",
+            "displayName": "Test MacOS w/ sanitizers version",
+            "configurePreset": "macos-sane"
+        }
+    ]
+}

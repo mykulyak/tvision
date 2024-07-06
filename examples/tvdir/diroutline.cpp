@@ -1,3 +1,5 @@
+#include <tvision/group.h>
+#include "constants.h"
 #include "diroutline.h"
 
 TDirOutline::TDirOutline(const TRect& bounds, TScrollBar* hsb, TScrollBar* vsb, TNode* root)

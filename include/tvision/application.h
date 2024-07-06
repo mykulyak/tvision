@@ -1,5 +1,5 @@
-#ifndef TVision_TApplication_h
-#define TVision_TApplication_h
+#ifndef TVISION_TAPPLICATION_H
+#define TVISION_TAPPLICATION_H
 
 #include <tvision/program.h>
 
@@ -26,4 +26,4 @@ public:
     virtual void writeShellMsg();
 };
 
-#endif // TVision_TApplication_h
+#endif // TVISION_TAPPLICATION_H

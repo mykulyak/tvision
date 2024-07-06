@@ -1,3 +1,4 @@
+#include <cassert>
 #include <tvision/menu.h>
 #include <tvision/menubox.h>
 #include <tvision/menuview.h>
